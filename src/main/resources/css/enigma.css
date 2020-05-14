@@ -1,0 +1,84 @@
+/* Standard JavaFX stylesheet for Enigma */
+.root {
+    -fx-background-color: azure;
+}
+.label {
+    -fx-text-fill: midnightblue;
+}
+.button {
+   -fx-text-fill: midnightblue;
+}
+.radio-button {
+     -fx-padding: 6;
+}
+.pane {
+    -fx-padding: 6;
+}
+.vbox {
+    -fx-padding: 6;
+}
+.hbox{
+    -fx-padding: 6;
+}
+.check-box {
+    -fx-padding: 4;
+    -fx-text-fill: midnightblue;
+}
+.descriptionpane {
+    -fx-background-color: lightsteelblue;
+}
+.descriptiontext {
+    -fx-text-alignment: center;
+}
+.helppane {
+    -fx-background-color: oldlace;
+}
+.titlepane {
+    -fx-background-color: steelblue;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+.subtitlepane {
+    -fx-background-color: lightsteelblue;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+.errorpane {
+    -fx-background-color: yellow;
+}
+.titletext {
+    -fx-font-size: 28;
+    -fx-text-fill: blanchedalmond;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+.errortitletext {
+    -fx-font-size: 48;
+    -fx-text-fill: red;
+    -fx-alignment: center;
+}
+.subtitletext {
+    -fx-font-size: 20;
+    -fx-text-fill: midnightblue;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+.inputpane {
+     -fx-background-color: mintcream;
+}
+.inputdefault {
+    -fx-background-radius:5;
+}
+.inputerror {
+    -fx-background-radius:5;
+}
+error {
+    -fx-control-inner-background: yellow;
+}
+@font-face {
+    src: url("/resources/fonts/EnigmaAstrology.ttf");
+}
+.glyph {
+    -fx-font-family: "EnigmaAstrology";
+}
+
