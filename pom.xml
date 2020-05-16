@@ -17,7 +17,6 @@
         <guava.version>28.2-jre</guava.version>
         <jackson.version>2.10.1</jackson.version>
         <java.version>14</java.version>
-        <!--        <javafx.version>14-ea+8</javafx.version>-->
         <javafx.version>14.0.1</javafx.version>
         <jfoenix.version>9.0.9</jfoenix.version>
         <junit.version>4.12</junit.version>

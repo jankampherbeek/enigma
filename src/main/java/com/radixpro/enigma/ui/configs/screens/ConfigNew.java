@@ -176,7 +176,8 @@ public class ConfigNew {
    }
 
    private void validateDescription(final String newDescription) {
-      if (null != newDescription && newDescription.trim().length() > 0) {
+      String tempDescription = newDescription;
+      if (null != newDescription && tempDescription.trim().length() > 0) {
          descriptionInput.setText(newDescription);
          descriptionInput.setStyle(INPUT_DEFAULT_STYLE);
       } else {
