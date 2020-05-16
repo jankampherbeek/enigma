@@ -1,4 +1,4 @@
-@ECHO ON
+@ECHO OFF
 echo Installing Enigma
 mkdir c:\enigma-data
 mkdir c:\enigma-data\log

@@ -6,7 +6,7 @@
 
     <groupId>com.radixpro</groupId>
     <artifactId>enigma</artifactId>
-    <version>2020.0-SNAPSHOT</version>
+    <version>2020.1.0</version>
     <packaging>jar</packaging>
 
     <properties>
