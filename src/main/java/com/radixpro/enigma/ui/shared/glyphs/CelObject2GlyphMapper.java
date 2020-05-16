@@ -31,9 +31,6 @@ public class CelObject2GlyphMapper {
          case VENUS:
             glyph = "d";
             break;
-         case EARTH:
-            glyph = "e";
-            break;
          case MARS:
             glyph = "f";
             break;

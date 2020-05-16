@@ -27,7 +27,7 @@ public enum CelestialObjects {
    MOON(2, 1, CelObjectCategory.CLASSICS, "celobject.moon"),
    MERCURY(3, 2, CelObjectCategory.CLASSICS, "celobject.mercury"),
    VENUS(4, 3, CelObjectCategory.CLASSICS, "celobject.venus"),
-   EARTH(5, 14, CelObjectCategory.CLASSICS, "celobject.earth"),
+//   EARTH(5, 14, CelObjectCategory.CLASSICS, "celobject.earth"),
    MARS(6, 4, CelObjectCategory.CLASSICS, "celobject.mars"),
    JUPITER(7, 5, CelObjectCategory.CLASSICS, "celobject.jupiter"),
    SATURN(8, 6, CelObjectCategory.CLASSICS, "celobject.saturn"),
