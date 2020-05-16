@@ -13,6 +13,7 @@ import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import com.radixpro.enigma.xchg.domain.ChartData;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,18 +116,21 @@ public class ChartDataDao extends DaoParent {
    public List<ChartData> readAll() throws DatabaseException {
       List<String[]> allLines;
       List<ChartData> chartDataList = new ArrayList<>();
-      try (CSVReader reader = createReader(CD_FILE)) {
-         allLines = reader.readAll();
-      } catch (IOException e) {
-         throw new DatabaseException("IOException when reading all chart data : " + e.getMessage());
-      }
-      try {
-         for (String[] line : allLines) {  // respectively id, key, value
-            chartDataList.add(new ChartDataCsvMapper().chartDataFromCsv(line));
+      File chartDataFile = new File(CD_FILE);
+      if (chartDataFile.exists()) {     // prevent handling of not yet existing file, return empty array
+         try (CSVReader reader = createReader(CD_FILE)) {
+            allLines = reader.readAll();
+         } catch (IOException e) {
+            throw new DatabaseException("IOException when reading all chart data : " + e.getMessage());
          }
-      } catch (UnknownIdException e) {
-         LOG.error("Exception when reading all chartdata. " + e.getMessage());
-         throw new DatabaseException("Exception when reading all chartdata.");
+         try {
+            for (String[] line : allLines) {  // respectively id, key, value
+               chartDataList.add(new ChartDataCsvMapper().chartDataFromCsv(line));
+            }
+         } catch (UnknownIdException e) {
+            LOG.error("Exception when reading all chartdata. " + e.getMessage());
+            throw new DatabaseException("Exception when reading all chartdata.");
+         }
       }
       return chartDataList;
    }

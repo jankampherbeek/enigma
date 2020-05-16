@@ -74,7 +74,7 @@ public class Dashboard {
       stage.setMinHeight(250.0);
       stage.setMinWidth(620.0);
       stage.initModality(Modality.APPLICATION_MODAL);
-      stage.setTitle(rosetta.getText("ui.helptitle"));
+      stage.setTitle(rosetta.getText("ui.db.title"));
       stage.setScene(new Scene(borderPane));
       stage.show();
    }

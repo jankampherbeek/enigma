@@ -27,7 +27,7 @@ public abstract class DaoParent {
       try {
          reader = new CSVReader(new FileReader(filename));
       } catch (FileNotFoundException e) {
-         throw new DatabaseException("File not found when reading all properties : " + e.getMessage());
+         throw new DatabaseException("File not found: " + e.getMessage());
       }
       return reader;
    }
