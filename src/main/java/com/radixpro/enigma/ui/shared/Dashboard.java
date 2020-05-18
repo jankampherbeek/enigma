@@ -88,7 +88,7 @@ public class Dashboard {
       Button btnHelp = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.help"), false);
       Button btnCharts = ButtonFactory.createButton(rosetta.getText("ui.db.btn.charts"), false);
       Button btnPeriods = ButtonFactory.createButton(rosetta.getText("ui.db.btn.periods"), true);
-      Button btnStats = ButtonFactory.createButton(rosetta.getText("ui.db.btn.stats"), true);
+      Button btnStats = ButtonFactory.createButton(rosetta.getText("ui.db.btn.stats"), false);
       Button btnTools = ButtonFactory.createButton(rosetta.getText("ui.db.btn.tools"), true);
       Button btnLanguage = ButtonFactory.createButton(rosetta.getText("ui.db.btn.language"), false);
       Button btnExit = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.exit"), false);

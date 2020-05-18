@@ -111,15 +111,15 @@ public class ChartsDrawing2d {
    }
 
    private void stageSizeChangeListener(Stage stage) {
-      stage.widthProperty().addListener((observable, oldValue, newValue) -> {
-         metrics.setCanvasDimension(Math.min(canvas.getWidth(), canvas.getHeight()));
-         performDraw();
-      });
+      // check https://stackoverflow.com/questions/11377639/how-can-one-detect-a-finished-resizing-operation-in-javafx
+      // for bug Rezising
+      stage.widthProperty().addListener((observable, oldValue, newValue) -> resizeDrawing());
+      stage.heightProperty().addListener((observable, oldValue, newValue) -> resizeDrawing());
+   }
 
-      stage.heightProperty().addListener((observable, oldValue, newValue) -> {
-         metrics.setCanvasDimension(Math.min(canvas.getWidth(), canvas.getHeight()));
-         performDraw();
-      });
+   private void resizeDrawing() {
+      metrics.setCanvasDimension(Math.min(canvas.getWidth(), canvas.getHeight()));
+      performDraw();
    }
 
    private void performDraw() {

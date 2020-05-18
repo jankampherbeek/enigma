@@ -80,6 +80,7 @@ public class ConfigOverview {
    }
 
    private void showOrReshow() {
+      stage.close();
       stage.setScene(new Scene(createVBox()));
       stage.showAndWait();
    }
@@ -268,6 +269,7 @@ public class ConfigOverview {
       PresentableConfiguration config = selectedItems.get(0);
       long configId = config.getConfigId();
       new ConfigEditFactory().createConfigEdit(configApi.read((int) configId).get(0));// TODO Release 2020.2: use long consistently, also in api
+      showOrReshow();
    }
 
    private void onHelp() {

@@ -229,7 +229,6 @@ public class ChartsStart {
          long newChartId = chartsInput.getNewChartId();
          ChartData chartData = addChart(newChartId);
          showChart(chartData);
-         drawChart2D(chartData.getChartMetaData().getName());
       }
    }
 
