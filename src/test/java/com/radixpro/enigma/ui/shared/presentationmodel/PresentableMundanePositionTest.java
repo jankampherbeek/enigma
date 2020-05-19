@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.astron.assist.EquatorialPosition;
+import com.radixpro.enigma.be.astron.assist.EquatorialPositionForHouses;
 import com.radixpro.enigma.be.astron.assist.HorizontalPosition;
 import com.radixpro.enigma.be.astron.assist.HousePosition;
 import org.junit.Before;
@@ -24,26 +24,26 @@ public class PresentableMundanePositionTest {
 
    @Mock
    private HousePosition housePositionMock;
-   @Mock
-   private EquatorialPosition equatorialPositionMock;
+   private final double longitude = 123.5;
    @Mock
    private HorizontalPosition horizontalPositionMock;
-   private double longitude = 123.5;
-   private double ra = 125.25;
-   private double decl = -12.2000001;
-   private double azimuth = 189.0;
-   private double altitude = 12.33334;
-   private String name = "Asc";
+   private final double ra = 125.25;
+   private final double decl = -12.2000001;
+   private final double azimuth = 189.0;
+   private final double altitude = 12.33334;
+   private final String name = "Asc";
+   @Mock
+   private EquatorialPositionForHouses equatorialPositionForHousesMock;
    private PresentableMundanePosition presMundanePos;
 
    @Before
    public void setUp() throws Exception {
-      when(equatorialPositionMock.getRightAscension()).thenReturn(ra);
-      when(equatorialPositionMock.getDeclination()).thenReturn(decl);
+      when(equatorialPositionForHousesMock.getRightAscension()).thenReturn(ra);
+      when(equatorialPositionForHousesMock.getDeclination()).thenReturn(decl);
       when(horizontalPositionMock.getAzimuth()).thenReturn(azimuth);
       when(horizontalPositionMock.getAltitude()).thenReturn(altitude);
       when(housePositionMock.getLongitude()).thenReturn(longitude);
-      when(housePositionMock.getEquatorialPosition()).thenReturn(equatorialPositionMock);
+      when(housePositionMock.getEquatorialPositionForHouses()).thenReturn(equatorialPositionForHousesMock);
       when(housePositionMock.getHorizontalPosition()).thenReturn(horizontalPositionMock);
       presMundanePos = new PresentableMundanePosition(name, housePositionMock);
    }

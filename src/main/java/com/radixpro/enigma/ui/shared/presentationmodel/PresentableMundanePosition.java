@@ -43,8 +43,8 @@ public class PresentableMundanePosition {
       LongWithGlyph longWithGlyph = new LongAndGlyphValue(position.getLongitude()).getLongWithGlyph();
       formattedLongitude = longWithGlyph.getPosition();
       signGlyph = new Sign2GlyphMapper().getGlyph(longWithGlyph.getSignIndex());
-      formattedRa = new PlainDmsValue(position.getEquatorialPosition().getRightAscension()).getFormattedPosition();
-      formattedDeclination = new PlusMinusValue(position.getEquatorialPosition().getDeclination()).getFormattedPosition();
+      formattedRa = new PlainDmsValue(position.getEquatorialPositionForHouses().getRightAscension()).getFormattedPosition();
+      formattedDeclination = new PlusMinusValue(position.getEquatorialPositionForHouses().getDeclination()).getFormattedPosition();
       formattedAzimuth = new PlainDmsValue(position.getHorizontalPosition().getAzimuth()).getFormattedPosition();
       formattedAltitude = new PlusMinusValue(position.getHorizontalPosition().getAltitude()).getFormattedPosition();
    }

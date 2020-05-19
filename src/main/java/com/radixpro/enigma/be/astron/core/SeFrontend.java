@@ -13,14 +13,13 @@ import com.radixpro.enigma.xchg.domain.SeFlags;
 import org.apache.log4j.Logger;
 import swisseph.SweDate;
 import swisseph.SwissEph;
-import swisseph.SwissLib;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.shared.EnigmaDictionary.SE_LOCATION;
 
 /**
  * Simple wrapper to access the Java port to the SE by Thomas Mack.
- * Implemented as a singleton to prevent multiple instantations.
+ * Implemented as a singleton to prevent multiple instantiations.
  * Always use this wrapper to access the Java port.
  */
 public class SeFrontend {
@@ -123,6 +122,7 @@ public class SeFrontend {
       return azAlt;
    }
 
+
    /**
     * Calculate positions for houses
     *
@@ -140,26 +140,10 @@ public class SeFrontend {
       double[] ascMc = new double[10];
       double[] tempCusps = new double[100];
       swissEph.swe_houses(jdUt, flags, location.getGeoLat(), location.getGeoLong(), system, tempCusps, ascMc);
-      for (int i = 1; i <= (nrOfCusps); i++) {
-         cusps[i] = tempCusps[i];
-      }
+      if (nrOfCusps >= 0) System.arraycopy(tempCusps, 1, cusps, 1, nrOfCusps);
       return new SePositionResultHouses(ascMc, cusps);
    }
 
-   /**
-    * Convert ecliptic coordinates to equatorial coordinates.
-    *
-    * @param eclipticValues Array with Longitude and Latitude in degrees.
-    * @param obliquity      Obliquity (Epsilon) in degrees.
-    * @return Array with right ascensiona nd declination in degrees.
-    */
-   public double[] convertToEquatorial(final double[] eclipticValues, final double obliquity) {
-      checkNotNull(eclipticValues);
-      SwissLib swissLib = new SwissLib();
-      var equatorialValues = new double[3];
-      swissLib.swe_cotrans(eclipticValues, equatorialValues, -obliquity);  // obliquity must be negative !
-      return equatorialValues;
-   }
 
    /**
     * Checks if a date is valid.

@@ -80,14 +80,6 @@ public class SeFrontendTest {
 
    }
 
-   @Test
-   public void convertToEquatorial() {
-      double[] eclipticPositions = {122.22, 1.1, 1.0};
-      double obliquity = 23.447;
-      double[] equatorialPositions = SeFrontend.getFrontend().convertToEquatorial(eclipticPositions, obliquity);
-      assertEquals(124.751841376, equatorialPositions[0], delta);
-      assertEquals(20.743011595, equatorialPositions[1], delta);
-   }
 
    @Test
    public void isValidDateHappyFlow() {

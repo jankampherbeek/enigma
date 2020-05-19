@@ -25,7 +25,6 @@ public class PaneFactoryTest {
    @Test
    public void createPaneHeightWidthStyle() {
       Object result = PaneFactory.createPane(height, width, styleClass);
-      assertTrue(result instanceof Pane);
       Pane paneResult = (Pane) result;
       assertEquals(height, paneResult.getPrefHeight(), DELTA_8_POS);
       assertEquals(width, paneResult.getPrefWidth(), DELTA_8_POS);
@@ -35,7 +34,6 @@ public class PaneFactoryTest {
    @Test
    public void testCreatePaneHeightWidth() {
       Object result = PaneFactory.createPane(height, width);
-      assertTrue(result instanceof Pane);
       Pane paneResult = (Pane) result;
       assertEquals(height, paneResult.getPrefHeight(), DELTA_8_POS);
       assertEquals(width, paneResult.getPrefWidth(), DELTA_8_POS);

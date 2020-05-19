@@ -8,34 +8,30 @@ package com.radixpro.enigma.xchg.domain;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 public class SimpleDateTimeTest {
 
-   @Mock
-   private SimpleDate dateMock;
-   @Mock
-   private SimpleTime timeMock;
+   private SimpleDate simpleDate;
+   private SimpleTime simpleTime;
    private SimpleDateTime dateTime;
 
    @Before
    public void setUp() throws Exception {
-      dateTime = new SimpleDateTime(dateMock, timeMock);
+      simpleDate = new SimpleDate(1953, 1, 29, true);
+      simpleTime = new SimpleTime(8, 37, 30);
+      dateTime = new SimpleDateTime(simpleDate, simpleTime);
    }
 
    @Test
    public void getSimpleDate() {
-      assertEquals(dateMock, dateTime.getDate());
+      assertEquals(simpleDate, dateTime.getDate());
    }
 
    @Test
    public void getSimpleTime() {
-      assertEquals(timeMock, dateTime.getTime());
+      assertEquals(simpleTime, dateTime.getTime());
    }
 
 }

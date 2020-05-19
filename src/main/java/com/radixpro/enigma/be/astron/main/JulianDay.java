@@ -14,7 +14,7 @@ import com.radixpro.enigma.xchg.domain.SimpleTime;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Julian Day numbers. HAndles JD nrs for Ephermeris Time (jdnrEt) and Universal Time (jdnrUt).
+ * Julian Day numbers. Handles JD nrs for Ephemeris Time (jdnrEt) and Universal Time (jdnrUt).
  */
 public class JulianDay {
 

@@ -19,15 +19,15 @@ public class Location implements Serializable {
    private final GeographicCoordinate latInput;
    private final String name;
    private final String formattedLocation;
-   private double geoLat;
-   private double geoLong;
+   private final double geoLat;
+   private final double geoLong;
 
    /**
     * Constructor defines all fields.
     *
-    * @param longInput geographic longitude.
-    * @param latInput  geographic latitude.
-    * @param name      Name of location.
+    * @param longInput geographic longitude. Pre: longInput != null.
+    * @param latInput  geographic latitude. Pre: latInput != null.
+    * @param name      Name of location. Pre: name != null.
     */
    public Location(final GeographicCoordinate longInput, final GeographicCoordinate latInput, final String name) {
       this.longInput = checkNotNull(longInput);
@@ -36,7 +36,6 @@ public class Location implements Serializable {
       this.geoLat = latInput.getValue();
       this.geoLong = longInput.getValue();
       formattedLocation = formatLocation();
-
    }
 
    public double getGeoLat() {

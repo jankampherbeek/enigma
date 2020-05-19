@@ -56,30 +56,15 @@ public class CelObjectsInConfig {
          category = celObject.getCelObject().getCategory().getId();
          nameText = rosetta.getText(celObject.getCelObject().getNameForRB()) + " ";
          switch (category) {
-            case 1:
-               classicCelObjectsAsText.append(nameText);
-               break;
-            case 2:
-               modernCelObjectsAsText.append(nameText);
-               break;
-            case 3:
-               extraplutCelObjectsAsText.append(nameText);
-               break;
-            case 4:
-               asteroidCelObjectsAsText.append(nameText);
-               break;
-            case 5:
-               centaurCelObjectsAsText.append(nameText);
-               break;
-            case 6:
-               intersectionsCelObjectsAsText.append(nameText);
-               break;
-            case 7:
-               hypothetsCelObjectsAsText.append(nameText);
-               break;
-            default:
-               LOG.error("Invalid category for celestial body while constructing details of configuration." +
-                     "Received category with Id : " + category + ". Celestial object was ignored.");
+            case 1 -> classicCelObjectsAsText.append(nameText);
+            case 2 -> modernCelObjectsAsText.append(nameText);
+            case 3 -> extraplutCelObjectsAsText.append(nameText);
+            case 4 -> asteroidCelObjectsAsText.append(nameText);
+            case 5 -> centaurCelObjectsAsText.append(nameText);
+            case 6 -> intersectionsCelObjectsAsText.append(nameText);
+            case 7 -> hypothetsCelObjectsAsText.append(nameText);
+            default -> LOG.error("Invalid category for celestial body while constructing details of configuration." +
+                  "Received category with Id : " + category + ". Celestial object was ignored.");
          }
       }
       if (classicCelObjectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(

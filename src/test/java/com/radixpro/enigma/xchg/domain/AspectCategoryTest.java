@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class AspectCategoryTest {
 
-   private AspectCategory aspectCategory = AspectCategory.MINOR;
+   private final AspectCategory aspectCategory = AspectCategory.MINOR;
 
    @Test
    public void getId() {

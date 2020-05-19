@@ -26,48 +26,33 @@ public class GlyphForCelObject {
    private String celObjectGlyphFromIndex(final int index) {
       // todo Release 2020.2: use celbody-glyphs from settings
       switch (index) {
-         case 1:
-            glyph = "a";
-            break;   // Sun
-         case 2:
-            glyph = "b";
-            break;   // Moon
-         case 3:
-            glyph = "c";
-            break;   // Mercury
-         case 4:
-            glyph = "d";
-            break;   // Venus
-         case 5:
-            glyph = "e";
-            break;   // Earth
-         case 6:
-            glyph = "f";
-            break;   // Mars
-         case 7:
-            glyph = "g";
-            break;   // Jupiter
-         case 8:
-            glyph = "h";
-            break;   // Saturn
-         case 9:
-            glyph = "i";
-            break;   // Uranus
-         case 10:
-            glyph = "j";
-            break;  // Neptune
-         case 11:
-            glyph = "k";
-            break;  // Pluto
-         case 12:
-            glyph = "w";
-            break;  // Chiron
-         case 13:
-         case 14:
-            glyph = "{";
-            break;        // Lunar node
-         default:
-            glyph = "";
+// Sun
+         case 1 -> glyph = "a";
+// Moon
+         case 2 -> glyph = "b";
+// Mercury
+         case 3 -> glyph = "c";
+// Venus
+         case 4 -> glyph = "d";
+// Earth
+         case 5 -> glyph = "e";
+// Mars
+         case 6 -> glyph = "f";
+// Jupiter
+         case 7 -> glyph = "g";
+// Saturn
+         case 8 -> glyph = "h";
+// Uranus
+         case 9 -> glyph = "i";
+// Neptune
+         case 10 -> glyph = "j";
+// Pluto
+         case 11 -> glyph = "k";
+// Chiron
+         case 12 -> glyph = "w";
+// Lunar node
+         case 13, 14 -> glyph = "{";
+         default -> glyph = "";
       }
       return glyph;
    }

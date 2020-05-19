@@ -17,48 +17,21 @@ public class CelObject2GlyphMapper {
 
    public String getGlyph(final CelestialObjects celObject) {
       checkNotNull(celObject);
-      String glyph;
-      switch (celObject) {
-         case SUN:
-            glyph = "a";
-            break;
-         case MOON:
-            glyph = "b";
-            break;
-         case MERCURY:
-            glyph = "c";
-            break;
-         case VENUS:
-            glyph = "d";
-            break;
-         case MARS:
-            glyph = "f";
-            break;
-         case JUPITER:
-            glyph = "g";
-            break;
-         case SATURN:
-            glyph = "h";
-            break;
-         case URANUS:
-            glyph = "i";
-            break;
-         case NEPTUNE:
-            glyph = "j";
-            break;
-         case PLUTO:
-            glyph = "k";
-            break;
-         case MEAN_NODE:
-            glyph = "{";
-            break;
-         case CHEIRON:
-            glyph = "w";
-            break;
-         default:
-            glyph = " ";
-            break;
-      }
+      String glyph = switch (celObject) {
+         case SUN -> "a";
+         case MOON -> "b";
+         case MERCURY -> "c";
+         case VENUS -> "d";
+         case MARS -> "f";
+         case JUPITER -> "g";
+         case SATURN -> "h";
+         case URANUS -> "i";
+         case NEPTUNE -> "j";
+         case PLUTO -> "k";
+         case MEAN_NODE -> "{";
+         case CHEIRON -> "w";
+         default -> " ";
+      };
       return glyph;
    }
 

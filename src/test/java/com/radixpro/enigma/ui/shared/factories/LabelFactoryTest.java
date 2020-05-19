@@ -27,7 +27,6 @@ public class LabelFactoryTest {
    @Test
    public void createLabelTextXYStyle() {
       Object result = LabelFactory.createLabel(text, layoutX, layoutY, styleClass);
-      assertTrue(result instanceof Label);
       Label lblResult = (Label) result;
       assertEquals(text, lblResult.getText());
       assertEquals(layoutX, lblResult.getLayoutX(), DELTA_8_POS);
@@ -47,7 +46,6 @@ public class LabelFactoryTest {
    @Test
    public void testCreateLabelTextStyleWidth() {
       Object result = LabelFactory.createLabel(text, styleClass, width);
-      assertTrue(result instanceof Label);
       Label lblResult = (Label) result;
       assertEquals(text, lblResult.getText());
       assertTrue(lblResult.getStyleClass().contains(styleClass));
@@ -57,7 +55,6 @@ public class LabelFactoryTest {
    @Test
    public void testCreateLabelTextStyle() {
       Object result = LabelFactory.createLabel(text, styleClass);
-      assertTrue(result instanceof Label);
       Label lblResult = (Label) result;
       assertEquals(text, lblResult.getText());
       assertTrue(lblResult.getStyleClass().contains(styleClass));
@@ -66,7 +63,6 @@ public class LabelFactoryTest {
    @Test
    public void testCreateLabelText() {
       Object result = LabelFactory.createLabel(text);
-      assertTrue(result instanceof Label);
       Label lblResult = (Label) result;
       assertEquals(text, lblResult.getText());
    }

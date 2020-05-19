@@ -293,14 +293,8 @@ public class ConfigEdit {
       try {
          ayanamsha = eclProj == EclipticProjections.SIDEREAL ? Ayanamshas.NONE.getAyanamshaForId(indexMappingsAyanamshas.getEnumIdForSequenceId(ayanamshaIndex)) : Ayanamshas.NONE;
       } catch (UnknownIdException e) {
-         if (eclProj == EclipticProjections.SIDEREAL) {
             ayanamsha = Ayanamshas.LAHIRI;
             LOG.error("Could not find ayanamsha when constructing config, defined Ayanamshas.LAHIRI instead. Original message : " + e.getMessage());
-         } else {
-            ayanamsha = Ayanamshas.NONE;
-            LOG.error("Could not find ayanamsha when constructing config. As ecliptical projection was tropical, " +
-                  "returned Ayanamshas.NONE instead. Original message : " + e.getMessage());
-         }
       }
       config.getAstronConfiguration().setAyanamsha(ayanamsha);
 

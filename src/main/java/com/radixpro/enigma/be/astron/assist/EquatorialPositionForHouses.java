@@ -6,6 +6,7 @@
 
 package com.radixpro.enigma.be.astron.assist;
 
+import com.radixpro.enigma.be.astron.converters.EclipticEquatorialConversions;
 import com.radixpro.enigma.be.astron.core.SeFrontend;
 import com.radixpro.enigma.be.astron.main.Obliquity;
 
@@ -13,13 +14,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Equatorial position: right ascension and declination.
- * Converts from ecliptic coördinates to equatorial coördinates. Can only be used for house positions as a zero latitude
+ * Converts from ecliptic coordinates to equatorial coordinates. Can only be used for house positions as a zero latitude
  * is assumed. There is no need for conversion of planetary positions as they already contain equatorial values.
  */
-public class EquatorialPosition {
+public class EquatorialPositionForHouses {
 
    private double rightAscension;
    private double declination;
+   private EclipticEquatorialConversions conversions;
+   private SeFrontend seFrontend;
 
    /**
     * Constructor for positions that need to be calculated.
@@ -28,17 +31,19 @@ public class EquatorialPosition {
     * @param longitude  THe longitude in degrees.
     * @param jdUt       Julian Day for UT.
     */
-   public EquatorialPosition(final SeFrontend seFrontend, final double longitude, final double jdUt) {
+   public EquatorialPositionForHouses(final SeFrontend seFrontend, final EclipticEquatorialConversions conversions, final double longitude, final double jdUt) {
+      this.conversions = checkNotNull(conversions);
+      this.seFrontend = checkNotNull(seFrontend);
       calculatePositions(checkNotNull(seFrontend), longitude, jdUt);
    }
 
    /**
-    * Constructor for already known equaotrila positions.
+    * Constructor for already known equatorial positions.
     *
-    * @param rightAscension Right Ascendsion in degrees.
-    * @param declination    Decliantion in de degrees.
+    * @param rightAscension Right Ascension in degrees.
+    * @param declination    Declination in degrees.
     */
-   public EquatorialPosition(final double rightAscension, final double declination) {
+   public EquatorialPositionForHouses(final double rightAscension, final double declination) {
       this.rightAscension = rightAscension;
       this.declination = declination;
    }
@@ -49,7 +54,7 @@ public class EquatorialPosition {
       double distance = 1.0;
       final double[] eclipticPositions = {longitude, latitude, distance};
       double obliquity = new Obliquity(seFrontendInstance, jdUt).getTrueObliquity();
-      final double[] equatorialPositions = seFrontendInstance.convertToEquatorial(eclipticPositions, obliquity);
+      final double[] equatorialPositions = conversions.convertToEquatorial(eclipticPositions, obliquity);
       rightAscension = equatorialPositions[0];
       declination = equatorialPositions[1];
    }

@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PresentableEquatorialPositionTest {
+public class PresentableEquatorialPositionForHousesTest {
 
    private final CelestialObjects celestialObject = CelestialObjects.SATURN;
    private final double mainPos = 100.1000001;

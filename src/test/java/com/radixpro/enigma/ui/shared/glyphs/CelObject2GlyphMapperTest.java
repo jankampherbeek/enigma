@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 public class CelObject2GlyphMapperTest {
 
-   private CelObject2GlyphMapper mapper = new CelObject2GlyphMapper();
+   private final CelObject2GlyphMapper mapper = new CelObject2GlyphMapper();
 
    @Test
    public void getGlyph() {

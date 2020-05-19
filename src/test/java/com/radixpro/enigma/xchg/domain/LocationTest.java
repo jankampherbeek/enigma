@@ -8,39 +8,32 @@ package com.radixpro.enigma.xchg.domain;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
 public class LocationTest {
 
    private static final double DELTA = 0.00000001;
    private final String name = "Location Name";
-   @Mock
-   private GeographicCoordinate longitudeGeoCoordMock;
-   @Mock
-   private GeographicCoordinate latitudeGeoCoordMock;
+   private GeographicCoordinate longitudeGeoCoord;
+   private GeographicCoordinate latitudeGeoCoord;
    private Location location;
 
    @Before
    public void setUp() throws Exception {
-      when(longitudeGeoCoordMock.getValue()).thenReturn(40.5);
-      when(latitudeGeoCoordMock.getValue()).thenReturn(-5.25);
-      location = new Location(longitudeGeoCoordMock, latitudeGeoCoordMock, name);
+      longitudeGeoCoord = new GeographicCoordinate(122, 33, 44, "w", 122.56222222222222);
+      latitudeGeoCoord = new GeographicCoordinate(18, 19, 20, "s", 18.32222222222222);
+      location = new Location(longitudeGeoCoord, latitudeGeoCoord, name);
    }
 
    @Test
    public void getGeoLat() {
-      assertEquals(-5.25, location.getGeoLat(), DELTA);
+      assertEquals(18.32222222222, location.getGeoLat(), DELTA);
    }
 
    @Test
    public void getGeoLong() {
-      assertEquals(40.5, location.getGeoLong(), DELTA);
+      assertEquals(122.562222222222, location.getGeoLong(), DELTA);
    }
 
    @Test
@@ -50,11 +43,16 @@ public class LocationTest {
 
    @Test
    public void getLongInput() {
-      assertEquals(longitudeGeoCoordMock, location.getLongInput());
+      assertEquals(longitudeGeoCoord, location.getLongInput());
    }
 
    @Test
    public void getLatInput() {
-      assertEquals(latitudeGeoCoordMock, location.getLatInput());
+      assertEquals(latitudeGeoCoord, location.getLatInput());
+   }
+
+   @Test
+   public void getFormattedLocation() {
+      assertEquals("Location Name / 122:33:44 w / 18:19:20 s", location.getFormattedLocation());
    }
 }

@@ -21,9 +21,9 @@ public class FullDateTimeTest {
    private SimpleTime simpleTimeMock;
    //   @Mock
    private SimpleDate simpleDateMock;
-   private TimeZones timeZone = TimeZones.LMT;
-   private boolean dst = false;
-   private double offsetForLmt = 0.115;
+   private final TimeZones timeZone = TimeZones.LMT;
+   private final boolean dst = false;
+   private final double offsetForLmt = 0.115;
    private FullDateTime fullDateTime;
 
    @Before

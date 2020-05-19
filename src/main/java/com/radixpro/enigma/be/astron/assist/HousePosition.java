@@ -13,26 +13,26 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class HousePosition {
 
-   private final EquatorialPosition equatorialPosition;
+   private final EquatorialPositionForHouses equatorialPositionForHouses;
    private final HorizontalPosition horizontalPosition;
    private final double longitude;
 
    /**
     * Constructor defines all members.
     *
-    * @param longitude          Longitude in degrees. Latitude is not defined as it is always zero.
-    * @param equatorialPosition Equatorial coordinates.
-    * @param horizontalPosition Hirzontal coordinates.
+    * @param longitude                   Longitude in degrees. Latitude is not defined as it is always zero.
+    * @param equatorialPositionForHouses Equatorial coordinates.
+    * @param horizontalPosition          Hirzontal coordinates.
     */
-   public HousePosition(final double longitude, final EquatorialPosition equatorialPosition,
+   public HousePosition(final double longitude, final EquatorialPositionForHouses equatorialPositionForHouses,
                         final HorizontalPosition horizontalPosition) {
       this.longitude = longitude;
-      this.equatorialPosition = checkNotNull(equatorialPosition);
+      this.equatorialPositionForHouses = checkNotNull(equatorialPositionForHouses);
       this.horizontalPosition = checkNotNull(horizontalPosition);
    }
 
-   public EquatorialPosition getEquatorialPosition() {
-      return this.equatorialPosition;
+   public EquatorialPositionForHouses getEquatorialPositionForHouses() {
+      return this.equatorialPositionForHouses;
    }
 
    public HorizontalPosition getHorizontalPosition() {

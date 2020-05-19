@@ -22,7 +22,7 @@ public class PlotBodyInfoComparatorTest {
    private PlotBodyInfo plotBodyInfoMock1;
    @Mock
    private PlotBodyInfo plotBodyInfoMock2;
-   private PlotBodyInfoComparator comparator = new PlotBodyInfoComparator();
+   private final PlotBodyInfoComparator comparator = new PlotBodyInfoComparator();
 
    @Before
    public void setUp() {

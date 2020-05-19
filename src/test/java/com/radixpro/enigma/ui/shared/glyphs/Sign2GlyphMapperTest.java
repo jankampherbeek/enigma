@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class Sign2GlyphMapperTest {
 
-   private Sign2GlyphMapper mapper = new Sign2GlyphMapper();
+   private final Sign2GlyphMapper mapper = new Sign2GlyphMapper();
 
    @Test
    public void getGlyph() {

@@ -54,21 +54,12 @@ public class AspectsInConfig {
          category = aspect.getAspect().getAspectCategory();
          nameText = rosetta.getText(aspect.getAspect().getFullRbId()) + " ";
          switch (category.getId()) {
-            case 0:
-               majorAspectsAsText.append(nameText);
-               break;
-            case 1:
-               minorAspectsAsText.append(nameText);
-               break;
-            case 2:
-               microAspectsAsText.append(nameText);
-               break;
-            case 3:
-               declinationAspectsAsText.append(nameText);
-               break;
-            default:
-               LOG.error("Invalid category for aspect body while constructing details of configuration." +
-                     "Received category with Id: " + category + ". Aspect was ignored.");
+            case 0 -> majorAspectsAsText.append(nameText);
+            case 1 -> minorAspectsAsText.append(nameText);
+            case 2 -> microAspectsAsText.append(nameText);
+            case 3 -> declinationAspectsAsText.append(nameText);
+            default -> LOG.error("Invalid category for aspect body while constructing details of configuration." +
+                  "Received category with Id: " + category + ". Aspect was ignored.");
          }
       }
       if (majorAspectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(

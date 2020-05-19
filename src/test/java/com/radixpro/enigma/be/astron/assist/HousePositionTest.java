@@ -20,19 +20,19 @@ public class HousePositionTest {
    private static final double DELTA = 0.00000001;
    private final double longitude = 123.456;
    @Mock
-   private EquatorialPosition equatorialPositionMock;
+   private EquatorialPositionForHouses equatorialPositionForHousesMock;
    @Mock
    private HorizontalPosition horizontalPositionMock;
    private HousePosition housePosition;
 
    @Before
    public void setUp() {
-      housePosition = new HousePosition(longitude, equatorialPositionMock, horizontalPositionMock);
+      housePosition = new HousePosition(longitude, equatorialPositionForHousesMock, horizontalPositionMock);
    }
 
    @Test
    public void getEquatorialPosition() {
-      assertEquals(equatorialPositionMock, housePosition.getEquatorialPosition());
+      assertEquals(equatorialPositionForHousesMock, housePosition.getEquatorialPositionForHouses());
    }
 
    @Test

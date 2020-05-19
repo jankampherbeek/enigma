@@ -12,7 +12,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(JfxTestRunner.class)
 public class ButtonFactoryTest {
@@ -24,7 +25,6 @@ public class ButtonFactoryTest {
    @Test
    public void createButton() {
       Object result = ButtonFactory.createButton("Dummy", false);
-      assertTrue(result instanceof Button);
       assertFalse(((Button) result).isDisabled());
       assertEquals("Dummy", ((Button) result).getText());
 

@@ -24,7 +24,7 @@ public class PresentableDateTimeTest {
    private final double offsetForLmt = 0.0;
    private final String expectedDate = "2020/02/13 G";
    private final String expectedTime = "22:39:05 No DST +00:00: UT/Coordinated Universal Time, GMT/Greenwich Mean Time";
-   private TimeZones timeZone = TimeZones.UT;
+   private final TimeZones timeZone = TimeZones.UT;
    private SimpleDateTime dateTime;
    private FullDateTime fullDateTime;
    private PresentableDateTime presDateTime;

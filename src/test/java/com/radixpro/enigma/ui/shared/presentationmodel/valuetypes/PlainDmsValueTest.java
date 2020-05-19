@@ -15,8 +15,8 @@ import static org.junit.Assert.assertEquals;
 public class PlainDmsValueTest {
 
    private PlainDmsValue plainDmsValue;
-   private double value = 123.456789054;
-   private String expected = "123" + DEGREESIGN + 27 + MINUTESIGN + 24 + SECONDSIGN;
+   private final double value = 123.456789054;
+   private final String expected = "123" + DEGREESIGN + 27 + MINUTESIGN + 24 + SECONDSIGN;
 
    @Before
    public void setUp() throws Exception {

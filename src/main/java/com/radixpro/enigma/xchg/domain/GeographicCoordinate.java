@@ -8,8 +8,12 @@ package com.radixpro.enigma.xchg.domain;
 
 import java.io.Serializable;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * DTO for a specific Geographic coordinate.
+ */
 public class GeographicCoordinate implements Serializable {
 
    private final int degrees;
@@ -18,8 +22,21 @@ public class GeographicCoordinate implements Serializable {
    private final String direction;
    private final double value;
 
+   /**
+    * Constructor defines all properties
+    *
+    * @param degrees   The degrees of the coordinate. Pre: degree >= 0.
+    * @param minutes   The minutes of the coordinate. Pre: 0 <= minute < 60.
+    * @param seconds   The seconds of the coordinate. Pre: 0 <= minute < 60.
+    * @param direction The direction of the coordinate. Pre: length direction == 1
+    * @param value     Teh calculated value of the coordinate.
+    */
    public GeographicCoordinate(final int degrees, final int minutes, final int seconds, final String direction,
                                final double value) {
+      checkArgument(degrees >= 0);
+      checkArgument(minutes >= 0 && minutes < 60);
+      checkArgument(seconds >= 0 && seconds < 60);
+      checkArgument(direction != null && direction.length() == 1);
       this.degrees = degrees;
       this.minutes = minutes;
       this.seconds = seconds;

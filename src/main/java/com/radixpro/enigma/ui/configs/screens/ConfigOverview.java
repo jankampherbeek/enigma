@@ -54,7 +54,7 @@ public class ConfigOverview {
    private final Rosetta rosetta;
    private final PersistedConfigurationApi configApi;
    private final PersistedPropertyApi propApi;
-   private Stage stage;
+   private final Stage stage;
    private ObservableList<PresentableConfiguration> selectedItems;
    private Button btnSelect;
    private Button btnNew;

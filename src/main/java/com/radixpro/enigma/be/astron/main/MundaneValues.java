@@ -6,11 +6,12 @@
 
 package com.radixpro.enigma.be.astron.main;
 
-import com.radixpro.enigma.be.astron.assist.EquatorialPosition;
+import com.radixpro.enigma.be.astron.assist.EquatorialPositionForHouses;
 import com.radixpro.enigma.be.astron.assist.HorizontalPosition;
 import com.radixpro.enigma.be.astron.assist.HousePosition;
 import com.radixpro.enigma.be.astron.assist.SePositionResultHouses;
 import com.radixpro.enigma.be.astron.core.SeFrontend;
+import com.radixpro.enigma.be.astron.factories.EquatorialPositionForHousesFactory;
 import com.radixpro.enigma.xchg.domain.HouseSystems;
 import com.radixpro.enigma.xchg.domain.Location;
 import com.radixpro.enigma.xchg.domain.SeFlags;
@@ -33,7 +34,7 @@ public class MundaneValues {
    private double armc;
 
    /**
-    * Constructor defines all memebers.
+    * Constructor defines all members.
     *
     * @param seFrontend Instance (singleton) of SeFrontend.
     * @param jdUt       Julian Day Nr in UT.
@@ -72,9 +73,11 @@ public class MundaneValues {
       double distance = 1.0;
       int flags = (int) SeFlags.HORIZONTAL.getSeValue();
       double[] eclCoord = new double[]{longitude, latitude, distance};
-      EquatorialPosition equatorialPosition = new EquatorialPosition(seFrontend, longitude, jdUt);
-      HorizontalPosition horizontalPosition = new HorizontalPosition(seFrontend, jdUt, eclCoord, location, flags);
-      return new HousePosition(longitude, equatorialPosition, horizontalPosition);
+
+      EquatorialPositionForHouses equatorialPos = new EquatorialPositionForHousesFactory().createInstance(longitude, jdUt);
+
+      HorizontalPosition horizontalPos = new HorizontalPosition(seFrontend, jdUt, eclCoord, location, flags);
+      return new HousePosition(longitude, equatorialPos, horizontalPos);
    }
 
    private HousePosition constructEastpoint(final double longitude) {
@@ -83,11 +86,11 @@ public class MundaneValues {
          rightAscension -= 360.0;
       }
       double declination = 0.0;
-      EquatorialPosition equatorialPosition = new EquatorialPosition(rightAscension, declination);
+      EquatorialPositionForHouses equatorialPositionForHouses = new EquatorialPositionForHouses(rightAscension, declination);
       double altitude = 0.0;
       double azimuth = 270.0;
       HorizontalPosition horizontalPosition = new HorizontalPosition(azimuth, altitude);
-      return new HousePosition(longitude, equatorialPosition, horizontalPosition);
+      return new HousePosition(longitude, equatorialPositionForHouses, horizontalPosition);
    }
 
    public List<HousePosition> getCusps() {

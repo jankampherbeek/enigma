@@ -22,7 +22,7 @@ public class PresentableHorizontalPositionTest {
 
    private final double azimuth = 99.99;
    private final double altitude = -13.13;
-   private CelestialObjects celObject = CelestialObjects.MOON;
+   private final CelestialObjects celObject = CelestialObjects.MOON;
    @Mock
    private HorizontalPosition horizontalPositionMock;
    private PresentableHorizontalPosition pos;

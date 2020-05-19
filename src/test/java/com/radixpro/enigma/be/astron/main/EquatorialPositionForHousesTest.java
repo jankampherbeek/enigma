@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.be.astron.main;
 
-import com.radixpro.enigma.be.astron.assist.EquatorialPosition;
+import com.radixpro.enigma.be.astron.assist.EquatorialPositionForHouses;
 import com.radixpro.enigma.be.astron.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.astron.core.SeFrontend;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EquatorialPositionTest {
+public class EquatorialPositionForHousesTest {
 
    private static final double DELTA = 0.00000001;
    private final double longitude = 100.0;
@@ -26,20 +26,20 @@ public class EquatorialPositionTest {
    private SeFrontend seFrontendMock;
    @Mock
    private SePositionResultCelObjects sePosResultMock;
-   private EquatorialPosition equatorialPosition;
+   private EquatorialPositionForHouses equatorialPositionForHouses;
 
 
    @Test
    public void getRightAscensionValuesInConstructor() {
-      equatorialPosition = new EquatorialPosition(200.2, 12.3);
-      assertEquals(200.2, equatorialPosition.getRightAscension(), DELTA);
+      equatorialPositionForHouses = new EquatorialPositionForHouses(200.2, 12.3);
+      assertEquals(200.2, equatorialPositionForHouses.getRightAscension(), DELTA);
    }
 
 
    @Test
    public void getDeclinationValuesInConstructor() {
-      equatorialPosition = new EquatorialPosition(278.9, -18.8);
-      assertEquals(-18.8, equatorialPosition.getDeclination(), DELTA);
+      equatorialPositionForHouses = new EquatorialPositionForHouses(278.9, -18.8);
+      assertEquals(-18.8, equatorialPositionForHouses.getDeclination(), DELTA);
    }
 
 }
