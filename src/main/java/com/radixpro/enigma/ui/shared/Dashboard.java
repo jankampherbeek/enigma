@@ -12,6 +12,7 @@ import com.radixpro.enigma.ui.charts.screens.ChartsStart;
 import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
 import com.radixpro.enigma.ui.shared.factories.LabelFactory;
 import com.radixpro.enigma.ui.shared.factories.PaneFactory;
+import com.radixpro.enigma.ui.stats.screens.StatsStart;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -96,6 +97,7 @@ public class Dashboard {
       btnHelp.setOnAction(click -> onHelp());
       btnLanguage.setOnAction(click -> onLanguage());
       btnCharts.setOnAction(click -> onCharts());
+      btnStats.setOnAction(click -> onStats());
       btnExit.setOnAction(click -> onExit());
 
       buttonBar.getButtons().add(btnHelp);
@@ -132,6 +134,10 @@ public class Dashboard {
 
    private void onCharts() {
       new ChartsStart(new Stage(), rosetta);
+   }
+
+   private void onStats() {
+      new StatsStart();
    }
 
    private void onExit() {
