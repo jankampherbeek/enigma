@@ -12,14 +12,14 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class AspectsTest {
+public class AspectTypesTest {
 
    private static final double MARGIN = 0.00000001;
-   private Aspects aspect;
+   private AspectTypes aspect;
 
    @Before
    public void setUp() {
-      aspect = Aspects.OPPOSITION;
+      aspect = AspectTypes.OPPOSITION;
    }
 
    @Test
@@ -44,16 +44,16 @@ public class AspectsTest {
 
    @Test
    public void getAspectForId() {
-      assertEquals(Aspects.BINOVILE, Aspects.CONJUNCTION.getAspectForId(21));
+      assertEquals(AspectTypes.BINOVILE, AspectTypes.CONJUNCTION.getAspectForId(21));
    }
 
    @Test
    public void getAspectForIdNotFound() {    // TODO Release 2020.2: do not return NULL, this is a temperary solution / test
-      assertNull(Aspects.CONJUNCTION.getAspectForId(2000));
+      assertNull(AspectTypes.CONJUNCTION.getAspectForId(2000));
    }
 
    @Test
    public void total() {
-      assertEquals(24, Aspects.values().length);
+      assertEquals(24, AspectTypes.values().length);
    }
 }

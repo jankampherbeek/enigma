@@ -8,6 +8,7 @@ package com.radixpro.enigma.xchg.domain;
 
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,43 +21,48 @@ public class CelestialObjectsTest {
       celBody = CelestialObjects.JUPITER;
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getId() {
       assertEquals(7, celBody.getId());
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getSeId() {
       assertEquals(5, celBody.getSeId());
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getCategory() {
       assertEquals(CelObjectCategory.CLASSICS, celBody.getCategory());
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getRbKeyForName() {
-      assertEquals("celobject.jupiter", celBody.getNameForRB());
+      assertEquals("celobject.jupiter", celBody.getRbKey());
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void total() {
-      assertEquals(15, CelestialObjects.values().length);
+      assertEquals(14, CelestialObjects.values().length);
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getCelObjectForId() throws UnknownIdException {
       assertEquals(CelestialObjects.JUPITER, CelestialObjects.SUN.getCelObjectForId(7));
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db(expected = UnknownIdException.class)
+   @Test(expected = UnknownIdException.class)
    public void getCelObjectForIdNotFound() throws UnknownIdException {
       CelestialObjects.SUN.getCelObjectForId(7000);
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getObservableList() {
-      assertEquals(14, celBody.getObservableList().size());
+      assertEquals(13, celBody.getObservableList().size());
+   }
+
+   @Test
+   public void getOrbitalPeriod() {
+      assertEquals(84.01, CelestialObjects.URANUS.getOrbitalPeriod(), 0.000000001);
    }
 }

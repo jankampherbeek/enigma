@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.xchg.domain.config;
 
-import com.radixpro.enigma.xchg.domain.Aspects;
+import com.radixpro.enigma.xchg.domain.AspectTypes;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ConfiguredAspectTest {
 
-   private final Aspects aspect = Aspects.OPPOSITION;
+   private final AspectTypes aspect = AspectTypes.OPPOSITION;
    private final int orbPercentage = 90;
    private final String glyph = "E";
    private final boolean showInDrawing = true;

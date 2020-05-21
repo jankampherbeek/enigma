@@ -11,7 +11,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Enum of supported aspects.
  */
-public enum Aspects {
+public enum
+AspectTypes {
    CONJUNCTION(1, AspectCategory.MAJOR, 0.0, "aspects.conjunction"),
    OPPOSITION(2, AspectCategory.MAJOR, 180.0, "aspects.opposition"),
    TRIANGLE(3, AspectCategory.MAJOR, 120.0, "aspects.triangle"),
@@ -50,7 +51,7 @@ public enum Aspects {
     * @param angle          Angle of the aspect in degrees.
     * @param rbId           Id for the resource bundle to retrieve the name of the aspect.
     */
-   Aspects(final int id, final AspectCategory aspectCategory, final double angle, final String rbId) {
+   AspectTypes(final int id, final AspectCategory aspectCategory, final double angle, final String rbId) {
       this.id = id;
       this.aspectCategory = checkNotNull(aspectCategory);
       this.angle = angle;
@@ -63,8 +64,8 @@ public enum Aspects {
     * @param id The id of the Aspect to return.
     * @return If id is found the resulting aspect, otherwise null.
     */
-   public Aspects getAspectForId(int id) {
-      for (Aspects aspect : Aspects.values()) {
+   public AspectTypes getAspectForId(int id) {
+      for (AspectTypes aspect : AspectTypes.values()) {
          if (aspect.getId() == id) {
             return aspect;
          }

@@ -66,6 +66,8 @@ public class ChartsStart {
    private ObservableList<PresentableChartData> selectedCharts;
    private Button btnDeleteChart;
    private Button btnShowChart;
+   private MenuItem miShowChart;
+   private MenuItem miDeleteChart;
    private TableView<PresentableChartData> tvCharts;
    private CalculatedFullChart currentFullChart;
    private TableColumn<PresentableChartData, String> colName;
@@ -102,17 +104,52 @@ public class ChartsStart {
       vBox.setPrefWidth(WIDTH);
       vBox.setPrefHeight(HEIGHT);
       tvCharts = createTableViewCharts();
-      vBox.getChildren().add(0, createPaneTitle());
-      vBox.getChildren().add(1, createPaneSubTitleCharts());
-      vBox.getChildren().add(2, tvCharts);
-      vBox.getChildren().add(3, createPaneChartBtns());
-      vBox.getChildren().add(4, createPaneSeparator());
-      vBox.getChildren().add(5, createPaneSubTitleConfigs());
-      vBox.getChildren().add(6, createPaneConfigDetails());
-      vBox.getChildren().add(7, createPaneSeparator());
-      vBox.getChildren().add(8, createPaneGeneralButtons());
+      vBox.getChildren().addAll(createMenuBar(), createPaneTitle(), createPaneSubTitleCharts(), tvCharts,
+            createPaneChartBtns(), createPaneSeparator(), createPaneSubTitleConfigs(), createPaneConfigDetails(),
+            createPaneSeparator(), createPaneGeneralButtons());
       return vBox;
    }
+
+   private MenuBar createMenuBar() {
+      Menu menuGeneral = new Menu(rosetta.getText("menu.general"));
+      MenuItem miExit = new MenuItem(rosetta.getText("menu.general.exit"));
+      miExit.setOnAction(e -> stage.close());
+      menuGeneral.getItems().add(miExit);
+      Menu menuCharts = new Menu(rosetta.getText("menu.charts"));
+      MenuItem miNewChart = new MenuItem(rosetta.getText("menu.charts.new"));
+      miNewChart.setOnAction(e -> onNewChart());
+      MenuItem miSearchChart = new MenuItem(rosetta.getText("menu.charts.search"));
+      miSearchChart.setOnAction(e -> onSearchChart());
+      miShowChart = new MenuItem(rosetta.getText("menu.charts.show"));
+      miShowChart.setDisable(true);
+      miShowChart.setOnAction(e -> onShowSelectedChart());
+      miDeleteChart = new MenuItem(rosetta.getText("menu.charts.delete"));
+      miDeleteChart.setDisable(true);
+      miDeleteChart.setOnAction(e -> onDeleteChart());
+      menuCharts.getItems().addAll(miNewChart, miSearchChart, miShowChart, miDeleteChart);
+      Menu menuConfigs = new Menu(rosetta.getText("menu.charts.configs"));
+      MenuItem miConfigScreen = new MenuItem(rosetta.getText("menu.charts.configs.overview"));
+      miConfigScreen.setOnAction(e -> onConfig());
+      menuConfigs.getItems().add(miConfigScreen);
+      Menu menuAnalysis = new Menu(rosetta.getText("menu.charts.analysis"));
+      MenuItem miAspects = new MenuItem(rosetta.getText("menu.charts.analysis.aspects"));
+      MenuItem miMidpoints = new MenuItem(rosetta.getText("menu.charts.analysis.midpoints"));
+      menuAnalysis.getItems().addAll(miAspects, miMidpoints);
+      Menu menuProg = new Menu(rosetta.getText("menu.charts.progressive"));
+      MenuItem miTransits = new MenuItem(rosetta.getText("menu.charts.progressive.transits"));
+      MenuItem miPrimary = new MenuItem(rosetta.getText("menu.charts.progressive.primary"));
+      MenuItem miSecondary = new MenuItem(rosetta.getText("menu.charts.progressive.secondary"));
+      MenuItem miSolar = new MenuItem(rosetta.getText("menu.charts.progressive.solar"));
+      menuProg.getItems().addAll(miTransits, miPrimary, miSecondary, miSolar);
+      Menu menuHelp = new Menu(rosetta.getText("menu.general.help"));
+      MenuItem miShowHelp = new MenuItem(rosetta.getText("menu.general.help.showhelp"));
+      miShowHelp.setOnAction(e -> onHelp());
+      menuHelp.getItems().add(miShowHelp);
+      MenuBar menuBar = new MenuBar();
+      menuBar.getMenus().addAll(menuGeneral, menuCharts, menuConfigs, menuAnalysis, menuProg, menuHelp);
+      return menuBar;
+   }
+
 
    private Pane createPaneTitle() {
       final Pane pane = PaneFactory.createPane(TITLE_HEIGHT, WIDTH, "titlepane");
@@ -248,10 +285,14 @@ public class ChartsStart {
    private void onSelectChart() {
       if (selectedCharts.isEmpty()) {
          btnDeleteChart.setDisable(true);
+         miDeleteChart.setDisable(true);
          btnShowChart.setDisable(true);
+         miShowChart.setDisable(true);
       } else {
          btnDeleteChart.setDisable(false);
+         miDeleteChart.setDisable(false);
          btnShowChart.setDisable(false);
+         miShowChart.setDisable(false);
       }
    }
 
@@ -311,7 +352,6 @@ public class ChartsStart {
       ChartsDrawing2d chartsDrawing2d = new ChartsDrawing2d();
       chartsDrawing2d.setName(name);
       chartsDrawing2d.setFullChart(currentFullChart);
-
    }
 
 }

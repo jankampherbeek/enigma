@@ -108,15 +108,15 @@ public class Updater {
    private List<ConfiguredAspect> createAspects(final StandardConfigurations config) {
       checkNotNull(config);
       final List<ConfiguredAspect> aspects = new ArrayList<>();
-      aspects.add(new ConfiguredAspect(Aspects.CONJUNCTION, 100, "B", true));
-      aspects.add(new ConfiguredAspect(Aspects.OPPOSITION, 100, "C", true));
-      aspects.add(new ConfiguredAspect(Aspects.TRIANGLE, 85, "D", true));
-      aspects.add(new ConfiguredAspect(Aspects.SQUARE, 85, "E", true));
-      aspects.add(new ConfiguredAspect(Aspects.SEXTILE, 60, "F", true));
-      aspects.add(new ConfiguredAspect(Aspects.PARALLEL, 15, "O", false));
-      aspects.add(new ConfiguredAspect(Aspects.CONTRAPARALLEL, 15, "P", false));
+      aspects.add(new ConfiguredAspect(AspectTypes.CONJUNCTION, 100, "B", true));
+      aspects.add(new ConfiguredAspect(AspectTypes.OPPOSITION, 100, "C", true));
+      aspects.add(new ConfiguredAspect(AspectTypes.TRIANGLE, 85, "D", true));
+      aspects.add(new ConfiguredAspect(AspectTypes.SQUARE, 85, "E", true));
+      aspects.add(new ConfiguredAspect(AspectTypes.SEXTILE, 60, "F", true));
+      aspects.add(new ConfiguredAspect(AspectTypes.PARALLEL, 15, "O", false));
+      aspects.add(new ConfiguredAspect(AspectTypes.CONTRAPARALLEL, 15, "P", false));
       if (config == StandardConfigurations.WESTERN_STANDARD || config == StandardConfigurations.ASTRONOMICAL_CORRECT) {
-         aspects.add(new ConfiguredAspect(Aspects.INCONJUNCT, 25, "H", true));
+         aspects.add(new ConfiguredAspect(AspectTypes.INCONJUNCT, 25, "H", true));
       }
       return aspects;
    }

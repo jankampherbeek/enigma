@@ -54,7 +54,7 @@ public class CelObjectsInConfig {
       String nameText;
       for (ConfiguredCelObject celObject : celObjects) {
          category = celObject.getCelObject().getCategory().getId();
-         nameText = rosetta.getText(celObject.getCelObject().getNameForRB()) + " ";
+         nameText = rosetta.getText(celObject.getCelObject().getRbKey()) + " ";
          switch (category) {
             case 1 -> classicCelObjectsAsText.append(nameText);
             case 2 -> modernCelObjectsAsText.append(nameText);

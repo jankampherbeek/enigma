@@ -77,7 +77,7 @@ public class ConfigurationCsvMapper {
       String[] aspectData = csvData.split("\\|");
       for (String singleAspectData : aspectData) {
          String[] items = singleAspectData.split("-");
-         Aspects aspect = Aspects.CONJUNCTION.getAspectForId(Integer.parseInt(items[0]));
+         AspectTypes aspect = AspectTypes.CONJUNCTION.getAspectForId(Integer.parseInt(items[0]));
          int orbPercentage = Integer.parseInt(items[1]);
          boolean showInDrawing = "y".equalsIgnoreCase(items[2]);
          String glyph = items[3];

@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.xchg.domain.config;
 
-import com.radixpro.enigma.xchg.domain.Aspects;
+import com.radixpro.enigma.xchg.domain.AspectTypes;
 
 import java.io.Serializable;
 
@@ -18,11 +18,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ConfiguredAspect implements Serializable {
 
    private final boolean showInDrawing;
-   private final Aspects aspect;
+   private final AspectTypes aspect;
    private final int orbPercentage;
    private final String glyph;
 
-   public ConfiguredAspect(final Aspects aspect, final int orbPercentage, final String glyph,
+   public ConfiguredAspect(final AspectTypes aspect, final int orbPercentage, final String glyph,
                            final boolean showInDrawing) {
       this.aspect = checkNotNull(aspect);
       this.orbPercentage = orbPercentage;
@@ -34,7 +34,7 @@ public class ConfiguredAspect implements Serializable {
       return showInDrawing;
    }
 
-   public Aspects getAspect() {
+   public AspectTypes getAspect() {
       return aspect;
    }
 
