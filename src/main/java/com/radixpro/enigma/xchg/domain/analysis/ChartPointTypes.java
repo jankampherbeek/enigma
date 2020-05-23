@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.domain.analysis;
 
-public enum AnalyzablePointTypes {
+public enum ChartPointTypes {
 
    CEL_BODIES,
    MUNDANE_POINTS,

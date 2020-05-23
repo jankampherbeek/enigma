@@ -8,8 +8,8 @@
 package com.radixpro.enigma.be.analysis;
 
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedResultAspect;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedResultPairInterface;
+import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspect;
+import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
 
@@ -31,18 +31,21 @@ public class AspectsForRadix {
     * @param config     Configuration for aspects. PRE: not null.
     * @return the calculated aspects.
     */
-   public List<AnalyzedResultPairInterface> calculateAspects(final List<AnalyzablePoint> candidates,
-                                                             final AspectConfiguration config) {
+   public List<AnalyzedPairInterface> analyze(final List<AnalyzablePoint> candidates,
+                                              final AspectConfiguration config) {
       checkNotNull(candidates);
       checkNotNull(config);
       checkArgument(1 < candidates.size());
       return performAnalysis(candidates, config);
    }
 
-   private List<AnalyzedResultPairInterface> performAnalysis(List<AnalyzablePoint> candidates, AspectConfiguration config) {
-      List<AnalyzedResultPairInterface> results = new ArrayList<>();
-      for (AnalyzablePoint candidateFirst : candidates) {
-         for (AnalyzablePoint candidateSecond : candidates) {
+   private List<AnalyzedPairInterface> performAnalysis(List<AnalyzablePoint> candidates, AspectConfiguration config) {
+      List<AnalyzedPairInterface> results = new ArrayList<>();
+      int nrOfCandidates = candidates.size();
+      for (int i = 0; i < nrOfCandidates; i++) {
+         for (int j = i + 1; j < nrOfCandidates; j++) {
+            AnalyzablePoint candidateFirst = candidates.get(i);
+            AnalyzablePoint candidateSecond = candidates.get(j);
             double pos1 = Math.min(candidateFirst.getPosition(), candidateSecond.getPosition());
             double pos2 = Math.max(candidateFirst.getPosition(), candidateSecond.getPosition());
             double distance1 = pos2 - pos1;
@@ -53,11 +56,11 @@ public class AspectsForRadix {
       return results;
    }
 
-   private void checkCandidates(AspectConfiguration config, List<AnalyzedResultPairInterface> results,
+   private void checkCandidates(AspectConfiguration config, List<AnalyzedPairInterface> results,
                                 AnalyzablePoint candidateFirst, AnalyzablePoint candidateSecond,
                                 double distance1, double distance2) {
       for (ConfiguredAspect configAspect : config.getAspects()) {
-         double effectiveMaxOrb = configAspect.getOrbPercentage() * config.getBaseOrb();
+         double effectiveMaxOrb = (configAspect.getOrbPercentage() * config.getBaseOrb()) / 100.0;
          double angle = configAspect.getAspect().getAngle();
          double actualOrb = 360.0;
          boolean found = false;
@@ -68,8 +71,8 @@ public class AspectsForRadix {
             actualOrb = Math.abs(distance2 - angle);
             found = true;
          }
-         if (found)
-            results.add(new AnalyzedResultAspect(candidateFirst, candidateSecond, configAspect.getAspect(), actualOrb, effectiveMaxOrb));
+         if (found) results.add(new AnalyzedAspect(candidateFirst, candidateSecond, configAspect.getAspect(),
+               actualOrb, effectiveMaxOrb));
       }
    }
 

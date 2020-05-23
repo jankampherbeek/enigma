@@ -22,7 +22,7 @@ public class HousePosition {
     *
     * @param longitude                   Longitude in degrees. Latitude is not defined as it is always zero.
     * @param equatorialPositionForHouses Equatorial coordinates.
-    * @param horizontalPosition          Hirzontal coordinates.
+    * @param horizontalPosition          Horizontal coordinates.
     */
    public HousePosition(final double longitude, final EquatorialPositionForHouses equatorialPositionForHouses,
                         final HorizontalPosition horizontalPosition) {

@@ -7,12 +7,14 @@
 
 package com.radixpro.enigma.xchg.domain.analysis;
 
-public interface ChartPointsInterface {
+public interface IChartPoints {
 
    int getId();
 
    String getRbKey();
 
-   ChartPointsInterface getItemForId(final int id);
+   IChartPoints getItemForId(final int id);
+
+   ChartPointTypes getPointType();
 
 }

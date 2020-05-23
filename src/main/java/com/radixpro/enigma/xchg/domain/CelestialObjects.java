@@ -8,7 +8,8 @@ package com.radixpro.enigma.xchg.domain;
 
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
-import com.radixpro.enigma.xchg.domain.analysis.ChartPointsInterface;
+import com.radixpro.enigma.xchg.domain.analysis.ChartPointTypes;
+import com.radixpro.enigma.xchg.domain.analysis.IChartPoints;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMapping;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;
 import javafx.collections.FXCollections;
@@ -22,7 +23,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Celestial bodies and id's to access the SE.
  */
-public enum CelestialObjects implements ChartPointsInterface {
+public enum CelestialObjects implements IChartPoints {
    EMPTY(0, -1, CelObjectCategory.UNKNOWN, -1.0, "celobject.unknown"),
    SUN(1, 0, CelObjectCategory.CLASSICS, 1.0, "celobject.sun"),
    MOON(2, 1, CelObjectCategory.CLASSICS, 0.0748, "celobject.moon"),
@@ -60,6 +61,7 @@ public enum CelestialObjects implements ChartPointsInterface {
    private final double orbitalPeriod;
    private final String nameForRB;
    private final CelObjectCategory category;
+   private final ChartPointTypes pointType;
 
    /**
     * @param id            internally used id.
@@ -74,6 +76,7 @@ public enum CelestialObjects implements ChartPointsInterface {
       this.orbitalPeriod = orbitalPeriod;
       this.category = checkNotNull(category);
       this.nameForRB = checkNotNull(nameForRB);
+      this.pointType = ChartPointTypes.CEL_BODIES;
    }
 
    public CelestialObjects getCelObjectForId(int id) throws UnknownIdException {
@@ -107,7 +110,12 @@ public enum CelestialObjects implements ChartPointsInterface {
 
 
    @Override
-   public ChartPointsInterface getItemForId(int id) {
+   public IChartPoints getItemForId(int id) {
+      return null;
+   }
+
+   @Override
+   public ChartPointTypes getPointType() {
       return null;
    }
 

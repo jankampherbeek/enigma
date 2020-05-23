@@ -9,9 +9,13 @@ package com.radixpro.enigma.xchg.domain.analysis;
 
 import com.radixpro.enigma.xchg.domain.AspectTypes;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class AnalyzedResultAspect implements AnalyzedResultPairInterface {
+/**
+ * ValueObject for an aspect that has been analyzed.
+ */
+public class AnalyzedAspect implements AnalyzedPairInterface {
 
    private final AnalyzablePoint firstPoint;
    private final AnalyzablePoint secondPoint;
@@ -21,8 +25,19 @@ public class AnalyzedResultAspect implements AnalyzedResultPairInterface {
    private final double percOrb;
 
 
-   public AnalyzedResultAspect(final AnalyzablePoint firstPoint, final AnalyzablePoint secondPoint,
-                               final AspectTypes aspectType, final double actualOrb, final double maxOrb) {
+   /**
+    * Constructor defines all parameters.
+    * PRE: 0.0 <= actualOrb <= maxOrb
+    *
+    * @param firstPoint  First point that was compared. PRE: not null.
+    * @param secondPoint Second point that was compared. PRE: not null.
+    * @param aspectType  Type of aspect. PRE: not null.
+    * @param actualOrb   The actual orb fir this aspect.
+    * @param maxOrb      The maximum orb for this aspect.
+    */
+   public AnalyzedAspect(final AnalyzablePoint firstPoint, final AnalyzablePoint secondPoint,
+                         final AspectTypes aspectType, final double actualOrb, final double maxOrb) {
+      checkArgument(0.0 <= actualOrb && actualOrb <= maxOrb);
       this.firstPoint = checkNotNull(firstPoint);
       this.secondPoint = checkNotNull(secondPoint);
       this.aspectType = checkNotNull(aspectType);

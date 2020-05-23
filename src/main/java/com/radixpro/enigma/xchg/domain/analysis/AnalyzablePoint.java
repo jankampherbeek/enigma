@@ -9,27 +9,24 @@ package com.radixpro.enigma.xchg.domain.analysis;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * Value object for point that can be analyzed.
+ */
 public class AnalyzablePoint {
 
-   private final int indexForType;
-   private final AnalyzablePointTypes type;
+   private final IChartPoints chartPoint;
    private final double position;
 
-   public AnalyzablePoint(final int indexForType, final AnalyzablePointTypes type, final double position) {
-      this.indexForType = indexForType;
-      this.type = checkNotNull(type);
+   public AnalyzablePoint(final IChartPoints chartPoint, final double position) {
+      this.chartPoint = checkNotNull(chartPoint);
       this.position = position;
-   }
-
-   public int getIndexForType() {
-      return indexForType;
-   }
-
-   public AnalyzablePointTypes getType() {
-      return type;
    }
 
    public double getPosition() {
       return position;
+   }
+
+   public IChartPoints getChartPoint() {
+      return chartPoint;
    }
 }
