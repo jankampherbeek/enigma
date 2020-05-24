@@ -7,11 +7,15 @@
 package com.radixpro.enigma.xchg.domain;
 
 import com.radixpro.enigma.be.astron.assist.CombinedFlags;
+import com.radixpro.enigma.be.astron.assist.HousePosition;
 import com.radixpro.enigma.be.astron.core.SeFrontend;
 import com.radixpro.enigma.be.astron.main.CelObjectPosition;
 import com.radixpro.enigma.be.astron.main.MundaneValues;
 import com.radixpro.enigma.be.astron.main.Obliquity;
+import com.radixpro.enigma.xchg.domain.analysis.MundanePoints;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.CelCoordinateVo;
+import com.radixpro.enigma.xchg.domain.calculatedobjects.HouseCoordinateVo;
+import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.ObjectVo;
 
 import java.util.ArrayList;
@@ -34,7 +38,8 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
    private double obliquity;
    private long flagsValue;
    private List<SeFlags> allFlags;
-   private List<ObjectVo> allCelBodyPositions;
+   private List<IObjectVo> allCelBodyPositions;
+   private List<IObjectVo> allHousePositions;
 
 
    public FullChart(final FullDateTime fullDateTime, final Location location, final CalculationSettings settings) {
@@ -44,6 +49,7 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
       this.jdUt = fullDateTime.getJdUt();
       seFrontend = SeFrontend.getFrontend();
       allCelBodyPositions = new ArrayList<>();
+      allHousePositions = new ArrayList<>();
       calculateFlags();
       calculateHouses();
       calculateBodies();
@@ -66,6 +72,13 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
 
    private void calculateHouses() {
       mundaneValues = new MundaneValues(seFrontend, jdUt, (int) flagsValue, location, settings.getHouseSystem());
+      allHousePositions.add(createHouseObjectVo(mundaneValues.getMc(), MundanePoints.MC));
+      allHousePositions.add(createHouseObjectVo(mundaneValues.getAscendant(), MundanePoints.ASC));
+      allHousePositions.add(createHouseObjectVo(mundaneValues.getEastpoint(), MundanePoints.EAST_POINT));
+      allHousePositions.add(createHouseObjectVo(mundaneValues.getVertex(), MundanePoints.VERTEX));
+      for (HousePosition pos : mundaneValues.getCusps()) {
+         allHousePositions.add(createHouseObjectVo(pos, MundanePoints.CUSP));
+      }
    }
 
    private void calculateBodies() {
@@ -78,7 +91,7 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
    }
 
    // TODO: temporary solution, replace List<CelObjectPosition> with List<CelObjectVo>
-   private ObjectVo createCelObjectVo(CelObjectPosition pos) {
+   private IObjectVo createCelObjectVo(CelObjectPosition pos) {
       CelCoordinateElementVo eclPos = new CelCoordinateElementVo(
             pos.getEclipticalPosition().getMainPosition(),
             pos.getEclipticalPosition().getDeviationPosition(),
@@ -104,6 +117,19 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
       CelCoordinateElementVo horiSpeed = new CelCoordinateElementVo(0.0, 0.0, 0.0);
       CelCoordinateVo horiCoordinates = new CelCoordinateVo(horiPos, horiSpeed);
       return new ObjectVo(eclCoordinates, equaCoordinates, horiCoordinates, pos.getCelestialBody());
+   }
+
+   // TODO: temporary solution, replace List<HousePosition> wiht List<CelOBjectVo>
+   private IObjectVo createHouseObjectVo(HousePosition pos, MundanePoints mundanePoint) {
+      CelCoordinateElementVo eclCoord = new CelCoordinateElementVo(pos.getLongitude(), 0.0, 0.0);
+      CelCoordinateElementVo equaCoord = new CelCoordinateElementVo(
+            pos.getEquatorialPositionForHouses().getRightAscension(), pos.getEquatorialPositionForHouses().getDeclination(), 0.0);
+      CelCoordinateElementVo horiCoord = new CelCoordinateElementVo(
+            pos.getHorizontalPosition().getAzimuth(), pos.getHorizontalPosition().getAltitude(), 0.0);
+      HouseCoordinateVo eclPos = new HouseCoordinateVo(eclCoord);
+      HouseCoordinateVo equaPos = new HouseCoordinateVo(equaCoord);
+      HouseCoordinateVo horiPos = new HouseCoordinateVo(horiCoord);
+      return new ObjectVo(eclPos, equaPos, horiPos, mundanePoint);
    }
 
    private void calculateObliquity() {
@@ -138,8 +164,11 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
       return obliquity;
    }
 
-   public List<ObjectVo> getAllCelBodyPositions() {
+   public List<IObjectVo> getAllCelBodyPositions() {
       return allCelBodyPositions;
    }
 
+   public List<IObjectVo> getAllHousePositions() {
+      return allHousePositions;
+   }
 }

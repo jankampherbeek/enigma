@@ -16,8 +16,8 @@ public class GlyphForSignTest {
 
    @Test
    public void getGlyph() {
-      glyphForSign = new GlyphForSign(3);
-      assertEquals("3", glyphForSign.getGlyph());
+      glyphForSign = new GlyphForSign();
+      assertEquals("3", glyphForSign.getGlyph(3));
 
    }
 }

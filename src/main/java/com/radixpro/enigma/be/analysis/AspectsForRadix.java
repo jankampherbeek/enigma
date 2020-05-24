@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.be.analysis;
 
+import com.radixpro.enigma.xchg.domain.AspectCategory;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspect;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
@@ -60,19 +61,21 @@ public class AspectsForRadix {
                                 AnalyzablePoint candidateFirst, AnalyzablePoint candidateSecond,
                                 double distance1, double distance2) {
       for (ConfiguredAspect configAspect : config.getAspects()) {
-         double effectiveMaxOrb = (configAspect.getOrbPercentage() * config.getBaseOrb()) / 100.0;
-         double angle = configAspect.getAspect().getAngle();
-         double actualOrb = 360.0;
-         boolean found = false;
-         if (Math.abs(distance1 - angle) <= effectiveMaxOrb) {
-            actualOrb = Math.abs(distance1 - angle);
-            found = true;
-         } else if (Math.abs(distance2 - angle) < effectiveMaxOrb) {
-            actualOrb = Math.abs(distance2 - angle);
-            found = true;
+         if (configAspect.getAspect().getAspectCategory() != AspectCategory.DECLINATION) {      // TODO support parallel and contra-parallel
+            double effectiveMaxOrb = (configAspect.getOrbPercentage() * config.getBaseOrb()) / 100.0;
+            double angle = configAspect.getAspect().getAngle();
+            double actualOrb = 360.0;
+            boolean found = false;
+            if (Math.abs(distance1 - angle) <= effectiveMaxOrb) {
+               actualOrb = Math.abs(distance1 - angle);
+               found = true;
+            } else if (Math.abs(distance2 - angle) < effectiveMaxOrb) {
+               actualOrb = Math.abs(distance2 - angle);
+               found = true;
+            }
+            if (found) results.add(new AnalyzedAspect(candidateFirst, candidateSecond, configAspect.getAspect(),
+                  actualOrb, effectiveMaxOrb));
          }
-         if (found) results.add(new AnalyzedAspect(candidateFirst, candidateSecond, configAspect.getAspect(),
-               actualOrb, effectiveMaxOrb));
       }
    }
 

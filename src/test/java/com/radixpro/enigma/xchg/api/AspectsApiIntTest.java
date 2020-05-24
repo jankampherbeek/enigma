@@ -15,6 +15,7 @@ import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
 import com.radixpro.enigma.xchg.domain.analysis.MundanePoints;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.CelCoordinateVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.HouseCoordinateVo;
+import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.ObjectVo;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
@@ -32,8 +33,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class AspectsApiIntTest {
 
-   private List<ObjectVo> celObjects;
-   private List<ObjectVo> mundaneValues;
+   private List<IObjectVo> celObjects;
+   private List<IObjectVo> mundaneValues;
    private AspectConfiguration config;
    private AspectsApi api;
 
@@ -61,8 +62,8 @@ public class AspectsApiIntTest {
       assertEquals(25.0, result1.getPercOrb(), DELTA_8_POS);
    }
 
-   private List<ObjectVo> createCelObjects() {
-      List<ObjectVo> newCelObjects = new ArrayList<>();
+   private List<IObjectVo> createCelObjects() {
+      List<IObjectVo> newCelObjects = new ArrayList<>();
       newCelObjects.add(new ObjectVo(
             createCelCoordinateVo(100.0),
             createCelCoordinateVo(0.0),
@@ -76,8 +77,8 @@ public class AspectsApiIntTest {
       return newCelObjects;
    }
 
-   private List<ObjectVo> createMundaneValues() {
-      List<ObjectVo> newHouses = new ArrayList<>();
+   private List<IObjectVo> createMundaneValues() {
+      List<IObjectVo> newHouses = new ArrayList<>();
       newHouses.add(new ObjectVo(
             createHouseCoordinateVo(218.0),
             createHouseCoordinateVo(0.0),

@@ -8,7 +8,7 @@ package com.radixpro.enigma.xchg.domain;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class ChartData {
+public class ChartData {          // TODO rename to prevent confusion about ChartsData
 
    private final long id;
    private final FullDateTime fullDateTime;

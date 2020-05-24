@@ -72,6 +72,10 @@ public class AnalyzedAspect implements AnalyzedPairInterface {
       return percOrb;
    }
 
+   public AspectTypes getAspectType() {
+      return aspectType;
+   }
+
    private double calculatePercOrb() {
       return (actualOrb / maxOrb) * 100.0;
    }

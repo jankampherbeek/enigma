@@ -306,7 +306,7 @@ public class ConfigEdit {
          CelestialObjects celestialObject;
          try {
             celestialObject = CelestialObjects.EMPTY.getCelObjectForId(enumIndex);
-            String glyph = new GlyphForCelObject(enumIndex).getGlyph();
+            String glyph = new GlyphForCelObject().getGlyph(enumIndex);
             celObjects.add(new ConfiguredCelObject(celestialObject, glyph, 100, true));
          } catch (UnknownIdException e) {
             LOG.error("Error retrieving CelestialObjects for id : " + enumIndex + " . Original message : " + e.getMessage() + "Celestial Body will be ignored.");

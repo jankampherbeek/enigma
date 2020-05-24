@@ -20,6 +20,7 @@ public class EnigmaDictionary {
    public static final String MINUTESIGN = "\u2032";
    public static final String SECONDSIGN = "\u2033";
 
+
    private EnigmaDictionary() {
       // prevent instantiation
    }

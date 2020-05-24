@@ -234,7 +234,7 @@ public class RadixWheel {
          Point point = new RectTriangle(metrics.getDiameterSignGlyphsCircle(), angle).getPointAtEndOfHyp();
          int signIndex = (int) (cfChart.getHouseValues().getAscendant().getLongitude() / 30) + i;
          if (signIndex > 12) signIndex -= 12;
-         gc.fillText(new GlyphForSign(signIndex).getGlyph(), point.getXPos() + corrForXY - metrics.getOffSetGlyphs(), point.getYPos() + corrForXY + metrics.getOffSetGlyphs());
+         gc.fillText(new GlyphForSign().getGlyph(signIndex), point.getXPos() + corrForXY - metrics.getOffSetGlyphs(), point.getYPos() + corrForXY + metrics.getOffSetGlyphs());
          angle -= 30.0;
          if (angle < 0.0) angle += 360.0;
       }
@@ -280,7 +280,7 @@ public class RadixWheel {
          gc.setStroke(GLYPH_COLOR);
          gc.setFill(GLYPH_COLOR);
          gc.setGlobalAlpha(FRAME_GLOBAL_ALPHA);
-         gc.fillText(new GlyphForCelObject(bodyIndex).getGlyph(), coordinates[0], coordinates[1]);
+         gc.fillText(new GlyphForCelObject().getGlyph(bodyIndex), coordinates[0], coordinates[1]);
          drawConnectLines(bodyInfo);
          drawCelObjectPosition(bodyInfo);
       }

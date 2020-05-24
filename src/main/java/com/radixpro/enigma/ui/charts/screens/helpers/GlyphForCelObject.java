@@ -13,45 +13,22 @@ public class GlyphForCelObject {
 
    private String glyph;
 
-
-   /**
-    * Constructor defines glyph.
-    *
-    * @param index index of the celestial object. Id as used in the enum CelestialObjects.
-    */
-   public GlyphForCelObject(final int index) {
-      glyph = celObjectGlyphFromIndex(index);
-   }
-
-   private String celObjectGlyphFromIndex(final int index) {
+   public String getGlyph(final int index) {
       // todo Release 2020.2: use celbody-glyphs from settings
       switch (index) {
-// Sun
-         case 1 -> glyph = "a";
-// Moon
-         case 2 -> glyph = "b";
-// Mercury
-         case 3 -> glyph = "c";
-// Venus
-         case 4 -> glyph = "d";
-// Earth
-         case 5 -> glyph = "e";
-// Mars
-         case 6 -> glyph = "f";
-// Jupiter
-         case 7 -> glyph = "g";
-// Saturn
-         case 8 -> glyph = "h";
-// Uranus
-         case 9 -> glyph = "i";
-// Neptune
-         case 10 -> glyph = "j";
-// Pluto
-         case 11 -> glyph = "k";
-// Chiron
-         case 12 -> glyph = "w";
-// Lunar node
-         case 13, 14 -> glyph = "{";
+         case 1 -> glyph = "a";        // Sun
+         case 2 -> glyph = "b";        // Moon
+         case 3 -> glyph = "c";        // Mercury
+         case 4 -> glyph = "d";        // Venus
+         case 5 -> glyph = "e";        // Earth
+         case 6 -> glyph = "f";        // Mars
+         case 7 -> glyph = "g";        // Jupiter
+         case 8 -> glyph = "h";        // Saturn
+         case 9 -> glyph = "i";        // Uranus
+         case 10 -> glyph = "j";       // Neptune
+         case 11 -> glyph = "k";       // Pluto
+         case 12 -> glyph = "w";       // Chiron
+         case 13, 14 -> glyph = "{";   // Lunar node
          default -> glyph = "";
       }
       return glyph;

@@ -56,5 +56,7 @@ public class CalculatedFullChart {
       return fullchart.getObliquity();
    }
 
-
+   public FullChart getFullChart() {
+      return fullchart;
+   }
 }

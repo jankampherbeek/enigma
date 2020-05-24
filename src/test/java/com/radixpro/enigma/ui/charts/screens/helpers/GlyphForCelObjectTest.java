@@ -16,7 +16,7 @@ public class GlyphForCelObjectTest {
 
    @Test
    public void getGlyph() {
-      glyphForCelObject = new GlyphForCelObject(4);
-      assertEquals("d", glyphForCelObject.getGlyph());
+      glyphForCelObject = new GlyphForCelObject();
+      assertEquals("d", glyphForCelObject.getGlyph(4));
    }
 }

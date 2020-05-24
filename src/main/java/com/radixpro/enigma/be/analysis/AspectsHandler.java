@@ -9,7 +9,7 @@ package com.radixpro.enigma.be.analysis;
 
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.ObjectVo;
+import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 
 import java.util.ArrayList;
@@ -42,8 +42,8 @@ public class AspectsHandler {
     * @param config        The configuration for aspects. PRE: not null.
     * @return actual aspects.
     */
-   public List<AnalyzedPairInterface> retrieveAspects(final List<ObjectVo> celBodies,
-                                                      final List<ObjectVo> mundaneValues,
+   public List<AnalyzedPairInterface> retrieveAspects(final List<IObjectVo> celBodies,
+                                                      final List<IObjectVo> mundaneValues,
                                                       final AspectConfiguration config) {
       checkArgument(celBodies != null && 2 <= celBodies.size());
       checkNotNull(mundaneValues);
@@ -53,12 +53,12 @@ public class AspectsHandler {
 
    }
 
-   private List<AnalyzablePoint> createCandidates(List<ObjectVo> celBodies, List<ObjectVo> mundaneValues) {
+   private List<AnalyzablePoint> createCandidates(List<IObjectVo> celBodies, List<IObjectVo> mundaneValues) {
       List<AnalyzablePoint> candidates = new ArrayList<>();
-      for (ObjectVo pos : celBodies) {
+      for (IObjectVo pos : celBodies) {
          candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getEclipticCoords().getPosition().getBase()));
       }
-      for (ObjectVo pos : mundaneValues) {
+      for (IObjectVo pos : mundaneValues) {
          candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getEclipticCoords().getPosition().getBase()));
       }
       return candidates;

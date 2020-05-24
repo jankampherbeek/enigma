@@ -9,6 +9,7 @@ package com.radixpro.enigma.ui.charts.screens;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.ui.charts.factories.ChartsAspectsFactory;
 import com.radixpro.enigma.ui.configs.screens.ConfigOverview;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
@@ -21,12 +22,13 @@ import com.radixpro.enigma.ui.shared.factories.LabelFactory;
 import com.radixpro.enigma.ui.shared.factories.PaneFactory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableChartData;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
-import com.radixpro.enigma.xchg.api.CalculatedFullChart;
-import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
-import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
-import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
+import com.radixpro.enigma.xchg.api.*;
 import com.radixpro.enigma.xchg.domain.CalculationSettings;
 import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.FullChart;
+import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
+import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
+import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -68,6 +70,8 @@ public class ChartsStart {
    private Button btnShowChart;
    private MenuItem miShowChart;
    private MenuItem miDeleteChart;
+   private MenuItem miAspects;
+   private MenuItem miMidpoints;
    private TableView<PresentableChartData> tvCharts;
    private CalculatedFullChart currentFullChart;
    private TableColumn<PresentableChartData, String> colName;
@@ -132,8 +136,11 @@ public class ChartsStart {
       miConfigScreen.setOnAction(e -> onConfig());
       menuConfigs.getItems().add(miConfigScreen);
       Menu menuAnalysis = new Menu(rosetta.getText("menu.charts.analysis"));
-      MenuItem miAspects = new MenuItem(rosetta.getText("menu.charts.analysis.aspects"));
-      MenuItem miMidpoints = new MenuItem(rosetta.getText("menu.charts.analysis.midpoints"));
+      miAspects = new MenuItem(rosetta.getText("menu.charts.analysis.aspects"));
+      miAspects.setDisable(true);
+      miAspects.setOnAction(e -> onAspects());
+      miMidpoints = new MenuItem(rosetta.getText("menu.charts.analysis.midpoints"));
+      miMidpoints.setDisable(true);
       menuAnalysis.getItems().addAll(miAspects, miMidpoints);
       Menu menuProg = new Menu(rosetta.getText("menu.charts.progressive"));
       MenuItem miTransits = new MenuItem(rosetta.getText("menu.charts.progressive.transits"));
@@ -283,17 +290,13 @@ public class ChartsStart {
 
 
    private void onSelectChart() {
-      if (selectedCharts.isEmpty()) {
-         btnDeleteChart.setDisable(true);
-         miDeleteChart.setDisable(true);
-         btnShowChart.setDisable(true);
-         miShowChart.setDisable(true);
-      } else {
-         btnDeleteChart.setDisable(false);
-         miDeleteChart.setDisable(false);
-         btnShowChart.setDisable(false);
-         miShowChart.setDisable(false);
-      }
+      boolean emptySelection = selectedCharts.isEmpty();
+      btnDeleteChart.setDisable(emptySelection);
+      miDeleteChart.setDisable(emptySelection);
+      btnShowChart.setDisable(emptySelection);
+      miShowChart.setDisable(emptySelection);
+      miAspects.setDisable(emptySelection);
+      miMidpoints.setDisable(emptySelection);
    }
 
 
@@ -332,6 +335,23 @@ public class ChartsStart {
       PresentableChartData presChartData = selectedCharts.get(0);
       showChart(presChartData.getOriginalData());
    }
+
+   private void onAspects() {
+      AspectsApi api = new AspectsApiFactory().createApi();
+      PresentableChartData presChartData = selectedCharts.get(0);
+      ChartData chartData = presChartData.getOriginalData();
+      CalculationSettings settings = new CalculationSettings(currentConfig);
+      FullChart fullChart = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
+      List<IObjectVo> celObjectList = fullChart.getAllCelBodyPositions();
+      List<IObjectVo> fullHousesList = fullChart.getAllHousePositions();
+      List<IObjectVo> housesList = new ArrayList<>();
+      housesList.add(fullHousesList.get(0));
+      housesList.add(fullHousesList.get(1));
+      final List<AnalyzedPairInterface> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
+      MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), currentConfig.getDelinConfiguration().getAspectConfiguration().getBaseOrb());
+      final ChartsAspects chartsAspects = new ChartsAspectsFactory().getChartsAspects(aspects, meta);
+   }
+
 
    private void onHelp() {
       new Help(rosetta.getHelpText("help.chartsstart.title"), rosetta.getHelpText("help.chartsstart.content"));
