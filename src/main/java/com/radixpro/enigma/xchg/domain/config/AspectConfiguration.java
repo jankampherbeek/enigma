@@ -45,16 +45,8 @@ public class AspectConfiguration implements Serializable {
       return baseOrb;
    }
 
-   public void setBaseOrb(double baseOrb) {
-      this.baseOrb = baseOrb;
-   }
-
    public AspectOrbStructure getOrbStructure() {
       return orbStructure;
-   }
-
-   public void setOrbStructure(AspectOrbStructure orbStructure) {
-      this.orbStructure = orbStructure;
    }
 
    public List<ConfiguredAspect> getAspects() {
@@ -67,9 +59,5 @@ public class AspectConfiguration implements Serializable {
 
    public boolean isDrawInOutGoing() {
       return drawInOutGoing;
-   }
-
-   public void setDrawInOutGoing(boolean drawInOutGoing) {
-      this.drawInOutGoing = drawInOutGoing;
    }
 }

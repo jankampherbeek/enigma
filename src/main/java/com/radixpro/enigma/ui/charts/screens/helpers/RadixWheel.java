@@ -36,7 +36,7 @@ public class RadixWheel {
    private static final String GLYPH_FONTNAME = "EnigmaAstrology";
    private static final String TEXT_FONTNAME = "Arial";
    private final GraphicsContext gc;
-   private final ChartDrawMetrics metrics;
+   private final ChartIDrawMetrics metrics;
    private final CalculatedFullChart cfChart;
    private double offsetAsc;
    private double corrForXY;
@@ -48,7 +48,7 @@ public class RadixWheel {
     * @param metrics             Dynamic metrics, will be resized if required.
     * @param calculatedFullChart Data for the calcualted chart.
     */
-   public RadixWheel(final GraphicsContext gc, final ChartDrawMetrics metrics,
+   public RadixWheel(final GraphicsContext gc, final ChartIDrawMetrics metrics,
                      final CalculatedFullChart calculatedFullChart) {
       this.gc = checkNotNull(gc);
       this.metrics = checkNotNull(metrics);

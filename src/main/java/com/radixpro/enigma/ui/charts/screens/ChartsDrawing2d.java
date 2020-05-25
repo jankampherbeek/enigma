@@ -7,7 +7,7 @@
 package com.radixpro.enigma.ui.charts.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.charts.screens.helpers.ChartDrawMetrics;
+import com.radixpro.enigma.ui.charts.screens.helpers.ChartIDrawMetrics;
 import com.radixpro.enigma.ui.charts.screens.helpers.RadixWheel;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.xchg.api.CalculatedFullChart;
@@ -34,7 +34,7 @@ public class ChartsDrawing2d {
    private static final double GAP = 6.0;
    private final Rosetta rosetta;
    private final Stage stage;
-   private ChartDrawMetrics metrics;
+   private ChartIDrawMetrics metrics;
    private Canvas canvas;
    private CalculatedFullChart fullChart;
    private GraphicsContext gc;
@@ -51,7 +51,7 @@ public class ChartsDrawing2d {
    }
 
    private void drawChart() {
-      metrics = new ChartDrawMetrics();
+      metrics = new ChartIDrawMetrics();
       canvas = new Canvas(metrics.getCanvasDimension(), metrics.getCanvasDimension());
       gc = canvas.getGraphicsContext2D();
       gc.setFont(new Font("Courier", 10));

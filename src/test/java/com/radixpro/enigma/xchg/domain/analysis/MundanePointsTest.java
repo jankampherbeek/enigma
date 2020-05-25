@@ -26,6 +26,11 @@ public class MundanePointsTest {
       assertEquals(MundanePoints.VERTEX, mundanePoint.getItemForId(3));
    }
 
+   @Test(expected = IllegalArgumentException.class)
+   public void getItemForIdOutOfRange() {
+      mundanePoint.getItemForId(1000);
+   }
+
    @Test
    public void getPointType() {
       assertEquals(ChartPointTypes.MUNDANE_POINTS, mundanePoint.getPointType());

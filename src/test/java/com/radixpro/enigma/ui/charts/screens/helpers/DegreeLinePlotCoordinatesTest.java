@@ -22,7 +22,7 @@ public class DegreeLinePlotCoordinatesTest {
    private static final double DELTA = 0.00000001;
    private final double[] coords = new double[]{1.1, 2.2, 3.3};
    @Mock
-   private ChartDrawMetrics metricsMock;
+   private ChartIDrawMetrics metricsMock;
    @Mock
    private RectTriangleAbsolute rectTriangleMock;
    private DegreeLinePlotCoordinates degreeLineCoordinates;

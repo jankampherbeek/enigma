@@ -30,13 +30,13 @@ public class DegreeLinePlotCoordinates {
    /**
     * Calcualted the coordinates, checks for multiples of 5 degrees and adapats the coordinates acoordingly.
     *
-    * @param index       The index of the degree, is only used to check if the degree is a multiple of 5.
-    * @param drawMetrics Instance of DrawMetrics.
+    * @param index        The index of the degree, is only used to check if the degree is a multiple of 5.
+    * @param IDrawMetrics Instance of DrawMetrics.
     * @return The calculated coordinates.
     */
-   public double[] defineCoordinates(final int index, final DrawMetrics drawMetrics) {
-      checkNotNull(drawMetrics);
-      ChartDrawMetrics metrics = (ChartDrawMetrics) drawMetrics;
+   public double[] defineCoordinates(final int index, final IDrawMetrics IDrawMetrics) {
+      checkNotNull(IDrawMetrics);
+      ChartIDrawMetrics metrics = (ChartIDrawMetrics) IDrawMetrics;
       double[] coords1;
       if (index % 5 == 0) coords1 = rectTriangle.getCoordinates(metrics.getDiameterDegrees5Circle());
       else coords1 = rectTriangle.getCoordinates(metrics.getDiameterDegreesCircle());

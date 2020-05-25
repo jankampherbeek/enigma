@@ -55,4 +55,9 @@ public class AnalyzedAspectTest {
    public void getPercOrb() {
       assertEquals(33.33333333333, aspect.getPercOrb(), DELTA_8_POS);
    }
+
+   @Test
+   public void getAspectType() {
+      assertEquals(aspectType, aspect.getAspectType());
+   }
 }

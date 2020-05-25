@@ -15,9 +15,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class SignSeparator {
 
-   final ChartDrawMetrics metrics;
+   final ChartIDrawMetrics metrics;
 
-   public SignSeparator(ChartDrawMetrics metrics) {
+   public SignSeparator(ChartIDrawMetrics metrics) {
       this.metrics = checkNotNull(metrics);
    }
 

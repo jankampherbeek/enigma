@@ -22,7 +22,7 @@ public class CuspTextPlotCoordinatesTest {
    private static final double DELTA = 0.00000001;
    private final double[] coords = new double[]{1.0, 2.0, 3.0};
    @Mock
-   private ChartDrawMetrics metricsMock;
+   private ChartIDrawMetrics metricsMock;
    @Mock
    private RectTriangleAbsolute rectTriangleMock;
    private CuspTextPlotCoordinates cuspTextCoordinates;

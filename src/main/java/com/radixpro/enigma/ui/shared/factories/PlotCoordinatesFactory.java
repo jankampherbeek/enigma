@@ -22,13 +22,13 @@ public class PlotCoordinatesFactory {
    /**
     * Create instance of CuspLinePlotCoordinates.
     *
-    * @param angle       The angle to be used for calculating the coordinates.
-    * @param drawMetrics . An acutal instance of ChartDrawMetrics.
+    * @param angle        The angle to be used for calculating the coordinates.
+    * @param IDrawMetrics . An acutal instance of ChartDrawMetrics.
     * @return instance of CuspLinePlotCoordinates.
     */
-   public static CuspLinePlotCoordinates createCuspLinePlotCoordinates(final double angle, final DrawMetrics drawMetrics) {
-      checkNotNull(drawMetrics);
-      ChartDrawMetrics metrics = (ChartDrawMetrics) drawMetrics;
+   public static CuspLinePlotCoordinates createCuspLinePlotCoordinates(final double angle, final IDrawMetrics IDrawMetrics) {
+      checkNotNull(IDrawMetrics);
+      ChartIDrawMetrics metrics = (ChartIDrawMetrics) IDrawMetrics;
       RectTriangleAbsolute rectTriangle = new RectTriangleAbsolute(angle, metrics.getCorrForXY());
       return new CuspLinePlotCoordinates(rectTriangle);
    }
@@ -36,13 +36,13 @@ public class PlotCoordinatesFactory {
    /**
     * Create instance of CuspTextCoordinates.
     *
-    * @param angle       The angle to be used for calculating the coordinates.
-    * @param drawMetrics An actual instance of ChartDrawMetrics.
+    * @param angle        The angle to be used for calculating the coordinates.
+    * @param IDrawMetrics An actual instance of ChartDrawMetrics.
     * @return instance of CuspTextPlotCoordinates.
     */
-   public static CuspTextPlotCoordinates createCuspTextPlotCoordinates(final double angle, final DrawMetrics drawMetrics) {
-      checkNotNull(drawMetrics);
-      ChartDrawMetrics metrics = (ChartDrawMetrics) drawMetrics;
+   public static CuspTextPlotCoordinates createCuspTextPlotCoordinates(final double angle, final IDrawMetrics IDrawMetrics) {
+      checkNotNull(IDrawMetrics);
+      ChartIDrawMetrics metrics = (ChartIDrawMetrics) IDrawMetrics;
       RectTriangleAbsolute rectTriangle = new RectTriangleAbsolute(angle, metrics.getCorrForXY());
       return new CuspTextPlotCoordinates(rectTriangle);
    }
@@ -50,13 +50,13 @@ public class PlotCoordinatesFactory {
    /**
     * Create instance of DegreeLinePlotCoordinates.
     *
-    * @param angle       The angle to be used for calculating the coordinates.
-    * @param drawMetrics An actual instance of ChartDrawMetrics.
+    * @param angle        The angle to be used for calculating the coordinates.
+    * @param IDrawMetrics An actual instance of ChartDrawMetrics.
     * @return instance of DegreeLinePlotCoordinates.
     */
-   public static DegreeLinePlotCoordinates createDegreeLinePlotCoordinates(final double angle, final DrawMetrics drawMetrics) {
-      checkNotNull(drawMetrics);
-      ChartDrawMetrics metrics = (ChartDrawMetrics) drawMetrics;
+   public static DegreeLinePlotCoordinates createDegreeLinePlotCoordinates(final double angle, final IDrawMetrics IDrawMetrics) {
+      checkNotNull(IDrawMetrics);
+      ChartIDrawMetrics metrics = (ChartIDrawMetrics) IDrawMetrics;
       RectTriangleAbsolute rectTriangle = new RectTriangleAbsolute(angle, metrics.getCorrForXY());
       return new DegreeLinePlotCoordinates(rectTriangle);
    }

@@ -8,6 +8,7 @@
 package com.radixpro.enigma.ui.charts.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
 import com.radixpro.enigma.ui.shared.factories.LabelFactory;
 import com.radixpro.enigma.ui.shared.factories.PaneFactory;
@@ -121,6 +122,8 @@ public class ChartsAspects {
    }
 
    private void onHelp() {
+      new Help(rosetta.getHelpText("help.chartsaspects.title"),
+            rosetta.getHelpText("help.chartsaspects.content"));
 
    }
 

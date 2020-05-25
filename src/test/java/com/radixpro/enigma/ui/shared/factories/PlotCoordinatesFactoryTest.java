@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.factories;
 
-import com.radixpro.enigma.ui.charts.screens.helpers.ChartDrawMetrics;
+import com.radixpro.enigma.ui.charts.screens.helpers.ChartIDrawMetrics;
 import com.radixpro.enigma.ui.charts.screens.helpers.CuspLinePlotCoordinates;
 import com.radixpro.enigma.ui.charts.screens.helpers.CuspTextPlotCoordinates;
 import com.radixpro.enigma.ui.charts.screens.helpers.DegreeLinePlotCoordinates;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 public class PlotCoordinatesFactoryTest {
 
    @Mock
-   private ChartDrawMetrics metricsMock;
+   private ChartIDrawMetrics metricsMock;
 
    @Before
    public void startUp() {

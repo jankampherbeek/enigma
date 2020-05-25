@@ -13,9 +13,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class CornerPositions {
 
-   final ChartDrawMetrics metrics;
+   final ChartIDrawMetrics metrics;
 
-   public CornerPositions(final ChartDrawMetrics metrics) {
+   public CornerPositions(final ChartIDrawMetrics metrics) {
       this.metrics = checkNotNull(metrics);
    }
 

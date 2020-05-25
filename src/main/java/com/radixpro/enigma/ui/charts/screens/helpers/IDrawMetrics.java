@@ -11,7 +11,7 @@ package com.radixpro.enigma.ui.charts.screens.helpers;
  * The implementations will be mutable as the value for the imension of the canvas can be set.
  * This is required to support resizing the figure.
  */
-public interface DrawMetrics {
+public interface IDrawMetrics {
 
    /**
     * Change base-dimension. This method should be called after resizing by the user.

@@ -10,7 +10,7 @@ package com.radixpro.enigma.ui.charts.screens.helpers;
  * Metrics for drawing a chart. Supports resizing.
  * This object is mutable as the value for canvasDimension can be set.
  */
-public class ChartDrawMetrics implements DrawMetrics {
+public class ChartIDrawMetrics implements IDrawMetrics {
 
    private static final double BASE_DIMENSION = 700;
    private double canvasDimension;
@@ -50,11 +50,12 @@ public class ChartDrawMetrics implements DrawMetrics {
    /**
     * Constructor initially sets the base-dimension to 700, this is the width and height of the canvas.
     */
-   public ChartDrawMetrics() {
+   public ChartIDrawMetrics() {
       setCanvasDimension(BASE_DIMENSION);
    }
 
    private void defineValues() {
+      offsetOuterCircle = canvasDimension * 0.1;
       sizeOuterCircle = canvasDimension * 0.8;
       sizeSignsCircle = canvasDimension * 0.7;
       sizeHousesCircle = canvasDimension * 0.4;
@@ -86,7 +87,7 @@ public class ChartDrawMetrics implements DrawMetrics {
       diameterDegrees5Circle = diameterSignsCircle * 0.98;
       diameterDegreesCircle = diameterSignsCircle * 0.99;
       diameterSignGlyphsCircle = canvasDimension * 0.375;
-      offsetOuterCircle = canvasDimension * 0.1;
+
 
       offsetSignsCircle = offsetOuterCircle + diameterOuterCircle - diameterSignsCircle;
 

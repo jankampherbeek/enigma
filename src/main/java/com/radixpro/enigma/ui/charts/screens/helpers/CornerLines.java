@@ -13,11 +13,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class CornerLines {
 
-   final ChartDrawMetrics metrics;
+   final ChartIDrawMetrics metrics;
    final double hypothenusaLarge;
    final double hypothenusaSmall;
 
-   public CornerLines(final ChartDrawMetrics metrics) {
+   public CornerLines(final ChartIDrawMetrics metrics) {
       this.metrics = checkNotNull(metrics);
       this.hypothenusaLarge = metrics.getDiameterOuterCircle() + metrics.getOffsetOuterCircle();
       this.hypothenusaSmall = metrics.getDiameterHousesCircle() + (metrics.getWidthThickLines() / 2);
