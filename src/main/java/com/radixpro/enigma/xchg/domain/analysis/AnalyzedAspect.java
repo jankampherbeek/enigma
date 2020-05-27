@@ -15,7 +15,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * ValueObject for an aspect that has been analyzed.
  */
-public class AnalyzedAspect implements AnalyzedPairInterface {
+public class AnalyzedAspect implements IAnalyzedPair {
 
    private final AnalyzablePoint firstPoint;
    private final AnalyzablePoint secondPoint;

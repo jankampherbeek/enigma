@@ -26,7 +26,7 @@ import com.radixpro.enigma.xchg.api.*;
 import com.radixpro.enigma.xchg.domain.CalculationSettings;
 import com.radixpro.enigma.xchg.domain.ChartData;
 import com.radixpro.enigma.xchg.domain.FullChart;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
+import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
@@ -347,7 +347,7 @@ public class ChartsStart {
       List<IObjectVo> housesList = new ArrayList<>();
       housesList.add(fullHousesList.get(0));
       housesList.add(fullHousesList.get(1));
-      final List<AnalyzedPairInterface> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
+      final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), currentConfig.getDelinConfiguration().getAspectConfiguration().getBaseOrb());
       final ChartsAspects chartsAspects = new ChartsAspectsFactory().getChartsAspects(aspects, meta);
    }
@@ -371,7 +371,7 @@ public class ChartsStart {
    private void drawChart2D(final String name) {
       ChartsDrawing2d chartsDrawing2d = new ChartsDrawing2d();
       chartsDrawing2d.setName(name);
-      chartsDrawing2d.setFullChart(currentFullChart);
+      chartsDrawing2d.setDrawingInfo(currentFullChart, currentConfig);
    }
 
 }

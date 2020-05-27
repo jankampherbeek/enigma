@@ -13,7 +13,7 @@ import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.DecimalValue;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspect;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
+import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.IChartPoints;
 import com.radixpro.enigma.xchg.domain.analysis.MundanePoints;
 
@@ -26,11 +26,11 @@ public class PresentableAspect {
    private String effectiveOrb;
    private String percOrb;
 
-   public PresentableAspect(final AnalyzedPairInterface aspect) {
+   public PresentableAspect(final IAnalyzedPair aspect) {
       createDataDescription(checkNotNull(aspect));
    }
 
-   private void createDataDescription(AnalyzedPairInterface pair) {
+   private void createDataDescription(IAnalyzedPair pair) {
       SexagesimalFormatter sexFormatter = new SexagesimalFormatter(2);
       GlyphForAspect glyphForAspect = new GlyphForAspect();
       AnalyzedAspect aspect = (AnalyzedAspect) pair;

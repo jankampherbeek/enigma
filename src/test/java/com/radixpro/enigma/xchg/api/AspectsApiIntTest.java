@@ -11,7 +11,7 @@ import com.radixpro.enigma.xchg.domain.AspectOrbStructure;
 import com.radixpro.enigma.xchg.domain.AspectTypes;
 import com.radixpro.enigma.xchg.domain.CelCoordinateElementVo;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
+import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MundanePoints;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.CelCoordinateVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.HouseCoordinateVo;
@@ -48,14 +48,14 @@ public class AspectsApiIntTest {
 
    @Test
    public void analyzeAspects() {
-      List<AnalyzedPairInterface> results = api.analyzeAspects(celObjects, mundaneValues, config);
+      List<IAnalyzedPair> results = api.analyzeAspects(celObjects, mundaneValues, config);
       assertEquals(6, results.size());
-      AnalyzedPairInterface result0 = results.get(0);
+      IAnalyzedPair result0 = results.get(0);
       assertEquals(CelestialObjects.SUN, result0.getFirst().getChartPoint());
       assertEquals(CelestialObjects.MOON, result0.getSecond().getChartPoint());
       assertEquals(1.0, result0.getActualOrb(), DELTA_8_POS);
       assertEquals(12.5, result0.getPercOrb(), DELTA_8_POS);
-      AnalyzedPairInterface result1 = results.get(2);
+      IAnalyzedPair result1 = results.get(2);
       assertEquals(CelestialObjects.SUN, result1.getFirst().getChartPoint());
       assertEquals(MundanePoints.ASC, result1.getSecond().getChartPoint());
       assertEquals(2.0, result1.getActualOrb(), DELTA_8_POS);

@@ -8,7 +8,7 @@
 package com.radixpro.enigma.be.analysis;
 
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
+import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 
@@ -42,9 +42,9 @@ public class AspectsHandler {
     * @param config        The configuration for aspects. PRE: not null.
     * @return actual aspects.
     */
-   public List<AnalyzedPairInterface> retrieveAspects(final List<IObjectVo> celBodies,
-                                                      final List<IObjectVo> mundaneValues,
-                                                      final AspectConfiguration config) {
+   public List<IAnalyzedPair> retrieveAspects(final List<IObjectVo> celBodies,
+                                              final List<IObjectVo> mundaneValues,
+                                              final AspectConfiguration config) {
       checkArgument(celBodies != null && 2 <= celBodies.size());
       checkNotNull(mundaneValues);
       checkNotNull(config);

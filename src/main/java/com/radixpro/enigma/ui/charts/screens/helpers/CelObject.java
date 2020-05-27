@@ -13,9 +13,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class CelObject {
 
-   private final ChartIDrawMetrics metrics;
+   private final ChartDrawMetrics metrics;
 
-   public CelObject(final ChartIDrawMetrics metrics) {
+   public CelObject(final ChartDrawMetrics metrics) {
       this.metrics = checkNotNull(metrics);
    }
 

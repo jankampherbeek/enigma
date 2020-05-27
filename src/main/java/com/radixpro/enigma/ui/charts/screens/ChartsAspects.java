@@ -13,7 +13,7 @@ import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
 import com.radixpro.enigma.ui.shared.factories.LabelFactory;
 import com.radixpro.enigma.ui.shared.factories.PaneFactory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableAspect;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
+import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -36,11 +36,11 @@ public class ChartsAspects {
    private static final double GAP = 6.0;
    private final Stage stage;
    private final Rosetta rosetta;
-   private final List<AnalyzedPairInterface> aspects;
+   private final List<IAnalyzedPair> aspects;
    private final MetaDataForAnalysis meta;
    private TableView tvOverview;
 
-   public ChartsAspects(final Stage stage, final Rosetta rosetta, final List<AnalyzedPairInterface> aspects,
+   public ChartsAspects(final Stage stage, final Rosetta rosetta, final List<IAnalyzedPair> aspects,
                         final MetaDataForAnalysis meta) {
       this.stage = stage;
       this.rosetta = rosetta;
@@ -96,7 +96,7 @@ public class ChartsAspects {
       percOrb.setStyle(FONT_STYLE_DATA);
       tvOverview.getColumns().addAll(firstPoint, aspect, secondPoint, effectiveOrb, percOrb);
 
-      for (AnalyzedPairInterface pair : aspects) {
+      for (IAnalyzedPair pair : aspects) {
          PresentableAspect presAspect = new PresentableAspect(pair);
          firstPoint.setCellValueFactory(new PropertyValueFactory<>("firstItemGlyph"));
          aspect.setCellValueFactory(new PropertyValueFactory<>("aspectGlyph"));

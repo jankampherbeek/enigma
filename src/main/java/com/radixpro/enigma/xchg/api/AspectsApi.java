@@ -8,7 +8,7 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.be.analysis.AspectsHandler;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
+import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 
@@ -29,9 +29,9 @@ public class AspectsApi {
       this.handler = checkNotNull(handler);
    }
 
-   public List<AnalyzedPairInterface> analyzeAspects(final List<IObjectVo> celObjects,
-                                                     final List<IObjectVo> mundaneValues,
-                                                     final AspectConfiguration config) {
+   public List<IAnalyzedPair> analyzeAspects(final List<IObjectVo> celObjects,
+                                             final List<IObjectVo> mundaneValues,
+                                             final AspectConfiguration config) {
       return handler.retrieveAspects(checkNotNull(celObjects), checkNotNull(mundaneValues), checkNotNull(config));
    }
 

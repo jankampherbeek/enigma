@@ -28,7 +28,7 @@ public class PlotCoordinatesFactory {
     */
    public static CuspLinePlotCoordinates createCuspLinePlotCoordinates(final double angle, final IDrawMetrics IDrawMetrics) {
       checkNotNull(IDrawMetrics);
-      ChartIDrawMetrics metrics = (ChartIDrawMetrics) IDrawMetrics;
+      ChartDrawMetrics metrics = (ChartDrawMetrics) IDrawMetrics;
       RectTriangleAbsolute rectTriangle = new RectTriangleAbsolute(angle, metrics.getCorrForXY());
       return new CuspLinePlotCoordinates(rectTriangle);
    }
@@ -42,7 +42,7 @@ public class PlotCoordinatesFactory {
     */
    public static CuspTextPlotCoordinates createCuspTextPlotCoordinates(final double angle, final IDrawMetrics IDrawMetrics) {
       checkNotNull(IDrawMetrics);
-      ChartIDrawMetrics metrics = (ChartIDrawMetrics) IDrawMetrics;
+      ChartDrawMetrics metrics = (ChartDrawMetrics) IDrawMetrics;
       RectTriangleAbsolute rectTriangle = new RectTriangleAbsolute(angle, metrics.getCorrForXY());
       return new CuspTextPlotCoordinates(rectTriangle);
    }
@@ -56,7 +56,7 @@ public class PlotCoordinatesFactory {
     */
    public static DegreeLinePlotCoordinates createDegreeLinePlotCoordinates(final double angle, final IDrawMetrics IDrawMetrics) {
       checkNotNull(IDrawMetrics);
-      ChartIDrawMetrics metrics = (ChartIDrawMetrics) IDrawMetrics;
+      ChartDrawMetrics metrics = (ChartDrawMetrics) IDrawMetrics;
       RectTriangleAbsolute rectTriangle = new RectTriangleAbsolute(angle, metrics.getCorrForXY());
       return new DegreeLinePlotCoordinates(rectTriangle);
    }

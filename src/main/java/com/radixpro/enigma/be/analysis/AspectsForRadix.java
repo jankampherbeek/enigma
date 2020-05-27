@@ -10,7 +10,7 @@ package com.radixpro.enigma.be.analysis;
 import com.radixpro.enigma.xchg.domain.AspectCategory;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspect;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
+import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
 
@@ -32,16 +32,16 @@ public class AspectsForRadix {
     * @param config     Configuration for aspects. PRE: not null.
     * @return the calculated aspects.
     */
-   public List<AnalyzedPairInterface> analyze(final List<AnalyzablePoint> candidates,
-                                              final AspectConfiguration config) {
+   public List<IAnalyzedPair> analyze(final List<AnalyzablePoint> candidates,
+                                      final AspectConfiguration config) {
       checkNotNull(candidates);
       checkNotNull(config);
       checkArgument(1 < candidates.size());
       return performAnalysis(candidates, config);
    }
 
-   private List<AnalyzedPairInterface> performAnalysis(List<AnalyzablePoint> candidates, AspectConfiguration config) {
-      List<AnalyzedPairInterface> results = new ArrayList<>();
+   private List<IAnalyzedPair> performAnalysis(List<AnalyzablePoint> candidates, AspectConfiguration config) {
+      List<IAnalyzedPair> results = new ArrayList<>();
       int nrOfCandidates = candidates.size();
       for (int i = 0; i < nrOfCandidates; i++) {
          for (int j = i + 1; j < nrOfCandidates; j++) {
@@ -57,7 +57,7 @@ public class AspectsForRadix {
       return results;
    }
 
-   private void checkCandidates(AspectConfiguration config, List<AnalyzedPairInterface> results,
+   private void checkCandidates(AspectConfiguration config, List<IAnalyzedPair> results,
                                 AnalyzablePoint candidateFirst, AnalyzablePoint candidateSecond,
                                 double distance1, double distance2) {
       for (ConfiguredAspect configAspect : config.getAspects()) {

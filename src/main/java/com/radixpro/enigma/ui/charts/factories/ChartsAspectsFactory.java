@@ -9,7 +9,7 @@ package com.radixpro.enigma.ui.charts.factories;
 
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.screens.ChartsAspects;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedPairInterface;
+import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
 import javafx.stage.Stage;
 
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class ChartsAspectsFactory {
 
-   public ChartsAspects getChartsAspects(final List<AnalyzedPairInterface> aspects, final MetaDataForAnalysis meta) {
+   public ChartsAspects getChartsAspects(final List<IAnalyzedPair> aspects, final MetaDataForAnalysis meta) {
       return new ChartsAspects(new Stage(), Rosetta.getRosetta(), aspects, meta);
    }
 

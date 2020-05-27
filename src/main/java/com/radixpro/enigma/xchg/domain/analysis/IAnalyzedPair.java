@@ -10,7 +10,7 @@ package com.radixpro.enigma.xchg.domain.analysis;
 /**
  * Interface for analyzed results for a pair of points
  */
-public interface AnalyzedPairInterface {
+public interface IAnalyzedPair {
 
    AnalyzablePoint getFirst();
 

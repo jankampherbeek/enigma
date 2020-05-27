@@ -11,7 +11,13 @@ import com.radixpro.enigma.be.astron.main.CelObjectPosition;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.ui.shared.factories.PlotCoordinatesFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
+import com.radixpro.enigma.xchg.api.AspectsApi;
+import com.radixpro.enigma.xchg.api.AspectsApiFactory;
 import com.radixpro.enigma.xchg.api.CalculatedFullChart;
+import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.xchg.domain.analysis.MundanePoints;
+import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
+import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -36,23 +42,26 @@ public class RadixWheel {
    private static final String GLYPH_FONTNAME = "EnigmaAstrology";
    private static final String TEXT_FONTNAME = "Arial";
    private final GraphicsContext gc;
-   private final ChartIDrawMetrics metrics;
+   private final ChartDrawMetrics metrics;
    private final CalculatedFullChart cfChart;
    private double offsetAsc;
    private double corrForXY;
+   private final Configuration currentConfig;
 
    /**
     * Constructing this class automatically draws a radix wheel, works like a SVG image.
     *
     * @param gc                  The GraphicsContext
     * @param metrics             Dynamic metrics, will be resized if required.
-    * @param calculatedFullChart Data for the calcualted chart.
+    * @param calculatedFullChart Data for the calculated chart.
+    * @param currentConfig       The effective configuration.
     */
-   public RadixWheel(final GraphicsContext gc, final ChartIDrawMetrics metrics,
-                     final CalculatedFullChart calculatedFullChart) {
+   public RadixWheel(final GraphicsContext gc, final ChartDrawMetrics metrics,
+                     final CalculatedFullChart calculatedFullChart, final Configuration currentConfig) {
       this.gc = checkNotNull(gc);
       this.metrics = checkNotNull(metrics);
       this.cfChart = checkNotNull(calculatedFullChart);
+      this.currentConfig = checkNotNull(currentConfig);
       defineGlobals();
       performDraw();
    }
@@ -126,6 +135,7 @@ public class RadixWheel {
       drawCuspPositions();
       drawSignGlyphs();
       drawCelObjects();
+      drawAspects();
    }
 
    private void drawCircles() {
@@ -308,6 +318,41 @@ public class RadixWheel {
       gc.setFill(CELBODY_POSITION_COLOR);
       double[] coordinates = new CelObjectPlotPosition(metrics).defineCoordinates(plotBodyInfo.getCorrectedAngle());
       gc.fillText(plotBodyInfo.getPosText(), coordinates[0], coordinates[1]);
+   }
+
+   private void drawAspects() {
+      List<PointInfoForAspect> pointInfos = new ArrayList<>();
+      DrawAspectHelper helper = new DrawAspectHelper();
+      List<IObjectVo> celObjectList = cfChart.getFullChart().getAllCelBodyPositions();
+      List<IObjectVo> fullHousesList = cfChart.getFullChart().getAllHousePositions();
+      List<IObjectVo> housesList = new ArrayList<>();
+      housesList.add(fullHousesList.get(0));
+      housesList.add(fullHousesList.get(1));
+      AspectsApi api = new AspectsApiFactory().createApi();
+      final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList,
+            currentConfig.getDelinConfiguration().getAspectConfiguration());
+      List<CelObjectPosition> bodies = cfChart.getFullChart().getBodies();
+      double ascendant = cfChart.getHouseValues().getAscendant().getLongitude();
+      double angleFromAsc;
+      for (CelObjectPosition bodyPos : bodies) {
+         double longitude = bodyPos.getEclipticalPosition().getMainPosition();
+         angleFromAsc = new Range(0.0, 360.0).checkValue(ascendant - longitude);
+         pointInfos.add(new PointInfoForAspect(bodyPos.getCelestialBody(), angleFromAsc));
+      }
+      angleFromAsc = new Range(0.0, 360.0).checkValue(ascendant - cfChart.getHouseValues().getMc().getLongitude());
+      pointInfos.add(new PointInfoForAspect(MundanePoints.MC, angleFromAsc));
+      pointInfos.add(new PointInfoForAspect(MundanePoints.ASC, 0.0));
+      final List<DrawableLine> drawableLines = helper.createDrawLines(aspects, pointInfos, metrics);
+      gc.setGlobalAlpha(0.6);
+      for (DrawableLine line : drawableLines) {
+         gc.setStroke(line.getLineColor());
+         gc.setFill(line.getLineColor());
+         gc.setLineWidth(line.getLineWidth());
+         gc.strokeLine(line.getStartPoint().getXPos() + corrForXY, line.getStartPoint().getYPos() + corrForXY,
+               line.getEndPoint().getXPos() + corrForXY, line.getEndPoint().getYPos() + corrForXY);
+      }
+
+
    }
 
 }

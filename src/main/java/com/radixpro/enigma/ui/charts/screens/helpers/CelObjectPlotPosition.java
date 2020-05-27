@@ -13,9 +13,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class CelObjectPlotPosition {
 
-   private final ChartIDrawMetrics metrics;
+   private final ChartDrawMetrics metrics;
 
-   public CelObjectPlotPosition(final ChartIDrawMetrics metrics) {
+   public CelObjectPlotPosition(final ChartDrawMetrics metrics) {
       this.metrics = checkNotNull(metrics);
    }
 

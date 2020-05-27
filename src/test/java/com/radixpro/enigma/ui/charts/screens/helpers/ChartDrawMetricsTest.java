@@ -13,13 +13,13 @@ import org.junit.Test;
 import static com.radixpro.enigma.testsupport.TextConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 
-public class ChartIDrawMetricsTest {
+public class ChartDrawMetricsTest {
 
-   private ChartIDrawMetrics metrics;
+   private ChartDrawMetrics metrics;
 
    @Before
    public void setUp() throws Exception {
-      metrics = new ChartIDrawMetrics();
+      metrics = new ChartDrawMetrics();
    }
 
    @Test

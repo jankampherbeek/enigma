@@ -35,7 +35,7 @@ public class CuspTextPlotCoordinates implements PlotCoordinates {
     */
    public double[] defineCoordinates(final double angle, final IDrawMetrics IDrawMetrics) {
       checkNotNull(IDrawMetrics);
-      ChartIDrawMetrics metrics = (ChartIDrawMetrics) IDrawMetrics;
+      ChartDrawMetrics metrics = (ChartDrawMetrics) IDrawMetrics;
       double hypothenusa = 0.0;
       if (0.0 <= angle && angle < 45.0) hypothenusa = metrics.getDiameterCuspTextsLeft();
       else if (45.0 <= angle && angle < 135.0) hypothenusa = metrics.getDiameterCuspTextsTop();

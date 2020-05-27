@@ -38,7 +38,7 @@ public class CuspLinePlotCoordinates implements PlotCoordinates {
    @Override
    public double[] defineCoordinates(final double angle, final IDrawMetrics IDrawMetrics) {
       checkNotNull(IDrawMetrics);
-      ChartIDrawMetrics metrics = (ChartIDrawMetrics) IDrawMetrics;
+      ChartDrawMetrics metrics = (ChartDrawMetrics) IDrawMetrics;
       double[] coords1 = rectTriangle.getCoordinates(metrics.getDiameterHousesCircle());
       double[] coords2 = rectTriangle.getCoordinates(metrics.getDiameterSignsCircle());
       return ArrayUtils.addAll(coords1, coords2);

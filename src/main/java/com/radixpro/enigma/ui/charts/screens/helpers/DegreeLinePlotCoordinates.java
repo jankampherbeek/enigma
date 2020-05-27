@@ -36,7 +36,7 @@ public class DegreeLinePlotCoordinates {
     */
    public double[] defineCoordinates(final int index, final IDrawMetrics IDrawMetrics) {
       checkNotNull(IDrawMetrics);
-      ChartIDrawMetrics metrics = (ChartIDrawMetrics) IDrawMetrics;
+      ChartDrawMetrics metrics = (ChartDrawMetrics) IDrawMetrics;
       double[] coords1;
       if (index % 5 == 0) coords1 = rectTriangle.getCoordinates(metrics.getDiameterDegrees5Circle());
       else coords1 = rectTriangle.getCoordinates(metrics.getDiameterDegreesCircle());

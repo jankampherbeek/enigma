@@ -7,10 +7,11 @@
 package com.radixpro.enigma.ui.charts.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.charts.screens.helpers.ChartIDrawMetrics;
+import com.radixpro.enigma.ui.charts.screens.helpers.ChartDrawMetrics;
 import com.radixpro.enigma.ui.charts.screens.helpers.RadixWheel;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.xchg.api.CalculatedFullChart;
+import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -34,24 +35,26 @@ public class ChartsDrawing2d {
    private static final double GAP = 6.0;
    private final Rosetta rosetta;
    private final Stage stage;
-   private ChartIDrawMetrics metrics;
+   private ChartDrawMetrics metrics;
    private Canvas canvas;
    private CalculatedFullChart fullChart;
    private GraphicsContext gc;
    private String name;
+   private Configuration currentConfig;
 
    public ChartsDrawing2d() {
       rosetta = Rosetta.getRosetta();
       stage = new Stage();
    }
 
-   public void setFullChart(final CalculatedFullChart fullChart) {
+   public void setDrawingInfo(final CalculatedFullChart fullChart, final Configuration currentConfig) {
       this.fullChart = checkNotNull(fullChart);
+      this.currentConfig = checkNotNull(currentConfig);
       drawChart();
    }
 
    private void drawChart() {
-      metrics = new ChartIDrawMetrics();
+      metrics = new ChartDrawMetrics();
       canvas = new Canvas(metrics.getCanvasDimension(), metrics.getCanvasDimension());
       gc = canvas.getGraphicsContext2D();
       gc.setFont(new Font("Courier", 10));
@@ -129,7 +132,7 @@ public class ChartsDrawing2d {
       gc.setStroke(Color.BLUE);
       gc.setLineWidth(metrics.getWidthMediumLines());
       gc.setGlobalAlpha(0.5d);
-      new RadixWheel(gc, metrics, fullChart);
+      new RadixWheel(gc, metrics, fullChart, currentConfig);
    }
 
    private void onHelp() {
