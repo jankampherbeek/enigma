@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.xchg.domain.config;
 
-import com.radixpro.enigma.xchg.domain.AspectTypes;
+import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 
 import java.io.Serializable;
 

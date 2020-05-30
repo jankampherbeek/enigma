@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.domain.analysis;
 
-import com.radixpro.enigma.xchg.domain.AspectTypes;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import org.junit.Before;
 import org.junit.Test;

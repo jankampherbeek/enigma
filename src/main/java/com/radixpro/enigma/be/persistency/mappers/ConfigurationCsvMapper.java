@@ -2,6 +2,7 @@ package com.radixpro.enigma.be.persistency.mappers;
 
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.config.*;
 
 import java.util.ArrayList;

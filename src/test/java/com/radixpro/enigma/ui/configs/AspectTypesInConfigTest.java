@@ -9,7 +9,7 @@ package com.radixpro.enigma.ui.configs;
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
-import com.radixpro.enigma.xchg.domain.AspectTypes;
+import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
 import org.junit.Before;
 

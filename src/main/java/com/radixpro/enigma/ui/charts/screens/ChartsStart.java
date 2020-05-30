@@ -337,7 +337,7 @@ public class ChartsStart {
    }
 
    private void onAspects() {
-      AspectsApi api = new AspectsApiFactory().createApi();
+      AspectsApi api = new ApiFactory().createAspectsApi();
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
       CalculationSettings settings = new CalculationSettings(currentConfig);

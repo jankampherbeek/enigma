@@ -10,40 +10,39 @@ package com.radixpro.enigma.xchg.domain.analysis;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * ValueObject for an aspect that has been analyzed.
- */
-public class AnalyzedAspect implements IAnalyzedPair {
+public class AnalyzedMidpoint implements IAnalyzedPair {
+
 
    private final AnalyzablePoint firstPoint;
    private final AnalyzablePoint secondPoint;
-   private final AspectTypes aspectType;
+   private final AnalyzablePoint centerPoint;
+   private final MidpointTypes midpointType;
    private final double actualOrb;
    private final double maxOrb;
    private final double percOrb;
-
 
    /**
     * Constructor defines all parameters.
     * PRE: 0.0 <= actualOrb <= maxOrb
     *
-    * @param firstPoint  First point that was compared. PRE: not null.
-    * @param secondPoint Second point that was compared. PRE: not null.
-    * @param aspectType  Type of aspect. PRE: not null.
-    * @param actualOrb   The actual orb fir this aspect.
-    * @param maxOrb      The maximum orb for this aspect.
+    * @param firstPoint   First point that was compared. PRE: not null.
+    * @param secondPoint  Second point that was compared. PRE: not null.
+    * @param centerPoint  The point at the center of the midpoint.
+    * @param midpointType The type of midpoint.
+    * @param actualOrb    The actual orb fir this aspect.
+    * @param maxOrb       The maximum orb for this aspect.
     */
-   public AnalyzedAspect(final AnalyzablePoint firstPoint, final AnalyzablePoint secondPoint,
-                         final AspectTypes aspectType, final double actualOrb, final double maxOrb) {
+   public AnalyzedMidpoint(final AnalyzablePoint firstPoint, final AnalyzablePoint secondPoint, final AnalyzablePoint centerPoint,
+                           final MidpointTypes midpointType, final double actualOrb, final double maxOrb) {
       checkArgument(0.0 <= actualOrb && actualOrb <= maxOrb);
       this.firstPoint = checkNotNull(firstPoint);
       this.secondPoint = checkNotNull(secondPoint);
-      this.aspectType = checkNotNull(aspectType);
+      this.centerPoint = checkNotNull(centerPoint);
+      this.midpointType = checkNotNull(midpointType);
       this.actualOrb = actualOrb;
       this.maxOrb = maxOrb;
       this.percOrb = calculatePercOrb();
    }
-
 
    @Override
    public AnalyzablePoint getFirst() {
@@ -53,6 +52,10 @@ public class AnalyzedAspect implements IAnalyzedPair {
    @Override
    public AnalyzablePoint getSecond() {
       return secondPoint;
+   }
+
+   public AnalyzablePoint getCenterPoint() {
+      return centerPoint;
    }
 
    @Override
@@ -70,8 +73,8 @@ public class AnalyzedAspect implements IAnalyzedPair {
       return percOrb;
    }
 
-   public AspectTypes getAspectType() {
-      return aspectType;
+   public MidpointTypes getMidpointType() {
+      return midpointType;
    }
 
    private double calculatePercOrb() {

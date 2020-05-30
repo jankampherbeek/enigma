@@ -9,6 +9,7 @@ package com.radixpro.enigma.be.versions;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.config.*;
 import org.apache.log4j.Logger;
 

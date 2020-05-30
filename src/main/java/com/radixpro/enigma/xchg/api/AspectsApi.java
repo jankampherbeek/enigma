@@ -21,7 +21,7 @@ public class AspectsApi {
    private final AspectsHandler handler;
 
    /**
-    * Use AspectsApiFactory for construction.
+    * Use ApiFactory.createAspectsApi() for construction.
     *
     * @param handler The handler that prepares the analysis.
     */

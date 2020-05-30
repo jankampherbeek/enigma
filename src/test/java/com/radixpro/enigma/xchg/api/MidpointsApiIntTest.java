@@ -7,18 +7,16 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.xchg.domain.AspectOrbStructure;
 import com.radixpro.enigma.xchg.domain.CelCoordinateElementVo;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
+import com.radixpro.enigma.xchg.domain.analysis.AnalyzedMidpoint;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.xchg.domain.analysis.MidpointTypes;
 import com.radixpro.enigma.xchg.domain.analysis.MundanePoints;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.CelCoordinateVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.HouseCoordinateVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.ObjectVo;
-import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
-import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,64 +26,86 @@ import java.util.List;
 import static com.radixpro.enigma.testsupport.TextConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Integration test for AspectsApi
- */
-public class AspectsApiIntTest {
+public class MidpointsApiIntTest {
 
    private List<IObjectVo> celObjects;
    private List<IObjectVo> mundaneValues;
-   private AspectConfiguration config;
-   private AspectsApi api;
+   private MidpointsApi api;
 
    @Before
-   public void setUp() {
+   public void setUp() throws Exception {
       celObjects = createCelObjects();
       mundaneValues = createMundaneValues();
-      config = createConfig();
-      api = new ApiFactory().createAspectsApi();
+      api = new ApiFactory().createMidpointsApi();
    }
 
    @Test
-   public void analyzeAspects() {
-      List<IAnalyzedPair> results = api.analyzeAspects(celObjects, mundaneValues, config);
-      assertEquals(6, results.size());
-      IAnalyzedPair result0 = results.get(0);
+   public void analyseMidpoints() {
+      List<IAnalyzedPair> results = api.analyseMidpoints(celObjects, mundaneValues);
+      assertEquals(136, results.size());
+      AnalyzedMidpoint result0 = (AnalyzedMidpoint) results.get(0);
       assertEquals(CelestialObjects.SUN, result0.getFirst().getChartPoint());
       assertEquals(CelestialObjects.MOON, result0.getSecond().getChartPoint());
-      assertEquals(1.0, result0.getActualOrb(), DELTA_8_POS);
-      assertEquals(12.5, result0.getPercOrb(), DELTA_8_POS);
-      IAnalyzedPair result1 = results.get(2);
-      assertEquals(CelestialObjects.SUN, result1.getFirst().getChartPoint());
-      assertEquals(MundanePoints.ASC, result1.getSecond().getChartPoint());
-      assertEquals(2.0, result1.getActualOrb(), DELTA_8_POS);
-      assertEquals(25.0, result1.getPercOrb(), DELTA_8_POS);
+      assertEquals(CelestialObjects.MARS, result0.getCenterPoint().getChartPoint());
+      assertEquals(MidpointTypes.SIXTEENTH, result0.getMidpointType());
+      assertEquals(0.25, result0.getActualOrb(), DELTA_8_POS);
+      assertEquals(15.625, result0.getPercOrb(), DELTA_8_POS);
    }
 
    private List<IObjectVo> createCelObjects() {
       List<IObjectVo> newCelObjects = new ArrayList<>();
       newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(100.0),
+            createCelCoordinateVo(20.0),
             createCelCoordinateVo(0.0),
             createCelCoordinateVo(0.0),
             CelestialObjects.SUN));
       newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(281.0),
+            createCelCoordinateVo(100.0),
             createCelCoordinateVo(0.0),
             createCelCoordinateVo(0.0),
             CelestialObjects.MOON));
+      newCelObjects.add(new ObjectVo(
+            createCelCoordinateVo(30.0),
+            createCelCoordinateVo(0.0),
+            createCelCoordinateVo(0.0),
+            CelestialObjects.MERCURY));
+      newCelObjects.add(new ObjectVo(
+            createCelCoordinateVo(10.0),
+            createCelCoordinateVo(0.0),
+            createCelCoordinateVo(0.0),
+            CelestialObjects.VENUS));
+      newCelObjects.add(new ObjectVo(
+            createCelCoordinateVo(206.0),
+            createCelCoordinateVo(0.0),
+            createCelCoordinateVo(0.0),
+            CelestialObjects.MARS));
+      newCelObjects.add(new ObjectVo(
+            createCelCoordinateVo(207.0),
+            createCelCoordinateVo(0.0),
+            createCelCoordinateVo(0.0),
+            CelestialObjects.JUPITER));
+      newCelObjects.add(new ObjectVo(
+            createCelCoordinateVo(150.5),
+            createCelCoordinateVo(0.0),
+            createCelCoordinateVo(0.0),
+            CelestialObjects.SATURN));
+      newCelObjects.add(new ObjectVo(
+            createCelCoordinateVo(175.5),
+            createCelCoordinateVo(0.0),
+            createCelCoordinateVo(0.0),
+            CelestialObjects.URANUS));
       return newCelObjects;
    }
 
    private List<IObjectVo> createMundaneValues() {
       List<IObjectVo> newHouses = new ArrayList<>();
       newHouses.add(new ObjectVo(
-            createHouseCoordinateVo(218.0),
+            createHouseCoordinateVo(159.0),
             createHouseCoordinateVo(0.0),
             createHouseCoordinateVo(0.0),
             MundanePoints.MC));
       newHouses.add(new ObjectVo(
-            createHouseCoordinateVo(278.0),
+            createHouseCoordinateVo(250.0),
             createHouseCoordinateVo(0.0),
             createHouseCoordinateVo(0.0),
             MundanePoints.ASC));
@@ -102,24 +122,4 @@ public class AspectsApiIntTest {
       CelCoordinateElementVo posCoordinate = new CelCoordinateElementVo(basePos, 0.0, 0.0);
       return new HouseCoordinateVo(posCoordinate);
    }
-
-   private AspectConfiguration createConfig() {
-      final double baseOrb = 8.0;
-      final AspectOrbStructure structure = AspectOrbStructure.ASPECT;
-      final boolean drawInOutGoing = false;
-      final List<ConfiguredAspect> aspects = createAspects();
-      return new AspectConfiguration(aspects, baseOrb, structure, drawInOutGoing);
-   }
-
-   private List<ConfiguredAspect> createAspects() {
-      final List<ConfiguredAspect> newAspects = new ArrayList<>();
-      newAspects.add(new ConfiguredAspect(AspectTypes.CONJUNCTION, 100, "a", true));
-      newAspects.add(new ConfiguredAspect(AspectTypes.OPPOSITION, 100, "b", true));
-      newAspects.add(new ConfiguredAspect(AspectTypes.TRIANGLE, 80, "c", true));
-      newAspects.add(new ConfiguredAspect(AspectTypes.SQUARE, 80, "d", true));
-      newAspects.add(new ConfiguredAspect(AspectTypes.SEXTILE, 60, "c", true));
-      return newAspects;
-   }
-
-
 }

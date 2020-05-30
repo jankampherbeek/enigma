@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
-import com.radixpro.enigma.xchg.domain.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspect;
+import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import javafx.scene.paint.Color;
 

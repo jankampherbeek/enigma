@@ -7,11 +7,16 @@
 
 package com.radixpro.enigma.be.analysis;
 
-public class AspectsHandlerFactory {
+public class AnalysisHandlerFactory {
 
-   public AspectsHandler createHandler() {
+   public AspectsHandler createAspectsHandler() {
       AspectsForRadix analyzer = new AspectsForRadix();
       return new AspectsHandler(analyzer);
+   }
+
+   public MidpointsHandler createMidpointsHandler() {
+      MidpointsForRadix analyzer = new MidpointsForRadix();
+      return new MidpointsHandler(analyzer);
    }
 
 

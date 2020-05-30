@@ -2,17 +2,19 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.xchg.domain;
+package com.radixpro.enigma.xchg.domain.analysis;
+
+import com.radixpro.enigma.xchg.domain.AspectCategory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Enum of supported aspects.
  */
-public enum
-AspectTypes {
+public enum AspectTypes {
    CONJUNCTION(1, AspectCategory.MAJOR, 0.0, "aspects.conjunction"),
    OPPOSITION(2, AspectCategory.MAJOR, 180.0, "aspects.opposition"),
    TRIANGLE(3, AspectCategory.MAJOR, 120.0, "aspects.triangle"),
