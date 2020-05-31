@@ -9,6 +9,7 @@ package com.radixpro.enigma.ui.charts.factories;
 
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.screens.ChartsAspects;
+import com.radixpro.enigma.ui.charts.screens.ChartsMidpoints;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
 import javafx.stage.Stage;
@@ -16,12 +17,16 @@ import javafx.stage.Stage;
 import java.util.List;
 
 /**
- * Factory for ChartsAspects.
+ * Factory for screens for Charts.
  */
-public class ChartsAspectsFactory {
+public class ChartsScreensFactory {
 
-   public ChartsAspects getChartsAspects(final List<IAnalyzedPair> aspects, final MetaDataForAnalysis meta) {
+   public ChartsAspects createChartsAspects(final List<IAnalyzedPair> aspects, final MetaDataForAnalysis meta) {
       return new ChartsAspects(new Stage(), Rosetta.getRosetta(), aspects, meta);
+   }
+
+   public ChartsMidpoints createChartsMidpoints(final List<IAnalyzedPair> midpoints, final MetaDataForAnalysis meta) {
+      return new ChartsMidpoints(new Stage(), Rosetta.getRosetta(), midpoints, meta);
    }
 
 }

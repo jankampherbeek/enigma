@@ -9,7 +9,7 @@ package com.radixpro.enigma.ui.charts.screens;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.charts.factories.ChartsAspectsFactory;
+import com.radixpro.enigma.ui.charts.factories.ChartsScreensFactory;
 import com.radixpro.enigma.ui.configs.screens.ConfigOverview;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
@@ -141,6 +141,7 @@ public class ChartsStart {
       miAspects.setOnAction(e -> onAspects());
       miMidpoints = new MenuItem(rosetta.getText("menu.charts.analysis.midpoints"));
       miMidpoints.setDisable(true);
+      miMidpoints.setOnAction(e -> onMidpoints());
       menuAnalysis.getItems().addAll(miAspects, miMidpoints);
       Menu menuProg = new Menu(rosetta.getText("menu.charts.progressive"));
       MenuItem miTransits = new MenuItem(rosetta.getText("menu.charts.progressive.transits"));
@@ -349,7 +350,25 @@ public class ChartsStart {
       housesList.add(fullHousesList.get(1));
       final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), currentConfig.getDelinConfiguration().getAspectConfiguration().getBaseOrb());
-      final ChartsAspects chartsAspects = new ChartsAspectsFactory().getChartsAspects(aspects, meta);
+      final ChartsAspects chartsAspects = new ChartsScreensFactory().createChartsAspects(aspects, meta);
+   }
+
+   // TODO combine logic of onAspects and onMidpoints
+   private void onMidpoints() {
+      MidpointsApi api = new ApiFactory().createMidpointsApi();
+      PresentableChartData presChartData = selectedCharts.get(0);
+      ChartData chartData = presChartData.getOriginalData();
+      CalculationSettings settings = new CalculationSettings(currentConfig);
+      FullChart fullChart = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
+      List<IObjectVo> celObjectList = fullChart.getAllCelBodyPositions();
+      List<IObjectVo> fullHousesList = fullChart.getAllHousePositions();
+      List<IObjectVo> housesList = new ArrayList<>();
+      housesList.add(fullHousesList.get(0));
+      housesList.add(fullHousesList.get(1));
+      final List<IAnalyzedPair> midpoints = api.analyseMidpoints(celObjectList, housesList);
+      MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.6);   // TODO replace hardcoded orb for midpoints with configurable orb
+      final ChartsMidpoints chartsMidpoints = new ChartsScreensFactory().createChartsMidpoints(midpoints, meta);
+
    }
 
 
