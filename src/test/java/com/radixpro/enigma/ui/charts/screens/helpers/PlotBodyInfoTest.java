@@ -18,7 +18,7 @@ public class PlotBodyInfoTest {
    private PlotBodyInfo plotBodyInfo;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       plotBodyInfo = new PlotBodyInfo(CelestialObjects.SATURN, 30.0, 32.5);
    }
 

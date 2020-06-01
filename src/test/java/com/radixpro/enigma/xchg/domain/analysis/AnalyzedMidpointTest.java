@@ -19,13 +19,13 @@ public class AnalyzedMidpointTest {
    private AnalyzablePoint firstPoint;
    private AnalyzablePoint secondPoint;
    private AnalyzablePoint centerPoint;
-   private MidpointTypes midpointType = MidpointTypes.FULL;
-   private double actualOrb = 0.228;
-   private double maxOrb = 1.5;
+   private final MidpointTypes midpointType = MidpointTypes.FULL;
+   private final double actualOrb = 0.228;
+   private final double maxOrb = 1.5;
    private AnalyzedMidpoint midpoint;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       firstPoint = new AnalyzablePoint(CelestialObjects.SUN, 123.456);
       secondPoint = new AnalyzablePoint(CelestialObjects.SATURN, 153.456);
       centerPoint = new AnalyzablePoint(MundanePoints.ASC, 138.0);

@@ -19,7 +19,7 @@ public class PointTest {
    private Point point;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       point = new Point(xValue, yValue);
    }
 

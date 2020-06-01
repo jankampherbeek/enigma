@@ -34,7 +34,7 @@ public class PresentableCelObjectPositionTest {
    private PresentableCelObjectPosition presPos;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       when(eclPositionMock.getMainPosition()).thenReturn(220.5);
       when(eclPositionMock.getDeviationPosition()).thenReturn(2.25);
       when(eclPositionMock.getMainSpeed()).thenReturn(0.3333334);

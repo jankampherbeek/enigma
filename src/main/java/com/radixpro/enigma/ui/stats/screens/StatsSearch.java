@@ -37,8 +37,7 @@ public class StatsSearch {
    }
 
    private Label createTitle() {
-      Label lblTitle = new Label("Stats Search");
-      return lblTitle;
+      return new Label("Stats Search");
    }
 
    private ButtonBar createButtonBar() {

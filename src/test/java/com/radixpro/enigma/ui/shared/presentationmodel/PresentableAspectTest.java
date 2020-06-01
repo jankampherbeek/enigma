@@ -23,13 +23,13 @@ public class PresentableAspectTest {
    private IAnalyzedPair aspect;
    private AnalyzablePoint firstPoint;
    private AnalyzablePoint secondPoint;
-   private AspectTypes aspectType = AspectTypes.SEXTILE;
-   private double effectiveOrb = 2.0;
-   private double maxOrb = 8.0;
+   private final AspectTypes aspectType = AspectTypes.SEXTILE;
+   private final double effectiveOrb = 2.0;
+   private final double maxOrb = 8.0;
    private PresentableAspect presAspect;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       firstPoint = new AnalyzablePoint(CelestialObjects.SUN, 122.0);
       secondPoint = new AnalyzablePoint(CelestialObjects.MOON, 184.0);
       aspect = new AnalyzedAspect(firstPoint, secondPoint, aspectType, effectiveOrb, maxOrb);

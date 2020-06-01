@@ -26,8 +26,8 @@ public class LabelFactoryTest {
 
    @Test
    public void createLabelTextXYStyle() {
-      Object result = LabelFactory.createLabel(text, layoutX, layoutY, styleClass);
-      Label lblResult = (Label) result;
+      Label result = LabelFactory.createLabel(text, layoutX, layoutY, styleClass);
+      Label lblResult = result;
       assertEquals(text, lblResult.getText());
       assertEquals(layoutX, lblResult.getLayoutX(), DELTA_8_POS);
       assertEquals(layoutY, lblResult.getLayoutY(), DELTA_8_POS);
@@ -36,8 +36,8 @@ public class LabelFactoryTest {
 
    @Test
    public void testCreateLabelTextXY() {
-      Object result = LabelFactory.createLabel(text, layoutX, layoutY);
-      Label lblResult = (Label) result;
+      Label result = LabelFactory.createLabel(text, layoutX, layoutY);
+      Label lblResult = result;
       assertEquals(text, lblResult.getText());
       assertEquals(layoutX, lblResult.getLayoutX(), DELTA_8_POS);
       assertEquals(layoutY, lblResult.getLayoutY(), DELTA_8_POS);
@@ -45,8 +45,8 @@ public class LabelFactoryTest {
 
    @Test
    public void testCreateLabelTextStyleWidth() {
-      Object result = LabelFactory.createLabel(text, styleClass, width);
-      Label lblResult = (Label) result;
+      Label result = LabelFactory.createLabel(text, styleClass, width);
+      Label lblResult = result;
       assertEquals(text, lblResult.getText());
       assertTrue(lblResult.getStyleClass().contains(styleClass));
       assertEquals(width, lblResult.getPrefWidth(), DELTA_8_POS);
@@ -54,16 +54,16 @@ public class LabelFactoryTest {
 
    @Test
    public void testCreateLabelTextStyle() {
-      Object result = LabelFactory.createLabel(text, styleClass);
-      Label lblResult = (Label) result;
+      Label result = LabelFactory.createLabel(text, styleClass);
+      Label lblResult = result;
       assertEquals(text, lblResult.getText());
       assertTrue(lblResult.getStyleClass().contains(styleClass));
    }
 
    @Test
    public void testCreateLabelText() {
-      Object result = LabelFactory.createLabel(text);
-      Label lblResult = (Label) result;
+      Label result = LabelFactory.createLabel(text);
+      Label lblResult = result;
       assertEquals(text, lblResult.getText());
    }
 

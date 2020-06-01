@@ -17,7 +17,7 @@ public class CelObject2GlyphMapper {
 
    public String getGlyph(final CelestialObjects celObject) {
       checkNotNull(celObject);
-      String glyph = switch (celObject) {
+      return switch (celObject) {
          case SUN -> "a";
          case MOON -> "b";
          case MERCURY -> "c";
@@ -32,7 +32,6 @@ public class CelObject2GlyphMapper {
          case CHEIRON -> "w";
          default -> " ";
       };
-      return glyph;
    }
 
 }

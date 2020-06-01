@@ -7,6 +7,7 @@
 package com.radixpro.enigma.xchg.domain;
 
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,35 +15,39 @@ public class ObserverPositionsTest {
 
    private final ObserverPositions observerPosition = ObserverPositions.TOPOCENTRIC;
 
-
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getId() {
       assertEquals(2, observerPosition.getId());
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getRbKeyForName() {
       assertEquals("observerpositions.topocentric", observerPosition.getNameForRB());
    }
 
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getObserverPositionForId() throws UnknownIdException {
       assertEquals(ObserverPositions.TOPOCENTRIC, observerPosition.getObserverPositionForId(2));
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db(expected = UnknownIdException.class)
+   @Test(expected = UnknownIdException.class)
    public void getObserverPositionForIdNotFound() throws UnknownIdException {
       observerPosition.getObserverPositionForId(1000);
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void total() {
       assertEquals(3, ObserverPositions.values().length);
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getObservableList() {
       assertEquals(2, observerPosition.getObservableList().size());
+   }
+
+   @Test
+   public void getIndexMappings() {
+      assertEquals(2, observerPosition.getIndexMappings().getAllIndexMappings().size());
    }
 }

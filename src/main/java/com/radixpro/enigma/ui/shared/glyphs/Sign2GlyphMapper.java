@@ -12,7 +12,7 @@ package com.radixpro.enigma.ui.shared.glyphs;
 public class Sign2GlyphMapper {
 
    public String getGlyph(final int indexOfSign) {
-      String glyph = switch (indexOfSign) {
+      return switch (indexOfSign) {
          case 1 -> "1";
          case 2 -> "2";
          case 3 -> "3";
@@ -27,7 +27,6 @@ public class Sign2GlyphMapper {
          case 12 -> "=";
          default -> " ";
       };
-      return glyph;
    }
 
 }

@@ -19,7 +19,7 @@ public class LongWithGlyphTest {
    private LongWithGlyph longWithGlyph;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       longWithGlyph = new LongWithGlyph(position, signIndex);
    }
 

@@ -20,7 +20,7 @@ public class LongAndGlyphValueTest {
    private LongAndGlyphValue longAndGlyphValue;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       longAndGlyphValue = new LongAndGlyphValue(longitude);
    }
 

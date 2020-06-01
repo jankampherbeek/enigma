@@ -21,14 +21,14 @@ public class PresentableMidpointTest {
    private AnalyzablePoint firstPoint;
    private AnalyzablePoint secondPoint;
    private AnalyzablePoint thirdPoint;
-   private MidpointTypes midpointType = MidpointTypes.QUARTER;
-   private double effectiveOrb = 0.8;
-   private double maxOrb = 1.6;
+   private final MidpointTypes midpointType = MidpointTypes.QUARTER;
+   private final double effectiveOrb = 0.8;
+   private final double maxOrb = 1.6;
    private PresentableMidpoint presMidpoint;
 
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       firstPoint = new AnalyzablePoint(CelestialObjects.SUN, 122.0);
       secondPoint = new AnalyzablePoint(CelestialObjects.MOON, 162.0);
       thirdPoint = new AnalyzablePoint(MundanePoints.ASC, 142.8);

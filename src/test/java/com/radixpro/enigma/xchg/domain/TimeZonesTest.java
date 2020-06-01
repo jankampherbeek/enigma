@@ -41,17 +41,17 @@ public class TimeZonesTest {
       assertEquals(TimeZones.UT, timeZone.timeZoneForId(1000));
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void timeZoneForName() {
       assertEquals(TimeZones.ICT, timeZone.timeZoneForName("+07:00: ICT/Indochina Time"));
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void timeZoneForNameNotFound() {
       assertEquals(TimeZones.UT, timeZone.timeZoneForName("i do not exist"));
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getObservableList() {
       var observableList = timeZone.getObservableList();
       assertEquals(33, observableList.size());

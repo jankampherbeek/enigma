@@ -7,7 +7,7 @@
 package com.radixpro.enigma.shared;
 
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
-import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -16,18 +16,13 @@ public class RosettaTest {
 
    private PersistedPropertyApi api;
 
-   @Before
-   public void setUp() {
-
-   }
-
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getRosetta() {
       var rosetta = Rosetta.getRosetta();
       assertNotNull(rosetta);
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void setLanguageAndGetText() {
       var rosetta = Rosetta.getRosetta();
       rosetta.setLanguage("en");
@@ -36,7 +31,7 @@ public class RosettaTest {
       assertEquals("Tropisch", rosetta.getText("eclipticprojections.tropical"));
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void setLanguageAndGetHelpText() {
       var rosetta = Rosetta.getRosetta();
       rosetta.setLanguage("en");
@@ -47,7 +42,7 @@ public class RosettaTest {
 
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void setLanguageUnsupportedLang() {
       var rosetta = Rosetta.getRosetta();
       rosetta.setLanguage("en");
@@ -56,7 +51,7 @@ public class RosettaTest {
       assertEquals("Tropical", rosetta.getText("eclipticprojections.tropical"));
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getLocale() {
       var rosetta = Rosetta.getRosetta();
       rosetta.setLanguage("en");

@@ -37,7 +37,7 @@ public class PresentableMundanePositionTest {
    private PresentableMundanePosition presMundanePos;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       when(equatorialPositionForHousesMock.getRightAscension()).thenReturn(ra);
       when(equatorialPositionForHousesMock.getDeclination()).thenReturn(decl);
       when(horizontalPositionMock.getAzimuth()).thenReturn(azimuth);

@@ -20,7 +20,7 @@ public class CelCoordinateVoTest {
    private CelCoordinateVo vo;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       pos = new CelCoordinateElementVo(100.0, 1.0, 20.0);
       speed = new CelCoordinateElementVo(1.0, 0.5, -0.5);
       vo = new CelCoordinateVo(pos, speed);

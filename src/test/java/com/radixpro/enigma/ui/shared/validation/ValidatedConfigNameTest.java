@@ -17,7 +17,7 @@ public class ValidatedConfigNameTest {
    private ValidatedConfigName valConfigName;
 
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void happyFlow() {
       valConfigName = new ValidatedConfigName(correctName);
       assertTrue(valConfigName.isValidated());

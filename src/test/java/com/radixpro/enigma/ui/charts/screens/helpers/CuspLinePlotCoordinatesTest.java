@@ -28,7 +28,7 @@ public class CuspLinePlotCoordinatesTest {
    private CuspLinePlotCoordinates cuspLineCoordinates;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       when(metricsMock.getDiameterHousesCircle()).thenReturn(2.0);
       when(metricsMock.getDiameterSignsCircle()).thenReturn(3.0);
       when(rectTriangleMock.getCoordinates(anyDouble())).thenReturn(coords);

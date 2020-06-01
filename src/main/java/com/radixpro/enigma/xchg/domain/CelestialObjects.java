@@ -112,12 +112,12 @@ public enum CelestialObjects implements IChartPoints {
    @Override
    public IChartPoints getItemForId(int id) {
       return null;
-   }
+   }  // TODO fix
 
    @Override
    public ChartPointTypes getPointType() {
       return null;
-   }
+   }  // TODO fix
 
    public long getSeId() {
       return seId;

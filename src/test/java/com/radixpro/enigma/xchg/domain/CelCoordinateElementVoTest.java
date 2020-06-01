@@ -21,7 +21,7 @@ public class CelCoordinateElementVoTest {
    private CelCoordinateElementVo vo;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       vo = new CelCoordinateElementVo(base, deviation, distance);
    }
 

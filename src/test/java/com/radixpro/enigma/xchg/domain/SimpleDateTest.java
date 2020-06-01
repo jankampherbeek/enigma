@@ -20,7 +20,7 @@ public class SimpleDateTest {
    private SimpleDate simpleDate;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       simpleDate = new SimpleDate(year, month, day, gregorian);
    }
 

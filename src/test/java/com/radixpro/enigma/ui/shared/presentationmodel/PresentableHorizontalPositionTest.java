@@ -28,7 +28,7 @@ public class PresentableHorizontalPositionTest {
    private PresentableHorizontalPosition pos;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       when(horizontalPositionMock.getAzimuth()).thenReturn(azimuth);
       when(horizontalPositionMock.getAltitude()).thenReturn(altitude);
       pos = new PresentableHorizontalPosition(celObject, horizontalPositionMock);

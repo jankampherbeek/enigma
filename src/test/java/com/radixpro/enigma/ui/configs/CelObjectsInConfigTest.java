@@ -12,6 +12,7 @@ import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredCelObject;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +24,11 @@ public class CelObjectsInConfigTest {
    private CelObjectsInConfig celObjectsInConfig;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       celObjectsInConfig = new CelObjectsInConfig(Rosetta.getRosetta());
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void constructProperties() {
       List<PresentableProperty> props = celObjectsInConfig.constructProperties(createConfiguredCelObjects());
       assertEquals("Classic bodies", props.get(0).getName());

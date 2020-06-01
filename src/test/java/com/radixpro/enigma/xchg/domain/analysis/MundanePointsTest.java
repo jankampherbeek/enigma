@@ -17,7 +17,7 @@ public class MundanePointsTest {
    private MundanePoints mundanePoint;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       mundanePoint = MundanePoints.MC;
    }
 

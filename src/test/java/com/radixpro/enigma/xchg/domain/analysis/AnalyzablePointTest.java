@@ -20,7 +20,7 @@ public class AnalyzablePointTest {
    private AnalyzablePoint analyzablePoint;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       chartPoint = new IChartPointsFake();
       analyzablePoint = new AnalyzablePoint(chartPoint, position);
    }

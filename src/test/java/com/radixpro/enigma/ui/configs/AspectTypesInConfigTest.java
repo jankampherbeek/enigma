@@ -12,6 +12,7 @@ import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +24,11 @@ public class AspectTypesInConfigTest {
    private AspectsInConfig aspectsInConfig;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       aspectsInConfig = new AspectsInConfig(Rosetta.getRosetta());
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void constructProperties() {
       List<PresentableProperty> props = aspectsInConfig.constructProperties(createConfiguredAspects());
       assertEquals(4, props.size());

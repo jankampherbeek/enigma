@@ -23,7 +23,7 @@ public class ObjectVoTest {
    private IChartPoints chartPoint;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       eclCoords = new CelCoordinateVoFake();
       equaCoords = new CelCoordinateVoFake();
       horiCoords = new CelCoordinateVoFake();

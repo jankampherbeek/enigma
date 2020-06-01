@@ -33,7 +33,7 @@ public class MidpointsApiIntTest {
    private MidpointsApi api;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       celObjects = createCelObjects();
       mundaneValues = createMundaneValues();
       api = new ApiFactory().createMidpointsApi();

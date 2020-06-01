@@ -30,7 +30,7 @@ public class PresentableEquatorialPositionForHousesTest {
    private PresentableEquatorialPosition position;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       when(celObjectSinglePositionMock.getMainPosition()).thenReturn(mainPos);
       when(celObjectSinglePositionMock.getDeviationPosition()).thenReturn(devPos);
       when(celObjectSinglePositionMock.getMainSpeed()).thenReturn(mainSpeed);

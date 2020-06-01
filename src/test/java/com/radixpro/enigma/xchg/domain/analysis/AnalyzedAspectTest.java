@@ -18,13 +18,13 @@ public class AnalyzedAspectTest {
 
    private AnalyzablePoint firstPoint;
    private AnalyzablePoint secondPoint;
-   private AspectTypes aspectType = AspectTypes.OPPOSITION;
-   private double actualOrb = 2.0;
-   private double maxOrb = 6.0;
+   private final AspectTypes aspectType = AspectTypes.OPPOSITION;
+   private final double actualOrb = 2.0;
+   private final double maxOrb = 6.0;
    private AnalyzedAspect aspect;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       firstPoint = new AnalyzablePoint(CelestialObjects.SUN, 100.0);
       secondPoint = new AnalyzablePoint(CelestialObjects.MOON, 282.0);
       aspect = new AnalyzedAspect(firstPoint, secondPoint, aspectType, actualOrb, maxOrb);

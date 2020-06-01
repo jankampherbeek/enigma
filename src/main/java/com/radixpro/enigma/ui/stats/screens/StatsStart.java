@@ -36,8 +36,7 @@ public class StatsStart {
    }
 
    private Label createTitle() {
-      Label lblTitle = new Label("Stats Start Screen");
-      return lblTitle;
+      return new Label("Stats Start Screen");
    }
 
    private ButtonBar createButtonBar() {

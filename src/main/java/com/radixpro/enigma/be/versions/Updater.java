@@ -7,7 +7,6 @@
 package com.radixpro.enigma.be.versions;
 
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
-import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.config.*;
@@ -21,11 +20,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class Updater {
 
    private static final Logger LOG = Logger.getLogger(Updater.class);
-   private PersistedPropertyApi propApi;
 
 
    public void performFullUpdate() {
-      propApi = new PersistedPropertyApi();
       updateStep20201();
       LOG.info("Full initialization completed.");
    }

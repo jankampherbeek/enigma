@@ -18,7 +18,7 @@ public class PresentablePropertyTest {
    private PresentableProperty property;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       property = new PresentableProperty(name, value);
    }
 

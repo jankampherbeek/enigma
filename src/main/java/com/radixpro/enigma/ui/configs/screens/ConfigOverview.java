@@ -238,7 +238,7 @@ public class ConfigOverview {
    private void onNew() {
       PresentableConfiguration config = selectedItems.get(0);
       long configId = config.getConfigId();
-      ConfigNew configNew = new ConfigNewFactory().createConfigNew(configApi.read((int) configId).get(0)); // TODO Reease 2020.2:  use long consistently, also in api
+      ConfigNew configNew = new ConfigNewFactory().createConfigNew(configApi.read(configId).get(0));
 
       if (InputStatus.READY == configNew.getInputStatus()) {
          long newConfigId = configNew.getNewConfigId();
@@ -250,7 +250,7 @@ public class ConfigOverview {
    private void onDetails() {
       PresentableConfiguration config = selectedItems.get(0);
       long configId = config.getConfigId();
-      new ConfigDetailsFactory().createConfigDetails(configApi.read((int) configId).get(0));// TODO Release 2020.2: use long consistently, also in api
+      new ConfigDetailsFactory().createConfigDetails(configApi.read(configId).get(0));
    }
 
    private void onDelete() {
@@ -268,7 +268,7 @@ public class ConfigOverview {
    private void onEdit() {
       PresentableConfiguration config = selectedItems.get(0);
       long configId = config.getConfigId();
-      new ConfigEditFactory().createConfigEdit(configApi.read((int) configId).get(0));// TODO Release 2020.2: use long consistently, also in api
+      new ConfigEditFactory().createConfigEdit(configApi.read(configId).get(0));
       showOrReshow();
    }
 

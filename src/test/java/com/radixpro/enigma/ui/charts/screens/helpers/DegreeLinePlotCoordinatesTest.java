@@ -28,7 +28,7 @@ public class DegreeLinePlotCoordinatesTest {
    private DegreeLinePlotCoordinates degreeLineCoordinates;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       when(metricsMock.getDiameterDegrees5Circle()).thenReturn(100.0);
       when(metricsMock.getDiameterDegreesCircle()).thenReturn(101.0);
       when(metricsMock.getDiameterSignsCircle()).thenReturn(102.0);

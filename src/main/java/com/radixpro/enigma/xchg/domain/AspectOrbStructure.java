@@ -6,6 +6,8 @@
 
 package com.radixpro.enigma.xchg.domain;
 
+import com.radixpro.enigma.shared.exceptions.UnknownIdException;
+
 /**
  * Structure of an orb for an aspect.
  */
@@ -28,14 +30,13 @@ public enum AspectOrbStructure {
     * @param id The id of the structure to return.
     * @return If id is found the resulting structure, otherwise null.
     */
-   public AspectOrbStructure getStructureForId(int id) {
+   public AspectOrbStructure getStructureForId(int id) throws UnknownIdException {
       for (AspectOrbStructure structure : AspectOrbStructure.values()) {
          if (structure.getId() == id) {
             return structure;
          }
       }
-      return null;
-      // TODO Release 2020.2: throw exception if aspect orb structure is not found
+      throw new UnknownIdException("Could not find AspectORbStructure for id : " + id);
    }
 
    public int getId() {

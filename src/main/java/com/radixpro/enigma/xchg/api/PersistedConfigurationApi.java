@@ -53,7 +53,7 @@ public class PersistedConfigurationApi {
       }
    }
 
-   public List<Configuration> read(final int id) {
+   public List<Configuration> read(final long id) {
       List<Configuration> configs = new ArrayList<>();
       try {
          configs = dao.read(id);

@@ -19,7 +19,7 @@ public class PlainDmsValueTest {
    private final String expected = "123" + DEGREESIGN + 27 + MINUTESIGN + 24 + SECONDSIGN;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       plainDmsValue = new PlainDmsValue(value);
    }
 

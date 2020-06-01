@@ -19,7 +19,7 @@ public class HouseCoordinateVoTest {
    private HouseCoordinateVo vo;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       element = new CelCoordinateElementVo(11.1, 22.2, 33.3);
       vo = new HouseCoordinateVo(element);
    }

@@ -19,7 +19,7 @@ public class SimpleTimeTest {
    private SimpleTime simpleTime;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       simpleTime = new SimpleTime(hour, minute, second);
    }
 

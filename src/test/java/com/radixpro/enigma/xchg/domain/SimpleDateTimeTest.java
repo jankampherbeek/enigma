@@ -18,7 +18,7 @@ public class SimpleDateTimeTest {
    private SimpleDateTime dateTime;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       simpleDate = new SimpleDate(1953, 1, 29, true);
       simpleTime = new SimpleTime(8, 37, 30);
       dateTime = new SimpleDateTime(simpleDate, simpleTime);

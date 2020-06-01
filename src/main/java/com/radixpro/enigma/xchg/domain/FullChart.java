@@ -38,8 +38,8 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
    private double obliquity;
    private long flagsValue;
    private List<SeFlags> allFlags;
-   private List<IObjectVo> allCelBodyPositions;
-   private List<IObjectVo> allHousePositions;
+   private final List<IObjectVo> allCelBodyPositions;
+   private final List<IObjectVo> allHousePositions;
 
 
    public FullChart(final FullDateTime fullDateTime, final Location location, final CalculationSettings settings) {

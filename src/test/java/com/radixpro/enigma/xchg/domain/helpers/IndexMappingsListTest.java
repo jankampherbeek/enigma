@@ -20,7 +20,7 @@ public class IndexMappingsListTest {
    private IndexMappingsList indexMappingsList;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       indexMappingsList = new IndexMappingsList(createAllIndexMappings());
    }
 

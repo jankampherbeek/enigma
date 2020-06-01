@@ -74,7 +74,7 @@ public class ConfigurationDao extends DaoParent {
     *
     * @param id the di for the configuration to retrieve.
     * @return A list with one or zero configurations.
-    * @throws DatabaseException
+    * @throws DatabaseException is thrown for any database error.
     */
    public List<Configuration> read(final long id) throws DatabaseException {
       List<Configuration> allConfigs = readAll();
@@ -90,7 +90,7 @@ public class ConfigurationDao extends DaoParent {
     *
     * @param searchName the search argument.
     * @return a list with zero or more configurations.
-    * @throws DatabaseException
+    * @throws DatabaseException is thrown for any database error.
     */
    public List<Configuration> search(final String searchName) throws DatabaseException {
       checkNotNull(searchName);
@@ -106,7 +106,7 @@ public class ConfigurationDao extends DaoParent {
     * Retrieve all configurations.
     *
     * @return the configurations.
-    * @throws DatabaseException
+    * @throws DatabaseException is thrown for any database error.
     */
    public List<Configuration> readAll() throws DatabaseException {
       List<String[]> allLines;
@@ -132,7 +132,7 @@ public class ConfigurationDao extends DaoParent {
     * standard configurations.
     *
     * @return the max id that was found.
-    * @throws DatabaseException
+    * @throws DatabaseException is thrown for any database error.
     */
    public long getMaxId() throws DatabaseException {
       List<Configuration> configs = readAll();

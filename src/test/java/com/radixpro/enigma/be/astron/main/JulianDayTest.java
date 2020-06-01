@@ -31,7 +31,7 @@ public class JulianDayTest {
    private JulianDay julianDay;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       when(dateMock.getYear()).thenReturn(2000);
       when(dateMock.getMonth()).thenReturn(1);
       when(dateMock.getDay()).thenReturn(1);

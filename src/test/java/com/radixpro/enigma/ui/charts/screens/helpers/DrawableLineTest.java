@@ -23,7 +23,7 @@ public class DrawableLineTest {
    private DrawableLine drawableLine;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       startPoint = new Point(100.0, 50.0);
       endPoint = new Point(200.0, 80.5);
       drawableLine = new DrawableLine(startPoint, endPoint, lineWidth, lineColor);

@@ -7,7 +7,9 @@
 package com.radixpro.enigma.xchg.domain;
 
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
+import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;
 import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,28 +22,35 @@ public class EclipticProjectionsTest {
       projection = EclipticProjections.SIDEREAL;
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getId() {
       assertEquals(2, projection.getId());
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
-   public void getRbKeyForName() {
+   @Test
+   public void getNameForRB() {
       assertEquals("eclipticprojections.sidereal", projection.getNameForRB());
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getProjectionForId() throws UnknownIdException {
       assertEquals(EclipticProjections.TROPICAL, projection.getProjectionForId(1));
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db(expected = UnknownIdException.class)
+   @Test(expected = UnknownIdException.class)
    public void getProjectionForIdNotFound() throws UnknownIdException {
       projection.getProjectionForId(1000);
    }
 
-   //   @Test   TODO release 2020.2: disabled test, requires init for db
+   @Test
    public void getObservableList() {
       assertEquals(2, projection.getObservableList().size());
+   }
+
+
+   @Test
+   public void getIndexMappings() {
+      IndexMappingsList imList = projection.getIndexMappings();
+      assertEquals(2, imList.getAllIndexMappings().size());
    }
 }

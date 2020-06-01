@@ -75,4 +75,6 @@ public class FullChartTest {
    public void getObliquity() {
       assertTrue(fullChart.getObliquity() > 0.0);
    }
+
+
 }

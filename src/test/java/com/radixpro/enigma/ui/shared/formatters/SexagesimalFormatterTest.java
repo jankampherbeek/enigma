@@ -22,7 +22,7 @@ public class SexagesimalFormatterTest {
    private double value2Format;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       formatter2 = new SexagesimalFormatter(2);
       formatter3 = new SexagesimalFormatter(3);
       formatter8 = new SexagesimalFormatter(8);

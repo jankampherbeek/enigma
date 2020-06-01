@@ -20,7 +20,7 @@ public class LocationTest {
    private Location location;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       longitudeGeoCoord = new GeographicCoordinate(122, 33, 44, "w", 122.56222222222222);
       latitudeGeoCoord = new GeographicCoordinate(18, 19, 20, "s", 18.32222222222222);
       location = new Location(longitudeGeoCoord, latitudeGeoCoord, name);

@@ -1,11 +1,10 @@
 package com.radixpro.enigma.be.persistency.mappers;
 
-import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import com.radixpro.enigma.xchg.domain.*;
 
 public class ChartDataCsvMapper {
 
-   public ChartData chartDataFromCsv(final String[] csvLine) throws UnknownIdException {
+   public ChartData chartDataFromCsv(final String[] csvLine) {
       return handleCsvLine(csvLine);
    }
 

@@ -22,7 +22,7 @@ public class GeographicCoordinateTest {
    private GeographicCoordinate coordinate;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       coordinate = new GeographicCoordinate(degrees, minutes, seconds, direction, 52.5);
    }
 

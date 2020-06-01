@@ -30,7 +30,7 @@ public class PresentableDateTimeTest {
    private PresentableDateTime presDateTime;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       dateTime = new SimpleDateTime(new SimpleDate(year, month, day, cal), new SimpleTime(hour, minute, second));
       fullDateTime = new FullDateTime(dateTime, timeZone, dst, offsetForLmt);
       presDateTime = new PresentableDateTime(fullDateTime);

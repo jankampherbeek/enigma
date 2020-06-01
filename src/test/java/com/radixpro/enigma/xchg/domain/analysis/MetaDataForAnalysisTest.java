@@ -21,7 +21,7 @@ public class MetaDataForAnalysisTest {
    private MetaDataForAnalysis meta;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       meta = new MetaDataForAnalysis(name, configName, baseOrb);
    }
 

@@ -18,7 +18,7 @@ public class ChartDrawMetricsTest {
    private ChartDrawMetrics metrics;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       metrics = new ChartDrawMetrics();
    }
 

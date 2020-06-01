@@ -19,7 +19,7 @@ public class IndexMappingTest {
    private IndexMapping indexMapping;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       indexMapping = new IndexMapping(sequenceId, enumId);
    }
 

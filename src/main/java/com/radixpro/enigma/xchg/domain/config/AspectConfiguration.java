@@ -19,10 +19,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class AspectConfiguration implements Serializable {
 
-   private double baseOrb;
-   private AspectOrbStructure orbStructure;
+   private final double baseOrb;
+   private final AspectOrbStructure orbStructure;
    private List<ConfiguredAspect> aspects;
-   private boolean drawInOutGoing;
+   private final boolean drawInOutGoing;
 
    /**
     * Constructor defines all members.

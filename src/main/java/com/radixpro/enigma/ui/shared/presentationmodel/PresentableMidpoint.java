@@ -26,7 +26,7 @@ public class PresentableMidpoint {
    private String midpointType;
    private String effectiveOrb;
    private String percOrb;
-   private Rosetta rosetta;
+   private final Rosetta rosetta;
 
    // TODO combine logic of PresentableMidpoint and PresentableAspect (maybe abstract parent ?).
    public PresentableMidpoint(final IAnalyzedPair midpoint) {

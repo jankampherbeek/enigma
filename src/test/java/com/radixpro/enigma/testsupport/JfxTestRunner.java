@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.testsupport;
 
-/**
+/*
  * This class makes it possible to unittest JavaFX items.
  * An example was published by Oliver Jan Krylow at https://stackoverflow.com/questions/18429422/basic-junit-test-for-javafx-8
  * Code retrieved via https://gist.github.com/bugabinga/

@@ -145,4 +145,12 @@ public class ValidatedLongitudeTest {
       valLong = new ValidatedLongitude((longTextOk));
       assertEquals(20, valLong.getSeconds());
    }
+
+   @Test
+   public void applyWesternLongitude() {
+      valLong = new ValidatedLongitude(longTextOk);
+      valLong.applyWesternLongitude();
+      assertTrue(valLong.isValidated());
+      assertEquals(-152.155555555555556, valLong.getValue(), DELTA);
+   }
 }

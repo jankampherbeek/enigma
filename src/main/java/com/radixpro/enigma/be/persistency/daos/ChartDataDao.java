@@ -9,7 +9,6 @@ package com.radixpro.enigma.be.persistency.daos;
 import com.opencsv.CSVReader;
 import com.radixpro.enigma.be.exceptions.DatabaseException;
 import com.radixpro.enigma.be.persistency.mappers.ChartDataCsvMapper;
-import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import com.radixpro.enigma.xchg.domain.ChartData;
 import org.apache.log4j.Logger;
 
@@ -127,7 +126,7 @@ public class ChartDataDao extends DaoParent {
             for (String[] line : allLines) {  // respectively id, key, value
                chartDataList.add(new ChartDataCsvMapper().chartDataFromCsv(line));
             }
-         } catch (UnknownIdException e) {
+         } catch (Exception e) {
             LOG.error("Exception when reading all chartdata. " + e.getMessage());
             throw new DatabaseException("Exception when reading all chartdata.");
          }

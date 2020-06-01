@@ -108,4 +108,12 @@ public class ValidatedLatitudeTest {
       assertEquals(20, valLat.getSeconds());
    }
 
+   @Test
+   public void applySouthernLatitude() {
+      ValidatedLatitude lat = new ValidatedLatitude(latTextOk);
+      lat.applySouthernLatitude();
+      assertTrue(lat.isValidated());
+      assertEquals(-52.15555555555556, lat.getValue(), DELTA);
+   }
+
 }

@@ -19,14 +19,14 @@ import static org.junit.Assert.assertFalse;
 public class ButtonFactoryTest {
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
    }
 
    @Test
    public void createButton() {
-      Object result = ButtonFactory.createButton("Dummy", false);
-      assertFalse(((Button) result).isDisabled());
-      assertEquals("Dummy", ((Button) result).getText());
+      Button result = ButtonFactory.createButton("Dummy", false);
+      assertFalse(result.isDisabled());
+      assertEquals("Dummy", result.getText());
 
    }
 }

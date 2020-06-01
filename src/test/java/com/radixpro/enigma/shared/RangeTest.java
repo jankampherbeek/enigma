@@ -18,7 +18,7 @@ public class RangeTest {
 
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       range = new Range(100.0, 200.0);
    }
 

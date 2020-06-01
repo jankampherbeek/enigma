@@ -19,18 +19,18 @@ public class ConfigurationCsvMapper {
    }
 
    private Configuration handleCsvLine(final String[] csvLine) throws UnknownIdException {
-      long id = Long.valueOf(csvLine[0]);
-      long parentId = Long.valueOf(csvLine[1]);
+      long id = Long.parseLong(csvLine[0]);
+      long parentId = Long.parseLong(csvLine[1]);
       String name = csvLine[2];
       String description = csvLine[3];
-      HouseSystems houseSystem = HouseSystems.EMPTY.getSystemForId(Integer.valueOf(csvLine[4]));
-      Ayanamshas ayanamsha = Ayanamshas.EMPTY.getAyanamshaForId(Integer.valueOf(csvLine[5]));
-      EclipticProjections eclipticProjection = EclipticProjections.EMPTY.getProjectionForId(Integer.valueOf(csvLine[6]));
-      ObserverPositions observerPosition = ObserverPositions.EMPTY.getObserverPositionForId(Integer.valueOf(csvLine[7]));
+      HouseSystems houseSystem = HouseSystems.EMPTY.getSystemForId(Integer.parseInt(csvLine[4]));
+      Ayanamshas ayanamsha = Ayanamshas.EMPTY.getAyanamshaForId(Integer.parseInt(csvLine[5]));
+      EclipticProjections eclipticProjection = EclipticProjections.EMPTY.getProjectionForId(Integer.parseInt(csvLine[6]));
+      ObserverPositions observerPosition = ObserverPositions.EMPTY.getObserverPositionForId(Integer.parseInt(csvLine[7]));
       List<ConfiguredCelObject> confCelObjects = createConfCelObjects(csvLine[8]);
       List<ConfiguredAspect> confAspects = createConfAspects(csvLine[9]);
-      double baseOrb = Double.valueOf(csvLine[10]);
-      AspectOrbStructure aspOrbStruct = AspectOrbStructure.ASPECT.getStructureForId(Integer.valueOf(csvLine[11]));
+      double baseOrb = Double.parseDouble(csvLine[10]);
+      AspectOrbStructure aspOrbStruct = AspectOrbStructure.ASPECT.getStructureForId(Integer.parseInt(csvLine[11]));
       boolean drawInOutGoing = "y".equalsIgnoreCase(csvLine[12]);
 
       AstronConfiguration astronConf = new AstronConfiguration(houseSystem, ayanamsha, eclipticProjection, observerPosition, confCelObjects);
@@ -54,9 +54,8 @@ public class ConfigurationCsvMapper {
       String aspectOrbStruct = Integer.toString(config.getDelinConfiguration().getAspectConfiguration().getOrbStructure().getId());
       String drawInOutGoing = config.getDelinConfiguration().getAspectConfiguration().isDrawInOutGoing() ? "y" : "n";
 
-      String[] csvData = {id, parentId, name, description, houseSystem, ayanamsha, eclProj, observerPos, confCelObjects,
+      return new String[]{id, parentId, name, description, houseSystem, ayanamsha, eclProj, observerPos, confCelObjects,
             confAspects, baseOrb, aspectOrbStruct, drawInOutGoing};
-      return csvData;
    }
 
    private List<ConfiguredCelObject> createConfCelObjects(final String csvData) throws UnknownIdException {
@@ -64,8 +63,8 @@ public class ConfigurationCsvMapper {
       String[] celObjData = csvData.split("\\|");
       for (String singleObjectData : celObjData) {
          String[] items = singleObjectData.split("-");
-         CelestialObjects celestialObject = CelestialObjects.EMPTY.getCelObjectForId(Integer.valueOf(items[0]));
-         int orbPercentage = Integer.valueOf(items[1]);
+         CelestialObjects celestialObject = CelestialObjects.EMPTY.getCelObjectForId(Integer.parseInt(items[0]));
+         int orbPercentage = Integer.parseInt(items[1]);
          boolean showCelBody = "y".equalsIgnoreCase(items[2]);
          String glyph = items[3];
          confCelObjects.add(new ConfiguredCelObject(celestialObject, glyph, orbPercentage, showCelBody));

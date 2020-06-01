@@ -65,4 +65,9 @@ public class CelestialObjectsTest {
    public void getOrbitalPeriod() {
       assertEquals(84.01, CelestialObjects.URANUS.getOrbitalPeriod(), 0.000000001);
    }
+
+   @Test
+   public void getIndexMappings() {
+      assertEquals(13, celBody.getIndexMappings().getAllIndexMappings().size());
+   }
 }
