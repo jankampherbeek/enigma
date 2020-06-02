@@ -14,6 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Factory for Panes.
  */
 public class PaneFactory {
+   // TODO replace with PaneBuilder
 
    private PaneFactory() {
       // prevent instantiation

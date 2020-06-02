@@ -14,7 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Factory for buttons.
  */
 public class LabelFactory {
-
+   // TODO replace with LabelBuilder
    private LabelFactory() {
       // prevent instantiation
    }

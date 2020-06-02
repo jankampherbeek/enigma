@@ -12,6 +12,7 @@ import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
+import javafx.stage.Stage;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,6 +33,7 @@ public class ConfigDetailsFactory {
       PropertiesForConfig prop4Config = new PropertiesForConfig(config,
             new CelObjectsInConfig(rosetta),
             new AspectsInConfig(rosetta), rosetta);
-      return new ConfigDetails(config.getName(), prop4Config, rosetta);
+      return new ConfigDetails(new Stage(), config.getName(), prop4Config, rosetta);
+
    }
 }
