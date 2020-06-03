@@ -10,14 +10,11 @@ import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesTableForConfig;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.ui.shared.factories.ButtonBuilder;
-import com.radixpro.enigma.ui.shared.factories.LabelBuilder;
-import com.radixpro.enigma.ui.shared.factories.PaneBuilder;
-import com.radixpro.enigma.ui.shared.factories.VBoxBuilder;
-import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
+import com.radixpro.enigma.ui.shared.factories.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -46,73 +43,48 @@ public class ConfigDetails {
    private Stage stage;
    private Button btnHelp;
    private Button btnExit;
+   private ButtonBar buttonBar;
+   private Label lblSubTitle;
+   private Label lblTitle;
+   private Pane paneData;
+   private Pane paneSeparator;
+   private Pane paneSubTitle;
+   private Pane paneTitle;
+   private TableView tableView;
+   private VBox vBox;
 
-   public ConfigDetails(final Stage stage, final String configName, final PropertiesForConfig propertiesForConfig, final Rosetta rosetta) {
-      this.stage = checkNotNull(stage);
+
+   public ConfigDetails(final String configName, final PropertiesForConfig propertiesForConfig, final Rosetta rosetta) {
       this.rosetta = checkNotNull(rosetta);
       this.configName = checkNotNull(configName);
       this.propertiesForConfig = checkNotNull(propertiesForConfig);
-      createNavigation();
-      showDetails();
+      populateStage();
+      defineListeners();
+      stage.show();
       LOG.info("ConfigDetails initialized for config: " + configName);
    }
 
-   private void createNavigation() {
+   private void populateStage() {
       btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
       btnExit = new ButtonBuilder(rosetta.getText("ui.shared.btn.exit")).setDisabled(false).build();
+      buttonBar = new ButtonBar();                       // TODO replace with builder
+      buttonBar.getButtons().addAll(btnHelp, btnExit);
+      lblTitle = new LabelBuilder(rosetta.getText("ui.configs.details.title")).setPrefWidth(OUTER_WIDTH).setStyleClass("titletext").build();
+      lblSubTitle = new LabelBuilder(configName).setPrefWidth(OUTER_WIDTH).setStyleClass("subtitletext").build();
+      tableView = new PropertiesTableForConfig().getTableView(TV_HEIGHT, INNER_WIDTH, propertiesForConfig.getProperties());  // TODO replace with builder
+      paneTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
+      paneSubTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
+      paneData = new PaneBuilder().setWidth(INNER_WIDTH).setHeight(TV_HEIGHT).setChildren(tableView).build();
+      paneSeparator = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(SEPARATOR_HEIGHT).build();
+      vBox = new VBoxBuilder().setWidth(OUTER_WIDTH).setHeight(HEIGHT).setPadding(GAP).setChildren(paneTitle, paneSubTitle, paneData, paneSeparator, buttonBar)
+            .build();
+      stage = new StageBuilder().setMinWidth(OUTER_WIDTH).setMinHeight(HEIGHT).setModality(Modality.APPLICATION_MODAL)
+            .setTitle(rosetta.getText("ui.configs.details.title")).setScene(new Scene(vBox)).build();
+   }
+
+   private void defineListeners() {
       btnHelp.setOnAction(click -> onHelp());
       btnExit.setOnAction(click -> onExit());
-   }
-
-   private void showDetails() {
-      stage.setMinHeight(HEIGHT);
-      stage.setMinWidth(OUTER_WIDTH);
-      stage.initModality(Modality.APPLICATION_MODAL);
-      stage.setTitle(rosetta.getText("ui.configs.details.title"));
-      stage.setScene(new Scene(createVBox()));
-      stage.show();
-   }
-
-   private VBox createVBox() {
-      return new VBoxBuilder(OUTER_WIDTH)
-            .setHeight(HEIGHT)
-            .setPadding(GAP)
-            .setChildren(createPaneTitle(), createPaneSubTitle(), createPaneData(), createPaneSeparator(), createButtonBar())
-            .build();
-   }
-
-   private Pane createPaneTitle() {
-      return new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT)
-            .setStyleClass("titlepane")
-            .setChildren(new LabelBuilder(rosetta.getText("ui.configs.details.title"))
-                  .setPrefWidth(OUTER_WIDTH)
-                  .setStyleClass("titletext").build()).build();
-   }
-
-   private Pane createPaneSubTitle() {
-      return new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT)
-            .setStyleClass("subtitlepane")
-            .setChildren(new LabelBuilder(configName)
-                  .setPrefWidth(OUTER_WIDTH)
-                  .setStyleClass("subtitletext").build()).build();
-   }
-
-   private Pane createPaneData() {
-      return new PaneBuilder().setWidth(INNER_WIDTH).setHeight(TV_HEIGHT).setChildren(createTableView()).build();
-   }
-
-   private Pane createPaneSeparator() {
-      return new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(SEPARATOR_HEIGHT).build();
-   }
-
-   private TableView<PresentableProperty> createTableView() {
-      return new PropertiesTableForConfig().getTableView(TV_HEIGHT, INNER_WIDTH, propertiesForConfig.getProperties());
-   }
-
-   private ButtonBar createButtonBar() {
-      ButtonBar buttonBar = new ButtonBar();
-      buttonBar.getButtons().addAll(btnHelp, btnExit);
-      return buttonBar;
    }
 
    private void onHelp() {
@@ -122,6 +94,5 @@ public class ConfigDetails {
    private void onExit() {
       stage.close();
    }
-
 
 }

@@ -11,21 +11,15 @@ import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForCelObject;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
-import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
-import com.radixpro.enigma.ui.shared.factories.LabelFactory;
-import com.radixpro.enigma.ui.shared.factories.PaneFactory;
+import com.radixpro.enigma.ui.shared.factories.*;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredCelObject;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -38,7 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.ui.shared.StyleDictionary.*;
+import static com.radixpro.enigma.ui.shared.StyleDictionary.INPUT_DEFAULT_STYLE;
+import static com.radixpro.enigma.ui.shared.StyleDictionary.INPUT_ERROR_STYLE;
 
 /**
  * Edit screen for existing configurations.
@@ -55,140 +50,111 @@ public class ConfigEdit {
    private static final double DATA_TEXT_WIDTH = 150.0;
    private static final double DATA_INPUT_WIDTH = 350.0;
    private static final double GAP = 6.0;
-
-   private final Stage stage;
    private final Rosetta rosetta;
    private final Configuration config;
    private InputStatus inputStatus = InputStatus.READY;
+   private Stage stage;
    private TextField descriptionInput;
-   private ChoiceBox<String> observerPosSelection;
-   private ChoiceBox<String> houseSystemSelection;
-   private ChoiceBox<String> eclipticProjSelection;
-   private ChoiceBox<String> ayanamshaSelection;
-   private CheckComboBox<String> celObjectsSelection;
+   private ChoiceBox<String> choiceBoxObserverPos;
+   private ChoiceBox<String> choiceBoxHouseSystem;
+   private ChoiceBox<String> choiceBoxEclipticProj;
+   private ChoiceBox<String> choiceBoxAyanamsha;
+   private CheckComboBox<String> checkComboBoxCelObjects;
+   private ButtonBar buttonBar;
    private Button btnOk;
+   private Button btnHelp;
+   private Button btnCancel;
    private IndexMappingsList indexMappingsEclProjections;
    private IndexMappingsList indexMappingsObsPositions;
    private IndexMappingsList indexMappingsHouseSystems;
    private IndexMappingsList indexMappingsCelObjects;
    private IndexMappingsList indexMappingsAyanamshas;
+   private Label lblDescription;
+   private Label lblSubTitle;
+   private Label lblTitle;
+   private Label lblHouseSystem;
+   private Label lblAyanamsha;
+   private Label lblObserverPosition;
+   private Label lblEclipticProjection;
+   private Label lblCelObjects;
+   private Pane paneSubTitle;
+   private Pane paneTitle;
+   private GridPane gridPane;
+   private VBox vBox;
 
-   public ConfigEdit(final Configuration config, final Stage stage, final Rosetta rosetta) {
+   public ConfigEdit(final Configuration config, final Rosetta rosetta) {
       this.rosetta = checkNotNull(rosetta);
       this.config = checkNotNull(config);
-      this.stage = checkNotNull(stage);
-      showEditableConfiguration();
+      populateStage();
+      defineListeners();
+      stage.showAndWait();
       LOG.info("ConfigEdit initialized for config: " + config.getName());
    }
 
-   private void showEditableConfiguration() {
-      stage.setMinHeight(HEIGHT);
-      stage.setMinWidth(WIDTH);
-      stage.initModality(Modality.APPLICATION_MODAL);
-      stage.setTitle(rosetta.getText("ui.configs.edit.title"));
-      stage.setScene(new Scene(createVBox()));
-      stage.showAndWait();
+   private void populateStage() {
+      btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
+      btnCancel = new ButtonBuilder(rosetta.getText("ui.shared.btn.cancel")).setDisabled(false).build();
+      btnOk = new ButtonBuilder(rosetta.getText("ui.shared.btn.ok")).setDisabled(false).build();
+      buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnOk).build();
+      lblTitle = new LabelBuilder(rosetta.getText("ui.configs.edit.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      lblSubTitle = new LabelBuilder(config.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
+      lblDescription = new LabelBuilder(rosetta.getText("ui.general.description")).setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblHouseSystem = new LabelBuilder(rosetta.getText("ui.general.housesystem")).setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblAyanamsha = new LabelBuilder(rosetta.getText("ui.general.ayanamsha")).setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblObserverPosition = new LabelBuilder(rosetta.getText("ui.general.observerposition")).setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblEclipticProjection = new LabelBuilder(rosetta.getText("ui.general.eclipticprojection")).setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblCelObjects = new LabelBuilder(rosetta.getText("ui.general.celobjects")).setPrefWidth(DATA_TEXT_WIDTH).build();
+      paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
+      paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitleplane").setChildren(lblSubTitle).build();
+      descriptionInput = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).setText(config.getDescription()).build();
+      choiceBoxHouseSystem = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(HouseSystems.EMPTY.getObservableList()).build();
+      indexMappingsHouseSystems = HouseSystems.EMPTY.getIndexMappings();
+      choiceBoxHouseSystem.getSelectionModel().select(indexMappingsHouseSystems.getSequenceIdForEnumId(config.getAstronConfiguration().getHouseSystem().getId()));
+      choiceBoxObserverPos = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(ObserverPositions.EMPTY.getObservableList()).build();
+      indexMappingsObsPositions = ObserverPositions.EMPTY.getIndexMappings();
+      choiceBoxObserverPos.getSelectionModel().select(indexMappingsObsPositions.getSequenceIdForEnumId(config.getAstronConfiguration().getObserverPosition().getId()));
+      choiceBoxEclipticProj = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(EclipticProjections.EMPTY.getObservableList()).build();
+      indexMappingsEclProjections = EclipticProjections.EMPTY.getIndexMappings();
+      choiceBoxEclipticProj.getSelectionModel().select(indexMappingsEclProjections.getSequenceIdForEnumId(config.getAstronConfiguration().getEclipticProjection().getId()));
+      choiceBoxAyanamsha = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(Ayanamshas.EMPTY.getObservableList()).build();
+      indexMappingsAyanamshas = Ayanamshas.EMPTY.getIndexMappings();
+      choiceBoxAyanamsha.getSelectionModel().select(indexMappingsAyanamshas.getSequenceIdForEnumId(config.getAstronConfiguration().getAyanamsha().getId()));
+      checkComboBoxCelObjects = createComboBoxCelObject();
+      checkComboBoxCelObjects = createComboBoxCelObject();
+      gridPane = createGridPane();
+      vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP).setChildren(paneTitle, paneSubTitle, gridPane, buttonBar).build();
+      stage = new StageBuilder().setMinHeight(HEIGHT).setMinWidth(WIDTH).setTitle(rosetta.getText("ui.configs.edit.title"))
+            .setModality(Modality.APPLICATION_MODAL).setScene(new Scene(vBox)).build();
    }
 
-   private VBox createVBox() {
-      final VBox vBox = new VBox();
-      vBox.setPadding(new Insets(GAP, GAP, GAP, GAP));
-      vBox.getStylesheets().add(STYLESHEET);
-      vBox.setPrefWidth(WIDTH);
-      vBox.setPrefHeight(HEIGHT);
-      vBox.getChildren().add(0, createPaneTitle());
-      vBox.getChildren().add(1, createPaneSubTitle());
-      vBox.getChildren().add(2, createGridPane());
-      vBox.getChildren().add(3, createButtonBar());
-      return vBox;
-   }
-
-   private Pane createPaneTitle() {
-      final Pane pane = PaneFactory.createPane(TITLE_HEIGHT, WIDTH, "titlepane");
-      pane.getChildren().add(LabelFactory.createLabel(rosetta.getText("ui.configs.edit.title"), "titletext", WIDTH));
-      return pane;
-   }
-
-   private Pane createPaneSubTitle() {
-      final Pane pane = PaneFactory.createPane(SUBTITLE_HEIGHT, WIDTH, "subtitlepane");
-      pane.getChildren().add(LabelFactory.createLabel(config.getName(), "subtitletext", WIDTH));
-      return pane;
+   private void defineListeners() {
+      btnHelp.setOnAction(click -> onHelp());
+      btnCancel.setOnAction(click -> onCancel());
+      btnOk.setOnAction(click -> onOk());
+      descriptionInput.textProperty().addListener((observable, oldValue, newValue) -> validateDescription(newValue));
+      choiceBoxEclipticProj.getSelectionModel().selectedIndexProperty().addListener((ov, value, newValue) -> onEclipticChange());
    }
 
    private GridPane createGridPane() {
-      GridPane gridPane = new GridPane();
-      gridPane.setPrefHeight(CONFIGDATA_HEIGHT);
-      gridPane.setHgap(6.0);
-      gridPane.setVgap(6.0);
-
-      gridPane.add(LabelFactory.createLabel(rosetta.getText("ui.general.description"), DATA_TEXT_WIDTH), 0, 1, 1, 1);
-      descriptionInput = new TextField();
-      descriptionInput.setPrefWidth(DATA_INPUT_WIDTH);
-      descriptionInput.setText(config.getDescription());
-      descriptionInput.textProperty().addListener((observable, oldValue, newValue) -> validateDescription(newValue));
+      GridPane gridPane = new GridPaneBuilder().setPrefHeight(CONFIGDATA_HEIGHT).setHGap(6.0).setVGap(6.0).build();
+      gridPane.add(lblDescription, 0, 1, 1, 1);
       gridPane.add(descriptionInput, 1, 1, 1, 1);
-      gridPane.add(LabelFactory.createLabel(rosetta.getText("ui.general.housesystem"), DATA_TEXT_WIDTH), 0, 2, 1, 1);
-      houseSystemSelection = createHouseSystemChoiceBox();
-      gridPane.add(houseSystemSelection, 1, 2, 1, 1);
-      gridPane.add(LabelFactory.createLabel(rosetta.getText("ui.general.observerposition"), DATA_TEXT_WIDTH), 0, 3, 1, 1);
-      observerPosSelection = createObserverPosChoiceBox();
-      gridPane.add(observerPosSelection, 1, 3, 1, 1);
-      gridPane.add(LabelFactory.createLabel(rosetta.getText("ui.general.eclipticprojection"), DATA_TEXT_WIDTH), 0, 4, 1, 1);
-      eclipticProjSelection = createEclipticProjChoiceBox();
-      gridPane.add(eclipticProjSelection, 1, 4, 1, 1);
-      gridPane.add(LabelFactory.createLabel(rosetta.getText("ui.general.ayanamsha"), DATA_TEXT_WIDTH), 0, 5, 1, 1);
-      ayanamshaSelection = createAyanamshaSelection();
-      gridPane.add(ayanamshaSelection, 1, 5, 1, 1);
-      gridPane.add(LabelFactory.createLabel(rosetta.getText("ui.general.celobjects"), DATA_TEXT_WIDTH), 0, 6, 1, 1);
-      celObjectsSelection = createCelObjectComboBox();
-      gridPane.add(celObjectsSelection, 1, 6, 1, 1);
+      gridPane.add(lblHouseSystem, 0, 2, 1, 1);
+      gridPane.add(choiceBoxHouseSystem, 1, 2, 1, 1);
+      gridPane.add(lblObserverPosition, 0, 3, 1, 1);
+      gridPane.add(choiceBoxObserverPos, 1, 3, 1, 1);
+      gridPane.add(lblEclipticProjection, 0, 4, 1, 1);
+      gridPane.add(choiceBoxEclipticProj, 1, 4, 1, 1);
+      gridPane.add(lblAyanamsha, 0, 5, 1, 1);
+      gridPane.add(choiceBoxAyanamsha, 1, 5, 1, 1);
+      gridPane.add(lblCelObjects, 0, 6, 1, 1);
+      gridPane.add(checkComboBoxCelObjects, 1, 6, 1, 1);
       onEclipticChange();
       return gridPane;
    }
 
-   private ChoiceBox<String> createHouseSystemChoiceBox() {
-      ChoiceBox<String> choiceBox = new ChoiceBox<>();
-      choiceBox.setPrefWidth(DATA_INPUT_WIDTH);
-      ObservableList<String> houses = HouseSystems.EMPTY.getObservableList();
-      indexMappingsHouseSystems = HouseSystems.EMPTY.getIndexMappings();
-      choiceBox.setItems(houses);
-      choiceBox.getSelectionModel().select(indexMappingsHouseSystems.getSequenceIdForEnumId(config.getAstronConfiguration().getHouseSystem().getId()));
-      return choiceBox;
-   }
-
-   private ChoiceBox<String> createObserverPosChoiceBox() {
-      ChoiceBox<String> choiceBox = new ChoiceBox<>();
-      choiceBox.setPrefWidth(DATA_INPUT_WIDTH);
-      ObservableList<String> observerPositions = ObserverPositions.EMPTY.getObservableList();
-      indexMappingsObsPositions = ObserverPositions.EMPTY.getIndexMappings();
-      choiceBox.setItems(observerPositions);
-      choiceBox.getSelectionModel().select(indexMappingsObsPositions.getSequenceIdForEnumId(config.getAstronConfiguration().getObserverPosition().getId()));
-      return choiceBox;
-   }
-
-   private ChoiceBox<String> createEclipticProjChoiceBox() {
-      ChoiceBox<String> choiceBox = new ChoiceBox<>();
-      choiceBox.setPrefWidth(DATA_INPUT_WIDTH);
-      ObservableList<String> eclipticProjections = EclipticProjections.EMPTY.getObservableList();
-      indexMappingsEclProjections = EclipticProjections.EMPTY.getIndexMappings();
-      choiceBox.setItems(eclipticProjections);
-      choiceBox.getSelectionModel().select(indexMappingsEclProjections.getSequenceIdForEnumId(config.getAstronConfiguration().getEclipticProjection().getId()));
-      choiceBox.getSelectionModel().selectedIndexProperty().addListener((ov, value, newValue) -> onEclipticChange());
-      return choiceBox;
-   }
-
-   private ChoiceBox<String> createAyanamshaSelection() {
-      ChoiceBox<String> choiceBox = new ChoiceBox<>(Ayanamshas.NONE.getObservableList());
-      indexMappingsAyanamshas = Ayanamshas.EMPTY.getIndexMappings();
-      choiceBox.setPrefWidth(DATA_INPUT_WIDTH);
-      choiceBox.getSelectionModel().select(indexMappingsAyanamshas.getSequenceIdForEnumId(config.getAstronConfiguration().getAyanamsha().getId()));
-      return choiceBox;
-   }
-
-
-   private CheckComboBox<String> createCelObjectComboBox() {
-      CheckComboBox<String> checkComboBox = new CheckComboBox<>();
-      checkComboBox.setPrefWidth(DATA_INPUT_WIDTH);
+   private CheckComboBox<String> createComboBoxCelObject() {
+      CheckComboBox<String> checkComboBox = new CheckComboBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).build();
       ObservableList<String> celObjects = CelestialObjects.EMPTY.getObservableList();
       indexMappingsCelObjects = CelestialObjects.EMPTY.getIndexMappings();
       for (String name : celObjects) {
@@ -198,23 +164,6 @@ public class ConfigEdit {
          checkComboBox.getCheckModel().check(indexMappingsCelObjects.getSequenceIdForEnumId(celestialObject.getCelObject().getId()));
       }
       return checkComboBox;
-   }
-
-   private ButtonBar createButtonBar() {
-      ButtonBar buttonBar = new ButtonBar();
-      Button btnHelp = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.help"), false);
-      Button btnCancel = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.cancel"), false);
-      btnOk = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.ok"), false);
-
-      btnHelp.setOnAction(click -> onHelp());
-      btnCancel.setOnAction(click -> onCancel());
-      btnOk.setOnAction(click -> onOk());
-
-      buttonBar.getButtons().add(btnHelp);
-      buttonBar.getButtons().add(btnCancel);
-      buttonBar.getButtons().add(btnOk);
-
-      return buttonBar;
    }
 
    private void validateDescription(final String newDescription) {
@@ -236,10 +185,10 @@ public class ConfigEdit {
    }
 
    private void onEclipticChange() {
-      int selectedIndex = eclipticProjSelection.getSelectionModel().getSelectedIndex();
+      int selectedIndex = choiceBoxEclipticProj.getSelectionModel().getSelectedIndex();
       if (selectedIndex >= 0) {
          int eclipticProjectionSelectedIndex = indexMappingsEclProjections.getEnumIdForSequenceId(selectedIndex);
-         ayanamshaSelection.setDisable(eclipticProjectionSelectedIndex != EclipticProjections.SIDEREAL.getId());
+         choiceBoxAyanamsha.setDisable(eclipticProjectionSelectedIndex != EclipticProjections.SIDEREAL.getId());
       }
    }
 
@@ -261,7 +210,7 @@ public class ConfigEdit {
 
    private void constructConfig() {
       config.setDescription(descriptionInput.getText());
-      int houseIndex = houseSystemSelection.getSelectionModel().getSelectedIndex();
+      int houseIndex = choiceBoxHouseSystem.getSelectionModel().getSelectedIndex();
       HouseSystems houseSystem = null;
       try {
          houseSystem = HouseSystems.EMPTY.getSystemForId(indexMappingsHouseSystems.getEnumIdForSequenceId(houseIndex));
@@ -270,7 +219,7 @@ public class ConfigEdit {
          LOG.error("Could not find housesystem when constructing config, defined HouseSystems.WHOLESIGN instead. Original message : " + e.getMessage());
       }
       config.getAstronConfiguration().setHouseSystem(houseSystem);
-      int observerPosIndex = observerPosSelection.getSelectionModel().getSelectedIndex();
+      int observerPosIndex = choiceBoxObserverPos.getSelectionModel().getSelectedIndex();
       ObserverPositions obsPos = null;
       try {
          obsPos = ObserverPositions.EMPTY.getObserverPositionForId(indexMappingsObsPositions.getEnumIdForSequenceId(observerPosIndex));
@@ -279,7 +228,7 @@ public class ConfigEdit {
          LOG.error("Could not find observer position when constructing config, defined ObserverPositions.GEOCENTRIC instead. Original message : " + e.getMessage());
       }
       config.getAstronConfiguration().setObserverPosition(obsPos);
-      int eclProjIndex = eclipticProjSelection.getSelectionModel().getSelectedIndex();
+      int eclProjIndex = choiceBoxEclipticProj.getSelectionModel().getSelectedIndex();
       EclipticProjections eclProj = null;
       try {
          eclProj = EclipticProjections.EMPTY.getProjectionForId(indexMappingsEclProjections.getEnumIdForSequenceId(eclProjIndex));
@@ -288,7 +237,7 @@ public class ConfigEdit {
          LOG.error("Could not find ecliptic projection when constructing config, defined EclipticProjections.TROPICAL instead. Original message : " + e.getMessage());
       }
       config.getAstronConfiguration().setEclipticProjection(eclProj);
-      int ayanamshaIndex = ayanamshaSelection.getSelectionModel().getSelectedIndex();
+      int ayanamshaIndex = choiceBoxAyanamsha.getSelectionModel().getSelectedIndex();
       Ayanamshas ayanamsha = null;
       try {
          ayanamsha = eclProj == EclipticProjections.SIDEREAL ? Ayanamshas.NONE.getAyanamshaForId(indexMappingsAyanamshas.getEnumIdForSequenceId(ayanamshaIndex)) : Ayanamshas.NONE;
@@ -299,7 +248,7 @@ public class ConfigEdit {
       config.getAstronConfiguration().setAyanamsha(ayanamsha);
 
       List<ConfiguredCelObject> celObjects = new ArrayList<>();
-      ObservableList<Integer> checkedIndices = celObjectsSelection.getCheckModel().getCheckedIndices();
+      ObservableList<Integer> checkedIndices = checkComboBoxCelObjects.getCheckModel().getCheckedIndices();
       int enumIndex;
       for (int celObjIndex : checkedIndices) {
          enumIndex = indexMappingsCelObjects.getEnumIdForSequenceId(celObjIndex);

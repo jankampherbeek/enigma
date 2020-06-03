@@ -2,31 +2,27 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
-import javafx.scene.control.Button;
-import org.junit.Before;
+import org.controlsfx.control.CheckComboBox;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static com.radixpro.enigma.testsupport.TextConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 @RunWith(JfxTestRunner.class)
-public class ButtonFactoryTest {
+public class CheckComboBoxBuilderTest {
 
-   @Before
-   public void setUp() {
-   }
+   private final double prefWidth = 339.8;
 
    @Test
-   public void createButton() {
-      Button result = ButtonFactory.createButton("Dummy", false);
-      assertFalse(result.isDisabled());
-      assertEquals("Dummy", result.getText());
-
+   public void setPrefWidth() {
+      CheckComboBox box = new CheckComboBoxBuilder().setPrefWidth(prefWidth).build();
+      assertEquals(prefWidth, box.getPrefWidth(), DELTA_8_POS);
    }
 }

@@ -8,9 +8,7 @@ package com.radixpro.enigma.ui.configs.screens;
 
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.configs.factories.ConfigDetailsFactory;
-import com.radixpro.enigma.ui.configs.factories.ConfigEditFactory;
-import com.radixpro.enigma.ui.configs.factories.ConfigNewFactory;
+import com.radixpro.enigma.ui.configs.factories.ConfigScreensFactory;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
@@ -238,11 +236,11 @@ public class ConfigOverview {
    private void onNew() {
       PresentableConfiguration config = selectedItems.get(0);
       long configId = config.getConfigId();
-      ConfigNew configNew = new ConfigNewFactory().createConfigNew(configApi.read(configId).get(0));
+      ConfigNew configNew = new ConfigScreensFactory().createConfigNew(configApi.read(configId).get(0));
 
       if (InputStatus.READY == configNew.getInputStatus()) {
          long newConfigId = configNew.getNewConfigId();
-         new ConfigEditFactory().createConfigEdit(configApi.read((int) newConfigId).get(0));
+         new ConfigScreensFactory().createConfigEdit(configApi.read((int) newConfigId).get(0));
          stage.close();
       }
    }
@@ -250,7 +248,7 @@ public class ConfigOverview {
    private void onDetails() {
       PresentableConfiguration config = selectedItems.get(0);
       long configId = config.getConfigId();
-      new ConfigDetailsFactory().createConfigDetails(configApi.read(configId).get(0));
+      new ConfigScreensFactory().createConfigDetails(configApi.read(configId).get(0));
    }
 
    private void onDelete() {
@@ -268,7 +266,7 @@ public class ConfigOverview {
    private void onEdit() {
       PresentableConfiguration config = selectedItems.get(0);
       long configId = config.getConfigId();
-      new ConfigEditFactory().createConfigEdit(configApi.read(configId).get(0));
+      new ConfigScreensFactory().createConfigEdit(configApi.read(configId).get(0));
       showOrReshow();
    }
 

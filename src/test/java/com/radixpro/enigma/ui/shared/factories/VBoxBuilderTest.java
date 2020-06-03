@@ -34,27 +34,27 @@ public class VBoxBuilderTest {
    }
 
    @Test
-   public void constructOnly() {
-      VBox vBox = new VBoxBuilder(width).build();
+   public void setWidth() {
+      VBox vBox = new VBoxBuilder().setWidth(width).build();
       assertEquals(width, vBox.getPrefWidth(), DELTA_8_POS);
       assertTrue(vBox.getStylesheets().contains("css/enigma.css"));
    }
 
    @Test
    public void setHeight() {
-      VBox vBox = new VBoxBuilder(width).setHeight(height).build();
+      VBox vBox = new VBoxBuilder().setHeight(height).build();
       assertEquals(height, vBox.getPrefHeight(), DELTA_8_POS);
    }
 
    @Test
    public void setPadding() {
-      VBox vBox = new VBoxBuilder(width).setPadding(padding).build();
+      VBox vBox = new VBoxBuilder().setPadding(padding).build();
       assertEquals(padding, vBox.getPadding().getBottom(), DELTA_8_POS);
    }
 
    @Test
    public void setChildren() {
-      VBox vBox = new VBoxBuilder(width).setChildren(label1, label2).build();
+      VBox vBox = new VBoxBuilder().setChildren(label1, label2).build();
       assertEquals(2, vBox.getChildren().size());
    }
 }

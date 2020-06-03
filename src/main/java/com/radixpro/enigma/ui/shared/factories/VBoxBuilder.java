@@ -20,15 +20,16 @@ import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
  */
 public class VBoxBuilder {
 
-   private final double prefWidth;
+   private double prefWidth;
    private double padding;
    private double prefHeight;
    private Node[] children;
 
 
-   public VBoxBuilder(final double prefWidth) {
+   public VBoxBuilder setWidth(final double prefWidth) {
       checkArgument(prefWidth > 0.0);
       this.prefWidth = prefWidth;
+      return this;
    }
 
    public VBoxBuilder setHeight(final double prefHeight) {
