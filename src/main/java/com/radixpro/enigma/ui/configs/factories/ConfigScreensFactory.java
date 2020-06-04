@@ -10,10 +10,12 @@ import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.configs.screens.ConfigDetails;
 import com.radixpro.enigma.ui.configs.screens.ConfigEdit;
 import com.radixpro.enigma.ui.configs.screens.ConfigNew;
+import com.radixpro.enigma.ui.configs.screens.ConfigOverview;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
+import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -59,5 +61,9 @@ public class ConfigScreensFactory {
    public ConfigNew createConfigNew(final Configuration config) {
       checkNotNull(config);
       return new ConfigNew(config, Rosetta.getRosetta(), new PersistedConfigurationApi());
+   }
+
+   public ConfigOverview createConfigOverview() {
+      return new ConfigOverview(new PersistedConfigurationApi(), new PersistedPropertyApi(), Rosetta.getRosetta());
    }
 }

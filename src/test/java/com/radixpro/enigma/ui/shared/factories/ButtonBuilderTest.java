@@ -12,8 +12,7 @@ import javafx.scene.control.Button;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @RunWith(JfxTestRunner.class)
 public class ButtonBuilderTest {
@@ -28,7 +27,17 @@ public class ButtonBuilderTest {
 
    @Test
    public void setDisabled() {
-      Button button = new ButtonBuilder(text).setDisabled(true).build();
+      Button button = new ButtonBuilder(text).build();
+      assertFalse(button.isDisabled());
+      button = new ButtonBuilder(text).setDisabled(true).build();
       assertTrue(button.isDisabled());
+   }
+
+   @Test
+   public void setFocusTraversable() {
+      Button button = new ButtonBuilder(text).build();
+      assertFalse(button.isFocusTraversable());
+      button = new ButtonBuilder(text).setFocusTraversable(true).build();
+      assertTrue(button.isFocusTraversable());
    }
 }

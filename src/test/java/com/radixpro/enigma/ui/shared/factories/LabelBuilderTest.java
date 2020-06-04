@@ -8,6 +8,7 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,10 +21,12 @@ import static org.junit.Assert.assertTrue;
 public class LabelBuilderTest {
 
    private final String text = "Just a text.";
-   private final double width = 333.3;
+   private final double prefWidth = 333.3;
+   private final double prefHeight = 222.2;
    private final double layoutX = 150.0;
    private final double layoutY = 88.88;
    private final String styleClass = "myStyle";
+   private final Pos alignment = Pos.BASELINE_CENTER;
 
    @Test
    public void constructOnly() throws Exception {
@@ -33,8 +36,14 @@ public class LabelBuilderTest {
 
    @Test
    public void setPrefWidth() {
-      Label label = new LabelBuilder(text).setPrefWidth(width).build();
-      assertEquals(width, label.getPrefWidth(), DELTA_8_POS);
+      Label label = new LabelBuilder(text).setPrefWidth(prefWidth).build();
+      assertEquals(prefWidth, label.getPrefWidth(), DELTA_8_POS);
+   }
+
+   @Test
+   public void setPrefHeight() {
+      Label label = new LabelBuilder(text).setPrefHeight(prefHeight).build();
+      assertEquals(prefHeight, label.getPrefHeight(), DELTA_8_POS);
    }
 
    @Test
@@ -54,4 +63,11 @@ public class LabelBuilderTest {
       Label label = new LabelBuilder(text).setStyleClass(styleClass).build();
       assertTrue(label.getStyleClass().contains(styleClass));
    }
+
+   @Test
+   public void setAlignment() {
+      Label label = new LabelBuilder(text).setAlignment(alignment).build();
+      assertEquals(alignment, label.getAlignment());
+   }
+
 }

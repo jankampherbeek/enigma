@@ -11,16 +11,13 @@ import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.configs.factories.ConfigScreensFactory;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
-import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
-import com.radixpro.enigma.ui.shared.factories.LabelFactory;
-import com.radixpro.enigma.ui.shared.factories.PaneFactory;
+import com.radixpro.enigma.ui.shared.factories.*;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableConfiguration;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -34,7 +31,7 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 
-import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Overview of configurations with the possibility to perform actions on these configurations.
@@ -52,143 +49,97 @@ public class ConfigOverview {
    private final Rosetta rosetta;
    private final PersistedConfigurationApi configApi;
    private final PersistedPropertyApi propApi;
-   private final Stage stage;
    private ObservableList<PresentableConfiguration> selectedItems;
+   private boolean selectionChanged = false;
+   private Stage stage;
+   private VBox vBox;
+   private Label lblTitle;
+   private Label lblInstruction;
    private Button btnSelect;
    private Button btnNew;
    private Button btnDetails;
    private Button btnEdit;
    private Button btnDelete;
-   private boolean selectionChanged = false;
+   private Button btnHelp;
+   private Button btnExit;
+   private ButtonBar buttonBar;
+   private Pane paneTitle;
+   private Pane paneInstruction;
+   private Pane paneSeparator;
+   private Pane paneStandard;
+   private Pane paneButtons;
+   private TableColumn<PresentableConfiguration, String> nameColumn;
+   private TableColumn<PresentableConfiguration, String> descriptionColumn;
+   private TableColumn<PresentableConfiguration, String> stndColumn;
+   private TableView<PresentableConfiguration> tableView;
 
-   public ConfigOverview() {
-      configApi = new PersistedConfigurationApi();
-      propApi = new PersistedPropertyApi();
-      stage = new Stage();
-      rosetta = Rosetta.getRosetta();
-      showOverview();
+   public ConfigOverview(final PersistedConfigurationApi configApi, final PersistedPropertyApi propApi, final Rosetta rosetta) {
+      this.configApi = checkNotNull(configApi);
+      this.propApi = checkNotNull(propApi);
+      this.rosetta = rosetta;
+      populateStage();
+      fillTableView();
+      defineListeners();
+      stage.show();
    }
 
-   private void showOverview() {
-      stage.setMinHeight(HEIGHT);
-      stage.setMinWidth(WIDTH);
-      stage.initModality(Modality.APPLICATION_MODAL);
-      stage.setTitle(rosetta.getText("ui.configs.overview.title"));
-      showOrReshow();
+   private void populateStage() {
+      lblTitle = new LabelBuilder(rosetta.getText("ui.configs.overview.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      lblInstruction = new LabelBuilder(rosetta.getText("ui.configs.overview.instruction")).setPrefHeight(INSTRUCTION_HEIGHT).setPrefWidth(WIDTH)
+            .setAlignment(Pos.CENTER).build();
+      btnSelect = new ButtonBuilder(rosetta.getText("ui.shared.btn.select")).setDisabled(true).build();
+      btnNew = new ButtonBuilder(rosetta.getText("ui.shared.btn.new")).setDisabled(true).build();
+      btnDetails = new ButtonBuilder(rosetta.getText("ui.shared.btn.details")).setDisabled(true).build();
+      btnEdit = new ButtonBuilder(rosetta.getText("ui.shared.btn.edit")).setDisabled(true).setFocusTraversable(false).build();
+      btnDelete = new ButtonBuilder(rosetta.getText("ui.shared.btn.delete")).setDisabled(true).setFocusTraversable(false).build();
+      btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
+      btnExit = new ButtonBuilder(rosetta.getText("ui.shared.btn.exit")).setDisabled(false).build();
+      buttonBar = new ButtonBarBuilder().setButtons(btnSelect, btnDetails, btnEdit, btnNew, btnDelete, btnHelp, btnExit).build();
+      nameColumn = new TableColumnBuilder().setText(rosetta.getText("ui.general.name"))
+            .setCellValueFactory(new PropertyValueFactory<>("configName")).build();
+      descriptionColumn = new TableColumnBuilder().setText(rosetta.getText("ui.general.description"))
+            .setCellValueFactory(new PropertyValueFactory<>("configDescription")).build();
+      stndColumn = new TableColumnBuilder().setText(rosetta.getText("ui.configs.overview.colstandard"))
+            .setCellValueFactory(new PropertyValueFactory<>("standardIndication")).build();
+      tableView = new TableViewBuilder().setPrefHeight(TV_HEIGHT).setPrefWidth(WIDTH).setColumns(nameColumn, descriptionColumn, stndColumn).build();
+      paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
+      paneInstruction = new PaneBuilder().setWidth(WIDTH).setHeight(INSTRUCTION_HEIGHT).setChildren(lblInstruction).build();
+      paneSeparator = new PaneBuilder().setWidth(WIDTH).setHeight(SEPARATOR_HEIGHT).build();
+      paneStandard = new PaneBuilder().setWidth(WIDTH).setHeight(TV_HEIGHT).setChildren(tableView).build();
+      paneButtons = new PaneBuilder().setWidth(WIDTH).setHeight(BTN_PANE_HEIGHT).setChildren(buttonBar).build();
+      vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP)
+            .setChildren(paneTitle, paneInstruction, paneStandard, paneSeparator, paneButtons).build();
+      stage = new StageBuilder().setMinWidth(WIDTH).setMinHeight(HEIGHT).setModality(Modality.APPLICATION_MODAL)
+            .setTitle(rosetta.getText("ui.configs.overview.title")).setScene(new Scene(vBox)).build();
+   }
+
+   private void defineListeners() {
+      btnSelect.setOnAction(click -> onSelect());
+      btnNew.setOnAction(click -> onNew());
+      btnDetails.setOnAction(click -> onDetails());
+      btnEdit.setOnAction(click -> onEdit());
+      btnDelete.setOnAction(click -> onDelete());
+      btnHelp.setOnAction(click -> onHelp());
+      btnExit.setOnAction(click -> onExit());
+      selectedItems.addListener((ListChangeListener<PresentableConfiguration>) change -> onSelectItem());
    }
 
    private void showOrReshow() {
       stage.close();
-      stage.setScene(new Scene(createVBox()));
+      populateStage();
       stage.showAndWait();
    }
 
-   private VBox createVBox() {
-      final VBox vBox = new VBox();
-      vBox.setPadding(new Insets(GAP, GAP, GAP, GAP));
-      vBox.getStylesheets().add(STYLESHEET);
-      vBox.setPrefWidth(WIDTH);
-      vBox.setPrefHeight(HEIGHT);
-      vBox.getChildren().add(0, createPaneTitle());
-      vBox.getChildren().add(1, createPaneInstruction());
-      vBox.getChildren().add(2, createPaneStandard());
-      vBox.getChildren().add(3, createPaneSeparator());
-      vBox.getChildren().add(4, createPaneBtns());
-      return vBox;
-   }
-
-   private Pane createPaneSeparator() {
-      return PaneFactory.createPane(SEPARATOR_HEIGHT, WIDTH);
-   }
-
-   private Pane createPaneTitle() {
-      final Pane pane = PaneFactory.createPane(TITLE_HEIGHT, WIDTH, "titlepane");
-      pane.getChildren().add(LabelFactory.createLabel(rosetta.getText("ui.configs.overview.title"), "titletext", WIDTH));
-      return pane;
-   }
-
-   private Pane createPaneInstruction() {
-      final Pane pane = PaneFactory.createPane(INSTRUCTION_HEIGHT, WIDTH);
-      Label lblInstruction = LabelFactory.createLabel(rosetta.getText("ui.configs.overview.instruction"));
-      lblInstruction.setPrefHeight(INSTRUCTION_HEIGHT);
-      lblInstruction.setPrefWidth(WIDTH);
-      lblInstruction.setAlignment(Pos.CENTER);
-      pane.getChildren().add(lblInstruction);
-      return pane;
-   }
-
-   private Pane createPaneStandard() {
-      final Pane pane = PaneFactory.createPane(TV_HEIGHT, WIDTH);
-      pane.getChildren().add(createTableView());
-      return pane;
-   }
-
-   private Pane createPaneBtns() {
-      final Pane pane = PaneFactory.createPane(BTN_PANE_HEIGHT, WIDTH);
-      pane.getChildren().add(createButtonBar());
-      return pane;
-   }
-
-   private TableView<PresentableConfiguration> createTableView() {
-      final TableView<PresentableConfiguration> tableView = new TableView<>();
-      tableView.setPrefHeight(TV_HEIGHT);
-      tableView.setPrefWidth(WIDTH);
-      TableColumn<PresentableConfiguration, String> nameColumn = new TableColumn<>(rosetta.getText("ui.general.name"));
-      nameColumn.setCellValueFactory(new PropertyValueFactory<>("configName"));
-      TableColumn<PresentableConfiguration, String> descriptionColumn = new TableColumn<>(rosetta.getText("ui.general.description"));
-      descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("configDescription"));
-      TableColumn<PresentableConfiguration, String> stndColumn = new TableColumn<>(rosetta.getText("ui.configs.overview.colstandard"));
-      stndColumn.setCellValueFactory(new PropertyValueFactory<>("standardIndication"));
+   private void fillTableView() {
       TableViewSelectionModel<PresentableConfiguration> selectionModel = tableView.getSelectionModel();
       selectionModel.setSelectionMode(SelectionMode.SINGLE);
       selectedItems = selectionModel.getSelectedItems();
-      selectedItems.addListener((ListChangeListener<PresentableConfiguration>) change -> onSelectItem());
-
-      tableView.getColumns().add(nameColumn);
-      tableView.getColumns().add(descriptionColumn);
-      tableView.getColumns().add(stndColumn);
-
       List<Configuration> configs = configApi.readAll();
       for (Configuration config : configs) {
          PresentableConfiguration presConfig = new PresentableConfiguration(config);
          tableView.getItems().add(presConfig);
       }
-      return tableView;
    }
-
-   private ButtonBar createButtonBar() {
-      final ButtonBar buttonBar = new ButtonBar();
-      btnSelect = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.select"), true);
-      btnNew = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.new"), true);
-      btnDetails = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.details"), true);
-      btnEdit = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.edit"), true);
-      btnDelete = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.delete"), true);
-      Button btnHelp = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.help"), false);
-      Button btnExit = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.exit"), false);
-
-      btnSelect.setOnAction(click -> onSelect());
-      btnNew.setOnAction(click -> onNew());
-      btnDetails.setOnAction(click -> onDetails());
-      btnEdit.setOnAction(click -> onEdit());
-      btnEdit.setDisable(true);
-      btnEdit.setFocusTraversable(false);
-      btnDelete.setOnAction(click -> onDelete());
-      btnDelete.setDisable(true);
-      btnDelete.setFocusTraversable(false);
-      btnHelp.setOnAction(click -> onHelp());
-      btnExit.setOnAction(click -> onExit());
-
-      buttonBar.getButtons().add(btnSelect);
-      buttonBar.getButtons().add(btnDetails);
-      buttonBar.getButtons().add(btnEdit);
-      buttonBar.getButtons().add(btnNew);
-      buttonBar.getButtons().add(btnDelete);
-      buttonBar.getButtons().add(btnHelp);
-      buttonBar.getButtons().add(btnExit);
-
-      return buttonBar;
-   }
-
 
    private void onSelectItem() {
       if (selectedItems.isEmpty()) {
@@ -219,7 +170,6 @@ public class ConfigOverview {
             btnDelete.setDisable(true);
             btnEdit.setFocusTraversable(false);
          }
-
       }
    }
 

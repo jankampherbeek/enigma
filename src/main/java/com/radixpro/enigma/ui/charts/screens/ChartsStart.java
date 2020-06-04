@@ -10,7 +10,7 @@ import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.factories.ChartsScreensFactory;
-import com.radixpro.enigma.ui.configs.screens.ConfigOverview;
+import com.radixpro.enigma.ui.configs.factories.ConfigScreensFactory;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
@@ -263,7 +263,7 @@ public class ChartsStart {
    }
 
    void onConfig() {
-      new ConfigOverview();
+      new ConfigScreensFactory().createConfigOverview();
       initialize();
       showIt();
    }
