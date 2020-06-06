@@ -15,16 +15,16 @@ import static org.junit.Assert.assertEquals;
 public class PlainDmsValueTest {
 
    private PlainDmsValue plainDmsValue;
-   private final double value = 123.456789054;
-   private final String expected = "123" + DEGREESIGN + 27 + MINUTESIGN + 24 + SECONDSIGN;
 
    @Before
    public void setUp() {
+      double value = 123.456789054;
       plainDmsValue = new PlainDmsValue(value);
    }
 
    @Test
    public void getFormattedPosition() {
+      String expected = "123" + DEGREESIGN + 27 + MINUTESIGN + 24 + SECONDSIGN;
       assertEquals(expected, plainDmsValue.getFormattedPosition());
    }
 

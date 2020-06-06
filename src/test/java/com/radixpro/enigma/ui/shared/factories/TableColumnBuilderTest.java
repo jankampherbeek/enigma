@@ -18,11 +18,11 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JfxTestRunner.class)
 public class TableColumnBuilderTest {
 
-   private final String text = "column name";
-   private PropertyValueFactory cellValueFactory = new PropertyValueFactory<>("someValue");
+   private final PropertyValueFactory cellValueFactory = new PropertyValueFactory<>("someValue");
 
    @Test
    public void setText() {
+      String text = "column name";
       TableColumn col = new TableColumnBuilder().setText(text).build();
       assertEquals(text, col.getText());
    }

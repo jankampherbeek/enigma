@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class AspectOrbStructureTest {
 
-   private AspectOrbStructure structure = AspectOrbStructure.ASPECT;
+   private final AspectOrbStructure structure = AspectOrbStructure.ASPECT;
 
 
    @Test

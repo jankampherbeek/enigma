@@ -21,19 +21,19 @@ import static org.mockito.Mockito.when;
 public class PresentableEclipticPositionTest {
 
    private final CelestialObjects celestialObject = CelestialObjects.SUN;
-   private final double mainPos = 90.9;
-   private final double devPos = -3.3;
-   private final double mainSpeed = 0.5;
-   private final double devSpeed = 0.02;
    @Mock
    private CelObjectSinglePosition celObjectSinglePositionMock;
    private PresentableEclipticPosition position;
 
    @Before
    public void setUp() {
+      double mainPos = 90.9;
       when(celObjectSinglePositionMock.getMainPosition()).thenReturn(mainPos);
+      double devPos = -3.3;
       when(celObjectSinglePositionMock.getDeviationPosition()).thenReturn(devPos);
+      double mainSpeed = 0.5;
       when(celObjectSinglePositionMock.getMainSpeed()).thenReturn(mainSpeed);
+      double devSpeed = 0.02;
       when(celObjectSinglePositionMock.getDeviationSpeed()).thenReturn(devSpeed);
       position = new PresentableEclipticPosition(celestialObject, celObjectSinglePositionMock);
    }

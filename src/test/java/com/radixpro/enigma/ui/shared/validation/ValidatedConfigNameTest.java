@@ -12,13 +12,12 @@ import static org.junit.Assert.*;
 
 public class ValidatedConfigNameTest {
 
-   private final String correctName = "My Great Config";
-   private final String emptyName = "";
    private ValidatedConfigName valConfigName;
 
 
    @Test
    public void happyFlow() {
+      String correctName = "My Great Config";
       valConfigName = new ValidatedConfigName(correctName);
       assertTrue(valConfigName.isValidated());
       assertEquals(correctName, valConfigName.getNameText());
@@ -26,6 +25,7 @@ public class ValidatedConfigNameTest {
 
    @Test
    public void emptyName() {
+      String emptyName = "";
       valConfigName = new ValidatedConfigName(emptyName);
       assertFalse(valConfigName.isValidated());
       assertEquals(emptyName, valConfigName.getNameText());

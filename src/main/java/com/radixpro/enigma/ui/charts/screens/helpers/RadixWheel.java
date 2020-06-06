@@ -6,14 +6,14 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
-import com.radixpro.enigma.be.astron.assist.HousePosition;
-import com.radixpro.enigma.be.astron.main.CelObjectPosition;
+import com.radixpro.enigma.be.calc.assist.HousePosition;
+import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.ui.shared.factories.PlotCoordinatesFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
-import com.radixpro.enigma.xchg.api.ApiFactory;
 import com.radixpro.enigma.xchg.api.AspectsApi;
 import com.radixpro.enigma.xchg.api.CalculatedFullChart;
+import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MundanePoints;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
@@ -328,7 +328,7 @@ public class RadixWheel {
       List<IObjectVo> housesList = new ArrayList<>();
       housesList.add(fullHousesList.get(0));
       housesList.add(fullHousesList.get(1));
-      AspectsApi api = new ApiFactory().createAspectsApi();
+      AspectsApi api = new ApiAnalysisFactory().createAspectsApi();
       final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList,
             currentConfig.getDelinConfiguration().getAspectConfiguration());
       List<CelObjectPosition> bodies = cfChart.getFullChart().getBodies();

@@ -21,11 +21,6 @@ import static org.junit.Assert.assertTrue;
 public class LabelBuilderTest {
 
    private final String text = "Just a text.";
-   private final double prefWidth = 333.3;
-   private final double prefHeight = 222.2;
-   private final double layoutX = 150.0;
-   private final double layoutY = 88.88;
-   private final String styleClass = "myStyle";
    private final Pos alignment = Pos.BASELINE_CENTER;
 
    @Test
@@ -36,30 +31,35 @@ public class LabelBuilderTest {
 
    @Test
    public void setPrefWidth() {
+      double prefWidth = 333.3;
       Label label = new LabelBuilder(text).setPrefWidth(prefWidth).build();
       assertEquals(prefWidth, label.getPrefWidth(), DELTA_8_POS);
    }
 
    @Test
    public void setPrefHeight() {
+      double prefHeight = 222.2;
       Label label = new LabelBuilder(text).setPrefHeight(prefHeight).build();
       assertEquals(prefHeight, label.getPrefHeight(), DELTA_8_POS);
    }
 
    @Test
    public void setLayoutX() {
+      double layoutX = 150.0;
       Label label = new LabelBuilder(text).setLayoutX(layoutX).build();
       assertEquals(layoutX, label.getLayoutX(), DELTA_8_POS);
    }
 
    @Test
    public void setLayoutY() {
+      double layoutY = 88.88;
       Label label = new LabelBuilder(text).setLayoutY(layoutY).build();
       assertEquals(layoutY, label.getLayoutY(), DELTA_8_POS);
    }
 
    @Test
    public void setStyleClass() {
+      String styleClass = "myStyle";
       Label label = new LabelBuilder(text).setStyleClass(styleClass).build();
       assertTrue(label.getStyleClass().contains(styleClass));
    }

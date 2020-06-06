@@ -18,7 +18,6 @@ public class GeographicCoordinateTest {
    private final int minutes = 30;
    private final int seconds = 0;
    private final String direction = "N";
-   private final double value = 52.5;
    private GeographicCoordinate coordinate;
 
    @Before
@@ -48,6 +47,7 @@ public class GeographicCoordinateTest {
 
    @Test
    public void getValue() {
+      double value = 52.5;
       assertEquals(value, coordinate.getValue(), DELTA);
    }
 

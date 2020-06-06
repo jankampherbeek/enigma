@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.AspectOrbStructure;
 import com.radixpro.enigma.xchg.domain.CelCoordinateElementVo;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
@@ -43,7 +44,7 @@ public class AspectsApiIntTest {
       celObjects = createCelObjects();
       mundaneValues = createMundaneValues();
       config = createConfig();
-      api = new ApiFactory().createAspectsApi();
+      api = new ApiAnalysisFactory().createAspectsApi();
    }
 
    @Test

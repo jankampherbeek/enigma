@@ -52,9 +52,6 @@ public class ConfigOverview {
    private ObservableList<PresentableConfiguration> selectedItems;
    private boolean selectionChanged = false;
    private Stage stage;
-   private VBox vBox;
-   private Label lblTitle;
-   private Label lblInstruction;
    private Button btnSelect;
    private Button btnNew;
    private Button btnDetails;
@@ -62,15 +59,6 @@ public class ConfigOverview {
    private Button btnDelete;
    private Button btnHelp;
    private Button btnExit;
-   private ButtonBar buttonBar;
-   private Pane paneTitle;
-   private Pane paneInstruction;
-   private Pane paneSeparator;
-   private Pane paneStandard;
-   private Pane paneButtons;
-   private TableColumn<PresentableConfiguration, String> nameColumn;
-   private TableColumn<PresentableConfiguration, String> descriptionColumn;
-   private TableColumn<PresentableConfiguration, String> stndColumn;
    private TableView<PresentableConfiguration> tableView;
 
    public ConfigOverview(final PersistedConfigurationApi configApi, final PersistedPropertyApi propApi, final Rosetta rosetta) {
@@ -84,8 +72,8 @@ public class ConfigOverview {
    }
 
    private void populateStage() {
-      lblTitle = new LabelBuilder(rosetta.getText("ui.configs.overview.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      lblInstruction = new LabelBuilder(rosetta.getText("ui.configs.overview.instruction")).setPrefHeight(INSTRUCTION_HEIGHT).setPrefWidth(WIDTH)
+      Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.overview.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblInstruction = new LabelBuilder(rosetta.getText("ui.configs.overview.instruction")).setPrefHeight(INSTRUCTION_HEIGHT).setPrefWidth(WIDTH)
             .setAlignment(Pos.CENTER).build();
       btnSelect = new ButtonBuilder(rosetta.getText("ui.shared.btn.select")).setDisabled(true).build();
       btnNew = new ButtonBuilder(rosetta.getText("ui.shared.btn.new")).setDisabled(true).build();
@@ -94,20 +82,20 @@ public class ConfigOverview {
       btnDelete = new ButtonBuilder(rosetta.getText("ui.shared.btn.delete")).setDisabled(true).setFocusTraversable(false).build();
       btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
       btnExit = new ButtonBuilder(rosetta.getText("ui.shared.btn.exit")).setDisabled(false).build();
-      buttonBar = new ButtonBarBuilder().setButtons(btnSelect, btnDetails, btnEdit, btnNew, btnDelete, btnHelp, btnExit).build();
-      nameColumn = new TableColumnBuilder().setText(rosetta.getText("ui.general.name"))
+      ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnSelect, btnDetails, btnEdit, btnNew, btnDelete, btnHelp, btnExit).build();
+      TableColumn<PresentableConfiguration, String> nameColumn = new TableColumnBuilder().setText(rosetta.getText("ui.general.name"))
             .setCellValueFactory(new PropertyValueFactory<>("configName")).build();
-      descriptionColumn = new TableColumnBuilder().setText(rosetta.getText("ui.general.description"))
+      TableColumn<PresentableConfiguration, String> descriptionColumn = new TableColumnBuilder().setText(rosetta.getText("ui.general.description"))
             .setCellValueFactory(new PropertyValueFactory<>("configDescription")).build();
-      stndColumn = new TableColumnBuilder().setText(rosetta.getText("ui.configs.overview.colstandard"))
+      TableColumn<PresentableConfiguration, String> stndColumn = new TableColumnBuilder().setText(rosetta.getText("ui.configs.overview.colstandard"))
             .setCellValueFactory(new PropertyValueFactory<>("standardIndication")).build();
       tableView = new TableViewBuilder().setPrefHeight(TV_HEIGHT).setPrefWidth(WIDTH).setColumns(nameColumn, descriptionColumn, stndColumn).build();
-      paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
-      paneInstruction = new PaneBuilder().setWidth(WIDTH).setHeight(INSTRUCTION_HEIGHT).setChildren(lblInstruction).build();
-      paneSeparator = new PaneBuilder().setWidth(WIDTH).setHeight(SEPARATOR_HEIGHT).build();
-      paneStandard = new PaneBuilder().setWidth(WIDTH).setHeight(TV_HEIGHT).setChildren(tableView).build();
-      paneButtons = new PaneBuilder().setWidth(WIDTH).setHeight(BTN_PANE_HEIGHT).setChildren(buttonBar).build();
-      vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP)
+      Pane paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
+      Pane paneInstruction = new PaneBuilder().setWidth(WIDTH).setHeight(INSTRUCTION_HEIGHT).setChildren(lblInstruction).build();
+      Pane paneSeparator = new PaneBuilder().setWidth(WIDTH).setHeight(SEPARATOR_HEIGHT).build();
+      Pane paneStandard = new PaneBuilder().setWidth(WIDTH).setHeight(TV_HEIGHT).setChildren(tableView).build();
+      Pane paneButtons = new PaneBuilder().setWidth(WIDTH).setHeight(BTN_PANE_HEIGHT).setChildren(buttonBar).build();
+      VBox vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP)
             .setChildren(paneTitle, paneInstruction, paneStandard, paneSeparator, paneButtons).build();
       stage = new StageBuilder().setMinWidth(WIDTH).setMinHeight(HEIGHT).setModality(Modality.APPLICATION_MODAL)
             .setTitle(rosetta.getText("ui.configs.overview.title")).setScene(new Scene(vBox)).build();

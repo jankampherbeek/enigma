@@ -60,7 +60,6 @@ public class ConfigEdit {
    private ChoiceBox<String> choiceBoxEclipticProj;
    private ChoiceBox<String> choiceBoxAyanamsha;
    private CheckComboBox<String> checkComboBoxCelObjects;
-   private ButtonBar buttonBar;
    private Button btnOk;
    private Button btnHelp;
    private Button btnCancel;
@@ -70,17 +69,11 @@ public class ConfigEdit {
    private IndexMappingsList indexMappingsCelObjects;
    private IndexMappingsList indexMappingsAyanamshas;
    private Label lblDescription;
-   private Label lblSubTitle;
-   private Label lblTitle;
    private Label lblHouseSystem;
    private Label lblAyanamsha;
    private Label lblObserverPosition;
    private Label lblEclipticProjection;
    private Label lblCelObjects;
-   private Pane paneSubTitle;
-   private Pane paneTitle;
-   private GridPane gridPane;
-   private VBox vBox;
 
    public ConfigEdit(final Configuration config, final Rosetta rosetta) {
       this.rosetta = checkNotNull(rosetta);
@@ -95,17 +88,17 @@ public class ConfigEdit {
       btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
       btnCancel = new ButtonBuilder(rosetta.getText("ui.shared.btn.cancel")).setDisabled(false).build();
       btnOk = new ButtonBuilder(rosetta.getText("ui.shared.btn.ok")).setDisabled(false).build();
-      buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnOk).build();
-      lblTitle = new LabelBuilder(rosetta.getText("ui.configs.edit.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      lblSubTitle = new LabelBuilder(config.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
+      ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnOk).build();
+      Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.edit.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblSubTitle = new LabelBuilder(config.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
       lblDescription = new LabelBuilder(rosetta.getText("ui.general.description")).setPrefWidth(DATA_TEXT_WIDTH).build();
       lblHouseSystem = new LabelBuilder(rosetta.getText("ui.general.housesystem")).setPrefWidth(DATA_TEXT_WIDTH).build();
       lblAyanamsha = new LabelBuilder(rosetta.getText("ui.general.ayanamsha")).setPrefWidth(DATA_TEXT_WIDTH).build();
       lblObserverPosition = new LabelBuilder(rosetta.getText("ui.general.observerposition")).setPrefWidth(DATA_TEXT_WIDTH).build();
       lblEclipticProjection = new LabelBuilder(rosetta.getText("ui.general.eclipticprojection")).setPrefWidth(DATA_TEXT_WIDTH).build();
       lblCelObjects = new LabelBuilder(rosetta.getText("ui.general.celobjects")).setPrefWidth(DATA_TEXT_WIDTH).build();
-      paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
-      paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitleplane").setChildren(lblSubTitle).build();
+      Pane paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
+      Pane paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitleplane").setChildren(lblSubTitle).build();
       descriptionInput = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).setText(config.getDescription()).build();
       choiceBoxHouseSystem = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(HouseSystems.EMPTY.getObservableList()).build();
       indexMappingsHouseSystems = HouseSystems.EMPTY.getIndexMappings();
@@ -121,8 +114,8 @@ public class ConfigEdit {
       choiceBoxAyanamsha.getSelectionModel().select(indexMappingsAyanamshas.getSequenceIdForEnumId(config.getAstronConfiguration().getAyanamsha().getId()));
       checkComboBoxCelObjects = createComboBoxCelObject();
       checkComboBoxCelObjects = createComboBoxCelObject();
-      gridPane = createGridPane();
-      vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP).setChildren(paneTitle, paneSubTitle, gridPane, buttonBar).build();
+      GridPane gridPane = createGridPane();
+      VBox vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP).setChildren(paneTitle, paneSubTitle, gridPane, buttonBar).build();
       stage = new StageBuilder().setMinHeight(HEIGHT).setMinWidth(WIDTH).setTitle(rosetta.getText("ui.configs.edit.title"))
             .setModality(Modality.APPLICATION_MODAL).setScene(new Scene(vBox)).build();
    }
@@ -211,7 +204,7 @@ public class ConfigEdit {
    private void constructConfig() {
       config.setDescription(descriptionInput.getText());
       int houseIndex = choiceBoxHouseSystem.getSelectionModel().getSelectedIndex();
-      HouseSystems houseSystem = null;
+      HouseSystems houseSystem;
       try {
          houseSystem = HouseSystems.EMPTY.getSystemForId(indexMappingsHouseSystems.getEnumIdForSequenceId(houseIndex));
       } catch (UnknownIdException e) {

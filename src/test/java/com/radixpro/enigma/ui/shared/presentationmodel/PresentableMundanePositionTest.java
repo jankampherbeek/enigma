@@ -6,9 +6,9 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.astron.assist.EquatorialPositionForHouses;
-import com.radixpro.enigma.be.astron.assist.HorizontalPosition;
-import com.radixpro.enigma.be.astron.assist.HousePosition;
+import com.radixpro.enigma.be.calc.assist.EquatorialPositionForHouses;
+import com.radixpro.enigma.be.calc.assist.HorizontalPosition;
+import com.radixpro.enigma.be.calc.assist.HousePosition;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,13 +24,8 @@ public class PresentableMundanePositionTest {
 
    @Mock
    private HousePosition housePositionMock;
-   private final double longitude = 123.5;
    @Mock
    private HorizontalPosition horizontalPositionMock;
-   private final double ra = 125.25;
-   private final double decl = -12.2000001;
-   private final double azimuth = 189.0;
-   private final double altitude = 12.33334;
    private final String name = "Asc";
    @Mock
    private EquatorialPositionForHouses equatorialPositionForHousesMock;
@@ -38,10 +33,15 @@ public class PresentableMundanePositionTest {
 
    @Before
    public void setUp() {
+      double ra = 125.25;
       when(equatorialPositionForHousesMock.getRightAscension()).thenReturn(ra);
+      double decl = -12.2000001;
       when(equatorialPositionForHousesMock.getDeclination()).thenReturn(decl);
+      double azimuth = 189.0;
       when(horizontalPositionMock.getAzimuth()).thenReturn(azimuth);
+      double altitude = 12.33334;
       when(horizontalPositionMock.getAltitude()).thenReturn(altitude);
+      double longitude = 123.5;
       when(housePositionMock.getLongitude()).thenReturn(longitude);
       when(housePositionMock.getEquatorialPositionForHouses()).thenReturn(equatorialPositionForHousesMock);
       when(housePositionMock.getHorizontalPosition()).thenReturn(horizontalPositionMock);

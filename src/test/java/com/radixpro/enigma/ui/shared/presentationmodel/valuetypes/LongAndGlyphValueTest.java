@@ -14,13 +14,12 @@ import static org.junit.Assert.assertEquals;
 
 public class LongAndGlyphValueTest {
 
-   private final double longitude = 314.5;
    private final String expectedPos = "14" + DEGREESIGN + "30" + MINUTESIGN + "00" + SECONDSIGN;
-   private final int expectedSignIndex = 11;
    private LongAndGlyphValue longAndGlyphValue;
 
    @Before
    public void setUp() {
+      double longitude = 314.5;
       longAndGlyphValue = new LongAndGlyphValue(longitude);
    }
 
@@ -32,6 +31,7 @@ public class LongAndGlyphValueTest {
    @Test
    public void getLongWithGlyph() {
       assertEquals(expectedPos, longAndGlyphValue.getLongWithGlyph().getPosition());
+      int expectedSignIndex = 11;
       assertEquals(expectedSignIndex, longAndGlyphValue.getLongWithGlyph().getSignIndex());
    }
 }

@@ -17,14 +17,13 @@ import javafx.stage.Stage;
 public class StatsSearch {
 
    private static final double WIDTH = 600.0;
-   private Stage stage;
 
    public StatsSearch() {
       showIt();
    }
 
    private void showIt() {
-      stage = new Stage();
+      Stage stage = new Stage();
       stage.setWidth(WIDTH);
       stage.setScene(new Scene(createVBox()));
       stage.showAndWait();

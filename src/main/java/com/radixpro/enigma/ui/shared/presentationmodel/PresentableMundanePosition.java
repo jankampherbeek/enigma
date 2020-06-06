@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.astron.assist.HousePosition;
+import com.radixpro.enigma.be.calc.assist.HousePosition;
 import com.radixpro.enigma.ui.shared.glyphs.Sign2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongAndGlyphValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongWithGlyph;

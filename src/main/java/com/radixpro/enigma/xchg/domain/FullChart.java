@@ -6,12 +6,12 @@
 
 package com.radixpro.enigma.xchg.domain;
 
-import com.radixpro.enigma.be.astron.assist.CombinedFlags;
-import com.radixpro.enigma.be.astron.assist.HousePosition;
-import com.radixpro.enigma.be.astron.core.SeFrontend;
-import com.radixpro.enigma.be.astron.main.CelObjectPosition;
-import com.radixpro.enigma.be.astron.main.MundaneValues;
-import com.radixpro.enigma.be.astron.main.Obliquity;
+import com.radixpro.enigma.be.calc.assist.CombinedFlags;
+import com.radixpro.enigma.be.calc.assist.HousePosition;
+import com.radixpro.enigma.be.calc.core.SeFrontend;
+import com.radixpro.enigma.be.calc.main.CelObjectPosition;
+import com.radixpro.enigma.be.calc.main.MundaneValues;
+import com.radixpro.enigma.be.calc.main.Obliquity;
 import com.radixpro.enigma.xchg.domain.analysis.MundanePoints;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.CelCoordinateVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.HouseCoordinateVo;

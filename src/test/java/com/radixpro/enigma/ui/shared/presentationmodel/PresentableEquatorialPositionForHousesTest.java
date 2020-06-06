@@ -21,19 +21,19 @@ import static org.mockito.Mockito.when;
 public class PresentableEquatorialPositionForHousesTest {
 
    private final CelestialObjects celestialObject = CelestialObjects.SATURN;
-   private final double mainPos = 100.1000001;
-   private final double devPos = -2.4000001;
-   private final double mainSpeed = 0.8;
-   private final double devSpeed = -.03;
    @Mock
    private CelObjectSinglePosition celObjectSinglePositionMock;
    private PresentableEquatorialPosition position;
 
    @Before
    public void setUp() {
+      double mainPos = 100.1000001;
       when(celObjectSinglePositionMock.getMainPosition()).thenReturn(mainPos);
+      double devPos = -2.4000001;
       when(celObjectSinglePositionMock.getDeviationPosition()).thenReturn(devPos);
+      double mainSpeed = 0.8;
       when(celObjectSinglePositionMock.getMainSpeed()).thenReturn(mainSpeed);
+      double devSpeed = -.03;
       when(celObjectSinglePositionMock.getDeviationSpeed()).thenReturn(devSpeed);
       position = new PresentableEquatorialPosition(celestialObject, celObjectSinglePositionMock);
    }

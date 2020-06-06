@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.astron.main.CelObjectPosition;
-import com.radixpro.enigma.be.astron.main.MundaneValues;
+import com.radixpro.enigma.be.calc.main.CelObjectPosition;
+import com.radixpro.enigma.be.calc.main.MundaneValues;
 import com.radixpro.enigma.xchg.domain.CalculationSettings;
 import com.radixpro.enigma.xchg.domain.FullChart;
 import com.radixpro.enigma.xchg.domain.FullDateTime;

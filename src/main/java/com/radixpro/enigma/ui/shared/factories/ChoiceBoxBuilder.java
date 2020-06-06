@@ -41,7 +41,7 @@ public class ChoiceBoxBuilder {
    }
 
    public ChoiceBoxBuilder setItems(final ObservableList<String> items) {
-      checkArgument(null != items && items.size() > 0);
+      checkArgument(null != items && !items.isEmpty());
       this.items = items;
       return this;
    }
@@ -51,7 +51,7 @@ public class ChoiceBoxBuilder {
       if (prefWidth > 0.0) choiceBox.setPrefWidth(prefWidth);
       if (prefHeight > 0.0) choiceBox.setPrefHeight(prefHeight);
       if (null != styleClass && !styleClass.isEmpty()) choiceBox.getStyleClass().add(styleClass);
-      if (null != items && items.size() > 0) choiceBox.setItems(items);
+      if (null != items && !items.isEmpty()) choiceBox.setItems(items);
       return choiceBox;
    }
 

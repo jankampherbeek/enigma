@@ -23,9 +23,6 @@ public class PaneBuilderTest {
 
    private Label label1;
    private Label label2;
-   private double height = 123.456;
-   private double width = 234.567;
-   private String styleClass = "myStyle";
 
 
    @Before
@@ -36,18 +33,21 @@ public class PaneBuilderTest {
 
    @Test
    public void setWidth() {
+      double width = 234.567;
       Pane pane = new PaneBuilder().setWidth(width).build();
       assertEquals(width, pane.getPrefWidth(), DELTA_8_POS);
    }
 
    @Test
    public void setHeight() {
+      double height = 123.456;
       Pane pane = new PaneBuilder().setHeight(height).build();
       assertEquals(height, pane.getPrefHeight(), DELTA_8_POS);
    }
 
    @Test
    public void setStyleClass() {
+      String styleClass = "myStyle";
       Pane pane = new PaneBuilder().setStyleClass(styleClass).build();
       assertTrue(pane.getStyleClass().contains(styleClass));
    }

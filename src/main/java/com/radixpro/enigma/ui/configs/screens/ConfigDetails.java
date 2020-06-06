@@ -43,15 +43,6 @@ public class ConfigDetails {
    private Stage stage;
    private Button btnHelp;
    private Button btnExit;
-   private ButtonBar buttonBar;
-   private Label lblSubTitle;
-   private Label lblTitle;
-   private Pane paneData;
-   private Pane paneSeparator;
-   private Pane paneSubTitle;
-   private Pane paneTitle;
-   private TableView tableView;
-   private VBox vBox;
 
 
    public ConfigDetails(final String configName, final PropertiesForConfig propertiesForConfig, final Rosetta rosetta) {
@@ -67,16 +58,16 @@ public class ConfigDetails {
    private void populateStage() {
       btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
       btnExit = new ButtonBuilder(rosetta.getText("ui.shared.btn.exit")).setDisabled(false).build();
-      buttonBar = new ButtonBar();                       // TODO replace with builder
+      ButtonBar buttonBar = new ButtonBar();                       // TODO replace with builder
       buttonBar.getButtons().addAll(btnHelp, btnExit);
-      lblTitle = new LabelBuilder(rosetta.getText("ui.configs.details.title")).setPrefWidth(OUTER_WIDTH).setStyleClass("titletext").build();
-      lblSubTitle = new LabelBuilder(configName).setPrefWidth(OUTER_WIDTH).setStyleClass("subtitletext").build();
-      tableView = new PropertiesTableForConfig().getTableView(TV_HEIGHT, INNER_WIDTH, propertiesForConfig.getProperties());  // TODO replace with builder
-      paneTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
-      paneSubTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
-      paneData = new PaneBuilder().setWidth(INNER_WIDTH).setHeight(TV_HEIGHT).setChildren(tableView).build();
-      paneSeparator = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(SEPARATOR_HEIGHT).build();
-      vBox = new VBoxBuilder().setWidth(OUTER_WIDTH).setHeight(HEIGHT).setPadding(GAP).setChildren(paneTitle, paneSubTitle, paneData, paneSeparator, buttonBar)
+      Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.details.title")).setPrefWidth(OUTER_WIDTH).setStyleClass("titletext").build();
+      Label lblSubTitle = new LabelBuilder(configName).setPrefWidth(OUTER_WIDTH).setStyleClass("subtitletext").build();
+      TableView tableView = new PropertiesTableForConfig().getTableView(TV_HEIGHT, INNER_WIDTH, propertiesForConfig.getProperties());  // TODO replace with builder
+      Pane paneTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
+      Pane paneSubTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
+      Pane paneData = new PaneBuilder().setWidth(INNER_WIDTH).setHeight(TV_HEIGHT).setChildren(tableView).build();
+      Pane paneSeparator = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(SEPARATOR_HEIGHT).build();
+      VBox vBox = new VBoxBuilder().setWidth(OUTER_WIDTH).setHeight(HEIGHT).setPadding(GAP).setChildren(paneTitle, paneSubTitle, paneData, paneSeparator, buttonBar)
             .build();
       stage = new StageBuilder().setMinWidth(OUTER_WIDTH).setMinHeight(HEIGHT).setModality(Modality.APPLICATION_MODAL)
             .setTitle(rosetta.getText("ui.configs.details.title")).setScene(new Scene(vBox)).build();

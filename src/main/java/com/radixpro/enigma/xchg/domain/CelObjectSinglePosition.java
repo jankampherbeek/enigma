@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.xchg.domain;
 
-import com.radixpro.enigma.be.astron.assist.SePositionResultCelObjects;
-import com.radixpro.enigma.be.astron.core.SeFrontend;
+import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
+import com.radixpro.enigma.be.calc.core.SeFrontend;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

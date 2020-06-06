@@ -12,11 +12,9 @@ import static org.junit.Assert.assertEquals;
 
 public class GlyphForSignTest {
 
-   private GlyphForSign glyphForSign;
-
    @Test
    public void getGlyph() {
-      glyphForSign = new GlyphForSign();
+      GlyphForSign glyphForSign = new GlyphForSign();
       assertEquals("3", glyphForSign.getGlyph(3));
 
    }

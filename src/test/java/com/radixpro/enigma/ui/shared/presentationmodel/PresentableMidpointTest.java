@@ -17,22 +17,18 @@ import static org.junit.Assert.assertEquals;
 
 public class PresentableMidpointTest {
 
-   private IAnalyzedPair midpoint;
-   private AnalyzablePoint firstPoint;
-   private AnalyzablePoint secondPoint;
-   private AnalyzablePoint thirdPoint;
    private final MidpointTypes midpointType = MidpointTypes.QUARTER;
-   private final double effectiveOrb = 0.8;
-   private final double maxOrb = 1.6;
    private PresentableMidpoint presMidpoint;
 
 
    @Before
    public void setUp() {
-      firstPoint = new AnalyzablePoint(CelestialObjects.SUN, 122.0);
-      secondPoint = new AnalyzablePoint(CelestialObjects.MOON, 162.0);
-      thirdPoint = new AnalyzablePoint(MundanePoints.ASC, 142.8);
-      midpoint = new AnalyzedMidpoint(firstPoint, secondPoint, thirdPoint, midpointType, effectiveOrb, maxOrb);
+      AnalyzablePoint firstPoint = new AnalyzablePoint(CelestialObjects.SUN, 122.0);
+      AnalyzablePoint secondPoint = new AnalyzablePoint(CelestialObjects.MOON, 162.0);
+      AnalyzablePoint thirdPoint = new AnalyzablePoint(MundanePoints.ASC, 142.8);
+      double maxOrb = 1.6;
+      double effectiveOrb = 0.8;
+      IAnalyzedPair midpoint = new AnalyzedMidpoint(firstPoint, secondPoint, thirdPoint, midpointType, effectiveOrb, maxOrb);
       presMidpoint = new PresentableMidpoint(midpoint);
    }
 

@@ -31,14 +31,14 @@ public class CuspLinePlotCoordinates implements PlotCoordinates {
     * Define the coordinates for the given angle.
     * The class knows the size of the hypothenusa.
     *
-    * @param angle        Angle in degrees.
-    * @param IDrawMetrics Actual instance of ChartDrawMetrics.
+    * @param angle       Angle in degrees.
+    * @param drawMetrics Actual instance of ChartDrawMetrics.
     * @return The calculated coordinates.
     */
    @Override
-   public double[] defineCoordinates(final double angle, final IDrawMetrics IDrawMetrics) {
-      checkNotNull(IDrawMetrics);
-      ChartDrawMetrics metrics = (ChartDrawMetrics) IDrawMetrics;
+   public double[] defineCoordinates(final double angle, final IDrawMetrics drawMetrics) {
+      checkNotNull(drawMetrics);
+      ChartDrawMetrics metrics = (ChartDrawMetrics) drawMetrics;
       double[] coords1 = rectTriangle.getCoordinates(metrics.getDiameterHousesCircle());
       double[] coords2 = rectTriangle.getCoordinates(metrics.getDiameterSignsCircle());
       return ArrayUtils.addAll(coords1, coords2);

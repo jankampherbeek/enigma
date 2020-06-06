@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.xchg.domain;
 
-import com.radixpro.enigma.be.astron.main.JulianDay;
+import com.radixpro.enigma.be.calc.main.JulianDay;
 import com.radixpro.enigma.shared.Rosetta;
 
 import static com.google.common.base.Preconditions.checkNotNull;

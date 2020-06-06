@@ -25,9 +25,6 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JfxTestRunner.class)
 public class ChoiceBoxBuilderTest {
 
-   private final double prefHeight = 800.0;
-   private final double prefWidth = 300.5;
-   private final String styleClass = "myStyle";
    private ObservableList<String> items;
 
    @Before
@@ -40,18 +37,21 @@ public class ChoiceBoxBuilderTest {
 
    @Test
    public void setPrefHeight() {
+      double prefHeight = 800.0;
       ChoiceBox choiceBox = new ChoiceBoxBuilder().setPrefHeight(prefHeight).build();
       assertEquals(prefHeight, choiceBox.getPrefHeight(), DELTA_8_POS);
    }
 
    @Test
    public void setPrefWidth() {
+      double prefWidth = 300.5;
       ChoiceBox choiceBox = new ChoiceBoxBuilder().setPrefWidth(prefWidth).build();
       assertEquals(prefWidth, choiceBox.getPrefWidth(), DELTA_8_POS);
    }
 
    @Test
    public void setStyleClass() {
+      String styleClass = "myStyle";
       ChoiceBox choiceBox = new ChoiceBoxBuilder().setStyleClass(styleClass).build();
       assertTrue(choiceBox.getStyleClass().contains(styleClass));
    }

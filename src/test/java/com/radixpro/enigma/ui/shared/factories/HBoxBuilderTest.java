@@ -22,8 +22,6 @@ public class HBoxBuilderTest {
 
    private Label label1;
    private Label label2;
-   private double prefWidth = 300.0;
-   private double prefHeight = 400.0;
 
    @Before
    public void setUp() throws Exception {
@@ -33,12 +31,14 @@ public class HBoxBuilderTest {
 
    @Test
    public void setPrefWidth() {
+      double prefWidth = 300.0;
       HBox hBox = new HBoxBuilder().setPrefWidth(prefWidth).build();
       assertEquals(prefWidth, hBox.getPrefWidth(), DELTA_8_POS);
    }
 
    @Test
    public void setPrefHeight() {
+      double prefHeight = 400.0;
       HBox hBox = new HBoxBuilder().setPrefHeight(prefHeight).build();
       assertEquals(prefHeight, hBox.getPrefHeight(), DELTA_8_POS);
    }

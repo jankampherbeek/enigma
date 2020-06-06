@@ -29,13 +29,13 @@ public class CuspTextPlotCoordinates implements PlotCoordinates {
     * Define the coordinates for the given angle.
     * The class knows the size of the hypothenusa.
     *
-    * @param angle        Angle in degrees.
-    * @param IDrawMetrics Actual instance of ChartDrawMetrics.
+    * @param angle       Angle in degrees.
+    * @param drawMetrics Actual instance of ChartDrawMetrics.
     * @return The calculated coordinates.
     */
-   public double[] defineCoordinates(final double angle, final IDrawMetrics IDrawMetrics) {
-      checkNotNull(IDrawMetrics);
-      ChartDrawMetrics metrics = (ChartDrawMetrics) IDrawMetrics;
+   public double[] defineCoordinates(final double angle, final IDrawMetrics drawMetrics) {
+      checkNotNull(drawMetrics);
+      ChartDrawMetrics metrics = (ChartDrawMetrics) drawMetrics;
       double hypothenusa = 0.0;
       if (0.0 <= angle && angle < 45.0) hypothenusa = metrics.getDiameterCuspTextsLeft();
       else if (45.0 <= angle && angle < 135.0) hypothenusa = metrics.getDiameterCuspTextsTop();

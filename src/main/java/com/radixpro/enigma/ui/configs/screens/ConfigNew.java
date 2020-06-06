@@ -52,18 +52,6 @@ public class ConfigNew {
    private Button btnOk;
    private Button btnHelp;
    private Button btnCancel;
-   private ButtonBar buttonBar;
-   private HBox hBoxName;
-   private HBox hBoxDescription;
-   private Label lblTitle;
-   private Label lblSubTitle;
-   private Label lblInstruction;
-   private Label lblName;
-   private Label lblDescription;
-   private Pane paneTitle;
-   private Pane paneSubTitle;
-   private Pane paneInstruction;
-   private VBox vBox;
 
    public ConfigNew(final Configuration config, final Rosetta rosetta, final PersistedConfigurationApi api) {
       this.rosetta = checkNotNull(rosetta);
@@ -75,24 +63,24 @@ public class ConfigNew {
    }
 
    private void populateStage() {
-      lblTitle = new LabelBuilder(rosetta.getText("ui.configs.new.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      lblSubTitle = new LabelBuilder(rosetta.getText("ui.configs.new.copyfrom") + " " + config.getName()).setPrefWidth(WIDTH)
+      Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.new.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblSubTitle = new LabelBuilder(rosetta.getText("ui.configs.new.copyfrom") + " " + config.getName()).setPrefWidth(WIDTH)
             .setStyleClass("subtitletext").build();
-      lblInstruction = new LabelBuilder(rosetta.getText("ui.configs.new.instruction")).build();
-      lblName = new LabelBuilder(rosetta.getText("ui.general.name")).setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblDescription = new LabelBuilder(rosetta.getText("ui.general.description")).setPrefWidth(DATA_TEXT_WIDTH).build();
+      Label lblInstruction = new LabelBuilder(rosetta.getText("ui.configs.new.instruction")).build();
+      Label lblName = new LabelBuilder(rosetta.getText("ui.general.name")).setPrefWidth(DATA_TEXT_WIDTH).build();
+      Label lblDescription = new LabelBuilder(rosetta.getText("ui.general.description")).setPrefWidth(DATA_TEXT_WIDTH).build();
       btnOk = new ButtonBuilder(rosetta.getText("ui.shared.btn.ok")).setDisabled(true).build();
       btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
       btnCancel = new ButtonBuilder(rosetta.getText("ui.shared.btn.exit")).setDisabled(false).build();
-      buttonBar = new ButtonBarBuilder().setButtons(btnOk, btnHelp, btnCancel).build();
+      ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnOk, btnHelp, btnCancel).build();
       nameInput = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).build();
       descriptionInput = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).build();
-      paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
-      paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
-      paneInstruction = new PaneBuilder().setWidth(WIDTH).setHeight(INSTRUCTION_HEIGHT).setChildren(lblInstruction).build();
-      hBoxName = new HBoxBuilder().setPrefWidth(WIDTH).setPrefHeight(DATA_HEIGHT).setChildren(lblName, nameInput).build();
-      hBoxDescription = new HBoxBuilder().setPrefWidth(WIDTH).setPrefHeight(DATA_HEIGHT).setChildren(lblDescription, descriptionInput).build();
-      vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP)
+      Pane paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
+      Pane paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
+      Pane paneInstruction = new PaneBuilder().setWidth(WIDTH).setHeight(INSTRUCTION_HEIGHT).setChildren(lblInstruction).build();
+      HBox hBoxName = new HBoxBuilder().setPrefWidth(WIDTH).setPrefHeight(DATA_HEIGHT).setChildren(lblName, nameInput).build();
+      HBox hBoxDescription = new HBoxBuilder().setPrefWidth(WIDTH).setPrefHeight(DATA_HEIGHT).setChildren(lblDescription, descriptionInput).build();
+      VBox vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP)
             .setChildren(paneTitle, paneSubTitle, paneInstruction, hBoxName, hBoxDescription, buttonBar).build();
       stage = new StageBuilder().setMinHeight(HEIGHT).setMinWidth(WIDTH).setModality(Modality.APPLICATION_MODAL)
             .setTitle(rosetta.getText("ui.configs.new.title")).setScene(new Scene(vBox)).build();

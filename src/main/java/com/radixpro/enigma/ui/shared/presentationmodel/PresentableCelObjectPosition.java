@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.astron.assist.HorizontalPosition;
-import com.radixpro.enigma.be.astron.main.CelObjectPosition;
+import com.radixpro.enigma.be.calc.assist.HorizontalPosition;
+import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.glyphs.Sign2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.*;

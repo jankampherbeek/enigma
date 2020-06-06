@@ -22,14 +22,13 @@ public class ChartMetaDataTest {
    private final String sex = "m";
    private final ChartTypes chartType = ChartTypes.NATAL;
    private final Ratings rating = Ratings.AA;
-   private List<Integer> categories;
 
 
    private ChartMetaData chartMetaData;
 
    @Before
    public void setUp() {
-      categories = new ArrayList<>();
+      List<Integer> categories = new ArrayList<>();
       categories.add(1);
       categories.add(33);
       chartMetaData = new ChartMetaData(name, description, source, chartType, rating);

@@ -12,11 +12,9 @@ import static org.junit.Assert.assertEquals;
 
 public class GlyphForCelObjectTest {
 
-   private GlyphForCelObject glyphForCelObject;
-
    @Test
    public void getGlyph() {
-      glyphForCelObject = new GlyphForCelObject();
+      GlyphForCelObject glyphForCelObject = new GlyphForCelObject();
       assertEquals("d", glyphForCelObject.getGlyph(4));
    }
 }

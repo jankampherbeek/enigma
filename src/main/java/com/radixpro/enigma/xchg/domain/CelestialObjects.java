@@ -61,7 +61,6 @@ public enum CelestialObjects implements IChartPoints {
    private final double orbitalPeriod;
    private final String nameForRB;
    private final CelObjectCategory category;
-   private final ChartPointTypes pointType;
 
    /**
     * @param id            internally used id.
@@ -76,7 +75,7 @@ public enum CelestialObjects implements IChartPoints {
       this.orbitalPeriod = orbitalPeriod;
       this.category = checkNotNull(category);
       this.nameForRB = checkNotNull(nameForRB);
-      this.pointType = ChartPointTypes.CEL_BODIES;
+      ChartPointTypes pointType = ChartPointTypes.CEL_BODIES;  // TODO add to constructor
    }
 
    public CelestialObjects getCelObjectForId(int id) throws UnknownIdException {

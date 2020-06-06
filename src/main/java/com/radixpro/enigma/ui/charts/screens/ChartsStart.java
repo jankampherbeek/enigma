@@ -23,6 +23,7 @@ import com.radixpro.enigma.ui.shared.factories.PaneFactory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableChartData;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import com.radixpro.enigma.xchg.api.*;
+import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.CalculationSettings;
 import com.radixpro.enigma.xchg.domain.ChartData;
 import com.radixpro.enigma.xchg.domain.FullChart;
@@ -304,7 +305,7 @@ public class ChartsStart {
    private void initialize() {
       int currentConfigId;
       List<Property> configs = propApi.read("config");
-      if (configs.size() > 0) {
+      if (!configs.isEmpty()) {
          currentConfigId = Integer.parseInt(propApi.read("config").get(0).getValue());
          currentConfig = confApi.read(currentConfigId).get(0);
       } else {
@@ -338,7 +339,7 @@ public class ChartsStart {
    }
 
    private void onAspects() {
-      AspectsApi api = new ApiFactory().createAspectsApi();
+      AspectsApi api = new ApiAnalysisFactory().createAspectsApi();
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
       CalculationSettings settings = new CalculationSettings(currentConfig);
@@ -350,12 +351,12 @@ public class ChartsStart {
       housesList.add(fullHousesList.get(1));
       final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), currentConfig.getDelinConfiguration().getAspectConfiguration().getBaseOrb());
-      final ChartsAspects chartsAspects = new ChartsScreensFactory().createChartsAspects(aspects, meta);
+      new ChartsScreensFactory().createChartsAspects(aspects, meta);
    }
 
    // TODO combine logic of onAspects and onMidpoints
    private void onMidpoints() {
-      MidpointsApi api = new ApiFactory().createMidpointsApi();
+      MidpointsApi api = new ApiAnalysisFactory().createMidpointsApi();
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
       CalculationSettings settings = new CalculationSettings(currentConfig);
@@ -367,7 +368,7 @@ public class ChartsStart {
       housesList.add(fullHousesList.get(1));
       final List<IAnalyzedPair> midpoints = api.analyseMidpoints(celObjectList, housesList);
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.6);   // TODO replace hardcoded orb for midpoints with configurable orb
-      final ChartsMidpoints chartsMidpoints = new ChartsScreensFactory().createChartsMidpoints(midpoints, meta);
+      new ChartsScreensFactory().createChartsMidpoints(midpoints, meta);
 
    }
 

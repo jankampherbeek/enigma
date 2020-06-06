@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.ui.charts.screens;
 
-import com.radixpro.enigma.be.astron.assist.HousePosition;
-import com.radixpro.enigma.be.astron.main.CelObjectPosition;
+import com.radixpro.enigma.be.calc.assist.HousePosition;
+import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.factories.ButtonFactory;

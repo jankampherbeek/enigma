@@ -20,19 +20,16 @@ import static org.junit.Assert.assertEquals;
 
 public class PresentableAspectTest {
 
-   private IAnalyzedPair aspect;
-   private AnalyzablePoint firstPoint;
-   private AnalyzablePoint secondPoint;
    private final AspectTypes aspectType = AspectTypes.SEXTILE;
-   private final double effectiveOrb = 2.0;
-   private final double maxOrb = 8.0;
    private PresentableAspect presAspect;
 
    @Before
    public void setUp() {
-      firstPoint = new AnalyzablePoint(CelestialObjects.SUN, 122.0);
-      secondPoint = new AnalyzablePoint(CelestialObjects.MOON, 184.0);
-      aspect = new AnalyzedAspect(firstPoint, secondPoint, aspectType, effectiveOrb, maxOrb);
+      AnalyzablePoint firstPoint = new AnalyzablePoint(CelestialObjects.SUN, 122.0);
+      AnalyzablePoint secondPoint = new AnalyzablePoint(CelestialObjects.MOON, 184.0);
+      double maxOrb = 8.0;
+      double effectiveOrb = 2.0;
+      IAnalyzedPair aspect = new AnalyzedAspect(firstPoint, secondPoint, aspectType, effectiveOrb, maxOrb);
       presAspect = new PresentableAspect(aspect);
    }
 

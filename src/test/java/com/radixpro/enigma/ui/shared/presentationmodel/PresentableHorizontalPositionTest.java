@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.astron.assist.HorizontalPosition;
+import com.radixpro.enigma.be.calc.assist.HorizontalPosition;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +20,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class PresentableHorizontalPositionTest {
 
-   private final double azimuth = 99.99;
-   private final double altitude = -13.13;
    private final CelestialObjects celObject = CelestialObjects.MOON;
    @Mock
    private HorizontalPosition horizontalPositionMock;
@@ -29,7 +27,9 @@ public class PresentableHorizontalPositionTest {
 
    @Before
    public void setUp() {
+      double azimuth = 99.99;
       when(horizontalPositionMock.getAzimuth()).thenReturn(azimuth);
+      double altitude = -13.13;
       when(horizontalPositionMock.getAltitude()).thenReturn(altitude);
       pos = new PresentableHorizontalPosition(celObject, horizontalPositionMock);
    }

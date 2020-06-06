@@ -38,7 +38,6 @@ public class ChartsAspects {
    private final Rosetta rosetta;
    private final List<IAnalyzedPair> aspects;
    private final MetaDataForAnalysis meta;
-   private TableView tvOverview;
 
    public ChartsAspects(final Stage stage, final Rosetta rosetta, final List<IAnalyzedPair> aspects,
                         final MetaDataForAnalysis meta) {
@@ -80,7 +79,7 @@ public class ChartsAspects {
    }
 
    private TableView createOverview() {
-      tvOverview = new TableView();
+      TableView tvOverview = new TableView();
       tvOverview.setPrefHeight(DATA_HEIGHT);
       tvOverview.setPrefWidth(WIDTH);
 

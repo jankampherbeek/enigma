@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.CelCoordinateElementVo;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedMidpoint;
@@ -36,7 +37,7 @@ public class MidpointsApiIntTest {
    public void setUp() {
       celObjects = createCelObjects();
       mundaneValues = createMundaneValues();
-      api = new ApiFactory().createMidpointsApi();
+      api = new ApiAnalysisFactory().createMidpointsApi();
    }
 
    @Test

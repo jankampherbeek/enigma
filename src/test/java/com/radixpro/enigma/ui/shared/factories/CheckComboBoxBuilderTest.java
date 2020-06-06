@@ -18,10 +18,9 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JfxTestRunner.class)
 public class CheckComboBoxBuilderTest {
 
-   private final double prefWidth = 339.8;
-
    @Test
    public void setPrefWidth() {
+      double prefWidth = 339.8;
       CheckComboBox box = new CheckComboBoxBuilder().setPrefWidth(prefWidth).build();
       assertEquals(prefWidth, box.getPrefWidth(), DELTA_8_POS);
    }

@@ -15,10 +15,10 @@ public interface PlotCoordinates {
     * Define the coordinates for the given angle.
     * The implementations should know which value to use from DrawMetrics to define the size of the hypothenusa.
     *
-    * @param angle        Angle in degrees.
-    * @param IDrawMetrics Actual instance of DrawMetrics.
+    * @param angle       Angle in degrees.
+    * @param drawMetrics Actual instance of DrawMetrics.
     * @return The calculated coordinates.
     */
-   double[] defineCoordinates(final double angle, final IDrawMetrics IDrawMetrics);
+   double[] defineCoordinates(final double angle, final IDrawMetrics drawMetrics);
 
 }

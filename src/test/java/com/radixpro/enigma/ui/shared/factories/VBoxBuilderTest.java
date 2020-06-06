@@ -21,9 +21,6 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JfxTestRunner.class)
 public class VBoxBuilderTest {
 
-   private final double width = 111.1;
-   private final double height = 222.2;
-   private final double padding = 6.0;
    private Label label1;
    private Label label2;
 
@@ -35,6 +32,7 @@ public class VBoxBuilderTest {
 
    @Test
    public void setWidth() {
+      double width = 111.1;
       VBox vBox = new VBoxBuilder().setWidth(width).build();
       assertEquals(width, vBox.getPrefWidth(), DELTA_8_POS);
       assertTrue(vBox.getStylesheets().contains("css/enigma.css"));
@@ -42,12 +40,14 @@ public class VBoxBuilderTest {
 
    @Test
    public void setHeight() {
+      double height = 222.2;
       VBox vBox = new VBoxBuilder().setHeight(height).build();
       assertEquals(height, vBox.getPrefHeight(), DELTA_8_POS);
    }
 
    @Test
    public void setPadding() {
+      double padding = 6.0;
       VBox vBox = new VBoxBuilder().setPadding(padding).build();
       assertEquals(padding, vBox.getPadding().getBottom(), DELTA_8_POS);
    }

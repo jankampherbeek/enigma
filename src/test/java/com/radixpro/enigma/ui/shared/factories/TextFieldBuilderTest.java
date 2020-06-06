@@ -19,31 +19,30 @@ import static org.junit.Assert.assertTrue;
 @RunWith(JfxTestRunner.class)
 public class TextFieldBuilderTest {
 
-   private final double width = 33.3;
-   private final double height = 100.0;
-   private final String styleClass = "anotherStyle";
-   private final String text = "some text";
-
    @Test
    public void setHeight() {
+      double height = 100.0;
       TextField textField = new TextFieldBuilder().setPrefHeight(height).build();
       assertEquals(height, textField.getPrefHeight(), DELTA_8_POS);
    }
 
    @Test
    public void setWidth() {
+      double width = 33.3;
       TextField textField = new TextFieldBuilder().setPrefWidth(width).build();
       assertEquals(width, textField.getPrefWidth(), DELTA_8_POS);
    }
 
    @Test
    public void setStyleClass() {
+      String styleClass = "anotherStyle";
       TextField textField = new TextFieldBuilder().setStyleClass(styleClass).build();
       assertTrue(textField.getStyleClass().contains(styleClass));
    }
 
    @Test
    public void setText() {
+      String text = "some text";
       TextField textField = new TextFieldBuilder().setText(text).build();
       assertEquals(text, textField.getText());
    }

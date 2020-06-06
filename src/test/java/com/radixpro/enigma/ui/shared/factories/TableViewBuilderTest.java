@@ -20,8 +20,6 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JfxTestRunner.class)
 public class TableViewBuilderTest {
 
-   private final double height = 222.2;
-   private final double width = 444.4;
    private TableColumn col1;
    private TableColumn col2;
 
@@ -33,12 +31,14 @@ public class TableViewBuilderTest {
 
    @Test
    public void setPrefHeight() {
+      double height = 222.2;
       TableView tv = new TableViewBuilder().setPrefHeight(height).build();
       assertEquals(height, tv.getPrefHeight(), DELTA_8_POS);
    }
 
    @Test
    public void setPrefWidth() {
+      double width = 444.4;
       TableView tv = new TableViewBuilder().setPrefWidth(width).build();
       assertEquals(width, tv.getPrefWidth(), DELTA_8_POS);
    }

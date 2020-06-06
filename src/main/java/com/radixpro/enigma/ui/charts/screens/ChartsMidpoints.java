@@ -42,7 +42,6 @@ public class ChartsMidpoints {
    private final Rosetta rosetta;
    private final List<IAnalyzedPair> midpoints;
    private final MetaDataForAnalysis meta;
-   private TableView tvOverview;
 
 
    /**
@@ -93,7 +92,7 @@ public class ChartsMidpoints {
    }
 
    private TableView createOverview() {
-      tvOverview = new TableView();
+      TableView tvOverview = new TableView();
       tvOverview.setPrefHeight(DATA_HEIGHT);
       tvOverview.setPrefWidth(WIDTH);
 

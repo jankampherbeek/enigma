@@ -26,7 +26,7 @@ public class CelCoordinateElementVo {
     * @param distance  Distance. (Typically radius vector in AU).
     */
    public CelCoordinateElementVo(final double base, final double deviation, final double distance) {
-      checkArgument(-360.0 <= base && base < 360.0);
+      checkArgument(-360.0 <= base && base <= 360.0);      // TODO limit range to < 360.0 (spec. for azimuth)
       checkArgument(90.0 >= deviation && -90.0 <= deviation);
       this.base = base;
       this.deviation = deviation;
