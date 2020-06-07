@@ -20,7 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Request for analyzing aspects between transits and radix.
  */
-public class TransitAnalyzeRequest {
+public class TransitsAnalyzeRequest {
 
    private final ProgAnalysisType type;
    private final List<SimplePosVo> transitPositions;
@@ -37,8 +37,8 @@ public class TransitAnalyzeRequest {
     * @param aspects          aspects that need to be used. PRE: not null and not empty.
     * @param orb              the orb to use during analysis. PRE: orb > 0.0 .
     */
-   public TransitAnalyzeRequest(final ProgAnalysisType type, final List<SimplePosVo> transitPositions, final ChartPositionsVo chartPositions,
-                                final List<AspectTypes> aspects, final double orb) {
+   public TransitsAnalyzeRequest(final ProgAnalysisType type, final List<SimplePosVo> transitPositions, final ChartPositionsVo chartPositions,
+                                 final List<AspectTypes> aspects, final double orb) {
       checkArgument(orb > 0.0);
       checkArgument(null != transitPositions && !transitPositions.isEmpty());
       checkArgument(null != aspects && !aspects.isEmpty());

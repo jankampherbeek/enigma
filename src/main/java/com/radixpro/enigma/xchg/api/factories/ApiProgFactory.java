@@ -7,18 +7,21 @@
 
 package com.radixpro.enigma.xchg.api.factories;
 
+import com.radixpro.enigma.be.analysis.factories.AnalysisHandlerFactory;
+import com.radixpro.enigma.be.analysis.handlers.TransitsAspectHandler;
 import com.radixpro.enigma.be.calc.factories.ProgCalcHandlerFactory;
 import com.radixpro.enigma.be.calc.handlers.TransitsCalcHandler;
 import com.radixpro.enigma.xchg.api.TransitsApi;
 
 /**
- * Factory for API's that take care of calculations and analysuis for proggressive positions
+ * Factory for API's that take care of calculations and analysis for proggressive positions
  */
 public class ApiProgFactory {
 
    public TransitsApi createTransitsApi() {
-      TransitsCalcHandler handler = new ProgCalcHandlerFactory().createTransitsCalcHandler();
-      return new TransitsApi(handler);
+      TransitsCalcHandler calcHandler = new ProgCalcHandlerFactory().createTransitsCalcHandler();
+      TransitsAspectHandler aspectHandler = new AnalysisHandlerFactory().createTransitsAspectHandler();
+      return new TransitsApi(calcHandler, aspectHandler);
    }
 
 }

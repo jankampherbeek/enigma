@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.xchg.api.factories;
 
-import com.radixpro.enigma.be.analysis.AnalysisHandlerFactory;
-import com.radixpro.enigma.be.analysis.AspectsHandler;
-import com.radixpro.enigma.be.analysis.MidpointsHandler;
+import com.radixpro.enigma.be.analysis.factories.AnalysisHandlerFactory;
+import com.radixpro.enigma.be.analysis.handlers.AspectsHandler;
+import com.radixpro.enigma.be.analysis.handlers.MidpointsHandler;
 import com.radixpro.enigma.xchg.api.AspectsApi;
 import com.radixpro.enigma.xchg.api.MidpointsApi;
 

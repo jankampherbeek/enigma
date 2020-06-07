@@ -5,8 +5,9 @@
  *
  */
 
-package com.radixpro.enigma.be.analysis;
+package com.radixpro.enigma.be.analysis.handlers;
 
+import com.radixpro.enigma.be.analysis.MidpointsForRadix;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;

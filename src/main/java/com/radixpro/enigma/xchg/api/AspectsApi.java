@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.analysis.AspectsHandler;
+import com.radixpro.enigma.be.analysis.handlers.AspectsHandler;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
