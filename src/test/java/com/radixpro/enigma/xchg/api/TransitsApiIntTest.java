@@ -89,7 +89,7 @@ public class TransitsApiIntTest {
       transitPositions.add(new SimplePosVo(CelestialObjects.MARS, 112.0, 1.0, 111.0, 5.5));    // 120 Sun 90 Mars
       transitPositions.add(new SimplePosVo(CelestialObjects.JUPITER, 274.5, -2.0, 275.0, -10.0));
       transitPositions.add(new SimplePosVo(CelestialObjects.SATURN, 163.0, 0.5, 164.0, 2.2));  // 60 Ura 0 Asc
-      List<SimplePosVo> celestialPositions = new ArrayList();
+      List<SimplePosVo> celestialPositions = new ArrayList<>();
       celestialPositions.add(new SimplePosVo(CelestialObjects.SUN, 351.8, 1.0, 352.0, -8.8));
       celestialPositions.add(new SimplePosVo(CelestialObjects.MARS, 21.5, 0.7, 22.0, 4.4));
       celestialPositions.add(new SimplePosVo(CelestialObjects.URANUS, 102.7, 0.3, 103.0, 4.0));
