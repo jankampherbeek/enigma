@@ -6,6 +6,7 @@
 
 package com.radixpro.enigma;
 
+import com.radixpro.enigma.shared.AppControllerFactory;
 import com.radixpro.enigma.ui.shared.Dashboard;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -22,6 +23,7 @@ public class App extends Application {
    @Override
    public void start(Stage primaryStage) {
       LOG.info("Started Enigma.");
+      new AppControllerFactory().getAppController();
       showDashboard();
    }
 

@@ -17,7 +17,7 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class PersistedPropertyApi {
+public class PersistedPropertyApi {  // todo remove
 
    private static final Logger LOG = Logger.getLogger(PersistedPropertyApi.class);
    private final PropertyDao dao;

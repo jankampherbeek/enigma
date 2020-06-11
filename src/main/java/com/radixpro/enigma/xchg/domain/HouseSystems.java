@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Housesystems for calculation, internal id and id for SE.
  */
-public enum HouseSystems {
+public enum HouseSystems {  // todo add NO_HOUSES at position 1, add Gauquelin at position 20
    EMPTY(0, "", "houses.unknown", 0, false, false, false),
    WHOLESIGN(2, "W", "houses.wholesign", 12, true, false, true),
    EQUAL(3, "A", "houses.equalasc", 12, true, false, true),

@@ -19,7 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Dao for Property.
  */
-public class PropertyDao extends DaoParent {
+public class PropertyDao extends DaoParent {   // TODO remove
 
    private static final String PROP_FILE = DB_LOCATION + "properties.csv";
    private static final String NEW_PROP_FILE = DB_LOCATION + "new_properties.csv";

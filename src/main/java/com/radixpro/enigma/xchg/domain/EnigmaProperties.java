@@ -20,7 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Reads properties, these properties are retrieved from property-files.
  */
 public class EnigmaProperties {
-
+// TODO, seems obsolete, remove
    private static final Logger LOG = Logger.getLogger(EnigmaProperties.class);
    private static final String EXTENSION = ".properties";
    private Properties properties;

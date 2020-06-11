@@ -24,6 +24,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Celestial bodies and id's to access the SE.
  */
 public enum CelestialObjects implements IChartPoints {
+   // TODO make all points available (already added to H2
+   // todo rename to CelestialPoints
    EMPTY(0, -1, CelObjectCategory.UNKNOWN, -1.0, "celobject.unknown"),
    SUN(1, 0, CelObjectCategory.CLASSICS, 1.0, "celobject.sun"),
    MOON(2, 1, CelObjectCategory.CLASSICS, 0.0748, "celobject.moon"),
