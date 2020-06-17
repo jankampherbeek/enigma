@@ -12,14 +12,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class AspectOrbStructureTest {
+public class AspectOrbStructuresTest {
 
-   private final AspectOrbStructure structure = AspectOrbStructure.ASPECT;
+   private final AspectOrbStructures structure = AspectOrbStructures.ASPECT;
 
 
    @Test
    public void getStructureForId() throws UnknownIdException {
-      assertEquals(AspectOrbStructure.CELBODY, structure.getStructureForId(2));
+      assertEquals(AspectOrbStructures.CELBODY, structure.getStructureForId(2));
    }
 
    @Test

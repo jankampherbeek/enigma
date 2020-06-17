@@ -16,7 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class PresentableConfiguration {
 
-   private final long configId;
+   private final int configId;
    private final String configName;
    private final String configDescription;
    private final String standardIndication;
@@ -37,7 +37,7 @@ public class PresentableConfiguration {
       originalConfig = configuration;
    }
 
-   public long getConfigId() {
+   public int getConfigId() {
       return configId;
    }
 

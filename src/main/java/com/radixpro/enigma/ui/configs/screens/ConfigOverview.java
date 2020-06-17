@@ -173,7 +173,7 @@ public class ConfigOverview {
 
    private void onNew() {
       PresentableConfiguration config = selectedItems.get(0);
-      long configId = config.getConfigId();
+      int configId = config.getConfigId();
       ConfigNew configNew = new ConfigScreensFactory().createConfigNew(configApi.read(configId).get(0));
 
       if (InputStatus.READY == configNew.getInputStatus()) {
@@ -185,7 +185,7 @@ public class ConfigOverview {
 
    private void onDetails() {
       PresentableConfiguration config = selectedItems.get(0);
-      long configId = config.getConfigId();
+      int configId = config.getConfigId();
       new ConfigScreensFactory().createConfigDetails(configApi.read(configId).get(0));
    }
 
@@ -194,7 +194,7 @@ public class ConfigOverview {
       Property currentConfig = propApi.read("config").get(0);
       long currentConfigId = Long.parseLong(currentConfig.getValue());
       if (currentConfigId != config.getConfigId()) {
-         configApi.delete(config.getOriginalConfig());
+         configApi.delete(config.getOriginalConfig().getId());
          stage.close();
       } else {
          LOG.error("Prevented deleting currently selected config: with id : " + config.getConfigId() + ". ");
@@ -203,7 +203,7 @@ public class ConfigOverview {
 
    private void onEdit() {
       PresentableConfiguration config = selectedItems.get(0);
-      long configId = config.getConfigId();
+      int configId = config.getConfigId();
       new ConfigScreensFactory().createConfigEdit(configApi.read(configId).get(0));
       showOrReshow();
    }

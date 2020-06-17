@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.xchg.domain.config;
 
-import com.radixpro.enigma.xchg.domain.AspectOrbStructure;
+import com.radixpro.enigma.xchg.domain.AspectOrbStructures;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class AspectConfigurationTest {
 
    private static final double DELTA = 0.00000001;
    private final double baseOrb = 7.7;
-   private final AspectOrbStructure orbStructure = AspectOrbStructure.ASPECT;
+   private final AspectOrbStructures orbStructure = AspectOrbStructures.ASPECT;
    private final boolean drawInOutGoing = true;
    private List<ConfiguredAspect> aspects;
    private AspectConfiguration aspectConfiguration;

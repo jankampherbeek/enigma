@@ -109,10 +109,9 @@ public class ConfigNew {
    }
 
    private Configuration createEditedConfig() {
-      long parentId = config.getId();
+      int parentId = config.getId();
       Configuration newConfig = api.read((int) parentId).get(0);
-      newConfigId = api.getMaxId() + 1L;
-      newConfig.setId(newConfigId);
+      newConfig.setId(-1);   // will be replaced with sequence
       newConfig.setParentId(parentId);
       newConfig.setName(valName.getNameText());
       newConfig.setDescription(descriptionInput.getText());

@@ -80,7 +80,7 @@ public enum CelestialObjects implements IChartPoints {
       ChartPointTypes pointType = ChartPointTypes.CEL_BODIES;  // TODO add to constructor
    }
 
-   public CelestialObjects getCelObjectForId(int id) throws UnknownIdException {
+   public static CelestialObjects getCelObjectForId(int id) throws UnknownIdException {
       for (CelestialObjects celObject : CelestialObjects.values()) {
          if (celObject.getId() == id) {
             return celObject;

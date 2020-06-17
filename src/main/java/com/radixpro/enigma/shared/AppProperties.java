@@ -18,25 +18,29 @@ public class AppProperties {
 
    private static final Logger LOG = Logger.getLogger(AppProperties.class);
    private final String USER_HOME = "user.home";
-   private final String PROPS_FILE = ".enigmaastroprops";
+   private final String PROPS_FILE = "enigmaastroprops";
    private final String DBLOC_PROP = "dblocation";
    private final String LANG_PROP = "lang";
 
    private String databasePath;
    private String language;
 
-   public AppProperties() {
-      defineProperties();
+   public AppProperties(final String env) {
+      defineProperties(env);
    }
 
-   private void defineProperties() {
+   private void defineProperties(final String env) {
       String userHome = "";
       try {
          LOG.info("Started AppProperties.");
          userHome = System.getProperty(USER_HOME);
          LOG.info("Value for userHome : " + userHome);
          Properties defaultProps = new Properties();
-         FileInputStream in = new FileInputStream(userHome + File.separator + PROPS_FILE);
+         String propsLoc = userHome + File.separator + "." + PROPS_FILE;
+         if ("dev".equalsIgnoreCase(env)) propsLoc = "dev" + File.separator + PROPS_FILE;
+         if ("test".equalsIgnoreCase(env)) propsLoc = "test" + File.separator + PROPS_FILE;
+         LOG.info("Location for properties file : " + propsLoc);
+         FileInputStream in = new FileInputStream(propsLoc);
          defaultProps.load(in);
          in.close();
          Properties applicationProps = new Properties(defaultProps);

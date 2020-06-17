@@ -31,7 +31,7 @@ public enum EclipticProjections {
       this.nameForRB = checkNotNull(nameForRB);
    }
 
-   public EclipticProjections getProjectionForId(final int id) throws UnknownIdException {
+   public static EclipticProjections getProjectionForId(final int id) throws UnknownIdException {
       for (EclipticProjections eclipticProjection : EclipticProjections.values()) {
          if (eclipticProjection.getId() == id) {
             return eclipticProjection;

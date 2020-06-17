@@ -41,7 +41,7 @@ public enum ObserverPositions implements Serializable {
     * @param id The index.
     * @return The resulting obserever position.
     */
-   public ObserverPositions getObserverPositionForId(final int id) throws UnknownIdException {
+   public static ObserverPositions getObserverPositionForId(final int id) throws UnknownIdException {
       for (ObserverPositions observerPos : ObserverPositions.values()) {
          if (observerPos.getId() == id) {
             return observerPos;

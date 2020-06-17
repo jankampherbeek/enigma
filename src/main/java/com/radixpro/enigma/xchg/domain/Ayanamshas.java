@@ -70,7 +70,7 @@ public enum Ayanamshas {
       this.nameForRB = nameForRB;
    }
 
-   public Ayanamshas getAyanamshaForId(int id) throws UnknownIdException {
+   public static Ayanamshas getAyanamshaForId(int id) throws UnknownIdException {
       for (Ayanamshas ayanamsha : Ayanamshas.values()) {
          if (ayanamsha.getId() == id) {
             return ayanamsha;

@@ -62,7 +62,7 @@ public enum HouseSystems {  // todo add NO_HOUSES at position 1, add Gauquelin a
       this.cuspIsStart = cuspIsStart;
    }
 
-   public HouseSystems getSystemForId(int id) throws UnknownIdException {
+   public static HouseSystems getSystemForId(int id) throws UnknownIdException {
       for (HouseSystems system : HouseSystems.values()) {
          if (system.getId() == id) {
             return system;

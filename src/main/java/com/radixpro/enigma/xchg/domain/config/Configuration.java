@@ -10,15 +10,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Configuration {
 
-   private long id;
-   private long parentId;
+   private int id;
+   private int parentId;
    private String name;
    private String description;
    private AstronConfiguration astronConfiguration;
    private DelinConfiguration delinConfiguration;
 
 
-   public Configuration(final long id, final long parentId, final String name, final String description,
+   public Configuration(final int id, final int parentId, final String name, final String description,
                         final AstronConfiguration astronConfiguration, final DelinConfiguration delinConfiguration) {
       this.id = id;
       this.parentId = parentId;
@@ -28,19 +28,19 @@ public class Configuration {
       this.delinConfiguration = checkNotNull(delinConfiguration);
    }
 
-   public long getId() {
+   public int getId() {
       return id;
    }
 
-   public void setId(long id) {
+   public void setId(int id) {
       this.id = id;
    }
 
-   public long getParentId() {
+   public int getParentId() {
       return parentId;
    }
 
-   public void setParentId(long parentId) {
+   public void setParentId(int parentId) {
       this.parentId = parentId;
    }
 

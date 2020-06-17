@@ -66,7 +66,7 @@ public enum AspectTypes {
     * @param id The id of the Aspect to return.
     * @return If id is found the resulting aspect, otherwise null.
     */
-   public AspectTypes getAspectForId(int id) {
+   public static AspectTypes getAspectForId(int id) {
       for (AspectTypes aspect : AspectTypes.values()) {
          if (aspect.getId() == id) {
             return aspect;

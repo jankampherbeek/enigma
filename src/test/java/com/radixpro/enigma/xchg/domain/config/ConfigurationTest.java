@@ -17,8 +17,8 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class ConfigurationTest {
 
-   private final long id = 3L;
-   private final long parentId = 1L;
+   private final int id = 3;
+   private final int parentId = 1;
    private final String name = "Some config";
    private final String description = "Description of some config.";
    @Mock

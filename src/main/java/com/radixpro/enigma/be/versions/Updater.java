@@ -18,14 +18,13 @@ public class Updater {
    private static final Logger LOG = Logger.getLogger(Updater.class);
    private final AppDb appDb;
    private Connection con;
-
    public Updater(final AppDb appDb) {
       this.appDb = appDb;
-      con = appDb.getConnection();
    }
 
    public void updateStep20202() {
       LOG.info("Starting with updateStep20202.");
+      con = appDb.getConnection();
       performUpdate("CREATE TABLE IF NOT EXISTS charttypes (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL);");
       performUpdate("CREATE TABLE IF NOT EXISTS ratings (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL);");
       performUpdate("CREATE TABLE IF NOT EXISTS timezones (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL);");
@@ -37,7 +36,8 @@ public class Updater {
       performUpdate("CREATE TABLE IF NOT EXISTS ayanamshas (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL);");
       performUpdate("CREATE TABLE IF NOT EXISTS asporbstrs (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL);");
       performUpdate("CREATE TABLE IF NOT EXISTS aspects (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL);");
-      performUpdate("CREATE TABLE IF NOT EXISTS versions (id INT PRIMARY KEY, versiontxt VARCHAR(12) NOT NULL);");
+      performUpdate("CREATE TABLE IF NOT EXISTS VERSIONS (id INT PRIMARY KEY, versiontxt VARCHAR(12) NOT NULL);");
+      performUpdate("CREATE SEQUENCE IF NOT EXISTS versionsSeq START WITH 100");
       performUpdate("CREATE TABLE IF NOT EXISTS charts (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL, description VARCHAR(256), source VARCHAR(256)" +
             ", idcharttype INT NOT NULL, idrating INT NOT NULL, datetime VARCHAR(16) NOT NULL, dst BOOLEAN NOT NULL, idtz INT NOT NULL, offsetlmt DOUBLE" +
             ", locname VARCHAR(255), geolong VARCHAR(11) NOT NULL, geolat VARCHAR(11) NOT NULL, FOREIGN KEY (idcharttype) REFERENCES charttypes(id)" +
@@ -53,12 +53,13 @@ public class Updater {
             ", FOREIGN KEY (idhouses) REFERENCES housesystems(id), FOREIGN KEY (idayanamshas) REFERENCES ayanamshas(id)" +
             ", FOREIGN KEY (ideclprojs) REFERENCES eclprojs(id), FOREIGN KEY (idobspos) REFERENCES obspos(id)" +
             ", FOREIGN KEY (idasporbstrs) REFERENCES asporbstrs(id));");
+      performUpdate("CREATE SEQUENCE IF NOT EXISTS configsSeq START WITH 1000");
       performUpdate("CREATE TABLE IF NOT EXISTS chartsevents(idchart INT, idevent INT , PRIMARY KEY(idchart, idevent)" +
             ", FOREIGN KEY (idchart) REFERENCES charts(id), FOREIGN KEY (idevent) REFERENCES events(id));");
-      performUpdate("CREATE TABLE IF NOT EXISTS configspoints (idconfig INT, idpoint INT, glyph VARCHAR(1) NOT NULL, orbperc DOUBLE NOT NULL " +
+      performUpdate("CREATE TABLE IF NOT EXISTS configspoints (idconfig INT, idpoint INT, glyph VARCHAR(1) NOT NULL, orbperc INT NOT NULL " +
             ", showdrawing BOOLEAN NOT NULL, PRIMARY KEY(idconfig, idpoint), FOREIGN KEY (idconfig) REFERENCES configs(id)" +
             ", FOREIGN KEY (idpoint) REFERENCES points(id));");
-      performUpdate("CREATE TABLE IF NOT EXISTS configsaspects (idconfig INT, idaspect INT, glyph VARCHAR(1) NOT NULL, orbperc DOUBLE NOT NULL " +
+      performUpdate("CREATE TABLE IF NOT EXISTS configsaspects (idconfig INT, idaspect INT, glyph VARCHAR(1) NOT NULL, orbperc INT NOT NULL " +
             ", showdrawing BOOLEAN NOT NULL, FOREIGN KEY (idconfig) REFERENCES configs(id), FOREIGN KEY (idaspect) REFERENCES aspects(id));");
       // DML charttypes
       performUpdate("INSERT INTO charttypes(id, name) VALUES (0, 'UNKNOWN');");
@@ -342,9 +343,10 @@ public class Updater {
 
       try {
          con.commit();
-         appDb.closeConnection();
       } catch (SQLException throwables) {
          throwables.printStackTrace();
+      } finally {
+         appDb.closeConnection();
       }
    }
 
@@ -360,6 +362,7 @@ public class Updater {
 
          statement.close();
       } catch (SQLException throwables) {
+         System.out.println("------------------" + expression);
          throwables.printStackTrace();
       }
    }

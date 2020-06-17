@@ -11,7 +11,7 @@ import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 /**
  * Structure of an orb for an aspect.
  */
-public enum AspectOrbStructure {
+public enum AspectOrbStructures {
    ASPECT(1),
    CELBODY(2),
    COMBINED(3),
@@ -19,7 +19,7 @@ public enum AspectOrbStructure {
 
    private final int id;
 
-   AspectOrbStructure(final int id) {
+   AspectOrbStructures(final int id) {
       this.id = id;
    }
 
@@ -30,8 +30,8 @@ public enum AspectOrbStructure {
     * @param id The id of the structure to return.
     * @return If id is found the resulting structure, otherwise null.
     */
-   public AspectOrbStructure getStructureForId(int id) throws UnknownIdException {
-      for (AspectOrbStructure structure : AspectOrbStructure.values()) {
+   public static AspectOrbStructures getStructureForId(int id) throws UnknownIdException {
+      for (AspectOrbStructures structure : AspectOrbStructures.values()) {
          if (structure.getId() == id) {
             return structure;
          }

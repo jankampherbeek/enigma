@@ -26,13 +26,15 @@ public class PersistedConfigurationApi {
       dao = new ConfigurationDao();
    }
 
-   public void insert(final Configuration configuration) {
+   public int insert(final Configuration configuration) {
       checkNotNull(configuration);
+      int configId = -1;
       try {
-         dao.insert(configuration);
+         configId = dao.insert(configuration);
       } catch (DatabaseException de) {
          new FailFastHandler().terminate(de.getMessage());
       }
+      return configId;
    }
 
    public void update(final Configuration configuration) {
@@ -44,21 +46,20 @@ public class PersistedConfigurationApi {
       }
    }
 
-   public void delete(final Configuration configuration) {
-      checkNotNull(configuration);
+   public void delete(final int id) {
       try {
-         dao.delete(configuration);
-      } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
+         dao.delete(id);
+      } catch (Exception e) {
+         new FailFastHandler().terminate(e.getMessage());
       }
    }
 
-   public List<Configuration> read(final long id) {
+   public List<Configuration> read(final int id) {
       List<Configuration> configs = new ArrayList<>();
       try {
          configs = dao.read(id);
-      } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
+      } catch (Exception e) {
+         new FailFastHandler().terminate(e.getMessage());
       }
       return configs;
    }
@@ -79,21 +80,12 @@ public class PersistedConfigurationApi {
       try {
          configs = dao.readAll();
          LOG.info("Read configurations, size of list : " + configs.size());
-      } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
+      } catch (Exception e) {
+         new FailFastHandler().terminate(e.getMessage());
       }
       return configs;
    }
 
-   public long getMaxId() {
-      long maxId = -1L;
-      try {
-         maxId = dao.getMaxId();
-      } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
-      }
-      return maxId;
-   }
 
 }
 

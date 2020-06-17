@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.xchg.domain.config;
 
-import com.radixpro.enigma.xchg.domain.AspectOrbStructure;
+import com.radixpro.enigma.xchg.domain.AspectOrbStructures;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,7 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class AspectConfiguration implements Serializable {
 
    private final double baseOrb;
-   private final AspectOrbStructure orbStructure;
+   private final AspectOrbStructures orbStructure;
    private List<ConfiguredAspect> aspects;
    private final boolean drawInOutGoing;
 
@@ -33,7 +33,7 @@ public class AspectConfiguration implements Serializable {
     * @param drawInOutGoing Indicates if separate glyphs will be used for in- and outgoing aspects.
     */
    public AspectConfiguration(final List<ConfiguredAspect> aspects, final double baseOrb,
-                              final AspectOrbStructure orbStructure, final boolean drawInOutGoing) {
+                              final AspectOrbStructures orbStructure, final boolean drawInOutGoing) {
       checkArgument(baseOrb > 0.0);
       this.aspects = checkNotNull(aspects);
       this.baseOrb = baseOrb;
@@ -45,7 +45,7 @@ public class AspectConfiguration implements Serializable {
       return baseOrb;
    }
 
-   public AspectOrbStructure getOrbStructure() {
+   public AspectOrbStructures getOrbStructure() {
       return orbStructure;
    }
 

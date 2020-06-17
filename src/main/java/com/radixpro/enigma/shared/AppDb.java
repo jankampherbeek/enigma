@@ -19,10 +19,40 @@ public class AppDb {
    private static final Logger LOG = Logger.getLogger(AppDb.class);
    private final AppProperties props;
    private Connection con;
+   private static AppDb instance;
 
-   public AppDb(final AppProperties props) {
-      this.props = props;
+   private AppDb() {
+      instance = this;
+      this.props = new AppProperties("PROD");
       LOG.info("Instantiated AppDb.");
+   }
+
+   private AppDb(final String environment) {
+      instance = this;
+      // todo handle environment
+      this.props = new AppProperties(environment);
+      LOG.info("Instantiated AppDb.");
+   }
+
+   /**
+    * Create db settings for prod, dev or test.
+    *
+    * @param environment
+    * @return
+    */
+   public static AppDb initAppDb(final String environment) {
+      if (null == instance) instance = new AppDb(environment);
+      return instance;
+   }
+
+   /**
+    * Always uses production database.
+    *
+    * @return single instance of AppDb.
+    */
+   public static AppDb getInstance() {   // TODO consider to remove null-check and creation of appDb. This should have been done by initAppDb()
+      if (null == instance) instance = new AppDb();
+      return instance;
    }
 
    public Connection getConnection() {
@@ -52,4 +82,7 @@ public class AppDb {
       }
    }
 
+   public AppProperties getProps() {
+      return props;
+   }
 }

@@ -8,7 +8,7 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
-import com.radixpro.enigma.xchg.domain.AspectOrbStructure;
+import com.radixpro.enigma.xchg.domain.AspectOrbStructures;
 import com.radixpro.enigma.xchg.domain.CelCoordinateElementVo;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
@@ -106,7 +106,7 @@ public class AspectsApiIntTest {
 
    private AspectConfiguration createConfig() {
       final double baseOrb = 8.0;
-      final AspectOrbStructure structure = AspectOrbStructure.ASPECT;
+      final AspectOrbStructures structure = AspectOrbStructures.ASPECT;
       final boolean drawInOutGoing = false;
       final List<ConfiguredAspect> aspects = createAspects();
       return new AspectConfiguration(aspects, baseOrb, structure, drawInOutGoing);
