@@ -13,7 +13,7 @@ public class ChartDataCsvMapper {
    }
 
    private ChartData handleCsvLine(final String[] csvLine) {
-      long id = Long.parseLong(csvLine[0]);
+      int id = Integer.parseInt(csvLine[0]);
       ChartMetaData chartMetaData = createMetaData(csvLine);
       FullDateTime fullDateTime = createFullDateTime(csvLine);
       Location location = createLocation(csvLine);

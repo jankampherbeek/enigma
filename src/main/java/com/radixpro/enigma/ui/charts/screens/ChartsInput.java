@@ -87,7 +87,7 @@ public class ChartsInput {
    private TextField tfTime;
    private Button calculatebtn;
    private boolean timeZoneLocalSelected = false;
-   private long newChartId;
+   private int newChartId;
    private ValidatedLongitude valLong;
    private ValidatedLongitude valLongLocalTime;
    private ValidatedLatitude valLat;
@@ -278,7 +278,7 @@ public class ChartsInput {
       return inputStatus;
    }
 
-   public long getNewChartId() {
+   public int getNewChartId() {
       return newChartId;
    }
 
@@ -438,12 +438,11 @@ public class ChartsInput {
       if (inputOk) inputStatus = InputStatus.READY;
    }
 
-   private long saveData() {
+   private int saveData() {
       PersistedChartDataApi api = new PersistedChartDataApi();
-      long chartId = api.getMaxId() + 1;
+      int chartId = 0;
       ChartData chartData = new ChartData(chartId, constructFullDateTime(), constructLocation(), constructMetaData());
-      api.insert(chartData);
-      return chartId;
+      return api.insert(chartData);
    }
 
    private ChartMetaData constructMetaData() {

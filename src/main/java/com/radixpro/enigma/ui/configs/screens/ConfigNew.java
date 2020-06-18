@@ -39,7 +39,7 @@ public class ConfigNew {
    private static final double TITLE_HEIGHT = 45.0;
    private static final double GAP = 6.0;
 
-   private long newConfigId;
+   private int newConfigId;
    private ValidatedConfigName valName;
    private InputStatus inputStatus = InputStatus.INCOMPLETE;
    private final Rosetta rosetta;
@@ -100,7 +100,7 @@ public class ConfigNew {
    }
 
    private void onOk() {
-      api.insert(createEditedConfig());
+      newConfigId = api.insert(createEditedConfig());
       stage.close();
    }
 
@@ -110,7 +110,7 @@ public class ConfigNew {
 
    private Configuration createEditedConfig() {
       int parentId = config.getId();
-      Configuration newConfig = api.read((int) parentId).get(0);
+      Configuration newConfig = api.read(parentId).get(0);
       newConfig.setId(-1);   // will be replaced with sequence
       newConfig.setParentId(parentId);
       newConfig.setName(valName.getNameText());
@@ -143,7 +143,7 @@ public class ConfigNew {
       if (inputOk) inputStatus = InputStatus.READY;
    }
 
-   public long getNewConfigId() {
+   public int getNewConfigId() {
       return newConfigId;
    }
 

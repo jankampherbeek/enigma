@@ -10,12 +10,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ChartData {          // TODO rename to prevent confusion about ChartsData
 
-   private final long id;
+   private final int id;
    private final FullDateTime fullDateTime;
    private final Location location;
    private final ChartMetaData chartMetaData;
 
-   public ChartData(final long id, final FullDateTime fullDateTime, final Location location,
+   public ChartData(final int id, final FullDateTime fullDateTime, final Location location,
                     final ChartMetaData chartMetaData) {
       this.id = id;
       this.fullDateTime = checkNotNull(fullDateTime);
@@ -23,7 +23,7 @@ public class ChartData {          // TODO rename to prevent confusion about Char
       this.chartMetaData = checkNotNull(chartMetaData);
    }
 
-   public long getId() {
+   public int getId() {
       return id;
    }
 

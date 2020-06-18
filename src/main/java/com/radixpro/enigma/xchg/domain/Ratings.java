@@ -45,7 +45,7 @@ public enum Ratings implements Serializable {
     * @param id The id for the rating.
     * @return The resulting rating.
     */
-   public Ratings getRatingForId(final int id) {
+   public static Ratings getRatingForId(final int id) {
       for (Ratings rating : Ratings.values()) {
          if (rating.getId() == id) {
             return rating;

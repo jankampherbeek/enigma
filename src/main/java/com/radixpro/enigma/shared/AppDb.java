@@ -22,14 +22,13 @@ public class AppDb {
    private static AppDb instance;
 
    private AppDb() {
-      instance = this;
+//      instance = this;
       this.props = new AppProperties("PROD");
       LOG.info("Instantiated AppDb.");
    }
 
    private AppDb(final String environment) {
-      instance = this;
-      // todo handle environment
+//      instance = this;
       this.props = new AppProperties(environment);
       LOG.info("Instantiated AppDb.");
    }

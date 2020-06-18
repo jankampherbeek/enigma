@@ -24,74 +24,43 @@ public class PersistedChartDataApi {
       dao = new ChartDataDao();
    }
 
-   public void insert(final ChartData chartData) {
+   public int insert(final ChartData chartData) {
       checkNotNull(chartData);
+      int chartId = -1;
       try {
-         dao.insert(chartData);
+         chartId = dao.insert(chartData);
       } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
+         System.out.println(de.getMessage());
+         //     new FailFastHandler().terminate(de.getMessage());
+      }
+      return chartId;
+   }
+
+   public void delete(final int chartId) {
+      try {
+         dao.delete(chartId);
+      } catch (Exception e) {
+         new FailFastHandler().terminate(e.getMessage());
       }
    }
 
-   public void update(final ChartData chartData) {
-      checkNotNull(chartData);
-      try {
-         dao.update(chartData);
-      } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
-      }
-   }
-
-   public void delete(final ChartData chartData) {
-      checkNotNull(chartData);
-      try {
-         dao.delete(chartData);
-      } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
-      }
-   }
-
-   public List<ChartData> read(final long id) {
-      List<ChartData> chartDataResult = new ArrayList<>();
-      try {
-         chartDataResult = dao.read(id);
-      } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
-      }
-      return chartDataResult;
+   public List<ChartData> read(final int id) {
+      return dao.read(id);
    }
 
    public List<ChartData> readAll() {
       List<ChartData> chartDataResult = new ArrayList<>();
       try {
          chartDataResult = dao.readAll();
-      } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
+      } catch (Exception e) {
+         System.out.println(e.getMessage());
       }
       return chartDataResult;
    }
 
    public List<ChartData> search(final String searchName) {
       checkNotNull(searchName);
-      List<ChartData> chartDataResult = new ArrayList<>();
-      try {
-         chartDataResult = dao.search(searchName);
-      } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
-      }
-      return chartDataResult;
+      return dao.search(searchName);
    }
-
-
-   public long getMaxId() {
-      long maxId = -1L;
-      try {
-         maxId = dao.getMaxId();
-      } catch (DatabaseException de) {
-         new FailFastHandler().terminate(de.getMessage());
-      }
-      return maxId;
-   }
-
 
 }

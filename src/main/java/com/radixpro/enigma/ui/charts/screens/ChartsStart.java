@@ -272,7 +272,7 @@ public class ChartsStart {
    void onNewChart() {
       ChartsInput chartsInput = new ChartsInput();
       if (chartsInput.getInputStatus() == InputStatus.READY) {
-         long newChartId = chartsInput.getNewChartId();
+         int newChartId = chartsInput.getNewChartId();
          ChartData chartData = addChart(newChartId);
          showChart(chartData);
       }
@@ -315,7 +315,7 @@ public class ChartsStart {
    }
 
 
-   private ChartData addChart(final long chartId) {
+   private ChartData addChart(final int chartId) {
       PersistedChartDataApi api = new PersistedChartDataApi();
       ChartData chartData = api.read(chartId).get(0);
       PresentableChartData presentableChartData = new PresentableChartData(chartData);
@@ -329,7 +329,7 @@ public class ChartsStart {
       PresentableChartData presChartData = selectedCharts.get(0);
       tvCharts.getItems().remove(presChartData);
       PersistedChartDataApi api = new PersistedChartDataApi();
-      api.delete(presChartData.getOriginalData());
+      api.delete(presChartData.getOriginalData().getId());
 
    }
 

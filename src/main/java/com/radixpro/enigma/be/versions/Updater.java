@@ -38,11 +38,13 @@ public class Updater {
       performUpdate("CREATE TABLE IF NOT EXISTS aspects (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL);");
       performUpdate("CREATE TABLE IF NOT EXISTS VERSIONS (id INT PRIMARY KEY, versiontxt VARCHAR(12) NOT NULL);");
       performUpdate("CREATE SEQUENCE IF NOT EXISTS versionsSeq START WITH 100");
-      performUpdate("CREATE TABLE IF NOT EXISTS charts (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL, description VARCHAR(256), source VARCHAR(256)" +
-            ", idcharttype INT NOT NULL, idrating INT NOT NULL, datetime VARCHAR(16) NOT NULL, dst BOOLEAN NOT NULL, idtz INT NOT NULL, offsetlmt DOUBLE" +
-            ", locname VARCHAR(255), geolong VARCHAR(11) NOT NULL, geolat VARCHAR(11) NOT NULL, FOREIGN KEY (idcharttype) REFERENCES charttypes(id)" +
-            ", FOREIGN KEY (idrating) REFERENCES ratings(id), FOREIGN KEY (idtz) REFERENCES timezones(id));");
+      performUpdate("CREATE TABLE IF NOT EXISTS charts (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL, description VARCHAR(256)" +
+            ", source VARCHAR(256), idcharttype INT NOT NULL, idrating INT NOT NULL, calDate VARCHAR(11) NOT NULL, time VARCHAR(8) NOT NULL" +
+            ", calendar VARCHAR(1) NOT NULL, dst BOOLEAN NOT NULL, idtz INT NOT NULL, offsetlmt DOUBLE, locname VARCHAR(255), geolong VARCHAR(11) NOT NULL" +
+            ", geolat VARCHAR(11) NOT NULL, FOREIGN KEY (idcharttype) REFERENCES charttypes(id), FOREIGN KEY (idrating) REFERENCES ratings(id)" +
+            ", FOREIGN KEY (idtz) REFERENCES timezones(id));");
       performUpdate("CREATE UNIQUE INDEX ON charts(name ASC)");
+      performUpdate("CREATE SEQUENCE IF NOT EXISTS chartsSeq START WITH 100");
       performUpdate("CREATE TABLE IF NOT EXISTS events (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL, description VARCHAR(256)" +
             ", datetime VARCHAR(16) NOT NULL, idtz INT, dst BOOLEAN, offsetlmt DOUBLE, locname VARCHAR(255), geolong VARCHAR(11), geolat VARCHAR(11)" +
             ", FOREIGN KEY (idtz) REFERENCES timezones(id));");

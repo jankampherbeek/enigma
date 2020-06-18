@@ -177,8 +177,8 @@ public class ConfigOverview {
       ConfigNew configNew = new ConfigScreensFactory().createConfigNew(configApi.read(configId).get(0));
 
       if (InputStatus.READY == configNew.getInputStatus()) {
-         long newConfigId = configNew.getNewConfigId();
-         new ConfigScreensFactory().createConfigEdit(configApi.read((int) newConfigId).get(0));
+         int newConfigId = configNew.getNewConfigId();
+         new ConfigScreensFactory().createConfigEdit(configApi.read(newConfigId).get(0));
          stage.close();
       }
    }

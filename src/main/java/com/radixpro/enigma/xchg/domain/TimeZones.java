@@ -58,7 +58,7 @@ public enum TimeZones {
       this.offset = offset;
    }
 
-   public TimeZones timeZoneForId(final int id) {
+   public static TimeZones timeZoneForId(final int id) {
       for (TimeZones timeZone : TimeZones.values()) {
          if (timeZone.getId() == id) {
             return timeZone;

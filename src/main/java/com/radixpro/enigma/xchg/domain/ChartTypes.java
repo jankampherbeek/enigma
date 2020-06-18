@@ -32,7 +32,7 @@ public enum ChartTypes {
       this.nameForRB = checkNotNull(nameForRB);
    }
 
-   public ChartTypes chartTypeForId(final int id) {
+   public static ChartTypes chartTypeForId(final int id) {
       for (ChartTypes chartType : ChartTypes.values()) {
          if (chartType.getId() == id) {
             return chartType;

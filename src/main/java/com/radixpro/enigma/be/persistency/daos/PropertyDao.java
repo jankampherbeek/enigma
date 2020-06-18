@@ -36,7 +36,7 @@ public class PropertyDao extends DaoParent {   // TODO remove
       allProps.add(insertProp);
       List<String[]> allLines = new ArrayList<>();
       for (Property prop : allProps) {
-         String[] propLine = {String.valueOf(prop.getId()), prop.getKey(), prop.getValue()};  // HIERO verwacht array met strings.
+         String[] propLine = {String.valueOf(prop.getId()), prop.getKey(), prop.getValue()};
          allLines.add(propLine);
       }
       writeData(allLines, PROP_FILE);

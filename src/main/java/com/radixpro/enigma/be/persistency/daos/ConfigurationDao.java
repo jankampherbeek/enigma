@@ -31,15 +31,15 @@ public class ConfigurationDao extends DaoParent {
    private static final String SEL_POINTS = "SELECT idpoint, glyph, orbperc, showdrawing FROM configspoints WHERE idconfig = ?";
    private static final String DEL_ASPECTS = "DELETE configsaspects WHERE idconfig = ?;";
    private static final String DEL_POINTS = "DELETE configspoints WHERE idconfig = ?;";
-   private static final String ZERO_ROWS = "ZERO_ROWS";
+   private static final String ZERO_ROWS = "No rows changed.";
 
    public int insert(final Configuration insertConfig) throws DatabaseException {
       int configId = -1;
       checkNotNull(insertConfig);
       final AppDb appDb = AppDb.getInstance();
+      final Connection con = appDb.getConnection();
       final String insertConfigs = "INSERT INTO configs (id, parentid, name, description, idhouses, idayanamshas, ideclprojs, idobspos, idasporbstrs, baseorb" +
             ", drawinoutgoing) values(configsseq.NEXTVAL, ?,?,?,?,?,?,?,?,?,?); ";
-      final Connection con = appDb.getConnection();
       try (PreparedStatement pStmtConfigs = con.prepareStatement(insertConfigs)) {
          pStmtConfigs.setInt(1, insertConfig.getParentId());
          pStmtConfigs.setString(2, insertConfig.getName());
@@ -199,7 +199,7 @@ public class ConfigurationDao extends DaoParent {
    }
 
    /**
-    * Search a config using (a part of) the name. Search is case sensitive.
+    * Search a config using (a part of) the name. Search is not case sensitive.
     *
     * @param searchName the search argument.
     * @return a list with zero or more configurations.
@@ -207,8 +207,8 @@ public class ConfigurationDao extends DaoParent {
     */
    public List<Configuration> search(final String searchName) throws DatabaseException {
       List<Configuration> resultConfigs = new ArrayList<>();
-      final AppDb appDb = AppDb.getInstance();
       final String queryConfigs = SEL_CONFIGS + " FROM configs WHERE name ILIKE '%' || ? || '%';";
+      final AppDb appDb = AppDb.getInstance();
       final Connection con = appDb.getConnection();
       try (PreparedStatement pStmtConfigs = con.prepareStatement(queryConfigs)) {
          pStmtConfigs.setString(1, searchName);
