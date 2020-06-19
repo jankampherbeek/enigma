@@ -6,78 +6,60 @@
 
 package com.radixpro.enigma.be.persistency.daos;
 
-import com.opencsv.CSVReader;
 import com.radixpro.enigma.be.exceptions.DatabaseException;
+import com.radixpro.enigma.be.versions.Updater;
+import com.radixpro.enigma.shared.AppDb;
 import com.radixpro.enigma.shared.Property;
 
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Dao for Property.
+ * Dao for Property. Supports only updating and reading a property.
+ * All inserts are done via the class Updater.
+ *
+ * @see Updater
  */
-public class PropertyDao extends DaoParent {   // TODO remove
-
-   private static final String PROP_FILE = DB_LOCATION + "properties.csv";
-   private static final String NEW_PROP_FILE = DB_LOCATION + "new_properties.csv";
-   private static final String OLD_PROP_FILE = DB_LOCATION + "old_properties.csv";
+public class PropertyDao extends DaoParent {
 
    /**
-    * Add new Property.
-    *
-    * @param insertProp The property to add.
-    * @throws DatabaseException is thrown for any database error.
-    */
-   public void insert(final Property insertProp) throws DatabaseException {
-      List<Property> allProps = readAll();
-      allProps.add(insertProp);
-      List<String[]> allLines = new ArrayList<>();
-      for (Property prop : allProps) {
-         String[] propLine = {String.valueOf(prop.getId()), prop.getKey(), prop.getValue()};
-         allLines.add(propLine);
-      }
-      writeData(allLines, PROP_FILE);
-   }
-
-   /**
-    * Finds property with the same id and updates it.
+    * Updates teh value of a property.
     *
     * @param updateProp Property with new content and he id to search for.
     * @throws DatabaseException is thrown for any database error.
     */
    public void update(final Property updateProp) throws DatabaseException {
-      List<Property> allProps = readAll();
-      List<String[]> updatedProps = new ArrayList<>();
-      long updatePropId = updateProp.getId();
-      for (Property prop : allProps) {
-         Property effectiveProp = (prop.getId() == updatePropId ? updateProp : prop);
-         String[] propLine = {String.valueOf(effectiveProp.getId()), effectiveProp.getKey(), effectiveProp.getValue()};
-         updatedProps.add(propLine);
-      }
-      writeData(updatedProps, NEW_PROP_FILE);
-      updateFiles(OLD_PROP_FILE, PROP_FILE, NEW_PROP_FILE);
-   }
-
-   /**
-    * Delete property, checks for the id and deletes item(s) with that id.
-    *
-    * @param delProp The property to delete.
-    * @throws DatabaseException is thrown for any database error.
-    */
-   public void delete(final Property delProp) throws DatabaseException {
-      List<Property> allProps = readAll();
-      List<String[]> remainingProps = new ArrayList<>();
-      for (Property prop : allProps) {
-         if (prop.getId() != delProp.getId()) {
-            String[] remainingProp = {String.valueOf(prop.getId()), prop.getKey(), prop.getValue()};
-            remainingProps.add(remainingProp);
+      checkNotNull(updateProp);
+      final AppDb appDb = AppDb.getInstance();
+      Connection con = appDb.getConnection();
+      final String updateProperties = "UPDATE properties SET value = ?  WHERE key = ? ;";
+      try {
+         try (PreparedStatement pStmtProperties = con.prepareStatement(updateProperties)) {
+            pStmtProperties.setString(1, updateProp.getValue());
+            pStmtProperties.setString(2, updateProp.getKey());
+            int result = pStmtProperties.executeUpdate();
+            if (result != 1) {
+               con.rollback();
+               throw new DatabaseException("Could not update property " + updateProp.getKey());
+            }
          }
+      } catch (SQLException throwables) {
+         try {
+            con.rollback();
+         } catch (SQLException e) {
+            LOG.error("SQLException when trying to rollback : " + e.getMessage());
+         }
+         throw new DatabaseException("SQLException when updating property " + updateProp.getKey() + ". Exception :  " + throwables.getMessage());
+      } finally {
+         appDb.closeConnection();
       }
-      writeData(remainingProps, NEW_PROP_FILE);
-      updateFiles(OLD_PROP_FILE, PROP_FILE, NEW_PROP_FILE);
+
    }
 
    /**
@@ -85,51 +67,24 @@ public class PropertyDao extends DaoParent {   // TODO remove
     *
     * @param key the key to search for.
     * @return A list with properties. The list should contain one or zero properties.
-    * @throws DatabaseException is thrown for any database error.
     */
-   public List<Property> read(final String key) throws DatabaseException {
+   public List<Property> read(final String key) {
       checkNotNull(key);
-      List<Property> allProps = readAll();
-      List<Property> foundProps = new ArrayList<>();
-      for (Property prop : allProps) {
-         if (key.equalsIgnoreCase(prop.getKey())) foundProps.add(prop);
+      List<Property> properties = new ArrayList<>();
+      final String queryProperties = "SELECT key, value FROM properties where key = ?;";
+      final AppDb appDb = AppDb.getInstance();
+      final Connection con = appDb.getConnection();
+      try (PreparedStatement pStmt = con.prepareStatement(queryProperties)) {
+         pStmt.setString(1, key);
+         try (ResultSet rsProperties = pStmt.executeQuery()) {
+            while (rsProperties.next()) {
+               properties.add(new Property(key, rsProperties.getString("value")));
+            }
+         }
+      } catch (SQLException throwables) {
+         LOG.error("SQLException when reading property for key: " + key + " . Msg: " + throwables.getMessage());
       }
-      return foundProps;
-   }
-
-   /**
-    * Reads all properties.
-    *
-    * @return List of Property.
-    * @throws DatabaseException is thrown for any database error.
-    */
-   public List<Property> readAll() throws DatabaseException {
-      List<String[]> allLines;
-      List<Property> propList = new ArrayList<>();
-      try (CSVReader reader = createReader(PROP_FILE)) {
-         allLines = reader.readAll();
-      } catch (IOException e) {
-         throw new DatabaseException("IOException when reading all properties : " + e.getMessage());
-      }
-      for (String[] line : allLines) {  // respectively id, key, value
-         propList.add(new Property(Long.parseLong(line[0]), line[1], line[2]));
-      }
-      return propList;
-   }
-
-   /**
-    * Define max id as currently used for a Property.
-    *
-    * @return the max id that was found.
-    * @throws DatabaseException is thrown for any database error.
-    */
-   public long getMaxId() throws DatabaseException {
-      List<Property> props = readAll();
-      long maxId = 0;
-      for (Property prop : props) {
-         if (prop.getId() > maxId) maxId = prop.getId();
-      }
-      return maxId;
+      return properties;
    }
 
 }

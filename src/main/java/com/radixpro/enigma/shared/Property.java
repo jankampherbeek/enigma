@@ -10,18 +10,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Property {
 
-   private final long id;
    private final String key;
    private String value;
 
-   public Property(final long id, final String key, final String value) {
-      this.id = id;
+   public Property(final String key, final String value) {
       this.key = checkNotNull(key);
       this.value = checkNotNull(value);
-   }
-
-   public long getId() {
-      return id;
    }
 
    public String getKey() {
@@ -38,6 +32,6 @@ public class Property {
 
    @Override
    public String toString() {
-      return String.format("Property(id=%d, key=%s, value=%s)", id, key, value);
+      return String.format("Property(key=%s, value=%s)", key, value);
    }
 }

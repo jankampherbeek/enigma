@@ -60,6 +60,7 @@ public class DbTestSupport {
       dropIt("timezones");
       dropIt("ratings");
       dropIt("charttypes");
+      dropIt("properties");
    }
 
    private void dropIt(final String tableName) {

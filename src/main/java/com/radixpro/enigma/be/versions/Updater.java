@@ -38,6 +38,7 @@ public class Updater {
       performUpdate("CREATE TABLE IF NOT EXISTS aspects (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL);");
       performUpdate("CREATE TABLE IF NOT EXISTS VERSIONS (id INT PRIMARY KEY, versiontxt VARCHAR(12) NOT NULL);");
       performUpdate("CREATE SEQUENCE IF NOT EXISTS versionsSeq START WITH 100");
+      performUpdate("CREATE TABLE IF NOT EXISTS properties (key VARCHAR(50) NOT NULL, value VARCHAR(100) NOT NULL);");
       performUpdate("CREATE TABLE IF NOT EXISTS charts (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL, description VARCHAR(256)" +
             ", source VARCHAR(256), idcharttype INT NOT NULL, idrating INT NOT NULL, calDate VARCHAR(11) NOT NULL, time VARCHAR(8) NOT NULL" +
             ", calendar VARCHAR(1) NOT NULL, dst BOOLEAN NOT NULL, idtz INT NOT NULL, offsetlmt DOUBLE, locname VARCHAR(255), geolong VARCHAR(11) NOT NULL" +
@@ -259,6 +260,9 @@ public class Updater {
       performUpdate("INSERT INTO aspects(id, name) VALUES (24, 'CENTILE');");
       // DML versions
       performUpdate("INSERT INTO versions(id, versiontxt) VALUES (1, '2020.2');");
+      // DML properties
+      performUpdate("INSERT INTO properties (key, value) values ('lang','en');");
+      performUpdate("INSERT INTO properties (key, value) values ('config','1');");
       // DML configs, only standard configs
       performUpdate("INSERT INTO configs(id, parentid, name, description, idhouses, idayanamshas, ideclprojs, idobspos, idasporbstrs, baseorb" +
             ", drawinoutgoing) values(1, null, 'Western standard', 'Standard for western astrology', 6, -1, 1, 1, 1, 8.0, true)");

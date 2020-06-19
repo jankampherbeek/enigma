@@ -13,14 +13,13 @@ import static org.junit.Assert.assertEquals;
 
 public class PropertyTest {
 
-   private final long id = 3L;
    private final String key = "myKey";
    private final String value = "myValue";
    private Property prop;
 
    @Before
    public void setUp() {
-      prop = new Property(id, key, value);
+      prop = new Property(key, value);
    }
 
    @Test
@@ -33,14 +32,10 @@ public class PropertyTest {
       assertEquals(value, prop.getValue());
    }
 
-   @Test
-   public void getId() {
-      assertEquals(id, prop.getId());
-   }
 
    @Test
    public void testToString() {
-      assertEquals("Property(id=3, key=myKey, value=myValue)", prop.toString());
+      assertEquals("Property(key=myKey, value=myValue)", prop.toString());
    }
 
    @Test
