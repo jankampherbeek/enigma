@@ -14,31 +14,37 @@ import com.radixpro.enigma.xchg.domain.Location;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Request for the calculation of transit positions.
+ * Request for secundary progressions.
  */
-public class TransitCalcRequest implements IProgCalcRequest {
+public class SecundaryCalcRequest implements IProgCalcRequest {
 
    private final FullDateTime dateTime;
+   private final FullDateTime birthDateTime;
    private final Location location;
    private final ICalcSettings settings;
 
    /**
     * Constructor defines all properties.
     *
-    * @param dateTime date and time. PRE: not null.
-    * @param location location (use depends on use of topocentric positions). PRE: not null.
-    * @param settings the settings to use. PRE: not null.
+    * @param dateTime      date and time of the event. PRE: not null.
+    * @param birthDateTime date and time of the birth. PRE: not null.
+    * @param location      locationof birth. PRE: not null.
+    * @param settings      Settings for the calcualtion. PRE: not null.
     */
-   public TransitCalcRequest(final FullDateTime dateTime, final Location location, final ICalcSettings settings) {
+   public SecundaryCalcRequest(final FullDateTime dateTime, final FullDateTime birthDateTime, final Location location, final ICalcSettings settings) {
       this.dateTime = checkNotNull(dateTime);
       this.location = checkNotNull(location);
       this.settings = checkNotNull(settings);
+      this.birthDateTime = checkNotNull(birthDateTime);
    }
-
 
    @Override
    public FullDateTime getDateTime() {
       return dateTime;
+   }
+
+   public FullDateTime getBirthDateTime() {
+      return birthDateTime;
    }
 
    @Override
@@ -46,6 +52,7 @@ public class TransitCalcRequest implements IProgCalcRequest {
       return settings;
    }
 
+   @Override
    public Location getLocation() {
       return location;
    }

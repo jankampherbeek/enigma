@@ -12,7 +12,7 @@ import com.radixpro.enigma.be.analysis.MidpointsForRadix;
 import com.radixpro.enigma.be.analysis.ProgRadixAspects;
 import com.radixpro.enigma.be.analysis.handlers.AspectsHandler;
 import com.radixpro.enigma.be.analysis.handlers.MidpointsHandler;
-import com.radixpro.enigma.be.analysis.handlers.TransitsAspectHandler;
+import com.radixpro.enigma.be.analysis.handlers.ProgAspectHandler;
 
 public class AnalysisHandlerFactory {
 
@@ -26,9 +26,9 @@ public class AnalysisHandlerFactory {
       return new MidpointsHandler(analyzer);
    }
 
-   public TransitsAspectHandler createTransitsAspectHandler() {
+   public ProgAspectHandler createTransitsAspectHandler() {
       ProgRadixAspects progRadixAspects = new ProgRadixAspects();
-      return new TransitsAspectHandler(progRadixAspects);
+      return new ProgAspectHandler(progRadixAspects);
    }
 
 }

@@ -11,8 +11,8 @@ import com.radixpro.enigma.be.calc.assist.CombinedFlags;
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
 import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
-import com.radixpro.enigma.xchg.api.requests.TransitCalcRequest;
 import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
+import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.domain.Ayanamshas;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.Location;
@@ -27,27 +27,26 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 
 /**
- * Handler for the calculation of transit positions.
+ * Handler for the calculation of progressive positions based on ephemeris calculations.
  */
-public class TransitsCalcHandler {
+public class EphProgCalcHandler {
 
    public final SeFrontend seFrontend;
 
 
-   public TransitsCalcHandler(final SeFrontend seFrontend) {
+   public EphProgCalcHandler(final SeFrontend seFrontend) {
       this.seFrontend = seFrontend;
    }
 
-   public SimpleProgResponse retrieveTransitPositions(final IProgCalcRequest request) {
+   public SimpleProgResponse retrievePositions(final IProgCalcRequest request) {
       checkNotNull(request);
-      return new SimpleProgResponse(calculatePositions((TransitCalcRequest) request), request);
+      final List<SimplePosVo> posVos = calculatePositions(request.getDateTime().getJdUt(), request.getLocation(), request.getSettings());
+      return new SimpleProgResponse(posVos, request);
    }
 
-   private List<SimplePosVo> calculatePositions(TransitCalcRequest request) {
-      double jdUt = request.getDateTime().getJdUt();
-      Location location = request.getLocation();
-      Ayanamshas ayanamsha = request.getSettings().getAyamsha();
-      boolean sidereal = request.getSettings().isSidereal();
+   private List<SimplePosVo> calculatePositions(final double jdUt, final Location location, final ICalcSettings settings) {
+      Ayanamshas ayanamsha = settings.getAyamsha();
+      boolean sidereal = settings.isSidereal();
       List<SeFlags> flagListEcl = new ArrayList<>();
       List<SeFlags> flagListEq = new ArrayList<>();
       flagListEcl.add(SeFlags.SWISSEPH);
@@ -57,18 +56,18 @@ public class TransitsCalcHandler {
          flagListEcl.add(SeFlags.SIDEREAL);
          flagListEq.add(SeFlags.SIDEREAL);
       }
-      // TODO handle topocentric
+      // TODO handle topocentric and sidereal
       int eclFlags = (int) new CombinedFlags(flagListEcl).getCombinedValue();
       int eqFlags = (int) new CombinedFlags(flagListEq).getCombinedValue();
 
       List<SimplePosVo> posResults = new ArrayList<>();
-      List<IChartPoints> points = request.getSettings().getPoints();
+      List<IChartPoints> points = settings.getPoints();
       for (IChartPoints point : points) {
          int seId = (int) ((CelestialObjects) point).getSeId();
          SePositionResultCelObjects posEcl = seFrontend.getPositionsForCelBody(jdUt, seId, eclFlags, location);
          SePositionResultCelObjects posEq = seFrontend.getPositionsForCelBody(jdUt, seId, eqFlags, location);
-         posResults.add(new SimplePosVo(point, posEcl.getAllPositions()[0], posEcl.getAllPositions()[1],
-               posEq.getAllPositions()[0], posEq.getAllPositions()[1]));
+         posResults.add(new SimplePosVo(point, posEcl.getAllPositions()[0], posEcl.getAllPositions()[1], posEq.getAllPositions()[0],
+               posEq.getAllPositions()[1]));
       }
       return posResults;
    }

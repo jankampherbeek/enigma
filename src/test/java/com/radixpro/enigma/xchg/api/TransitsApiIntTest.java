@@ -8,10 +8,10 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.xchg.api.factories.ApiProgFactory;
-import com.radixpro.enigma.xchg.api.requests.TransitCalcRequest;
-import com.radixpro.enigma.xchg.api.requests.TransitsAnalyzeRequest;
+import com.radixpro.enigma.xchg.api.requests.EphProgCalcRequest;
+import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
+import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
 import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
-import com.radixpro.enigma.xchg.api.responses.TransitsAspectResponse;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
 import com.radixpro.enigma.xchg.domain.*;
@@ -39,7 +39,7 @@ public class TransitsApiIntTest {
 
    @Test
    public void calculateTransits() {
-      TransitCalcRequest request = createCalcRequest();
+      EphProgCalcRequest request = createCalcRequest();
       final SimpleProgResponse response = api.calculateTransits(request);
       assertEquals(request, response.getRequest());
       assertEquals(3, response.getPositions().size());
@@ -57,7 +57,7 @@ public class TransitsApiIntTest {
 
    @Test
    public void findAspects() {
-      final TransitsAspectResponse response = api.defineAspects(createAnalyzeRequest());
+      final EphProgAspectResponse response = api.defineAspects(createAnalyzeRequest());
       assertEquals(4, response.getAnalyzedAspects().size());
       AnalyzedAspectTransit analyzedAspect = (AnalyzedAspectTransit) response.getAnalyzedAspects().get(0);
       assertEquals(CelestialObjects.MARS, analyzedAspect.getFirst().getChartPoint());
@@ -68,7 +68,7 @@ public class TransitsApiIntTest {
       assertEquals(20.0, analyzedAspect.getPercOrb(), DELTA_8_POS);
    }
 
-   private TransitCalcRequest createCalcRequest() {
+   private EphProgCalcRequest createCalcRequest() {
       final SimpleDate date = new SimpleDate(2020, 6, 6, true);
       final SimpleTime time = new SimpleTime(13, 42, 0);
       final SimpleDateTime dateTime = new SimpleDateTime(date, time);
@@ -81,10 +81,10 @@ public class TransitsApiIntTest {
       points.add(CelestialObjects.MARS);
       points.add(CelestialObjects.URANUS);
       final ICalcSettings settings = new ProgSettings(points, Ayanamshas.NONE, false, false);
-      return new TransitCalcRequest(fullDateTime, location, settings);
+      return new EphProgCalcRequest(fullDateTime, location, settings);
    }
 
-   private TransitsAnalyzeRequest createAnalyzeRequest() {
+   private ProgAnalyzeRequest createAnalyzeRequest() {
       List<SimplePosVo> transitPositions = new ArrayList<>();
       transitPositions.add(new SimplePosVo(CelestialObjects.MARS, 112.0, 1.0, 111.0, 5.5));    // 120 Sun 90 Mars
       transitPositions.add(new SimplePosVo(CelestialObjects.JUPITER, 274.5, -2.0, 275.0, -10.0));
@@ -102,7 +102,7 @@ public class TransitsApiIntTest {
       aspectTypes.add(AspectTypes.SQUARE);
       aspectTypes.add(AspectTypes.TRIANGLE);
       aspectTypes.add(AspectTypes.OPPOSITION);
-      return new TransitsAnalyzeRequest(ProgAnalysisType.ASPECTS, transitPositions, chartPositions, aspectTypes, 1.0);
+      return new ProgAnalyzeRequest(ProgAnalysisType.ASPECTS, transitPositions, chartPositions, aspectTypes, 1.0);
    }
 
 }

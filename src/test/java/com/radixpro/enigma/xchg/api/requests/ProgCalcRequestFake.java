@@ -24,6 +24,12 @@ public class ProgCalcRequestFake implements IProgCalcRequest {
       return new CalcSettingsFake();
    }
 
+   @Override
+   public Location getLocation() {
+      return new Location(new GeographicCoordinate(1, 30, 0, "n", 1.5),
+            new GeographicCoordinate(2, 20, 0, "w", -2.3333333), "Somewhere");
+   }
+
    private FullDateTime createDateTime() {
       SimpleDate date = new SimpleDate(2020, 6, 5, true);
       SimpleTime time = new SimpleTime(21, 43, 00);

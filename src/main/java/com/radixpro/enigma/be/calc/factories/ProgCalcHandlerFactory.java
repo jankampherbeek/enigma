@@ -8,15 +8,15 @@
 package com.radixpro.enigma.be.calc.factories;
 
 import com.radixpro.enigma.be.calc.core.SeFrontend;
-import com.radixpro.enigma.be.calc.handlers.TransitsCalcHandler;
+import com.radixpro.enigma.be.calc.handlers.EphProgCalcHandler;
 
 /**
  * Factory for handlers that take care of calculations for progressive techniques.
  */
 public class ProgCalcHandlerFactory {
 
-   public TransitsCalcHandler createTransitsCalcHandler() {
-      return new TransitsCalcHandler(SeFrontend.getFrontend());
+   public EphProgCalcHandler createTransitsCalcHandler() {
+      return new EphProgCalcHandler(SeFrontend.getFrontend());
    }
 
 }

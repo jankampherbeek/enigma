@@ -7,12 +7,12 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.analysis.handlers.TransitsAspectHandler;
-import com.radixpro.enigma.be.calc.handlers.TransitsCalcHandler;
-import com.radixpro.enigma.xchg.api.requests.TransitCalcRequest;
-import com.radixpro.enigma.xchg.api.requests.TransitsAnalyzeRequest;
+import com.radixpro.enigma.be.analysis.handlers.ProgAspectHandler;
+import com.radixpro.enigma.be.calc.handlers.EphProgCalcHandler;
+import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
+import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
+import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
 import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
-import com.radixpro.enigma.xchg.api.responses.TransitsAspectResponse;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -21,8 +21,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class TransitsApi {
 
-   private final TransitsCalcHandler calcHandler;
-   private final TransitsAspectHandler aspectHandler;
+   private final EphProgCalcHandler calcHandler;
+   private final ProgAspectHandler aspectHandler;
 
    /**
     * Constructor should be created by factory.
@@ -31,17 +31,17 @@ public class TransitsApi {
     * @param aspectHandler handler for analyzing tansit aspects. PRE: not null.
     * @see com.radixpro.enigma.xchg.api.factories.ApiProgFactory
     */
-   public TransitsApi(final TransitsCalcHandler calcHandler,
-                      final TransitsAspectHandler aspectHandler) {
+   public TransitsApi(final EphProgCalcHandler calcHandler,
+                      final ProgAspectHandler aspectHandler) {
       this.calcHandler = checkNotNull(calcHandler);
       this.aspectHandler = checkNotNull(aspectHandler);
    }
 
-   public SimpleProgResponse calculateTransits(final TransitCalcRequest request) {
-      return calcHandler.retrieveTransitPositions(request);
+   public SimpleProgResponse calculateTransits(final IProgCalcRequest request) {
+      return calcHandler.retrievePositions(request);
    }
 
-   public TransitsAspectResponse defineAspects(final TransitsAnalyzeRequest request) {
+   public EphProgAspectResponse defineAspects(final ProgAnalyzeRequest request) {
       return aspectHandler.analyzeAspects(request);
    }
 

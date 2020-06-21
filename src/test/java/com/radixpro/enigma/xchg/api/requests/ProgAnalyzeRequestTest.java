@@ -22,21 +22,21 @@ import java.util.List;
 import static com.radixpro.enigma.testsupport.TextConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 
-public class TransitsAnalyzeRequestTest {
+public class ProgAnalyzeRequestTest {
 
    private final ProgAnalysisType type = ProgAnalysisType.ASPECTS;
    private final double orb = 1.0;
    private List<SimplePosVo> transitPositions;
    private ChartPositionsVo chartPositions;
    private List<AspectTypes> aspects;
-   private TransitsAnalyzeRequest request;
+   private ProgAnalyzeRequest request;
 
    @Before
    public void setUp() throws Exception {
       transitPositions = createTransits();
       chartPositions = new ChartPositionsVo(55L, createCelestialPoints(), createMundanePositions());
       aspects = createAspects();
-      request = new TransitsAnalyzeRequest(type, transitPositions, chartPositions, aspects, orb);
+      request = new ProgAnalyzeRequest(type, transitPositions, chartPositions, aspects, orb);
    }
 
    @Test
@@ -46,7 +46,7 @@ public class TransitsAnalyzeRequestTest {
 
    @Test
    public void getTransitPositions() {
-      assertEquals(transitPositions, request.getTransitPositions());
+      assertEquals(transitPositions, request.getProgPositions());
    }
 
    @Test

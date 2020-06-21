@@ -17,7 +17,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Response for analyzed transitary aspects.
  */
-public class TransitsAspectResponse {
+public class EphProgAspectResponse {
 
    private final long chartId;
    private final List<IAnalyzedPair> analyzedAspects;
@@ -28,7 +28,7 @@ public class TransitsAspectResponse {
     * @param chartId         Id for chart. PRE: >= 0.
     * @param analyzedAspects all aspects from transits. PRE: not null.
     */
-   public TransitsAspectResponse(final long chartId, final List<IAnalyzedPair> analyzedAspects) {
+   public EphProgAspectResponse(final long chartId, final List<IAnalyzedPair> analyzedAspects) {
       checkArgument(chartId >= 0);
       this.chartId = chartId;
       this.analyzedAspects = checkNotNull(analyzedAspects);

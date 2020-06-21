@@ -8,8 +8,8 @@
 package com.radixpro.enigma.be.analysis.handlers;
 
 import com.radixpro.enigma.be.analysis.ProgRadixAspects;
-import com.radixpro.enigma.xchg.api.requests.TransitsAnalyzeRequest;
-import com.radixpro.enigma.xchg.api.responses.TransitsAspectResponse;
+import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
+import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.calculatedcharts.ChartPositionsVo;
@@ -21,24 +21,24 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Handler for analysing aspects from transits.
+ * Handler for analysing aspects from progressive positions.
  */
-public class TransitsAspectHandler {
+public class ProgAspectHandler {
 
    private final ProgRadixAspects progRadixAspects;
 
-   public TransitsAspectHandler(final ProgRadixAspects progRadixAspects) {
+   public ProgAspectHandler(final ProgRadixAspects progRadixAspects) {
       this.progRadixAspects = checkNotNull(progRadixAspects);
    }
 
-   public TransitsAspectResponse analyzeAspects(final TransitsAnalyzeRequest request) {
-      return analyze(request.getChartPositions(), request.getTransitPositions(), request.getAspects(), request.getOrb());
+   public EphProgAspectResponse analyzeAspects(final ProgAnalyzeRequest request) {
+      return analyze(request.getChartPositions(), request.getProgPositions(), request.getAspects(), request.getOrb());
    }
 
-   private TransitsAspectResponse analyze(ChartPositionsVo chartPositions, List<SimplePosVo> transitPositions, List<AspectTypes> aspectTypes, double orb) {
+   private EphProgAspectResponse analyze(ChartPositionsVo chartPositions, List<SimplePosVo> progPositions, List<AspectTypes> aspectTypes, double orb) {
       long chartId = 1L;   // FIXME use real chartId
       List<IAnalyzedPair> aspects = new ArrayList<>();
-      for (SimplePosVo trPos : transitPositions) {
+      for (SimplePosVo trPos : progPositions) {
          for (SimplePosVo rxBodyPos : chartPositions.getCelestialPoints()) {
             aspects.addAll(progRadixAspects.findAspects(aspectTypes, trPos, rxBodyPos, orb));
          }
@@ -46,7 +46,7 @@ public class TransitsAspectHandler {
             aspects.addAll(progRadixAspects.findAspects(aspectTypes, trPos, rxMundPos, orb));
          }
       }
-      return new TransitsAspectResponse(chartId, aspects);
+      return new EphProgAspectResponse(chartId, aspects);
    }
 
 

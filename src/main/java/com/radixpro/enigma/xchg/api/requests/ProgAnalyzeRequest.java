@@ -18,12 +18,12 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Request for analyzing aspects between transits and radix.
+ * Request for analyzing aspects between progressive positions and radix.
  */
-public class TransitsAnalyzeRequest {
+public class ProgAnalyzeRequest {
 
    private final ProgAnalysisType type;
-   private final List<SimplePosVo> transitPositions;
+   private final List<SimplePosVo> progPositions;
    private final ChartPositionsVo chartPositions;
    private final List<AspectTypes> aspects;
    private final double orb;
@@ -31,19 +31,19 @@ public class TransitsAnalyzeRequest {
    /**
     * Constructor defines all properties.
     *
-    * @param type             typeof analysis. PRE: not null.
-    * @param transitPositions positions in transit that need to be analyzed. PRE: not null and not empty.
-    * @param chartPositions   positions of the chart. PRE: not null.
-    * @param aspects          aspects that need to be used. PRE: not null and not empty.
-    * @param orb              the orb to use during analysis. PRE: orb > 0.0 .
+    * @param type           typeof analysis. PRE: not null.
+    * @param progPositions  progressive positions that need to be analyzed. PRE: not null and not empty.
+    * @param chartPositions positions of the chart. PRE: not null.
+    * @param aspects        aspects that need to be used. PRE: not null and not empty.
+    * @param orb            the orb to use during analysis. PRE: orb > 0.0 .
     */
-   public TransitsAnalyzeRequest(final ProgAnalysisType type, final List<SimplePosVo> transitPositions, final ChartPositionsVo chartPositions,
-                                 final List<AspectTypes> aspects, final double orb) {
+   public ProgAnalyzeRequest(final ProgAnalysisType type, final List<SimplePosVo> progPositions, final ChartPositionsVo chartPositions,
+                             final List<AspectTypes> aspects, final double orb) {
       checkArgument(orb > 0.0);
-      checkArgument(null != transitPositions && !transitPositions.isEmpty());
+      checkArgument(null != progPositions && !progPositions.isEmpty());
       checkArgument(null != aspects && !aspects.isEmpty());
       this.type = checkNotNull(type);
-      this.transitPositions = transitPositions;
+      this.progPositions = progPositions;
       this.chartPositions = checkNotNull(chartPositions);
       this.aspects = aspects;
       this.orb = orb;
@@ -53,8 +53,8 @@ public class TransitsAnalyzeRequest {
       return type;
    }
 
-   public List<SimplePosVo> getTransitPositions() {
-      return transitPositions;
+   public List<SimplePosVo> getProgPositions() {
+      return progPositions;
    }
 
    public ChartPositionsVo getChartPositions() {

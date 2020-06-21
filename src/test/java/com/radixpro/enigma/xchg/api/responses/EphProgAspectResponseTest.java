@@ -20,16 +20,16 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class TransitsAspectResponseTest {
+public class EphProgAspectResponseTest {
 
    private final long chartId = 333;
    private List<IAnalyzedPair> transitAspects;
-   private TransitsAspectResponse response;
+   private EphProgAspectResponse response;
 
    @Before
    public void setUp() throws Exception {
       transitAspects = createAspects();
-      response = new TransitsAspectResponse(chartId, transitAspects);
+      response = new EphProgAspectResponse(chartId, transitAspects);
    }
 
    @Test

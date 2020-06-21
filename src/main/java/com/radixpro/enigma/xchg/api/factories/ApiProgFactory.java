@@ -8,9 +8,11 @@
 package com.radixpro.enigma.xchg.api.factories;
 
 import com.radixpro.enigma.be.analysis.factories.AnalysisHandlerFactory;
-import com.radixpro.enigma.be.analysis.handlers.TransitsAspectHandler;
+import com.radixpro.enigma.be.analysis.handlers.ProgAspectHandler;
 import com.radixpro.enigma.be.calc.factories.ProgCalcHandlerFactory;
-import com.radixpro.enigma.be.calc.handlers.TransitsCalcHandler;
+import com.radixpro.enigma.be.calc.handlers.EphProgCalcHandler;
+import com.radixpro.enigma.be.calc.handlers.SecundaryDateHandler;
+import com.radixpro.enigma.xchg.api.SecundaryApi;
 import com.radixpro.enigma.xchg.api.TransitsApi;
 
 /**
@@ -19,9 +21,16 @@ import com.radixpro.enigma.xchg.api.TransitsApi;
 public class ApiProgFactory {
 
    public TransitsApi createTransitsApi() {
-      TransitsCalcHandler calcHandler = new ProgCalcHandlerFactory().createTransitsCalcHandler();
-      TransitsAspectHandler aspectHandler = new AnalysisHandlerFactory().createTransitsAspectHandler();
+      EphProgCalcHandler calcHandler = new ProgCalcHandlerFactory().createTransitsCalcHandler();
+      ProgAspectHandler aspectHandler = new AnalysisHandlerFactory().createTransitsAspectHandler();
       return new TransitsApi(calcHandler, aspectHandler);
+   }
+
+   public SecundaryApi createSecundaryApi() {
+      EphProgCalcHandler calcHandler = new ProgCalcHandlerFactory().createTransitsCalcHandler();
+      ProgAspectHandler aspectHandler = new AnalysisHandlerFactory().createTransitsAspectHandler();
+      SecundaryDateHandler dateHandler = new SecundaryDateHandler();
+      return new SecundaryApi(calcHandler, dateHandler, aspectHandler);
    }
 
 }

@@ -15,24 +15,31 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TransitCalcRequestTest {
+public class SecundaryCalcRequestTest {
 
    private FullDateTime dateTime;
+   private FullDateTime birthDateTime;
    private Location location;
    private ICalcSettings settings;
-   private TransitCalcRequest request;
+   private SecundaryCalcRequest request;
 
    @Before
    public void setUp() throws Exception {
-      dateTime = createDateTime();
+      dateTime = createDateTime(2020);
+      birthDateTime = createDateTime(1953);
       location = createLocation();
       settings = new CalcSettingsFake();
-      request = new TransitCalcRequest(dateTime, location, settings);
+      request = new SecundaryCalcRequest(dateTime, birthDateTime, location, settings);
    }
 
    @Test
    public void getDateTime() {
       assertEquals(dateTime, request.getDateTime());
+   }
+
+   @Test
+   public void getBirthDateTime() {
+      assertEquals(birthDateTime, request.getBirthDateTime());
    }
 
    @Test
@@ -45,8 +52,8 @@ public class TransitCalcRequestTest {
       assertEquals(location, request.getLocation());
    }
 
-   private FullDateTime createDateTime() {
-      SimpleDate date = new SimpleDate(2020, 6, 5, true);
+   private FullDateTime createDateTime(final int year) {
+      SimpleDate date = new SimpleDate(year, 6, 5, true);
       SimpleTime time = new SimpleTime(21, 43, 00);
       SimpleDateTime dateTime = new SimpleDateTime(date, time);
       return new FullDateTime(dateTime, TimeZones.CET, true, 0.0);
