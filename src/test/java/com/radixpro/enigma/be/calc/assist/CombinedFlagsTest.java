@@ -16,19 +16,18 @@ import static org.junit.Assert.assertEquals;
 
 public class CombinedFlagsTest {
 
-   private CombinedFlags combinedFlags;
+   private ArrayList<SeFlags> allSeFlags;
 
    @Before
    public void setUp() {
-      ArrayList<SeFlags> allSeFlags = new ArrayList<>();
-      allSeFlags.add(SeFlags.SWISSEPH);            // 2L
+      allSeFlags = new ArrayList<>();
+      allSeFlags.add(SeFlags.SWISSEPH);           // 2L
       allSeFlags.add(SeFlags.HELIOCENTRIC);       // 8L
-      allSeFlags.add(SeFlags.TOPOCENTRIC);         // 32 * 1024L
-      combinedFlags = new CombinedFlags(allSeFlags);
+      allSeFlags.add(SeFlags.TOPOCENTRIC);        // 32 * 1024L
    }
 
    @Test
    public void getCombinedValue() {
-      assertEquals(32778L, combinedFlags.getCombinedValue());
+      assertEquals(32778L, new CombinedFlags().getCombinedValue(allSeFlags));
    }
 }

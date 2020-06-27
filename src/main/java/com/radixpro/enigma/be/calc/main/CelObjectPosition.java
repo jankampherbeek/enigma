@@ -50,9 +50,9 @@ public class CelObjectPosition {
    }
 
    private void defineFlags(final List<SeFlags> localFlagList) {
-      eclipticalFlags = (int) new CombinedFlags(localFlagList).getCombinedValue();
+      eclipticalFlags = (int) new CombinedFlags().getCombinedValue(localFlagList);
       localFlagList.add(SeFlags.EQUATORIAL);
-      equatorialFlags = (int) new CombinedFlags(localFlagList).getCombinedValue();
+      equatorialFlags = (int) new CombinedFlags().getCombinedValue(localFlagList);
       horizontalFlags = (int) SeFlags.HORIZONTAL.getSeValue();
    }
 

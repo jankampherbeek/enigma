@@ -66,8 +66,7 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
       if (settings.isTopocentric()) {
          allFlags.add(SeFlags.TOPOCENTRIC);
       }
-      final CombinedFlags combinedFlags = new CombinedFlags(allFlags);
-      flagsValue = combinedFlags.getCombinedValue();
+      flagsValue = new CombinedFlags().getCombinedValue(allFlags);
    }
 
    private void calculateHouses() {

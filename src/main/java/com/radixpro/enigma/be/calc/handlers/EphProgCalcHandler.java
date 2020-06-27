@@ -57,8 +57,8 @@ public class EphProgCalcHandler {
          flagListEq.add(SeFlags.SIDEREAL);
       }
       // TODO handle topocentric and sidereal
-      int eclFlags = (int) new CombinedFlags(flagListEcl).getCombinedValue();
-      int eqFlags = (int) new CombinedFlags(flagListEq).getCombinedValue();
+      int eclFlags = (int) new CombinedFlags().getCombinedValue(flagListEcl);
+      int eqFlags = (int) new CombinedFlags().getCombinedValue(flagListEq);
 
       List<SimplePosVo> posResults = new ArrayList<>();
       List<IChartPoints> points = settings.getPoints();

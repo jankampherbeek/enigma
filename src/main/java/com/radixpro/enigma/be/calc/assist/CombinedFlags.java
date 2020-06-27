@@ -17,15 +17,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class CombinedFlags {
 
-   private final long combinedValue;
-
    /**
-    * Constructor expects a listof all the flags that will be combined.
+    * Calculate combined value of flags.
     *
-    * @param flagList The flags.
+    * @param flagList The flags to combine. PRE: not null.
+    * @return the combined value of te flags.
     */
-   public CombinedFlags(final List<SeFlags> flagList) {
-      combinedValue = performCombination(checkNotNull(flagList));
+   public long getCombinedValue(final List<SeFlags> flagList) {
+      return performCombination(checkNotNull(flagList));
    }
 
    private long performCombination(final List<SeFlags> flagList) {
@@ -37,7 +36,5 @@ public class CombinedFlags {
       return result;
    }
 
-   public long getCombinedValue() {
-      return this.combinedValue;
-   }
+
 }
