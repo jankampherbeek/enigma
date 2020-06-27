@@ -33,10 +33,10 @@ public class SecundaryApi {
     * @param aspectHandler  Handler to find the aspects. PRE: not null.
     * @see com.radixpro.enigma.xchg.api.factories.ApiProgFactory
     */
-   public SecundaryApi(final EphProgCalcHandler calcHandler, final SecundaryDateHandler secDateHandler, final ProgAspectHandler aspectHandler) {  // TODO create factory
-      this.calcHandler = checkNotNull(calcHandler);
+   public SecundaryApi(final EphProgCalcHandler calcHandler, final SecundaryDateHandler secDateHandler, final ProgAspectHandler aspectHandler) {
       this.secundaryDateHandler = checkNotNull(secDateHandler);
       this.aspectHandler = checkNotNull(aspectHandler);
+      this.calcHandler = checkNotNull(calcHandler);
    }
 
    /**
