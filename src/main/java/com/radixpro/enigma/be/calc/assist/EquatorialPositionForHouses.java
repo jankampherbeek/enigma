@@ -24,11 +24,12 @@ public class EquatorialPositionForHouses {
    private EclipticEquatorialConversions conversions;
 
    /**
-    * Constructor for positions that need to be calculated.
+    * Constructor should be called via EquatorialPositionForHousesFactory.
     *
     * @param seFrontend Instance (singleton) of SeFrontend.
     * @param longitude  THe longitude in degrees.
     * @param jdUt       Julian Day for UT.
+    * @see com.radixpro.enigma.be.calc.factories.EquatorialPositionForHousesFactory
     */
    public EquatorialPositionForHouses(final SeFrontend seFrontend, final EclipticEquatorialConversions conversions, final double longitude, final double jdUt) {
       checkNotNull(seFrontend);

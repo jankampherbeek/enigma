@@ -18,7 +18,7 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.radixpro.enigma.testsupport.TextConstants.DELTA_8_POS;
+import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

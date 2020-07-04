@@ -12,7 +12,7 @@ import org.controlsfx.control.CheckComboBox;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.radixpro.enigma.testsupport.TextConstants.DELTA_8_POS;
+import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JfxTestRunner.class)

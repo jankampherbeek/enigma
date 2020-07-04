@@ -6,7 +6,8 @@
 
 package com.radixpro.enigma.xchg.domain;
 
-import com.radixpro.enigma.be.calc.main.JulianDay;
+import com.radixpro.enigma.be.calc.factories.RadixCalcFactory;
+import com.radixpro.enigma.be.calc.handlers.JulianDayHandler;
 import com.radixpro.enigma.shared.Rosetta;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -21,7 +22,6 @@ public class FullDateTime {
    private final boolean dst;
    private final double offsetForLmt;
    private final double jdUt;
-   private final double jdEt;
    private final String formattedDateTime;
    private final Rosetta rosetta;
 
@@ -41,9 +41,8 @@ public class FullDateTime {
       this.dst = dst;
       this.offsetForLmt = offsetForLmt;
       double utDelta = calculateUtDelta();
-      JulianDay julianDay = new JulianDay(simpleDateTime);
-      jdUt = julianDay.getJdNrUt() - utDelta / 24.0;
-      jdEt = julianDay.getJdNrEt() - utDelta / 24.0;
+      JulianDayHandler julianDayHandler = new RadixCalcFactory().getJulianDayHandler();
+      jdUt = julianDayHandler.calculateJdNr(simpleDateTime, "ut") - utDelta / 24.0;
       formattedDateTime = formatDateTime();
    }
 
@@ -88,10 +87,6 @@ public class FullDateTime {
 
    public double getJdUt() {
       return jdUt;
-   }
-
-   public double getJdEt() {
-      return jdEt;
    }
 
    public String getFormattedDateTime() {

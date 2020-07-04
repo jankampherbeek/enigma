@@ -6,7 +6,9 @@
 
 package com.radixpro.enigma.testsupport;
 
-public class TextConstants {
+public class TestConstants {
 
+   public static final double DELTA_5_POS = 0.00001;
    public static final double DELTA_8_POS = 0.00000001;
+
 }

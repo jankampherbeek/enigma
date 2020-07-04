@@ -45,14 +45,6 @@ public class SeFrontendTest {
    }
 
    @Test
-   public void getJulianDay() {
-      double[] result = SeFrontend.getFrontend().getJulianDay(1953, 1, 29, 7, 37, 0, true);
-      assertEquals(2434406.8177128294, result[0], delta);
-      assertEquals(2434406.8173611113, result[1], delta);
-   }
-
-
-   @Test
    public void getPositionsForCelBody() {
       int bodyId = 4;
       SePositionResultCelObjects result = SeFrontend.getFrontend().getPositionsForCelBody(jdUt, bodyId, flags, locationMock);

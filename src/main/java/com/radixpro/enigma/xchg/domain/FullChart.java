@@ -41,7 +41,6 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
    private final List<IObjectVo> allCelBodyPositions;
    private final List<IObjectVo> allHousePositions;
 
-
    public FullChart(final FullDateTime fullDateTime, final Location location, final CalculationSettings settings) {
       this.fullDateTime = checkNotNull(fullDateTime);
       this.location = checkNotNull(location);
@@ -133,10 +132,6 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
 
    private void calculateObliquity() {
       obliquity = new Obliquity(seFrontend, jdUt).getTrueObliquity();
-   }
-
-   public double getJulianDayForUt() {
-      return jdUt;
    }
 
    public FullDateTime getFullDateTime() {

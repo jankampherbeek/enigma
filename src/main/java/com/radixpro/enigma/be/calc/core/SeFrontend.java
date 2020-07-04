@@ -47,30 +47,13 @@ public class SeFrontend {
    }
 
    /**
-    * Calculate Julian day, both for ephemeris time and for universal time
-    *
-    * @param year     year, use astronomical years
-    * @param month    month, 1..12
-    * @param day      day of month
-    * @param hour     hour 0..23
-    * @param min      minute
-    * @param sec      sec
-    * @param gregFlag true for Gregorian calendar, false for Julian calendar
-    * @return Julian Day for ET [0], and Julian Day for UT [1]
-    */
-   public double[] getJulianDay(final int year, final int month, final int day, final int hour, final int min,
-                                final int sec, final boolean gregFlag) {
-      SweDate sweDate = new SweDate();
-      return sweDate.getJDfromUTC(year, month, day, hour, min, sec, gregFlag, false);
-   }
-
-   /**
     * Calculate ecliptical or equatorial positions for a body
     *
     * @param jdUt  Julian Day based on Ephemeris Time
     * @param id    indicates the body
     * @param flags combined settings for the SE
-    * @return calculated positions
+    * @return calculated positions. Array contains for ecliptical positions: from 0..5: Longitude, latitude, distance in AU, speed long, speed lat, speed dist,
+    * and for equatorial positions from 0..5: right ascension, declination, distance in AU, speed RA, speed decl, speed dist.
     */
    public SePositionResultCelObjects getPositionsForCelBody(final double jdUt, final int id, final int flags, final Location location) {
       double[] allPositions = new double[6];

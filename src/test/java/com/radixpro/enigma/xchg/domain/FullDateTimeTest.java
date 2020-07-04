@@ -71,21 +71,9 @@ public class FullDateTimeTest {
    }
 
    @Test
-   public void getJdEtHappyFlow() {
-      fullDateTime = new FullDateTime(simpleDateTimeMock, TimeZones.UT, false, 0.0);
-      assertEquals(2458912.1258256687, fullDateTime.getJdEt(), DELTA);
-   }
-
-   @Test
    public void getJdUtWithLmt() {
       fullDateTime = new FullDateTime(simpleDateTimeMock, TimeZones.LMT, false, -5.0);
       assertEquals(2458912.3333333335, fullDateTime.getJdUt(), DELTA);
-   }
-
-   @Test
-   public void getJdEtWithLmt() {
-      fullDateTime = new FullDateTime(simpleDateTimeMock, TimeZones.LMT, false, -5.0);
-      assertEquals(2458912.334159002, fullDateTime.getJdEt(), DELTA);
    }
 
    @Test
@@ -95,13 +83,6 @@ public class FullDateTimeTest {
    }
 
    @Test
-   public void getJdEtWithDst() {
-      fullDateTime = new FullDateTime(simpleDateTimeMock, TimeZones.UT, true, 0.0);
-      assertEquals(2458912.084159002, fullDateTime.getJdEt(), DELTA);
-   }
-
-
-   @Test
    public void getJdUtPreviousDay() {
       when(simpleTimeMock.getHour()).thenReturn(3);
       fullDateTime = new FullDateTime(simpleDateTimeMock, TimeZones.EST, false, 0.0);
@@ -109,24 +90,10 @@ public class FullDateTimeTest {
    }
 
    @Test
-   public void getJdEtPreviousDay() {
-      when(simpleTimeMock.getHour()).thenReturn(3);  // offset -5
-      fullDateTime = new FullDateTime(simpleDateTimeMock, TimeZones.EST, false, 0.0);
-      assertEquals(2458911.834158977, fullDateTime.getJdEt(), DELTA);
-   }
-
-   @Test
    public void getJdUtNextDay() {
       when(simpleTimeMock.getHour()).thenReturn(23);
       fullDateTime = new FullDateTime(simpleDateTimeMock, TimeZones.ICT, false, 0.0);
       assertEquals(2458912.166666667, fullDateTime.getJdUt(), DELTA);  // offset + 7.0
-   }
-
-   @Test
-   public void getJdEtNextDay() {
-      when(simpleTimeMock.getHour()).thenReturn(23);
-      fullDateTime = new FullDateTime(simpleDateTimeMock, TimeZones.ICT, false, 0.0);
-      assertEquals(2458912.167492352, fullDateTime.getJdEt(), DELTA);
    }
 
    @Test

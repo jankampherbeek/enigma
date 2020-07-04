@@ -12,7 +12,7 @@ import com.radixpro.enigma.xchg.domain.analysis.IChartPoints;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.radixpro.enigma.testsupport.TextConstants.DELTA_8_POS;
+import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 
 public class SimplePosVoTest {
