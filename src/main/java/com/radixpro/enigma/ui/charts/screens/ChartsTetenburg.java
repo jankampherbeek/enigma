@@ -14,6 +14,7 @@ import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
 import com.radixpro.enigma.ui.shared.factories.LabelFactory;
 import com.radixpro.enigma.ui.shared.factories.PaneFactory;
+import com.radixpro.enigma.ui.shared.factories.TextFieldFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.ui.shared.validation.ValidatedDate;
 import com.radixpro.enigma.xchg.api.TetenburgApi;
@@ -23,7 +24,6 @@ import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -50,6 +50,7 @@ public class ChartsTetenburg {
    private static final double HEIGHT = 440.0;
    private static final double TITLE_HEIGHT = 45.0;
    private static final double SEPARATOR_HEIGHT = 20.0;
+   private static final double INPUT_HEIGHT = 25.0;
    private static final double GAP = 6.0;
    private final Stage stage;
    private final Rosetta rosetta;
@@ -57,8 +58,19 @@ public class ChartsTetenburg {
    private final FullChart fullChart;
    private final String calendar;
    private Button btnCalc;
+   private Button btnExit;
+   private Button btnHelp;
+   private Label lblConfig;
+   private Label lblDate;
+   private Label lblName;
    private Label lblResultValue;
    private Label lblSignGlyph;
+   private Pane paneCalcBtn;
+   private Pane paneInput;
+   private Pane paneMeta;
+   private Pane paneResult;
+   private Pane paneSeparator;
+   private Pane paneTitle;
    private TextField tfDate;
    private ValidatedDate valDate;
 
@@ -69,9 +81,59 @@ public class ChartsTetenburg {
       this.meta = meta;
       this.fullChart = fullChart;
       this.calendar = fullChart.getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j";
+      defineLeafs();
+      definePanes();
+      defineButtons();
+      defineStructure();
+      defineActions();
+      defineListeners();
+
       stage.setScene(new Scene(createVBox()));
       checkStatus();
-      stage.show();
+      stage.showAndWait();
+   }
+
+   private void defineLeafs() {
+      lblName = new Label(rosetta.getText("ui.charts.tetenburg.lbl.nameprefix") + " " + meta.getName());
+      lblConfig = new Label(rosetta.getText("ui.charts.tetenburg.lbl.configprefix") + " " + meta.getConfigName());
+      lblDate = LabelFactory.createLabel(rosetta.getText("ui.charts.tetenburg.lbl.progdate"), WIDTH * 0.4);
+      lblResultValue = new Label("");
+      lblSignGlyph = new Label("");
+      tfDate = TextFieldFactory.createTextField(INPUT_HEIGHT, WIDTH * 0.5, "inputDefault");
+   }
+
+   private void definePanes() {
+      paneTitle = PaneFactory.createPane(TITLE_HEIGHT, WIDTH, "titlepane");
+      paneMeta = PaneFactory.createPane(TITLE_HEIGHT, WIDTH);
+      paneInput = PaneFactory.createPane(TITLE_HEIGHT, WIDTH);
+      paneCalcBtn = PaneFactory.createPane(INPUT_HEIGHT, WIDTH);
+      paneSeparator = PaneFactory.createPane(SEPARATOR_HEIGHT, WIDTH);
+      paneResult = PaneFactory.createPane(TITLE_HEIGHT, WIDTH);
+      paneResult.setPadding(new Insets(GAP, GAP, GAP, GAP));
+   }
+
+   private void defineButtons() {
+      btnCalc = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.calculate"), true);
+      btnHelp = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.help"), false);
+      btnExit = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.exit"), false);
+   }
+
+   private void defineStructure() {
+      paneTitle.getChildren().add(LabelFactory.createLabel(rosetta.getText("ui.charts.tetenburg.pagetitle"), "titletext", WIDTH));
+      paneMeta.getChildren().add(createVBoxMeta());
+      paneInput.getChildren().add(createHBoxInput());
+      paneCalcBtn.getChildren().add(btnCalc);
+      paneResult.getChildren().add(createHBoxResult());
+   }
+
+   private void defineActions() {
+      btnCalc.setOnAction(click -> onCalc());
+      btnHelp.setOnAction(click -> onHelp());
+      btnExit.setOnAction(click -> stage.close());
+   }
+
+   private void defineListeners() {
+      tfDate.textProperty().addListener((observable, oldValue, newValue) -> validateDate(newValue));
    }
 
    private VBox createVBox() {
@@ -80,83 +142,34 @@ public class ChartsTetenburg {
       vBox.getStylesheets().add(STYLESHEET);
       vBox.setPrefWidth(WIDTH);
       vBox.setPrefHeight(HEIGHT);
-      vBox.getChildren().addAll(createPaneTitle(), createPaneMeta(), createPaneInput(), createPaneCalcBtn(), createPaneSeparator(), createResultPane(),
-            createPaneSeparator(), createButtonBar());
+      vBox.getChildren().addAll(paneTitle, paneMeta, paneInput, paneCalcBtn, paneSeparator, paneResult, createButtonBar());
       return vBox;
    }
 
-   private Pane createPaneTitle() {
-      final Pane pane = PaneFactory.createPane(TITLE_HEIGHT, WIDTH, "titlepane");
-      pane.getChildren().add(LabelFactory.createLabel(rosetta.getText("ui.charts.tetenburg.pagetitle"), "titletext", WIDTH));
-      return pane;
-   }
-
-   private Pane createPaneMeta() {
-      final Pane pane = new Pane();
-      pane.setPrefWidth(WIDTH);
-      pane.setPrefHeight(TITLE_HEIGHT);
+   private VBox createVBoxMeta() {
       VBox vBox = new VBox();
       vBox.setPrefWidth(WIDTH);
-      Label lblName = new Label(rosetta.getText("ui.charts.tetenburg.lbl.nameprefix") + " " + meta.getName());
-      Label lblConfig = new Label(rosetta.getText("ui.charts.tetenburg.lbl.configprefix") + " " + meta.getConfigName());
       vBox.getChildren().addAll(lblName, lblConfig);
-      pane.getChildren().add(vBox);
-      return pane;
+      return vBox;
    }
 
-   private Pane createPaneInput() {
-      final Pane pane = new Pane();
-      pane.setPrefWidth(WIDTH);
-      pane.setPrefHeight(TITLE_HEIGHT);
+   private HBox createHBoxInput() {
       HBox hBox = new HBox();
       hBox.setPrefWidth(WIDTH);
-      Label lblDate = LabelFactory.createLabel(rosetta.getText("ui.charts.tetenburg.lbl.progdate"), WIDTH * 0.4);
-      tfDate = new TextField();
-      tfDate.setPrefWidth(WIDTH * 0.5);
-      tfDate.setAlignment(Pos.CENTER_RIGHT);
-      tfDate.textProperty().addListener((observable, oldValue, newValue) -> validateDate(newValue));
       hBox.getChildren().addAll(lblDate, tfDate);
-      pane.getChildren().add(hBox);
-      return pane;
+      return hBox;
    }
 
-   private Pane createPaneCalcBtn() {
-      final Pane pane = new Pane();
-      pane.setPrefWidth(WIDTH);
-      btnCalc = new Button(rosetta.getText("ui.shared.btn.calculate"));
-      btnCalc.setOnAction(click -> onCalc());
-      pane.getChildren().add(btnCalc);
-      return pane;
-   }
-
-   private Pane createPaneSeparator() {
-      return PaneFactory.createPane(SEPARATOR_HEIGHT, WIDTH);
-   }
-
-
-   private Pane createResultPane() {
-      final Pane pane = new Pane();
-      pane.setPrefWidth(WIDTH);
-      pane.setPrefHeight(TITLE_HEIGHT);
-      pane.setPadding(new Insets(GAP, GAP, GAP, GAP));
-      lblResultValue = new Label("");
-      lblSignGlyph = new Label("");
+   private Pane createHBoxResult() {
       HBox hBox = new HBox();
       hBox.setPrefWidth(WIDTH);
       hBox.getChildren().addAll(lblResultValue, lblSignGlyph);
-      pane.getChildren().add(hBox);
-      return pane;
+      return hBox;
    }
 
    private ButtonBar createButtonBar() {
       ButtonBar buttonBar = new ButtonBar();
       buttonBar.setPadding(new Insets(GAP, GAP, GAP, GAP));
-      Button btnHelp = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.help"), false);
-      Button btnExit = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.exit"), false);
-
-      btnHelp.setOnAction(click -> onHelp());
-      btnExit.setOnAction(click -> stage.close());
-
       buttonBar.getButtons().addAll(btnHelp, btnExit);
       return buttonBar;
    }
