@@ -12,6 +12,7 @@ import com.radixpro.enigma.be.calc.assist.JdFromPosCalc;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
 import com.radixpro.enigma.be.calc.handlers.EphProgCalcHandler;
 import com.radixpro.enigma.be.calc.handlers.SolarReturnHandler;
+import com.radixpro.enigma.be.calc.handlers.TetenburgHandler;
 
 /**
  * Factory for handlers and assists that take care of calculations for progressive techniques.
@@ -30,8 +31,12 @@ public class ProgCalcFactory {
       return new JdFromPosCalc(getCoordSetForDateTimeCalc());
    }
 
-   public SolarReturnHandler createSolarReturnHandler() {
+   public SolarReturnHandler getSolarReturnHandler() {
       return new SolarReturnHandler(getJdFromPosCalc());
+   }
+
+   public TetenburgHandler getTetenburgHandler() {
+      return new TetenburgHandler(SeFrontend.getFrontend());
    }
 
 }

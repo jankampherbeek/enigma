@@ -8,12 +8,14 @@ package com.radixpro.enigma.be.calc.core;
 
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
+import com.radixpro.enigma.xchg.domain.HouseSystems;
 import com.radixpro.enigma.xchg.domain.Location;
 import com.radixpro.enigma.xchg.domain.SeFlags;
 import org.apache.log4j.Logger;
 import swisseph.SweDate;
 import swisseph.SwissEph;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.shared.EnigmaDictionary.SE_LOCATION;
 
@@ -124,6 +126,24 @@ public class SeFrontend {
       swissEph.swe_houses(jdUt, flags, location.getGeoLat(), location.getGeoLong(), system, tempCusps, ascMc);
       if (nrOfCusps >= 0) System.arraycopy(tempCusps, 1, cusps, 1, nrOfCusps);
       return new SePositionResultHouses(ascMc, cusps);
+   }
+
+   /**
+    * Calculates the ascendant from the ARMC.
+    *
+    * @param armc   Value for ARMC. PRE: 0.0 <= armc < 360.0
+    * @param geoLat Geographic latitude. PRE: -90.0 < geoLat < 90.0
+    * @param eps    Obliquity.
+    * @return Longitude of ascendant.
+    */
+   public double ascFromMc(final double armc, final double geoLat, final double eps) {
+      checkArgument(0.0 <= armc && armc < 360.0);
+      checkArgument(-90.0 < geoLat && geoLat < 90.0);
+      double[] cusps = new double[13];
+      double[] ascMc = new double[10];
+      int hSys = HouseSystems.WHOLESIGN.getSeId().charAt(0);
+      swissEph.swe_houses_armc(armc, geoLat, eps, hSys, cusps, ascMc);
+      return ascMc[0];
    }
 
 

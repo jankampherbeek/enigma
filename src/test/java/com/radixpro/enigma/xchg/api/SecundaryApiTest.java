@@ -33,7 +33,7 @@ public class SecundaryApiTest {
 
    @Before
    public void setUp() throws Exception {
-      api = new ApiProgFactory().createSecundaryApi();
+      api = new ApiProgFactory().getSecundaryApi();
    }
 
    @Test

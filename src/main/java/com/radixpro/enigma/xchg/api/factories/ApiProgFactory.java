@@ -15,6 +15,7 @@ import com.radixpro.enigma.be.calc.handlers.SecundaryDateHandler;
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.xchg.api.SecundaryApi;
 import com.radixpro.enigma.xchg.api.SolarReturnApi;
+import com.radixpro.enigma.xchg.api.TetenburgApi;
 import com.radixpro.enigma.xchg.api.TransitsApi;
 
 /**
@@ -22,13 +23,13 @@ import com.radixpro.enigma.xchg.api.TransitsApi;
  */
 public class ApiProgFactory {
 
-   public TransitsApi createTransitsApi() {
+   public TransitsApi getTransitsApi() {
       EphProgCalcHandler calcHandler = new ProgCalcFactory().getTransitsCalcHandler();
       ProgAspectHandler aspectHandler = new AnalysisHandlerFactory().createTransitsAspectHandler();
       return new TransitsApi(calcHandler, aspectHandler);
    }
 
-   public SecundaryApi createSecundaryApi() {
+   public SecundaryApi getSecundaryApi() {
       EphProgCalcHandler calcHandler = new ProgCalcFactory().getTransitsCalcHandler();
       ProgAspectHandler aspectHandler = new AnalysisHandlerFactory().createTransitsAspectHandler();
       SecundaryDateHandler dateHandler = new SecundaryDateHandler();
@@ -36,7 +37,12 @@ public class ApiProgFactory {
    }
 
    public SolarReturnApi getSolarReturnApi() {
-      return new SolarReturnApi(new ProgCalcFactory().createSolarReturnHandler(), Rosetta.getRosetta());
+      return new SolarReturnApi(new ProgCalcFactory().getSolarReturnHandler(), Rosetta.getRosetta());
    }
+
+   public TetenburgApi getTetenburgApi() {
+      return new TetenburgApi(new ProgCalcFactory().getTetenburgHandler());
+   }
+
 
 }
