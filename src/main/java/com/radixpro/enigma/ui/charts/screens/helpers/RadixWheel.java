@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.radixpro.enigma.shared.EnigmaDictionary.GLYPH_FONTNAME;
+import static com.radixpro.enigma.shared.EnigmaDictionary.TEXT_FONTNAME;
 
 /**
  * Image of a radix wheel.
@@ -39,8 +41,6 @@ public class RadixWheel {
    private static final Color SIGN_GLYPH_COLOR = Color.DARKBLUE;
    private static final double FRAME_GLOBAL_ALPHA = 0.9d;
    private static final double TRANSPARENT_GLOBAL_ALPHA = 0.3d;
-   private static final String GLYPH_FONTNAME = "EnigmaAstrology";
-   private static final String TEXT_FONTNAME = "Arial";
    private final GraphicsContext gc;
    private final ChartDrawMetrics metrics;
    private final CalculatedFullChart cfChart;

@@ -16,7 +16,10 @@ public class EnigmaDictionary {
    public static final String DEGREESIGN = "\u00B0";
    public static final String MINUTESIGN = "\u2032";
    public static final String SECONDSIGN = "\u2033";
+   public static final String GLYPH_FONTNAME = "EnigmaAstrology";
+   public static final String TEXT_FONTNAME = "Arial";
    public static final double TROPICAL_YEAR = 365.24219;
+
 
    private EnigmaDictionary() {
       // prevent instantiation

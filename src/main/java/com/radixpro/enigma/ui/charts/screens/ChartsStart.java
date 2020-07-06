@@ -73,6 +73,11 @@ public class ChartsStart {
    private MenuItem miDeleteChart;
    private MenuItem miAspects;
    private MenuItem miMidpoints;
+   private MenuItem miTransits;
+   private MenuItem miPrimary;
+   private MenuItem miSecondary;
+   private MenuItem miSolar;
+   private MenuItem miTetenburg;
    private TableView<PresentableChartData> tvCharts;
    private CalculatedFullChart currentFullChart;
    private TableColumn<PresentableChartData, String> colName;
@@ -145,11 +150,18 @@ public class ChartsStart {
       miMidpoints.setOnAction(e -> onMidpoints());
       menuAnalysis.getItems().addAll(miAspects, miMidpoints);
       Menu menuProg = new Menu(rosetta.getText("menu.charts.progressive"));
-      MenuItem miTransits = new MenuItem(rosetta.getText("menu.charts.progressive.transits"));
-      MenuItem miPrimary = new MenuItem(rosetta.getText("menu.charts.progressive.primary"));
-      MenuItem miSecondary = new MenuItem(rosetta.getText("menu.charts.progressive.secondary"));
-      MenuItem miSolar = new MenuItem(rosetta.getText("menu.charts.progressive.solar"));
-      menuProg.getItems().addAll(miTransits, miPrimary, miSecondary, miSolar);
+      miTransits = new MenuItem(rosetta.getText("menu.charts.progressive.transits"));
+      miPrimary = new MenuItem(rosetta.getText("menu.charts.progressive.primary"));
+      miSecondary = new MenuItem(rosetta.getText("menu.charts.progressive.secondary"));
+      miSolar = new MenuItem(rosetta.getText("menu.charts.progressive.solar"));
+      miTetenburg = new MenuItem(rosetta.getText("menu.charts.progressive.tetenburg"));
+      miTransits.setDisable(true);
+      miSecondary.setDisable(true);
+      miPrimary.setDisable(true);
+      miSolar.setDisable(true);
+      miTetenburg.setDisable(true);
+      miTetenburg.setOnAction(e -> onTetenburg());
+      menuProg.getItems().addAll(miTransits, miPrimary, miSecondary, miSolar, miTetenburg);
       Menu menuHelp = new Menu(rosetta.getText("menu.general.help"));
       MenuItem miShowHelp = new MenuItem(rosetta.getText("menu.general.help.showhelp"));
       miShowHelp.setOnAction(e -> onHelp());
@@ -299,6 +311,12 @@ public class ChartsStart {
       miShowChart.setDisable(emptySelection);
       miAspects.setDisable(emptySelection);
       miMidpoints.setDisable(emptySelection);
+      miTransits.setDisable(emptySelection);
+      miSecondary.setDisable(emptySelection);
+      miPrimary.setDisable(emptySelection);
+      miSolar.setDisable(emptySelection);
+      miTetenburg.setDisable(emptySelection);
+
    }
 
 
@@ -369,7 +387,15 @@ public class ChartsStart {
       final List<IAnalyzedPair> midpoints = api.analyseMidpoints(celObjectList, housesList);
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.6);   // TODO replace hardcoded orb for midpoints with configurable orb
       new ChartsScreensFactory().createChartsMidpoints(midpoints, meta);
+   }
 
+   private void onTetenburg() {
+      PresentableChartData presChartData = selectedCharts.get(0);
+      ChartData chartData = presChartData.getOriginalData();
+      CalculationSettings settings = new CalculationSettings(currentConfig);
+      FullChart fullChart = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
+      MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.0);  // orb is not used
+      ChartsTetenburg chartsTetenburg = new ChartsScreensFactory().getChartsTetenburg(meta, fullChart);
    }
 
 
