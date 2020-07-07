@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.xchg.domain.analysis;
 
+import com.radixpro.enigma.xchg.domain.MundanePoints;
 import org.junit.Before;
 import org.junit.Test;
 

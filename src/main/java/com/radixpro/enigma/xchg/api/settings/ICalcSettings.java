@@ -8,7 +8,7 @@
 package com.radixpro.enigma.xchg.api.settings;
 
 import com.radixpro.enigma.xchg.domain.Ayanamshas;
-import com.radixpro.enigma.xchg.domain.analysis.IChartPoints;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
 
 import java.util.List;
 

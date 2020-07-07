@@ -8,8 +8,8 @@
 package com.radixpro.enigma.xchg.api.requests;
 
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
-import com.radixpro.enigma.xchg.domain.analysis.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.ProgAnalysisType;
 import com.radixpro.enigma.xchg.domain.calculatedcharts.ChartPositionsVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.SimplePosVo;

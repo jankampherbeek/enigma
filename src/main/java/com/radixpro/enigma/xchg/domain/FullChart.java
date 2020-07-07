@@ -12,7 +12,6 @@ import com.radixpro.enigma.be.calc.core.SeFrontend;
 import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.be.calc.main.MundaneValues;
 import com.radixpro.enigma.be.calc.main.Obliquity;
-import com.radixpro.enigma.xchg.domain.analysis.MundanePoints;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.CelCoordinateVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.HouseCoordinateVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;

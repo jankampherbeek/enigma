@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.domain.calculatedobjects;
 
-import com.radixpro.enigma.xchg.domain.analysis.IChartPoints;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

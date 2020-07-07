@@ -5,8 +5,10 @@
  *
  */
 
-package com.radixpro.enigma.xchg.domain.analysis;
+package com.radixpro.enigma.xchg.domain;
 
+
+import com.radixpro.enigma.xchg.domain.analysis.ChartPointTypes;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

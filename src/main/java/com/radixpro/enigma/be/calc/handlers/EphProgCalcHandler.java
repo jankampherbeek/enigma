@@ -13,11 +13,7 @@ import com.radixpro.enigma.be.calc.core.SeFrontend;
 import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
 import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
-import com.radixpro.enigma.xchg.domain.Ayanamshas;
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.Location;
-import com.radixpro.enigma.xchg.domain.SeFlags;
-import com.radixpro.enigma.xchg.domain.analysis.IChartPoints;
+import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.SimplePosVo;
 
 import java.util.ArrayList;

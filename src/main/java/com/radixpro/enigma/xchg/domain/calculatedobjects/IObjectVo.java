@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.domain.calculatedobjects;
 
-import com.radixpro.enigma.xchg.domain.analysis.IChartPoints;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
 
 /**
  * Interface for full positions, containing multiple coordinate systems.

@@ -8,7 +8,7 @@
 package com.radixpro.enigma.xchg.domain.calculatedobjects;
 
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.analysis.IChartPoints;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
 import org.junit.Before;
 import org.junit.Test;
 
