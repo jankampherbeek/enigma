@@ -17,7 +17,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class CalculatedChart {
 
    private final List<FullPointPosition> celPoints;
-   private final List<MundanePosition> mundPoints;
+   private final AllMundanePositions mundPoints;
 
    /**
     * Constructor defines all properties.
@@ -25,7 +25,7 @@ public class CalculatedChart {
     * @param celPoints  positions for celestial bodies. PRE: not null.
     * @param mundPoints positions for mundane points. PRE: not null.
     */
-   public CalculatedChart(final List<FullPointPosition> celPoints, final List<MundanePosition> mundPoints) {
+   public CalculatedChart(final List<FullPointPosition> celPoints, final AllMundanePositions mundPoints) {
       this.celPoints = checkNotNull(celPoints);
       this.mundPoints = checkNotNull(mundPoints);
    }
@@ -34,7 +34,7 @@ public class CalculatedChart {
       return celPoints;
    }
 
-   public List<MundanePosition> getMundPoints() {
+   public AllMundanePositions getMundPoints() {
       return mundPoints;
    }
 }

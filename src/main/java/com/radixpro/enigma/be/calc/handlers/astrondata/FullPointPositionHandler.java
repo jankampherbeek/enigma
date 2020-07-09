@@ -40,17 +40,17 @@ public class FullPointPositionHandler {
     * Defines a full position.
     *
     * @param jdUt     Julian Day for UT.
-    * @param seId     Id for celestial body as used by the SE.
     * @param obsPos   Position of the observer. PRE: not null.
     * @param eclProj  Type of projection to the ecliptic. PRE: not null.
     * @param location Location. PRE: not null.
     * @return calculated values.
     */
-   public FullPointPosition definePosition(final CelestialObjects celObject, final double jdUt, final int seId, final ObserverPositions obsPos,
+   public FullPointPosition definePosition(final CelestialObjects celObject, final double jdUt, final ObserverPositions obsPos,
                                            final EclipticProjections eclProj, final Ayanamshas ayanamsha, final Location location) {
       checkNotNull(obsPos);
       checkNotNull(eclProj);
       checkNotNull(location);
+      final int seId = (int) celObject.getSeId();
       int seFlags = SEFLG_SWIEPH | SEFLG_SPEED;
       if (obsPos == ObserverPositions.TOPOCENTRIC) seFlags = seFlags | SEFLG_TOPOCTR;
       // TODO release 2020.2: check for heliocentric

@@ -27,4 +27,8 @@ public class AstronDataHandlersFactory {
       return new MundanePositionsHandler(SeFrontend.getFrontend(), new CalcConvertersFactory().getEclipticalEquatorialConversions(), getObliquityHandler());
    }
 
+   public CalculatedChartHandler getCalculatedChartHandler() {
+      return new CalculatedChartHandler(getFullPointPositionHandler(), getMundanePositionsHandler());
+   }
+
 }

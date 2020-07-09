@@ -39,7 +39,9 @@ public class CalculatedChartTest {
       List<MundanePosition> mundPoints = new ArrayList<>();
       mundPoints.add(mundPoint1Mock);
       mundPoints.add(mundPoint2Mock);
-      calculatedChart = new CalculatedChart(celPoints, mundPoints);
+      List<MundanePosition> ascMc = new ArrayList<>();
+      AllMundanePositions allMundanePositions = new AllMundanePositions(mundPoints, ascMc);
+      calculatedChart = new CalculatedChart(celPoints, allMundanePositions);
    }
 
    @Test
@@ -50,7 +52,7 @@ public class CalculatedChartTest {
 
    @Test
    public void getMundPoints() {
-      assertEquals(2, calculatedChart.getMundPoints().size());
-      assertEquals(mundPoint2Mock, calculatedChart.getMundPoints().get(1));
+      assertEquals(2, calculatedChart.getMundPoints().getCusps().size());
+      assertEquals(mundPoint2Mock, calculatedChart.getMundPoints().getCusps().get(1));
    }
 }

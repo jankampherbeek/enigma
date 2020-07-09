@@ -35,12 +35,12 @@ public class EclipticHorizontalConverterTest {
 
    @Test
    public void getAzimuth() {
-      assertEquals(92.195865705034, eclipticHorizontalConverter.convert(jdUt, eclipticalCoordinates, locationMock)[0], delta);
+      assertEquals(116.98747217272705, eclipticHorizontalConverter.convert(jdUt, eclipticalCoordinates, locationMock)[0], delta);
    }
 
    @Test
    public void getAltitude() {
-      assertEquals(16.9886538212, eclipticHorizontalConverter.convert(jdUt, eclipticalCoordinates, locationMock)[1], delta);
+      assertEquals(16.26345612775, eclipticHorizontalConverter.convert(jdUt, eclipticalCoordinates, locationMock)[1], delta);
    }
 
 }
