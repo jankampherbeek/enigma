@@ -43,8 +43,8 @@ public class CelObjectPositionTest {
       when(sePositionResultMock.getErrorMsg()).thenReturn("errormsg");
       when(sePositionResultMock.getAllPositions()).thenReturn(new double[]{1.1, 1.2, 1.3, 1.4, 1.5, 1.6});
       when(seFrontendMock.getPositionsForCelBody(anyDouble(), anyInt(), anyInt(), any())).thenReturn(sePositionResultMock);
-      when(seFrontendMock.getHorizontalPosition(anyDouble(), any(), any(),
-            anyInt())).thenReturn(new double[]{3.4, 5.6});
+//      when(seFrontendMock.getHorizontalPosition(anyDouble(), any(), any(),
+//            anyInt())).thenReturn(new double[]{3.4, 5.6});
       ArrayList<SeFlags> flagList = new ArrayList<>();
       flagList.add(SeFlags.SWISSEPH);
       Double jdUt = 1234567.891;
@@ -61,10 +61,10 @@ public class CelObjectPositionTest {
       assertNotNull(celObjectPosition.getEquatorialPosition());
    }
 
-   @Test
-   public void getHorizontalPosition() {
-      assertNotNull(celObjectPosition.getHorizontalPosition());
-   }
+//   @Test
+//   public void getHorizontalPosition() {
+//      assertNotNull(celObjectPosition.getEclipticHorizontalConverter());
+//   }
 
    @Test
    public void getCelestialBody() {

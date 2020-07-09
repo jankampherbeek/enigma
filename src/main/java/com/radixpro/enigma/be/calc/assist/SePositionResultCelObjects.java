@@ -22,7 +22,7 @@ public class SePositionResultCelObjects {
     *
     * @param allPositions Array with the following values from 0..5 : main position, deviation, distance,
     *                     speed of main position, speed of deviation, speed of distance.
-    * @param errorMsg     Error message or empty String.
+    * @param errorMsg     Error message or "OK".
     */
    public SePositionResultCelObjects(final double[] allPositions, final String errorMsg) {
       this.allPositions = checkNotNull(allPositions);

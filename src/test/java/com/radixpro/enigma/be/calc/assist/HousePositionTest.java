@@ -21,13 +21,12 @@ public class HousePositionTest {
    private final double longitude = 123.456;
    @Mock
    private EquatorialPositionForHouses equatorialPositionForHousesMock;
-   @Mock
-   private HorizontalPosition horizontalPositionMock;
+   private double[] azAlt = {100.0, 45.5};
    private HousePosition housePosition;
 
    @Before
    public void setUp() {
-      housePosition = new HousePosition(longitude, equatorialPositionForHousesMock, horizontalPositionMock);
+      housePosition = new HousePosition(longitude, equatorialPositionForHousesMock, azAlt);
    }
 
    @Test
@@ -42,6 +41,6 @@ public class HousePositionTest {
 
    @Test
    public void getHorizontalPosition() {
-      assertEquals(horizontalPositionMock, housePosition.getHorizontalPosition());
+      assertEquals(azAlt, housePosition.getEclipticHorizontalConverter());
    }
 }

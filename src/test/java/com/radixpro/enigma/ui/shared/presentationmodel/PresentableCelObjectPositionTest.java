@@ -6,7 +6,6 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.calc.assist.HorizontalPosition;
 import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.xchg.domain.CelObjectSinglePosition;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
@@ -29,8 +28,7 @@ public class PresentableCelObjectPositionTest {
    private CelObjectSinglePosition eclPositionMock;
    @Mock
    private CelObjectSinglePosition equPositionMock;
-   @Mock
-   private HorizontalPosition horizontalPositionMock;
+   private double[] azAlt = {150.123456, -12.5};
    private PresentableCelObjectPosition presPos;
 
    @Before
@@ -48,9 +46,7 @@ public class PresentableCelObjectPositionTest {
       when(positionMock.getEclipticalPosition()).thenReturn(eclPositionMock);
       when(positionMock.getEquatorialPosition()).thenReturn(equPositionMock);
       when(positionMock.getCelestialBody()).thenReturn(CelestialObjects.MARS);
-      when(horizontalPositionMock.getAzimuth()).thenReturn(150.123456);
-      when(horizontalPositionMock.getAltitude()).thenReturn(-12.5);
-      presPos = new PresentableCelObjectPosition(positionMock, horizontalPositionMock);
+      presPos = new PresentableCelObjectPosition(positionMock, azAlt);
    }
 
    @Test

@@ -8,7 +8,7 @@ package com.radixpro.enigma.be.calc.assist;
 
 import com.radixpro.enigma.be.calc.converters.EclipticEquatorialConversions;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
-import com.radixpro.enigma.be.calc.main.Obliquity;
+import com.radixpro.enigma.be.calc.handlers.astrondata.AstronDataHandlersFactory;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -24,7 +24,7 @@ public class EquatorialPositionForHouses {
    private EclipticEquatorialConversions conversions;
 
    /**
-    * Constructor should be called via EquatorialPositionForHousesFactory.
+    * Constructor should be called via Factory.
     *
     * @param seFrontend Instance (singleton) of SeFrontend.
     * @param longitude  THe longitude in degrees.
@@ -53,7 +53,7 @@ public class EquatorialPositionForHouses {
       double latitude = 0.0;
       double distance = 1.0;
       final double[] eclipticPositions = {longitude, latitude, distance};
-      double obliquity = new Obliquity(seFrontendInstance, jdUt).getTrueObliquity();
+      double obliquity = new AstronDataHandlersFactory().getObliquityHandler().calcTrueObliquity(jdUt);
       final double[] equatorialPositions = conversions.convertToEquatorial(eclipticPositions, obliquity);
       rightAscension = equatorialPositions[0];
       declination = equatorialPositions[1];

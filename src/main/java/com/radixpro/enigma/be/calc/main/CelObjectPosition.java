@@ -7,7 +7,7 @@
 package com.radixpro.enigma.be.calc.main;
 
 import com.radixpro.enigma.be.calc.assist.CombinedFlags;
-import com.radixpro.enigma.be.calc.assist.HorizontalPosition;
+import com.radixpro.enigma.be.calc.converters.CalcConvertersFactory;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
 import com.radixpro.enigma.xchg.domain.CelObjectSinglePosition;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
@@ -27,10 +27,10 @@ public class CelObjectPosition {
    private final CelestialObjects celestialBody;
    private CelObjectSinglePosition eclipticalPosition;
    private CelObjectSinglePosition equatorialPosition;
-   private HorizontalPosition horizontalPosition;
+   private double[] azAlt;
    private int eclipticalFlags;
    private int equatorialFlags;
-   private int horizontalFlags;
+
 
    /**
     * Constructor defines all members.
@@ -53,7 +53,6 @@ public class CelObjectPosition {
       eclipticalFlags = (int) new CombinedFlags().getCombinedValue(localFlagList);
       localFlagList.add(SeFlags.EQUATORIAL);
       equatorialFlags = (int) new CombinedFlags().getCombinedValue(localFlagList);
-      horizontalFlags = (int) SeFlags.HORIZONTAL.getSeValue();
    }
 
    private void calculate(final SeFrontend seFrontend, final double jdUt, final Location location) {
@@ -61,9 +60,7 @@ public class CelObjectPosition {
       equatorialPosition = new CelObjectSinglePosition(seFrontend, jdUt, celestialBody, equatorialFlags, location);
       double[] eclipticalCoordinates = new double[]{eclipticalPosition.getMainPosition(),
             eclipticalPosition.getDeviationPosition(), eclipticalPosition.getDistancePosition()};
-      horizontalPosition = new HorizontalPosition(seFrontend, jdUt, eclipticalCoordinates, location,
-            horizontalFlags);
-      int dummy = 1;
+      azAlt = new CalcConvertersFactory().getEclipticHorizontalConverter().convert(jdUt, eclipticalCoordinates, location);
    }
 
    public CelObjectSinglePosition getEclipticalPosition() {
@@ -74,8 +71,8 @@ public class CelObjectPosition {
       return this.equatorialPosition;
    }
 
-   public HorizontalPosition getHorizontalPosition() {
-      return this.horizontalPosition;
+   public double[] getEclipticHorizontalConverter() {
+      return azAlt;
    }
 
    public CelestialObjects getCelestialBody() {

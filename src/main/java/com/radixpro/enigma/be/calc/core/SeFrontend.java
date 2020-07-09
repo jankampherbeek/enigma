@@ -93,9 +93,9 @@ public class SeFrontend {
     * @param flags    combined settings for the SE
     * @return calculated positions
     */
-   public double[] getHorizontalPosition(final double jdUt, final double[] eclCoord, final Location location,
-                                         final int flags) {
+   public double[] getHorizontalPosition(final double jdUt, final double[] eclCoord, final Location location, final int flags) {
       checkNotNull(eclCoord);
+      checkArgument(3 == eclCoord.length);
       checkNotNull(location);
       double[] geoPos = {location.getGeoLong(), location.getGeoLat(), 0.0};
       double[] eclPos = {eclCoord[0], eclCoord[1], eclCoord[2]};

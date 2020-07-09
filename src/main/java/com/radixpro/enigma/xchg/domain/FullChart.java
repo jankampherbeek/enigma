@@ -8,10 +8,11 @@ package com.radixpro.enigma.xchg.domain;
 
 import com.radixpro.enigma.be.calc.assist.CombinedFlags;
 import com.radixpro.enigma.be.calc.assist.HousePosition;
+import com.radixpro.enigma.be.calc.converters.CalcConvertersFactory;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
+import com.radixpro.enigma.be.calc.handlers.astrondata.AstronDataHandlersFactory;
 import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.be.calc.main.MundaneValues;
-import com.radixpro.enigma.be.calc.main.Obliquity;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.CelCoordinateVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.HouseCoordinateVo;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
@@ -107,10 +108,9 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
             pos.getEquatorialPosition().getDeviationSpeed(),
             pos.getEquatorialPosition().getDistanceSpeed());
       CelCoordinateVo equaCoordinates = new CelCoordinateVo(equaPos, equaSpeed);
-      CelCoordinateElementVo horiPos = new CelCoordinateElementVo(
-            pos.getHorizontalPosition().getAzimuth(),
-            pos.getHorizontalPosition().getAltitude(),
-            0.0);
+      double[] eclCoord = {pos.getEclipticalPosition().getMainPosition(), pos.getEclipticalPosition().getDeviationPosition(), 0.0};
+      final double[] azAlt = new CalcConvertersFactory().getEclipticHorizontalConverter().convert(jdUt, eclCoord, location);
+      CelCoordinateElementVo horiPos = new CelCoordinateElementVo(azAlt[0], azAlt[1], 0.0);
       CelCoordinateElementVo horiSpeed = new CelCoordinateElementVo(0.0, 0.0, 0.0);
       CelCoordinateVo horiCoordinates = new CelCoordinateVo(horiPos, horiSpeed);
       return new ObjectVo(eclCoordinates, equaCoordinates, horiCoordinates, pos.getCelestialBody());
@@ -121,8 +121,9 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
       CelCoordinateElementVo eclCoord = new CelCoordinateElementVo(pos.getLongitude(), 0.0, 0.0);
       CelCoordinateElementVo equaCoord = new CelCoordinateElementVo(
             pos.getEquatorialPositionForHouses().getRightAscension(), pos.getEquatorialPositionForHouses().getDeclination(), 0.0);
-      CelCoordinateElementVo horiCoord = new CelCoordinateElementVo(
-            pos.getHorizontalPosition().getAzimuth(), pos.getHorizontalPosition().getAltitude(), 0.0);
+      double[] eclCoordValues = {eclCoord.getBase(), eclCoord.getDeviation(), 1.0};
+      final double[] azAlt = new CalcConvertersFactory().getEclipticHorizontalConverter().convert(jdUt, eclCoordValues, location);
+      CelCoordinateElementVo horiCoord = new CelCoordinateElementVo(azAlt[0], azAlt[1], 0.0);
       HouseCoordinateVo eclPos = new HouseCoordinateVo(eclCoord);
       HouseCoordinateVo equaPos = new HouseCoordinateVo(equaCoord);
       HouseCoordinateVo horiPos = new HouseCoordinateVo(horiCoord);
@@ -130,7 +131,7 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
    }
 
    private void calculateObliquity() {
-      obliquity = new Obliquity(seFrontend, jdUt).getTrueObliquity();
+      obliquity = new AstronDataHandlersFactory().getObliquityHandler().calcTrueObliquity(jdUt);
    }
 
    public FullDateTime getFullDateTime() {

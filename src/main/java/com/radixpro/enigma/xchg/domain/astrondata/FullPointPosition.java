@@ -19,7 +19,7 @@ public class FullPointPosition {
    private final CelestialObjects celObject;
    private final FullPointCoordinate eclPos;
    private final FullPointCoordinate eqPos;
-   private final FullPointCoordinate horPos;
+   private final CoordinateSet horPos;
 
    /**
     * Constructor defines all properties.
@@ -30,7 +30,7 @@ public class FullPointPosition {
     * @param horPos    horizontal position. PRE: not null.
     */
    public FullPointPosition(final CelestialObjects celObject, final FullPointCoordinate eclPos, final FullPointCoordinate eqPos,
-                            final FullPointCoordinate horPos) {
+                            final CoordinateSet horPos) {
       this.celObject = checkNotNull(celObject);
       this.eclPos = checkNotNull(eclPos);
       this.eqPos = checkNotNull(eqPos);
@@ -49,7 +49,7 @@ public class FullPointPosition {
       return eqPos;
    }
 
-   public FullPointCoordinate getHorPos() {
+   public CoordinateSet getHorPos() {
       return horPos;
    }
 }

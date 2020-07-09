@@ -23,9 +23,9 @@ public class FullPointPositionTest {
    private FullPointCoordinate eclPosMock;
    @Mock
    private FullPointCoordinate eqPosMock;
+   private final CelestialObjects celObject = CelestialObjects.SUN;
    @Mock
-   private FullPointCoordinate horPosMock;
-   private CelestialObjects celObject = CelestialObjects.SUN;
+   private CoordinateSet horPosMock;
    private FullPointPosition fullPointPosition;
 
    @Before

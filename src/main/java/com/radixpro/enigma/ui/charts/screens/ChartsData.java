@@ -131,7 +131,7 @@ public class ChartsData {
       // ecliptical
       for (int i = 0; i < count; i++) {
          CelObjectPosition celObjectPosition = calculatedFullChart.getBodies().get(i);
-         PresentableCelObjectPosition presPos = new PresentableCelObjectPosition(celObjectPosition, celObjectPosition.getHorizontalPosition());
+         PresentableCelObjectPosition presPos = new PresentableCelObjectPosition(celObjectPosition, celObjectPosition.getEclipticHorizontalConverter());
          tvEclColBodyGlyph.setCellValueFactory(new PropertyValueFactory<>("celBodyGlyph"));
          tvEclColLongitude.setCellValueFactory(new PropertyValueFactory<>("formattedLongitude"));
          tvEclColSignGlyph.setCellValueFactory(new PropertyValueFactory<>("signGlyph"));

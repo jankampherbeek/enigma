@@ -7,9 +7,9 @@
 package com.radixpro.enigma.be.calc.main;
 
 import com.radixpro.enigma.be.calc.assist.EquatorialPositionForHouses;
-import com.radixpro.enigma.be.calc.assist.HorizontalPosition;
 import com.radixpro.enigma.be.calc.assist.HousePosition;
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
+import com.radixpro.enigma.be.calc.converters.CalcConvertersFactory;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
 import com.radixpro.enigma.be.calc.factories.EquatorialPositionForHousesFactory;
 import com.radixpro.enigma.xchg.domain.HouseSystems;
@@ -76,8 +76,9 @@ public class MundaneValues {
 
       EquatorialPositionForHouses equatorialPos = new EquatorialPositionForHousesFactory().createInstance(longitude, jdUt);
 
-      HorizontalPosition horizontalPos = new HorizontalPosition(seFrontend, jdUt, eclCoord, location, flags);
-      return new HousePosition(longitude, equatorialPos, horizontalPos);
+      final double[] azAlt = new CalcConvertersFactory().getEclipticHorizontalConverter().convert(jdUt, eclCoord, location);
+
+      return new HousePosition(longitude, equatorialPos, azAlt);
    }
 
    private HousePosition constructEastpoint(final double longitude) {
@@ -89,8 +90,8 @@ public class MundaneValues {
       EquatorialPositionForHouses equatorialPositionForHouses = new EquatorialPositionForHouses(rightAscension, declination);
       double altitude = 0.0;
       double azimuth = 270.0;
-      HorizontalPosition horizontalPosition = new HorizontalPosition(azimuth, altitude);
-      return new HousePosition(longitude, equatorialPositionForHouses, horizontalPosition);
+      double[] horCoords = {azimuth, altitude};
+      return new HousePosition(longitude, equatorialPositionForHouses, horCoords);
    }
 
    public List<HousePosition> getCusps() {

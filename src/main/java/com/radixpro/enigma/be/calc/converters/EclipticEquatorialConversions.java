@@ -19,6 +19,12 @@ public class EclipticEquatorialConversions {
 
    private final SwissLib swissLib;
 
+   /**
+    * Instantiate via CalcConvertersFactory.
+    *
+    * @param swissLib instance of SwissLib (part of the SE). PRE: not null.
+    * @see CalcConvertersFactory
+    */
    public EclipticEquatorialConversions(final SwissLib swissLib) {
       this.swissLib = checkNotNull(swissLib);
    }
@@ -28,7 +34,7 @@ public class EclipticEquatorialConversions {
     *
     * @param eclipticValues Array with Longitude and Latitude in degrees.
     * @param obliquity      Obliquity (Epsilon) in degrees.
-    * @return Array with right ascensiona nd declination in degrees.
+    * @return Array with right ascension and declination in degrees.
     */
    public double[] convertToEquatorial(final double[] eclipticValues, final double obliquity) {
       checkNotNull(eclipticValues);

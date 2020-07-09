@@ -7,7 +7,6 @@
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
 import com.radixpro.enigma.be.calc.assist.EquatorialPositionForHouses;
-import com.radixpro.enigma.be.calc.assist.HorizontalPosition;
 import com.radixpro.enigma.be.calc.assist.HousePosition;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +23,7 @@ public class PresentableMundanePositionTest {
 
    @Mock
    private HousePosition housePositionMock;
-   @Mock
-   private HorizontalPosition horizontalPositionMock;
+   private double[] azAlt;
    private final String name = "Asc";
    @Mock
    private EquatorialPositionForHouses equatorialPositionForHousesMock;
@@ -38,13 +36,12 @@ public class PresentableMundanePositionTest {
       double decl = -12.2000001;
       when(equatorialPositionForHousesMock.getDeclination()).thenReturn(decl);
       double azimuth = 189.0;
-      when(horizontalPositionMock.getAzimuth()).thenReturn(azimuth);
       double altitude = 12.33334;
-      when(horizontalPositionMock.getAltitude()).thenReturn(altitude);
+      azAlt = new double[]{azimuth, altitude};
       double longitude = 123.5;
       when(housePositionMock.getLongitude()).thenReturn(longitude);
       when(housePositionMock.getEquatorialPositionForHouses()).thenReturn(equatorialPositionForHousesMock);
-      when(housePositionMock.getHorizontalPosition()).thenReturn(horizontalPositionMock);
+      when(housePositionMock.getEclipticHorizontalConverter()).thenReturn(azAlt);
       presMundanePos = new PresentableMundanePosition(name, housePositionMock);
    }
 

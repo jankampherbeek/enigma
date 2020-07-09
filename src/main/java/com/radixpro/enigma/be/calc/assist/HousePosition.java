@@ -14,7 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class HousePosition {
 
    private final EquatorialPositionForHouses equatorialPositionForHouses;
-   private final HorizontalPosition horizontalPosition;
+   private final double[] azAlt;
    private final double longitude;
 
    /**
@@ -22,21 +22,21 @@ public class HousePosition {
     *
     * @param longitude                   Longitude in degrees. Latitude is not defined as it is always zero.
     * @param equatorialPositionForHouses Equatorial coordinates.
-    * @param horizontalPosition          Horizontal coordinates.
+    * @param azAlt                       Horizontal coordinates.
     */
    public HousePosition(final double longitude, final EquatorialPositionForHouses equatorialPositionForHouses,
-                        final HorizontalPosition horizontalPosition) {
+                        final double[] azAlt) {
       this.longitude = longitude;
       this.equatorialPositionForHouses = checkNotNull(equatorialPositionForHouses);
-      this.horizontalPosition = checkNotNull(horizontalPosition);
+      this.azAlt = checkNotNull(azAlt);
    }
 
    public EquatorialPositionForHouses getEquatorialPositionForHouses() {
       return this.equatorialPositionForHouses;
    }
 
-   public HorizontalPosition getHorizontalPosition() {
-      return this.horizontalPosition;
+   public double[] getEclipticHorizontalConverter() {
+      return azAlt;
    }
 
    public double getLongitude() {

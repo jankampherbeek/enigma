@@ -6,7 +6,6 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.calc.assist.HorizontalPosition;
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlainDmsValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlusMinusValue;
@@ -23,13 +22,13 @@ public class PresentableHorizontalPosition {
    private String formattedAltitude;
    private String celBodyGlyph;
 
-   public PresentableHorizontalPosition(final CelestialObjects celObject, HorizontalPosition horizontalPosition) {
-      createHorizontalPosition(checkNotNull(celObject), checkNotNull(horizontalPosition));
+   public PresentableHorizontalPosition(final CelestialObjects celObject, double[] azAlt) {
+      createHorizontalPosition(checkNotNull(celObject), checkNotNull(azAlt));
    }
 
-   private void createHorizontalPosition(final CelestialObjects celObject, HorizontalPosition horizontalPosition) {
-      formattedAzimuth = new PlainDmsValue(horizontalPosition.getAzimuth()).getFormattedPosition();
-      formattedAltitude = new PlusMinusValue(horizontalPosition.getAltitude()).getFormattedPosition();
+   private void createHorizontalPosition(final CelestialObjects celObject, double[] azAlt) {
+      formattedAzimuth = new PlainDmsValue(azAlt[0]).getFormattedPosition();
+      formattedAltitude = new PlusMinusValue(azAlt[1]).getFormattedPosition();
       celBodyGlyph = new CelObject2GlyphMapper().getGlyph(celObject);
    }
 

@@ -6,7 +6,6 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.calc.assist.HorizontalPosition;
 import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.glyphs.Sign2GlyphMapper;
@@ -38,17 +37,17 @@ public class PresentableCelObjectPosition {
    /**
     * Constructor populates all properties.
     *
-    * @param celObjectPosition  contains longitude, latitude, right ascension, declination, radv and daily speeds.
-    *                           Also knows which celestial object we are showing.
-    * @param horizontalPosition contains azimuth and altitude
+    * @param celObjectPosition contains longitude, latitude, right ascension, declination, radv and daily speeds.
+    *                          Also knows which celestial object we are showing.
+    * @param horPos            contains azimuth and altitude
     */
    public PresentableCelObjectPosition(final CelObjectPosition celObjectPosition,
-                                       final HorizontalPosition horizontalPosition) {
-      createPresentablePosition(checkNotNull(celObjectPosition), checkNotNull(horizontalPosition));
+                                       final double[] horPos) {
+      createPresentablePosition(checkNotNull(celObjectPosition), checkNotNull(horPos));
    }
 
    private void createPresentablePosition(final CelObjectPosition celObjectPos,
-                                          final HorizontalPosition horPos) {
+                                          final double[] horPos) {
       checkNotNull(celObjectPos);
       checkNotNull(horPos);
 
@@ -66,8 +65,8 @@ public class PresentableCelObjectPosition {
       formattedRaSpeed = new PlusMinusValue(equPos.getMainSpeed()).getFormattedPosition();
       formattedDeclination = new PlusMinusValue(equPos.getDeviationPosition()).getFormattedPosition();
       formattedDeclSpeed = new PlusMinusValue(equPos.getDeviationSpeed()).getFormattedPosition();
-      formattedAzimuth = new PlainDmsValue(horPos.getAzimuth()).getFormattedPosition();
-      formattedAltitude = new PlusMinusValue(horPos.getAltitude()).getFormattedPosition();
+      formattedAzimuth = new PlainDmsValue(horPos[0]).getFormattedPosition();
+      formattedAltitude = new PlusMinusValue(horPos[1]).getFormattedPosition();
       formattedDistance = new DecimalValue(eclPos.getDistancePosition()).getFormattedPosition();
       formattedDistSpeed = new DecimalValue(eclPos.getDistanceSpeed()).getFormattedPosition();
    }
