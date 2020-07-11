@@ -26,7 +26,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A 'full' chart with information on all positions.
  */
-public class FullChart {  // TODO split into calculation and VO (CelOBjectSinglePosition ??? ).
+public class FullChartDepr {  // TODO deprecated, remove
 
    private final FullDateTime fullDateTime;
    private final Location location;
@@ -41,7 +41,7 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
    private final List<IObjectVo> allCelBodyPositions;
    private final List<IObjectVo> allHousePositions;
 
-   public FullChart(final FullDateTime fullDateTime, final Location location, final CalculationSettings settings) {
+   public FullChartDepr(final FullDateTime fullDateTime, final Location location, final CalculationSettings settings) {
       this.fullDateTime = checkNotNull(fullDateTime);
       this.location = checkNotNull(location);
       this.settings = checkNotNull(settings);
@@ -88,7 +88,6 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
       }
    }
 
-   // TODO: temporary solution, replace List<CelObjectPosition> with List<CelObjectVo>
    private IObjectVo createCelObjectVo(CelObjectPosition pos) {
       CelCoordinateElementVo eclPos = new CelCoordinateElementVo(
             pos.getEclipticalPosition().getMainPosition(),
@@ -116,7 +115,6 @@ public class FullChart {  // TODO split into calculation and VO (CelOBjectSingle
       return new ObjectVo(eclCoordinates, equaCoordinates, horiCoordinates, pos.getCelestialBody());
    }
 
-   // TODO: temporary solution, replace List<HousePosition> wiht List<CelOBjectVo>
    private IObjectVo createHouseObjectVo(HousePosition pos, MundanePoints mundanePoint) {
       CelCoordinateElementVo eclCoord = new CelCoordinateElementVo(pos.getLongitude(), 0.0, 0.0);
       CelCoordinateElementVo equaCoord = new CelCoordinateElementVo(

@@ -26,7 +26,7 @@ import com.radixpro.enigma.xchg.api.*;
 import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.CalculationSettings;
 import com.radixpro.enigma.xchg.domain.ChartData;
-import com.radixpro.enigma.xchg.domain.FullChart;
+import com.radixpro.enigma.xchg.domain.FullChartDepr;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
 import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
@@ -361,9 +361,9 @@ public class ChartsStart {
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
       CalculationSettings settings = new CalculationSettings(currentConfig);
-      FullChart fullChart = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
-      List<IObjectVo> celObjectList = fullChart.getAllCelBodyPositions();
-      List<IObjectVo> fullHousesList = fullChart.getAllHousePositions();
+      FullChartDepr fullChartDepr = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
+      List<IObjectVo> celObjectList = fullChartDepr.getAllCelBodyPositions();
+      List<IObjectVo> fullHousesList = fullChartDepr.getAllHousePositions();
       List<IObjectVo> housesList = new ArrayList<>();
       housesList.add(fullHousesList.get(0));
       housesList.add(fullHousesList.get(1));
@@ -378,9 +378,9 @@ public class ChartsStart {
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
       CalculationSettings settings = new CalculationSettings(currentConfig);
-      FullChart fullChart = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
-      List<IObjectVo> celObjectList = fullChart.getAllCelBodyPositions();
-      List<IObjectVo> fullHousesList = fullChart.getAllHousePositions();
+      FullChartDepr fullChartDepr = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
+      List<IObjectVo> celObjectList = fullChartDepr.getAllCelBodyPositions();
+      List<IObjectVo> fullHousesList = fullChartDepr.getAllHousePositions();
       List<IObjectVo> housesList = new ArrayList<>();
       housesList.add(fullHousesList.get(0));
       housesList.add(fullHousesList.get(1));
@@ -393,9 +393,9 @@ public class ChartsStart {
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
       CalculationSettings settings = new CalculationSettings(currentConfig);
-      FullChart fullChart = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
+      FullChartDepr fullChartDepr = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.0);  // orb is not used
-      ChartsTetenburg chartsTetenburg = new ChartsScreensFactory().getChartsTetenburg(meta, fullChart);
+      ChartsTetenburg chartsTetenburg = new ChartsScreensFactory().getChartsTetenburg(meta, fullChartDepr);
    }
 
 

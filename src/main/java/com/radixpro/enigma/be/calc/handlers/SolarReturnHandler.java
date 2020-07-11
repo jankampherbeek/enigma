@@ -48,8 +48,8 @@ public class SolarReturnHandler {
     * @return The calculated solar return chart.
     * @throws NoPositionFoundException if the position of longSun cold not be found within 3 days bewfore and after the birthdate in yearForReturn.
     */
-   public FullChart getSolarReturnChart(final double longSun, final FullDateTime birthDateTime, final int yearForReturn, final Location location,
-                                        final CalculationSettings settings) throws NoPositionFoundException {
+   public FullChartDepr getSolarReturnChart(final double longSun, final FullDateTime birthDateTime, final int yearForReturn, final Location location,
+                                            final CalculationSettings settings) throws NoPositionFoundException {
       checkNotNull(birthDateTime);
       checkNotNull(location);
       checkNotNull(settings);
@@ -57,7 +57,7 @@ public class SolarReturnHandler {
       return createSolarReturnChart(longSun, birthDateTime, yearForReturn, location, settings);
    }
 
-   private FullChart createSolarReturnChart(double longSun, FullDateTime birthDateTime, int yearForReturn, Location location, CalculationSettings settings) throws NoPositionFoundException {
+   private FullChartDepr createSolarReturnChart(double longSun, FullDateTime birthDateTime, int yearForReturn, Location location, CalculationSettings settings) throws NoPositionFoundException {
       final int age = yearForReturn - birthDateTime.getSimpleDateTime().getDate().getYear();
       final double startJd = birthDateTime.getJdUt() + (age * TROPICAL_YEAR) - 3.0;
       final double endJd = birthDateTime.getJdUt() + (age * TROPICAL_YEAR) + 3.0;
@@ -66,7 +66,7 @@ public class SolarReturnHandler {
       boolean gregCal = birthDateTime.getSimpleDateTime().getDate().isGregorian();
       final SimpleDateTime actualSimpleDateTime = new RadixCalcFactory().getJulianDayHandler().dateTimeFromJd(jdActual, gregCal, "ut");
       final FullDateTime actualFullDateTime = new FullDateTime(actualSimpleDateTime, TimeZones.UT, birthDateTime.isDst(), birthDateTime.getOffsetForLmt());
-      return new FullChart(actualFullDateTime, location, settings);
+      return new FullChartDepr(actualFullDateTime, location, settings);
    }
 
    private int defineFlags(CalculationSettings settings) {

@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FullChartTest {
+public class FullChartDeprTest {
 
    @Mock
    private FullDateTime fullDateTimeMock;
@@ -32,7 +32,7 @@ public class FullChartTest {
    @Mock
    private CalculationSettings settingsMock;
 
-   private FullChart fullChart;
+   private FullChartDepr fullChartDepr;
 
    @Before
    public void setUp() {
@@ -43,37 +43,37 @@ public class FullChartTest {
       when(settingsMock.isSidereal()).thenReturn(true);
       when(settingsMock.getHouseSystem()).thenReturn(HouseSystems.AXIAL);
       when(settingsMock.getCelBodies()).thenReturn(celBodies);
-      fullChart = new FullChart(fullDateTimeMock, locationMock, settingsMock);
+      fullChartDepr = new FullChartDepr(fullDateTimeMock, locationMock, settingsMock);
    }
 
    @Test
    public void getHouseValues() {
-      assertNotNull(fullChart.getMundaneValues());
+      assertNotNull(fullChartDepr.getMundaneValues());
    }
 
    @Test
    public void getBodies() {
-      assertEquals(2, fullChart.getBodies().size());
+      assertEquals(2, fullChartDepr.getBodies().size());
    }
 
    @Test
    public void getDateTime() {
-      assertEquals(fullDateTimeMock, fullChart.getFullDateTime());
+      assertEquals(fullDateTimeMock, fullChartDepr.getFullDateTime());
    }
 
    @Test
    public void getLocation() {
-      assertEquals(locationMock, fullChart.getLocation());
+      assertEquals(locationMock, fullChartDepr.getLocation());
    }
 
    @Test
    public void getSettings() {
-      assertEquals(settingsMock, fullChart.getSettings());
+      assertEquals(settingsMock, fullChartDepr.getSettings());
    }
 
    @Test
    public void getObliquity() {
-      assertTrue(fullChart.getObliquity() > 0.0);
+      assertTrue(fullChartDepr.getObliquity() > 0.0);
    }
 
 

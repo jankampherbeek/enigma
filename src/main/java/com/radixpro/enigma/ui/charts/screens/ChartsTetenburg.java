@@ -55,7 +55,7 @@ public class ChartsTetenburg {
    private final Stage stage;
    private final Rosetta rosetta;
    private final MetaDataForAnalysis meta;
-   private final FullChart fullChart;
+   private final FullChartDepr fullChartDepr;
    private final String calendar;
    private Button btnCalc;
    private Button btnExit;
@@ -75,12 +75,12 @@ public class ChartsTetenburg {
    private ValidatedDate valDate;
 
 
-   public ChartsTetenburg(final Stage stage, final Rosetta rosetta, final MetaDataForAnalysis meta, final FullChart fullChart) {
+   public ChartsTetenburg(final Stage stage, final Rosetta rosetta, final MetaDataForAnalysis meta, final FullChartDepr fullChartDepr) {
       this.stage = stage;
       this.rosetta = rosetta;
       this.meta = meta;
-      this.fullChart = fullChart;
-      this.calendar = fullChart.getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j";
+      this.fullChartDepr = fullChartDepr;
+      this.calendar = fullChartDepr.getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j";
       defineLeafs();
       definePanes();
       defineButtons();
@@ -185,16 +185,16 @@ public class ChartsTetenburg {
    }
 
    private void onCalc() {
-      double longMc = fullChart.getAllHousePositions().get(0).getEclipticCoords().getPosition().getBase();
+      double longMc = fullChartDepr.getAllHousePositions().get(0).getEclipticCoords().getPosition().getBase();
       double solarSpeed = 0.0;
-      final List<CelObjectPosition> bodies = fullChart.getBodies();
+      final List<CelObjectPosition> bodies = fullChartDepr.getBodies();
       for (CelObjectPosition celPos : bodies) {
          if (celPos.getCelestialBody() == CelestialObjects.SUN) {
             solarSpeed = celPos.getEclipticalPosition().getMainSpeed();
          }
       }
-      Location location = fullChart.getLocation();
-      FullDateTime birthDateTime = fullChart.getFullDateTime();
+      Location location = fullChartDepr.getLocation();
+      FullDateTime birthDateTime = fullChartDepr.getFullDateTime();
 
       SimpleTime simpleTime = new SimpleTime(0, 0, 0);
       SimpleDateTime simpleDateTime = new SimpleDateTime(valDate.getSimpleDate(), simpleTime);

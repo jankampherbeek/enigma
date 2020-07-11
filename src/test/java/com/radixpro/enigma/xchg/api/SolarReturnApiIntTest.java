@@ -34,7 +34,7 @@ public class SolarReturnApiIntTest {
       final SolarReturnRequest request = new SolarReturnRequest(createFullDateTime(), createSettings(), createLocation(), 309.11833333, 2020);
       final SolarReturnResponse response = api.calculateSolarReturn(request);
       assertEquals("OK", response.getResultMsg());
-      FullChart responseChart = response.getSolarReturnChart();
+      FullChartDepr responseChart = response.getSolarReturnChart();
       assertEquals(309.11833333, responseChart.getBodies().get(0).getEclipticalPosition().getMainPosition(), DELTA_5_POS);
    }
 

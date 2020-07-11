@@ -9,7 +9,7 @@ package com.radixpro.enigma.xchg.api;
 import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.be.calc.main.MundaneValues;
 import com.radixpro.enigma.xchg.domain.CalculationSettings;
-import com.radixpro.enigma.xchg.domain.FullChart;
+import com.radixpro.enigma.xchg.domain.FullChartDepr;
 import com.radixpro.enigma.xchg.domain.FullDateTime;
 import com.radixpro.enigma.xchg.domain.Location;
 
@@ -22,14 +22,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class CalculatedFullChart {
 
-   private final FullChart fullchart;
+   private final FullChartDepr fullchart;
 
    public CalculatedFullChart(final FullDateTime fullDateTime, final Location location,
                               final CalculationSettings settings) {
       checkNotNull(fullDateTime);
       checkNotNull(location);
       checkNotNull(settings);
-      fullchart = new FullChart(fullDateTime, location, settings);
+      fullchart = new FullChartDepr(fullDateTime, location, settings);
    }
 
    public List<CelObjectPosition> getBodies() {
@@ -56,7 +56,7 @@ public class CalculatedFullChart {
       return fullchart.getObliquity();
    }
 
-   public FullChart getFullChart() {
+   public FullChartDepr getFullChart() {
       return fullchart;
    }
 }
