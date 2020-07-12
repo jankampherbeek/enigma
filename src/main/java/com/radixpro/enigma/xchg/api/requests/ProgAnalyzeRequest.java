@@ -30,6 +30,7 @@ public class ProgAnalyzeRequest {
 
    /**
     * Constructor defines all properties.
+    * TODO: replace parameter progPositions with parameter for List<iPostion></iPostion>, chartPositions with calculatedChart, adapt getters getProgPositions and getChartPositions
     *
     * @param type           typeof analysis. PRE: not null.
     * @param progPositions  progressive positions that need to be analyzed. PRE: not null and not empty.

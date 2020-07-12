@@ -19,6 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Service for the calculation of a Solar Return Chart.
+ * TODO replace FullChartDepr with CalculatedChart
  */
 public class SolarReturnApi {
 

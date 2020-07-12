@@ -19,6 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * API for a calculated full chart. Contains all positions and additional astronomical info.
+ * TODO remove obsolete class
  */
 public class CalculatedFullChart {
 

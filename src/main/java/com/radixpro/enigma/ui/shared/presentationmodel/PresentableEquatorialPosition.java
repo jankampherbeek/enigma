@@ -16,6 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Wrapper around CelObjectSinglePosition for the equatorial values; enables the use in a tableview.
+ * TODO replace celObjectSinglePosition with FullPointCoordinate
  */
 public class PresentableEquatorialPosition {
 

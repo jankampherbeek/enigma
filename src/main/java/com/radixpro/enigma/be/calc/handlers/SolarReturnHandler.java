@@ -58,6 +58,7 @@ public class SolarReturnHandler {
    }
 
    private FullChartDepr createSolarReturnChart(double longSun, FullDateTime birthDateTime, int yearForReturn, Location location, CalculationSettings settings) throws NoPositionFoundException {
+      // TODO replace FullChartDepr with CalculatedChart
       final int age = yearForReturn - birthDateTime.getSimpleDateTime().getDate().getYear();
       final double startJd = birthDateTime.getJdUt() + (age * TROPICAL_YEAR) - 3.0;
       final double endJd = birthDateTime.getJdUt() + (age * TROPICAL_YEAR) + 3.0;

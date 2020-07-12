@@ -21,6 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Coordinates for a celestial object: ecliptical, equatorial and horizontal.
+ * TODO remove obsolete class
  */
 public class CelObjectPosition {
 
@@ -39,7 +40,7 @@ public class CelObjectPosition {
     * @param jdUt       Julian Day number in UT.
     * @param celBody    The celestial body.
     * @param location   The location.
-    * @param flagList   A list with fglags to be used.
+    * @param flagList   A list with flags to be used.
     */
    public CelObjectPosition(final SeFrontend seFrontend, final double jdUt, final CelestialObjects celBody,
                             final Location location, final List<SeFlags> flagList) {

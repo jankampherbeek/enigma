@@ -16,6 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * VO with simple chart positions.
+ * TODO remove obsolete class
  */
 public class ChartPositionsVo {
 

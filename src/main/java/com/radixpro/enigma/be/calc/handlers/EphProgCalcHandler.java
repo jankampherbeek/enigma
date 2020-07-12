@@ -24,6 +24,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Handler for the calculation of progressive positions based on ephemeris calculations.
+ * TODO replace SimplePosVo with iPosition
  */
 public class EphProgCalcHandler {
 

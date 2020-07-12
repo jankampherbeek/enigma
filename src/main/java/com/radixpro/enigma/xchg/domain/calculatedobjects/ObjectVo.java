@@ -13,6 +13,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Value object for a specific celestial object.
+ * TODO remove obsolete class.
  */
 public class ObjectVo implements IObjectVo {
 

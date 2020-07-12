@@ -23,6 +23,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Calculated positions for houses and other mundane points.
+ * TODO remove obsolete class
  */
 public class MundaneValues {
 

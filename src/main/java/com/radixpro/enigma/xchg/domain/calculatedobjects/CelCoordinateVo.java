@@ -13,6 +13,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Value object for a celestial coordinate.
+ * TODO remove obsolete class
  */
 public class CelCoordinateVo implements ICoordinateVo {
 

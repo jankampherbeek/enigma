@@ -59,6 +59,7 @@ public class ChartsData {
    private TableColumn<String, PresentableMundanePosition> tvMundColAltitude;
 
    public ChartsData(final CalculatedFullChart calculatedFullChart, ChartData chartData) {
+      // TODO eplace calculatedFullChart + ChartData with FullChart
       this.calculatedFullChart = calculatedFullChart;
       this.chartData = chartData;
       stage = new Stage();

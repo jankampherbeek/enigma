@@ -14,6 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Simple position with only ecliptical and equatorial coordinates and no speed.
+ * TODO remove obsolete class
  */
 public class SimplePosVo {
 

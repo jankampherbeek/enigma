@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class ProgRadixAspects {
 
+   // TODO replace parameters candidateProg and candidateRx with iPostion
    public List<IAnalyzedPair> findAspects(List<AspectTypes> aspectTypes, SimplePosVo candidateProg, SimplePosVo candidateRx, double orb) {
       double pos1 = Math.min(candidateProg.getLongitude(), candidateRx.getLongitude());
       double pos2 = Math.max(candidateProg.getLongitude(), candidateRx.getLongitude());

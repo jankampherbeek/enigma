@@ -16,6 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Equatorial position: right ascension and declination.
  * Converts from ecliptic coordinates to equatorial coordinates. Can only be used for house positions as a zero latitude
  * is assumed. There is no need for conversion of planetary positions as they already contain equatorial values.
+ * TODO remove obsolete class
  */
 public class EquatorialPositionForHouses {
 

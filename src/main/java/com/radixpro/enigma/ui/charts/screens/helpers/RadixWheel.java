@@ -50,6 +50,7 @@ public class RadixWheel {
 
    /**
     * Constructing this class automatically draws a radix wheel, works like a SVG image.
+    * TODO replace calculatedFullChart with FullChart
     *
     * @param gc                  The GraphicsContext
     * @param metrics             Dynamic metrics, will be resized if required.

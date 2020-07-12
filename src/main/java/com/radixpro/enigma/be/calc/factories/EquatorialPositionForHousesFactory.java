@@ -16,6 +16,7 @@ import swisseph.SwissLib;
 
 /**
  * Factory for EquatorialPositionForHouses.
+ * TODO remove obsolete class
  */
 public class EquatorialPositionForHousesFactory {
 

@@ -357,6 +357,7 @@ public class ChartsStart {
    }
 
    private void onAspects() {
+      // TODO replace FullChartDepr with CalculatedChart, replace IObjectVo with iPosition
       AspectsApi api = new ApiAnalysisFactory().createAspectsApi();
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
@@ -374,6 +375,7 @@ public class ChartsStart {
 
    // TODO combine logic of onAspects and onMidpoints
    private void onMidpoints() {
+      // TODO replace FullChartDepr with CalculatedChart, replace IObjectVo with iPosition
       MidpointsApi api = new ApiAnalysisFactory().createMidpointsApi();
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
@@ -390,6 +392,7 @@ public class ChartsStart {
    }
 
    private void onTetenburg() {
+      // TODO replace FullChartDepr with CalculatedChart
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
       CalculationSettings settings = new CalculationSettings(currentConfig);
@@ -404,12 +407,15 @@ public class ChartsStart {
    }
 
    private void showChart(final ChartData chartData) {
+      // TODO replace currentFullChart with CalculatedChart
+      // TODO retrieve chart from status
       CalculationSettings settings = new CalculationSettings(currentConfig);
       currentFullChart = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings);
       showPositions(chartData);
       drawChart2D(chartData.getChartMetaData().getName());
    }
 
+   // TODO replace currentFUllChart with CalculatedChart from status
    private void showPositions(ChartData chartData) {
       new ChartsData(currentFullChart, chartData);
    }

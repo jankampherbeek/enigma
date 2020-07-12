@@ -36,6 +36,7 @@ public class PresentableCelObjectPosition {
 
    /**
     * Constructor populates all properties.
+    * TODO replace celObjectPosition with FullPointPosition
     *
     * @param celObjectPosition contains longitude, latitude, right ascension, declination, radv and daily speeds.
     *                          Also knows which celestial object we are showing.

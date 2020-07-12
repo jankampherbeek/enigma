@@ -13,6 +13,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Calculated positions for a specific coordinateset for a celestial body.
+ * TODO remove obsolete class
  */
 public class CelObjectSinglePosition {
 

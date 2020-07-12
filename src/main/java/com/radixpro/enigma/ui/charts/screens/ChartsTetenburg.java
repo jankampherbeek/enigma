@@ -75,6 +75,7 @@ public class ChartsTetenburg {
    private ValidatedDate valDate;
 
 
+   // TODO: remove parameter fullChartDepr, add parameter for ChartsSessionState, use selectedCHart from ChartsSessionState
    public ChartsTetenburg(final Stage stage, final Rosetta rosetta, final MetaDataForAnalysis meta, final FullChartDepr fullChartDepr) {
       this.stage = stage;
       this.rosetta = rosetta;

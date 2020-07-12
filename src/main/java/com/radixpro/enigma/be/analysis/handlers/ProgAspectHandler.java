@@ -22,6 +22,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Handler for analysing aspects from progressive positions.
+ * TODO: replace chartPositions with calculatedChart and progPositions with List for iPosition.
  */
 public class ProgAspectHandler {
 

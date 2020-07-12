@@ -48,6 +48,7 @@ public class ChartsDrawing2d {
    }
 
    public void setDrawingInfo(final CalculatedFullChart fullChart, final Configuration currentConfig) {
+      // TODO replace calculatedFullChart with FullChart
       this.fullChart = checkNotNull(fullChart);
       this.currentConfig = checkNotNull(currentConfig);
       drawChart();

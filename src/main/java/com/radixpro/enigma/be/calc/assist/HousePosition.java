@@ -10,6 +10,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Dto for all positions for a house-cusp, or other mundane point.
+ * TODO remove obsolete class
  */
 public class HousePosition {
 

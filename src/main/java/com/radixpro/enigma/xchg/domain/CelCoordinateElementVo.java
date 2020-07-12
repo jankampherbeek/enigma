@@ -11,6 +11,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * Value object for an element of a situation in a specific coordinate system, typically position or speed.
+ * TODO remove obsolete class
  */
 public class CelCoordinateElementVo {
 

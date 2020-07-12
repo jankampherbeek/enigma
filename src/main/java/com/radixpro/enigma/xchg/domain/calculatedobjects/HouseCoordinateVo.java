@@ -13,6 +13,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Value object for a coordinate of a mundane point.
+ * TODO remove obsolete class
  */
 public class HouseCoordinateVo implements ICoordinateVo {
 

@@ -16,6 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Response for calculated progressive positions.
+ * TODO replace SimplePosVo with iPosition
  */
 public class SimpleProgResponse {
 

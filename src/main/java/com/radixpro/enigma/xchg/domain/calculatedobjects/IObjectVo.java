@@ -11,6 +11,7 @@ import com.radixpro.enigma.xchg.domain.IChartPoints;
 
 /**
  * Interface for full positions, containing multiple coordinate systems.
+ * TODO remove obsolete interface
  */
 public interface IObjectVo {
 

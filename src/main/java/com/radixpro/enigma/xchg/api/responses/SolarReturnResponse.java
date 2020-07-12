@@ -12,7 +12,8 @@ import com.radixpro.enigma.xchg.domain.FullChartDepr;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Response after calcualting a Solar Return Chart.
+ * Response after calculating a Solar Return Chart.
+ * TODO replace FullChartDepr with CalculatedChart
  */
 public class SolarReturnResponse {
 
