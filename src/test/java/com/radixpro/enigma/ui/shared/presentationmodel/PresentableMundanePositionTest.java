@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.calc.assist.EquatorialPositionForHouses;
-import com.radixpro.enigma.be.calc.assist.HousePosition;
+
+import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,27 +22,25 @@ import static org.mockito.Mockito.when;
 public class PresentableMundanePositionTest {
 
    @Mock
-   private HousePosition housePositionMock;
+   private MundanePosition mundPosMock;
    private double[] azAlt;
    private final String name = "Asc";
-   @Mock
-   private EquatorialPositionForHouses equatorialPositionForHousesMock;
    private PresentableMundanePosition presMundanePos;
 
    @Before
    public void setUp() {
       double ra = 125.25;
-      when(equatorialPositionForHousesMock.getRightAscension()).thenReturn(ra);
       double decl = -12.2000001;
-      when(equatorialPositionForHousesMock.getDeclination()).thenReturn(decl);
       double azimuth = 189.0;
       double altitude = 12.33334;
       azAlt = new double[]{azimuth, altitude};
       double longitude = 123.5;
-      when(housePositionMock.getLongitude()).thenReturn(longitude);
-      when(housePositionMock.getEquatorialPositionForHouses()).thenReturn(equatorialPositionForHousesMock);
-      when(housePositionMock.getEclipticHorizontalConverter()).thenReturn(azAlt);
-      presMundanePos = new PresentableMundanePosition(name, housePositionMock);
+      when(mundPosMock.getLongitude()).thenReturn(longitude);
+      when(mundPosMock.getEqPos().getMainCoord()).thenReturn(ra);
+      when(mundPosMock.getEqPos().getDeviation()).thenReturn(decl);
+      when(mundPosMock.getHorPos().getMainCoord()).thenReturn(azimuth);
+      when(mundPosMock.getHorPos().getDeviation()).thenReturn(altitude);
+      presMundanePos = new PresentableMundanePosition(name, mundPosMock);
    }
 
    @Test

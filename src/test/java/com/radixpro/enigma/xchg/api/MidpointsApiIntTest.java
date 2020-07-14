@@ -8,26 +8,32 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
-import com.radixpro.enigma.xchg.domain.CelCoordinateElementVo;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedMidpoint;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MidpointTypes;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.CelCoordinateVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.HouseCoordinateVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.ObjectVo;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MidpointsApiIntTest {
+
+   @Mock
+   private IPosition sunPosMock;
+   @Mock
+   private IPosition moonPosMock;
 
    private List<IObjectVo> celObjects;
    private List<IObjectVo> mundaneValues;
@@ -35,6 +41,10 @@ public class MidpointsApiIntTest {
 
    @Before
    public void setUp() {
+      when(sunPosMock.getLongitude()).thenReturn(20.0);
+      when(moonPosMock.getLongitude()).thenReturn(100.0);
+
+
       celObjects = createCelObjects();
       mundaneValues = createMundaneValues();
       api = new ApiAnalysisFactory().createMidpointsApi();
@@ -54,17 +64,8 @@ public class MidpointsApiIntTest {
    }
 
    private List<IObjectVo> createCelObjects() {
-      List<IObjectVo> newCelObjects = new ArrayList<>();
-      newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(20.0),
-            createCelCoordinateVo(0.0),
-            createCelCoordinateVo(0.0),
-            CelestialObjects.SUN));
-      newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(100.0),
-            createCelCoordinateVo(0.0),
-            createCelCoordinateVo(0.0),
-            CelestialObjects.MOON));
+
+
       newCelObjects.add(new ObjectVo(
             createCelCoordinateVo(30.0),
             createCelCoordinateVo(0.0),

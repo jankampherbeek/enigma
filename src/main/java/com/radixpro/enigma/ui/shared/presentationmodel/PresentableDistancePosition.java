@@ -8,14 +8,13 @@ package com.radixpro.enigma.ui.shared.presentationmodel;
 
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.DecimalValue;
-import com.radixpro.enigma.xchg.domain.CelObjectSinglePosition;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointCoordinate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Wrapper around CelObjectSinglePosition for the distance values; enables the use in a tableview.
- * TODO: replace celObjectSinglePosition with FullPointCoordinate
  */
 public class PresentableDistancePosition {
 
@@ -24,16 +23,16 @@ public class PresentableDistancePosition {
    private String celBodyGlyph;
 
    public PresentableDistancePosition(final CelestialObjects celestialObject,
-                                      final CelObjectSinglePosition celObjectSinglePosition) {
+                                      final FullPointCoordinate celObjectSinglePosition) {
       createPresentablePosition(checkNotNull(celestialObject), checkNotNull(celObjectSinglePosition));
    }
 
    private void createPresentablePosition(final CelestialObjects celestialObject,
-                                          final CelObjectSinglePosition celObjectSinglePosition) {
+                                          final FullPointCoordinate celObjectSinglePosition) {
       checkNotNull(celestialObject);
       checkNotNull(celObjectSinglePosition);
-      formattedDistance = new DecimalValue(celObjectSinglePosition.getDistancePosition()).getFormattedPosition();
-      formattedDistSpeed = new DecimalValue(celObjectSinglePosition.getDistanceSpeed()).getFormattedPosition();
+      formattedDistance = new DecimalValue(celObjectSinglePosition.getPosition().getDistance()).getFormattedPosition();
+      formattedDistSpeed = new DecimalValue(celObjectSinglePosition.getPosition().getDistance()).getFormattedPosition();
       celBodyGlyph = new CelObject2GlyphMapper().getGlyph(celestialObject);
    }
 

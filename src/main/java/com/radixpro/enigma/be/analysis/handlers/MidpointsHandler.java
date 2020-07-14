@@ -10,7 +10,7 @@ package com.radixpro.enigma.be.analysis.handlers;
 import com.radixpro.enigma.be.analysis.MidpointsForRadix;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,20 +41,20 @@ public class MidpointsHandler {
     * @param mundaneValues MundaneValues, uses MC and Asc. PRE: not null.
     * @return actual midpoints.
     */
-   public List<IAnalyzedPair> retrieveMidpoints(final List<IObjectVo> celBodies, final List<IObjectVo> mundaneValues) {
+   public List<IAnalyzedPair> retrieveMidpoints(final List<IPosition> celBodies, final List<IPosition> mundaneValues) {
       checkArgument(celBodies != null && 2 <= celBodies.size());
       checkNotNull(mundaneValues);
       List<AnalyzablePoint> candidates = createCandidates(celBodies, mundaneValues);
       return analyzer.analyze(candidates);
    }
 
-   private List<AnalyzablePoint> createCandidates(List<IObjectVo> celBodies, List<IObjectVo> mundaneValues) {
+   private List<AnalyzablePoint> createCandidates(List<IPosition> celBodies, List<IPosition> mundaneValues) {
       List<AnalyzablePoint> candidates = new ArrayList<>();
-      for (IObjectVo pos : celBodies) {
-         candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getEclipticCoords().getPosition().getBase()));
+      for (IPosition pos : celBodies) {
+         candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getLongitude()));
       }
-      for (IObjectVo pos : mundaneValues) {
-         candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getEclipticCoords().getPosition().getBase()));
+      for (IPosition pos : mundaneValues) {
+         candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getLongitude()));
       }
       return candidates;
    }

@@ -11,7 +11,7 @@ import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
-import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class CalculatedChartHandler {
       final Ayanamshas ayanamsha = settings.getAyanamsha();
       final HouseSystems houseSystem = settings.getHouseSystem();
       final List<CelestialObjects> celPoints = settings.getPoints();
-      final List<FullPointPosition> fullPointPositions = new ArrayList<>();
+      final List<IPosition> fullPointPositions = new ArrayList<>();
       for (CelestialObjects celPoint : celPoints) {
          fullPointPositions.add(fullPointPositionHandler.definePosition(celPoint, jdUt, obsPos, eclProj, ayanamsha, location));
       }

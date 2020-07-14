@@ -16,6 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MundanePositionTest {
@@ -26,16 +27,18 @@ public class MundanePositionTest {
    private CoordinateSet eqPosMock;
    @Mock
    private CoordinateSet horPosMock;
+   private final double declination = 2.58;
    private MundanePosition mundanePosition;
 
    @Before
    public void setUp() {
+      when(eqPosMock.getDeviation()).thenReturn(declination);
       mundanePosition = new MundanePosition(mundanePoint, longitude, eqPosMock, horPosMock);
    }
 
    @Test
    public void getMundanePoint() {
-      assertEquals(mundanePoint, mundanePosition.getMundanePoint());
+      assertEquals(mundanePoint, mundanePosition.getChartPoint());
    }
 
    @Test
@@ -51,5 +54,10 @@ public class MundanePositionTest {
    @Test
    public void getHorPos() {
       assertEquals(horPosMock, mundanePosition.getHorPos());
+   }
+
+   @Test
+   public void getDeclination() {
+      assertEquals(declination, mundanePosition.getDeclination(), DELTA_8_POS);
    }
 }

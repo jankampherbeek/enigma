@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api.requests;
 
-import com.radixpro.enigma.xchg.domain.CalculationSettings;
+import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import com.radixpro.enigma.xchg.domain.FullDateTime;
 import com.radixpro.enigma.xchg.domain.Location;
 
@@ -20,7 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class SolarReturnRequest {
 
    private final FullDateTime birthDateTime;
-   private final CalculationSettings settings;
+   private final ChartCalcSettings settings;
    private final Location location;
    private final double longSun;
    private final int yearForReturn;
@@ -34,7 +34,7 @@ public class SolarReturnRequest {
     * @param longSun       ecliptical longitude of the Sun in the radix. PRE: 0.0 <= longSun < 360.0
     * @param yearForReturn The year for which the solar chart needs to be calculated.
     */
-   public SolarReturnRequest(final FullDateTime birthDateTime, final CalculationSettings settings, final Location location, final double longSun,
+   public SolarReturnRequest(final FullDateTime birthDateTime, final ChartCalcSettings settings, final Location location, final double longSun,
                              final int yearForReturn) {
       checkArgument(longSun >= 0.0 && longSun < 360.0);
       this.birthDateTime = checkNotNull(birthDateTime);
@@ -49,7 +49,7 @@ public class SolarReturnRequest {
       return birthDateTime;
    }
 
-   public CalculationSettings getSettings() {
+   public ChartCalcSettings getSettings() {
       return settings;
    }
 

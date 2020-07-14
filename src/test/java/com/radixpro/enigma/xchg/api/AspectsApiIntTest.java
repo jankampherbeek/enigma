@@ -9,40 +9,60 @@ package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.AspectOrbStructures;
-import com.radixpro.enigma.xchg.domain.CelCoordinateElementVo;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.CelCoordinateVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.HouseCoordinateVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.ObjectVo;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
+import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 /**
  * Integration test for AspectsApi
  */
+@RunWith(MockitoJUnitRunner.class)
 public class AspectsApiIntTest {
 
-   private List<IObjectVo> celObjects;
-   private List<IObjectVo> mundaneValues;
+   @Mock
+   private IPosition sunPosMock;
+   @Mock
+   private IPosition moonPosMock;
+   @Mock
+   private IPosition mcPosMock;
+   @Mock
+   private IPosition ascPosMock;
+
+   private List<IPosition> celObjects;
+   private List<MundanePosition> mundaneValues;
    private AspectConfiguration config;
    private AspectsApi api;
 
    @Before
    public void setUp() {
-      celObjects = createCelObjects();
-      mundaneValues = createMundaneValues();
+      when(sunPosMock.getLongitude()).thenReturn(100.0);
+      when(moonPosMock.getLongitude()).thenReturn(281.0);
+      List<IPosition> celObjects = new ArrayList<>();
+      celObjects.add(sunPosMock);
+      celObjects.add(moonPosMock);
+
+      when(mcPosMock.getLongitude()).thenReturn(218.0);
+      when(ascPosMock.getLongitude()).thenReturn(278.0);
+      List<IPosition> mundaneValues = new ArrayList<>();
+      mundaneValues.add(mcPosMock);
+      mundaneValues.add(ascPosMock);
       config = createConfig();
       api = new ApiAnalysisFactory().createAspectsApi();
    }
@@ -63,46 +83,6 @@ public class AspectsApiIntTest {
       assertEquals(25.0, result1.getPercOrb(), DELTA_8_POS);
    }
 
-   private List<IObjectVo> createCelObjects() {
-      List<IObjectVo> newCelObjects = new ArrayList<>();
-      newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(100.0),
-            createCelCoordinateVo(0.0),
-            createCelCoordinateVo(0.0),
-            CelestialObjects.SUN));
-      newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(281.0),
-            createCelCoordinateVo(0.0),
-            createCelCoordinateVo(0.0),
-            CelestialObjects.MOON));
-      return newCelObjects;
-   }
-
-   private List<IObjectVo> createMundaneValues() {
-      List<IObjectVo> newHouses = new ArrayList<>();
-      newHouses.add(new ObjectVo(
-            createHouseCoordinateVo(218.0),
-            createHouseCoordinateVo(0.0),
-            createHouseCoordinateVo(0.0),
-            MundanePoints.MC));
-      newHouses.add(new ObjectVo(
-            createHouseCoordinateVo(278.0),
-            createHouseCoordinateVo(0.0),
-            createHouseCoordinateVo(0.0),
-            MundanePoints.ASC));
-      return newHouses;
-   }
-
-   private CelCoordinateVo createCelCoordinateVo(double basePos) {
-      CelCoordinateElementVo posCoordinate = new CelCoordinateElementVo(basePos, 0.0, 0.0);
-      CelCoordinateElementVo speedCoordinate = new CelCoordinateElementVo(0.0, 0.0, 0.0);
-      return new CelCoordinateVo(posCoordinate, speedCoordinate);
-   }
-
-   private HouseCoordinateVo createHouseCoordinateVo(double basePos) {
-      CelCoordinateElementVo posCoordinate = new CelCoordinateElementVo(basePos, 0.0, 0.0);
-      return new HouseCoordinateVo(posCoordinate);
-   }
 
    private AspectConfiguration createConfig() {
       final double baseOrb = 8.0;

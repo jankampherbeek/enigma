@@ -12,8 +12,8 @@ import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
 import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.calculatedcharts.ChartPositionsVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.SimplePosVo;
+import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +33,17 @@ public class ProgAspectHandler {
    }
 
    public EphProgAspectResponse analyzeAspects(final ProgAnalyzeRequest request) {
-      return analyze(request.getChartPositions(), request.getProgPositions(), request.getAspects(), request.getOrb());
+      return analyze(request.getCalculatedChart(), request.getProgPositions(), request.getAspects(), request.getOrb());
    }
 
-   private EphProgAspectResponse analyze(ChartPositionsVo chartPositions, List<SimplePosVo> progPositions, List<AspectTypes> aspectTypes, double orb) {
+   private EphProgAspectResponse analyze(CalculatedChart calcChart, List<IPosition> progPositions, List<AspectTypes> aspectTypes, double orb) {
       long chartId = 1L;   // FIXME use real chartId
       List<IAnalyzedPair> aspects = new ArrayList<>();
-      for (SimplePosVo trPos : progPositions) {
-         for (SimplePosVo rxBodyPos : chartPositions.getCelestialPoints()) {
+      for (IPosition trPos : progPositions) {
+         for (IPosition rxBodyPos : calcChart.getCelPoints()) {
             aspects.addAll(progRadixAspects.findAspects(aspectTypes, trPos, rxBodyPos, orb));
          }
-         for (SimplePosVo rxMundPos : chartPositions.getMundanePositions()) {
+         for (IPosition rxMundPos : calcChart.getMundPoints().getSpecPoints()) {
             aspects.addAll(progRadixAspects.findAspects(aspectTypes, trPos, rxMundPos, orb));
          }
       }

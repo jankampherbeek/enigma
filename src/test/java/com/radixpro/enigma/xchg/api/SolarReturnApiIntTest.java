@@ -10,7 +10,9 @@ package com.radixpro.enigma.xchg.api;
 import com.radixpro.enigma.xchg.api.factories.ApiProgFactory;
 import com.radixpro.enigma.xchg.api.requests.SolarReturnRequest;
 import com.radixpro.enigma.xchg.api.responses.SolarReturnResponse;
+import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,8 +36,8 @@ public class SolarReturnApiIntTest {
       final SolarReturnRequest request = new SolarReturnRequest(createFullDateTime(), createSettings(), createLocation(), 309.11833333, 2020);
       final SolarReturnResponse response = api.calculateSolarReturn(request);
       assertEquals("OK", response.getResultMsg());
-      FullChartDepr responseChart = response.getSolarReturnChart();
-      assertEquals(309.11833333, responseChart.getBodies().get(0).getEclipticalPosition().getMainPosition(), DELTA_5_POS);
+      CalculatedChart responseChart = response.getSolarReturnChart();
+      assertEquals(309.11833333, responseChart.getCelPoints().get(0).getLongitude(), DELTA_5_POS);
    }
 
    private FullDateTime createFullDateTime() {
@@ -51,13 +53,13 @@ public class SolarReturnApiIntTest {
       return new Location(geoLat, geoLong, "Enschede");
    }
 
-   private CalculationSettings createSettings() {
+   private ChartCalcSettings createSettings() {
       List<CelestialObjects> celPoints = new ArrayList<>();
       celPoints.add(CelestialObjects.SUN);
       celPoints.add(CelestialObjects.MOON);
       celPoints.add(CelestialObjects.MERCURY);
       celPoints.add(CelestialObjects.VENUS);
-      return new CalculationSettings(celPoints, HouseSystems.PLACIDUS, Ayanamshas.NONE, false, false);
+      return new ChartCalcSettings(celPoints, ObserverPositions.GEOCENTRIC, EclipticProjections.TROPICAL, Ayanamshas.NONE, HouseSystems.CAMPANUS);
    }
 
 

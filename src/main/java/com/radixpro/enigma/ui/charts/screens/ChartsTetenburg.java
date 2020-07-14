@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.ui.charts.screens;
 
-import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForSign;
+import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
 import com.radixpro.enigma.ui.shared.factories.LabelFactory;
@@ -23,6 +23,8 @@ import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
 import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -55,7 +57,7 @@ public class ChartsTetenburg {
    private final Stage stage;
    private final Rosetta rosetta;
    private final MetaDataForAnalysis meta;
-   private final FullChartDepr fullChartDepr;
+   private final FullChart fullChart;
    private final String calendar;
    private Button btnCalc;
    private Button btnExit;
@@ -75,13 +77,12 @@ public class ChartsTetenburg {
    private ValidatedDate valDate;
 
 
-   // TODO: remove parameter fullChartDepr, add parameter for ChartsSessionState, use selectedCHart from ChartsSessionState
-   public ChartsTetenburg(final Stage stage, final Rosetta rosetta, final MetaDataForAnalysis meta, final FullChartDepr fullChartDepr) {
+   public ChartsTetenburg(final Stage stage, final Rosetta rosetta, final MetaDataForAnalysis meta, final FullChart fullChart) {
       this.stage = stage;
       this.rosetta = rosetta;
       this.meta = meta;
-      this.fullChartDepr = fullChartDepr;
-      this.calendar = fullChartDepr.getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j";
+      this.fullChart = fullChart;
+      this.calendar = fullChart.getChartData().getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j";
       defineLeafs();
       definePanes();
       defineButtons();
@@ -186,16 +187,17 @@ public class ChartsTetenburg {
    }
 
    private void onCalc() {
-      double longMc = fullChartDepr.getAllHousePositions().get(0).getEclipticCoords().getPosition().getBase();
+      double longMc = fullChart.getCalculatedChart().getMundPoints().getMc().getLongitude();
       double solarSpeed = 0.0;
-      final List<CelObjectPosition> bodies = fullChartDepr.getBodies();
-      for (CelObjectPosition celPos : bodies) {
-         if (celPos.getCelestialBody() == CelestialObjects.SUN) {
-            solarSpeed = celPos.getEclipticalPosition().getMainSpeed();
+      final List<IPosition> bodies = fullChart.getCalculatedChart().getCelPoints();
+      for (IPosition celPos : bodies) {
+         FullPointPosition fpp = (FullPointPosition) celPos;
+         if (fpp.getChartPoint() == CelestialObjects.SUN) {
+            solarSpeed = fpp.getEclPos().getSpeed().getMainCoord();
          }
       }
-      Location location = fullChartDepr.getLocation();
-      FullDateTime birthDateTime = fullChartDepr.getFullDateTime();
+      Location location = fullChart.getChartData().getLocation();
+      FullDateTime birthDateTime = fullChart.getChartData().getFullDateTime();
 
       SimpleTime simpleTime = new SimpleTime(0, 0, 0);
       SimpleDateTime simpleDateTime = new SimpleDateTime(valDate.getSimpleDate(), simpleTime);

@@ -6,9 +6,9 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.calc.main.CelObjectPosition;
-import com.radixpro.enigma.xchg.domain.CelObjectSinglePosition;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointCoordinate;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,30 +22,30 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class PresentableCelObjectPositionTest {
 
+   private final double[] azAlt = {150.123456, -12.5};
    @Mock
-   private CelObjectPosition positionMock;
+   private FullPointPosition positionMock;
    @Mock
-   private CelObjectSinglePosition eclPositionMock;
+   private FullPointCoordinate eclPositionMock;
    @Mock
-   private CelObjectSinglePosition equPositionMock;
-   private double[] azAlt = {150.123456, -12.5};
+   private FullPointCoordinate equPositionMock;
    private PresentableCelObjectPosition presPos;
 
    @Before
    public void setUp() {
-      when(eclPositionMock.getMainPosition()).thenReturn(220.5);
-      when(eclPositionMock.getDeviationPosition()).thenReturn(2.25);
-      when(eclPositionMock.getMainSpeed()).thenReturn(0.3333334);
-      when(eclPositionMock.getDeviationSpeed()).thenReturn(-0.0528);
-      when(eclPositionMock.getDistancePosition()).thenReturn(8.532897658210534);
-      when(eclPositionMock.getDistanceSpeed()).thenReturn(0.5);
-      when(equPositionMock.getMainPosition()).thenReturn(100.5);
-      when(equPositionMock.getDeviationPosition()).thenReturn(-0.25);
-      when(equPositionMock.getMainSpeed()).thenReturn(-1.3333334);
-      when(equPositionMock.getDeviationSpeed()).thenReturn(0.0528);
-      when(positionMock.getEclipticalPosition()).thenReturn(eclPositionMock);
-      when(positionMock.getEquatorialPosition()).thenReturn(equPositionMock);
-      when(positionMock.getCelestialBody()).thenReturn(CelestialObjects.MARS);
+      when(eclPositionMock.getPosition().getMainCoord()).thenReturn(220.5);
+      when(eclPositionMock.getPosition().getDeviation()).thenReturn(2.25);
+      when(eclPositionMock.getSpeed().getMainCoord()).thenReturn(0.3333334);
+      when(eclPositionMock.getSpeed().getDeviation()).thenReturn(-0.0528);
+      when(eclPositionMock.getPosition().getDistance()).thenReturn(8.532897658210534);
+      when(eclPositionMock.getSpeed().getDistance()).thenReturn(0.5);
+      when(equPositionMock.getPosition().getMainCoord()).thenReturn(100.5);
+      when(equPositionMock.getPosition().getDeviation()).thenReturn(-0.25);
+      when(equPositionMock.getSpeed().getMainCoord()).thenReturn(-1.3333334);
+      when(equPositionMock.getSpeed().getMainCoord()).thenReturn(0.0528);
+      when(positionMock.getEclPos()).thenReturn(eclPositionMock);
+      when(positionMock.getEqPos()).thenReturn(equPositionMock);
+      when(positionMock.getCelObject()).thenReturn(CelestialObjects.MARS);
       presPos = new PresentableCelObjectPosition(positionMock, azAlt);
    }
 

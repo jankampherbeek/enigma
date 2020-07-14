@@ -37,4 +37,21 @@ public class AllMundanePositions {
    public List<MundanePosition> getSpecPoints() {
       return specPoints;
    }
+
+   public MundanePosition getMc() {
+      return specPoints.get(0);
+   }
+
+   public MundanePosition getAsc() {
+      return specPoints.get(1);
+   }
+
+   public MundanePosition getVertex() {
+      return specPoints.get(2);
+   }
+
+   public MundanePosition getEastPoint() {
+      return specPoints.get(3);
+   }
+
 }

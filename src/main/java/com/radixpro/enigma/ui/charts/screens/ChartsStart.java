@@ -9,12 +9,14 @@ package com.radixpro.enigma.ui.charts.screens;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.charts.factories.ChartsScreensFactory;
 import com.radixpro.enigma.ui.configs.factories.ConfigScreensFactory;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesTableForConfig;
+import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
@@ -26,10 +28,12 @@ import com.radixpro.enigma.xchg.api.*;
 import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.CalculationSettings;
 import com.radixpro.enigma.xchg.domain.ChartData;
-import com.radixpro.enigma.xchg.domain.FullChartDepr;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
+import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
+import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
+import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -46,6 +50,7 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
 
@@ -67,6 +72,7 @@ public class ChartsStart {
    private final PersistedPropertyApi propApi;
    private final PersistedConfigurationApi confApi;
    private ObservableList<PresentableChartData> selectedCharts;
+   private final ChartsSessionState state;
    private Button btnDeleteChart;
    private Button btnShowChart;
    private MenuItem miShowChart;
@@ -79,14 +85,16 @@ public class ChartsStart {
    private MenuItem miSolar;
    private MenuItem miTetenburg;
    private TableView<PresentableChartData> tvCharts;
-   private CalculatedFullChart currentFullChart;
+   private FullChart currentFullChart;
    private TableColumn<PresentableChartData, String> colName;
    private TableColumn<PresentableChartData, String> colData;
    private Configuration currentConfig;
 
-   public ChartsStart(Stage stage, Rosetta rosetta) {
+   public ChartsStart(Stage stage, final Rosetta rosetta, final ChartsSessionState state) {
       this.stage = checkNotNull(stage);
       this.rosetta = checkNotNull(rosetta);
+      checkArgument(null != state && state.selectedChartIsSet());
+      this.state = state;
       propApi = new PersistedPropertyApi();
       confApi = new PersistedConfigurationApi();
       availableCharts = new ArrayList<>();
@@ -357,17 +365,17 @@ public class ChartsStart {
    }
 
    private void onAspects() {
-      // TODO replace FullChartDepr with CalculatedChart, replace IObjectVo with iPosition
       AspectsApi api = new ApiAnalysisFactory().createAspectsApi();
       PresentableChartData presChartData = selectedCharts.get(0);
-      ChartData chartData = presChartData.getOriginalData();
-      CalculationSettings settings = new CalculationSettings(currentConfig);
-      FullChartDepr fullChartDepr = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
-      List<IObjectVo> celObjectList = fullChartDepr.getAllCelBodyPositions();
-      List<IObjectVo> fullHousesList = fullChartDepr.getAllHousePositions();
-      List<IObjectVo> housesList = new ArrayList<>();
-      housesList.add(fullHousesList.get(0));
-      housesList.add(fullHousesList.get(1));
+//      ChartData chartData = presChartData.getOriginalData();
+//      CalculationSettings settings = new CalculationSettings(currentConfig);
+
+      CalculatedChart calculatedChart = state.getSelectedChart().getCalculatedChart();
+      List<IPosition> celObjectList = calculatedChart.getCelPoints();
+      AllMundanePositions allMundanePositions = calculatedChart.getMundPoints();
+      List<MundanePosition> housesList = new ArrayList<>();
+      housesList.add(allMundanePositions.getMc());
+      housesList.add(allMundanePositions.getAsc());
       final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), currentConfig.getDelinConfiguration().getAspectConfiguration().getBaseOrb());
       new ChartsScreensFactory().createChartsAspects(aspects, meta);
@@ -375,30 +383,28 @@ public class ChartsStart {
 
    // TODO combine logic of onAspects and onMidpoints
    private void onMidpoints() {
-      // TODO replace FullChartDepr with CalculatedChart, replace IObjectVo with iPosition
       MidpointsApi api = new ApiAnalysisFactory().createMidpointsApi();
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
       CalculationSettings settings = new CalculationSettings(currentConfig);
-      FullChartDepr fullChartDepr = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
-      List<IObjectVo> celObjectList = fullChartDepr.getAllCelBodyPositions();
-      List<IObjectVo> fullHousesList = fullChartDepr.getAllHousePositions();
-      List<IObjectVo> housesList = new ArrayList<>();
-      housesList.add(fullHousesList.get(0));
-      housesList.add(fullHousesList.get(1));
+      FullChart fullChart = state.getSelectedChart();
+      List<IPosition> celObjectList = fullChart.getCalculatedChart().getCelPoints();
+      AllMundanePositions fullHouses = fullChart.getCalculatedChart().getMundPoints();
+      List<IPosition> housesList = new ArrayList<>();
+      housesList.add(fullHouses.getMc());
+      housesList.add(fullHouses.getAsc());
       final List<IAnalyzedPair> midpoints = api.analyseMidpoints(celObjectList, housesList);
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.6);   // TODO replace hardcoded orb for midpoints with configurable orb
       new ChartsScreensFactory().createChartsMidpoints(midpoints, meta);
    }
 
    private void onTetenburg() {
-      // TODO replace FullChartDepr with CalculatedChart
       PresentableChartData presChartData = selectedCharts.get(0);
       ChartData chartData = presChartData.getOriginalData();
       CalculationSettings settings = new CalculationSettings(currentConfig);
-      FullChartDepr fullChartDepr = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings).getFullChart();
+      FullChart fullChart = state.getSelectedChart();
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.0);  // orb is not used
-      ChartsTetenburg chartsTetenburg = new ChartsScreensFactory().getChartsTetenburg(meta, fullChartDepr);
+      ChartsTetenburg chartsTetenburg = new ChartsScreensFactory().getChartsTetenburg(meta, fullChart);
    }
 
 
@@ -407,23 +413,21 @@ public class ChartsStart {
    }
 
    private void showChart(final ChartData chartData) {
-      // TODO replace currentFullChart with CalculatedChart
-      // TODO retrieve chart from status
-      CalculationSettings settings = new CalculationSettings(currentConfig);
-      currentFullChart = new CalculatedFullChart(chartData.getFullDateTime(), chartData.getLocation(), settings);
+//      CalculationSettings settings = new CalculationSettings(currentConfig);
+      currentFullChart = state.getSelectedChart();
       showPositions(chartData);
       drawChart2D(chartData.getChartMetaData().getName());
    }
 
-   // TODO replace currentFUllChart with CalculatedChart from status
    private void showPositions(ChartData chartData) {
+      FullChart currentFullChart = state.getSelectedChart();
       new ChartsData(currentFullChart, chartData);
    }
 
    private void drawChart2D(final String name) {
       ChartsDrawing2d chartsDrawing2d = new ChartsDrawing2d();
       chartsDrawing2d.setName(name);
-      chartsDrawing2d.setDrawingInfo(currentFullChart, currentConfig);
+      chartsDrawing2d.setDrawingInfo(state.getSelectedChart(), currentConfig);
    }
 
 }

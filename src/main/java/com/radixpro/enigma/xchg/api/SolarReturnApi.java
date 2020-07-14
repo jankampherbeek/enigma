@@ -12,14 +12,13 @@ import com.radixpro.enigma.be.exceptions.NoPositionFoundException;
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.xchg.api.requests.SolarReturnRequest;
 import com.radixpro.enigma.xchg.api.responses.SolarReturnResponse;
-import com.radixpro.enigma.xchg.domain.FullChartDepr;
+import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
 import org.apache.log4j.Logger;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Service for the calculation of a Solar Return Chart.
- * TODO replace FullChartDepr with CalculatedChart
  */
 public class SolarReturnApi {
 
@@ -47,7 +46,7 @@ public class SolarReturnApi {
     */
    public SolarReturnResponse calculateSolarReturn(final SolarReturnRequest request) {
       checkNotNull(request);
-      FullChartDepr solarReturnChart;
+      CalculatedChart solarReturnChart;
       String resultMsg = "OK";
       try {
          solarReturnChart = handler.getSolarReturnChart(request.getLongSun(), request.getBirthDateTime(), request.getYearForReturn(),

@@ -11,7 +11,7 @@ import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.screens.ChartsAspects;
 import com.radixpro.enigma.ui.charts.screens.ChartsMidpoints;
 import com.radixpro.enigma.ui.charts.screens.ChartsTetenburg;
-import com.radixpro.enigma.xchg.domain.FullChartDepr;
+import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
 import javafx.stage.Stage;
@@ -31,8 +31,8 @@ public class ChartsScreensFactory {
       return new ChartsMidpoints(new Stage(), Rosetta.getRosetta(), midpoints, meta);
    }
 
-   public ChartsTetenburg getChartsTetenburg(final MetaDataForAnalysis meta, final FullChartDepr fullChartDepr) {
-      return new ChartsTetenburg(new Stage(), Rosetta.getRosetta(), meta, fullChartDepr);
+   public ChartsTetenburg getChartsTetenburg(final MetaDataForAnalysis meta, final FullChart fullChart) {
+      return new ChartsTetenburg(new Stage(), Rosetta.getRosetta(), meta, fullChart);
    }
 
    ;

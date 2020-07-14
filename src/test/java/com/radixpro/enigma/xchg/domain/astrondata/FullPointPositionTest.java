@@ -14,7 +14,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FullPointPositionTest {
@@ -26,10 +28,22 @@ public class FullPointPositionTest {
    private final CelestialObjects celObject = CelestialObjects.SUN;
    @Mock
    private CoordinateSet horPosMock;
+   private final double longitude = 123.456;
+   private final double declination = -2.22;
+   @Mock
+   private CoordinateSet3D eclPos3DMock;
+   @Mock
+   private CoordinateSet3D eqPos3DMock;
+   @Mock
+   private FullPointPosition fullPointPositionMock;
    private FullPointPosition fullPointPosition;
 
    @Before
    public void setUp() {
+      when(eclPos3DMock.getMainCoord()).thenReturn(longitude);
+      when(eclPosMock.getPosition()).thenReturn(eclPos3DMock);
+      when(eqPos3DMock.getDeviation()).thenReturn(declination);
+      when(eqPosMock.getPosition()).thenReturn(eqPos3DMock);
       fullPointPosition = new FullPointPosition(celObject, eclPosMock, eqPosMock, horPosMock);
    }
 
@@ -51,5 +65,15 @@ public class FullPointPositionTest {
    @Test
    public void getCelObject() {
       assertEquals(celObject, fullPointPosition.getCelObject());
+   }
+
+   @Test
+   public void getLongitude() {
+      assertEquals(longitude, fullPointPosition.getLongitude(), DELTA_8_POS);
+   }
+
+   @Test
+   public void getDeclination() {
+      assertEquals(declination, fullPointPosition.getDeclination(), DELTA_8_POS);
    }
 }

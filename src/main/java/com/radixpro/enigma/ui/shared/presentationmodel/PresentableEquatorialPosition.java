@@ -9,14 +9,13 @@ package com.radixpro.enigma.ui.shared.presentationmodel;
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlainDmsValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlusMinusValue;
-import com.radixpro.enigma.xchg.domain.CelObjectSinglePosition;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointCoordinate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Wrapper around CelObjectSinglePosition for the equatorial values; enables the use in a tableview.
- * TODO replace celObjectSinglePosition with FullPointCoordinate
  */
 public class PresentableEquatorialPosition {
 
@@ -27,20 +26,20 @@ public class PresentableEquatorialPosition {
    private String celBodyGlyph;
 
    public PresentableEquatorialPosition(final CelestialObjects celestialObject,
-                                        final CelObjectSinglePosition celObjectSinglePosition) {
+                                        final FullPointCoordinate fpCoordinate) {
       checkNotNull(celestialObject);
-      checkNotNull(celObjectSinglePosition);
-      createPresentablePosition(celestialObject, celObjectSinglePosition);
+      checkNotNull(fpCoordinate);
+      createPresentablePosition(celestialObject, fpCoordinate);
    }
 
    private void createPresentablePosition(final CelestialObjects celestialObject,
-                                          final CelObjectSinglePosition celObjectSinglePosition) {
+                                          final FullPointCoordinate fpCoordinate) {
       checkNotNull(celestialObject);
-      checkNotNull(celObjectSinglePosition);
-      formattedRightAscension = new PlainDmsValue(celObjectSinglePosition.getMainPosition()).getFormattedPosition();
-      formattedRaSpeed = new PlusMinusValue(celObjectSinglePosition.getMainSpeed()).getFormattedPosition();
-      formattedDeclination = new PlusMinusValue(celObjectSinglePosition.getDeviationPosition()).getFormattedPosition();
-      formattedDeclSpeed = new PlusMinusValue(celObjectSinglePosition.getDeviationSpeed()).getFormattedPosition();
+      checkNotNull(fpCoordinate);
+      formattedRightAscension = new PlainDmsValue(fpCoordinate.getPosition().getMainCoord()).getFormattedPosition();
+      formattedRaSpeed = new PlusMinusValue(fpCoordinate.getSpeed().getMainCoord()).getFormattedPosition();
+      formattedDeclination = new PlusMinusValue(fpCoordinate.getPosition().getDeviation()).getFormattedPosition();
+      formattedDeclSpeed = new PlusMinusValue(fpCoordinate.getSpeed().getDeviation()).getFormattedPosition();
       celBodyGlyph = new CelObject2GlyphMapper().getGlyph(celestialObject);
    }
 

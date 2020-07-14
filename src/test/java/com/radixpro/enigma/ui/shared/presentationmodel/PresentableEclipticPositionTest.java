@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.xchg.domain.CelObjectSinglePosition;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointCoordinate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,20 +22,20 @@ public class PresentableEclipticPositionTest {
 
    private final CelestialObjects celestialObject = CelestialObjects.SUN;
    @Mock
-   private CelObjectSinglePosition celObjectSinglePositionMock;
+   private FullPointCoordinate fpCoordMock;
    private PresentableEclipticPosition position;
 
    @Before
    public void setUp() {
       double mainPos = 90.9;
-      when(celObjectSinglePositionMock.getMainPosition()).thenReturn(mainPos);
+      when(fpCoordMock.getPosition().getMainCoord()).thenReturn(mainPos);
       double devPos = -3.3;
-      when(celObjectSinglePositionMock.getDeviationPosition()).thenReturn(devPos);
+      when(fpCoordMock.getPosition().getDeviation()).thenReturn(devPos);
       double mainSpeed = 0.5;
-      when(celObjectSinglePositionMock.getMainSpeed()).thenReturn(mainSpeed);
+      when(fpCoordMock.getSpeed().getMainCoord()).thenReturn(mainSpeed);
       double devSpeed = 0.02;
-      when(celObjectSinglePositionMock.getDeviationSpeed()).thenReturn(devSpeed);
-      position = new PresentableEclipticPosition(celestialObject, celObjectSinglePositionMock);
+      when(fpCoordMock.getSpeed().getDeviation()).thenReturn(devSpeed);
+      position = new PresentableEclipticPosition(celestialObject, fpCoordMock);
    }
 
    @Test

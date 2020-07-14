@@ -10,7 +10,8 @@ package com.radixpro.enigma.be.analysis.handlers;
 import com.radixpro.enigma.be.analysis.AspectsForRadix;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
+import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 
 import java.util.ArrayList;
@@ -43,8 +44,8 @@ public class AspectsHandler {
     * @param config        The configuration for aspects. PRE: not null.
     * @return actual aspects.
     */
-   public List<IAnalyzedPair> retrieveAspects(final List<IObjectVo> celBodies,
-                                              final List<IObjectVo> mundaneValues,
+   public List<IAnalyzedPair> retrieveAspects(final List<IPosition> celBodies,
+                                              final List<MundanePosition> mundaneValues,
                                               final AspectConfiguration config) {
       checkArgument(celBodies != null && 2 <= celBodies.size());
       checkNotNull(mundaneValues);
@@ -54,13 +55,13 @@ public class AspectsHandler {
 
    }
 
-   private List<AnalyzablePoint> createCandidates(List<IObjectVo> celBodies, List<IObjectVo> mundaneValues) {
+   private List<AnalyzablePoint> createCandidates(List<IPosition> celBodies, List<MundanePosition> mundaneValues) {
       List<AnalyzablePoint> candidates = new ArrayList<>();
-      for (IObjectVo pos : celBodies) {
-         candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getEclipticCoords().getPosition().getBase()));
+      for (IPosition pos : celBodies) {
+         candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getLongitude()));
       }
-      for (IObjectVo pos : mundaneValues) {
-         candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getEclipticCoords().getPosition().getBase()));
+      for (MundanePosition pos : mundaneValues) {
+         candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getLongitude()));
       }
       return candidates;
    }

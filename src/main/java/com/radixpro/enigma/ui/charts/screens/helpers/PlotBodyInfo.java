@@ -7,7 +7,7 @@
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -18,7 +18,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class PlotBodyInfo {
 
-   private final CelestialObjects celObject;
+   private final IChartPoints celObject;
    private final double angleFromAsc;
    private final String posText;  // Text in degrees and minutes within a sign, the sign is not given.
    private double correctedAngle;
@@ -30,7 +30,7 @@ public class PlotBodyInfo {
     * @param angleFromAsc the angle in degrees from the ascendant, counted counter-clockwise
     * @param longitude    the ecliptical longitude
     */
-   public PlotBodyInfo(final CelestialObjects celObject, final double angleFromAsc, final double longitude) {
+   public PlotBodyInfo(final IChartPoints celObject, final double angleFromAsc, final double longitude) {
       this.celObject = checkNotNull(celObject);
       this.angleFromAsc = angleFromAsc;
       this.correctedAngle = angleFromAsc;
@@ -43,7 +43,7 @@ public class PlotBodyInfo {
       return formatter.formatDm(longitudeInSign);
    }
 
-   public CelestialObjects getCelObject() {
+   public IChartPoints getCelObject() {
       return this.celObject;
    }
 

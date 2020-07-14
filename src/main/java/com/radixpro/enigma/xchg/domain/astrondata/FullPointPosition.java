@@ -14,7 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Full set of positions with all coordinates for a specific celestial object.
  */
-public class FullPointPosition {
+public class FullPointPosition implements IPosition {
 
    private final CelestialObjects celObject;
    private final FullPointCoordinate eclPos;
@@ -37,7 +37,8 @@ public class FullPointPosition {
       this.horPos = checkNotNull(horPos);
    }
 
-   public CelestialObjects getCelObject() {
+   @Override
+   public CelestialObjects getChartPoint() {
       return celObject;
    }
 
@@ -52,4 +53,15 @@ public class FullPointPosition {
    public CoordinateSet getHorPos() {
       return horPos;
    }
+
+   @Override
+   public double getLongitude() {
+      return eclPos.getPosition().getMainCoord();
+   }
+
+   @Override
+   public double getDeclination() {
+      return eqPos.getPosition().getDeviation();
+   }
+
 }

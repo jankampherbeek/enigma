@@ -8,7 +8,6 @@ package com.radixpro.enigma.be.calc.core;
 
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
-import com.radixpro.enigma.xchg.domain.CelObjectSinglePosition;
 import com.radixpro.enigma.xchg.domain.Location;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,8 +24,7 @@ public class SeFrontendTest {
    private final double delta = 0.00000001;
    private final double jdUt = 1234567.89;
    private final int flags = 1;
-   @Mock
-   private CelObjectSinglePosition celObjectSinglePositionMock;
+
    @Mock
    private Location locationMock;
 

@@ -9,8 +9,8 @@ package com.radixpro.enigma.xchg.api.requests;
 
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.ProgAnalysisType;
-import com.radixpro.enigma.xchg.domain.calculatedcharts.ChartPositionsVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.SimplePosVo;
+import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 
 import java.util.List;
 
@@ -23,29 +23,28 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ProgAnalyzeRequest {
 
    private final ProgAnalysisType type;
-   private final List<SimplePosVo> progPositions;
-   private final ChartPositionsVo chartPositions;
+   private final List<IPosition> progPositions;
+   private final CalculatedChart calculatedChart;
    private final List<AspectTypes> aspects;
    private final double orb;
 
    /**
     * Constructor defines all properties.
-    * TODO: replace parameter progPositions with parameter for List<iPostion></iPostion>, chartPositions with calculatedChart, adapt getters getProgPositions and getChartPositions
     *
-    * @param type           typeof analysis. PRE: not null.
-    * @param progPositions  progressive positions that need to be analyzed. PRE: not null and not empty.
-    * @param chartPositions positions of the chart. PRE: not null.
-    * @param aspects        aspects that need to be used. PRE: not null and not empty.
-    * @param orb            the orb to use during analysis. PRE: orb > 0.0 .
+    * @param type            typeof analysis. PRE: not null.
+    * @param progPositions   progressive positions that need to be analyzed. PRE: not null and not empty.
+    * @param calculatedChart positions of the chart. PRE: not null.
+    * @param aspects         aspects that need to be used. PRE: not null and not empty.
+    * @param orb             the orb to use during analysis. PRE: orb > 0.0 .
     */
-   public ProgAnalyzeRequest(final ProgAnalysisType type, final List<SimplePosVo> progPositions, final ChartPositionsVo chartPositions,
+   public ProgAnalyzeRequest(final ProgAnalysisType type, final List<IPosition> progPositions, final CalculatedChart calculatedChart,
                              final List<AspectTypes> aspects, final double orb) {
       checkArgument(orb > 0.0);
       checkArgument(null != progPositions && !progPositions.isEmpty());
       checkArgument(null != aspects && !aspects.isEmpty());
       this.type = checkNotNull(type);
       this.progPositions = progPositions;
-      this.chartPositions = checkNotNull(chartPositions);
+      this.calculatedChart = checkNotNull(calculatedChart);
       this.aspects = aspects;
       this.orb = orb;
    }
@@ -54,12 +53,12 @@ public class ProgAnalyzeRequest {
       return type;
    }
 
-   public List<SimplePosVo> getProgPositions() {
+   public List<IPosition> getProgPositions() {
       return progPositions;
    }
 
-   public ChartPositionsVo getChartPositions() {
-      return chartPositions;
+   public CalculatedChart getCalculatedChart() {
+      return calculatedChart;
    }
 
    public List<AspectTypes> getAspects() {

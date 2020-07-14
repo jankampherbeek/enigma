@@ -12,7 +12,7 @@ import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspectTransit;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.SimplePosVo;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,7 @@ import java.util.List;
  */
 public class ProgRadixAspects {
 
-   // TODO replace parameters candidateProg and candidateRx with iPostion
-   public List<IAnalyzedPair> findAspects(List<AspectTypes> aspectTypes, SimplePosVo candidateProg, SimplePosVo candidateRx, double orb) {
+   public List<IAnalyzedPair> findAspects(List<AspectTypes> aspectTypes, IPosition candidateProg, IPosition candidateRx, double orb) {
       double pos1 = Math.min(candidateProg.getLongitude(), candidateRx.getLongitude());
       double pos2 = Math.max(candidateProg.getLongitude(), candidateRx.getLongitude());
       double distance1 = pos2 - pos1;
@@ -42,8 +41,8 @@ public class ProgRadixAspects {
                found = true;
             }
             if (found) {
-               AnalyzablePoint pointTransit = new AnalyzablePoint(candidateProg.getPoint(), candidateProg.getLongitude());
-               AnalyzablePoint pointRadix = new AnalyzablePoint(candidateRx.getPoint(), candidateRx.getLongitude());
+               AnalyzablePoint pointTransit = new AnalyzablePoint(candidateProg.getChartPoint(), candidateProg.getLongitude());
+               AnalyzablePoint pointRadix = new AnalyzablePoint(candidateRx.getChartPoint(), candidateRx.getLongitude());
                aspects.add(new AnalyzedAspectTransit(pointTransit, pointRadix, asp, actualOrb, orb));
             }
          }

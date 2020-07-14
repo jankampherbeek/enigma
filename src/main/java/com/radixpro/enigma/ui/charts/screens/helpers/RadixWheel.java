@@ -6,17 +6,16 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
-import com.radixpro.enigma.be.calc.assist.HousePosition;
-import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.shared.Range;
+import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.factories.PlotCoordinatesFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.xchg.api.AspectsApi;
-import com.radixpro.enigma.xchg.api.CalculatedFullChart;
 import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
+import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -43,25 +42,24 @@ public class RadixWheel {
    private static final double TRANSPARENT_GLOBAL_ALPHA = 0.3d;
    private final GraphicsContext gc;
    private final ChartDrawMetrics metrics;
-   private final CalculatedFullChart cfChart;
+   private final FullChart fChart;
    private double offsetAsc;
    private double corrForXY;
    private final Configuration currentConfig;
 
    /**
     * Constructing this class automatically draws a radix wheel, works like a SVG image.
-    * TODO replace calculatedFullChart with FullChart
     *
-    * @param gc                  The GraphicsContext
-    * @param metrics             Dynamic metrics, will be resized if required.
-    * @param calculatedFullChart Data for the calculated chart.
-    * @param currentConfig       The effective configuration.
+    * @param gc            The GraphicsContext
+    * @param metrics       Dynamic metrics, will be resized if required.
+    * @param fullChart     Data for the calculated chart.
+    * @param currentConfig The effective configuration.
     */
    public RadixWheel(final GraphicsContext gc, final ChartDrawMetrics metrics,
-                     final CalculatedFullChart calculatedFullChart, final Configuration currentConfig) {
+                     final FullChart fullChart, final Configuration currentConfig) {
       this.gc = checkNotNull(gc);
       this.metrics = checkNotNull(metrics);
-      this.cfChart = checkNotNull(calculatedFullChart);
+      this.fChart = checkNotNull(fullChart);
       this.currentConfig = checkNotNull(currentConfig);
       defineGlobals();
       performDraw();
@@ -69,7 +67,7 @@ public class RadixWheel {
 
    private void defineGlobals() {
       corrForXY = metrics.getOffsetOuterCircle() + metrics.getSizeOuterCircle() / 2;
-      offsetAsc = cfChart.getHouseValues().getAscendant().getLongitude() % 30;
+      offsetAsc = fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude() % 30;
    }
 
    private void prepareCircles() {
@@ -177,8 +175,7 @@ public class RadixWheel {
 
    private void drawCorners() {
       prepareThickLines();
-      double angleMc = cfChart.getHouseValues().getAscendant().getLongitude()
-            - cfChart.getHouseValues().getMc().getLongitude();
+      double angleMc = fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude() - fChart.getCalculatedChart().getMundPoints().getMc().getLongitude();
       CornerLines cornerLines = new CornerLines(metrics);
       double[] coordinates = cornerLines.defineCoordinates(angleMc);
       gc.strokeLine(coordinates[0], coordinates[1], coordinates[2], coordinates[3]);         // asc
@@ -189,11 +186,11 @@ public class RadixWheel {
 
    private void drawHouses() {
       prepareSmallLines();
-      boolean quadrantSystem = cfChart.getSettings().getHouseSystem().isQuadrantSystem();
+      boolean quadrantSystem = currentConfig.getAstronConfiguration().getHouseSystem().isQuadrantSystem();
       double angle;
       double[] positions;
-      double asc = cfChart.getHouseValues().getAscendant().getLongitude();
-      List<HousePosition> cusps = cfChart.getHouseValues().getCusps();
+      double asc = fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude();
+      List<MundanePosition> cusps = fChart.getCalculatedChart().getMundPoints().getCusps();
       CuspLinePlotCoordinates cuspLine;
       for (int i = 1; i <= 12; i++) {
          if (!quadrantSystem || (i != 1 && i != 4 && i != 7 && i != 10)) {
@@ -208,22 +205,22 @@ public class RadixWheel {
 
    private void drawCornerPositions() {
       preparePositonTexts();
-      double angleMc = cfChart.getHouseValues().getAscendant().getLongitude() - cfChart.getHouseValues().getMc().getLongitude();
+      double angleMc = fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude() - fChart.getCalculatedChart().getMundPoints().getMc().getLongitude();
       CornerPositions cornerPositions = new CornerPositions(metrics);
       double[] coordinates = cornerPositions.defineCoordinates(angleMc);
-      String posText = new SexagesimalFormatter(2).formatDm(cfChart.getHouseValues().getAscendant().getLongitude() % 30.0);
+      String posText = new SexagesimalFormatter(2).formatDm(fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude() % 30.0);
       gc.fillText(posText, coordinates[0], coordinates[1]);
       gc.fillText(posText, coordinates[2], coordinates[3]);
-      posText = new SexagesimalFormatter(2).formatDm(cfChart.getHouseValues().getMc().getLongitude() % 30.0);
+      posText = new SexagesimalFormatter(2).formatDm(fChart.getCalculatedChart().getMundPoints().getMc().getLongitude() % 30.0);
       gc.fillText(posText, coordinates[4], coordinates[5]);
       gc.fillText(posText, coordinates[6], coordinates[7]);
    }
 
    private void drawCuspPositions() {
       preparePositonTexts();
-      boolean quadrantSystem = cfChart.getSettings().getHouseSystem().isQuadrantSystem();
-      double asc = cfChart.getHouseValues().getAscendant().getLongitude();
-      List<HousePosition> cusps = cfChart.getHouseValues().getCusps();
+      boolean quadrantSystem = currentConfig.getAstronConfiguration().getHouseSystem().isQuadrantSystem();
+      double asc = fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude();
+      List<MundanePosition> cusps = fChart.getCalculatedChart().getMundPoints().getCusps();
       CuspTextPlotCoordinates cuspText;
       double[] coordinates;
       double angle;
@@ -243,7 +240,7 @@ public class RadixWheel {
       double angle = 165.0 + offsetAsc % 30;      // 180 degrees (correct quadrant) minus 15 (glyph in center of sign).
       for (int i = 1; i <= 12; i++) {
          Point point = new RectTriangle(metrics.getDiameterSignGlyphsCircle(), angle).getPointAtEndOfHyp();
-         int signIndex = (int) (cfChart.getHouseValues().getAscendant().getLongitude() / 30) + i;
+         int signIndex = (int) (fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude() / 30) + i;
          if (signIndex > 12) signIndex -= 12;
          gc.fillText(new GlyphForSign().getGlyph(signIndex), point.getXPos() + corrForXY - metrics.getOffSetGlyphs(), point.getYPos() + corrForXY + metrics.getOffSetGlyphs());
          angle -= 30.0;
@@ -253,8 +250,8 @@ public class RadixWheel {
 
    private void drawCelObjects() {
       prepareCelObjects();
-      List<CelObjectPosition> bodies = cfChart.getBodies();
-      double ascendant = cfChart.getHouseValues().getAscendant().getLongitude();
+      List<IPosition> bodies = fChart.getCalculatedChart().getCelPoints();
+      double ascendant = fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude();
       double longitude;
       double angle;
       double angle1;
@@ -262,10 +259,10 @@ public class RadixWheel {
       double minDist = metrics.getMinAngleObjects();
       double distance;
       final List<PlotBodyInfo> plotBodyInfos = new ArrayList<>();
-      for (CelObjectPosition bodyPos : bodies) {
-         longitude = bodyPos.getEclipticalPosition().getMainPosition();
+      for (IPosition bodyPos : bodies) {
+         longitude = bodyPos.getLongitude();
          angle = new Range(0.0, 360.0).checkValue(ascendant - longitude);
-         plotBodyInfos.add(new PlotBodyInfo(bodyPos.getCelestialBody(), angle, longitude));
+         plotBodyInfos.add(new PlotBodyInfo(bodyPos.getChartPoint(), angle, longitude));
       }
       plotBodyInfos.sort(new PlotBodyInfoComparator());
       int maxIndex = plotBodyInfos.size() - 1;
@@ -324,23 +321,22 @@ public class RadixWheel {
    private void drawAspects() {
       List<PointInfoForAspect> pointInfos = new ArrayList<>();
       DrawAspectHelper helper = new DrawAspectHelper();
-      List<IObjectVo> celObjectList = cfChart.getFullChart().getAllCelBodyPositions();
-      List<IObjectVo> fullHousesList = cfChart.getFullChart().getAllHousePositions();
-      List<IObjectVo> housesList = new ArrayList<>();
-      housesList.add(fullHousesList.get(0));
-      housesList.add(fullHousesList.get(1));
+      List<IPosition> celObjectList = fChart.getCalculatedChart().getCelPoints();
+      List<MundanePosition> specMundPoints = fChart.getCalculatedChart().getMundPoints().getSpecPoints();
+      List<MundanePosition> housesList = new ArrayList<>();
+      housesList.add(specMundPoints.get(0));
+      housesList.add(specMundPoints.get(1));
       AspectsApi api = new ApiAnalysisFactory().createAspectsApi();
-      final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList,
-            currentConfig.getDelinConfiguration().getAspectConfiguration());
-      List<CelObjectPosition> bodies = cfChart.getFullChart().getBodies();
-      double ascendant = cfChart.getHouseValues().getAscendant().getLongitude();
+      final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
+      List<IPosition> bodies = fChart.getCalculatedChart().getCelPoints();
+      double ascendant = fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude();
       double angleFromAsc;
-      for (CelObjectPosition bodyPos : bodies) {
-         double longitude = bodyPos.getEclipticalPosition().getMainPosition();
+      for (IPosition bodyPos : bodies) {
+         double longitude = bodyPos.getLongitude();
          angleFromAsc = new Range(0.0, 360.0).checkValue(ascendant - longitude);
-         pointInfos.add(new PointInfoForAspect(bodyPos.getCelestialBody(), angleFromAsc));
+         pointInfos.add(new PointInfoForAspect(bodyPos.getChartPoint(), angleFromAsc));
       }
-      angleFromAsc = new Range(0.0, 360.0).checkValue(ascendant - cfChart.getHouseValues().getMc().getLongitude());
+      angleFromAsc = new Range(0.0, 360.0).checkValue(ascendant - fChart.getCalculatedChart().getMundPoints().getMc().getLongitude());
       pointInfos.add(new PointInfoForAspect(MundanePoints.MC, angleFromAsc));
       pointInfos.add(new PointInfoForAspect(MundanePoints.ASC, 0.0));
       final List<DrawableLine> drawableLines = helper.createDrawLines(aspects, pointInfos, metrics);
@@ -352,8 +348,6 @@ public class RadixWheel {
          gc.strokeLine(line.getStartPoint().getXPos() + corrForXY, line.getStartPoint().getYPos() + corrForXY,
                line.getEndPoint().getXPos() + corrForXY, line.getEndPoint().getYPos() + corrForXY);
       }
-
-
    }
 
 }

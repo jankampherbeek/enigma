@@ -9,8 +9,8 @@ package com.radixpro.enigma.ui.charts.screens;
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.screens.helpers.ChartDrawMetrics;
 import com.radixpro.enigma.ui.charts.screens.helpers.RadixWheel;
+import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.xchg.api.CalculatedFullChart;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -37,7 +37,7 @@ public class ChartsDrawing2d {
    private final Stage stage;
    private ChartDrawMetrics metrics;
    private Canvas canvas;
-   private CalculatedFullChart fullChart;
+   private FullChart fullChart;
    private GraphicsContext gc;
    private String name;
    private Configuration currentConfig;
@@ -47,8 +47,7 @@ public class ChartsDrawing2d {
       stage = new Stage();
    }
 
-   public void setDrawingInfo(final CalculatedFullChart fullChart, final Configuration currentConfig) {
-      // TODO replace calculatedFullChart with FullChart
+   public void setDrawingInfo(final FullChart fullChart, final Configuration currentConfig) {
       this.fullChart = checkNotNull(fullChart);
       this.currentConfig = checkNotNull(currentConfig);
       drawChart();
@@ -63,7 +62,6 @@ public class ChartsDrawing2d {
       Pane chartPane = new Pane(canvas);
       Label lblName = new Label();
       lblName.setText(rosetta.getText("ui.charts.draw.nameprefix") + " " + name);
-
 
       GridPane gridPane = new GridPane();
       gridPane.setPadding(new Insets(GAP, GAP, GAP, GAP));

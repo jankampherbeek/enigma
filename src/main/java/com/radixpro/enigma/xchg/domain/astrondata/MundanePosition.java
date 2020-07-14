@@ -15,7 +15,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Position for a point in the mundane frame (houses etc.).
  */
-public class MundanePosition {
+public class MundanePosition implements IPosition {
 
    private final MundanePoints mundanePoint;
    private final double longitude;
@@ -38,12 +38,19 @@ public class MundanePosition {
       this.horPos = checkNotNull(horPos);
    }
 
-   public MundanePoints getMundanePoint() {
+   @Override
+   public MundanePoints getChartPoint() {
       return mundanePoint;
    }
 
+   @Override
    public double getLongitude() {
       return longitude;
+   }
+
+   @Override
+   public double getDeclination() {
+      return eqPos.getDeviation();
    }
 
    public CoordinateSet getEqPos() {

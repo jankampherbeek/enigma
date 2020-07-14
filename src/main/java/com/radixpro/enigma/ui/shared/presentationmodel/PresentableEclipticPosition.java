@@ -11,14 +11,13 @@ import com.radixpro.enigma.ui.shared.glyphs.Sign2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongAndGlyphValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongWithGlyph;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlusMinusValue;
-import com.radixpro.enigma.xchg.domain.CelObjectSinglePosition;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointCoordinate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Wrapper around CelObjectSinglePosition for the ecliptic values; enables the use in a tableview.
- * TODO replace celObjectSinglePosition with FullPointCoordinate
  */
 public class PresentableEclipticPosition {
 
@@ -31,21 +30,21 @@ public class PresentableEclipticPosition {
 
 
    public PresentableEclipticPosition(final CelestialObjects celestialObject,
-                                      final CelObjectSinglePosition celObjectSinglePosition) {
+                                      final FullPointCoordinate fpCoordinate) {
       checkNotNull(celestialObject);
-      checkNotNull(celObjectSinglePosition);
-      createPresentablePosition(celestialObject, celObjectSinglePosition);
+      checkNotNull(fpCoordinate);
+      createPresentablePosition(celestialObject, fpCoordinate);
    }
 
    private void createPresentablePosition(final CelestialObjects celestialObject,
-                                          final CelObjectSinglePosition celObjectSinglePosition) {
-      double mainPosition = celObjectSinglePosition.getMainPosition();
+                                          final FullPointCoordinate fpCoordinate) {
+      double mainPosition = fpCoordinate.getPosition().getMainCoord();
       LongWithGlyph longWithGlyph = new LongAndGlyphValue(mainPosition).getLongWithGlyph();
       formattedLongitude = longWithGlyph.getPosition();
       signGlyph = new Sign2GlyphMapper().getGlyph(longWithGlyph.getSignIndex());
-      formattedLongSpeed = new PlusMinusValue(celObjectSinglePosition.getMainSpeed()).getFormattedPosition();
-      formattedLatitude = new PlusMinusValue(celObjectSinglePosition.getDeviationPosition()).getFormattedPosition();
-      formattedLatSpeed = new PlusMinusValue(celObjectSinglePosition.getDeviationSpeed()).getFormattedPosition();
+      formattedLongSpeed = new PlusMinusValue(fpCoordinate.getSpeed().getMainCoord()).getFormattedPosition();
+      formattedLatitude = new PlusMinusValue(fpCoordinate.getPosition().getDeviation()).getFormattedPosition();
+      formattedLatSpeed = new PlusMinusValue(fpCoordinate.getSpeed().getDeviation()).getFormattedPosition();
       celBodyGlyph = new CelObject2GlyphMapper().getGlyph(celestialObject);
    }
 

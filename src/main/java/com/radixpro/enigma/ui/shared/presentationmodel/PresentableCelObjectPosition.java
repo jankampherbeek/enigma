@@ -6,11 +6,11 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.calc.main.CelObjectPosition;
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.glyphs.Sign2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.*;
-import com.radixpro.enigma.xchg.domain.CelObjectSinglePosition;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointCoordinate;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -36,40 +36,39 @@ public class PresentableCelObjectPosition {
 
    /**
     * Constructor populates all properties.
-    * TODO replace celObjectPosition with FullPointPosition
     *
-    * @param celObjectPosition contains longitude, latitude, right ascension, declination, radv and daily speeds.
-    *                          Also knows which celestial object we are showing.
-    * @param horPos            contains azimuth and altitude
+    * @param fpPosition contains longitude, latitude, right ascension, declination, radv and daily speeds.
+    *                   Also knows which celestial object we are showing.
+    * @param horPos     contains azimuth and altitude
     */
-   public PresentableCelObjectPosition(final CelObjectPosition celObjectPosition,
+   public PresentableCelObjectPosition(final FullPointPosition fpPosition,
                                        final double[] horPos) {
-      createPresentablePosition(checkNotNull(celObjectPosition), checkNotNull(horPos));
+      createPresentablePosition(checkNotNull(fpPosition), checkNotNull(horPos));
    }
 
-   private void createPresentablePosition(final CelObjectPosition celObjectPos,
+   private void createPresentablePosition(final FullPointPosition fpPosition,
                                           final double[] horPos) {
-      checkNotNull(celObjectPos);
+      checkNotNull(fpPosition);
       checkNotNull(horPos);
 
-      CelObjectSinglePosition eclPos = celObjectPos.getEclipticalPosition();
-      CelObjectSinglePosition equPos = celObjectPos.getEquatorialPosition();
-      double mainEclPos = eclPos.getMainPosition();
+      final FullPointCoordinate eclPos = fpPosition.getEclPos();
+      final FullPointCoordinate equPos = fpPosition.getEqPos();
+      double mainEclPos = eclPos.getPosition().getMainCoord();
       LongWithGlyph longWithGlyph = new LongAndGlyphValue(mainEclPos).getLongWithGlyph();
       formattedLongitude = longWithGlyph.getPosition();
       signGlyph = new Sign2GlyphMapper().getGlyph(longWithGlyph.getSignIndex());
-      celBodyGlyph = new CelObject2GlyphMapper().getGlyph(celObjectPos.getCelestialBody());
-      formattedLongSpeed = new PlusMinusValue(eclPos.getMainSpeed()).getFormattedPosition();
-      formattedLatitude = new PlusMinusValue(eclPos.getDeviationPosition()).getFormattedPosition();
-      formattedLatSpeed = new PlusMinusValue(eclPos.getDeviationSpeed()).getFormattedPosition();
-      formattedRightAscension = new PlainDmsValue(equPos.getMainPosition()).getFormattedPosition();
-      formattedRaSpeed = new PlusMinusValue(equPos.getMainSpeed()).getFormattedPosition();
-      formattedDeclination = new PlusMinusValue(equPos.getDeviationPosition()).getFormattedPosition();
-      formattedDeclSpeed = new PlusMinusValue(equPos.getDeviationSpeed()).getFormattedPosition();
+      celBodyGlyph = new CelObject2GlyphMapper().getGlyph(fpPosition.getChartPoint());
+      formattedLongSpeed = new PlusMinusValue(eclPos.getSpeed().getMainCoord()).getFormattedPosition();
+      formattedLatitude = new PlusMinusValue(eclPos.getPosition().getDeviation()).getFormattedPosition();
+      formattedLatSpeed = new PlusMinusValue(eclPos.getSpeed().getDeviation()).getFormattedPosition();
+      formattedRightAscension = new PlainDmsValue(equPos.getPosition().getMainCoord()).getFormattedPosition();
+      formattedRaSpeed = new PlusMinusValue(equPos.getSpeed().getMainCoord()).getFormattedPosition();
+      formattedDeclination = new PlusMinusValue(equPos.getPosition().getDeviation()).getFormattedPosition();
+      formattedDeclSpeed = new PlusMinusValue(equPos.getSpeed().getDeviation()).getFormattedPosition();
       formattedAzimuth = new PlainDmsValue(horPos[0]).getFormattedPosition();
       formattedAltitude = new PlusMinusValue(horPos[1]).getFormattedPosition();
-      formattedDistance = new DecimalValue(eclPos.getDistancePosition()).getFormattedPosition();
-      formattedDistSpeed = new DecimalValue(eclPos.getDistanceSpeed()).getFormattedPosition();
+      formattedDistance = new DecimalValue(eclPos.getPosition().getDistance()).getFormattedPosition();
+      formattedDistSpeed = new DecimalValue(eclPos.getSpeed().getDistance()).getFormattedPosition();
    }
 
    public String getFormattedLongitude() {

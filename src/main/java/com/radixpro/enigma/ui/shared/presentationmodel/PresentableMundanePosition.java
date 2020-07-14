@@ -6,12 +6,12 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.be.calc.assist.HousePosition;
 import com.radixpro.enigma.ui.shared.glyphs.Sign2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongAndGlyphValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongWithGlyph;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlainDmsValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlusMinusValue;
+import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,21 +32,21 @@ public class PresentableMundanePosition {
     * The constructor populates all properties.
     *
     * @param name     Name for the mundane position. Possibly a number for the cusp, an acronym for vertex etc.
-    * @param position An instance of HousePosition that contains the data that must be presented.
+    * @param position An instance of MundanePosition that contains the data that must be presented.
     */
-   public PresentableMundanePosition(final String name, final HousePosition position) {
+   public PresentableMundanePosition(final String name, final MundanePosition position) {
       this.name = checkNotNull(name);
       createMundanePosition(checkNotNull(position));
    }
 
-   private void createMundanePosition(final HousePosition position) {
+   private void createMundanePosition(final MundanePosition position) {
       LongWithGlyph longWithGlyph = new LongAndGlyphValue(position.getLongitude()).getLongWithGlyph();
       formattedLongitude = longWithGlyph.getPosition();
       signGlyph = new Sign2GlyphMapper().getGlyph(longWithGlyph.getSignIndex());
-      formattedRa = new PlainDmsValue(position.getEquatorialPositionForHouses().getRightAscension()).getFormattedPosition();
-      formattedDeclination = new PlusMinusValue(position.getEquatorialPositionForHouses().getDeclination()).getFormattedPosition();
-      formattedAzimuth = new PlainDmsValue(position.getEclipticHorizontalConverter()[0]).getFormattedPosition();
-      formattedAltitude = new PlusMinusValue(position.getEclipticHorizontalConverter()[1]).getFormattedPosition();
+      formattedRa = new PlainDmsValue(position.getEqPos().getMainCoord()).getFormattedPosition();
+      formattedDeclination = new PlusMinusValue(position.getEqPos().getDeviation()).getFormattedPosition();
+      formattedAzimuth = new PlainDmsValue(position.getHorPos().getMainCoord()).getFormattedPosition();
+      formattedAltitude = new PlusMinusValue(position.getHorPos().getDeviation()).getFormattedPosition();
    }
 
    public String getName() {

@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.xchg.domain.CelObjectSinglePosition;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointCoordinate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,20 +22,20 @@ public class PresentableEquatorialPositionForHousesTest {
 
    private final CelestialObjects celestialObject = CelestialObjects.SATURN;
    @Mock
-   private CelObjectSinglePosition celObjectSinglePositionMock;
+   private FullPointCoordinate fullPointCoordinate;
    private PresentableEquatorialPosition position;
 
    @Before
    public void setUp() {
       double mainPos = 100.1000001;
-      when(celObjectSinglePositionMock.getMainPosition()).thenReturn(mainPos);
+      when(fullPointCoordinate.getPosition().getMainCoord()).thenReturn(mainPos);
       double devPos = -2.4000001;
-      when(celObjectSinglePositionMock.getDeviationPosition()).thenReturn(devPos);
+      when(fullPointCoordinate.getPosition().getDeviation()).thenReturn(devPos);
       double mainSpeed = 0.8;
-      when(celObjectSinglePositionMock.getMainSpeed()).thenReturn(mainSpeed);
+      when(fullPointCoordinate.getSpeed().getMainCoord()).thenReturn(mainSpeed);
       double devSpeed = -.03;
-      when(celObjectSinglePositionMock.getDeviationSpeed()).thenReturn(devSpeed);
-      position = new PresentableEquatorialPosition(celestialObject, celObjectSinglePositionMock);
+      when(fullPointCoordinate.getSpeed().getDeviation()).thenReturn(devSpeed);
+      position = new PresentableEquatorialPosition(celestialObject, fullPointCoordinate);
    }
 
    @Test

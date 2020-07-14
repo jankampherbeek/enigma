@@ -9,7 +9,7 @@ package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.be.analysis.handlers.MidpointsHandler;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.IObjectVo;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class MidpointsApi {
       this.handler = checkNotNull(handler);
    }
 
-   public List<IAnalyzedPair> analyseMidpoints(final List<IObjectVo> celObjects, final List<IObjectVo> mundaneValues) {
+   public List<IAnalyzedPair> analyseMidpoints(final List<IPosition> celObjects, final List<IPosition> mundaneValues) {
       return handler.retrieveMidpoints(checkNotNull(celObjects), checkNotNull(mundaneValues));
    }
 

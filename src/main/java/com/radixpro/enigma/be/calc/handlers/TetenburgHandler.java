@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
+import com.radixpro.enigma.be.calc.converters.EclipticEquatorialConversions;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
-import com.radixpro.enigma.be.calc.factories.EquatorialPositionForHousesFactory;
 import com.radixpro.enigma.be.calc.handlers.astrondata.AstronDataHandlersFactory;
 import com.radixpro.enigma.shared.Range;
 
@@ -18,9 +18,11 @@ import static com.radixpro.enigma.shared.EnigmaDictionary.TROPICAL_YEAR;
 public class TetenburgHandler {
 
    private final SeFrontend seFrontend;
+   private final EclipticEquatorialConversions eclipticEquatorialConversions;
 
-   public TetenburgHandler(final SeFrontend seFrontend) {
+   public TetenburgHandler(final SeFrontend seFrontend, final EclipticEquatorialConversions eclipticEquatorialConversions) {
       this.seFrontend = checkNotNull(seFrontend);
+      this.eclipticEquatorialConversions = eclipticEquatorialConversions;
    }
 
    public double criticalPoint(final double jdRadix, final double jdEvent, final double geoLat, final double radixMc, final double solarSpeed) {
@@ -28,7 +30,8 @@ public class TetenburgHandler {
       final double jdDiff = jdEvent - jdRadix;
       final double nrOfYears = jdDiff / TROPICAL_YEAR;
       final double progMc = new Range(0.0, 360.0).checkValue(radixMc + (nrOfYears * solarSpeed));
-      final double progRaMc = new EquatorialPositionForHousesFactory().createInstance(progMc, jdRadix).getRightAscension();
+      final double[] eclValues = {progMc, 0.0};
+      final double progRaMc = eclipticEquatorialConversions.convertToEquatorial(eclValues, eps)[0];
       return seFrontend.ascFromMc(progRaMc, geoLat, eps);
    }
 

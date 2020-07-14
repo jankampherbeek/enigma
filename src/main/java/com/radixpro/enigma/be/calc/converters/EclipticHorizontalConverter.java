@@ -21,7 +21,7 @@ public class EclipticHorizontalConverter {
    private final SeFrontend seFrontend;
 
    /**
-    * INitialize via factory.
+    * Initialize via factory.
     *
     * @param seFrontend instance of SeFrontend. PRE: not null.
     * @see CalcConvertersFactory

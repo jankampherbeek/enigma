@@ -7,14 +7,14 @@
 
 package com.radixpro.enigma.xchg.api.requests;
 
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.ProgAnalysisType;
-import com.radixpro.enigma.xchg.domain.calculatedcharts.ChartPositionsVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.SimplePosVo;
+import com.radixpro.enigma.xchg.domain.astrondata.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,21 +22,28 @@ import java.util.List;
 import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ProgAnalyzeRequestTest {
 
+   @Mock
+   private FullPointPosition fppEclMock;
+   @Mock
+   private FullPointPosition fppTransitMock;
+   @Mock
+   private MundanePosition mundMock;
    private final ProgAnalysisType type = ProgAnalysisType.ASPECTS;
    private final double orb = 1.0;
-   private List<SimplePosVo> transitPositions;
-   private ChartPositionsVo chartPositions;
+   private List<IPosition> transitPositions;
+   private CalculatedChart calculatedChart;
    private List<AspectTypes> aspects;
    private ProgAnalyzeRequest request;
 
    @Before
    public void setUp() throws Exception {
       transitPositions = createTransits();
-      chartPositions = new ChartPositionsVo(55L, createCelestialPoints(), createMundanePositions());
+      calculatedChart = new CalculatedChart(createCelestialPoints(), createMundanePositions());
       aspects = createAspects();
-      request = new ProgAnalyzeRequest(type, transitPositions, chartPositions, aspects, orb);
+      request = new ProgAnalyzeRequest(type, transitPositions, calculatedChart, aspects, orb);
    }
 
    @Test
@@ -51,7 +58,7 @@ public class ProgAnalyzeRequestTest {
 
    @Test
    public void getChartPositions() {
-      assertEquals(chartPositions, request.getChartPositions());
+      assertEquals(calculatedChart, request.getCalculatedChart());
    }
 
    @Test
@@ -64,22 +71,23 @@ public class ProgAnalyzeRequestTest {
       assertEquals(orb, request.getOrb(), DELTA_8_POS);
    }
 
-   private List<SimplePosVo> createTransits() {
-      List<SimplePosVo> transits = new ArrayList<>();
-      transits.add(new SimplePosVo(CelestialObjects.URANUS, 100.0, 1.0, 102.0, 15.0));
+   private List<IPosition> createTransits() {
+      List<IPosition> transits = new ArrayList<>();
+      transits.add(fppTransitMock);
       return transits;
    }
 
-   private List<SimplePosVo> createCelestialPoints() {
-      List<SimplePosVo> points = new ArrayList<>();
-      points.add(new SimplePosVo(CelestialObjects.SATURN, 10.0, -1.0, 12.0, 1.5));
+   private List<FullPointPosition> createCelestialPoints() {
+      List<FullPointPosition> points = new ArrayList<>();
+      points.add(fppEclMock);
       return points;
    }
 
-   private List<SimplePosVo> createMundanePositions() {
-      List<SimplePosVo> mundPos = new ArrayList<>();
-      mundPos.add(new SimplePosVo(MundanePoints.ASC, 310.0, -1.4, 312.0, -11.5));
-      return mundPos;
+   private AllMundanePositions createMundanePositions() {
+      List<MundanePosition> mundPos = new ArrayList<>();
+      mundPos.add(mundMock);
+      List<MundanePosition> specPoints = new ArrayList<>();
+      return new AllMundanePositions(mundPos, specPoints);
    }
 
    private List<AspectTypes> createAspects() {
@@ -87,5 +95,6 @@ public class ProgAnalyzeRequestTest {
       aspects.add(AspectTypes.SQUARE);
       return aspects;
    }
+
 
 }

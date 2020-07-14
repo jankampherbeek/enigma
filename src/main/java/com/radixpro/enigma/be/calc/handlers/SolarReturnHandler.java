@@ -11,7 +11,12 @@ import com.radixpro.enigma.be.calc.assist.CombinedFlags;
 import com.radixpro.enigma.be.calc.assist.JdFromPosCalc;
 import com.radixpro.enigma.be.calc.factories.RadixCalcFactory;
 import com.radixpro.enigma.be.exceptions.NoPositionFoundException;
+import com.radixpro.enigma.xchg.api.CalculatedChartApi;
+import com.radixpro.enigma.xchg.api.requests.CalculatedChartRequest;
+import com.radixpro.enigma.xchg.api.responses.CalculatedChartResponse;
+import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +31,7 @@ import static com.radixpro.enigma.shared.EnigmaDictionary.TROPICAL_YEAR;
 public class SolarReturnHandler {
 
    private final JdFromPosCalc jdFromPosCalc;
+   private final CalculatedChartApi calculatedChartApi;
 
    /**
     * Initialisation via ProgCalcFactory.
@@ -33,8 +39,9 @@ public class SolarReturnHandler {
     * @param jdFromPosCalc Instance of JdPosFromCalc
     * @see com.radixpro.enigma.be.calc.factories.ProgCalcFactory
     */
-   public SolarReturnHandler(final JdFromPosCalc jdFromPosCalc) {
+   public SolarReturnHandler(final JdFromPosCalc jdFromPosCalc, final CalculatedChartApi calculatedChartApi) {
       this.jdFromPosCalc = checkNotNull(jdFromPosCalc);
+      this.calculatedChartApi = calculatedChartApi;
    }
 
    /**
@@ -48,8 +55,8 @@ public class SolarReturnHandler {
     * @return The calculated solar return chart.
     * @throws NoPositionFoundException if the position of longSun cold not be found within 3 days bewfore and after the birthdate in yearForReturn.
     */
-   public FullChartDepr getSolarReturnChart(final double longSun, final FullDateTime birthDateTime, final int yearForReturn, final Location location,
-                                            final CalculationSettings settings) throws NoPositionFoundException {
+   public CalculatedChart getSolarReturnChart(final double longSun, final FullDateTime birthDateTime, final int yearForReturn, final Location location,
+                                              final ChartCalcSettings settings) throws NoPositionFoundException {
       checkNotNull(birthDateTime);
       checkNotNull(location);
       checkNotNull(settings);
@@ -57,8 +64,7 @@ public class SolarReturnHandler {
       return createSolarReturnChart(longSun, birthDateTime, yearForReturn, location, settings);
    }
 
-   private FullChartDepr createSolarReturnChart(double longSun, FullDateTime birthDateTime, int yearForReturn, Location location, CalculationSettings settings) throws NoPositionFoundException {
-      // TODO replace FullChartDepr with CalculatedChart
+   private CalculatedChart createSolarReturnChart(double longSun, FullDateTime birthDateTime, int yearForReturn, Location location, ChartCalcSettings settings) throws NoPositionFoundException {
       final int age = yearForReturn - birthDateTime.getSimpleDateTime().getDate().getYear();
       final double startJd = birthDateTime.getJdUt() + (age * TROPICAL_YEAR) - 3.0;
       final double endJd = birthDateTime.getJdUt() + (age * TROPICAL_YEAR) + 3.0;
@@ -67,16 +73,21 @@ public class SolarReturnHandler {
       boolean gregCal = birthDateTime.getSimpleDateTime().getDate().isGregorian();
       final SimpleDateTime actualSimpleDateTime = new RadixCalcFactory().getJulianDayHandler().dateTimeFromJd(jdActual, gregCal, "ut");
       final FullDateTime actualFullDateTime = new FullDateTime(actualSimpleDateTime, TimeZones.UT, birthDateTime.isDst(), birthDateTime.getOffsetForLmt());
-      return new FullChartDepr(actualFullDateTime, location, settings);
+      CalculatedChartRequest request = new CalculatedChartRequest(settings, actualFullDateTime, location);
+      final CalculatedChartResponse response = calculatedChartApi.calcChart(request);
+      if (!"OK".equals(response.getResultMsg())) {
+         throw new NoPositionFoundException(response.getResultMsg());
+      }
+      return response.getCalculatedChart();
    }
 
-   private int defineFlags(CalculationSettings settings) {
+   private int defineFlags(final ChartCalcSettings settings) {
       List<SeFlags> allFlags = new ArrayList<>();
       allFlags.add(SeFlags.SWISSEPH);
-      if (settings.isSidereal()) {
+      if (EclipticProjections.SIDEREAL == settings.getEclProj()) {
          allFlags.add(SeFlags.SIDEREAL);
       }
-      if (settings.isTopocentric()) {
+      if (ObserverPositions.TOPOCENTRIC == settings.getObsPos()) {
          allFlags.add(SeFlags.TOPOCENTRIC);
       }
       return (int) new CombinedFlags().getCombinedValue(allFlags);

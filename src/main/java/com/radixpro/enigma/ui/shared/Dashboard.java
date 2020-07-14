@@ -8,6 +8,7 @@ package com.radixpro.enigma.ui.shared;
 
 import com.radixpro.enigma.shared.EnigmaDictionary;
 import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.charts.screens.ChartsStart;
 import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
 import com.radixpro.enigma.ui.shared.factories.LabelFactory;
@@ -133,7 +134,7 @@ public class Dashboard {
    }
 
    private void onCharts() {
-      new ChartsStart(new Stage(), rosetta);
+      new ChartsStart(new Stage(), rosetta, ChartsSessionState.getInstance());
    }
 
    private void onStats() {
