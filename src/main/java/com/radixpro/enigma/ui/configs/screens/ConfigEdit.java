@@ -8,6 +8,7 @@ package com.radixpro.enigma.ui.configs.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
+import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForCelObject;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
@@ -51,7 +52,8 @@ public class ConfigEdit {
    private static final double DATA_INPUT_WIDTH = 350.0;
    private static final double GAP = 6.0;
    private final Rosetta rosetta;
-   private final Configuration config;
+   private final ChartsSessionState state;
+   private Configuration config;
    private InputStatus inputStatus = InputStatus.READY;
    private Stage stage;
    private TextField descriptionInput;
@@ -75,9 +77,10 @@ public class ConfigEdit {
    private Label lblEclipticProjection;
    private Label lblCelObjects;
 
-   public ConfigEdit(final Configuration config, final Rosetta rosetta) {
+   public ConfigEdit(final Rosetta rosetta, final ChartsSessionState state) {
       this.rosetta = checkNotNull(rosetta);
-      this.config = checkNotNull(config);
+      this.state = checkNotNull(state);
+      this.config = state.getSelectedConfig();
       populateStage();
       defineListeners();
       stage.showAndWait();
@@ -189,6 +192,7 @@ public class ConfigEdit {
       constructConfig();
       PersistedConfigurationApi api = new PersistedConfigurationApi();
       api.update(config);
+      state.setSelectedConfig(config);
       LOG.info("Saved edited config: " + config.getName());
       stage.close();
    }

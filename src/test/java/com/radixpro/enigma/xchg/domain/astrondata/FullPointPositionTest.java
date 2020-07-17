@@ -34,8 +34,6 @@ public class FullPointPositionTest {
    private CoordinateSet3D eclPos3DMock;
    @Mock
    private CoordinateSet3D eqPos3DMock;
-   @Mock
-   private FullPointPosition fullPointPositionMock;
    private FullPointPosition fullPointPosition;
 
    @Before
@@ -64,7 +62,7 @@ public class FullPointPositionTest {
 
    @Test
    public void getCelObject() {
-      assertEquals(celObject, fullPointPosition.getCelObject());
+      assertEquals(celObject, fullPointPosition.getChartPoint());
    }
 
    @Test

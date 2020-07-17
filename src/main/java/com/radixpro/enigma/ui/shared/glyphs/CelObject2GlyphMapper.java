@@ -7,6 +7,7 @@
 package com.radixpro.enigma.ui.shared.glyphs;
 
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -15,9 +16,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class CelObject2GlyphMapper {
 
-   public String getGlyph(final CelestialObjects celObject) {
+   public String getGlyph(final IChartPoints celObject) {
       checkNotNull(celObject);
-      return switch (celObject) {
+      return switch ((CelestialObjects) celObject) {
          case SUN -> "a";
          case MOON -> "b";
          case MERCURY -> "c";

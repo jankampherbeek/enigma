@@ -26,7 +26,7 @@ public class ChartCalcSettingsTest {
 
    @Before
    public void setUp() throws Exception {
-      List<CelestialObjects> points = new ArrayList<>();
+      List<IChartPoints> points = new ArrayList<>();
       points.add(CelestialObjects.SUN);
       points.add(CelestialObjects.MOON);
       chartCalcSettings = new ChartCalcSettings(points, obsPos, eclProj, ayanamsha, houseSys);

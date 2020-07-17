@@ -22,6 +22,11 @@ public class PersistedConfigurationApi {
    private static final Logger LOG = Logger.getLogger(PersistedConfigurationApi.class);
    private final ConfigurationDao dao;
 
+   /**
+    * Instantiate via factory.
+    *
+    * @see ApiConfigFactory
+    */
    public PersistedConfigurationApi() {
       dao = new ConfigurationDao();
    }

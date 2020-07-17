@@ -44,7 +44,7 @@ public class CalculatedChartApi {
       try {
          calculatedChart = handler.defineChart(request.getSettings(), request.getDateTime(), request.getLocation());
       } catch (Exception e) {
-         resultMsg = e.getMessage();
+         resultMsg = "Exception when calculating a chart : " + e.getMessage();
       }
       return new CalculatedChartResponse(calculatedChart, resultMsg);
    }

@@ -34,19 +34,62 @@ public class MidpointsApiIntTest {
    private IPosition sunPosMock;
    @Mock
    private IPosition moonPosMock;
+   @Mock
+   private IPosition mercPosMock;
+   @Mock
+   private IPosition venPosMock;
+   @Mock
+   private IPosition marsPosMock;
+   @Mock
+   private IPosition jupPosMock;
+   @Mock
+   private IPosition satPosMock;
+   @Mock
+   private IPosition uraPosMock;
+   @Mock
+   private IPosition mcPosMock;
+   @Mock
+   private IPosition ascPosMock;
 
-   private List<IObjectVo> celObjects;
-   private List<IObjectVo> mundaneValues;
+   private List<IPosition> celObjects;
+   private List<IPosition> mundaneValues;
    private MidpointsApi api;
 
    @Before
    public void setUp() {
       when(sunPosMock.getLongitude()).thenReturn(20.0);
       when(moonPosMock.getLongitude()).thenReturn(100.0);
+      when(mercPosMock.getLongitude()).thenReturn(30.0);
+      when(venPosMock.getLongitude()).thenReturn(10.0);
+      when(marsPosMock.getLongitude()).thenReturn(206.0);
+      when(jupPosMock.getLongitude()).thenReturn(207.0);
+      when(satPosMock.getLongitude()).thenReturn(150.5);
+      when(uraPosMock.getLongitude()).thenReturn(175.5);
+      when(sunPosMock.getChartPoint()).thenReturn(CelestialObjects.SUN);
+      when(moonPosMock.getChartPoint()).thenReturn(CelestialObjects.MOON);
+      when(mercPosMock.getChartPoint()).thenReturn(CelestialObjects.MERCURY);
+      when(venPosMock.getChartPoint()).thenReturn(CelestialObjects.VENUS);
+      when(marsPosMock.getChartPoint()).thenReturn(CelestialObjects.MARS);
+      when(jupPosMock.getChartPoint()).thenReturn(CelestialObjects.JUPITER);
+      when(satPosMock.getChartPoint()).thenReturn(CelestialObjects.SATURN);
+      when(uraPosMock.getChartPoint()).thenReturn(CelestialObjects.URANUS);
 
-
-      celObjects = createCelObjects();
-      mundaneValues = createMundaneValues();
+      celObjects = new ArrayList<>();
+      celObjects.add(sunPosMock);
+      celObjects.add(moonPosMock);
+      celObjects.add(mercPosMock);
+      celObjects.add(venPosMock);
+      celObjects.add(marsPosMock);
+      celObjects.add(jupPosMock);
+      celObjects.add(satPosMock);
+      celObjects.add(uraPosMock);
+      when(mcPosMock.getLongitude()).thenReturn(159.0);
+      when(ascPosMock.getLongitude()).thenReturn(250.0);
+      when(mcPosMock.getChartPoint()).thenReturn(MundanePoints.MC);
+      when(ascPosMock.getChartPoint()).thenReturn(MundanePoints.ASC);
+      mundaneValues = new ArrayList<>();
+      mundaneValues.add(mcPosMock);
+      mundaneValues.add(ascPosMock);
       api = new ApiAnalysisFactory().createMidpointsApi();
    }
 
@@ -63,65 +106,4 @@ public class MidpointsApiIntTest {
       assertEquals(15.625, result0.getPercOrb(), DELTA_8_POS);
    }
 
-   private List<IObjectVo> createCelObjects() {
-
-
-      newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(30.0),
-            createCelCoordinateVo(0.0),
-            createCelCoordinateVo(0.0),
-            CelestialObjects.MERCURY));
-      newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(10.0),
-            createCelCoordinateVo(0.0),
-            createCelCoordinateVo(0.0),
-            CelestialObjects.VENUS));
-      newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(206.0),
-            createCelCoordinateVo(0.0),
-            createCelCoordinateVo(0.0),
-            CelestialObjects.MARS));
-      newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(207.0),
-            createCelCoordinateVo(0.0),
-            createCelCoordinateVo(0.0),
-            CelestialObjects.JUPITER));
-      newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(150.5),
-            createCelCoordinateVo(0.0),
-            createCelCoordinateVo(0.0),
-            CelestialObjects.SATURN));
-      newCelObjects.add(new ObjectVo(
-            createCelCoordinateVo(175.5),
-            createCelCoordinateVo(0.0),
-            createCelCoordinateVo(0.0),
-            CelestialObjects.URANUS));
-      return newCelObjects;
-   }
-
-   private List<IObjectVo> createMundaneValues() {
-      List<IObjectVo> newHouses = new ArrayList<>();
-      newHouses.add(new ObjectVo(
-            createHouseCoordinateVo(159.0),
-            createHouseCoordinateVo(0.0),
-            createHouseCoordinateVo(0.0),
-            MundanePoints.MC));
-      newHouses.add(new ObjectVo(
-            createHouseCoordinateVo(250.0),
-            createHouseCoordinateVo(0.0),
-            createHouseCoordinateVo(0.0),
-            MundanePoints.ASC));
-      return newHouses;
-   }
-
-   private CelCoordinateVo createCelCoordinateVo(double basePos) {
-      CelCoordinateElementVo posCoordinate = new CelCoordinateElementVo(basePos, 0.0, 0.0);
-      CelCoordinateElementVo speedCoordinate = new CelCoordinateElementVo(0.0, 0.0, 0.0);
-      return new CelCoordinateVo(posCoordinate, speedCoordinate);
-   }
-
-   private HouseCoordinateVo createHouseCoordinateVo(double basePos) {
-      CelCoordinateElementVo posCoordinate = new CelCoordinateElementVo(basePos, 0.0, 0.0);
-      return new HouseCoordinateVo(posCoordinate);
-   }
 }

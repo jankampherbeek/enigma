@@ -45,12 +45,12 @@ public class FullPointPositionHandler {
     * @param location Location. PRE: not null.
     * @return calculated values.
     */
-   public FullPointPosition definePosition(final CelestialObjects celObject, final double jdUt, final ObserverPositions obsPos,
+   public FullPointPosition definePosition(final IChartPoints celObject, final double jdUt, final ObserverPositions obsPos,
                                            final EclipticProjections eclProj, final Ayanamshas ayanamsha, final Location location) {
       checkNotNull(obsPos);
       checkNotNull(eclProj);
       checkNotNull(location);
-      final int seId = (int) celObject.getSeId();
+      final int seId = (int) ((CelestialObjects) celObject).getSeId();
       int seFlags = SEFLG_SWIEPH | SEFLG_SPEED;
       if (obsPos == ObserverPositions.TOPOCENTRIC) seFlags = seFlags | SEFLG_TOPOCTR;
       // TODO release 2020.2: check for heliocentric
@@ -61,7 +61,7 @@ public class FullPointPositionHandler {
       seFlags = seFlags | SEFLG_EQUATORIAL;
       final SePositionResultCelObjects positionResultEq = seFrontend.getPositionsForCelBody(jdUt, seId, seFlags, location);
       FullPointCoordinate eqPos = convert(positionResultEq);
-      final double[] coords = {eclPos.getPosition().getMainCoord(), eclPos.getPosition().getDeviation()};
+      final double[] coords = {eclPos.getPosition().getMainCoord(), eclPos.getPosition().getDeviation(), 1.0};
       double[] positionsHor = seFrontend.getHorizontalPosition(jdUt, coords, location, seFlags);
       final CoordinateSet horPos = convert(positionsHor);
       return new FullPointPosition(celObject, eclPos, eqPos, horPos);

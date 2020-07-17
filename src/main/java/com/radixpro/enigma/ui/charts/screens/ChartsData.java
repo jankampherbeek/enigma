@@ -7,6 +7,7 @@
 package com.radixpro.enigma.ui.charts.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
@@ -16,7 +17,6 @@ import com.radixpro.enigma.xchg.domain.ChartData;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
 import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
 import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
-import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
 
@@ -48,6 +49,7 @@ public class ChartsData {
    private final Stage stage;
    private final Rosetta rosetta;
    private final CalculatedChart calculatedChart;
+   private final ChartsSessionState state;
    private final String glyphFont;
    private final String dataFont;
    private final ChartData chartData;
@@ -60,9 +62,12 @@ public class ChartsData {
    private TableColumn<String, PresentableMundanePosition> tvMundColAzimuth;
    private TableColumn<String, PresentableMundanePosition> tvMundColAltitude;
 
-   public ChartsData(final FullChart calculatedFullChart, ChartData chartData) {
-      this.chartData = calculatedFullChart.getChartData();
-      this.calculatedChart = calculatedFullChart.getCalculatedChart();
+   public ChartsData(final ChartsSessionState state) {
+      checkArgument(null != state & state.selectedConfigIsSet());
+      this.state = state;
+      FullChart fullChart = state.getSelectedChart();
+      this.chartData = fullChart.getChartData();
+      this.calculatedChart = fullChart.getCalculatedChart();
       stage = new Stage();
       rosetta = Rosetta.getRosetta();
       glyphFont = " -fx-font-family: \"EnigmaAstrology\";  -fx-font-size: 14;";
@@ -181,7 +186,7 @@ public class ChartsData {
 
       handlePresMundPos(rosetta.getText("ui.shared.mc"), calculatedChart.getMundPoints().getMc());
       handlePresMundPos(rosetta.getText("ui.shared.asc"), calculatedChart.getMundPoints().getAsc());
-      final List<MundanePosition> cusps = calculatedChart.getMundPoints().getCusps();
+      final List<IPosition> cusps = calculatedChart.getMundPoints().getCusps();
       int count = cusps.size() - 1;  // index for houses runs from 1..12
       for (int i = 1; i <= count; i++) {
          handlePresMundPos(Integer.toString(i), cusps.get(i));
@@ -192,7 +197,7 @@ public class ChartsData {
    }
 
    @SuppressWarnings("unchecked")
-   private void handlePresMundPos(final String name, final MundanePosition pos) {
+   private void handlePresMundPos(final String name, final IPosition pos) {
       checkNotNull(name);
       checkNotNull(pos);
       PresentableMundanePosition presMundPos = new PresentableMundanePosition(name, pos);

@@ -15,7 +15,6 @@ import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
-import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -190,7 +189,7 @@ public class RadixWheel {
       double angle;
       double[] positions;
       double asc = fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude();
-      List<MundanePosition> cusps = fChart.getCalculatedChart().getMundPoints().getCusps();
+      List<IPosition> cusps = fChart.getCalculatedChart().getMundPoints().getCusps();
       CuspLinePlotCoordinates cuspLine;
       for (int i = 1; i <= 12; i++) {
          if (!quadrantSystem || (i != 1 && i != 4 && i != 7 && i != 10)) {
@@ -220,7 +219,7 @@ public class RadixWheel {
       preparePositonTexts();
       boolean quadrantSystem = currentConfig.getAstronConfiguration().getHouseSystem().isQuadrantSystem();
       double asc = fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude();
-      List<MundanePosition> cusps = fChart.getCalculatedChart().getMundPoints().getCusps();
+      List<IPosition> cusps = fChart.getCalculatedChart().getMundPoints().getCusps();
       CuspTextPlotCoordinates cuspText;
       double[] coordinates;
       double angle;
@@ -322,8 +321,8 @@ public class RadixWheel {
       List<PointInfoForAspect> pointInfos = new ArrayList<>();
       DrawAspectHelper helper = new DrawAspectHelper();
       List<IPosition> celObjectList = fChart.getCalculatedChart().getCelPoints();
-      List<MundanePosition> specMundPoints = fChart.getCalculatedChart().getMundPoints().getSpecPoints();
-      List<MundanePosition> housesList = new ArrayList<>();
+      List<IPosition> specMundPoints = fChart.getCalculatedChart().getMundPoints().getSpecPoints();
+      List<IPosition> housesList = new ArrayList<>();
       housesList.add(specMundPoints.get(0));
       housesList.add(specMundPoints.get(1));
       AspectsApi api = new ApiAnalysisFactory().createAspectsApi();

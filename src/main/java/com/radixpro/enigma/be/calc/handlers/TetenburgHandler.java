@@ -30,8 +30,9 @@ public class TetenburgHandler {
       final double jdDiff = jdEvent - jdRadix;
       final double nrOfYears = jdDiff / TROPICAL_YEAR;
       final double progMc = new Range(0.0, 360.0).checkValue(radixMc + (nrOfYears * solarSpeed));
-      final double[] eclValues = {progMc, 0.0};
-      final double progRaMc = eclipticEquatorialConversions.convertToEquatorial(eclValues, eps)[0];
+      final double[] eclValues = {progMc, 0.0, 1.0};
+      double[] eqValues = eclipticEquatorialConversions.convertToEquatorial(eclValues, eps);
+      final double progRaMc = eqValues[0];
       return seFrontend.ascFromMc(progRaMc, geoLat, eps);
    }
 

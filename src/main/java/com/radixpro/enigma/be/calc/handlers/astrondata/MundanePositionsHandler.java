@@ -13,6 +13,7 @@ import com.radixpro.enigma.be.calc.core.SeFrontend;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
 import com.radixpro.enigma.xchg.domain.astrondata.CoordinateSet;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 
 import java.util.ArrayList;
@@ -75,11 +76,11 @@ public class MundanePositionsHandler {
       double[] cusps = positions.getCusps();
       double[] ascMc = positions.getAscMc();
       double obliquity = obliquityHandler.calcTrueObliquity(jdUt);
-      List<MundanePosition> allCusps = new ArrayList<>();
+      List<IPosition> allCusps = new ArrayList<>();
       for (double cusp : cusps) {
          allCusps.add(createMundanePosition(cusp, obliquity, jdUt, location, MundanePoints.CUSP));
       }
-      List<MundanePosition> specPoints = new ArrayList<>();
+      List<IPosition> specPoints = new ArrayList<>();
       specPoints.add(createMundanePosition(ascMc[0], obliquity, jdUt, location, MundanePoints.ASC));
       specPoints.add(createMundanePosition(ascMc[1], obliquity, jdUt, location, MundanePoints.MC));
       // skip 3: ARMC

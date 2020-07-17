@@ -15,9 +15,10 @@ import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
 import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.analysis.*;
-import com.radixpro.enigma.xchg.domain.calculatedcharts.ChartPositionsVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.SimplePosVo;
+import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspectTransit;
+import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
+import com.radixpro.enigma.xchg.domain.analysis.ProgAnalysisType;
+import com.radixpro.enigma.xchg.domain.astrondata.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,14 +44,14 @@ public class TransitsApiIntTest {
       final SimpleProgResponse response = api.calculateTransits(request);
       assertEquals(request, response.getRequest());
       assertEquals(3, response.getPositions().size());
-      List<SimplePosVo> positions = response.getPositions();
-      assertEquals(CelestialObjects.SUN, positions.get(0).getPoint());
+      List<IPosition> positions = response.getPositions();
+      assertEquals(CelestialObjects.SUN, positions.get(0).getChartPoint());
       assertEquals(76.22484918221, positions.get(0).getLongitude(), DELTA_8_POS);
       assertEquals(22.724047787544, positions.get(0).getDeclination(), DELTA_8_POS);
-      assertEquals(CelestialObjects.MARS, positions.get(1).getPoint());
+      assertEquals(CelestialObjects.MARS, positions.get(1).getChartPoint());
       assertEquals(346.31867961823, positions.get(1).getLongitude(), DELTA_8_POS);
       assertEquals(-7.714613590212, positions.get(1).getDeclination(), DELTA_8_POS);
-      assertEquals(CelestialObjects.URANUS, positions.get(2).getPoint());
+      assertEquals(CelestialObjects.URANUS, positions.get(2).getChartPoint());
       assertEquals(38.83133542694, positions.get(2).getLongitude(), DELTA_8_POS);
       assertEquals(14.017602186382, positions.get(2).getDeclination(), DELTA_8_POS);
    }
@@ -85,24 +86,38 @@ public class TransitsApiIntTest {
    }
 
    private ProgAnalyzeRequest createAnalyzeRequest() {
-      List<SimplePosVo> transitPositions = new ArrayList<>();
-      transitPositions.add(new SimplePosVo(CelestialObjects.MARS, 112.0, 1.0, 111.0, 5.5));    // 120 Sun 90 Mars
-      transitPositions.add(new SimplePosVo(CelestialObjects.JUPITER, 274.5, -2.0, 275.0, -10.0));
-      transitPositions.add(new SimplePosVo(CelestialObjects.SATURN, 163.0, 0.5, 164.0, 2.2));  // 60 Ura 0 Asc
-      List<SimplePosVo> celestialPositions = new ArrayList<>();
-      celestialPositions.add(new SimplePosVo(CelestialObjects.SUN, 351.8, 1.0, 352.0, -8.8));
-      celestialPositions.add(new SimplePosVo(CelestialObjects.MARS, 21.5, 0.7, 22.0, 4.4));
-      celestialPositions.add(new SimplePosVo(CelestialObjects.URANUS, 102.7, 0.3, 103.0, 4.0));
-      List<SimplePosVo> mundanePositions = new ArrayList<>();
-      mundanePositions.add(new SimplePosVo(MundanePoints.ASC, 162.5, 0.0, 162.0, 20.0));
-      ChartPositionsVo chartPositions = new ChartPositionsVo(1L, celestialPositions, mundanePositions);
+      List<IPosition> transitPositions = new ArrayList<>();
+      transitPositions.add(createFpPosition(CelestialObjects.MARS, 112.0, 1.0, 111.0, 5.5));    // 120 Sun 90 Mars
+      transitPositions.add(createFpPosition(CelestialObjects.JUPITER, 274.5, -2.0, 275.0, -10.0));
+      transitPositions.add(createFpPosition(CelestialObjects.SATURN, 163.0, 0.5, 164.0, 2.2));  // 60 Ura 0 Asc
+      List<IPosition> celestialPositions = new ArrayList<>();
+      celestialPositions.add(createFpPosition(CelestialObjects.SUN, 351.8, 1.0, 352.0, -8.8));
+      celestialPositions.add(createFpPosition(CelestialObjects.MARS, 21.5, 0.7, 22.0, 4.4));
+      celestialPositions.add(createFpPosition(CelestialObjects.URANUS, 102.7, 0.3, 103.0, 4.0));
+      List<IPosition> mundanePositions = new ArrayList<>();
+      CoordinateSet csEq = new CoordinateSet(0.0, 0.0);
+      CoordinateSet csHor = new CoordinateSet(162.0, 20.0);
+      mundanePositions.add(new MundanePosition(MundanePoints.ASC, 162.5, csEq, csHor));
+      AllMundanePositions allMundPos = new AllMundanePositions(mundanePositions, mundanePositions);
+      CalculatedChart cChart = new CalculatedChart(celestialPositions, allMundPos);
       List<AspectTypes> aspectTypes = new ArrayList<>();
       aspectTypes.add(AspectTypes.CONJUNCTION);
       aspectTypes.add(AspectTypes.SEXTILE);
       aspectTypes.add(AspectTypes.SQUARE);
       aspectTypes.add(AspectTypes.TRIANGLE);
       aspectTypes.add(AspectTypes.OPPOSITION);
-      return new ProgAnalyzeRequest(ProgAnalysisType.ASPECTS, transitPositions, chartPositions, aspectTypes, 1.0);
+      return new ProgAnalyzeRequest(ProgAnalysisType.ASPECTS, transitPositions, cChart, aspectTypes, 1.0);
+   }
+
+   private FullPointPosition createFpPosition(final IChartPoints cPoint, final double lon, final double decl, final double azimuth, final double altitude) {
+      CoordinateSet3D csEclPos = new CoordinateSet3D(lon, 0.0, 1.0);
+      CoordinateSet3D csEclSpeed = new CoordinateSet3D(1.0, 0.0, 0.0);
+      FullPointCoordinate fpcEcl = new FullPointCoordinate(csEclPos, csEclSpeed);
+      CoordinateSet3D csEqPos = new CoordinateSet3D(0.0, decl, 1.0);
+      CoordinateSet3D csEqSpeed = new CoordinateSet3D(0.0, 0.1, 0.0);
+      FullPointCoordinate fpcEq = new FullPointCoordinate(csEqPos, csEqSpeed);
+      CoordinateSet csHor = new CoordinateSet(azimuth, altitude);
+      return new FullPointPosition((CelestialObjects) cPoint, fpcEcl, fpcEq, csHor);
    }
 
 }

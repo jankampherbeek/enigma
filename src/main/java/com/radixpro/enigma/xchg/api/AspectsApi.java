@@ -10,7 +10,6 @@ package com.radixpro.enigma.xchg.api;
 import com.radixpro.enigma.be.analysis.handlers.AspectsHandler;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
-import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class AspectsApi {
    }
 
    public List<IAnalyzedPair> analyzeAspects(final List<IPosition> celObjects,
-                                             final List<MundanePosition> mundaneValues,
+                                             final List<IPosition> mundaneValues,
                                              final AspectConfiguration config) {
       return handler.retrieveAspects(checkNotNull(celObjects), checkNotNull(mundaneValues), checkNotNull(config));
    }

@@ -8,7 +8,7 @@ package com.radixpro.enigma.ui.configs.screens;
 
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.configs.factories.ConfigScreensFactory;
+import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.factories.*;
@@ -49,6 +49,7 @@ public class ConfigOverview {
    private final Rosetta rosetta;
    private final PersistedConfigurationApi configApi;
    private final PersistedPropertyApi propApi;
+   private final ChartsSessionState state;
    private ObservableList<PresentableConfiguration> selectedItems;
    private boolean selectionChanged = false;
    private Stage stage;
@@ -61,14 +62,24 @@ public class ConfigOverview {
    private Button btnExit;
    private TableView<PresentableConfiguration> tableView;
 
-   public ConfigOverview(final PersistedConfigurationApi configApi, final PersistedPropertyApi propApi, final Rosetta rosetta) {
+   /**
+    * Instantiate via factory
+    *
+    * @param configApi api for persisted configurations.
+    * @param propApi   api for persisted properties.
+    * @param rosetta   handler for resource bundles.
+    * @param state     state with the currently selected config.
+    * @see ConfigScreensFactory
+    */
+   public ConfigOverview(final PersistedConfigurationApi configApi, final PersistedPropertyApi propApi, final Rosetta rosetta, final ChartsSessionState state) {
       this.configApi = checkNotNull(configApi);
       this.propApi = checkNotNull(propApi);
       this.rosetta = rosetta;
+      this.state = state;
       populateStage();
       fillTableView();
       defineListeners();
-      stage.show();
+      stage.showAndWait();
    }
 
    private void populateStage() {
@@ -162,19 +173,18 @@ public class ConfigOverview {
    }
 
    private void onSelect() {
-      PresentableConfiguration config = selectedItems.get(0);
-      long newConfigId = config.getConfigId();
+      PresentableConfiguration presConfig = selectedItems.get(0);
+      long newConfigId = presConfig.getConfigId();
       Property configProp = (propApi.read("config")).get(0);
       configProp.setValue(Long.toString(newConfigId));
       propApi.update(configProp);
+      state.setSelectedConfig(presConfig.getOriginalConfig());
       selectionChanged = true;
       stage.close();
    }
 
    private void onNew() {
-      PresentableConfiguration config = selectedItems.get(0);
-      int configId = config.getConfigId();
-      ConfigNew configNew = new ConfigScreensFactory().createConfigNew(configApi.read(configId).get(0));
+      ConfigNew configNew = new ConfigScreensFactory().createConfigNew();
 
       if (InputStatus.READY == configNew.getInputStatus()) {
          int newConfigId = configNew.getNewConfigId();

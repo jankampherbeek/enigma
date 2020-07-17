@@ -22,24 +22,24 @@ import static org.junit.Assert.assertEquals;
 public class CalculatedChartTest {
 
    @Mock
-   private FullPointPosition celPoint1Mock;
+   private IPosition celPoint1Mock;
    @Mock
-   private FullPointPosition celPoint2Mock;
+   private IPosition celPoint2Mock;
    @Mock
-   private MundanePosition mundPoint1Mock;
+   private IPosition mundPoint1Mock;
    @Mock
    private MundanePosition mundPoint2Mock;
    private CalculatedChart calculatedChart;
 
    @Before
    public void setUp() {
-      List<FullPointPosition> celPoints = new ArrayList<>();
+      List<IPosition> celPoints = new ArrayList<>();
       celPoints.add(celPoint1Mock);
       celPoints.add(celPoint2Mock);
-      List<MundanePosition> mundPoints = new ArrayList<>();
+      List<IPosition> mundPoints = new ArrayList<>();
       mundPoints.add(mundPoint1Mock);
       mundPoints.add(mundPoint2Mock);
-      List<MundanePosition> ascMc = new ArrayList<>();
+      List<IPosition> ascMc = new ArrayList<>();
       AllMundanePositions allMundanePositions = new AllMundanePositions(mundPoints, ascMc);
       calculatedChart = new CalculatedChart(celPoints, allMundanePositions);
    }

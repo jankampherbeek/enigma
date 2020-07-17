@@ -77,16 +77,16 @@ public class ProgAnalyzeRequestTest {
       return transits;
    }
 
-   private List<FullPointPosition> createCelestialPoints() {
-      List<FullPointPosition> points = new ArrayList<>();
+   private List<IPosition> createCelestialPoints() {
+      List<IPosition> points = new ArrayList<>();
       points.add(fppEclMock);
       return points;
    }
 
    private AllMundanePositions createMundanePositions() {
-      List<MundanePosition> mundPos = new ArrayList<>();
+      List<IPosition> mundPos = new ArrayList<>();
       mundPos.add(mundMock);
-      List<MundanePosition> specPoints = new ArrayList<>();
+      List<IPosition> specPoints = new ArrayList<>();
       return new AllMundanePositions(mundPos, specPoints);
    }
 

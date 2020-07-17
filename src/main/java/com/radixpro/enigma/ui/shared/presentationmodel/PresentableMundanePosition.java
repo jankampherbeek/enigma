@@ -11,6 +11,7 @@ import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongAndGlyphVa
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongWithGlyph;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlainDmsValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlusMinusValue;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -34,19 +35,23 @@ public class PresentableMundanePosition {
     * @param name     Name for the mundane position. Possibly a number for the cusp, an acronym for vertex etc.
     * @param position An instance of MundanePosition that contains the data that must be presented.
     */
-   public PresentableMundanePosition(final String name, final MundanePosition position) {
+   public PresentableMundanePosition(final String name, final IPosition position) {
       this.name = checkNotNull(name);
       createMundanePosition(checkNotNull(position));
    }
 
-   private void createMundanePosition(final MundanePosition position) {
+   private void createMundanePosition(final IPosition position) {
+
+      MundanePosition mundPos = (MundanePosition) position;
       LongWithGlyph longWithGlyph = new LongAndGlyphValue(position.getLongitude()).getLongWithGlyph();
       formattedLongitude = longWithGlyph.getPosition();
       signGlyph = new Sign2GlyphMapper().getGlyph(longWithGlyph.getSignIndex());
-      formattedRa = new PlainDmsValue(position.getEqPos().getMainCoord()).getFormattedPosition();
-      formattedDeclination = new PlusMinusValue(position.getEqPos().getDeviation()).getFormattedPosition();
-      formattedAzimuth = new PlainDmsValue(position.getHorPos().getMainCoord()).getFormattedPosition();
-      formattedAltitude = new PlusMinusValue(position.getHorPos().getDeviation()).getFormattedPosition();
+
+
+      formattedRa = new PlainDmsValue(mundPos.getEqPos().getMainCoord()).getFormattedPosition();
+      formattedDeclination = new PlusMinusValue(mundPos.getEqPos().getDeviation()).getFormattedPosition();
+      formattedAzimuth = new PlainDmsValue(mundPos.getHorPos().getMainCoord()).getFormattedPosition();
+      formattedAltitude = new PlusMinusValue(mundPos.getHorPos().getDeviation()).getFormattedPosition();
    }
 
    public String getName() {

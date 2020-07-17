@@ -7,6 +7,7 @@
 package com.radixpro.enigma.ui.charts.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.charts.screens.helpers.ChartDrawMetrics;
 import com.radixpro.enigma.ui.charts.screens.helpers.RadixWheel;
 import com.radixpro.enigma.ui.domain.FullChart;
@@ -28,13 +29,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkArgument;
 
 public class ChartsDrawing2d {
 
    private static final double GAP = 6.0;
    private final Rosetta rosetta;
    private final Stage stage;
+   private final ChartsSessionState state;
    private ChartDrawMetrics metrics;
    private Canvas canvas;
    private FullChart fullChart;
@@ -42,14 +44,18 @@ public class ChartsDrawing2d {
    private String name;
    private Configuration currentConfig;
 
-   public ChartsDrawing2d() {
+
+   public ChartsDrawing2d(final ChartsSessionState state) {            // todo use factory, add rosetta to parameters
+      checkArgument(null != state && state.selectedChartIsSet());
+      this.state = state;
       rosetta = Rosetta.getRosetta();
       stage = new Stage();
    }
 
-   public void setDrawingInfo(final FullChart fullChart, final Configuration currentConfig) {
-      this.fullChart = checkNotNull(fullChart);
-      this.currentConfig = checkNotNull(currentConfig);
+   public void setDrawingInfo() {                  // todo call from constructor
+      this.fullChart = state.getSelectedChart();
+      this.currentConfig = state.getSelectedConfig();
+      this.name = fullChart.getChartData().getChartMetaData().getName();
       drawChart();
    }
 
@@ -136,10 +142,6 @@ public class ChartsDrawing2d {
 
    private void onHelp() {
       new Help(rosetta.getHelpText("help.chartsdrawing.title"), rosetta.getHelpText("help.chartsdrawing.content"));
-   }
-
-   public void setName(String name) {
-      this.name = name;
    }
 
 

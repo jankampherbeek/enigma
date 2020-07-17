@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.domain.astrondata;
 
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -16,7 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class FullPointPosition implements IPosition {
 
-   private final CelestialObjects celObject;
+   private final IChartPoints celObject;
    private final FullPointCoordinate eclPos;
    private final FullPointCoordinate eqPos;
    private final CoordinateSet horPos;
@@ -29,7 +29,7 @@ public class FullPointPosition implements IPosition {
     * @param eqPos     equatorial positon. PRE: not null.
     * @param horPos    horizontal position. PRE: not null.
     */
-   public FullPointPosition(final CelestialObjects celObject, final FullPointCoordinate eclPos, final FullPointCoordinate eqPos,
+   public FullPointPosition(final IChartPoints celObject, final FullPointCoordinate eclPos, final FullPointCoordinate eqPos,
                             final CoordinateSet horPos) {
       this.celObject = checkNotNull(celObject);
       this.eclPos = checkNotNull(eclPos);
@@ -38,7 +38,7 @@ public class FullPointPosition implements IPosition {
    }
 
    @Override
-   public CelestialObjects getChartPoint() {
+   public IChartPoints getChartPoint() {
       return celObject;
    }
 

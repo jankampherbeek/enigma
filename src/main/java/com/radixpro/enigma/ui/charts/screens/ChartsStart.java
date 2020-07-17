@@ -10,8 +10,8 @@ import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.ChartsSessionState;
-import com.radixpro.enigma.ui.charts.factories.ChartsScreensFactory;
-import com.radixpro.enigma.ui.configs.factories.ConfigScreensFactory;
+import com.radixpro.enigma.ui.configs.screens.ConfigOverview;
+import com.radixpro.enigma.ui.configs.screens.ConfigScreensFactory;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
@@ -26,15 +26,17 @@ import com.radixpro.enigma.ui.shared.presentationmodel.PresentableChartData;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import com.radixpro.enigma.xchg.api.*;
 import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
-import com.radixpro.enigma.xchg.domain.CalculationSettings;
-import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.api.requests.CalculatedChartRequest;
+import com.radixpro.enigma.xchg.api.responses.CalculatedChartResponse;
+import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
+import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
 import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
 import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
-import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
+import com.radixpro.enigma.xchg.domain.config.ConfiguredCelObject;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -50,7 +52,6 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
 
@@ -73,6 +74,7 @@ public class ChartsStart {
    private final PersistedConfigurationApi confApi;
    private ObservableList<PresentableChartData> selectedCharts;
    private final ChartsSessionState state;
+   private final CalculatedChartApi calculatedChartApi;
    private Button btnDeleteChart;
    private Button btnShowChart;
    private MenuItem miShowChart;
@@ -90,11 +92,11 @@ public class ChartsStart {
    private TableColumn<PresentableChartData, String> colData;
    private Configuration currentConfig;
 
-   public ChartsStart(Stage stage, final Rosetta rosetta, final ChartsSessionState state) {
+   public ChartsStart(Stage stage, final Rosetta rosetta, final ChartsSessionState state, final CalculatedChartApi calculatedChartApi) {
       this.stage = checkNotNull(stage);
       this.rosetta = checkNotNull(rosetta);
-      checkArgument(null != state && state.selectedChartIsSet());
-      this.state = state;
+      this.state = checkNotNull(state);
+      this.calculatedChartApi = checkNotNull(calculatedChartApi);
       propApi = new PersistedPropertyApi();
       confApi = new PersistedConfigurationApi();
       availableCharts = new ArrayList<>();
@@ -284,7 +286,8 @@ public class ChartsStart {
    }
 
    void onConfig() {
-      new ConfigScreensFactory().createConfigOverview();
+      final ConfigOverview configOverview = new ConfigScreensFactory().createConfigOverview();
+      currentConfig = state.getSelectedConfig();
       initialize();
       showIt();
    }
@@ -294,7 +297,7 @@ public class ChartsStart {
       if (chartsInput.getInputStatus() == InputStatus.READY) {
          int newChartId = chartsInput.getNewChartId();
          ChartData chartData = addChart(newChartId);
-         showChart(chartData);
+         showChart();
       }
    }
 
@@ -324,7 +327,32 @@ public class ChartsStart {
       miPrimary.setDisable(emptySelection);
       miSolar.setDisable(emptySelection);
       miTetenburg.setDisable(emptySelection);
+      if (!emptySelection) {
+         // todo calculate chart and save fullchart in state.
+         // define ChartCalcSettings
+         Configuration config = state.getSelectedConfig();
+         List<ConfiguredCelObject> confPoints = config.getAstronConfiguration().getCelObjects();
+         List<IChartPoints> points = new ArrayList<>();
+         for (ConfiguredCelObject cPoint : confPoints) {
+            points.add(cPoint.getCelObject());
+         }
+         ObserverPositions obsPos = config.getAstronConfiguration().getObserverPosition();
+         EclipticProjections eclProj = config.getAstronConfiguration().getEclipticProjection();
+         Ayanamshas ayanamsha = config.getAstronConfiguration().getAyanamsha();
+         HouseSystems houseSystem = config.getAstronConfiguration().getHouseSystem();
+         ChartCalcSettings settings = new ChartCalcSettings(points, obsPos, eclProj, ayanamsha, houseSystem);
+         final PresentableChartData presentableChartData = selectedCharts.get(0);
+         ChartData chartData = presentableChartData.getOriginalData();
+         FullDateTime dateTime = presentableChartData.getOriginalData().getFullDateTime();
+         Location location = presentableChartData.getOriginalData().getLocation();
+         CalculatedChartRequest request = new CalculatedChartRequest(settings, dateTime, location);
 
+         CalculatedChartResponse response = calculatedChartApi.calcChart(request);
+         CalculatedChart calculatedChart = response.getCalculatedChart();
+         // TODO check resultMsg
+         FullChart fullChart = new FullChart(chartData, calculatedChart);
+         state.setSelectedChart(fullChart);
+      }
    }
 
 
@@ -334,6 +362,7 @@ public class ChartsStart {
       if (!configs.isEmpty()) {
          currentConfigId = Integer.parseInt(propApi.read("config").get(0).getValue());
          currentConfig = confApi.read(currentConfigId).get(0);
+         state.setSelectedConfig(currentConfig);
       } else {
          LOG.error("Could not read config as api returned empty list. Calling FailFastHandler");
          new FailFastHandler().terminate("Database did not return configurations.");
@@ -354,54 +383,54 @@ public class ChartsStart {
    private void onDeleteChart() {
       PresentableChartData presChartData = selectedCharts.get(0);
       tvCharts.getItems().remove(presChartData);
+      state.deSelectChart();
       PersistedChartDataApi api = new PersistedChartDataApi();
       api.delete(presChartData.getOriginalData().getId());
-
    }
 
    private void onShowSelectedChart() {
       PresentableChartData presChartData = selectedCharts.get(0);
-      showChart(presChartData.getOriginalData());
+      showChart();
    }
 
    private void onAspects() {
       AspectsApi api = new ApiAnalysisFactory().createAspectsApi();
-      PresentableChartData presChartData = selectedCharts.get(0);
-//      ChartData chartData = presChartData.getOriginalData();
-//      CalculationSettings settings = new CalculationSettings(currentConfig);
-
-      CalculatedChart calculatedChart = state.getSelectedChart().getCalculatedChart();
+      FullChart fullChart = state.getSelectedChart();
+      CalculatedChart calculatedChart = fullChart.getCalculatedChart();
+      String chartName = fullChart.getChartData().getChartMetaData().getName();
       List<IPosition> celObjectList = calculatedChart.getCelPoints();
       AllMundanePositions allMundanePositions = calculatedChart.getMundPoints();
-      List<MundanePosition> housesList = new ArrayList<>();
+      List<IPosition> housesList = new ArrayList<>();
       housesList.add(allMundanePositions.getMc());
       housesList.add(allMundanePositions.getAsc());
       final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
-      MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), currentConfig.getDelinConfiguration().getAspectConfiguration().getBaseOrb());
+      MetaDataForAnalysis meta = new MetaDataForAnalysis(chartName, currentConfig.getName(), currentConfig.getDelinConfiguration().getAspectConfiguration().getBaseOrb());
       new ChartsScreensFactory().createChartsAspects(aspects, meta);
    }
 
    // TODO combine logic of onAspects and onMidpoints
    private void onMidpoints() {
       MidpointsApi api = new ApiAnalysisFactory().createMidpointsApi();
-      PresentableChartData presChartData = selectedCharts.get(0);
-      ChartData chartData = presChartData.getOriginalData();
-      CalculationSettings settings = new CalculationSettings(currentConfig);
+//      PresentableChartData presChartData = selectedCharts.get(0);
+//      ChartData chartData = presChartData.getOriginalData();
+//      CalculationSettings settings = new CalculationSettings(currentConfig);
       FullChart fullChart = state.getSelectedChart();
+//      CalculatedChart calculatedChart = fullChart.getCalculatedChart();
+      String chartName = fullChart.getChartData().getChartMetaData().getName();
       List<IPosition> celObjectList = fullChart.getCalculatedChart().getCelPoints();
       AllMundanePositions fullHouses = fullChart.getCalculatedChart().getMundPoints();
       List<IPosition> housesList = new ArrayList<>();
       housesList.add(fullHouses.getMc());
       housesList.add(fullHouses.getAsc());
       final List<IAnalyzedPair> midpoints = api.analyseMidpoints(celObjectList, housesList);
-      MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.6);   // TODO replace hardcoded orb for midpoints with configurable orb
+      MetaDataForAnalysis meta = new MetaDataForAnalysis(chartName, currentConfig.getName(), 1.6);   // TODO replace hardcoded orb for midpoints with configurable orb
       new ChartsScreensFactory().createChartsMidpoints(midpoints, meta);
    }
 
    private void onTetenburg() {
       PresentableChartData presChartData = selectedCharts.get(0);
-      ChartData chartData = presChartData.getOriginalData();
-      CalculationSettings settings = new CalculationSettings(currentConfig);
+//      ChartData chartData = presChartData.getOriginalData();
+//      CalculationSettings settings = new CalculationSettings(currentConfig);
       FullChart fullChart = state.getSelectedChart();
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.0);  // orb is not used
       ChartsTetenburg chartsTetenburg = new ChartsScreensFactory().getChartsTetenburg(meta, fullChart);
@@ -412,22 +441,21 @@ public class ChartsStart {
       new Help(rosetta.getHelpText("help.chartsstart.title"), rosetta.getHelpText("help.chartsstart.content"));
    }
 
-   private void showChart(final ChartData chartData) {
+   private void showChart() {
 //      CalculationSettings settings = new CalculationSettings(currentConfig);
       currentFullChart = state.getSelectedChart();
-      showPositions(chartData);
-      drawChart2D(chartData.getChartMetaData().getName());
+      showPositions();
+      drawChart2D();
    }
 
-   private void showPositions(ChartData chartData) {
-      FullChart currentFullChart = state.getSelectedChart();
-      new ChartsData(currentFullChart, chartData);
+   private void showPositions() {
+      new ChartsData(state);     // TODO use factory
    }
 
-   private void drawChart2D(final String name) {
-      ChartsDrawing2d chartsDrawing2d = new ChartsDrawing2d();
-      chartsDrawing2d.setName(name);
-      chartsDrawing2d.setDrawingInfo(state.getSelectedChart(), currentConfig);
+   private void drawChart2D() {
+      String chartName = state.getSelectedChart().getChartData().getChartMetaData().getName();
+      ChartsDrawing2d chartsDrawing2d = new ChartsDrawing2d(state);    // todo use factory
+      chartsDrawing2d.setDrawingInfo();
    }
 
 }

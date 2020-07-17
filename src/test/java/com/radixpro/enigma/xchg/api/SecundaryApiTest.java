@@ -15,24 +15,45 @@ import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
 import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.analysis.*;
-import com.radixpro.enigma.xchg.domain.calculatedcharts.ChartPositionsVo;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.SimplePosVo;
+import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
+import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.xchg.domain.analysis.ProgAnalysisType;
+import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
+import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SecundaryApiTest {
 
+   @Mock
+   private IPosition posSunMock;
+   @Mock
+   private IPosition posMarsMock;
+   @Mock
+   private IPosition posUraMock;
+   @Mock
+   private IPosition posAscMock;
    private SecundaryApi api;
 
    @Before
    public void setUp() throws Exception {
+      when(posSunMock.getLongitude()).thenReturn(351.8);    // SUN, 351.8, 1.0, 352.0, -8.8
+      when(posMarsMock.getLongitude()).thenReturn(21.5);    // MARS, 21.5, 0.7, 22.0, 4.4
+      when(posUraMock.getLongitude()).thenReturn(102.7);    // URANUS, 102.7, 0.3, 103.0, 4.0
+      when(posAscMock.getLongitude()).thenReturn(162.5);    // ASC, 162.5, 0.0, 162.0, 20.0)
+      when(posMarsMock.getChartPoint()).thenReturn(CelestialObjects.MARS);
       api = new ApiProgFactory().getSecundaryApi();
    }
 
@@ -41,8 +62,8 @@ public class SecundaryApiTest {
       SecundaryCalcRequest request = createCalcRequest();
       final SimpleProgResponse response = api.calculateSecundary(request);
       assertEquals(3, response.getPositions().size());
-      List<SimplePosVo> positions = response.getPositions();
-      assertEquals(CelestialObjects.SUN, positions.get(0).getPoint());
+      List<IPosition> positions = response.getPositions();
+      assertEquals(CelestialObjects.SUN, positions.get(0).getChartPoint());
       // Difference in Julian days is 7305
       // Divide by length of tropical year : 365.24219 gives 20.0004276614
       // which is 20 days 0 h 0 m and 37 sec  --> 2000/6/26 13:42:37  CET
@@ -62,7 +83,7 @@ public class SecundaryApiTest {
    public void defineAspects() {
       SecundaryCalcRequest request = createCalcRequest();
       final SimpleProgResponse response = api.calculateSecundary(request);
-      List<SimplePosVo> progPositions = response.getPositions();
+      List<IPosition> progPositions = response.getPositions();
       final EphProgAspectResponse ephProgAspectResponse = api.defineAspects(createAnalyzeRequest(progPositions));
       assertEquals(1, ephProgAspectResponse.getAnalyzedAspects().size());
       IAnalyzedPair aspect = ephProgAspectResponse.getAnalyzedAspects().get(0);
@@ -91,22 +112,22 @@ public class SecundaryApiTest {
       return new SecundaryCalcRequest(eventDateTime, birthDateTime, location, settings);
    }
 
-   private ProgAnalyzeRequest createAnalyzeRequest(final List<SimplePosVo> progPositions) {
+   private ProgAnalyzeRequest createAnalyzeRequest(final List<IPosition> progPositions) {
       List<AspectTypes> aspects = new ArrayList<>();
       aspects.add(AspectTypes.CONJUNCTION);
       aspects.add(AspectTypes.OPPOSITION);
       aspects.add(AspectTypes.TRIANGLE);
       aspects.add(AspectTypes.SQUARE);
       aspects.add(AspectTypes.SEXTILE);
-      List<SimplePosVo> celestialPositions = new ArrayList<>();
-      celestialPositions.add(new SimplePosVo(CelestialObjects.SUN, 351.8, 1.0, 352.0, -8.8));
-      celestialPositions.add(new SimplePosVo(CelestialObjects.MARS, 21.5, 0.7, 22.0, 4.4));
-      celestialPositions.add(new SimplePosVo(CelestialObjects.URANUS, 102.7, 0.3, 103.0, 4.0));
-      List<SimplePosVo> mundanePositions = new ArrayList<>();
-      mundanePositions.add(new SimplePosVo(MundanePoints.ASC, 162.5, 0.0, 162.0, 20.0));
-      ChartPositionsVo chartPositions = new ChartPositionsVo(1L, celestialPositions, mundanePositions);
-
-      return new ProgAnalyzeRequest(ProgAnalysisType.ASPECTS, progPositions, chartPositions, aspects, 2.0);
+      List<IPosition> celestialPositions = new ArrayList<>();
+      celestialPositions.add(posSunMock);
+      celestialPositions.add(posMarsMock);
+      celestialPositions.add(posUraMock);
+      List<IPosition> mundanePositions = new ArrayList<>();
+      mundanePositions.add(posAscMock);
+      AllMundanePositions allMundPos = new AllMundanePositions(mundanePositions, mundanePositions);
+      CalculatedChart calcChart = new CalculatedChart(celestialPositions, allMundPos);
+      return new ProgAnalyzeRequest(ProgAnalysisType.ASPECTS, progPositions, calcChart, aspects, 2.0);
    }
 
 }

@@ -34,6 +34,10 @@ public class ChartsSessionState {
       return instance;
    }
 
+   public void deSelectChart() {
+      selectedChart = null;
+   }
+
    public FullChart getSelectedChart() {
       return selectedChart;
    }

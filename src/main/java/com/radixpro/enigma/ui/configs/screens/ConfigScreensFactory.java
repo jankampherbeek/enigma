@@ -2,19 +2,17 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.configs.factories;
+package com.radixpro.enigma.ui.configs.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.configs.screens.ConfigDetails;
-import com.radixpro.enigma.ui.configs.screens.ConfigEdit;
-import com.radixpro.enigma.ui.configs.screens.ConfigNew;
-import com.radixpro.enigma.ui.configs.screens.ConfigOverview;
+import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
-import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
+import com.radixpro.enigma.xchg.api.ApiConfigFactory;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 
@@ -37,8 +35,7 @@ public class ConfigScreensFactory {
       PropertiesForConfig prop4Config = new PropertiesForConfig(config,
             new CelObjectsInConfig(rosetta),
             new AspectsInConfig(rosetta), rosetta);
-      return new ConfigDetails(config.getName(), prop4Config, rosetta);
-
+      return new ConfigDetails(prop4Config, rosetta, ChartsSessionState.getInstance());
    }
 
    /**
@@ -49,21 +46,15 @@ public class ConfigScreensFactory {
     */
    public ConfigEdit createConfigEdit(final Configuration config) {
       checkNotNull(config);
-      return new ConfigEdit(config, Rosetta.getRosetta());
+      return new ConfigEdit(Rosetta.getRosetta(), ChartsSessionState.getInstance());
    }
 
-   /**
-    * Build instance of ConfigNew.
-    *
-    * @param config The actual configuration.
-    * @return instance of ConfigNew.
-    */
-   public ConfigNew createConfigNew(final Configuration config) {
-      checkNotNull(config);
-      return new ConfigNew(config, Rosetta.getRosetta(), new PersistedConfigurationApi());
+   public ConfigNew createConfigNew() {
+      return new ConfigNew(Rosetta.getRosetta(), new ApiConfigFactory().getPersistedConfigurationApi(), ChartsSessionState.getInstance());
    }
 
    public ConfigOverview createConfigOverview() {
-      return new ConfigOverview(new PersistedConfigurationApi(), new PersistedPropertyApi(), Rosetta.getRosetta());
+      return new ConfigOverview(new ApiConfigFactory().getPersistedConfigurationApi(), new PersistedPropertyApi(), Rosetta.getRosetta(),
+            ChartsSessionState.getInstance());
    }
 }

@@ -18,7 +18,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  */
 public class ChartCalcSettings {
 
-   private final List<CelestialObjects> points;
+   private final List<IChartPoints> points;
    private final ObserverPositions obsPos;
    private final EclipticProjections eclProj;
    private final Ayanamshas ayanamsha;
@@ -33,7 +33,7 @@ public class ChartCalcSettings {
     * @param ayanamsha   Ayanamsha. Only used if Ecliptical projection is sidereal. PRE: not null.
     * @param houseSystem Housesystem. PRE: not null.
     */
-   public ChartCalcSettings(final List<CelestialObjects> points, final ObserverPositions obsPos, final EclipticProjections eclProj, final Ayanamshas ayanamsha,
+   public ChartCalcSettings(final List<IChartPoints> points, final ObserverPositions obsPos, final EclipticProjections eclProj, final Ayanamshas ayanamsha,
                             final HouseSystems houseSystem) {
       checkArgument(null != points && !points.isEmpty());
       this.points = points;
@@ -43,7 +43,7 @@ public class ChartCalcSettings {
       this.houseSystem = houseSystem;
    }
 
-   public List<CelestialObjects> getPoints() {
+   public List<IChartPoints> getPoints() {
       return points;
    }
 

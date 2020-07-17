@@ -7,6 +7,7 @@
 package com.radixpro.enigma.ui.configs.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesTableForConfig;
 import com.radixpro.enigma.ui.shared.Help;
@@ -45,9 +46,10 @@ public class ConfigDetails {
    private Button btnExit;
 
 
-   public ConfigDetails(final String configName, final PropertiesForConfig propertiesForConfig, final Rosetta rosetta) {
+   public ConfigDetails(final PropertiesForConfig propertiesForConfig, final Rosetta rosetta, final ChartsSessionState state) {
       this.rosetta = checkNotNull(rosetta);
-      this.configName = checkNotNull(configName);
+      checkNotNull(state);
+      this.configName = state.getSelectedConfig().getName();
       this.propertiesForConfig = checkNotNull(propertiesForConfig);
       populateStage();
       defineListeners();

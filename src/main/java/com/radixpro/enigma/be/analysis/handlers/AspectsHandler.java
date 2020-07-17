@@ -11,7 +11,6 @@ import com.radixpro.enigma.be.analysis.AspectsForRadix;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
-import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class AspectsHandler {
     * @return actual aspects.
     */
    public List<IAnalyzedPair> retrieveAspects(final List<IPosition> celBodies,
-                                              final List<MundanePosition> mundaneValues,
+                                              final List<IPosition> mundaneValues,
                                               final AspectConfiguration config) {
       checkArgument(celBodies != null && 2 <= celBodies.size());
       checkNotNull(mundaneValues);
@@ -55,12 +54,12 @@ public class AspectsHandler {
 
    }
 
-   private List<AnalyzablePoint> createCandidates(List<IPosition> celBodies, List<MundanePosition> mundaneValues) {
+   private List<AnalyzablePoint> createCandidates(List<IPosition> celBodies, List<IPosition> mundaneValues) {
       List<AnalyzablePoint> candidates = new ArrayList<>();
       for (IPosition pos : celBodies) {
          candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getLongitude()));
       }
-      for (MundanePosition pos : mundaneValues) {
+      for (IPosition pos : mundaneValues) {
          candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getLongitude()));
       }
       return candidates;

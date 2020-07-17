@@ -22,21 +22,21 @@ import static org.junit.Assert.assertEquals;
 public class AllMundanePositionsTest {
 
    @Mock
-   private MundanePosition cusp1Mock;
+   private IPosition cusp1Mock;
    @Mock
-   private MundanePosition cusp2Mock;
+   private IPosition cusp2Mock;
    @Mock
-   private MundanePosition specPos1Mock;
+   private IPosition specPos1Mock;
    @Mock
-   private MundanePosition specPos2Mock;
+   private IPosition specPos2Mock;
    private AllMundanePositions allMundanePositions;
 
    @Before
    public void setUp() throws Exception {
-      List<MundanePosition> cuspList = new ArrayList<>();
+      List<IPosition> cuspList = new ArrayList<>();
       cuspList.add(cusp1Mock);
       cuspList.add(cusp2Mock);
-      List<MundanePosition> specPosList = new ArrayList<>();
+      List<IPosition> specPosList = new ArrayList<>();
       specPosList.add(specPos1Mock);
       specPosList.add(specPos2Mock);
       allMundanePositions = new AllMundanePositions(cuspList, specPosList);

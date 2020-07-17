@@ -14,7 +14,6 @@ import com.radixpro.enigma.xchg.domain.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
-import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
 import org.junit.Before;
@@ -46,21 +45,25 @@ public class AspectsApiIntTest {
    private IPosition ascPosMock;
 
    private List<IPosition> celObjects;
-   private List<MundanePosition> mundaneValues;
+   private List<IPosition> mundaneValues;
    private AspectConfiguration config;
    private AspectsApi api;
 
    @Before
    public void setUp() {
       when(sunPosMock.getLongitude()).thenReturn(100.0);
+      when(sunPosMock.getChartPoint()).thenReturn(CelestialObjects.SUN);
       when(moonPosMock.getLongitude()).thenReturn(281.0);
-      List<IPosition> celObjects = new ArrayList<>();
+      when(moonPosMock.getChartPoint()).thenReturn(CelestialObjects.MOON);
+      celObjects = new ArrayList<>();
       celObjects.add(sunPosMock);
       celObjects.add(moonPosMock);
 
       when(mcPosMock.getLongitude()).thenReturn(218.0);
+      when(mcPosMock.getChartPoint()).thenReturn(MundanePoints.MC);
       when(ascPosMock.getLongitude()).thenReturn(278.0);
-      List<IPosition> mundaneValues = new ArrayList<>();
+      when(ascPosMock.getChartPoint()).thenReturn(MundanePoints.ASC);
+      mundaneValues = new ArrayList<>();
       mundaneValues.add(mcPosMock);
       mundaneValues.add(ascPosMock);
       config = createConfig();

@@ -16,8 +16,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class AllMundanePositions {
 
-   private final List<MundanePosition> cusps;
-   private final List<MundanePosition> specPoints;
+   private final List<IPosition> cusps;
+   private final List<IPosition> specPoints;
 
    /**
     * Constructor defines all properties.
@@ -25,32 +25,32 @@ public class AllMundanePositions {
     * @param cusps      cusps from 1 -- number of cusps for housesystem. PRE: not null.
     * @param specPoints specific points (Mc, Ascendant, Vertex, Eastpoint). PRE: not null.
     */
-   public AllMundanePositions(final List<MundanePosition> cusps, final List<MundanePosition> specPoints) {
+   public AllMundanePositions(final List<IPosition> cusps, final List<IPosition> specPoints) {
       this.cusps = checkNotNull(cusps);
       this.specPoints = checkNotNull(specPoints);
    }
 
-   public List<MundanePosition> getCusps() {
+   public List<IPosition> getCusps() {
       return cusps;
    }
 
-   public List<MundanePosition> getSpecPoints() {
+   public List<IPosition> getSpecPoints() {
       return specPoints;
    }
 
-   public MundanePosition getMc() {
+   public IPosition getAsc() {
       return specPoints.get(0);
    }
 
-   public MundanePosition getAsc() {
+   public IPosition getMc() {
       return specPoints.get(1);
    }
 
-   public MundanePosition getVertex() {
+   public IPosition getVertex() {
       return specPoints.get(2);
    }
 
-   public MundanePosition getEastPoint() {
+   public IPosition getEastPoint() {
       return specPoints.get(3);
    }
 

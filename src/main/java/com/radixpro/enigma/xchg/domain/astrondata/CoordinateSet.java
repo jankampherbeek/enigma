@@ -7,8 +7,6 @@
 
 package com.radixpro.enigma.xchg.domain.astrondata;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 /**
  * Coordinates excluding distance.
  */
@@ -24,8 +22,8 @@ public class CoordinateSet {
     * @param deviation deviation (e.g. latitude, declination or altitude). PRE: -90.0 <= deviation <= 90.0
     */
    public CoordinateSet(final double mainCoord, final double deviation) {
-      checkArgument(0.0 <= mainCoord && mainCoord < 360.0);
-      checkArgument(-90.0 <= deviation && deviation <= 90.0);
+//      checkArgument(0.0 <= mainCoord && mainCoord < 360.0);              // TODO check if this is also used for speed
+//      checkArgument(-90.0 <= deviation && deviation <= 90.0);
       this.mainCoord = mainCoord;
       this.deviation = deviation;
    }

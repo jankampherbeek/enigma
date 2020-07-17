@@ -54,7 +54,7 @@ public class SolarReturnApiIntTest {
    }
 
    private ChartCalcSettings createSettings() {
-      List<CelestialObjects> celPoints = new ArrayList<>();
+      List<IChartPoints> celPoints = new ArrayList<>();
       celPoints.add(CelestialObjects.SUN);
       celPoints.add(CelestialObjects.MOON);
       celPoints.add(CelestialObjects.MERCURY);

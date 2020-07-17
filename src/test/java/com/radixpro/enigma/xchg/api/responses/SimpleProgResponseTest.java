@@ -8,28 +8,30 @@
 package com.radixpro.enigma.xchg.api.responses;
 
 import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
-import com.radixpro.enigma.xchg.api.requests.ProgCalcRequestFake;
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.SimplePosVo;
+import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SimpleProgResponseTest {
 
-   private List<SimplePosVo> positions;
-   private IProgCalcRequest request;
+   @Mock
+   private IProgCalcRequest requestMock;
+   private List<IPosition> positions;
    private SimpleProgResponse response;
 
    @Before
    public void setUp() throws Exception {
-      positions = createPositions();
-      request = new ProgCalcRequestFake();
-      response = new SimpleProgResponse(positions, request);
+      positions = new ArrayList<>();
+      response = new SimpleProgResponse(positions, requestMock);
    }
 
    @Test
@@ -39,12 +41,7 @@ public class SimpleProgResponseTest {
 
    @Test
    public void getRequest() {
-      assertEquals(request, response.getRequest());
+      assertEquals(requestMock, response.getRequest());
    }
 
-   private List<SimplePosVo> createPositions() {
-      List<SimplePosVo> points = new ArrayList<>();
-      points.add(new SimplePosVo(CelestialObjects.SATURN, 10.0, -1.0, 12.0, 1.5));
-      return points;
-   }
 }

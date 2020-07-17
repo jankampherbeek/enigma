@@ -7,6 +7,7 @@
 package com.radixpro.enigma.ui.configs.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.factories.*;
@@ -53,9 +54,17 @@ public class ConfigNew {
    private Button btnHelp;
    private Button btnCancel;
 
-   public ConfigNew(final Configuration config, final Rosetta rosetta, final PersistedConfigurationApi api) {
+   /**
+    * Construction via factory.
+    *
+    * @param rosetta Handler for resource bundles.
+    * @param api     Api for persistency of configurations.
+    * @param state   contains current config
+    */
+   public ConfigNew(final Rosetta rosetta, final PersistedConfigurationApi api, final ChartsSessionState state) {
       this.rosetta = checkNotNull(rosetta);
-      this.config = checkNotNull(config);
+      checkNotNull(state);
+      this.config = state.getSelectedConfig();
       this.api = checkNotNull(api);
       populateStage();
       defineListeners();
