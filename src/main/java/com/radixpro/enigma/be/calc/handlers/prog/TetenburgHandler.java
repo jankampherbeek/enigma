@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers;
+package com.radixpro.enigma.be.calc.handlers.prog;
 
 import com.radixpro.enigma.be.calc.converters.EclipticEquatorialConversions;
 import com.radixpro.enigma.be.calc.core.SeFrontend;

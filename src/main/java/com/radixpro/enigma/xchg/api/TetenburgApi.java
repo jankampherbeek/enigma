@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.calc.handlers.TetenburgHandler;
+import com.radixpro.enigma.be.calc.handlers.prog.TetenburgHandler;
 import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
 import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
 import org.apache.log4j.Logger;

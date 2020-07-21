@@ -18,6 +18,7 @@ public class EnigmaDictionary {
    public static final String SECONDSIGN = "\u2033";
    public static final String GLYPH_FONTNAME = "EnigmaAstrology";
    public static final String TEXT_FONTNAME = "Arial";
+   public static final double NAIBOD_KEY = 0.98564733;
    public static final double TROPICAL_YEAR = 365.24219;
 
 

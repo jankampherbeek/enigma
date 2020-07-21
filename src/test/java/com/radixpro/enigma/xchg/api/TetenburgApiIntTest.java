@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.xchg.api.factories.ApiProgFactory;
 import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
 import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
 import com.radixpro.enigma.xchg.domain.*;

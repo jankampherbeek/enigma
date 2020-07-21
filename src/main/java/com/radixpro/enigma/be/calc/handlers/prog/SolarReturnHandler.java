@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers;
+package com.radixpro.enigma.be.calc.handlers.prog;
 
 import com.radixpro.enigma.be.calc.assist.CombinedFlags;
 import com.radixpro.enigma.be.calc.assist.JdFromPosCalc;

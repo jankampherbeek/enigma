@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers;
+package com.radixpro.enigma.be.calc.handlers.prog;
 
 import com.radixpro.enigma.xchg.domain.*;
 import swisseph.SweDate;
@@ -15,6 +15,7 @@ import static com.radixpro.enigma.shared.EnigmaDictionary.TROPICAL_YEAR;
 
 /**
  * Calculates the secundary date.
+ * TODO: use factory for instantiation
  */
 public class SecundaryDateHandler {
 

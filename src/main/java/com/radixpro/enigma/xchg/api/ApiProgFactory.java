@@ -5,18 +5,14 @@
  *
  */
 
-package com.radixpro.enigma.xchg.api.factories;
+package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.be.analysis.factories.AnalysisHandlerFactory;
 import com.radixpro.enigma.be.analysis.handlers.ProgAspectHandler;
-import com.radixpro.enigma.be.calc.factories.ProgCalcFactory;
-import com.radixpro.enigma.be.calc.handlers.EphProgCalcHandler;
-import com.radixpro.enigma.be.calc.handlers.SecundaryDateHandler;
+import com.radixpro.enigma.be.calc.handlers.prog.EphProgCalcHandler;
+import com.radixpro.enigma.be.calc.handlers.prog.HandlerProgFactory;
+import com.radixpro.enigma.be.calc.handlers.prog.SecundaryDateHandler;
 import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.xchg.api.SecundaryApi;
-import com.radixpro.enigma.xchg.api.SolarReturnApi;
-import com.radixpro.enigma.xchg.api.TetenburgApi;
-import com.radixpro.enigma.xchg.api.TransitsApi;
 
 /**
  * Factory for API's that take care of calculations and analysis for proggressive positions
@@ -24,25 +20,28 @@ import com.radixpro.enigma.xchg.api.TransitsApi;
 public class ApiProgFactory {
 
    public TransitsApi getTransitsApi() {
-      EphProgCalcHandler calcHandler = new ProgCalcFactory().getTransitsCalcHandler();
+      EphProgCalcHandler calcHandler = new HandlerProgFactory().getTransitsCalcHandler();
       ProgAspectHandler aspectHandler = new AnalysisHandlerFactory().createTransitsAspectHandler();
       return new TransitsApi(calcHandler, aspectHandler);
    }
 
    public SecundaryApi getSecundaryApi() {
-      EphProgCalcHandler calcHandler = new ProgCalcFactory().getTransitsCalcHandler();
+      EphProgCalcHandler calcHandler = new HandlerProgFactory().getTransitsCalcHandler();
       ProgAspectHandler aspectHandler = new AnalysisHandlerFactory().createTransitsAspectHandler();
       SecundaryDateHandler dateHandler = new SecundaryDateHandler();
       return new SecundaryApi(calcHandler, dateHandler, aspectHandler);
    }
 
    public SolarReturnApi getSolarReturnApi() {
-      return new SolarReturnApi(new ProgCalcFactory().getSolarReturnHandler(), Rosetta.getRosetta());
+      return new SolarReturnApi(new HandlerProgFactory().getSolarReturnHandler(), Rosetta.getRosetta());
    }
 
    public TetenburgApi getTetenburgApi() {
-      return new TetenburgApi(new ProgCalcFactory().getTetenburgHandler());
+      return new TetenburgApi(new HandlerProgFactory().getTetenburgHandler());
    }
 
+   public PrimaryApi getPrimaryApi() {
+      return new PrimaryApi(new HandlerProgFactory().getPrimaryHandler());
+   }
 
 }

@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.xchg.api.factories.ApiProgFactory;
 import com.radixpro.enigma.xchg.api.requests.SolarReturnRequest;
 import com.radixpro.enigma.xchg.api.responses.SolarReturnResponse;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;

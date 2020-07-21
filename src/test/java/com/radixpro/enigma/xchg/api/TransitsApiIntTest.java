@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.xchg.api.factories.ApiProgFactory;
 import com.radixpro.enigma.xchg.api.requests.EphProgCalcRequest;
 import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
 import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
