@@ -116,8 +116,8 @@ public enum CelestialObjects implements IChartPoints {
 
    @Override
    public ChartPointTypes getPointType() {
-      return null;
-   }  // TODO fix
+      return ChartPointTypes.CEL_BODIES;
+   }
 
    public long getSeId() {
       return seId;

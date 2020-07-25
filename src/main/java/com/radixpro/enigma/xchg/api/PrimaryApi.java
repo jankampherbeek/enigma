@@ -28,9 +28,6 @@ public class PrimaryApi {
    }
 
    public SimpleProgResponse calculatePrimary(final PrimaryCalcRequest request) {
-
-      // TODO call handler and convert results into SimpleProgResponse
-
-      return null;
+      return primaryHandler.performCalculations(request);
    }
 }

@@ -33,7 +33,7 @@ public class PrimaryCalcRequest implements IProgCalcRequest {
     *
     * @param dateTimeProg    time of event. PRE: not null.
     * @param dateTimeRadix   time of birth. PRE: not null.
-    * @param settings        settings for calculations. PRE: not null.
+    * @param settings        settings for calculations. Also contains the celestial points to calculate. PRE: not null.
     * @param timekey         timekey to use for the calculation. PRE: not null.
     * @param location        location of birth. PRE: not null.
     * @param calculatedChart Positions of houses and planets. PRE: not null.

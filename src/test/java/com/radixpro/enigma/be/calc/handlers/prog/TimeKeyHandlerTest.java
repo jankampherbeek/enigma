@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.be.calc.handlers.prog;
 
+import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
 import com.radixpro.enigma.xchg.domain.*;
 import org.junit.Before;
@@ -55,13 +56,13 @@ public class TimeKeyHandlerTest {
    }
 
    @Test
-   public void retrieveTimeSpanNaibod() {
+   public void retrieveTimeSpanNaibod() throws UnknownTimeKeyException {
       final double timeSpan = handler.retrieveTimeSpan(birthDateTimeMock, eventDateTimeMock, TimeKeys.NAIBOD, locationMock, settingsMock);
       assertEquals(NAIBOD_KEY, timeSpan, DELTA_8_POS);
    }
 
    @Test
-   public void retrieveTimesSpanRealSecSun() {
+   public void retrieveTimesSpanRealSecSun() throws UnknownTimeKeyException {
       final double timeSpan = handler.retrieveTimeSpan(birthDateTimeMock, eventDateTimeMock, TimeKeys.REAL_SECUNDARY_SUN, locationMock, settingsMock);
       assertEquals(1.0139742637144877, timeSpan, DELTA_8_POS);
    }
