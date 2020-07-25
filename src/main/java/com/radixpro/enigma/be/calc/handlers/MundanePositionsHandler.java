@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers.astrondata;
+package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
 import com.radixpro.enigma.be.calc.converters.EclipticEquatorialConversions;
@@ -37,7 +37,7 @@ public class MundanePositionsHandler {
     * @param seFrontend                    instance of SeFrontend. PRE: not null.
     * @param eclipticEquatorialConversions converter for ecliptic to equatorial. PRE: not null.
     * @param obliquityHandler              handler for the calculation of epsilon(obliquity). PRE: not null.
-    * @see AstronDataHandlersFactory
+    * @see CaHandlersFactory
     */
    public MundanePositionsHandler(final SeFrontend seFrontend, final EclipticEquatorialConversions eclipticEquatorialConversions,
                                   final ObliquityHandler obliquityHandler) {

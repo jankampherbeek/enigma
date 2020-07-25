@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers.astrondata;
+package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import com.radixpro.enigma.xchg.domain.*;
@@ -32,7 +32,7 @@ public class CalculatedChartHandler {
     *
     * @param fullPointPositionHandler handler for full positions of celestial points. PRE: not null.
     * @param mundanePositionsHandler  handler for mundane positions. PRE: not null.
-    * @see AstronDataHandlersFactory
+    * @see CaHandlersFactory
     */
    public CalculatedChartHandler(final FullPointPositionHandler fullPointPositionHandler, final MundanePositionsHandler mundanePositionsHandler) {
       this.fullPointPositionHandler = checkNotNull(fullPointPositionHandler);

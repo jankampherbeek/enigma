@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.calc.handlers.prog.PrimaryHandler;
+import com.radixpro.enigma.be.calc.handlers.PrimaryHandler;
 import com.radixpro.enigma.xchg.api.requests.PrimaryCalcRequest;
 import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
 
@@ -21,7 +21,7 @@ public class PrimaryApi {
     * Instantiate via factory.
     *
     * @param primaryHandler handler. PRE: not null.
-    * @see ApiProgFactory
+    * @see ApiFactory
     */
    public PrimaryApi(final PrimaryHandler primaryHandler) {
       this.primaryHandler = checkNotNull(primaryHandler);

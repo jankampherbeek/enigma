@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers.astrondata;
+package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
@@ -24,7 +24,7 @@ public class ObliquityHandler {
     * Instantiate via Factory.
     *
     * @param seFrontend
-    * @see AstronDataHandlersFactory
+    * @see CaHandlersFactory
     */
    public ObliquityHandler(final SeFrontend seFrontend) {
       this.seFrontend = checkNotNull(seFrontend);

@@ -5,11 +5,10 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers.prog;
+package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.calc.converters.EclipticEquatorialConversions;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
-import com.radixpro.enigma.be.calc.handlers.astrondata.AstronDataHandlersFactory;
 import com.radixpro.enigma.shared.Range;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -26,7 +25,7 @@ public class TetenburgHandler {
    }
 
    public double criticalPoint(final double jdRadix, final double jdEvent, final double geoLat, final double radixMc, final double solarSpeed) {
-      final double eps = new AstronDataHandlersFactory().getObliquityHandler().calcTrueObliquity(jdRadix);
+      final double eps = CaHandlersFactory.getObliquityHandler().calcTrueObliquity(jdRadix);
       final double jdDiff = jdEvent - jdRadix;
       final double nrOfYears = jdDiff / TROPICAL_YEAR;
       final double progMc = new Range(0.0, 360.0).checkValue(radixMc + (nrOfYears * solarSpeed));

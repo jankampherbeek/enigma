@@ -27,7 +27,7 @@ public class SolarReturnApiIntTest {
 
    @Before
    public void setUp() {
-      api = new ApiProgFactory().getSolarReturnApi();
+      api = ApiFactory.getSolarReturnApi();
    }
 
    @Test

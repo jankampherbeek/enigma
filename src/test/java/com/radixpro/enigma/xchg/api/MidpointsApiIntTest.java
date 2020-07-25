@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedMidpoint;
@@ -90,7 +89,7 @@ public class MidpointsApiIntTest {
       mundaneValues = new ArrayList<>();
       mundaneValues.add(mcPosMock);
       mundaneValues.add(ascPosMock);
-      api = new ApiAnalysisFactory().createMidpointsApi();
+      api = ApiFactory.createMidpointsApi();
    }
 
    @Test

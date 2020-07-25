@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.calc.handlers.prog.SolarReturnHandler;
+import com.radixpro.enigma.be.calc.handlers.SolarReturnHandler;
 import com.radixpro.enigma.be.exceptions.NoPositionFoundException;
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.xchg.api.requests.SolarReturnRequest;
@@ -31,7 +31,7 @@ public class SolarReturnApi {
     *
     * @param handler handler to fullfil incoming requests.
     * @param rosetta handles the resource bundle translations.
-    * @see ApiProgFactory
+    * @see ApiFactory
     */
    public SolarReturnApi(final SolarReturnHandler handler, final Rosetta rosetta) {
       this.handler = checkNotNull(handler);

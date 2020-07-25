@@ -5,11 +5,10 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers.prog;
+package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.calc.assist.CombinedFlags;
 import com.radixpro.enigma.be.calc.assist.JdFromPosCalc;
-import com.radixpro.enigma.be.calc.factories.RadixCalcFactory;
 import com.radixpro.enigma.be.exceptions.NoPositionFoundException;
 import com.radixpro.enigma.xchg.api.CalculatedChartApi;
 import com.radixpro.enigma.xchg.api.requests.CalculatedChartRequest;
@@ -37,7 +36,7 @@ public class SolarReturnHandler {
     * Initialisation via ProgCalcFactory.
     *
     * @param jdFromPosCalc Instance of JdPosFromCalc
-    * @see com.radixpro.enigma.be.calc.factories.ProgCalcFactory
+    * @see CaHandlersFactory
     */
    public SolarReturnHandler(final JdFromPosCalc jdFromPosCalc, final CalculatedChartApi calculatedChartApi) {
       this.jdFromPosCalc = checkNotNull(jdFromPosCalc);
@@ -71,7 +70,7 @@ public class SolarReturnHandler {
       final int flags = defineFlags(settings);
       double jdActual = jdFromPosCalc.findJd(startJd, endJd, longSun, CelestialObjects.SUN, flags, location);
       boolean gregCal = birthDateTime.getSimpleDateTime().getDate().isGregorian();
-      final SimpleDateTime actualSimpleDateTime = new RadixCalcFactory().getJulianDayHandler().dateTimeFromJd(jdActual, gregCal, "ut");
+      final SimpleDateTime actualSimpleDateTime = CaHandlersFactory.getJulianDayHandler().dateTimeFromJd(jdActual, gregCal, "ut");
       final FullDateTime actualFullDateTime = new FullDateTime(actualSimpleDateTime, TimeZones.UT, birthDateTime.isDst(), birthDateTime.getOffsetForLmt());
       CalculatedChartRequest request = new CalculatedChartRequest(settings, actualFullDateTime, location);
       final CalculatedChartResponse response = calculatedChartApi.calcChart(request);

@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
-import com.radixpro.enigma.be.calc.factories.RadixCalcFactory;
 import com.radixpro.enigma.xchg.domain.SimpleDate;
 import com.radixpro.enigma.xchg.domain.SimpleDateTime;
 import com.radixpro.enigma.xchg.domain.SimpleTime;
@@ -29,7 +28,7 @@ public class JulianDayHandlerTest {
       SimpleDate date = new SimpleDate(2000, 1, 1, true);
       SimpleTime time = new SimpleTime(0, 0, 0);
       dateTime = new SimpleDateTime(date, time);
-      julianDayHandler = new RadixCalcFactory().getJulianDayHandler();
+      julianDayHandler = CaHandlersFactory.getJulianDayHandler();
    }
 
    @Test

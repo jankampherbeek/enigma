@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers.prog;
+package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.calc.assist.EnigmaAstronMath;
 import com.radixpro.enigma.be.calc.assist.EnigmaMath;
@@ -13,7 +13,6 @@ import com.radixpro.enigma.be.calc.assist.SpaeculumPropSa;
 import com.radixpro.enigma.be.calc.assist.SpaeculumPropSaItem;
 import com.radixpro.enigma.be.calc.converters.CalcConvertersFactory;
 import com.radixpro.enigma.be.calc.converters.EclipticEquatorialConversions;
-import com.radixpro.enigma.be.calc.handlers.astrondata.AstronDataHandlersFactory;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
 import com.radixpro.enigma.xchg.api.requests.PrimaryCalcRequest;
@@ -37,7 +36,7 @@ public class PrimaryHandler {
     *
     * @param primaryPositionsHandler Handler for the astronomical calculations. PRE: not null.
     * @param timeKeyHandler          Handler for time key related calculations. PRE: nut null.
-    * @see HandlerProgFactory
+    * @see CaHandlersFactory
     */
    public PrimaryHandler(final PrimaryPositionsHandler primaryPositionsHandler, final TimeKeyHandler timeKeyHandler) {
       this.primaryPositionsHandler = checkNotNull(primaryPositionsHandler);
@@ -56,7 +55,7 @@ public class PrimaryHandler {
       try {
          double solarArc = timeKeyHandler.retrieveTimeSpan(request.getDateTimeRadix(), request.getDateTime(), request.getTimeKey(), request.getLocation(),
                request.getSettings());
-         double eps = new AstronDataHandlersFactory().getObliquityHandler().calcTrueObliquity(request.getDateTimeRadix().getJdUt());
+         double eps = CaHandlersFactory.getObliquityHandler().calcTrueObliquity(request.getDateTimeRadix().getJdUt());
          double prMc = new Range(0, 360).checkValue(calculatedChart.getMundPoints().getMc().getLongitude() + solarArc);
          final EclipticEquatorialConversions eeConv = new CalcConvertersFactory().getEclipticalEquatorialConversions();
          double prRaMc = eeConv.convertToEquatorial(new double[]{prMc, 0.0}, eps)[0];

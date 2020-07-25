@@ -14,7 +14,7 @@ import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
 import com.radixpro.enigma.ui.shared.factories.LabelFactory;
 import com.radixpro.enigma.ui.shared.factories.PaneFactory;
 import com.radixpro.enigma.ui.stats.screens.StatsStart;
-import com.radixpro.enigma.xchg.api.ApiChartCalcFactory;
+import com.radixpro.enigma.xchg.api.ApiFactory;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -135,7 +135,7 @@ public class Dashboard {
    }
 
    private void onCharts() {
-      new ChartsStart(new Stage(), rosetta, ChartsSessionState.getInstance(), new ApiChartCalcFactory().getCalculatedChartApi());
+      new ChartsStart(new Stage(), rosetta, ChartsSessionState.getInstance(), ApiFactory.getCalculatedChartApi());
    }
 
    private void onStats() {

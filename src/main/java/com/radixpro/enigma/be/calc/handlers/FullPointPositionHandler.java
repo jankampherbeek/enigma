@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers.astrondata;
+package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
@@ -30,7 +30,7 @@ public class FullPointPositionHandler {
     * Initialization via AstronDataHandlersFactory.
     *
     * @param seFrontend instance of SeFrontend. PRE: not null.
-    * @see AstronDataHandlersFactory
+    * @see CaHandlersFactory
     */
    public FullPointPositionHandler(final SeFrontend seFrontend) {
       this.seFrontend = checkNotNull(seFrontend);

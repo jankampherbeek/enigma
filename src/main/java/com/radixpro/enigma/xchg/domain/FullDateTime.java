@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.xchg.domain;
 
-import com.radixpro.enigma.be.calc.factories.RadixCalcFactory;
+import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.be.calc.handlers.JulianDayHandler;
 import com.radixpro.enigma.shared.Rosetta;
 
@@ -41,7 +41,7 @@ public class FullDateTime {
       this.dst = dst;
       this.offsetForLmt = offsetForLmt;
       double utDelta = calculateUtDelta();
-      JulianDayHandler julianDayHandler = new RadixCalcFactory().getJulianDayHandler();
+      JulianDayHandler julianDayHandler = CaHandlersFactory.getJulianDayHandler();
       jdUt = julianDayHandler.calculateJdNr(simpleDateTime, "ut") - utDelta / 24.0;
       formattedDateTime = formatDateTime();
    }

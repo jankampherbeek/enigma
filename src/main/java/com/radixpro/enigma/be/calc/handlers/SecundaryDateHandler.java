@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers.prog;
+package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.xchg.domain.*;
 import swisseph.SweDate;

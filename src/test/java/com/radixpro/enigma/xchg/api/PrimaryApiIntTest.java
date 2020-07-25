@@ -27,7 +27,7 @@ public class PrimaryApiIntTest {
 
    @Before
    public void setUp() throws Exception {
-      api = new ApiProgFactory().getPrimaryApi();
+      api = ApiFactory.getPrimaryApi();
    }
 
    @Test

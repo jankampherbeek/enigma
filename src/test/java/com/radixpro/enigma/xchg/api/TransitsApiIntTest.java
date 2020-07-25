@@ -34,7 +34,7 @@ public class TransitsApiIntTest {
 
    @Before
    public void setUp() {
-      api = new ApiProgFactory().getTransitsApi();
+      api = ApiFactory.getTransitsApi();
    }
 
    @Test

@@ -22,7 +22,7 @@ public class TetenburgApiIntTest {
 
    @Before
    public void setUp() throws Exception {
-      api = new ApiProgFactory().getTetenburgApi();
+      api = ApiFactory.getTetenburgApi();
    }
 
    @Test

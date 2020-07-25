@@ -17,7 +17,7 @@ import com.radixpro.enigma.ui.shared.factories.PaneFactory;
 import com.radixpro.enigma.ui.shared.factories.TextFieldFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.ui.shared.validation.ValidatedDate;
-import com.radixpro.enigma.xchg.api.ApiProgFactory;
+import com.radixpro.enigma.xchg.api.ApiFactory;
 import com.radixpro.enigma.xchg.api.TetenburgApi;
 import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
 import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
@@ -202,7 +202,7 @@ public class ChartsTetenburg {
       SimpleTime simpleTime = new SimpleTime(0, 0, 0);
       SimpleDateTime simpleDateTime = new SimpleDateTime(valDate.getSimpleDate(), simpleTime);
       FullDateTime progDateTime = new FullDateTime(simpleDateTime, birthDateTime.getTimeZone(), birthDateTime.isDst(), birthDateTime.getOffsetForLmt());
-      TetenburgApi api = new ApiProgFactory().getTetenburgApi();
+      TetenburgApi api = ApiFactory.getTetenburgApi();
       TetenburgRequest request = new TetenburgRequest(longMc, solarSpeed, location, birthDateTime, progDateTime);
       TetenburgResponse response = api.calculateCriticalPoint(request);
       if (!response.getResultMsg().equals("OK")) lblResultValue.setText(response.getResultMsg());

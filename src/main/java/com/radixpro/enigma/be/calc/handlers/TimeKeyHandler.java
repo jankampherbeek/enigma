@@ -5,9 +5,8 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers.prog;
+package com.radixpro.enigma.be.calc.handlers;
 
-import com.radixpro.enigma.be.calc.handlers.astrondata.FullPointPositionHandler;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
@@ -35,7 +34,7 @@ public class TimeKeyHandler {
     *
     * @param secundaryDateHandler Handler to calcualte a secundarn date. PRE: not null.
     * @param fpPosHandler         Handler for the calculation of a single body. PRE: not null.
-    * @see HandlerProgFactory
+    * @see CaHandlersFactory
     */
    public TimeKeyHandler(final SecundaryDateHandler secundaryDateHandler, final FullPointPositionHandler fpPosHandler) {
       this.secundaryDateHandler = checkNotNull(secundaryDateHandler);

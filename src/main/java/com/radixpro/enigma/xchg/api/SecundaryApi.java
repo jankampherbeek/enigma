@@ -8,8 +8,8 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.be.analysis.handlers.ProgAspectHandler;
-import com.radixpro.enigma.be.calc.handlers.prog.EphProgCalcHandler;
-import com.radixpro.enigma.be.calc.handlers.prog.SecundaryDateHandler;
+import com.radixpro.enigma.be.calc.handlers.EphProgCalcHandler;
+import com.radixpro.enigma.be.calc.handlers.SecundaryDateHandler;
 import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
 import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
 import com.radixpro.enigma.xchg.api.requests.SecundaryCalcRequest;
@@ -31,7 +31,7 @@ public class SecundaryApi {
     * @param calcHandler    Handler for calculations. PRE: not null.
     * @param secDateHandler Handler for calculating the secundary date. PRE: not null.
     * @param aspectHandler  Handler to find the aspects. PRE: not null.
-    * @see ApiProgFactory
+    * @see ApiFactory
     */
    public SecundaryApi(final EphProgCalcHandler calcHandler, final SecundaryDateHandler secDateHandler, final ProgAspectHandler aspectHandler) {
       this.secundaryDateHandler = checkNotNull(secDateHandler);

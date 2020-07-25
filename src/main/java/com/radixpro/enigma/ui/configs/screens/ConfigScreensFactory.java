@@ -12,7 +12,7 @@ import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
-import com.radixpro.enigma.xchg.api.ApiConfigFactory;
+import com.radixpro.enigma.xchg.api.ApiFactory;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 
@@ -50,11 +50,11 @@ public class ConfigScreensFactory {
    }
 
    public ConfigNew createConfigNew() {
-      return new ConfigNew(Rosetta.getRosetta(), new ApiConfigFactory().getPersistedConfigurationApi(), ChartsSessionState.getInstance());
+      return new ConfigNew(Rosetta.getRosetta(), ApiFactory.getPersistedConfigurationApi(), ChartsSessionState.getInstance());
    }
 
    public ConfigOverview createConfigOverview() {
-      return new ConfigOverview(new ApiConfigFactory().getPersistedConfigurationApi(), new PersistedPropertyApi(), Rosetta.getRosetta(),
+      return new ConfigOverview(ApiFactory.getPersistedConfigurationApi(), new PersistedPropertyApi(), Rosetta.getRosetta(),
             ChartsSessionState.getInstance());
    }
 }

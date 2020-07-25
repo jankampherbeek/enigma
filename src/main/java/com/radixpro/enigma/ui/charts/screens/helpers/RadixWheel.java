@@ -10,8 +10,8 @@ import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.factories.PlotCoordinatesFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
+import com.radixpro.enigma.xchg.api.ApiFactory;
 import com.radixpro.enigma.xchg.api.AspectsApi;
-import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
@@ -325,7 +325,7 @@ public class RadixWheel {
       List<IPosition> housesList = new ArrayList<>();
       housesList.add(specMundPoints.get(0));
       housesList.add(specMundPoints.get(1));
-      AspectsApi api = new ApiAnalysisFactory().createAspectsApi();
+      AspectsApi api = ApiFactory.createAspectsApi();
       final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
       List<IPosition> bodies = fChart.getCalculatedChart().getCelPoints();
       double ascendant = fChart.getCalculatedChart().getMundPoints().getAsc().getLongitude();

@@ -9,7 +9,7 @@ package com.radixpro.enigma.be.calc.assist;
 
 import com.radixpro.enigma.be.calc.converters.CalcConvertersFactory;
 import com.radixpro.enigma.be.calc.converters.EclipticEquatorialConversions;
-import com.radixpro.enigma.be.calc.handlers.astrondata.AstronDataHandlersFactory;
+import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.be.exceptions.EnigmaMathException;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
@@ -63,7 +63,7 @@ public class SpaeculumPropSa {
       double propSa = 0.0;
       int quadrant = 0;
       final EclipticEquatorialConversions eeConv = new CalcConvertersFactory().getEclipticalEquatorialConversions();
-      double eps = new AstronDataHandlersFactory().getObliquityHandler().calcTrueObliquity(jdUt);
+      double eps = CaHandlersFactory.getObliquityHandler().calcTrueObliquity(jdUt);
       raMcRx = eeConv.convertToEquatorial(new double[]{mc, 0.0}, eps)[0];
       IChartPoints chartPoint = CelestialObjects.EMPTY;
       for (IPosition point : calculatedChart.getCelPoints()) {

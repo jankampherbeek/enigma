@@ -8,7 +8,7 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.be.analysis.handlers.ProgAspectHandler;
-import com.radixpro.enigma.be.calc.handlers.prog.EphProgCalcHandler;
+import com.radixpro.enigma.be.calc.handlers.EphProgCalcHandler;
 import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
 import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
 import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
@@ -29,7 +29,7 @@ public class TransitsApi {
     *
     * @param calcHandler   handler for calculating transit positions. PRE: not null.
     * @param aspectHandler handler for analyzing tansit aspects. PRE: not null.
-    * @see ApiProgFactory
+    * @see ApiFactory
     */
    public TransitsApi(final EphProgCalcHandler calcHandler,
                       final ProgAspectHandler aspectHandler) {

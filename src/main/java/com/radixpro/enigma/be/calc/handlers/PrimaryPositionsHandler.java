@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers.prog;
+package com.radixpro.enigma.be.calc.handlers;
 
 
 public class PrimaryPositionsHandler {
@@ -13,7 +13,7 @@ public class PrimaryPositionsHandler {
    /**
     * Instantiate via factory.
     *
-    * @see HandlerProgFactory
+    * @see CaHandlersFactory
     */
    public PrimaryPositionsHandler() {
 

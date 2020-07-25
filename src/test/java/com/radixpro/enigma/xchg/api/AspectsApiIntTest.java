@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.domain.AspectOrbStructures;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.MundanePoints;
@@ -67,7 +66,7 @@ public class AspectsApiIntTest {
       mundaneValues.add(mcPosMock);
       mundaneValues.add(ascPosMock);
       config = createConfig();
-      api = new ApiAnalysisFactory().createAspectsApi();
+      api = ApiFactory.createAspectsApi();
    }
 
    @Test

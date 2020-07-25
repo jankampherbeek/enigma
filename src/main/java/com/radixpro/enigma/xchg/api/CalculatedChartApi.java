@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.calc.handlers.astrondata.CalculatedChartHandler;
+import com.radixpro.enigma.be.calc.handlers.CalculatedChartHandler;
 import com.radixpro.enigma.xchg.api.requests.CalculatedChartRequest;
 import com.radixpro.enigma.xchg.api.responses.CalculatedChartResponse;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
@@ -25,7 +25,7 @@ public class CalculatedChartApi {
     * Instantiate via factory.
     *
     * @param handler handler for the calculation. PRE: not null.
-    * @see ApiChartCalcFactory
+    * @see ApiFactory
     */
    public CalculatedChartApi(final CalculatedChartHandler handler) {
       this.handler = checkNotNull(handler);

@@ -25,7 +25,6 @@ import com.radixpro.enigma.ui.shared.factories.PaneFactory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableChartData;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import com.radixpro.enigma.xchg.api.*;
-import com.radixpro.enigma.xchg.api.factories.ApiAnalysisFactory;
 import com.radixpro.enigma.xchg.api.requests.CalculatedChartRequest;
 import com.radixpro.enigma.xchg.api.responses.CalculatedChartResponse;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
@@ -394,7 +393,7 @@ public class ChartsStart {
    }
 
    private void onAspects() {
-      AspectsApi api = new ApiAnalysisFactory().createAspectsApi();
+      AspectsApi api = ApiFactory.createAspectsApi();
       FullChart fullChart = state.getSelectedChart();
       CalculatedChart calculatedChart = fullChart.getCalculatedChart();
       String chartName = fullChart.getChartData().getChartMetaData().getName();
@@ -410,7 +409,7 @@ public class ChartsStart {
 
    // TODO combine logic of onAspects and onMidpoints
    private void onMidpoints() {
-      MidpointsApi api = new ApiAnalysisFactory().createMidpointsApi();
+      MidpointsApi api = ApiFactory.createMidpointsApi();
 //      PresentableChartData presChartData = selectedCharts.get(0);
 //      ChartData chartData = presChartData.getOriginalData();
 //      CalculationSettings settings = new CalculationSettings(currentConfig);
