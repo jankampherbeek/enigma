@@ -1,36 +1,35 @@
 /*
- *
- *  * Jan Kampherbeek, (c) 2020.
- *  * Enigma is open source.
- *  * Please check the file copyright.txt in the root of the source for further details.
+ * Jan Kampherbeek, (c) 2020.
+ * Enigma is open source.
+ * Please check the file copyright.txt in the root of the source for further details.
  *
  */
 
-package com.radixpro.enigma.be.calc.converters;
+package com.radixpro.enigma.be.util;
 
-import com.radixpro.enigma.be.calc.assist.EnigmaMath;
+import com.radixpro.enigma.be.calc.core.SeFrontend;
 import com.radixpro.enigma.shared.Range;
+import com.radixpro.enigma.xchg.domain.Location;
 import swisseph.SwissLib;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static swisseph.SweConst.SE_ECL2HOR;
 
 /**
- * Conversion between ecliptic and equatorial coordinates.
+ * Conversion between coordinates.
  */
-public class EclipticEquatorialConversions {
+public final class CoordinateConversions {
 
-   private final SwissLib swissLib;
+//   private final SwissLib swissLib;
+//
+//   public CoordinateConversions(final SwissLib swissLib) {
+//      this.swissLib = checkNotNull(swissLib);
+//   }
+//   // TODO make static utilities
 
-   /**
-    * Instantiate via CalcConvertersFactory.
-    *
-    * @param swissLib instance of SwissLib (part of the SE). PRE: not null.
-    * @see CalcConvertersFactory
-    */
-   public EclipticEquatorialConversions(final SwissLib swissLib) {
-      this.swissLib = checkNotNull(swissLib);
+   private CoordinateConversions() {
+      // prevent instantiation
    }
-   // TODO make static utilities
 
    /**
     * Convert ecliptic coordinates to equatorial coordinates.
@@ -39,11 +38,11 @@ public class EclipticEquatorialConversions {
     * @param obliquity      Obliquity (Epsilon) in degrees.
     * @return Array with right ascension and declination in degrees.
     */
-   public double[] convertToEquatorial(final double[] eclipticValues, final double obliquity) {
+   public static double[] eclipticToEquatorial(final double[] eclipticValues, final double obliquity) {
       checkNotNull(eclipticValues);
       final double[] fullEclValues = {eclipticValues[0], eclipticValues[1], 1.0};
       var equatorialValues = new double[3];
-      swissLib.swe_cotrans(fullEclValues, equatorialValues, -obliquity);  // obliquity must be negative !
+      new SwissLib().swe_cotrans(fullEclValues, equatorialValues, -obliquity);  // obliquity must be negative !
       return equatorialValues;
    }
 
@@ -56,7 +55,7 @@ public class EclipticEquatorialConversions {
     * @param eps The value for epsilon or obliquity, defining the angle between ecliptic and equator.
     * @return longitude in in decimal degrees, possible values 0 - &lt; 360.
     */
-   public double convertToLon(final double ra, final double eps) {
+   public static double equatorialToEcliptic(final double ra, final double eps) {
       final double workRA = new Range(0, 360).checkValue(ra);
       double lon = EnigmaMath.atan2(EnigmaMath.tan(workRA), EnigmaMath.cos(eps));
       lon = new Range(0, 360).checkValue(lon);
@@ -74,9 +73,32 @@ public class EclipticEquatorialConversions {
     * @param eps The value for epsilon or obliquity, defining the angle between ecliptic and equator.
     * @return The declination in degrees.
     */
-   public double convertLonToDecl(final double lon, final double eps) {
+   public static double longitudeToDeclination(final double lon, final double eps) {
       final double workLongitude = new Range(0, 360).checkValue(lon);
       return EnigmaMath.asin(EnigmaMath.sin(workLongitude) * EnigmaMath.sin(eps));
+   }
+
+//   /**
+//    * Initialize via factory.
+//    *
+//    * @param seFrontend instance of SeFrontend. PRE: not null.
+//    * @see CalcConvertersFactory
+//    */
+//   public EclipticHorizontalConverter(final SeFrontend seFrontend) {
+//      this.seFrontend = checkNotNull(seFrontend);
+//   }
+
+   /**
+    * Convert to horizontal position.
+    *
+    * @param jdUt     Julian day number for UT.
+    * @param eclCoord ecliptical coördinates: index 0 = longitude, 1 = latitude, 2 = distance. PRE: not null.
+    * @param location location. PRE: not null.
+    * @return array with azimuth and altitude (in that sequence).
+    */
+   public static double[] eclipticToHorizontal(final double jdUt, final double[] eclCoord, final Location location) {
+      // TODO Release 2020.2 Check handling of sidereal positions
+      return SeFrontend.getFrontend().getHorizontalPosition(jdUt, checkNotNull(eclCoord), checkNotNull(location), SE_ECL2HOR);
    }
 
 }

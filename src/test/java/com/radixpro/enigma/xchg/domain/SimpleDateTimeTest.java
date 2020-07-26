@@ -2,36 +2,41 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
 package com.radixpro.enigma.xchg.domain;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SimpleDateTimeTest {
 
-   private SimpleDate simpleDate;
-   private SimpleTime simpleTime;
-   private SimpleDateTime dateTime;
+   @Mock
+   private SimpleDate simpleDateMock;
+   @Mock
+   private SimpleTime simpleTimeMock;
+   private SimpleDateTime simpleDateTime;
 
    @Before
    public void setUp() {
-      simpleDate = new SimpleDate(1953, 1, 29, true);
-      simpleTime = new SimpleTime(8, 37, 30);
-      dateTime = new SimpleDateTime(simpleDate, simpleTime);
+      simpleDateTime = new SimpleDateTime(simpleDateMock, simpleTimeMock);
    }
 
    @Test
-   public void getSimpleDate() {
-      assertEquals(simpleDate, dateTime.getDate());
+   public void testGetDate() {
+      assertEquals(simpleDateMock, simpleDateTime.getDate());
    }
 
    @Test
-   public void getSimpleTime() {
-      assertEquals(simpleTime, dateTime.getTime());
+   public void testGetTime() {
+      assertEquals(simpleTimeMock, simpleDateTime.getTime());
    }
 
 }

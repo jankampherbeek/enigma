@@ -9,8 +9,8 @@ package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.calc.assist.CombinedFlags;
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
-import com.radixpro.enigma.be.calc.converters.EclipticHorizontalConverter;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
+import com.radixpro.enigma.be.util.CoordinateConversions;
 import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
 import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
@@ -29,11 +29,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class EphProgCalcHandler {
 
    public final SeFrontend seFrontend;
-   public final EclipticHorizontalConverter eclipticHorizontalConverter;
 
-   public EphProgCalcHandler(final SeFrontend seFrontend, final EclipticHorizontalConverter eclipticHorizontalConverter) {
+   public EphProgCalcHandler(final SeFrontend seFrontend) {
       this.seFrontend = seFrontend;
-      this.eclipticHorizontalConverter = eclipticHorizontalConverter;
    }
 
    public SimpleProgResponse retrievePositions(final IProgCalcRequest request) {
@@ -65,7 +63,7 @@ public class EphProgCalcHandler {
          final SePositionResultCelObjects posEcl = seFrontend.getPositionsForCelBody(jdUt, seId, eclFlags, location);
          final SePositionResultCelObjects posEq = seFrontend.getPositionsForCelBody(jdUt, seId, eqFlags, location);
          double[] coordSet = {posEcl.getAllPositions()[0], posEcl.getAllPositions()[1], posEcl.getAllPositions()[2]};
-         final double[] horCoordinates = eclipticHorizontalConverter.convert(jdUt, coordSet, location);
+         final double[] horCoordinates = CoordinateConversions.eclipticToHorizontal(jdUt, coordSet, location);
          final CoordinateSet fullHorCoordinates = new CoordinateSet(horCoordinates[0], horCoordinates[1]);
          final FullPointCoordinate fullEclCoordinates = createFullPointCoordinate(posEcl);
          final FullPointCoordinate fullEqCoordinates = createFullPointCoordinate(posEq);

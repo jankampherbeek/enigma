@@ -8,8 +8,8 @@
 package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
-import com.radixpro.enigma.be.calc.converters.EclipticEquatorialConversions;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
+import com.radixpro.enigma.be.util.CoordinateConversions;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
 import com.radixpro.enigma.xchg.domain.astrondata.CoordinateSet;
@@ -28,21 +28,17 @@ import static swisseph.SweConst.*;
 public class MundanePositionsHandler {
 
    private final SeFrontend seFrontend;
-   private final EclipticEquatorialConversions eclipticEquatorialConversions;
    private final ObliquityHandler obliquityHandler;
 
    /**
     * Initialization via Factory.
     *
-    * @param seFrontend                    instance of SeFrontend. PRE: not null.
-    * @param eclipticEquatorialConversions converter for ecliptic to equatorial. PRE: not null.
-    * @param obliquityHandler              handler for the calculation of epsilon(obliquity). PRE: not null.
+    * @param seFrontend       instance of SeFrontend. PRE: not null.
+    * @param obliquityHandler handler for the calculation of epsilon(obliquity). PRE: not null.
     * @see CaHandlersFactory
     */
-   public MundanePositionsHandler(final SeFrontend seFrontend, final EclipticEquatorialConversions eclipticEquatorialConversions,
-                                  final ObliquityHandler obliquityHandler) {
+   public MundanePositionsHandler(final SeFrontend seFrontend, final ObliquityHandler obliquityHandler) {
       this.seFrontend = checkNotNull(seFrontend);
-      this.eclipticEquatorialConversions = checkNotNull(eclipticEquatorialConversions);
       this.obliquityHandler = checkNotNull(obliquityHandler);
    }
 
@@ -92,7 +88,7 @@ public class MundanePositionsHandler {
    private MundanePosition createMundanePosition(final double longitude, final double obliquity, final double jdUt, final Location location,
                                                  final MundanePoints mundanePoint) {
       double[] eclValues = {longitude, 0.0, 1.0};    // longitude, latitude, distance
-      double[] equaPositions = eclipticEquatorialConversions.convertToEquatorial(eclValues, obliquity);  // RA, decl
+      double[] equaPositions = CoordinateConversions.eclipticToEquatorial(eclValues, obliquity);  // RA, decl
       CoordinateSet eqPos = new CoordinateSet(equaPositions[0], equaPositions[1]);
       double[] horizontalPosition = seFrontend.getHorizontalPosition(jdUt, eclValues, location, SE_ECL2HOR);
       CoordinateSet horPos = new CoordinateSet(horizontalPosition[0], horizontalPosition[1]);  // true altitude, index 2 = apparent altitude

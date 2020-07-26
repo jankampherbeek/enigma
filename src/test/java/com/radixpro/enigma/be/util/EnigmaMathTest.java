@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.assist;
+package com.radixpro.enigma.be.util;
 
 import org.junit.Test;
 

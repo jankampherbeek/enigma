@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.assist;
+package com.radixpro.enigma.be.util;
 
 import com.radixpro.enigma.be.exceptions.EnigmaMathException;
 import com.radixpro.enigma.shared.Range;

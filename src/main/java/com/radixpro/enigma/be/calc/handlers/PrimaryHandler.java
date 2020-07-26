@@ -7,12 +7,11 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
-import com.radixpro.enigma.be.calc.assist.EnigmaAstronMath;
-import com.radixpro.enigma.be.calc.assist.EnigmaMath;
 import com.radixpro.enigma.be.calc.assist.SpaeculumPropSa;
 import com.radixpro.enigma.be.calc.assist.SpaeculumPropSaItem;
-import com.radixpro.enigma.be.calc.converters.CalcConvertersFactory;
-import com.radixpro.enigma.be.calc.converters.EclipticEquatorialConversions;
+import com.radixpro.enigma.be.util.CoordinateConversions;
+import com.radixpro.enigma.be.util.EnigmaAstronMath;
+import com.radixpro.enigma.be.util.EnigmaMath;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
 import com.radixpro.enigma.xchg.api.requests.PrimaryCalcRequest;
@@ -57,15 +56,14 @@ public class PrimaryHandler {
                request.getSettings());
          double eps = CaHandlersFactory.getObliquityHandler().calcTrueObliquity(request.getDateTimeRadix().getJdUt());
          double prMc = new Range(0, 360).checkValue(calculatedChart.getMundPoints().getMc().getLongitude() + solarArc);
-         final EclipticEquatorialConversions eeConv = new CalcConvertersFactory().getEclipticalEquatorialConversions();
-         double prRaMc = eeConv.convertToEquatorial(new double[]{prMc, 0.0}, eps)[0];
+         double prRaMc = CoordinateConversions.eclipticToEquatorial(new double[]{prMc, 0.0}, eps)[0];
          double prAsc = EnigmaAstronMath.ascFromRamc(prRaMc, geoLat, eps);
 
          for (SpaeculumPropSaItem item : spaeculumPropSa.getSpaeculum()) {
             double offset = item.getRa() - spaeculumPropSa.getRaMcRx();
             double raProg = placideanIterator(geoLat, eps, prRaMc, offset, item.getPropSa(), item.getQuadrant());
-            double lonProg = new CalcConvertersFactory().getEclipticalEquatorialConversions().convertToLon(raProg, eps);
-            double declProg = new CalcConvertersFactory().getEclipticalEquatorialConversions().convertLonToDecl(lonProg, eps);
+            double lonProg = CoordinateConversions.equatorialToEcliptic(raProg, eps);
+            double declProg = CoordinateConversions.longitudeToDeclination(lonProg, eps);
             responsePositions.add(new LonDeclPosition(item.getChartPoint(), lonProg, declProg));
          }
 

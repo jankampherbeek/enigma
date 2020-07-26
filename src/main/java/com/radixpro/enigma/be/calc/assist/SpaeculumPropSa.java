@@ -7,10 +7,10 @@
 
 package com.radixpro.enigma.be.calc.assist;
 
-import com.radixpro.enigma.be.calc.converters.CalcConvertersFactory;
-import com.radixpro.enigma.be.calc.converters.EclipticEquatorialConversions;
 import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.be.exceptions.EnigmaMathException;
+import com.radixpro.enigma.be.util.CoordinateConversions;
+import com.radixpro.enigma.be.util.EnigmaAstronMath;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
@@ -62,16 +62,15 @@ public class SpaeculumPropSa {
       double sa = 0.0;
       double propSa = 0.0;
       int quadrant = 0;
-      final EclipticEquatorialConversions eeConv = new CalcConvertersFactory().getEclipticalEquatorialConversions();
       double eps = CaHandlersFactory.getObliquityHandler().calcTrueObliquity(jdUt);
-      raMcRx = eeConv.convertToEquatorial(new double[]{mc, 0.0}, eps)[0];
+      raMcRx = CoordinateConversions.eclipticToEquatorial(new double[]{mc, 0.0}, eps)[0];
       IChartPoints chartPoint = CelestialObjects.EMPTY;
       for (IPosition point : calculatedChart.getCelPoints()) {
          if (id == point.getChartPoint().getId()) {
             chartPoint = point.getChartPoint();
             lon = point.getLongitude();
             decl = point.getDeclination();
-            ra = eeConv.convertToEquatorial(new double[]{lon, 0.0}, eps)[0];
+            ra = CoordinateConversions.eclipticToEquatorial(new double[]{lon, 0.0}, eps)[0];
             try {
                sa = EnigmaAstronMath.semiArc(ra, geoLat, eps);
             } catch (EnigmaMathException eme) {

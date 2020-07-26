@@ -26,7 +26,7 @@ public class JdFromPosCalc {
     * Use ProgCalcFactory to instantiate.
     *
     * @param coordSetCalc instance of CoordSetForDAteTimeCalc, used to calculat the positions.
-    * @see com.radixpro.enigma.be.calc.factories.ProgCalcFactory
+    * @see com.radixpro.enigma.be.calc.handlers.CaHandlersFactory
     */
    public JdFromPosCalc(final CoordSetForDateTimeCalc coordSetCalc) {
       this.coordSetCalc = coordSetCalc;
@@ -63,8 +63,8 @@ public class JdFromPosCalc {
       boolean found = false;
       while (counter < 10000 && !found) {
          counter++;
-         posEnd = coordSetCalc.calcSet(tempEnd, (int) point.getSeId(), flags, location).getMainPos();
-         posCheck = coordSetCalc.calcSet(tempCheck, (int) point.getSeId(), flags, location).getMainPos();
+         posEnd = coordSetCalc.calcSet(tempEnd, (int) point.getSeId(), flags, location).getMainCoord();
+         posCheck = coordSetCalc.calcSet(tempCheck, (int) point.getSeId(), flags, location).getMainCoord();
          if ((posEnd - posCheck) > 180.0) posCheck += 180.0;
          if (Math.abs(posCheck - position) < 0.000001) found = true;
          if (position < posCheck) tempEnd = tempCheck;

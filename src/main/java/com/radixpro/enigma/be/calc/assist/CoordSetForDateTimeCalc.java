@@ -10,7 +10,7 @@ package com.radixpro.enigma.be.calc.assist;
 import com.radixpro.enigma.be.calc.core.SeFrontend;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.xchg.domain.Location;
-import com.radixpro.enigma.xchg.domain.calculatedobjects.CoordinateSet;
+import com.radixpro.enigma.xchg.domain.astrondata.CoordinateSet;
 import org.apache.log4j.Logger;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -24,10 +24,10 @@ public class CoordSetForDateTimeCalc {
    private final SeFrontend seFrontend;
 
    /**
-    * Use ProgCalcFactory to instantiate this class.
+    * Use factory to instantiate this class.
     *
     * @param seFrontend Instance of seFrontEnd.
-    * @see com.radixpro.enigma.be.calc.factories.ProgCalcFactory
+    * @see com.radixpro.enigma.be.calc.handlers.CaHandlersFactory
     */
    public CoordSetForDateTimeCalc(final SeFrontend seFrontend) {
       this.seFrontend = seFrontend;
