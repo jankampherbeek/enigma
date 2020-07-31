@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.ui.shared.factories;
+package com.radixpro.enigma.ui.shared.creators;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;

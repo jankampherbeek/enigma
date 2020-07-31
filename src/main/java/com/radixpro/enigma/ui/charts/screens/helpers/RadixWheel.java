@@ -8,7 +8,7 @@ package com.radixpro.enigma.ui.charts.screens.helpers;
 
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.ui.domain.FullChart;
-import com.radixpro.enigma.ui.shared.factories.PlotCoordinatesFactory;
+import com.radixpro.enigma.ui.shared.creators.PlotCoordinatesFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.xchg.api.ApiFactory;
 import com.radixpro.enigma.xchg.api.AspectsApi;

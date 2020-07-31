@@ -8,6 +8,7 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
+import com.radixpro.enigma.ui.shared.creators.VBoxBuilder;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.junit.Before;

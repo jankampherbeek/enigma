@@ -19,9 +19,9 @@ import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesTableForConfig;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
-import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
-import com.radixpro.enigma.ui.shared.factories.LabelFactory;
-import com.radixpro.enigma.ui.shared.factories.PaneFactory;
+import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
+import com.radixpro.enigma.ui.shared.creators.LabelFactory;
+import com.radixpro.enigma.ui.shared.creators.PaneFactory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableChartData;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import com.radixpro.enigma.xchg.api.*;
@@ -52,7 +52,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
+import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 public class ChartsStart {
 
@@ -165,6 +165,7 @@ public class ChartsStart {
       miSolar = new MenuItem(rosetta.getText("menu.charts.progressive.solar"));
       miTetenburg = new MenuItem(rosetta.getText("menu.charts.progressive.tetenburg"));
       miTransits.setDisable(true);
+      miTransits.setOnAction(e -> onTransits());
       miSecondary.setDisable(true);
       miPrimary.setDisable(true);
       miSolar.setDisable(true);
@@ -296,7 +297,7 @@ public class ChartsStart {
       if (chartsInput.getInputStatus() == InputStatus.READY) {
          int newChartId = chartsInput.getNewChartId();
          ChartData chartData = addChart(newChartId);
-         showChart();
+//         showChart();    // TODO show automatically or change user manual    If shown, make sure it is saved in the state
       }
    }
 
@@ -433,6 +434,10 @@ public class ChartsStart {
       FullChart fullChart = state.getSelectedChart();
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.0);  // orb is not used
       ChartsTetenburg chartsTetenburg = new ChartsScreensFactory().getChartsTetenburg(meta, fullChart);
+   }
+
+   private void onTransits() {
+      ChartsTransitsInput chartsTransitsInput = new ChartsTransitsInput();    // TODO use a factory
    }
 
 

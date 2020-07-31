@@ -7,7 +7,7 @@
 package com.radixpro.enigma.ui.shared.controllers;
 
 import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.shared.factories.LabelFactory;
+import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
+import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 /**
  * Controller for popup that handles terminating Enigma in case of an unrecoverable error.

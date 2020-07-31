@@ -10,7 +10,7 @@ import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
-import com.radixpro.enigma.ui.shared.factories.*;
+import com.radixpro.enigma.ui.shared.creators.*;
 import com.radixpro.enigma.ui.shared.validation.ValidatedConfigName;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
@@ -26,8 +26,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.ui.shared.StyleDictionary.INPUT_DEFAULT_STYLE;
-import static com.radixpro.enigma.ui.shared.StyleDictionary.INPUT_ERROR_STYLE;
+import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_DEFAULT_STYLE;
+import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_ERROR_STYLE;
 
 public class ConfigNew {
 

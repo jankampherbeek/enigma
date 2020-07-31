@@ -10,6 +10,7 @@ import com.radixpro.enigma.ui.charts.screens.helpers.ChartDrawMetrics;
 import com.radixpro.enigma.ui.charts.screens.helpers.CuspLinePlotCoordinates;
 import com.radixpro.enigma.ui.charts.screens.helpers.CuspTextPlotCoordinates;
 import com.radixpro.enigma.ui.charts.screens.helpers.DegreeLinePlotCoordinates;
+import com.radixpro.enigma.ui.shared.creators.PlotCoordinatesFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

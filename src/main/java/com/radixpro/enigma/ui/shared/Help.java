@@ -7,9 +7,9 @@
 package com.radixpro.enigma.ui.shared;
 
 import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
-import com.radixpro.enigma.ui.shared.factories.LabelFactory;
-import com.radixpro.enigma.ui.shared.factories.PaneFactory;
+import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
+import com.radixpro.enigma.ui.shared.creators.LabelFactory;
+import com.radixpro.enigma.ui.shared.creators.PaneFactory;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,7 +24,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
+import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 /**
  * Display of help text. Handles all help texts.

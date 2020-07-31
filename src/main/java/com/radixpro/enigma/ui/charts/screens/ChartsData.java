@@ -10,8 +10,8 @@ import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
-import com.radixpro.enigma.ui.shared.factories.LabelFactory;
+import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
+import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import com.radixpro.enigma.ui.shared.presentationmodel.*;
 import com.radixpro.enigma.xchg.domain.ChartData;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
@@ -33,7 +33,7 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
+import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 @SuppressWarnings("rawtypes")
 public class ChartsData {

@@ -6,6 +6,8 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
+import com.radixpro.enigma.ui.shared.creators.PlotCoordinatesFactory;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -19,7 +21,7 @@ public class CuspTextPlotCoordinates implements PlotCoordinates {
     * Constructor should be used via factory.
     *
     * @param rectTriangle An already instantiated RectTriangleAbsolute.
-    * @see com.radixpro.enigma.ui.shared.factories.PlotCoordinatesFactory
+    * @see PlotCoordinatesFactory
     */
    public CuspTextPlotCoordinates(RectTriangleAbsolute rectTriangle) {
       this.rectTriangle = checkNotNull(rectTriangle);

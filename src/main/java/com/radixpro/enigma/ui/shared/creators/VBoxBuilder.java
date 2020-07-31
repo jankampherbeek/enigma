@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.ui.shared.factories;
+package com.radixpro.enigma.ui.shared.creators;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
+import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 /**
  * Creates a VBox, based on the Builder pattern.

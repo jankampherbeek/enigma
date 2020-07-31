@@ -11,10 +11,10 @@ import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForSign;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
-import com.radixpro.enigma.ui.shared.factories.LabelFactory;
-import com.radixpro.enigma.ui.shared.factories.PaneFactory;
-import com.radixpro.enigma.ui.shared.factories.TextFieldFactory;
+import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
+import com.radixpro.enigma.ui.shared.creators.LabelFactory;
+import com.radixpro.enigma.ui.shared.creators.PaneFactory;
+import com.radixpro.enigma.ui.shared.creators.TextFieldFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.ui.shared.validation.ValidatedDate;
 import com.radixpro.enigma.xchg.api.ApiFactory;
@@ -41,7 +41,7 @@ import java.util.List;
 
 import static com.radixpro.enigma.shared.EnigmaDictionary.GLYPH_FONTNAME;
 import static com.radixpro.enigma.shared.EnigmaDictionary.TEXT_FONTNAME;
-import static com.radixpro.enigma.ui.shared.StyleDictionary.*;
+import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
  * Screen for critical points according to Ton Tetenburg. Handles data input and showing result.

@@ -12,7 +12,7 @@ import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForCelObject;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
-import com.radixpro.enigma.ui.shared.factories.*;
+import com.radixpro.enigma.ui.shared.creators.*;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
@@ -33,8 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.ui.shared.StyleDictionary.INPUT_DEFAULT_STYLE;
-import static com.radixpro.enigma.ui.shared.StyleDictionary.INPUT_ERROR_STYLE;
+import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_DEFAULT_STYLE;
+import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_ERROR_STYLE;
 
 /**
  * Edit screen for existing configurations.

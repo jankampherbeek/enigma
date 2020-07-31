@@ -9,9 +9,9 @@ package com.radixpro.enigma.ui.charts.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.ui.shared.factories.ButtonFactory;
-import com.radixpro.enigma.ui.shared.factories.LabelFactory;
-import com.radixpro.enigma.ui.shared.factories.PaneFactory;
+import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
+import com.radixpro.enigma.ui.shared.creators.LabelFactory;
+import com.radixpro.enigma.ui.shared.creators.PaneFactory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableAspect;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-import static com.radixpro.enigma.ui.shared.StyleDictionary.*;
+import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 public class ChartsAspects {
 

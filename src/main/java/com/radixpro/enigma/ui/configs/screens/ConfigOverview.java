@@ -11,7 +11,7 @@ import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
-import com.radixpro.enigma.ui.shared.factories.*;
+import com.radixpro.enigma.ui.shared.creators.*;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableConfiguration;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;

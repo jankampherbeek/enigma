@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.ui.shared.factories;
+package com.radixpro.enigma.ui.shared.creators;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
@@ -36,13 +36,13 @@ public class GridPaneBuilder {
    }
 
    public GridPaneBuilder setPadding(final double padding) {
-      checkArgument(padding > 0.0);
+      checkArgument(padding >= 0.0);
       this.padding = padding;
       return this;
    }
 
    public GridPaneBuilder setVGap(final double vGap) {
-      checkArgument(vGap > 0.0);
+      checkArgument(vGap >= 0.0);
       this.vGap = vGap;
       return this;
    }

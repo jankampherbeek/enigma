@@ -8,7 +8,7 @@ package com.radixpro.enigma.ui.charts.screens;
 
 import com.radixpro.enigma.shared.Rosetta;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.ui.shared.factories.*;
+import com.radixpro.enigma.ui.shared.creators.*;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
 import com.radixpro.enigma.xchg.domain.ChartData;
 import javafx.geometry.Insets;
@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-import static com.radixpro.enigma.ui.shared.StyleDictionary.STYLESHEET;
+import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 public class ChartsSearch {
 

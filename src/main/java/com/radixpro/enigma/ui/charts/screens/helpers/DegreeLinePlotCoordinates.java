@@ -6,6 +6,7 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
+import com.radixpro.enigma.ui.shared.creators.PlotCoordinatesFactory;
 import org.apache.commons.lang3.ArrayUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -21,7 +22,7 @@ public class DegreeLinePlotCoordinates {
     * Constructor should be used via factory.
     *
     * @param rectTriangle An already instantiated RectTriangleAbsolute.
-    * @see com.radixpro.enigma.ui.shared.factories.PlotCoordinatesFactory
+    * @see PlotCoordinatesFactory
     */
    public DegreeLinePlotCoordinates(RectTriangleAbsolute rectTriangle) {
       this.rectTriangle = checkNotNull(rectTriangle);
