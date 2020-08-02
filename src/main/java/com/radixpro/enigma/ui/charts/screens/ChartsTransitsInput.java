@@ -139,7 +139,6 @@ public class ChartsTransitsInput extends InputScreen {
 
 
             // TODO add creation of settings to Config class
-
             Configuration config = state.getSelectedConfig();
             List<ConfiguredCelObject> confPoints = config.getAstronConfiguration().getCelObjects();
             List<IChartPoints> points = new ArrayList<>();

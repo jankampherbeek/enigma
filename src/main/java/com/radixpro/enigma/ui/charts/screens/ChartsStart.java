@@ -329,14 +329,14 @@ public class ChartsStart {
       miTetenburg.setDisable(emptySelection);
       if (!emptySelection) {
          // todo calculate chart and save fullchart in state.
-         // define ChartCalcSettings
+         // TODO add creation of settings to Config class
          Configuration config = state.getSelectedConfig();
          List<ConfiguredCelObject> confPoints = config.getAstronConfiguration().getCelObjects();
          List<IChartPoints> points = new ArrayList<>();
          for (ConfiguredCelObject cPoint : confPoints) {
             points.add(cPoint.getCelObject());
          }
-         // TODO add creation of settings to Config class
+
          ObserverPositions obsPos = config.getAstronConfiguration().getObserverPosition();
          EclipticProjections eclProj = config.getAstronConfiguration().getEclipticProjection();
          Ayanamshas ayanamsha = config.getAstronConfiguration().getAyanamsha();
@@ -412,11 +412,7 @@ public class ChartsStart {
    // TODO combine logic of onAspects and onMidpoints
    private void onMidpoints() {
       MidpointsApi api = ApiFactory.createMidpointsApi();
-//      PresentableChartData presChartData = selectedCharts.get(0);
-//      ChartData chartData = presChartData.getOriginalData();
-//      CalculationSettings settings = new CalculationSettings(currentConfig);
       FullChart fullChart = state.getSelectedChart();
-//      CalculatedChart calculatedChart = fullChart.getCalculatedChart();
       String chartName = fullChart.getChartData().getChartMetaData().getName();
       List<IPosition> celObjectList = fullChart.getCalculatedChart().getCelPoints();
       AllMundanePositions fullHouses = fullChart.getCalculatedChart().getMundPoints();
@@ -430,16 +426,13 @@ public class ChartsStart {
 
    private void onTetenburg() {
       PresentableChartData presChartData = selectedCharts.get(0);
-//      ChartData chartData = presChartData.getOriginalData();
-//      CalculationSettings settings = new CalculationSettings(currentConfig);
       FullChart fullChart = state.getSelectedChart();
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.0);  // orb is not used
-      ChartsTetenburg chartsTetenburg = ChartsScreensFactory.getChartsTetenburg(meta, fullChart);
+      ChartsScreensFactory.getChartsTetenburg(meta, fullChart);
    }
 
    private void onTransits() {
       ChartsScreensFactory.getChartsTransitsInput();
-//      ChartsTransitsInput chartsTransitsInput = new ChartsTransitsInput();    // TODO use a factory
    }
 
 
@@ -448,7 +441,6 @@ public class ChartsStart {
    }
 
    private void showChart() {
-//      CalculationSettings settings = new CalculationSettings(currentConfig);
       currentFullChart = state.getSelectedChart();
       showPositions();
       drawChart2D();
