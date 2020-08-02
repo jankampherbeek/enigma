@@ -7,34 +7,47 @@
 
 package com.radixpro.enigma.ui.charts.screens;
 
-import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.shared.FailFastHandler;
+import com.radixpro.enigma.ui.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.shared.InputStatus;
-import com.radixpro.enigma.ui.shared.creators.*;
-import com.radixpro.enigma.ui.shared.validation.ValidatedDate;
-import com.radixpro.enigma.ui.shared.validation.ValidatedLatitude;
-import com.radixpro.enigma.ui.shared.validation.ValidatedLongitude;
-import com.radixpro.enigma.ui.shared.validation.ValidatedTime;
-import com.radixpro.enigma.xchg.domain.TimeZones;
-import javafx.geometry.Pos;
+import com.radixpro.enigma.ui.shared.creators.LabelFactory;
+import com.radixpro.enigma.ui.shared.creators.PaneFactory;
+import com.radixpro.enigma.ui.shared.screenblocks.DateTimeInput;
+import com.radixpro.enigma.ui.shared.screenblocks.LocationInput;
+import com.radixpro.enigma.ui.shared.screenblocks.ProgMetaInput;
+import com.radixpro.enigma.ui.shared.screens.InputScreen;
+import com.radixpro.enigma.xchg.api.ApiFactory;
+import com.radixpro.enigma.xchg.api.requests.EphProgCalcRequest;
+import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
+import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
+import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
+import com.radixpro.enigma.xchg.api.settings.ProgSettings;
+import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.xchg.domain.config.Configuration;
+import com.radixpro.enigma.xchg.domain.config.ConfiguredCelObject;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
-public class ChartsTransitsInput {
-   private static final double HEIGHT = 520.0;
-   private final Rosetta rosetta;
-   private final Stage stage;
-   private final ChartsSessionState state;
-   private Button calculatebtn;
-   private Label lblLocalTime;
-   private Label lblMetaChart;
-   private Label lblMetaConfig;
+/**
+ * Input screen for an event for which to calculate transits.
+ */
+public class ChartsTransitsInput extends InputScreen {
+   private static final Logger LOG = Logger.getLogger(ChartsTransitsInput.class);
+   private static final double HEIGHT = 600.0;
+   private static final String STYLE_SUBTITLE_TEXT = "subtitletext";
+   private static final String STYLE_SUBTITLE_PANE = "subtitlepane";
    private Label lblPageTitle;
    private Label lblSubTitleDateAndTime;
    private Label lblSubTitleGeneral;
@@ -43,76 +56,42 @@ public class ChartsTransitsInput {
    private Pane paneSubTitleDateAndTime;
    private Pane paneSubTitleGeneral;
    private Pane paneSubTitleLocation;
-   private CheckBox cBoxDst;
-   private ChoiceBox<String> cbCalendar;
-   private ChoiceBox<String> cbLocalEastWest;
-   private ChoiceBox<String> cbTimeZone;
-   private TextField tfDate;
-   private TextField tfLocaltime;
-   private TextField tfLocationLatitude;
-   private TextField tfLocationLongitude;
-   private TextField tfLocationName;
-   private TextField tfTime;
-   private ChoiceBox<String> cbEastWest;
-   private ChoiceBox<String> cbNorthSouth;
-   private ValidatedLongitude valLong;
-   private ValidatedLongitude valLongLocalTime;
-   private ValidatedLatitude valLat;
-   private ValidatedDate valDate;
-   private ValidatedTime valTime;
    private InputStatus inputStatus = InputStatus.INCOMPLETE;
-   private boolean timeZoneLocalSelected = false;
+   private final ProgMetaInput progMetaInput;
+   private final LocationInput locationInput;
+   private final DateTimeInput dateTimeInput;
 
-   public ChartsTransitsInput() {
-      state = ChartsSessionState.getInstance();    // TODO use factory
-      rosetta = Rosetta.getRosetta();
+   /**
+    * Instantiate via factory.
+    *
+    * @param progMetaInput Input block for meta info. PRE: not null.
+    * @param locationInput Input block for location. PRE: not null.
+    * @param dateTimeInput Input block for date and time. PRE: not null.
+    * @see ChartsScreensFactory
+    */
+   public ChartsTransitsInput(final ProgMetaInput progMetaInput, final LocationInput locationInput, final DateTimeInput dateTimeInput) {
+      this.progMetaInput = checkNotNull(progMetaInput);
+      this.locationInput = checkNotNull(locationInput);
+      this.dateTimeInput = checkNotNull(dateTimeInput);
       defineLeafs();
       definePanes();
       defineStructure();
-      initialize();
-
-      stage = new Stage();
-
-      stage.setWidth(INPUT_WIDTH);
       stage.setScene(new Scene(createVBox()));
       stage.showAndWait();
-
    }
 
    private void defineLeafs() {
-      lblLocalTime = LabelFactory.createLabel(rosetta.getText("ui.charts.input.time.localtime"), INPUT_MINOR_DATA_WIDTH);
-      lblLocalTime.setDisable(true);
-      lblMetaChart = LabelFactory.createLabel(rosetta.getText("ui.charts.meta.chartname") + " " +
-            state.getSelectedChart().getChartData().getChartMetaData().getName(), INPUT_WIDTH);
-      lblMetaConfig = LabelFactory.createLabel(rosetta.getText("ui.charts.meta.configname") + " " + state.getSelectedConfig().getName(), INPUT_WIDTH);
       lblPageTitle = LabelFactory.createLabel(rosetta.getText("ui.charts.transitsinput.pagetitle"), "titletext", INPUT_WIDTH);
-      lblSubTitleGeneral = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.general"), "subtitletext", INPUT_WIDTH);
-      lblSubTitleLocation = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.location"), "subtitletext", INPUT_WIDTH);
-      lblSubTitleDateAndTime = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.dateandtime"), "subtitletext", INPUT_WIDTH);
-
-      cBoxDst = CheckBoxFactory.createCheckBox(Pos.CENTER_RIGHT, "inputDefault");
-      cbCalendar = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, "inputDefault");
-      cbLocalEastWest = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, "inputDefault");
-      cbLocalEastWest.setDisable(true);
-      cbLocalEastWest.setFocusTraversable(false);
-      cbTimeZone = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_DATA_WIDTH, "inputDefault");
-      tfDate = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, "inputDefault");
-      tfLocaltime = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, "inputDefault");
-      tfLocaltime.setEditable(false);
-      tfLocaltime.setDisable(true);
-      tfLocationLatitude = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, "inputDefault");
-      tfLocationLongitude = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, "inputDefault");
-      tfLocationName = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_DATA_WIDTH, "inputDefault");
-      tfTime = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, "inputDefault");
-      cbEastWest = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, "inputDefault");
-      cbNorthSouth = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, "inputDefault");
+      lblSubTitleGeneral = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.general"), STYLE_SUBTITLE_TEXT, INPUT_WIDTH);
+      lblSubTitleLocation = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.location"), STYLE_SUBTITLE_TEXT, INPUT_WIDTH);
+      lblSubTitleDateAndTime = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.dateandtime"), STYLE_SUBTITLE_TEXT, INPUT_WIDTH);
    }
 
    private void definePanes() {
       panePageTitle = PaneFactory.createPane(TITLE_HEIGHT, INPUT_WIDTH, "titlepane");
-      paneSubTitleGeneral = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, "subtitlepane");
-      paneSubTitleLocation = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, "subtitlepane");
-      paneSubTitleDateAndTime = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, "subtitlepane");
+      paneSubTitleGeneral = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, STYLE_SUBTITLE_PANE);
+      paneSubTitleLocation = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, STYLE_SUBTITLE_PANE);
+      paneSubTitleDateAndTime = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, STYLE_SUBTITLE_PANE);
    }
 
    private void defineStructure() {
@@ -122,62 +101,25 @@ public class ChartsTransitsInput {
       paneSubTitleDateAndTime.getChildren().add(lblSubTitleDateAndTime);
    }
 
-
-   public void initialize() {
-      defineListeners();
-   }
-
-   private void defineListeners() {
-      tfLocationLongitude.textProperty().addListener((observable, oldValue, newValue) -> validateLongitude(newValue));
-      tfLocationLatitude.textProperty().addListener((observable, oldValue, newValue) -> validateLatitude(newValue));
-      tfDate.textProperty().addListener((observable, oldValue, newValue) -> validateDate(newValue));
-      tfTime.textProperty().addListener((observable, oldValue, newValue) -> validateTime(newValue));
-      cbTimeZone.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-            checkTimeZones(newValue));
-      tfLocaltime.textProperty().addListener((observable, oldValue, newValue) -> validateLocalTime(newValue));
-      cbCalendar.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-            checkCalendar(newValue));
-   }
-
    private VBox createVBox() {
       VBox vBox = new VBox();
       vBox.getStylesheets().add(STYLESHEET);
       vBox.setPrefWidth(INPUT_WIDTH);
       vBox.setPrefHeight(HEIGHT);
-      vBox.getChildren().addAll(panePageTitle, paneSubTitleGeneral, createPaneMetaInfo(), paneSubTitleLocation, createGridPaneLocation(),
-            paneSubTitleDateAndTime, createGridPaneDateAndTime(), createPaneBtnBar());
+      vBox.getChildren().addAll(panePageTitle, paneSubTitleGeneral, progMetaInput.getVBox(), paneSubTitleLocation, createGridPaneLocation(),
+            paneSubTitleDateAndTime, dateTimeInput.getGridPane(), createPaneBtnBar());
       return vBox;
    }
 
    private GridPane createGridPaneLocation() {
       // TODO only show location if config indicates topocentric calculations, otherwise replace with short text
-      return new LocationGridPaneCreator().createGridPane(tfLocationName, tfLocationLongitude, tfLocationLatitude, cbEastWest, cbNorthSouth);
+      return locationInput.getGridPane();
    }
 
-   private GridPane createGridPaneDateAndTime() {
-      return new DateTimePaneCreator().createGridPane(lblLocalTime, tfDate, tfTime, tfLocaltime, cbCalendar, cbTimeZone, cbLocalEastWest, cBoxDst);
-   }
-
-   private VBox createPaneMetaInfo() {    // TODO make external class
-      VBox vBox = new VBox();
-      vBox.getStylesheets().add(STYLESHEET);
-      vBox.setPrefWidth(INPUT_WIDTH);
-      vBox.setPrefHeight(50.0);   // todo make constant
-      vBox.getChildren().addAll(lblMetaChart, lblMetaConfig);
-      return vBox;
-   }
-
-   private Pane createPaneBtnBar() {
-      Pane pane = new Pane();
-      pane.setPrefHeight(BUTTONBAR_HEIGHT);
-      pane.setPrefWidth(INPUT_WIDTH);
-      pane.getChildren().add(createBtnBar());
-      return pane;
-   }
-
-   private ButtonBar createBtnBar() {
+   @Override
+   protected ButtonBar createBtnBar() {
       ButtonBar buttonBar = new ButtonBar();
-      calculatebtn = new Button(rosetta.getText("ui.shared.btn.calculate"));
+      Button calculatebtn = new Button(rosetta.getText("ui.shared.btn.calculate"));
       Button helpBtn = new Button(rosetta.getText("ui.shared.btn.help"));
       Button cancelBtn = new Button(rosetta.getText("ui.shared.btn.cancel"));
       calculatebtn.setOnAction(click -> onCalculate());
@@ -188,12 +130,42 @@ public class ChartsTransitsInput {
    }
 
    private void onCalculate() {
-      // perform calculation
-      stage.close();
-   }
+      checkStatus();
+      if (inputStatus == InputStatus.READY) {
+         try {
+            String eventDescription = progMetaInput.getEventDescription();
+            FullDateTime dateTime = dateTimeInput.getDateTime();
+            Location location = locationInput.getLocation();
 
-   private void onCancel() {
-      stage.close();
+
+            // TODO add creation of settings to Config class
+
+            Configuration config = state.getSelectedConfig();
+            List<ConfiguredCelObject> confPoints = config.getAstronConfiguration().getCelObjects();
+            List<IChartPoints> points = new ArrayList<>();
+            for (ConfiguredCelObject cPoint : confPoints) {
+               points.add(cPoint.getCelObject());
+            }
+            ObserverPositions obsPos = config.getAstronConfiguration().getObserverPosition();
+            EclipticProjections eclProj = config.getAstronConfiguration().getEclipticProjection();
+            Ayanamshas ayanamsha = config.getAstronConfiguration().getAyanamsha();
+            ICalcSettings settings = new ProgSettings(points, ayanamsha, eclProj == EclipticProjections.SIDEREAL, obsPos == ObserverPositions.TOPOCENTRIC);
+            IProgCalcRequest request = new EphProgCalcRequest(dateTime, location, settings);
+            SimpleProgResponse response = ApiFactory.getTransitsApi().calculateTransits(request);
+            System.out.print(response.getPositions().size());
+            // TODO transfer results of response to screen that shows positions.
+
+         } catch (InputBlockIncompleteException e) {
+            // should be impossible unless checkStatus() has not been executed.
+            String errorMsg = "Exception when reading from block that does not have InputStatus.READY. Terminating application. Original message : "
+                  + e.getMessage();
+            LOG.error(errorMsg);
+            new FailFastHandler().terminate(errorMsg);
+         }
+         stage.close();
+      } else {
+         popupCheckErrors();
+      }
    }
 
    private void onHelp() {
@@ -201,72 +173,10 @@ public class ChartsTransitsInput {
 //      new Help(rosetta.getHelpText("help.chartsinput.title"), rosetta.getHelpText("help.chartsinput.content"));
    }
 
-   private void validateLongitude(final String newLongitude) {
-      valLong = new ValidatedLongitude(newLongitude);
-      tfLocationLongitude.setStyle(valLong.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
-      checkStatus();
-   }
-
-   private void validateLocalTime(final String newLocalTime) {
-      valLongLocalTime = new ValidatedLongitude(newLocalTime);
-      tfLocaltime.setStyle(valLongLocalTime.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
-      checkStatus();
-   }
-
-   private void validateLatitude(final String newLatitude) {
-      valLat = new ValidatedLatitude(newLatitude);
-      tfLocationLatitude.setStyle(valLat.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
-      checkStatus();
-   }
-
-   private void validateDate(final String newDate) {
-      valDate = new ValidatedDate(newDate + '/' + cbCalendar.getValue());
-      tfDate.setStyle(valDate.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
-      checkStatus();
-   }
-
-   private void validateTime(final String newTime) {
-      valTime = new ValidatedTime(newTime);
-      tfTime.setStyle(valTime.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
-      checkStatus();
-   }
-
-   private void checkTimeZones(final String newValue) {
-      TimeZones selected = TimeZones.UT.timeZoneForName(newValue);
-      if (selected == TimeZones.LMT) {
-         tfLocaltime.setEditable(true);
-         tfLocaltime.setDisable(false);
-         tfLocaltime.setFocusTraversable(true);
-         lblLocalTime.setDisable(false);
-         cbLocalEastWest.setDisable(false);
-         cbLocalEastWest.setFocusTraversable(true);
-         timeZoneLocalSelected = true;
-      } else {
-         tfLocaltime.setEditable(false);
-         tfLocaltime.setDisable(true);
-         tfLocaltime.setFocusTraversable(false);
-         lblLocalTime.setDisable(true);
-         cbLocalEastWest.setDisable(true);
-         cbLocalEastWest.setFocusTraversable(false);
-         timeZoneLocalSelected = false;
-      }
-      checkStatus();
-   }
-
-   private void checkCalendar(final String newValue) {
-      valDate = new ValidatedDate(tfDate.getText() + '/' + newValue);
-      tfDate.setStyle(valDate.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
-      checkStatus();
-   }
-
    private void checkStatus() {
-      boolean inputOk = (valLat != null && valLat.isValidated()
-            && valLong != null && valLong.isValidated()
-            && valDate != null && valDate.isValidated()
-            && valTime != null && valTime.isValidated()
-            && ((valLongLocalTime != null && valLongLocalTime.isValidated()) || !timeZoneLocalSelected));
-      calculatebtn.setDisable(!inputOk);
-      calculatebtn.setFocusTraversable(inputOk);
+      boolean inputOk = (locationInput.getInputStatus() == InputStatus.READY
+            && (dateTimeInput.getInputStatus() == InputStatus.READY)
+            && (progMetaInput.getInputStatus() == InputStatus.READY));
       if (inputOk) inputStatus = InputStatus.READY;
    }
 

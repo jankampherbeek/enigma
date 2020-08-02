@@ -21,9 +21,9 @@ public class ChoiceBoxFactory {
       // prevent instantiation.
    }
 
-   public static ChoiceBox createChoiceBox(final double height, final double width, final String styleClass) {
+   public static ChoiceBox<String> createChoiceBox(final double height, final double width, final String styleClass) {
       checkNotNull(styleClass);
-      ChoiceBox choiceBox = new ChoiceBox();
+      ChoiceBox<String> choiceBox = new ChoiceBox<>();
       choiceBox.setPrefHeight(height);
       choiceBox.setPrefWidth(width);
       choiceBox.getStyleClass().add(styleClass);

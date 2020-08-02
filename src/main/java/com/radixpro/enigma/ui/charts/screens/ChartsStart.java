@@ -336,6 +336,7 @@ public class ChartsStart {
          for (ConfiguredCelObject cPoint : confPoints) {
             points.add(cPoint.getCelObject());
          }
+         // TODO add creation of settings to Config class
          ObserverPositions obsPos = config.getAstronConfiguration().getObserverPosition();
          EclipticProjections eclProj = config.getAstronConfiguration().getEclipticProjection();
          Ayanamshas ayanamsha = config.getAstronConfiguration().getAyanamsha();
@@ -405,7 +406,7 @@ public class ChartsStart {
       housesList.add(allMundanePositions.getAsc());
       final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
       MetaDataForAnalysis meta = new MetaDataForAnalysis(chartName, currentConfig.getName(), currentConfig.getDelinConfiguration().getAspectConfiguration().getBaseOrb());
-      new ChartsScreensFactory().createChartsAspects(aspects, meta);
+      ChartsScreensFactory.createChartsAspects(aspects, meta);
    }
 
    // TODO combine logic of onAspects and onMidpoints
@@ -424,7 +425,7 @@ public class ChartsStart {
       housesList.add(fullHouses.getAsc());
       final List<IAnalyzedPair> midpoints = api.analyseMidpoints(celObjectList, housesList);
       MetaDataForAnalysis meta = new MetaDataForAnalysis(chartName, currentConfig.getName(), 1.6);   // TODO replace hardcoded orb for midpoints with configurable orb
-      new ChartsScreensFactory().createChartsMidpoints(midpoints, meta);
+      ChartsScreensFactory.createChartsMidpoints(midpoints, meta);
    }
 
    private void onTetenburg() {
@@ -433,11 +434,12 @@ public class ChartsStart {
 //      CalculationSettings settings = new CalculationSettings(currentConfig);
       FullChart fullChart = state.getSelectedChart();
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.0);  // orb is not used
-      ChartsTetenburg chartsTetenburg = new ChartsScreensFactory().getChartsTetenburg(meta, fullChart);
+      ChartsTetenburg chartsTetenburg = ChartsScreensFactory.getChartsTetenburg(meta, fullChart);
    }
 
    private void onTransits() {
-      ChartsTransitsInput chartsTransitsInput = new ChartsTransitsInput();    // TODO use a factory
+      ChartsScreensFactory.getChartsTransitsInput();
+//      ChartsTransitsInput chartsTransitsInput = new ChartsTransitsInput();    // TODO use a factory
    }
 
 
