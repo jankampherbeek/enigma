@@ -9,7 +9,7 @@ package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.be.calc.handlers.SolarReturnHandler;
 import com.radixpro.enigma.be.exceptions.NoPositionFoundException;
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.xchg.api.requests.SolarReturnRequest;
 import com.radixpro.enigma.xchg.api.responses.SolarReturnResponse;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;

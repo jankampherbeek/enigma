@@ -5,10 +5,11 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers;
+package com.radixpro.enigma.be.handlers;
 
+import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
-import com.radixpro.enigma.be.calc.core.SeFrontend;
+import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.be.util.CoordinateConversions;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;

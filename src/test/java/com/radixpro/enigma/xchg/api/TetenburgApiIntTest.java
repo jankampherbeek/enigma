@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
 import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
 import com.radixpro.enigma.xchg.domain.*;
@@ -22,7 +23,7 @@ public class TetenburgApiIntTest {
 
    @Before
    public void setUp() throws Exception {
-      api = ApiFactory.getTetenburgApi();
+      api = XchgApiInjector.injectTetenburgApi(new AppScope());
    }
 
    @Test

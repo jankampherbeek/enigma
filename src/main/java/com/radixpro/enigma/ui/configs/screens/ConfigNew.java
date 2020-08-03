@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.configs.screens;
 
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;

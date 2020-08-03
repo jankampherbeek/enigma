@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.calc.core.SeFrontend;
+import com.radixpro.enigma.be.calc.SeFrontend;
 
 public class DateTimeApi {
 

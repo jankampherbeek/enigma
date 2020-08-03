@@ -13,8 +13,8 @@ import com.radixpro.enigma.be.analysis.handlers.MidpointsHandler;
 import com.radixpro.enigma.be.analysis.handlers.ProgAspectHandler;
 import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.be.calc.handlers.EphProgCalcHandler;
-import com.radixpro.enigma.be.calc.handlers.SecundaryDateHandler;
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.be.handlers.SecundaryDateHandler;
+import com.radixpro.enigma.shared.common.Rosetta;
 
 /**
  * Factory for API's that handle calcualtions for a chart.
@@ -60,9 +60,9 @@ public final class ApiFactory {
       return new SolarReturnApi(CaHandlersFactory.getSolarReturnHandler(), Rosetta.getRosetta());
    }
 
-   public static TetenburgApi getTetenburgApi() {
-      return new TetenburgApi(CaHandlersFactory.getTetenburgHandler());
-   }
+//   public static TetenburgApi getTetenburgApi() {
+//      return new TetenburgApi(CaHandlersFactory.getTetenburgHandler());
+//   }
 
    public static PrimaryApi getPrimaryApi() {
       return new PrimaryApi(CaHandlersFactory.getPrimaryHandler());

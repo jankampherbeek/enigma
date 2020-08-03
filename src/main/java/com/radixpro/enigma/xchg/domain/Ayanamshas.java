@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.xchg.domain;
 
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMapping;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;

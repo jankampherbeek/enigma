@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.charts.screens;
 
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.creators.*;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;

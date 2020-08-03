@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.controllers;
 
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

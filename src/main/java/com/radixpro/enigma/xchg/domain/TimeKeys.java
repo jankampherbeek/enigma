@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.domain;
 
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

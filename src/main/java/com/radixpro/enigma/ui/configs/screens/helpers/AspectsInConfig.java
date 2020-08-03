@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.configs.screens.helpers;
 
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import com.radixpro.enigma.xchg.domain.AspectCategory;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;

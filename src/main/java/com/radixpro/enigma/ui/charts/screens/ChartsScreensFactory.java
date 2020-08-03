@@ -7,8 +7,7 @@
 
 package com.radixpro.enigma.ui.charts.screens;
 
-import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.domain.FullChart;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.shared.screenblocks.DateTimeInput;
 import com.radixpro.enigma.ui.shared.screenblocks.LocationInput;
 import com.radixpro.enigma.ui.shared.screenblocks.ProgMetaInput;
@@ -31,9 +30,9 @@ public class ChartsScreensFactory {
       return new ChartsMidpoints(new Stage(), Rosetta.getRosetta(), midpoints, meta);
    }
 
-   public static ChartsTetenburg getChartsTetenburg(final MetaDataForAnalysis meta, final FullChart fullChart) {
-      return new ChartsTetenburg(new Stage(), Rosetta.getRosetta(), meta, fullChart);
-   }
+//   public static ChartsTetenburg getChartsTetenburg(final MetaDataForAnalysis meta, final FullChart fullChart) {
+//      return new ChartsTetenburg(new Stage(), Rosetta.getRosetta(), meta, fullChart);
+//   }
 
    public static ChartsTransitsInput getChartsTransitsInput() {
       return new ChartsTransitsInput(new ProgMetaInput(), new LocationInput(), new DateTimeInput());

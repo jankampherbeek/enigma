@@ -2,19 +2,19 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.shared;
+package com.radixpro.enigma.ui.common;
 
 import com.radixpro.enigma.shared.EnigmaDictionary;
-import com.radixpro.enigma.shared.Rosetta;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
-import com.radixpro.enigma.ui.charts.screens.ChartsStart;
+import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.ui.screens.ChartsStart;
+import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
 import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import com.radixpro.enigma.ui.shared.creators.PaneFactory;
 import com.radixpro.enigma.ui.stats.screens.StatsStart;
-import com.radixpro.enigma.xchg.api.ApiFactory;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -35,14 +35,15 @@ public class Dashboard {
 
    private static final double GAP = 6.0;
    private final Rosetta rosetta;
+   private final ChartsStart chartsStart;
    private Stage stage;
 
-   public Dashboard() {
-      rosetta = Rosetta.getRosetta();
-      showDashboard();
+   public Dashboard(final Rosetta rosetta, final ChartsStart chartsStart) {
+      this.rosetta = rosetta;
+      this.chartsStart = chartsStart;
    }
 
-   private void showDashboard() {
+   public void showDashboard() {
       stage = new Stage();
       ButtonBar buttonBar = createButtonBar();
       ImageView imageView = createImage();
@@ -134,8 +135,12 @@ public class Dashboard {
       showDashboard();
    }
 
+//   private void onCharts() {
+//      new ChartsStart(new Stage(), rosetta, ChartsSessionState.getInstance(), ApiFactory.getCalculatedChartApi());
+//   }
+
    private void onCharts() {
-      new ChartsStart(new Stage(), rosetta, ChartsSessionState.getInstance(), ApiFactory.getCalculatedChartApi());
+      chartsStart.show();
    }
 
    private void onStats() {

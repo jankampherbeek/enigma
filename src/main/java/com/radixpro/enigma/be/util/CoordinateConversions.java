@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.be.util;
 
-import com.radixpro.enigma.be.calc.core.SeFrontend;
+import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.xchg.domain.Location;
 import swisseph.SwissLib;

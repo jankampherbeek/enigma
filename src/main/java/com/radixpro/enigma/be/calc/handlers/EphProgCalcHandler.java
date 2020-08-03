@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
+import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.calc.assist.CombinedFlags;
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
-import com.radixpro.enigma.be.calc.core.SeFrontend;
 import com.radixpro.enigma.be.util.CoordinateConversions;
 import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
 import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;

@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.configs.screens.helpers;
 
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

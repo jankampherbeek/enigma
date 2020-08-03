@@ -6,6 +6,7 @@
 
 package com.radixpro.enigma.shared;
 
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import org.junit.Test;
 

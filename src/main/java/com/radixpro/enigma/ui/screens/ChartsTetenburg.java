@@ -5,9 +5,10 @@
  *
  */
 
-package com.radixpro.enigma.ui.charts.screens;
+package com.radixpro.enigma.ui.screens;
 
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForSign;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
@@ -17,7 +18,6 @@ import com.radixpro.enigma.ui.shared.creators.PaneFactory;
 import com.radixpro.enigma.ui.shared.creators.TextFieldFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.ui.shared.validation.ValidatedDate;
-import com.radixpro.enigma.xchg.api.ApiFactory;
 import com.radixpro.enigma.xchg.api.TetenburgApi;
 import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
 import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
@@ -56,9 +56,11 @@ public class ChartsTetenburg {
    private static final double GAP = 6.0;
    private final Stage stage;
    private final Rosetta rosetta;
-   private final MetaDataForAnalysis meta;
-   private final FullChart fullChart;
-   private final String calendar;
+   private final TetenburgApi api;
+   private final ChartsSessionState state;
+   private MetaDataForAnalysis meta;
+   private FullChart fullChart;
+   private String calendar;
    private Button btnCalc;
    private Button btnExit;
    private Button btnHelp;
@@ -77,11 +79,17 @@ public class ChartsTetenburg {
    private ValidatedDate valDate;
 
 
-   public ChartsTetenburg(final Stage stage, final Rosetta rosetta, final MetaDataForAnalysis meta, final FullChart fullChart) {
+   public ChartsTetenburg(final ChartsSessionState state, final Stage stage, final Rosetta rosetta, final TetenburgApi api) {
+      this.state = state;
       this.stage = stage;
       this.rosetta = rosetta;
+      this.api = api;
+
+   }
+
+   public void show(final MetaDataForAnalysis meta) {
       this.meta = meta;
-      this.fullChart = fullChart;
+      this.fullChart = state.getSelectedChart();
       this.calendar = fullChart.getChartData().getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j";
       defineLeafs();
       definePanes();
@@ -94,6 +102,7 @@ public class ChartsTetenburg {
       checkStatus();
       stage.showAndWait();
    }
+
 
    private void defineLeafs() {
       lblName = new Label(rosetta.getText("ui.charts.tetenburg.lbl.nameprefix") + " " + meta.getName());
@@ -202,7 +211,6 @@ public class ChartsTetenburg {
       SimpleTime simpleTime = new SimpleTime(0, 0, 0);
       SimpleDateTime simpleDateTime = new SimpleDateTime(valDate.getSimpleDate(), simpleTime);
       FullDateTime progDateTime = new FullDateTime(simpleDateTime, birthDateTime.getTimeZone(), birthDateTime.isDst(), birthDateTime.getOffsetForLmt());
-      TetenburgApi api = ApiFactory.getTetenburgApi();
       TetenburgRequest request = new TetenburgRequest(longMc, solarSpeed, location, birthDateTime, progDateTime);
       TetenburgResponse response = api.calculateCriticalPoint(request);
       if (!response.getResultMsg().equals("OK")) lblResultValue.setText(response.getResultMsg());

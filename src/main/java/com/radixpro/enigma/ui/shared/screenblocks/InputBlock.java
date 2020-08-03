@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.ui.shared.screenblocks;
 
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.shared.InputStatus;
 

@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.be.calc.assist;
 
-import com.radixpro.enigma.be.calc.core.SeFrontend;
+import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.xchg.domain.Location;
 import com.radixpro.enigma.xchg.domain.astrondata.CoordinateSet;

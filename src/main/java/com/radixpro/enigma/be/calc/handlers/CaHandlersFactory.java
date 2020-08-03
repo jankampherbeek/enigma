@@ -7,9 +7,10 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
+import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.calc.assist.CoordSetForDateTimeCalc;
 import com.radixpro.enigma.be.calc.assist.JdFromPosCalc;
-import com.radixpro.enigma.be.calc.core.SeFrontend;
+import com.radixpro.enigma.be.handlers.*;
 import com.radixpro.enigma.xchg.api.ApiFactory;
 import swisseph.SweDate;
 
@@ -58,9 +59,9 @@ public class CaHandlersFactory {
       return new SolarReturnHandler(getJdFromPosCalc(), ApiFactory.getCalculatedChartApi());
    }
 
-   public static TetenburgHandler getTetenburgHandler() {
-      return new TetenburgHandler(SeFrontend.getFrontend());
-   }
+//   public static TetenburgHandler getTetenburgHandler() {
+//      return new TetenburgHandler(SeFrontend.getFrontend());
+//   }
 
    public static TimeKeyHandler getTimeKeyHandler() {
       return new TimeKeyHandler(new SecundaryDateHandler(), new CaHandlersFactory().getFullPointPositionHandler());   // TODO use factory for SecundaryDateHandler

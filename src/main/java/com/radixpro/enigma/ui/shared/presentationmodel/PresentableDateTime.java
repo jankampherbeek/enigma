@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.xchg.domain.FullDateTime;
 import com.radixpro.enigma.xchg.domain.SimpleDate;
 

@@ -2,14 +2,16 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.charts.screens;
+package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.ui.charts.screens.*;
 import com.radixpro.enigma.ui.configs.screens.ConfigOverview;
 import com.radixpro.enigma.ui.configs.screens.ConfigScreensFactory;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
@@ -68,11 +70,12 @@ public class ChartsStart {
    private static final double SEPARATOR_HEIGHT = 20.0;
    private final Stage stage;
    private final Rosetta rosetta;
-   private final List<PresentableChartData> availableCharts;
+   private final ChartsTetenburg chartsTetenburg;
    private final PersistedPropertyApi propApi;
    private final PersistedConfigurationApi confApi;
    private ObservableList<PresentableChartData> selectedCharts;
    private final ChartsSessionState state;
+   private List<PresentableChartData> availableCharts;
    private final CalculatedChartApi calculatedChartApi;
    private Button btnDeleteChart;
    private Button btnShowChart;
@@ -91,13 +94,23 @@ public class ChartsStart {
    private TableColumn<PresentableChartData, String> colData;
    private Configuration currentConfig;
 
-   public ChartsStart(Stage stage, final Rosetta rosetta, final ChartsSessionState state, final CalculatedChartApi calculatedChartApi) {
+   public ChartsStart(Stage stage, final Rosetta rosetta, final ChartsSessionState state, final CalculatedChartApi calculatedChartApi,
+                      final ChartsTetenburg chartsTetenburg) {
       this.stage = checkNotNull(stage);
       this.rosetta = checkNotNull(rosetta);
       this.state = checkNotNull(state);
       this.calculatedChartApi = checkNotNull(calculatedChartApi);
+      this.chartsTetenburg = checkNotNull(chartsTetenburg);
       propApi = new PersistedPropertyApi();
       confApi = new PersistedConfigurationApi();
+//      availableCharts = new ArrayList<>();
+//      initialize();
+//      showChartOverview();
+//      stage.showAndWait();
+//      LOG.info("ChartsStart initialized.");
+   }
+
+   public void show() {
       availableCharts = new ArrayList<>();
       initialize();
       showChartOverview();
@@ -426,9 +439,8 @@ public class ChartsStart {
 
    private void onTetenburg() {
       PresentableChartData presChartData = selectedCharts.get(0);
-      FullChart fullChart = state.getSelectedChart();
       MetaDataForAnalysis meta = new MetaDataForAnalysis(presChartData.getChartName(), currentConfig.getName(), 1.0);  // orb is not used
-      ChartsScreensFactory.getChartsTetenburg(meta, fullChart);
+      chartsTetenburg.show(meta);
    }
 
    private void onTransits() {

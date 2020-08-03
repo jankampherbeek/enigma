@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.calc.handlers.TetenburgHandler;
+import com.radixpro.enigma.be.handlers.TetenburgHandler;
 import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
 import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
 import org.apache.log4j.Logger;
@@ -15,11 +15,12 @@ import org.apache.log4j.Logger;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Api for the calcualtion of critical points according to the theory of Ton Tetenburg.
+ * Api for the calculation of critical points according to the theory of Ton Tetenburg.
  */
 public class TetenburgApi {
    private static final Logger LOG = Logger.getLogger(TetenburgApi.class);
    private final TetenburgHandler handler;
+
 
    public TetenburgApi(final TetenburgHandler handler) {
       this.handler = checkNotNull(handler);
@@ -33,7 +34,8 @@ public class TetenburgApi {
                request.getLongMcRadix(), request.getSolarSpeed());
       } catch (Exception e) {
          LOG.error("Exception when retrieving TetenburgResponse : " + e.getMessage());
-         resultMsg = "Could not calculate critical point.";  // todo replace with resourcebundle entry
+         resultMsg = "Could not calculate critical point.";
+         // TODO replace with resourcebundle entry
       }
       return new TetenburgResponse(longAsc, resultMsg);
    }

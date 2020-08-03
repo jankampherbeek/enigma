@@ -8,7 +8,7 @@ package com.radixpro.enigma.xchg.domain;
 
 import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.be.calc.handlers.JulianDayHandler;
-import com.radixpro.enigma.shared.Rosetta;
+import com.radixpro.enigma.shared.common.Rosetta;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

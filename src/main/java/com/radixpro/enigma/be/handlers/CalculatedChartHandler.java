@@ -5,8 +5,9 @@
  *
  */
 
-package com.radixpro.enigma.be.calc.handlers;
+package com.radixpro.enigma.be.handlers;
 
+import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;

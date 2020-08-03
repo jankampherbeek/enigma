@@ -6,6 +6,7 @@
 
 package com.radixpro.enigma.be.calc.core;
 
+import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
 import com.radixpro.enigma.xchg.domain.Location;

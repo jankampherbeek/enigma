@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.calc.handlers.CalculatedChartHandler;
+import com.radixpro.enigma.be.handlers.CalculatedChartHandler;
 import com.radixpro.enigma.xchg.api.requests.CalculatedChartRequest;
 import com.radixpro.enigma.xchg.api.responses.CalculatedChartResponse;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
