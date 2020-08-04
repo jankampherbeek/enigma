@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.shared.screenblocks;
 
 import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.shared.InputStatus;
 
 /**
@@ -18,14 +18,14 @@ public abstract class InputBlock {
 
    protected static final String INPUT_STYLE = "inputDefault";
    protected Rosetta rosetta;
-   protected ChartsSessionState state;
+   protected SessionState state;
    protected InputStatus inputStatus = InputStatus.INCOMPLETE;
 
    /**
     * Constructor handles creation of block.
     */
    public InputBlock() {
-      state = ChartsSessionState.getInstance();
+      state = SessionState.getInstance();
       rosetta = Rosetta.getRosetta();
       initialize();
    }

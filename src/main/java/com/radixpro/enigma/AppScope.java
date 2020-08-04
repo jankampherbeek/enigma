@@ -7,12 +7,19 @@
 
 package com.radixpro.enigma;
 
+import com.radixpro.enigma.be.persistency.AppDb;
+import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.shared.common.SessionState;
+
 /**
  * Application Scope for DIY-DI
  */
 public class AppScope {
 
    private String env;
+   private Rosetta rosetta;
+   private SessionState sessionState;
+   private AppDb appDb;
 
    public AppScope() {
 
@@ -24,5 +31,29 @@ public class AppScope {
 
    public void setEnv(String env) {
       this.env = env;
+   }
+
+   public SessionState getSessionState() {
+      return sessionState;
+   }
+
+   public void setSessionState(SessionState sessionState) {
+      this.sessionState = sessionState;
+   }
+
+   public Rosetta getRosetta() {
+      return rosetta;
+   }
+
+   public void setRosetta(Rosetta rosetta) {
+      this.rosetta = rosetta;
+   }
+
+   public AppDb getAppDb() {
+      return appDb;
+   }
+
+   public void setAppDb(AppDb appDb) {
+      this.appDb = appDb;
    }
 }

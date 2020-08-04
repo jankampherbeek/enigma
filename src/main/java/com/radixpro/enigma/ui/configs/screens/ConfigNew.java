@@ -7,7 +7,7 @@
 package com.radixpro.enigma.ui.configs.screens;
 
 import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.*;
@@ -61,7 +61,7 @@ public class ConfigNew {
     * @param api     Api for persistency of configurations.
     * @param state   contains current config
     */
-   public ConfigNew(final Rosetta rosetta, final PersistedConfigurationApi api, final ChartsSessionState state) {
+   public ConfigNew(final Rosetta rosetta, final PersistedConfigurationApi api, final SessionState state) {
       this.rosetta = checkNotNull(rosetta);
       checkNotNull(state);
       this.config = state.getSelectedConfig();

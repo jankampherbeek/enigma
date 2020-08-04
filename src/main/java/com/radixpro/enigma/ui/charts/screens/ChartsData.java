@@ -6,8 +6,9 @@
 
 package com.radixpro.enigma.ui.charts.screens;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
@@ -16,7 +17,6 @@ import com.radixpro.enigma.ui.shared.presentationmodel.*;
 import com.radixpro.enigma.xchg.domain.ChartData;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
 import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
-import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -49,7 +49,7 @@ public class ChartsData {
    private final Stage stage;
    private final Rosetta rosetta;
    private final CalculatedChart calculatedChart;
-   private final ChartsSessionState state;
+   private final SessionState state;
    private final String glyphFont;
    private final String dataFont;
    private final ChartData chartData;
@@ -62,7 +62,7 @@ public class ChartsData {
    private TableColumn<String, PresentableMundanePosition> tvMundColAzimuth;
    private TableColumn<String, PresentableMundanePosition> tvMundColAltitude;
 
-   public ChartsData(final ChartsSessionState state) {
+   public ChartsData(final SessionState state) {
       checkArgument(null != state & state.selectedConfigIsSet());
       this.state = state;
       FullChart fullChart = state.getSelectedChart();

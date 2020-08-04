@@ -7,17 +7,17 @@
 
 package com.radixpro.enigma.be.calc.assist;
 
+import com.radixpro.enigma.be.calc.CoordinateConversions;
+import com.radixpro.enigma.be.calc.EnigmaAstronMath;
 import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
-import com.radixpro.enigma.be.exceptions.EnigmaMathException;
-import com.radixpro.enigma.be.util.CoordinateConversions;
-import com.radixpro.enigma.be.util.EnigmaAstronMath;
+import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.shared.Range;
+import com.radixpro.enigma.shared.exceptions.EnigmaMathException;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
 import com.radixpro.enigma.xchg.domain.analysis.ChartPointTypes;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
-import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 
 import java.util.ArrayList;
 import java.util.List;

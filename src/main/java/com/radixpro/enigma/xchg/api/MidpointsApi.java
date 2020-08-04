@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.analysis.handlers.MidpointsHandler;
+import com.radixpro.enigma.be.handlers.MidpointsHandler;
+import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 
 import java.util.List;
 

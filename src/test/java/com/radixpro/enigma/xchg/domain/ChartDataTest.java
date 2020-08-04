@@ -6,6 +6,7 @@
 
 package com.radixpro.enigma.xchg.domain;
 
+import com.radixpro.enigma.domain.datetime.FullDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

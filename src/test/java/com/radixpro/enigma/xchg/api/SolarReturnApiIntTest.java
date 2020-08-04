@@ -7,6 +7,10 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.xchg.api.requests.SolarReturnRequest;
 import com.radixpro.enigma.xchg.api.responses.SolarReturnResponse;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;

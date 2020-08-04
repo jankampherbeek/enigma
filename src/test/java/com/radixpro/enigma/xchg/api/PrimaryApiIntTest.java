@@ -7,6 +7,12 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
+import com.radixpro.enigma.domain.astronpos.MundanePosition;
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.xchg.api.requests.PrimaryCalcRequest;
 import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;

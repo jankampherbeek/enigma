@@ -8,17 +8,22 @@
 package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.handlers.TimeKeyHandler;
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
-import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.xchg.domain.Ayanamshas;
+import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.TimeKeys;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static com.radixpro.enigma.shared.EnigmaDictionary.NAIBOD_KEY;
-import static com.radixpro.enigma.shared.EnigmaDictionary.TROPICAL_YEAR;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.NAIBOD_KEY;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.TROPICAL_YEAR;
 import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;

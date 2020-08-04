@@ -8,11 +8,10 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.be.analysis.handlers.AnHandlersFactory;
-import com.radixpro.enigma.be.analysis.handlers.AspectsHandler;
-import com.radixpro.enigma.be.analysis.handlers.MidpointsHandler;
-import com.radixpro.enigma.be.analysis.handlers.ProgAspectHandler;
 import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.be.calc.handlers.EphProgCalcHandler;
+import com.radixpro.enigma.be.handlers.AspectsHandler;
+import com.radixpro.enigma.be.handlers.ProgAspectHandler;
 import com.radixpro.enigma.be.handlers.SecundaryDateHandler;
 import com.radixpro.enigma.shared.common.Rosetta;
 
@@ -33,11 +32,11 @@ public final class ApiFactory {
       AspectsHandler handler = AnHandlersFactory.createAspectsHandler();
       return new AspectsApi(handler);
    }
-
-   public static MidpointsApi createMidpointsApi() {
-      MidpointsHandler handler = AnHandlersFactory.createMidpointsHandler();
-      return new MidpointsApi(handler);
-   }
+//
+//   public static MidpointsApi createMidpointsApi() {
+//      MidpointsHandler handler = AnHandlersFactory.createMidpointsHandler();
+//      return new MidpointsApi(handler);
+//   }
 
    public static PersistedConfigurationApi getPersistedConfigurationApi() {
       return new PersistedConfigurationApi();

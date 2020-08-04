@@ -7,6 +7,8 @@
 
 package com.radixpro.enigma.xchg.domain.astrondata;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
+
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;

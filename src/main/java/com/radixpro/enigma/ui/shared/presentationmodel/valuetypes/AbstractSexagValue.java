@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel.valuetypes;
 
-import static com.radixpro.enigma.shared.EnigmaDictionary.*;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.*;
 
 /**
  * Parent for classes that construct a formatted value in a sexagesimal format.

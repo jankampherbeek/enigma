@@ -7,12 +7,12 @@
 
 package com.radixpro.enigma.be.analysis;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.xchg.domain.AspectCategory;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspectTransit;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 
 import java.util.ArrayList;
 import java.util.List;

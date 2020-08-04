@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma;
 
-import com.radixpro.enigma.be.versions.Updater;
-import com.radixpro.enigma.shared.AppDb;
-import com.radixpro.enigma.shared.AppVersion;
+import com.radixpro.enigma.be.persistency.AppDb;
+import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.shared.common.SessionState;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
@@ -28,19 +28,19 @@ public class MainHelper extends Application {
 
    public void run(String[] args) {
       env = (args.length > 0) ? args[0] : "prod";
-//      applicationScope.setEnv(env);
       launch(args);
    }
 
    @Override
    public void start(Stage primaryStage) {
       scope = new AppScope();
+      scope.setSessionState(SessionState.getInstance());
+      scope.setRosetta(Rosetta.getRosetta());
+      scope.setAppDb(AppDb.initAppDb(env));
+      scope.setEnv(env);
       LOG.info("Started Enigma.");
-      new AppVersion(new Updater(AppDb.initAppDb(env)));    // TODO DI do not pass env but use LocationScope
-      showDashboard();
-   }
-
-   private void showDashboard() {
+      Injector.injectAppVersion(scope);
       Injector.injectDashboard(scope).showDashboard();
    }
+
 }

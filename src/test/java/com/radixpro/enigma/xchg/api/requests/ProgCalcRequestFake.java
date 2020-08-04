@@ -7,9 +7,15 @@
 
 package com.radixpro.enigma.xchg.api.requests;
 
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.xchg.api.settings.CalcSettingsFake;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
-import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
+import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.TimeZones;
 
 public class ProgCalcRequestFake implements IProgCalcRequest {
 

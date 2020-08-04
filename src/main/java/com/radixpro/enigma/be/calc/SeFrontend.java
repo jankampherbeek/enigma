@@ -18,7 +18,7 @@ import swisseph.SwissEph;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.shared.EnigmaDictionary.SE_LOCATION;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.SE_LOCATION;
 
 /**
  * Simple wrapper to access the Java port to the SE by Thomas Mack.

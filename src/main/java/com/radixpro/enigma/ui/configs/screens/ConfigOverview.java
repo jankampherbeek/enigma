@@ -8,7 +8,7 @@ package com.radixpro.enigma.ui.configs.screens;
 
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.*;
@@ -49,7 +49,7 @@ public class ConfigOverview {
    private final Rosetta rosetta;
    private final PersistedConfigurationApi configApi;
    private final PersistedPropertyApi propApi;
-   private final ChartsSessionState state;
+   private final SessionState state;
    private ObservableList<PresentableConfiguration> selectedItems;
    private boolean selectionChanged = false;
    private Stage stage;
@@ -71,7 +71,7 @@ public class ConfigOverview {
     * @param state     state with the currently selected config.
     * @see ConfigScreensFactory
     */
-   public ConfigOverview(final PersistedConfigurationApi configApi, final PersistedPropertyApi propApi, final Rosetta rosetta, final ChartsSessionState state) {
+   public ConfigOverview(final PersistedConfigurationApi configApi, final PersistedPropertyApi propApi, final Rosetta rosetta, final SessionState state) {
       this.configApi = checkNotNull(configApi);
       this.propApi = checkNotNull(propApi);
       this.rosetta = rosetta;

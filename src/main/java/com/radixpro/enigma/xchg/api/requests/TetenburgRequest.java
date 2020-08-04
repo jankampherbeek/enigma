@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api.requests;
 
-import com.radixpro.enigma.xchg.domain.FullDateTime;
+import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.xchg.domain.Location;
 
 import static com.google.common.base.Preconditions.checkArgument;

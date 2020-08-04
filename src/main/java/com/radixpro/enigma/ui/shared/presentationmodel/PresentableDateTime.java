@@ -6,9 +6,9 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.xchg.domain.FullDateTime;
-import com.radixpro.enigma.xchg.domain.SimpleDate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

@@ -7,6 +7,11 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
 import com.radixpro.enigma.xchg.api.requests.SecundaryCalcRequest;
 import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
@@ -19,7 +24,6 @@ import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.xchg.domain.analysis.ProgAnalysisType;
 import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
-import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

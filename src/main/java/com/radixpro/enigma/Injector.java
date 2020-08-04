@@ -7,6 +7,8 @@
 
 package com.radixpro.enigma;
 
+import com.radixpro.enigma.be.versions.AppVersion;
+import com.radixpro.enigma.be.versions.VersionsInjector;
 import com.radixpro.enigma.ui.common.Dashboard;
 import com.radixpro.enigma.ui.common.UiCommonInjector;
 
@@ -17,9 +19,12 @@ import com.radixpro.enigma.ui.common.UiCommonInjector;
  */
 public class Injector {
 
-   //   public static MainHelper injectMainHelper(AppScope scope) { return new MainHelper(UiCommonInjector.injectDashboard(scope)); }
    public static Dashboard injectDashboard(AppScope scope) {
       return UiCommonInjector.injectDashboard(scope);
+   }
+
+   public static AppVersion injectAppVersion(AppScope scope) {
+      return VersionsInjector.injectAppVersion(scope);
    }
 
 }

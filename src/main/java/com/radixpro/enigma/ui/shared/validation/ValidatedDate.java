@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.ui.shared.validation;
 
+import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.xchg.api.DateTimeApi;
-import com.radixpro.enigma.xchg.domain.SimpleDate;
 
 /**
  * Validation for a date. A date is valid if it does exist, taking leap-years and different valendars into account.

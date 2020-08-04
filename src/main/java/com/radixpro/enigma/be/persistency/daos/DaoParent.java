@@ -7,7 +7,7 @@ package com.radixpro.enigma.be.persistency.daos;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-import com.radixpro.enigma.be.exceptions.DatabaseException;
+import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -23,7 +23,7 @@ public abstract class DaoParent {
 
 
    protected CSVReader createReader(String filename) throws DatabaseException {
-      CSVReader reader = null;
+      CSVReader reader;
       try {
          reader = new CSVReader(new FileReader(filename));
       } catch (FileNotFoundException e) {

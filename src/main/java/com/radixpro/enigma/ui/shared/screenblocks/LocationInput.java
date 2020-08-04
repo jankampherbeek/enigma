@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.ui.shared.screenblocks;
 
-import com.radixpro.enigma.ui.exceptions.InputBlockIncompleteException;
+import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.ChoiceBoxFactory;
 import com.radixpro.enigma.ui.shared.creators.GridPaneBuilder;

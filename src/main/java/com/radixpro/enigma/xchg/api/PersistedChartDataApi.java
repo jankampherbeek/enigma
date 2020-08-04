@@ -6,9 +6,9 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.exceptions.DatabaseException;
 import com.radixpro.enigma.be.persistency.daos.ChartDataDao;
 import com.radixpro.enigma.shared.FailFastHandler;
+import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import com.radixpro.enigma.xchg.domain.ChartData;
 
 import java.util.ArrayList;

@@ -7,8 +7,8 @@
 package com.radixpro.enigma.ui.configs.screens;
 
 import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForCelObject;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
@@ -52,7 +52,7 @@ public class ConfigEdit {
    private static final double DATA_INPUT_WIDTH = 350.0;
    private static final double GAP = 6.0;
    private final Rosetta rosetta;
-   private final ChartsSessionState state;
+   private final SessionState state;
    private Configuration config;
    private InputStatus inputStatus = InputStatus.READY;
    private Stage stage;
@@ -77,7 +77,7 @@ public class ConfigEdit {
    private Label lblEclipticProjection;
    private Label lblCelObjects;
 
-   public ConfigEdit(final Rosetta rosetta, final ChartsSessionState state) {
+   public ConfigEdit(final Rosetta rosetta, final SessionState state) {
       this.rosetta = checkNotNull(rosetta);
       this.state = checkNotNull(state);
       this.config = state.getSelectedConfig();

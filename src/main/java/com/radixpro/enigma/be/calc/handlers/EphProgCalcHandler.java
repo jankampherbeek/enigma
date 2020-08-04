@@ -7,15 +7,19 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
+import com.radixpro.enigma.be.calc.CoordinateConversions;
 import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.calc.assist.CombinedFlags;
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
-import com.radixpro.enigma.be.util.CoordinateConversions;
+import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
 import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.astrondata.*;
+import com.radixpro.enigma.xchg.domain.astrondata.CoordinateSet;
+import com.radixpro.enigma.xchg.domain.astrondata.CoordinateSet3D;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointCoordinate;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
 
 import java.util.ArrayList;
 import java.util.List;

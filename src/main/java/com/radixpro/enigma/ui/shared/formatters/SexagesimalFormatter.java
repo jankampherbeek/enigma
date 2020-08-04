@@ -8,7 +8,7 @@ package com.radixpro.enigma.ui.shared.formatters;
 
 import com.radixpro.enigma.shared.Range;
 
-import static com.radixpro.enigma.shared.EnigmaDictionary.*;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.*;
 
 /**
  * Formats into sexagesimal results.

@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
-import com.radixpro.enigma.xchg.domain.SimpleDate;
-import com.radixpro.enigma.xchg.domain.SimpleDateTime;
-import com.radixpro.enigma.xchg.domain.SimpleTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 import org.junit.Before;
 import org.junit.Test;
 

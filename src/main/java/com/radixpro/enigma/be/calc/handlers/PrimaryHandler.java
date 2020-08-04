@@ -7,19 +7,19 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
+import com.radixpro.enigma.be.calc.CoordinateConversions;
+import com.radixpro.enigma.be.calc.EnigmaAstronMath;
+import com.radixpro.enigma.be.calc.EnigmaMath;
 import com.radixpro.enigma.be.calc.assist.SpaeculumPropSa;
 import com.radixpro.enigma.be.calc.assist.SpaeculumPropSaItem;
 import com.radixpro.enigma.be.handlers.TimeKeyHandler;
-import com.radixpro.enigma.be.util.CoordinateConversions;
-import com.radixpro.enigma.be.util.EnigmaAstronMath;
-import com.radixpro.enigma.be.util.EnigmaMath;
+import com.radixpro.enigma.domain.astronpos.IPosition;
+import com.radixpro.enigma.domain.astronpos.LonDeclPosition;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
 import com.radixpro.enigma.xchg.api.requests.PrimaryCalcRequest;
 import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
-import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
-import com.radixpro.enigma.xchg.domain.astrondata.LonDeclPosition;
 
 import java.util.ArrayList;
 import java.util.List;

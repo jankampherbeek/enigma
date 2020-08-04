@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.xchg.domain.astrondata;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
 
 import static com.google.common.base.Preconditions.checkNotNull;

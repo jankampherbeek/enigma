@@ -7,8 +7,12 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForSign;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
@@ -21,10 +25,10 @@ import com.radixpro.enigma.ui.shared.validation.ValidatedDate;
 import com.radixpro.enigma.xchg.api.TetenburgApi;
 import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
 import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
-import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.xchg.domain.Location;
 import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
 import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
-import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -39,8 +43,8 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-import static com.radixpro.enigma.shared.EnigmaDictionary.GLYPH_FONTNAME;
-import static com.radixpro.enigma.shared.EnigmaDictionary.TEXT_FONTNAME;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.GLYPH_FONTNAME;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.TEXT_FONTNAME;
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
@@ -54,10 +58,10 @@ public class ChartsTetenburg {
    private static final double SEPARATOR_HEIGHT = 20.0;
    private static final double INPUT_HEIGHT = 25.0;
    private static final double GAP = 6.0;
-   private final Stage stage;
+   private final SessionState state;
    private final Rosetta rosetta;
    private final TetenburgApi api;
-   private final ChartsSessionState state;
+   private Stage stage;
    private MetaDataForAnalysis meta;
    private FullChart fullChart;
    private String calendar;
@@ -79,15 +83,15 @@ public class ChartsTetenburg {
    private ValidatedDate valDate;
 
 
-   public ChartsTetenburg(final ChartsSessionState state, final Stage stage, final Rosetta rosetta, final TetenburgApi api) {
+   public ChartsTetenburg(final SessionState state, final Rosetta rosetta, final TetenburgApi api) {
       this.state = state;
-      this.stage = stage;
       this.rosetta = rosetta;
       this.api = api;
 
    }
 
    public void show(final MetaDataForAnalysis meta) {
+      stage = new Stage();
       this.meta = meta;
       this.fullChart = state.getSelectedChart();
       this.calendar = fullChart.getChartData().getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j";

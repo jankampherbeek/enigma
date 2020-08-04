@@ -6,9 +6,9 @@
 
 package com.radixpro.enigma.be.persistency.daos;
 
-import com.radixpro.enigma.be.exceptions.DatabaseException;
+import com.radixpro.enigma.be.persistency.AppDb;
 import com.radixpro.enigma.be.persistency.daos.helpers.ConfigurationDaoConstructionHelper;
-import com.radixpro.enigma.shared.AppDb;
+import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
 import com.radixpro.enigma.xchg.domain.config.ConfiguredCelObject;

@@ -9,7 +9,9 @@ package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.calc.assist.CombinedFlags;
 import com.radixpro.enigma.be.calc.assist.JdFromPosCalc;
-import com.radixpro.enigma.be.exceptions.NoPositionFoundException;
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.shared.exceptions.NoPositionFoundException;
 import com.radixpro.enigma.xchg.api.CalculatedChartApi;
 import com.radixpro.enigma.xchg.api.requests.CalculatedChartRequest;
 import com.radixpro.enigma.xchg.api.responses.CalculatedChartResponse;
@@ -22,7 +24,7 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.shared.EnigmaDictionary.TROPICAL_YEAR;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.TROPICAL_YEAR;
 
 /**
  * Handler for the calculation of a solar return.

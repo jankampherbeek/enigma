@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.be.handlers;
 
+import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
@@ -17,8 +18,8 @@ import org.apache.log4j.Logger;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.shared.EnigmaDictionary.NAIBOD_KEY;
-import static com.radixpro.enigma.shared.EnigmaDictionary.TROPICAL_YEAR;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.NAIBOD_KEY;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.TROPICAL_YEAR;
 
 /**
  * Handler for time keys.

@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.configs.screens;
 
 import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
@@ -35,7 +35,7 @@ public class ConfigScreensFactory {
       PropertiesForConfig prop4Config = new PropertiesForConfig(config,
             new CelObjectsInConfig(rosetta),
             new AspectsInConfig(rosetta), rosetta);
-      return new ConfigDetails(prop4Config, rosetta, ChartsSessionState.getInstance());
+      return new ConfigDetails(prop4Config, rosetta, SessionState.getInstance());
    }
 
    /**
@@ -46,15 +46,15 @@ public class ConfigScreensFactory {
     */
    public ConfigEdit createConfigEdit(final Configuration config) {
       checkNotNull(config);
-      return new ConfigEdit(Rosetta.getRosetta(), ChartsSessionState.getInstance());
+      return new ConfigEdit(Rosetta.getRosetta(), SessionState.getInstance());
    }
 
    public ConfigNew createConfigNew() {
-      return new ConfigNew(Rosetta.getRosetta(), ApiFactory.getPersistedConfigurationApi(), ChartsSessionState.getInstance());
+      return new ConfigNew(Rosetta.getRosetta(), ApiFactory.getPersistedConfigurationApi(), SessionState.getInstance());
    }
 
    public ConfigOverview createConfigOverview() {
       return new ConfigOverview(ApiFactory.getPersistedConfigurationApi(), new PersistedPropertyApi(), Rosetta.getRosetta(),
-            ChartsSessionState.getInstance());
+            SessionState.getInstance());
    }
 }

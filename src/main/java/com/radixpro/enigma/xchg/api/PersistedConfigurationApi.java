@@ -6,9 +6,9 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.exceptions.DatabaseException;
 import com.radixpro.enigma.be.persistency.daos.ConfigurationDao;
 import com.radixpro.enigma.shared.FailFastHandler;
+import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import org.apache.log4j.Logger;
 
@@ -22,11 +22,7 @@ public class PersistedConfigurationApi {
    private static final Logger LOG = Logger.getLogger(PersistedConfigurationApi.class);
    private final ConfigurationDao dao;
 
-   /**
-    * Instantiate via factory.
-    *
-    * @see ApiConfigFactory
-    */
+
    public PersistedConfigurationApi() {
       dao = new ConfigurationDao();
    }

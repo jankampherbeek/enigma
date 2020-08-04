@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
-import com.radixpro.enigma.xchg.domain.SimpleDate;
-import com.radixpro.enigma.xchg.domain.SimpleDateTime;
-import com.radixpro.enigma.xchg.domain.SimpleTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 import swisseph.SDate;
 import swisseph.SweDate;
 
@@ -23,12 +23,7 @@ public class JulianDayHandler {
 
    private final SweDate sweDate;
 
-   /**
-    * Should be initiated by RadixCalkcFactory.
-    *
-    * @param sweDate Empty instance of SweDate.
-    * @see com.radixpro.enigma.be.calc.factories.RadixCalcFactory
-    */
+
    public JulianDayHandler(final SweDate sweDate) {
       this.sweDate = checkNotNull(sweDate);
    }

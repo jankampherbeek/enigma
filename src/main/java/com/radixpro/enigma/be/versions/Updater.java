@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.be.versions;
 
-import com.radixpro.enigma.shared.AppDb;
+import com.radixpro.enigma.be.persistency.AppDb;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

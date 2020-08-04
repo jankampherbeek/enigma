@@ -7,6 +7,8 @@
 
 package com.radixpro.enigma.xchg.domain.astrondata;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
+import com.radixpro.enigma.domain.astronpos.MundanePosition;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

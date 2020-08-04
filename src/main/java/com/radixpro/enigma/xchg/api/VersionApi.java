@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.exceptions.DatabaseException;
-import com.radixpro.enigma.be.persistency.daos.VersionDao;
+import com.radixpro.enigma.be.persistency.VersionDao;
+import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import org.apache.log4j.Logger;
 
 public class VersionApi {

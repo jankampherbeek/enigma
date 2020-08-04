@@ -6,13 +6,13 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
+import com.radixpro.enigma.domain.astronpos.MundanePosition;
 import com.radixpro.enigma.ui.shared.glyphs.Sign2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongAndGlyphValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongWithGlyph;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlainDmsValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlusMinusValue;
-import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
-import com.radixpro.enigma.xchg.domain.astrondata.MundanePosition;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

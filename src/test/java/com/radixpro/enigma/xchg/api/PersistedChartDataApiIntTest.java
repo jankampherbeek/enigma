@@ -7,7 +7,11 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.shared.AppDb;
+import com.radixpro.enigma.be.persistency.AppDb;
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.testsupport.DbTestSupport;
 import com.radixpro.enigma.xchg.domain.*;
 import org.junit.Before;

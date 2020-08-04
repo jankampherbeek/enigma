@@ -8,23 +8,33 @@
 package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.AppScope;
-import com.radixpro.enigma.shared.common.SharedCommonInjector;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.ui.screens.helpers.ScreensHelpersInjector;
 import com.radixpro.enigma.xchg.api.XchgApiInjector;
-import javafx.stage.Stage;
 
 
 public class UiScreensInjector {
 
+   private UiScreensInjector() {
+      // prevent instantiation
+   }
+
+   public static ChartsAspects injectChartsAspects(AppScope scope) {
+      return new ChartsAspects(scope.getSessionState(), scope.getRosetta(), XchgApiInjector.injectAspectsApi(scope),
+            ScreensHelpersInjector.injectChartDataHelper(scope));
+   }
+
    public static ChartsStart injectChartsStart(AppScope scope) {
-      return new ChartsStart(new Stage(), SharedCommonInjector.injectRosetta(),
-            ChartsSessionState.getInstance(), XchgApiInjector.injectCalculatedChartApi(scope), UiScreensInjector.injectChartsTetenburg(scope));
-      // TODO DI ChartsSessionState via AppScope
+      return new ChartsStart(scope.getRosetta(), scope.getSessionState(), XchgApiInjector.injectCalculatedChartApi(scope), injectChartsTetenburg(scope),
+            injectChartsAspects(scope), injectChartsMidpoints(scope));
+   }
+
+   public static ChartsMidpoints injectChartsMidpoints(AppScope scope) {
+      return new ChartsMidpoints(scope.getSessionState(), scope.getRosetta(), XchgApiInjector.injectMidpointsApi(scope),
+            ScreensHelpersInjector.injectChartDataHelper(scope));
    }
 
    public static ChartsTetenburg injectChartsTetenburg(AppScope scope) {
-      return new ChartsTetenburg(ChartsSessionState.getInstance(), new Stage(), SharedCommonInjector.injectRosetta(), XchgApiInjector.injectTetenburgApi(scope));
-      // TODO DI ChartsSessionState via AppScope
+      return new ChartsTetenburg(scope.getSessionState(), scope.getRosetta(), XchgApiInjector.injectTetenburgApi(scope));
    }
 
 }

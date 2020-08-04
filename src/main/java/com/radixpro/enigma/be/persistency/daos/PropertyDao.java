@@ -6,10 +6,10 @@
 
 package com.radixpro.enigma.be.persistency.daos;
 
-import com.radixpro.enigma.be.exceptions.DatabaseException;
+import com.radixpro.enigma.be.persistency.AppDb;
 import com.radixpro.enigma.be.versions.Updater;
-import com.radixpro.enigma.shared.AppDb;
 import com.radixpro.enigma.shared.Property;
+import com.radixpro.enigma.shared.exceptions.DatabaseException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

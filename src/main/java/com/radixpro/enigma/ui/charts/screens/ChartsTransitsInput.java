@@ -7,8 +7,9 @@
 
 package com.radixpro.enigma.ui.charts.screens;
 
+import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.shared.FailFastHandler;
-import com.radixpro.enigma.ui.exceptions.InputBlockIncompleteException;
+import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import com.radixpro.enigma.ui.shared.creators.PaneFactory;

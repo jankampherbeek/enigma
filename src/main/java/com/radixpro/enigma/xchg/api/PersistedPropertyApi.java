@@ -6,10 +6,10 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.exceptions.DatabaseException;
 import com.radixpro.enigma.be.persistency.daos.PropertyDao;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
+import com.radixpro.enigma.shared.exceptions.DatabaseException;
 
 import java.util.ArrayList;
 import java.util.List;

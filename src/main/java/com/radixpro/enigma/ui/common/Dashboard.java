@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.ui.common;
 
-import com.radixpro.enigma.shared.EnigmaDictionary;
+import com.radixpro.enigma.shared.common.EnigmaDictionary;
 import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.screens.ChartsStart;
 import com.radixpro.enigma.ui.shared.Help;

@@ -9,7 +9,7 @@ package com.radixpro.enigma.ui.shared.presentationmodel.valuetypes;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.radixpro.enigma.shared.EnigmaDictionary.*;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.*;
 import static org.junit.Assert.assertEquals;
 
 public class PlainDmsValueTest {

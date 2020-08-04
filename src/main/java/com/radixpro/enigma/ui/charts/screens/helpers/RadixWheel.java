@@ -6,6 +6,7 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.creators.PlotCoordinatesFactory;
@@ -14,7 +15,6 @@ import com.radixpro.enigma.xchg.api.ApiFactory;
 import com.radixpro.enigma.xchg.api.AspectsApi;
 import com.radixpro.enigma.xchg.domain.MundanePoints;
 import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.shared.EnigmaDictionary.GLYPH_FONTNAME;
-import static com.radixpro.enigma.shared.EnigmaDictionary.TEXT_FONTNAME;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.GLYPH_FONTNAME;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.TEXT_FONTNAME;
 
 /**
  * Image of a radix wheel.

@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.shared.screens;
 
 import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.shared.common.SessionState;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -22,10 +22,10 @@ public abstract class InputScreen {
 
    protected Stage stage;
    protected Rosetta rosetta;
-   protected ChartsSessionState state;
+   protected SessionState state;
 
    public InputScreen() {
-      state = ChartsSessionState.getInstance();
+      state = SessionState.getInstance();
       stage = new Stage();
       stage.setWidth(INPUT_WIDTH);
       rosetta = Rosetta.getRosetta();

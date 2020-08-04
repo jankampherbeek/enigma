@@ -7,12 +7,12 @@
 
 package com.radixpro.enigma.be.handlers;
 
+import com.radixpro.enigma.be.calc.CoordinateConversions;
 import com.radixpro.enigma.be.calc.SeFrontend;
-import com.radixpro.enigma.be.util.CoordinateConversions;
 import com.radixpro.enigma.shared.Range;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.shared.EnigmaDictionary.TROPICAL_YEAR;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.TROPICAL_YEAR;
 
 /**
  * Handler for the calculation of the Critical Point as defined by Ton Tetenburg.

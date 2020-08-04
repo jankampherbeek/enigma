@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.shared.AppDb;
+import com.radixpro.enigma.be.persistency.AppDb;
 import com.radixpro.enigma.testsupport.DbTestSupport;
 import com.radixpro.enigma.xchg.domain.*;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;

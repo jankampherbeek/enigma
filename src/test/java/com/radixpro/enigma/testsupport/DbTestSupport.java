@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.testsupport;
 
+import com.radixpro.enigma.be.persistency.AppDb;
 import com.radixpro.enigma.be.versions.Updater;
-import com.radixpro.enigma.shared.AppDb;
 
 import java.io.File;
 import java.sql.Connection;

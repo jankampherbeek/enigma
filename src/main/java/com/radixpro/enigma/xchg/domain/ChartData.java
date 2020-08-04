@@ -6,6 +6,8 @@
 
 package com.radixpro.enigma.xchg.domain;
 
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ChartData {          // TODO rename to prevent confusion about ChartsData

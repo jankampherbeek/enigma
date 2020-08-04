@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.validation;
 
-import com.radixpro.enigma.xchg.domain.SimpleTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 
 /**
  * Validation for time. Time should be in the format h:m:s (hours 0..23, minutes 0..59, seconds 0..59).

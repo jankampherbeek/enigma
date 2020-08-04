@@ -8,9 +8,15 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
 import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
-import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
+import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.TimeZones;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +34,8 @@ public class TetenburgApiIntTest {
 
    @Test
    public void calculateCriticalPoint() {
-      TetenburgRequest request = new TetenburgRequest(251.1, 1.015277777778, createLocation(), createBirthDateTime(), createProgDateTime());
+      TetenburgRequest request = new TetenburgRequest(251.1, 1.015277777778, createLocation(), createBirthDateTime(),
+            createProgDateTime());
       TetenburgResponse response = api.calculateCriticalPoint(request);
       assertEquals("OK", response.getResultMsg());
       assertEquals(350.130787045016, response.getLongAsc(), DELTA_8_POS);

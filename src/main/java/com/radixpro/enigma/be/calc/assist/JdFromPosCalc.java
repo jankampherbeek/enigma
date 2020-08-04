@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.be.calc.assist;
 
-import com.radixpro.enigma.be.exceptions.NoPositionFoundException;
+import com.radixpro.enigma.shared.exceptions.NoPositionFoundException;
 import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.Location;
 

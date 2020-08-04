@@ -7,11 +7,15 @@
 
 package com.radixpro.enigma.be.handlers;
 
-import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
+import com.radixpro.enigma.xchg.domain.TimeZones;
 import swisseph.SweDate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.shared.EnigmaDictionary.TROPICAL_YEAR;
+import static com.radixpro.enigma.shared.common.EnigmaDictionary.TROPICAL_YEAR;
 
 /**
  * Calculates the secundary date.

@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.xchg.api.requests;
 
+import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
-import com.radixpro.enigma.xchg.domain.FullDateTime;
 import com.radixpro.enigma.xchg.domain.Location;
 import com.radixpro.enigma.xchg.domain.TimeKeys;
 import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;

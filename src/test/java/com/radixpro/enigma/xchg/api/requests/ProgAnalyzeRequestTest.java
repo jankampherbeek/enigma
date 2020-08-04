@@ -7,9 +7,13 @@
 
 package com.radixpro.enigma.xchg.api.requests;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
+import com.radixpro.enigma.domain.astronpos.MundanePosition;
 import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
 import com.radixpro.enigma.xchg.domain.analysis.ProgAnalysisType;
-import com.radixpro.enigma.xchg.domain.astrondata.*;
+import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
+import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
+import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.xchg.api.responses;
 
+import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
-import com.radixpro.enigma.xchg.domain.astrondata.IPosition;
 
 import java.util.List;
 

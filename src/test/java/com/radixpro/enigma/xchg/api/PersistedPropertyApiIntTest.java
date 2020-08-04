@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.shared.AppDb;
+import com.radixpro.enigma.be.persistency.AppDb;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.testsupport.DbTestSupport;
 import org.junit.Before;

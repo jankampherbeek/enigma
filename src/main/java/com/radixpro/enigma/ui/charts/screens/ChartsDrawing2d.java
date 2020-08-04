@@ -7,7 +7,7 @@
 package com.radixpro.enigma.ui.charts.screens;
 
 import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.ui.charts.ChartsSessionState;
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.charts.screens.helpers.ChartDrawMetrics;
 import com.radixpro.enigma.ui.charts.screens.helpers.RadixWheel;
 import com.radixpro.enigma.ui.domain.FullChart;
@@ -36,7 +36,7 @@ public class ChartsDrawing2d {
    private static final double GAP = 6.0;
    private final Rosetta rosetta;
    private final Stage stage;
-   private final ChartsSessionState state;
+   private final SessionState state;
    private ChartDrawMetrics metrics;
    private Canvas canvas;
    private FullChart fullChart;
@@ -45,7 +45,7 @@ public class ChartsDrawing2d {
    private Configuration currentConfig;
 
 
-   public ChartsDrawing2d(final ChartsSessionState state) {            // todo use factory, add rosetta to parameters
+   public ChartsDrawing2d(final SessionState state) {            // todo use factory, add rosetta to parameters
       checkArgument(null != state && state.selectedChartIsSet());
       this.state = state;
       rosetta = Rosetta.getRosetta();
