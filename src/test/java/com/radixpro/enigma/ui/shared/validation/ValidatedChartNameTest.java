@@ -6,9 +6,14 @@
 
 package com.radixpro.enigma.ui.shared.validation;
 
+import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
+import com.radixpro.enigma.ui.validators.ValidatedChartName;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ValidatedChartNameTest {
 
@@ -16,18 +21,19 @@ public class ValidatedChartNameTest {
    private static final String textEmptyName = "";
    private ValidatedChartName valChartName;
 
+   @Before
+   public void setUp() {
+      valChartName = UiValidatorsInjector.injectValidatedChartName(new AppScope());
+   }
+
    //   @Test   TODO release 2020.2: disabled test, requires init for db
    public void happyFlow() {
-      valChartName = new ValidatedChartName(textCorrectName);
-      assertTrue(valChartName.isValidated());
-      assertEquals(textCorrectName, valChartName.getNameText());
+      assertTrue(valChartName.validate(textCorrectName));
    }
 
    @Test
    public void emptyName() {
-      valChartName = new ValidatedChartName(textEmptyName);
-      assertFalse(valChartName.isValidated());
-      assertEquals(textEmptyName, valChartName.getNameText());
+      assertFalse(valChartName.validate(textEmptyName));
    }
 
 }

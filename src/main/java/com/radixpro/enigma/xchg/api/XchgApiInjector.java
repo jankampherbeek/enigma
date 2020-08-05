@@ -8,6 +8,7 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.handlers.BeHandlersInjector;
 import com.radixpro.enigma.be.persistency.BePersistencyInjector;
 
@@ -21,8 +22,16 @@ public class XchgApiInjector {
       return new CalculatedChartApi(BeHandlersInjector.injectCalculatedChartHandler(scope));
    }
 
+   public static DateTimeApi injectDateTimeApi(AppScope scope) {
+      return new DateTimeApi(SeFrontend.getFrontend());
+   }     // TODO move SeFrontend to scope
+
    public static MidpointsApi injectMidpointsApi(AppScope scope) {
       return new MidpointsApi(BeHandlersInjector.injectMidpointsHandler(scope));
+   }
+
+   public static PersistedChartDataApi injectPersistedChartDataApi(AppScope scope) {
+      return new PersistedChartDataApi(BePersistencyInjector.injectChartDataDao(scope));
    }
 
    public static TetenburgApi injectTetenburgApi(AppScope scope) {

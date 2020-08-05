@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.ui.shared.screenblocks;
+package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.shared.common.SessionState;
@@ -24,10 +24,9 @@ public abstract class InputBlock {
    /**
     * Constructor handles creation of block.
     */
-   public InputBlock() {
-      state = SessionState.getInstance();
+   public InputBlock(SessionState state) {
+      this.state = state;
       rosetta = Rosetta.getRosetta();
-      initialize();
    }
 
    /**

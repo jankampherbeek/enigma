@@ -2,33 +2,29 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.shared.validation;
+package com.radixpro.enigma.ui.validators;
+
+import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
  * Validation for longitude. Longitude should be in the format h:m:s (degrees -180..+180, minutes 0..59, seconds 0..59).
  * Seconds are optional. Negative degrees indicate west longitude, positive degrees indicate east longitude.
  */
-public class ValidatedLongitude extends ValidatedInput {
+public class ValidatedLongitude {
 
    private double value;
    private int degrees;
    private int minutes;
    private int seconds;
+   private boolean validated;
 
-   /**
-    * The constructor performs the validation.
-    *
-    * @param input The longitude to validate.
-    */
-   public ValidatedLongitude(final String input) {
-      super(input);
-      validate();
-   }
 
-   @Override
-   protected void validate() {
+   // TODO split into converter and validator
+
+   public boolean validate(final String input) {
       String[] values = input.split(SEXAG_SEPARATOR);
       if (values.length == 2 || values.length == 3) {
          try {
@@ -45,6 +41,7 @@ public class ValidatedLongitude extends ValidatedInput {
          }
       }
       if (!validated) value = 0.0;
+      return validated;
    }
 
    public double getValue() {

@@ -21,7 +21,7 @@ import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import com.radixpro.enigma.ui.shared.creators.PaneFactory;
 import com.radixpro.enigma.ui.shared.creators.TextFieldFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
-import com.radixpro.enigma.ui.shared.validation.ValidatedDate;
+import com.radixpro.enigma.ui.validators.ValidatedDate;
 import com.radixpro.enigma.xchg.api.TetenburgApi;
 import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
 import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
@@ -81,12 +81,14 @@ public class ChartsTetenburg {
    private Pane paneTitle;
    private TextField tfDate;
    private ValidatedDate valDate;
+   private boolean dateValid = false;
 
 
-   public ChartsTetenburg(final SessionState state, final Rosetta rosetta, final TetenburgApi api) {
+   public ChartsTetenburg(final SessionState state, final Rosetta rosetta, final TetenburgApi api, final ValidatedDate valDate) {
       this.state = state;
       this.rosetta = rosetta;
       this.api = api;
+      this.valDate = valDate;
 
    }
 
@@ -190,8 +192,8 @@ public class ChartsTetenburg {
    }
 
    private void validateDate(final String newDate) {
-      valDate = new ValidatedDate(newDate + '/' + calendar);
-      tfDate.setStyle(valDate.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      dateValid = valDate.validate(newDate + '/' + calendar);
+      tfDate.setStyle(dateValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
@@ -231,7 +233,7 @@ public class ChartsTetenburg {
    }
 
    private void checkStatus() {
-      boolean inputOk = (valDate != null && valDate.isValidated());
+      boolean inputOk = (valDate != null && dateValid);
       btnCalc.setDisable(!inputOk);
       btnCalc.setFocusTraversable(inputOk);
    }

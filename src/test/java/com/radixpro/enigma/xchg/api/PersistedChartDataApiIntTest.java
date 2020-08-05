@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.persistency.AppDb;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
@@ -31,7 +32,7 @@ public class PersistedChartDataApiIntTest {
    public void setUp() throws Exception {
       new DbTestSupport();
       appDb = AppDb.getInstance();
-      pChartApi = new PersistedChartDataApi();
+      pChartApi = XchgApiInjector.injectPersistedChartDataApi(new AppScope());
    }
 
    @Test

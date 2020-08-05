@@ -7,6 +7,7 @@
 package com.radixpro.enigma.be.persistency.daos;
 
 import com.radixpro.enigma.be.persistency.AppDb;
+import com.radixpro.enigma.be.persistency.DaoParent;
 import com.radixpro.enigma.be.versions.Updater;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;

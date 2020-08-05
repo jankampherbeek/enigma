@@ -5,8 +5,9 @@
  *
  */
 
-package com.radixpro.enigma.ui.shared.screenblocks;
+package com.radixpro.enigma.ui.screens.blocks;
 
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import com.radixpro.enigma.ui.shared.creators.TextFieldFactory;
@@ -20,7 +21,7 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 /**
  * Input block for ProgMeta (Meta info for an event that is analyzed).
  */
-public class ProgMetaInput extends InputBlock {
+public class ProgMetaInputBlock extends InputBlock {
 
    private static final double HEIGHT = 100.0;
    private VBox vBox;
@@ -28,6 +29,13 @@ public class ProgMetaInput extends InputBlock {
    private Label lblMetaConfig;
    private Label lblInputEvent;
    private TextField tfEvent;
+
+   /**
+    * @param state
+    */
+   public ProgMetaInputBlock(SessionState state) {
+      super(state);
+   }
 
    @Override
    protected void initialize() {
@@ -55,6 +63,7 @@ public class ProgMetaInput extends InputBlock {
     * @return Instance of VBox.
     */
    public VBox getVBox() {
+      initialize();
       return vBox;
    }
 

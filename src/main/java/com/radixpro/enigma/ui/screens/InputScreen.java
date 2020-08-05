@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.ui.shared.screens;
+package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.shared.common.SessionState;

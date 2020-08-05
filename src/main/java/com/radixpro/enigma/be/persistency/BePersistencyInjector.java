@@ -11,8 +11,15 @@ import com.radixpro.enigma.AppScope;
 
 public class BePersistencyInjector {
 
+   private BePersistencyInjector() {
+      // prevent instantiation
+   }
+
    public static VersionDao injectVersionDao(AppScope scope) {
       return new VersionDao();
    }
 
+   public static ChartDataDao injectChartDataDao(AppScope scope) {
+      return new ChartDataDao(scope.getAppDb());
+   }
 }

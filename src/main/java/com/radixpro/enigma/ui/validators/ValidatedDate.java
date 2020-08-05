@@ -2,35 +2,33 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.shared.validation;
+package com.radixpro.enigma.ui.validators;
 
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.xchg.api.DateTimeApi;
+
+import static com.radixpro.enigma.ui.shared.UiDictionary.DATE_SEPARATOR;
 
 /**
  * Validation for a date. A date is valid if it does exist, taking leap-years and different valendars into account.
  * The format of the date should be y/m/d/c. Y is year, m is month, d is day, c is calendar ('g' for Gregorian, 'j' for Julian).
  */
-public class ValidatedDate extends ValidatedInput {
+public class ValidatedDate {
 
    private final DateTimeApi dateTimeApi;
    private SimpleDate simpleDate;
+   private boolean validated;
 
-   /**
-    * The constructor performs the validation.
-    *
-    * @param input The date to validate.
-    */
-   public ValidatedDate(final String input) {
-      super(input);
-      dateTimeApi = new DateTimeApi();
-      validate();
+
+   // TODO split into converter and validator
+   public ValidatedDate(final DateTimeApi dateTimeApi) {
+      this.dateTimeApi = dateTimeApi;
    }
 
-   @Override
-   protected void validate() {
+   public boolean validate(final String input) {
       int day;
       int month;
       int year;
@@ -53,6 +51,7 @@ public class ValidatedDate extends ValidatedInput {
       if (!validated) {
          simpleDate = new SimpleDate(0, 1, 1, false);
       }
+      return validated;
    }
 
    public SimpleDate getSimpleDate() {

@@ -2,9 +2,10 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.charts.screens;
+package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.shared.Help;
@@ -35,7 +36,8 @@ public class ChartsSearch {
    private static final double TITLE_HEIGHT = 45.0;
    private static final double INPUT_HEIGHT = 25.0;
    private final Rosetta rosetta;
-   private final Stage stage;
+   private final PersistedChartDataApi persistedChartDataApi;
+   private Stage stage;
    private Button btnCancel;
    private Button btnHelp;
    private Button btnOk;
@@ -52,8 +54,12 @@ public class ChartsSearch {
    private boolean selectionMade = false;
    private List<ChartData> chartsFound;
 
-   public ChartsSearch() {
-      rosetta = Rosetta.getRosetta();
+   public ChartsSearch(Rosetta rosetta, PersistedChartDataApi persistedChartDataApi) {
+      this.rosetta = rosetta;
+      this.persistedChartDataApi = persistedChartDataApi;
+   }
+
+   public void show() {
       defineLeafs();
       definePanes();
       defineButtons();
@@ -63,6 +69,7 @@ public class ChartsSearch {
       stage.setScene(new Scene(createVBox()));
       stage.showAndWait();
    }
+
 
    @SuppressWarnings("unchecked")
    private void defineLeafs() {
@@ -124,7 +131,7 @@ public class ChartsSearch {
    private void onSearch() {
       lvSearchResults.getItems().clear();
       String arg = tfSearchArg.getText();
-      chartsFound = new PersistedChartDataApi().search(arg);
+      chartsFound = persistedChartDataApi.search(arg);
       for (ChartData chartData : chartsFound) {
          lvSearchResults.getItems().add(chartData.getChartMetaData().getName());
       }

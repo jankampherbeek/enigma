@@ -12,8 +12,8 @@ public class DateTimeApi {
 
    private final SeFrontend seFrontend;
 
-   public DateTimeApi() {
-      seFrontend = SeFrontend.getFrontend();
+   public DateTimeApi(final SeFrontend seFrontend) {
+      this.seFrontend = seFrontend;
    }
 
    public boolean checkDate(final int year, final int month, final int day, final boolean gregorian) {

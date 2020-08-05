@@ -14,6 +14,21 @@ public class UiDictionary {
    public static final String INPUT_ERROR_STYLE = "-fx-background-radius:5;  -fx-background-color:yellow;";
    public static final String STYLESHEET = "css/enigma.css";
 
+   public static final String DATE_SEPARATOR = "/";
+   public static final int HOUR_MIN = 0;
+   public static final int HOUR_MAX = 23;
+   public static final int LAT_DEGREE_MIN = -89;
+   public static final int LAT_DEGREE_MAX = 89;
+   public static final int LONG_DEGREE_MIN = -180;
+   public static final int LONG_DEGREE_MAX = 180;
+   public static final int MINUTE_MIN = 0;
+   public static final int MINUTE_MAX = 59;
+   public static final int MINUTES_PER_HOUR = 60;
+   public static final int SECOND_MIN = 0;
+   public static final int SECOND_MAX = 59;
+   public static final int SECONDS_PER_HOUR = 3600;
+   public static final String SEXAG_SEPARATOR = ":";
+
    public static final double BUTTONBAR_HEIGHT = 50.0;
    public static final double GAP = 6.0;
    public static final double INPUT_DATETIME_HEIGHT = 200.0;

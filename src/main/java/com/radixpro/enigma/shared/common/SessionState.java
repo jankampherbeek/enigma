@@ -61,4 +61,6 @@ public class SessionState {
    public boolean selectedConfigIsSet() {
       return selectedConfig != null;
    }
+
+
 }

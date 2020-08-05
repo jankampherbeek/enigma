@@ -5,16 +5,17 @@
  *
  */
 
-package com.radixpro.enigma.ui.shared.screenblocks;
+package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.*;
-import com.radixpro.enigma.ui.shared.validation.ValidatedDate;
-import com.radixpro.enigma.ui.shared.validation.ValidatedLongitude;
-import com.radixpro.enigma.ui.shared.validation.ValidatedTime;
+import com.radixpro.enigma.ui.validators.ValidatedDate;
+import com.radixpro.enigma.ui.validators.ValidatedLongitude;
+import com.radixpro.enigma.ui.validators.ValidatedTime;
 import com.radixpro.enigma.xchg.domain.TimeZones;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +34,7 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 /**
  * Input block for date and time.
  */
-public class DateTimeInput extends InputBlock {
+public class DateTimeInputBlock extends InputBlock {
 
    private Label lblLocalTime;
    private Label lblDate;
@@ -53,10 +54,28 @@ public class DateTimeInput extends InputBlock {
    private ValidatedLongitude valLongLocalTime;
    private boolean timeZoneLocalSelected = false;
    private GridPane gridPane;
+   private boolean dateValid;
+   private boolean timeValid;
+   private boolean localTimeValid;
 
+   /**
+    * Constructor handles creation of block.
+    *
+    * @param state
+    */
+   public DateTimeInputBlock(final SessionState state, final ValidatedDate validatedDate, final ValidatedTime validatedTime,
+                             final ValidatedLongitude valLongLocalTime) {
+      super(state);
+      this.valDate = validatedDate;
+      this.valTime = validatedTime;
+      this.valLongLocalTime = valLongLocalTime;
+   }
 
    @Override
    protected void initialize() {
+      dateValid = false;
+      timeValid = false;
+      localTimeValid = false;
       lblLocalTime = LabelFactory.createLabel(rosetta.getText("ui.charts.input.time.localtime"), INPUT_MINOR_DATA_WIDTH);
       lblLocalTime.setDisable(true);
       lblDate = LabelFactory.createLabel(rosetta.getText("ui.charts.input.date.name"), INPUT_MINOR_DATA_WIDTH);
@@ -134,20 +153,20 @@ public class DateTimeInput extends InputBlock {
    }
 
    private void validateDate(final String newDate) {
-      valDate = new ValidatedDate(newDate + '/' + cbCalendar.getValue());
-      tfDate.setStyle(valDate.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      dateValid = valDate.validate(newDate + '/' + cbCalendar.getValue());
+      tfDate.setStyle(dateValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void validateTime(final String newTime) {
-      valTime = new ValidatedTime(newTime);
-      tfTime.setStyle(valTime.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      timeValid = valTime.validate(newTime);
+      tfTime.setStyle(timeValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void validateLocalTime(final String newLocalTime) {
-      valLongLocalTime = new ValidatedLongitude(newLocalTime);
-      tfLocaltime.setStyle(valLongLocalTime.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      localTimeValid = valLongLocalTime.validate(newLocalTime);
+      tfLocaltime.setStyle(localTimeValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
@@ -174,15 +193,13 @@ public class DateTimeInput extends InputBlock {
    }
 
    private void checkCalendar(final String newValue) {
-      valDate = new ValidatedDate(tfDate.getText() + '/' + newValue);
-      tfDate.setStyle(valDate.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      dateValid = valDate.validate(tfDate.getText() + '/' + newValue);
+      tfDate.setStyle(dateValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void checkStatus() {
-      boolean inputOk = (valDate != null && valDate.isValidated()
-            && valTime != null && valTime.isValidated()
-            && ((valLongLocalTime != null && valLongLocalTime.isValidated()) || !timeZoneLocalSelected));
+      boolean inputOk = (dateValid && timeValid && (localTimeValid || !timeZoneLocalSelected));
       if (inputOk) inputStatus = InputStatus.READY;
    }
 
@@ -190,6 +207,7 @@ public class DateTimeInput extends InputBlock {
     * Returns populated GridPane.
     */
    public GridPane getGridPane() {
+      initialize();
       return gridPane;
    }
 

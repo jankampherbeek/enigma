@@ -2,11 +2,11 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.be.persistency.daos;
+package com.radixpro.enigma.be.persistency;
 
-import com.radixpro.enigma.be.persistency.AppDb;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
@@ -30,6 +30,11 @@ public class ChartDataDao extends DaoParent {
    private static final String SEL_CHARTS =
          "SELECT id, name, description, source, idcharttype, idrating, caldate, time, calendar, dst, idtz, offsetlmt, locname, geolong, geolat ";
    private static final String ZERO = "0";
+   private AppDb appDb;
+
+   public ChartDataDao(AppDb appDb) {
+      this.appDb = appDb;
+   }
 
    /**
     * Insert an instance of ChartData.
@@ -41,7 +46,7 @@ public class ChartDataDao extends DaoParent {
       checkNotNull(insertChartData);
       final String insertChart = "INSERT INTO charts (id, name, description, source, idcharttype, idrating, caldate, time, calendar, dst, idtz, offsetlmt" +
             ", locname, geolong, geolat) values(chartsseq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      final AppDb appDb = AppDb.getInstance();
+//      final AppDb appDb = AppDb.getInstance();
       final Connection con = appDb.getConnection();
       int chartId = -1;
       try (PreparedStatement pStmtCharts = con.prepareStatement(insertChart)) {
@@ -90,7 +95,7 @@ public class ChartDataDao extends DaoParent {
     * @param id id of chart to delete
     */
    public void delete(final int id) {
-      final AppDb appDb = AppDb.getInstance();
+//      final AppDb appDb = AppDb.getInstance();
       final Connection con = appDb.getConnection();
       try {
          handleDelete(con, id);
@@ -108,7 +113,7 @@ public class ChartDataDao extends DaoParent {
    public List<ChartData> read(final int chartDataId) {
       List<ChartData> chartDataList = new ArrayList<>();
       final String queryCharts = SEL_CHARTS + " FROM charts WHERE id = ?;";
-      final AppDb appDb = AppDb.getInstance();
+//      final AppDb appDb = AppDb.getInstance();
       final Connection con = appDb.getConnection();
       try (PreparedStatement pStmt = con.prepareStatement(queryCharts)) {
          pStmt.setLong(1, chartDataId);
@@ -130,7 +135,7 @@ public class ChartDataDao extends DaoParent {
     */
    public List<ChartData> readAll() {
       final String queryCharts = SEL_CHARTS + " FROM charts;";
-      final AppDb appDb = AppDb.getInstance();
+//      final AppDb appDb = AppDb.getInstance();
       final Connection con = appDb.getConnection();
       List<ChartData> chartDataList = new ArrayList<>();
       try {
@@ -156,7 +161,7 @@ public class ChartDataDao extends DaoParent {
       checkNotNull(searchName);
       List<ChartData> chartDataList = new ArrayList<>();
       final String queryCharts = SEL_CHARTS + " FROM charts WHERE name ILIKE '%' || ? || '%';";
-      final AppDb appDb = AppDb.getInstance();
+//      final AppDb appDb = AppDb.getInstance();
       final Connection con = appDb.getConnection();
       try (PreparedStatement pStmt = con.prepareStatement(queryCharts)) {
          pStmt.setString(1, searchName);

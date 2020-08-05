@@ -6,6 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.validation;
 
+import com.radixpro.enigma.ui.validators.ValidatedConfigName;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

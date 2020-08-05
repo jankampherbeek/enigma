@@ -11,7 +11,7 @@ import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.*;
-import com.radixpro.enigma.ui.shared.validation.ValidatedConfigName;
+import com.radixpro.enigma.ui.validators.ValidatedConfigName;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
 import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.scene.Scene;

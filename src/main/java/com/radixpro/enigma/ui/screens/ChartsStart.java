@@ -12,7 +12,8 @@ import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.shared.common.SessionState;
-import com.radixpro.enigma.ui.charts.screens.*;
+import com.radixpro.enigma.ui.charts.screens.ChartsData;
+import com.radixpro.enigma.ui.charts.screens.ChartsDrawing2d;
 import com.radixpro.enigma.ui.configs.screens.ConfigOverview;
 import com.radixpro.enigma.ui.configs.screens.ConfigScreensFactory;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
@@ -73,9 +74,13 @@ public class ChartsStart {
    private final Rosetta rosetta;
    private final ChartsTetenburg chartsTetenburg;
    private final ChartsMidpoints chartsMidpoints;
+   private final ChartsTransitsInput chartsTransitsInput;
+   private final ChartsSearch chartsSearch;
+   private final ChartsInput chartsInput;
    private final SessionState state;
    private final PersistedPropertyApi propApi;
    private final PersistedConfigurationApi confApi;
+   private final PersistedChartDataApi chartDataApi;
    private ObservableList<PresentableChartData> selectedCharts;
    private Stage stage;
    private List<PresentableChartData> availableCharts;
@@ -98,13 +103,19 @@ public class ChartsStart {
    private Configuration currentConfig;
 
    public ChartsStart(final Rosetta rosetta, final SessionState state, final CalculatedChartApi calculatedChartApi,
-                      final ChartsTetenburg chartsTetenburg, final ChartsAspects chartsAspects, final ChartsMidpoints chartsMidpoints) {
+                      final ChartsTetenburg chartsTetenburg, final ChartsAspects chartsAspects, final ChartsMidpoints chartsMidpoints,
+                      final ChartsTransitsInput chartsTransitsInput, final ChartsSearch chartsSearch, final ChartsInput chartsInput,
+                      final PersistedChartDataApi chartDataApi) {
       this.rosetta = checkNotNull(rosetta);
       this.state = checkNotNull(state);
       this.calculatedChartApi = checkNotNull(calculatedChartApi);
       this.chartsTetenburg = checkNotNull(chartsTetenburg);
       this.chartsAspects = chartsAspects;
       this.chartsMidpoints = chartsMidpoints;
+      this.chartsTransitsInput = chartsTransitsInput;
+      this.chartsSearch = chartsSearch;
+      this.chartsInput = chartsInput;
+      this.chartDataApi = chartDataApi;
       propApi = new PersistedPropertyApi();
       confApi = new PersistedConfigurationApi();
    }
@@ -306,7 +317,7 @@ public class ChartsStart {
    }
 
    void onNewChart() {
-      ChartsInput chartsInput = new ChartsInput();
+      chartsInput.show();
       if (chartsInput.getInputStatus() == InputStatus.READY) {
          int newChartId = chartsInput.getNewChartId();
          ChartData chartData = addChart(newChartId);
@@ -315,7 +326,7 @@ public class ChartsStart {
    }
 
    void onSearchChart() {
-      ChartsSearch chartsSearch = new ChartsSearch();
+      chartsSearch.show();
       if (chartsSearch.isSelectionMade()) {
          ChartData chartData = chartsSearch.getSelectedItem();
          PresentableChartData presentableChartData = new PresentableChartData(chartData);
@@ -385,8 +396,7 @@ public class ChartsStart {
 
 
    private ChartData addChart(final int chartId) {
-      PersistedChartDataApi api = new PersistedChartDataApi();
-      ChartData chartData = api.read(chartId).get(0);
+      ChartData chartData = chartDataApi.read(chartId).get(0);
       PresentableChartData presentableChartData = new PresentableChartData(chartData);
       colName.setCellValueFactory(new PropertyValueFactory<>("chartName"));
       colData.setCellValueFactory(new PropertyValueFactory<>("chartDataDescr"));
@@ -398,8 +408,7 @@ public class ChartsStart {
       PresentableChartData presChartData = selectedCharts.get(0);
       tvCharts.getItems().remove(presChartData);
       state.deSelectChart();
-      PersistedChartDataApi api = new PersistedChartDataApi();
-      api.delete(presChartData.getOriginalData().getId());
+      chartDataApi.delete(presChartData.getOriginalData().getId());
    }
 
    private void onShowSelectedChart() {
@@ -408,34 +417,11 @@ public class ChartsStart {
    }
 
    private void onAspects() {
-//      AspectsApi api = ApiFactory.createAspectsApi();
-//      FullChart fullChart = state.getSelectedChart();
-//      CalculatedChart calculatedChart = fullChart.getCalculatedChart();
-//      String chartName = fullChart.getChartData().getChartMetaData().getName();
-//      List<IPosition> celObjectList = calculatedChart.getCelPoints();
-//      AllMundanePositions allMundanePositions = calculatedChart.getMundPoints();
-//      List<IPosition> housesList = new ArrayList<>();
-//      housesList.add(allMundanePositions.getMc());
-//      housesList.add(allMundanePositions.getAsc());
-//      final List<IAnalyzedPair> aspects = api.analyzeAspects(celObjectList, housesList, currentConfig.getDelinConfiguration().getAspectConfiguration());
-//      MetaDataForAnalysis meta = new MetaDataForAnalysis(chartName, currentConfig.getName(), currentConfig.getDelinConfiguration().getAspectConfiguration().getBaseOrb());
-//      ChartsScreensFactory.createChartsAspects(aspects, meta);
       chartsAspects.show();
    }
 
    // TODO combine logic of onAspects and onMidpoints
    private void onMidpoints() {
-//      MidpointsApi api = ApiFactory.createMidpointsApi();
-//      FullChart fullChart = state.getSelectedChart();
-//      String chartName = fullChart.getChartData().getChartMetaData().getName();
-//      List<IPosition> celObjectList = fullChart.getCalculatedChart().getCelPoints();
-//      AllMundanePositions fullHouses = fullChart.getCalculatedChart().getMundPoints();
-//      List<IPosition> housesList = new ArrayList<>();
-//      housesList.add(fullHouses.getMc());
-//      housesList.add(fullHouses.getAsc());
-//      final List<IAnalyzedPair> midpoints = api.analyseMidpoints(celObjectList, housesList);
-//      MetaDataForAnalysis meta = new MetaDataForAnalysis(chartName, currentConfig.getName(), 1.6);   // TODO replace hardcoded orb for midpoints with configurable orb
-//      ChartsScreensFactory.createChartsMidpoints(midpoints, meta);
       chartsMidpoints.show();
    }
 
@@ -446,7 +432,7 @@ public class ChartsStart {
    }
 
    private void onTransits() {
-      ChartsScreensFactory.getChartsTransitsInput();
+      chartsTransitsInput.show();
    }
 
 

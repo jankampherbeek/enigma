@@ -2,16 +2,19 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.charts.screens;
+package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.datetime.SimpleDate;
+import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.shared.common.Rosetta;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.*;
-import com.radixpro.enigma.ui.shared.validation.*;
+import com.radixpro.enigma.ui.validators.*;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
 import com.radixpro.enigma.xchg.domain.*;
 import javafx.collections.FXCollections;
@@ -35,7 +38,14 @@ public class ChartsInput {
    private static final double GP_GENERAL_HEIGHT = 240.0;
    private static final double INPUT_HEIGHT = 25.0;
    private final Rosetta rosetta;
-   private final Stage stage;
+   private final PersistedChartDataApi persistedChartDataApi;
+   private final ValidatedChartName validatedChartName;
+   private final ValidatedLatitude validatedLatitude;
+   private final ValidatedLongitude validatedLongitude;
+   private final ValidatedDate validatedDate;
+   private final ValidatedTime validatedTime;
+   private Stage stage;
+   private ValidatedLongitude validatedLocalTimeLong;   // temporary solution
    private Label lblDescription;
    private Label lblLocalTime;
    private Label lblName;
@@ -70,16 +80,40 @@ public class ChartsInput {
    private Button calculatebtn;
    private boolean timeZoneLocalSelected = false;
    private int newChartId;
-   private ValidatedLongitude valLong;
-   private ValidatedLongitude valLongLocalTime;
-   private ValidatedLatitude valLat;
-   private ValidatedChartName valChartName;
-   private ValidatedDate valDate;
-   private ValidatedTime valTime;
+//   private ValidatedLongitude valLong;
+//   private ValidatedLongitude valLongLocalTime;
+//   private ValidatedLatitude valLat;
+
+   private boolean chartNameValid;
+   private boolean longitudeValid;
+   private boolean latitudeValid;
+   private boolean dateValid;
+   private boolean timeValid;
+   private boolean localTimeValid;
+
+   //   private ValidatedDate valDate;
+//   private ValidatedTime valTime;
+   private double valLong;
+   private double valLat;
+   private SimpleDate valDate;
+   private SimpleTime valTime;
+   private SimpleTime valLocalTime;
+
    private InputStatus inputStatus = InputStatus.INCOMPLETE;
 
-   public ChartsInput() {
-      rosetta = Rosetta.getRosetta();
+   public ChartsInput(final Rosetta rosetta, final PersistedChartDataApi persistedChartDataApi, final ValidatedChartName validatedChartName,
+                      final ValidatedDate validatedDate, final ValidatedTime validatedTime, final ValidatedLongitude validatedLongitude,
+                      final ValidatedLatitude validatedLatitude) {
+      this.rosetta = rosetta;
+      this.persistedChartDataApi = persistedChartDataApi;
+      this.validatedChartName = validatedChartName;
+      this.validatedDate = validatedDate;
+      this.validatedTime = validatedTime;
+      this.validatedLongitude = validatedLongitude;
+      this.validatedLatitude = validatedLatitude;
+   }
+
+   public void show() {
       defineLeafs();
       definePanes();
       defineStructure();
@@ -89,6 +123,7 @@ public class ChartsInput {
       stage.setScene(new Scene(createVBox()));
       stage.showAndWait();
    }
+
 
    @SuppressWarnings("unchecked")
    private void defineLeafs() {
@@ -219,6 +254,12 @@ public class ChartsInput {
    }
 
    public void initialize() {
+      chartNameValid = false;
+      dateValid = false;
+      timeValid = false;
+      longitudeValid = false;
+      latitudeValid = false;
+      localTimeValid = false;
       initSubject();
       initRating();
       initLatitude();
@@ -296,46 +337,46 @@ public class ChartsInput {
       cbLocalEastWest.getSelectionModel().select(0);
    }
 
-   private void validateName(final String newName) {
-      valChartName = new ValidatedChartName(newName);
-      tfName.setText(valChartName.getNameText());
-      tfName.setStyle(valChartName.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);  //textinput
+   private void validateName(final String newValue) {
+      chartNameValid = validatedChartName.validate(newValue.trim());
+      tfName.setStyle(chartNameValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);  //textinput
       checkStatus();
    }
 
    private void validateLongitude(final String newLongitude) {
-      valLong = new ValidatedLongitude(newLongitude);
-      tfLocationLongitude.setStyle(valLong.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      if (longitudeValid = validatedLongitude.validate(newLongitude)) valLong = validatedLongitude.getValue();
+      tfLocationLongitude.setStyle(longitudeValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void validateLocalTime(final String newLocalTime) {
-      valLongLocalTime = new ValidatedLongitude(newLocalTime);
-      tfLocaltime.setStyle(valLongLocalTime.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      validatedLocalTimeLong = new ValidatedLongitude();            // temporary solution
+      if (localTimeValid = validatedLocalTimeLong.validate(newLocalTime)) valLocalTime = validatedTime.getSimpleTime();
+      tfLocaltime.setStyle(localTimeValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void validateLatitude(final String newLatitude) {
-      valLat = new ValidatedLatitude(newLatitude);
-      tfLocationLatitude.setStyle(valLat.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      if (latitudeValid = validatedLatitude.validate(newLatitude)) valLat = validatedLatitude.getValue();
+      tfLocationLatitude.setStyle(latitudeValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void validateDate(final String newDate) {
-      valDate = new ValidatedDate(newDate + '/' + cbCalendar.getValue());
-      tfDate.setStyle(valDate.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      if (dateValid = validatedDate.validate(newDate + '/' + cbCalendar.getValue())) valDate = validatedDate.getSimpleDate();
+      tfDate.setStyle(dateValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void validateTime(final String newTime) {
-      valTime = new ValidatedTime(newTime);
-      tfTime.setStyle(valTime.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      if (timeValid = validatedTime.validate(newTime)) valTime = validatedTime.getSimpleTime();
+      tfTime.setStyle(timeValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void checkCalendar(final String newValue) {
-      valDate = new ValidatedDate(tfDate.getText() + '/' + newValue);
-      tfDate.setStyle(valDate.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      dateValid = validatedDate.validate(tfDate.getText() + '/' + newValue);
+      tfDate.setStyle(dateValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
@@ -363,22 +404,16 @@ public class ChartsInput {
    }
 
    private void checkStatus() {
-      boolean inputOk = (valChartName != null && valChartName.isValidated()
-            && valLat != null && valLat.isValidated()
-            && valLong != null && valLong.isValidated()
-            && valDate != null && valDate.isValidated()
-            && valTime != null && valTime.isValidated()
-            && ((valLongLocalTime != null && valLongLocalTime.isValidated()) || !timeZoneLocalSelected));
+      boolean inputOk = (chartNameValid && latitudeValid && longitudeValid && dateValid && timeValid && (localTimeValid || !timeZoneLocalSelected));
       calculatebtn.setDisable(!inputOk);
       calculatebtn.setFocusTraversable(inputOk);
       if (inputOk) inputStatus = InputStatus.READY;
    }
 
    private int saveData() {
-      PersistedChartDataApi api = new PersistedChartDataApi();
       int chartId = 0;
       ChartData chartData = new ChartData(chartId, constructFullDateTime(), constructLocation(), constructMetaData());
-      return api.insert(chartData);
+      return persistedChartDataApi.insert(chartData);
    }
 
    private ChartMetaData constructMetaData() {
@@ -392,12 +427,12 @@ public class ChartsInput {
 
    private Location constructLocation() {
       // TODO inject LocationCreator
-      return new LocationCreator().constructLocation(tfLocationName.getText(), cbEastWest.getValue(), cbNorthSouth.getValue(), valLong, valLat);
+      return new LocationCreator().constructLocation(tfLocationName.getText(), cbEastWest.getValue(), cbNorthSouth.getValue(), validatedLongitude, validatedLatitude);
    }
 
    private FullDateTime constructFullDateTime() {
       // TODO inject FullDateTimeCreator
-      return new FullDateTimeCreator().constructFullDateTime(valDate, valTime, valLongLocalTime, cbLocalEastWest.getValue(), cbTimeZone.getValue(),
+      return new FullDateTimeCreator().constructFullDateTime(valDate, valTime, validatedLocalTimeLong, cbLocalEastWest.getValue(), cbTimeZone.getValue(),
             cBoxDst.isSelected());
    }
 

@@ -5,16 +5,17 @@
  *
  */
 
-package com.radixpro.enigma.ui.shared.screenblocks;
+package com.radixpro.enigma.ui.screens.blocks;
 
+import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.ChoiceBoxFactory;
 import com.radixpro.enigma.ui.shared.creators.GridPaneBuilder;
 import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import com.radixpro.enigma.ui.shared.creators.TextFieldFactory;
-import com.radixpro.enigma.ui.shared.validation.ValidatedLatitude;
-import com.radixpro.enigma.ui.shared.validation.ValidatedLongitude;
+import com.radixpro.enigma.ui.validators.ValidatedLatitude;
+import com.radixpro.enigma.ui.validators.ValidatedLongitude;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
 import com.radixpro.enigma.xchg.domain.Location;
 import javafx.collections.FXCollections;
@@ -32,7 +33,7 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 /**
  * Input block for location.
  */
-public class LocationInput extends InputBlock {
+public class LocationInputBlock extends InputBlock {
 
    private Label lblLocationName;
    private Label lblLocationLatitude;
@@ -45,6 +46,17 @@ public class LocationInput extends InputBlock {
    private ChoiceBox<String> cbEastWest;
    private ChoiceBox<String> cbNorthSouth;
    private GridPane gridPane;
+   private boolean longitudeValid = false;
+   private boolean latitudeValid = false;
+
+   /**
+    * @param state
+    */
+   public LocationInputBlock(final SessionState state, final ValidatedLongitude valLong, final ValidatedLatitude valLat) {
+      super(state);
+      this.valLong = valLong;
+      this.valLat = valLat;
+   }
 
    @Override
    protected void initialize() {
@@ -94,20 +106,19 @@ public class LocationInput extends InputBlock {
    }
 
    private void validateLongitude(final String newLongitude) {
-      valLong = new ValidatedLongitude(newLongitude);
-      tfLocationLongitude.setStyle(valLong.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      longitudeValid = valLong.validate(newLongitude);
+      tfLocationLongitude.setStyle(longitudeValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void validateLatitude(final String newLatitude) {
-      valLat = new ValidatedLatitude(newLatitude);
-      tfLocationLatitude.setStyle(valLat.isValidated() ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
+      latitudeValid = valLat.validate(newLatitude);
+      tfLocationLatitude.setStyle(latitudeValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void checkStatus() {
-      boolean inputOk = (valLat != null && valLat.isValidated()
-            && valLong != null && valLong.isValidated());
+      boolean inputOk = (latitudeValid && longitudeValid);
       if (inputOk) inputStatus = InputStatus.READY;
    }
 
@@ -117,6 +128,7 @@ public class LocationInput extends InputBlock {
     * @return Instance of GridPane.
     */
    public GridPane getGridPane() {
+      initialize();
       return gridPane;
    }
 

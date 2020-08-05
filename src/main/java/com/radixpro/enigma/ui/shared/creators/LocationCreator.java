@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.ui.shared.creators;
 
-import com.radixpro.enigma.ui.shared.validation.ValidatedLatitude;
-import com.radixpro.enigma.ui.shared.validation.ValidatedLongitude;
+import com.radixpro.enigma.ui.validators.ValidatedLatitude;
+import com.radixpro.enigma.ui.validators.ValidatedLongitude;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
 import com.radixpro.enigma.xchg.domain.Location;
 
@@ -32,10 +32,10 @@ public class LocationCreator {
     */
    public Location constructLocation(final String locName, final String longDir, final String latDir, final ValidatedLongitude valLong,
                                      final ValidatedLatitude valLat) {
-      checkArgument(null != valLong && valLong.isValidated());
-      checkArgument(null != valLat && valLat.isValidated());
-      checkArgument(null != longDir && (longDir.equalsIgnoreCase("E") || longDir.equalsIgnoreCase("O") ||
-            longDir.equalsIgnoreCase("W")));
+//      checkArgument(null != valLong && valLong.isValidated());
+//      checkArgument(null != valLat && valLat.isValidated());
+//      checkArgument(null != longDir && (longDir.equalsIgnoreCase("E") || longDir.equalsIgnoreCase("O") ||
+//            longDir.equalsIgnoreCase("W")));
       checkArgument(null != latDir && (latDir.equalsIgnoreCase("N") || latDir.equalsIgnoreCase("S") ||
             latDir.equalsIgnoreCase("Z")));
       final String enteredLocation = checkNotNull(locName.trim());

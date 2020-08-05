@@ -2,32 +2,28 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.shared.validation;
+package com.radixpro.enigma.ui.validators;
 
 import com.radixpro.enigma.domain.datetime.SimpleTime;
+
+import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
  * Validation for time. Time should be in the format h:m:s (hours 0..23, minutes 0..59, seconds 0..59).
  * Seconds are optional.
  */
-public class ValidatedTime extends ValidatedInput {
+public class ValidatedTime {
 
    private SimpleTime simpleTime;
+   private boolean validated;
 
-   /**
-    * The constructor performs the validation.
-    *
-    * @param input The time to validate.
-    */
-   public ValidatedTime(final String input) {
-      super(input);
-      validate();
-   }
+   // TODO split into converter and validator
 
-   @Override
-   protected void validate() {
+
+   public boolean validate(final String input) {
       int hour;
       int minute;
       int second;
@@ -46,6 +42,7 @@ public class ValidatedTime extends ValidatedInput {
          }
       }
       if (!validated) simpleTime = new SimpleTime(0, 0, 0);
+      return validated;
    }
 
    public SimpleTime getSimpleTime() {

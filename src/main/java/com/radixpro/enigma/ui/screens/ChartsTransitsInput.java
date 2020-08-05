@@ -5,18 +5,17 @@
  *
  */
 
-package com.radixpro.enigma.ui.charts.screens;
+package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
+import com.radixpro.enigma.ui.screens.blocks.DateTimeInputBlock;
+import com.radixpro.enigma.ui.screens.blocks.LocationInputBlock;
+import com.radixpro.enigma.ui.screens.blocks.ProgMetaInputBlock;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import com.radixpro.enigma.ui.shared.creators.PaneFactory;
-import com.radixpro.enigma.ui.shared.screenblocks.DateTimeInput;
-import com.radixpro.enigma.ui.shared.screenblocks.LocationInput;
-import com.radixpro.enigma.ui.shared.screenblocks.ProgMetaInput;
-import com.radixpro.enigma.ui.shared.screens.InputScreen;
 import com.radixpro.enigma.xchg.api.ApiFactory;
 import com.radixpro.enigma.xchg.api.requests.EphProgCalcRequest;
 import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
@@ -58,22 +57,23 @@ public class ChartsTransitsInput extends InputScreen {
    private Pane paneSubTitleGeneral;
    private Pane paneSubTitleLocation;
    private InputStatus inputStatus = InputStatus.INCOMPLETE;
-   private final ProgMetaInput progMetaInput;
-   private final LocationInput locationInput;
-   private final DateTimeInput dateTimeInput;
+   private final ProgMetaInputBlock progMetaInputBlock;
+   private final LocationInputBlock locationInputBlock;
+   private final DateTimeInputBlock dateTimeInputBlock;
 
    /**
-    * Instantiate via factory.
-    *
-    * @param progMetaInput Input block for meta info. PRE: not null.
-    * @param locationInput Input block for location. PRE: not null.
-    * @param dateTimeInput Input block for date and time. PRE: not null.
-    * @see ChartsScreensFactory
+    * @param progMetaInputBlock Input block for meta info. PRE: not null.
+    * @param locationInputBlock Input block for location. PRE: not null.
+    * @param dateTimeInputBlock Input block for date and time. PRE: not null.
     */
-   public ChartsTransitsInput(final ProgMetaInput progMetaInput, final LocationInput locationInput, final DateTimeInput dateTimeInput) {
-      this.progMetaInput = checkNotNull(progMetaInput);
-      this.locationInput = checkNotNull(locationInput);
-      this.dateTimeInput = checkNotNull(dateTimeInput);
+   public ChartsTransitsInput(final ProgMetaInputBlock progMetaInputBlock, final LocationInputBlock locationInputBlock,
+                              final DateTimeInputBlock dateTimeInputBlock) {
+      this.progMetaInputBlock = checkNotNull(progMetaInputBlock);
+      this.locationInputBlock = checkNotNull(locationInputBlock);
+      this.dateTimeInputBlock = checkNotNull(dateTimeInputBlock);
+   }
+
+   public void show() {
       defineLeafs();
       definePanes();
       defineStructure();
@@ -107,14 +107,14 @@ public class ChartsTransitsInput extends InputScreen {
       vBox.getStylesheets().add(STYLESHEET);
       vBox.setPrefWidth(INPUT_WIDTH);
       vBox.setPrefHeight(HEIGHT);
-      vBox.getChildren().addAll(panePageTitle, paneSubTitleGeneral, progMetaInput.getVBox(), paneSubTitleLocation, createGridPaneLocation(),
-            paneSubTitleDateAndTime, dateTimeInput.getGridPane(), createPaneBtnBar());
+      vBox.getChildren().addAll(panePageTitle, paneSubTitleGeneral, progMetaInputBlock.getVBox(), paneSubTitleLocation, createGridPaneLocation(),
+            paneSubTitleDateAndTime, dateTimeInputBlock.getGridPane(), createPaneBtnBar());
       return vBox;
    }
 
    private GridPane createGridPaneLocation() {
       // TODO only show location if config indicates topocentric calculations, otherwise replace with short text
-      return locationInput.getGridPane();
+      return locationInputBlock.getGridPane();
    }
 
    @Override
@@ -134,9 +134,9 @@ public class ChartsTransitsInput extends InputScreen {
       checkStatus();
       if (inputStatus == InputStatus.READY) {
          try {
-            String eventDescription = progMetaInput.getEventDescription();
-            FullDateTime dateTime = dateTimeInput.getDateTime();
-            Location location = locationInput.getLocation();
+            String eventDescription = progMetaInputBlock.getEventDescription();
+            FullDateTime dateTime = dateTimeInputBlock.getDateTime();
+            Location location = locationInputBlock.getLocation();
 
 
             // TODO add creation of settings to Config class
@@ -152,7 +152,6 @@ public class ChartsTransitsInput extends InputScreen {
             ICalcSettings settings = new ProgSettings(points, ayanamsha, eclProj == EclipticProjections.SIDEREAL, obsPos == ObserverPositions.TOPOCENTRIC);
             IProgCalcRequest request = new EphProgCalcRequest(dateTime, location, settings);
             SimpleProgResponse response = ApiFactory.getTransitsApi().calculateTransits(request);
-            System.out.print(response.getPositions().size());
             // TODO transfer results of response to screen that shows positions.
 
          } catch (InputBlockIncompleteException e) {
@@ -169,14 +168,14 @@ public class ChartsTransitsInput extends InputScreen {
    }
 
    private void onHelp() {
-
+      // TODO create help for input transits
 //      new Help(rosetta.getHelpText("help.chartsinput.title"), rosetta.getHelpText("help.chartsinput.content"));
    }
 
    private void checkStatus() {
-      boolean inputOk = (locationInput.getInputStatus() == InputStatus.READY
-            && (dateTimeInput.getInputStatus() == InputStatus.READY)
-            && (progMetaInput.getInputStatus() == InputStatus.READY));
+      boolean inputOk = (locationInputBlock.getInputStatus() == InputStatus.READY
+            && (dateTimeInputBlock.getInputStatus() == InputStatus.READY)
+            && (progMetaInputBlock.getInputStatus() == InputStatus.READY));
       if (inputOk) inputStatus = InputStatus.READY;
    }
 
