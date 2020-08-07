@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.persistency.daos.PropertyDao;
+import com.radixpro.enigma.be.persistency.PropertyDao;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
@@ -20,8 +20,8 @@ public class PersistedPropertyApi {
 
    private final PropertyDao dao;
 
-   public PersistedPropertyApi() {
-      dao = new PropertyDao();
+   public PersistedPropertyApi(final PropertyDao dao) {
+      this.dao = checkNotNull(dao);
    }
 
 

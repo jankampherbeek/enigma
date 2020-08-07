@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.ui.screens.helpers;
 
+import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.domain.astronpos.AllMundanePositions;
 import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.shared.common.SessionState;
-import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
 
 import java.util.ArrayList;
 import java.util.List;

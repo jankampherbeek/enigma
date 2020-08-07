@@ -8,8 +8,6 @@
 package com.radixpro.enigma;
 
 import com.radixpro.enigma.be.persistency.AppDb;
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.shared.common.SessionState;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
@@ -35,9 +33,11 @@ public class MainHelper extends Application {
    public void start(Stage primaryStage) {
       scope = new AppScope();
       scope.setSessionState(SessionState.getInstance());
-      scope.setRosetta(Rosetta.getRosetta());
-      scope.setAppDb(AppDb.initAppDb(env));
+      AppDb appDb = AppDb.initAppDb(env);
+      scope.setAppDb(appDb);
       scope.setEnv(env);
+      Rosetta rosetta = Rosetta.defineRosetta(appDb);
+      scope.setRosetta(rosetta);
       LOG.info("Started Enigma.");
       Injector.injectAppVersion(scope);
       Injector.injectDashboard(scope).showDashboard();

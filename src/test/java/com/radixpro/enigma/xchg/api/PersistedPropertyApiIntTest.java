@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.persistency.AppDb;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.testsupport.DbTestSupport;
@@ -24,7 +25,7 @@ public class PersistedPropertyApiIntTest {
    public void setUp() {
       new DbTestSupport();
       appDb = AppDb.getInstance();
-      pPropApi = new PersistedPropertyApi();
+      pPropApi = XchgApiInjector.injectPersistedPropertyApi(new AppScope());
    }
 
    @Test

@@ -7,15 +7,19 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
-import com.radixpro.enigma.xchg.api.requests.SolarReturnRequest;
-import com.radixpro.enigma.xchg.api.responses.SolarReturnResponse;
+import com.radixpro.enigma.domain.reqresp.SolarReturnRequest;
+import com.radixpro.enigma.domain.reqresp.SolarReturnResponse;
+import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
-import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
+import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
+import com.radixpro.enigma.xchg.domain.Location;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +35,7 @@ public class SolarReturnApiIntTest {
 
    @Before
    public void setUp() {
-      api = ApiFactory.getSolarReturnApi();
+      api = XchgApiInjector.injectSolarReturnApi(new AppScope());
    }
 
    @Test

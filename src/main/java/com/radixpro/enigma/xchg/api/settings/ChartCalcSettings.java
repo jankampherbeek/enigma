@@ -7,7 +7,11 @@
 
 package com.radixpro.enigma.xchg.api.settings;
 
-import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.references.Ayanamshas;
+import com.radixpro.enigma.references.EclipticProjections;
+import com.radixpro.enigma.references.HouseSystems;
+import com.radixpro.enigma.references.ObserverPositions;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
 
 import java.util.List;
 

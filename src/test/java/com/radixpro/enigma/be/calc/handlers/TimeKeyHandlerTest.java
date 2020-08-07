@@ -7,15 +7,17 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
+import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.be.handlers.BeHandlersInjector;
 import com.radixpro.enigma.be.handlers.TimeKeyHandler;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.references.Ayanamshas;
+import com.radixpro.enigma.references.TimeKeys;
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
-import com.radixpro.enigma.xchg.domain.Ayanamshas;
 import com.radixpro.enigma.xchg.domain.Location;
-import com.radixpro.enigma.xchg.domain.TimeKeys;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,7 +60,7 @@ public class TimeKeyHandlerTest {
       when(settingsMock.getAyamsha()).thenReturn(Ayanamshas.NONE);
       when(settingsMock.isSidereal()).thenReturn(false);
       when(settingsMock.isTopocentric()).thenReturn(false);
-      handler = CaHandlersFactory.getTimeKeyHandler();
+      handler = BeHandlersInjector.injectTimeKeyHandler(new AppScope());
    }
 
    @Test

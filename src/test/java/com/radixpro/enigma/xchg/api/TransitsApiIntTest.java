@@ -7,23 +7,23 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.domain.astronpos.MundanePosition;
+import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.domain.analysis.AnalyzedAspectTransit;
+import com.radixpro.enigma.domain.astronpos.*;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
-import com.radixpro.enigma.xchg.api.requests.EphProgCalcRequest;
-import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
-import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
-import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
+import com.radixpro.enigma.domain.reqresp.EphProgAspectResponse;
+import com.radixpro.enigma.domain.reqresp.EphProgCalcRequest;
+import com.radixpro.enigma.domain.reqresp.ProgAnalyzeRequest;
+import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
+import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
-import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspectTransit;
-import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
-import com.radixpro.enigma.xchg.domain.analysis.ProgAnalysisType;
-import com.radixpro.enigma.xchg.domain.astrondata.*;
+import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
+import com.radixpro.enigma.xchg.domain.Location;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,7 +40,7 @@ public class TransitsApiIntTest {
 
    @Before
    public void setUp() {
-      api = ApiFactory.getTransitsApi();
+      api = XchgApiInjector.injectTransitsApi(new AppScope());
    }
 
    @Test
@@ -122,7 +122,7 @@ public class TransitsApiIntTest {
       CoordinateSet3D csEqSpeed = new CoordinateSet3D(0.0, 0.1, 0.0);
       FullPointCoordinate fpcEq = new FullPointCoordinate(csEqPos, csEqSpeed);
       CoordinateSet csHor = new CoordinateSet(azimuth, altitude);
-      return new FullPointPosition((CelestialObjects) cPoint, fpcEcl, fpcEq, csHor);
+      return new FullPointPosition(cPoint, fpcEcl, fpcEq, csHor);
    }
 
 }

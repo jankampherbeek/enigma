@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.ui.domain;
 
+import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.xchg.domain.ChartData;
-import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

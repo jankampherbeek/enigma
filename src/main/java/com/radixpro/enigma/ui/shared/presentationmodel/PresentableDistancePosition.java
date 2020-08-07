@@ -6,10 +6,10 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
+import com.radixpro.enigma.domain.astronpos.FullPointCoordinate;
+import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.DecimalValue;
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.astrondata.FullPointCoordinate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

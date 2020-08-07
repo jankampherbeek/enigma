@@ -7,11 +7,11 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.persistency.AppDb;
+import com.radixpro.enigma.domain.config.*;
+import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.testsupport.DbTestSupport;
-import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
-import com.radixpro.enigma.xchg.domain.config.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class PersistedConfigurationApIntTest {
    public void setUp() {
       new DbTestSupport();
       appDb = AppDb.getInstance();
-      pConfApi = new PersistedConfigurationApi();
+      pConfApi = XchgApiInjector.injectPersistedConfigurationApi(new AppScope());
    }
 
    @Test

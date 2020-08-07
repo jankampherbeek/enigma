@@ -7,8 +7,11 @@
 
 package com.radixpro.enigma.ui.screens;
 
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.shared.common.SessionState;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.domain.analysis.MetaDataForAnalysis;
+import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.ui.screens.helpers.ChartDataHelper;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
@@ -17,9 +20,6 @@ import com.radixpro.enigma.ui.shared.creators.PaneFactory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableAspect;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableMidpoint;
 import com.radixpro.enigma.xchg.api.MidpointsApi;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
-import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;

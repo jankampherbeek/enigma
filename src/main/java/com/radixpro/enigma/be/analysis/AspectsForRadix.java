@@ -7,12 +7,12 @@
 
 package com.radixpro.enigma.be.analysis;
 
-import com.radixpro.enigma.xchg.domain.AspectCategory;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspect;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
-import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
+import com.radixpro.enigma.domain.analysis.AnalyzablePoint;
+import com.radixpro.enigma.domain.analysis.AnalyzedAspect;
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.domain.config.AspectConfiguration;
+import com.radixpro.enigma.domain.config.ConfiguredAspect;
+import com.radixpro.enigma.references.AspectCategory;
 
 import java.util.ArrayList;
 import java.util.List;

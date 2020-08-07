@@ -7,18 +7,20 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.domain.astronpos.MundanePosition;
+import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.domain.astronpos.*;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
-import com.radixpro.enigma.xchg.api.requests.PrimaryCalcRequest;
-import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
+import com.radixpro.enigma.domain.reqresp.PrimaryCalcRequest;
+import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
+import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
-import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.astrondata.*;
+import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
+import com.radixpro.enigma.xchg.domain.Location;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,7 +35,7 @@ public class PrimaryApiIntTest {
 
    @Before
    public void setUp() throws Exception {
-      api = ApiFactory.getPrimaryApi();
+      api = XchgApiInjector.injectPrimaryApi(new AppScope());
    }
 
    @Test

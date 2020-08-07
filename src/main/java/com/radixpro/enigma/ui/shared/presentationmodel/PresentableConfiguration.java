@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.xchg.domain.config.Configuration;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.domain.config.Configuration;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

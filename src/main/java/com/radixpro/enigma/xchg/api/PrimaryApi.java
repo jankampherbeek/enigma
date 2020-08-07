@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.calc.handlers.PrimaryHandler;
-import com.radixpro.enigma.xchg.api.requests.PrimaryCalcRequest;
-import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
+import com.radixpro.enigma.be.handlers.PrimaryHandler;
+import com.radixpro.enigma.domain.reqresp.PrimaryCalcRequest;
+import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

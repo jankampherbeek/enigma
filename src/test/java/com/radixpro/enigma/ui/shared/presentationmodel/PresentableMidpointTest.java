@@ -7,12 +7,12 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.MundanePoints;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedMidpoint;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.analysis.MidpointTypes;
+import com.radixpro.enigma.domain.analysis.AnalyzablePoint;
+import com.radixpro.enigma.domain.analysis.AnalyzedMidpoint;
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.references.CelestialObjects;
+import com.radixpro.enigma.references.MidpointTypes;
+import com.radixpro.enigma.references.MundanePoints;
 import org.junit.Before;
 import org.junit.Test;
 

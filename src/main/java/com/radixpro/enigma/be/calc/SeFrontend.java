@@ -9,9 +9,9 @@ package com.radixpro.enigma.be.calc;
 
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
-import com.radixpro.enigma.xchg.domain.HouseSystems;
+import com.radixpro.enigma.references.HouseSystems;
+import com.radixpro.enigma.references.SeFlags;
 import com.radixpro.enigma.xchg.domain.Location;
-import com.radixpro.enigma.xchg.domain.SeFlags;
 import org.apache.log4j.Logger;
 import swisseph.SweDate;
 import swisseph.SwissEph;

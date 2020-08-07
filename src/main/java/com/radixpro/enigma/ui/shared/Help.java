@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared;
 
-import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
 import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import com.radixpro.enigma.ui.shared.creators.PaneFactory;

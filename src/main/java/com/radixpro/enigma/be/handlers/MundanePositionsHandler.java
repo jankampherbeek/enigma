@@ -11,11 +11,15 @@ import com.radixpro.enigma.be.calc.CoordinateConversions;
 import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
 import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
+import com.radixpro.enigma.domain.astronpos.AllMundanePositions;
+import com.radixpro.enigma.domain.astronpos.CoordinateSet;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.astronpos.MundanePosition;
-import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
-import com.radixpro.enigma.xchg.domain.astrondata.CoordinateSet;
+import com.radixpro.enigma.references.Ayanamshas;
+import com.radixpro.enigma.references.EclipticProjections;
+import com.radixpro.enigma.references.HouseSystems;
+import com.radixpro.enigma.references.MundanePoints;
+import com.radixpro.enigma.xchg.domain.Location;
 
 import java.util.ArrayList;
 import java.util.List;

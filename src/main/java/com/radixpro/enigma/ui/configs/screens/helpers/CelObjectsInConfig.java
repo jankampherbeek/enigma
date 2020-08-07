@@ -6,10 +6,10 @@
 
 package com.radixpro.enigma.ui.configs.screens.helpers;
 
-import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.domain.config.ConfiguredCelObject;
+import com.radixpro.enigma.references.CelObjectCategory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
-import com.radixpro.enigma.xchg.domain.CelObjectCategory;
-import com.radixpro.enigma.xchg.domain.config.ConfiguredCelObject;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

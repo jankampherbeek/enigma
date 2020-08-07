@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.references.CelestialObjects;
 import org.junit.Before;
 import org.junit.Test;
 

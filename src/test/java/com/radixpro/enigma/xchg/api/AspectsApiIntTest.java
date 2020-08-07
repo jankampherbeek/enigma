@@ -7,14 +7,14 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.xchg.domain.AspectOrbStructures;
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.MundanePoints;
-import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
-import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
+import com.radixpro.enigma.domain.config.AspectConfiguration;
+import com.radixpro.enigma.domain.config.ConfiguredAspect;
+import com.radixpro.enigma.references.AspectOrbStructures;
+import com.radixpro.enigma.references.AspectTypes;
+import com.radixpro.enigma.references.CelestialObjects;
+import com.radixpro.enigma.references.MundanePoints;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

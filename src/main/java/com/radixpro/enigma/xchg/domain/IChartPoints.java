@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.xchg.domain;
 
-import com.radixpro.enigma.xchg.domain.analysis.ChartPointTypes;
+import com.radixpro.enigma.references.ChartPointTypes;
 
 public interface IChartPoints {
 

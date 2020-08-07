@@ -6,11 +6,11 @@
 
 package com.radixpro.enigma.ui.configs;
 
-import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.domain.config.ConfiguredCelObject;
+import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.config.ConfiguredCelObject;
 import org.junit.Before;
 import org.junit.Test;
 

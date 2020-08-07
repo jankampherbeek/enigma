@@ -7,23 +7,25 @@
 
 package com.radixpro.enigma.xchg.api;
 
+import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.domain.astronpos.AllMundanePositions;
+import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
-import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
-import com.radixpro.enigma.xchg.api.requests.SecundaryCalcRequest;
-import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
-import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
+import com.radixpro.enigma.domain.reqresp.EphProgAspectResponse;
+import com.radixpro.enigma.domain.reqresp.ProgAnalyzeRequest;
+import com.radixpro.enigma.domain.reqresp.SecundaryCalcRequest;
+import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
+import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
-import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.analysis.ProgAnalysisType;
-import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
-import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
+import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
+import com.radixpro.enigma.xchg.domain.Location;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +59,7 @@ public class SecundaryApiTest {
       when(posUraMock.getLongitude()).thenReturn(102.7);    // URANUS, 102.7, 0.3, 103.0, 4.0
       when(posAscMock.getLongitude()).thenReturn(162.5);    // ASC, 162.5, 0.0, 162.0, 20.0)
       when(posMarsMock.getChartPoint()).thenReturn(CelestialObjects.MARS);
-      api = ApiFactory.getSecundaryApi();
+      api = XchgApiInjector.injectSecundaryApi(new AppScope());
    }
 
    @Test

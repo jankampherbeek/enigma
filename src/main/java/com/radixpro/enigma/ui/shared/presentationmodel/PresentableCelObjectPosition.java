@@ -6,11 +6,11 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
+import com.radixpro.enigma.domain.astronpos.FullPointCoordinate;
+import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.glyphs.Sign2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.*;
-import com.radixpro.enigma.xchg.domain.astrondata.FullPointCoordinate;
-import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

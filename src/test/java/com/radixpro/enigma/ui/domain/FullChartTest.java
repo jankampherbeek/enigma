@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.ui.domain;
 
+import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.xchg.domain.ChartData;
-import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

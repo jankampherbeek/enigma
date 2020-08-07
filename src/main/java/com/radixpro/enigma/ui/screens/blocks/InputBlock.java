@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.shared.common.SessionState;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.ui.shared.InputStatus;
 
 /**

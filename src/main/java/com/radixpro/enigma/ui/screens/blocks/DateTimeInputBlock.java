@@ -7,16 +7,16 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
+import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
-import com.radixpro.enigma.shared.common.SessionState;
+import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.*;
 import com.radixpro.enigma.ui.validators.ValidatedDate;
 import com.radixpro.enigma.ui.validators.ValidatedLongitude;
 import com.radixpro.enigma.ui.validators.ValidatedTime;
-import com.radixpro.enigma.xchg.domain.TimeZones;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;

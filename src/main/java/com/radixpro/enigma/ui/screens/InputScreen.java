@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.ui.screens;
 
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.shared.common.SessionState;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.SessionState;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;

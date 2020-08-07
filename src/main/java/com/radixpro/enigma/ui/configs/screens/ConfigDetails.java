@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.ui.configs.screens;
 
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.shared.common.SessionState;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesTableForConfig;
 import com.radixpro.enigma.ui.shared.Help;

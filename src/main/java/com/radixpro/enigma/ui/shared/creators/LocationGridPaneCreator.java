@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.shared.creators;
 
 
-import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.Rosetta;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

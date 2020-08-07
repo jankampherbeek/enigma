@@ -4,7 +4,13 @@ import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
-import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.references.ChartTypes;
+import com.radixpro.enigma.references.Ratings;
+import com.radixpro.enigma.references.TimeZones;
+import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.ChartMetaData;
+import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
+import com.radixpro.enigma.xchg.domain.Location;
 
 public class ChartDataCsvMapper {
 

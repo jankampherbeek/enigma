@@ -7,12 +7,17 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.domain.analysis.MetaDataForAnalysis;
+import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.shared.common.SessionState;
+import com.radixpro.enigma.domain.reqresp.TetenburgRequest;
+import com.radixpro.enigma.domain.reqresp.TetenburgResponse;
+import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForSign;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
@@ -23,12 +28,7 @@ import com.radixpro.enigma.ui.shared.creators.TextFieldFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.ui.validators.ValidatedDate;
 import com.radixpro.enigma.xchg.api.TetenburgApi;
-import com.radixpro.enigma.xchg.api.requests.TetenburgRequest;
-import com.radixpro.enigma.xchg.api.responses.TetenburgResponse;
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.Location;
-import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
-import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -6,9 +6,9 @@
 
 package com.radixpro.enigma.ui.configs.screens.helpers;
 
-import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
-import com.radixpro.enigma.xchg.domain.config.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;

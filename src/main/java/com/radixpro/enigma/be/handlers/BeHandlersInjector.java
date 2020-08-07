@@ -10,6 +10,8 @@ package com.radixpro.enigma.be.handlers;
 import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.analysis.BeAnalysisInjector;
 import com.radixpro.enigma.be.calc.BeCalcInjector;
+import com.radixpro.enigma.be.calc.SeFrontend;
+import com.radixpro.enigma.xchg.api.XchgApiInjector;
 
 public class BeHandlersInjector {
 
@@ -23,6 +25,11 @@ public class BeHandlersInjector {
 
    public static CalculatedChartHandler injectCalculatedChartHandler(AppScope scope) {
       return new CalculatedChartHandler(injectFullPointPositionHandler(scope), injectMundanePositionsHandler(scope));
+   }
+
+   // TODO retrieve SeFrontend from scope
+   public static EphProgCalcHandler injectEphProgCalcHandler(AppScope scope) {
+      return new EphProgCalcHandler(SeFrontend.getFrontend());
    }
 
    public static FullPointPositionHandler injectFullPointPositionHandler(AppScope scope) {
@@ -41,12 +48,25 @@ public class BeHandlersInjector {
       return new ObliquityHandler(BeCalcInjector.injectSeFrontend(scope));
    }
 
+   public static PrimaryHandler injectPrimaryHandler(AppScope scope) {
+      return new PrimaryHandler(injectPrimaryPositionsHandler(scope), injectTimeKeyHandler(scope), injectObliquityHandler(scope),
+            BeCalcInjector.injectSpaeculumPropSaCalculator(scope));
+   }
+
+   public static PrimaryPositionsHandler injectPrimaryPositionsHandler(AppScope scope) {
+      return new PrimaryPositionsHandler();
+   }
+
    public static ProgAspectHandler injectProgAspectHandler(AppScope scope) {
       return new ProgAspectHandler(BeAnalysisInjector.injectProgRadixAspects(scope));
    }
 
-   public static SecundaryDateHandler injectSecundaryDateHandler() {
+   public static SecundaryDateHandler injectSecundaryDateHandler(AppScope scope) {
       return new SecundaryDateHandler();
+   }
+
+   public static SolarReturnHandler injectSolarReturnHandler(AppScope scope) {
+      return new SolarReturnHandler(BeCalcInjector.injectJdFromPosCalc(scope), XchgApiInjector.injectCalculatedChartApi(scope));
    }
 
    public static TetenburgHandler injectTetenburgHandler(AppScope scope) {
@@ -54,7 +74,7 @@ public class BeHandlersInjector {
    }
 
    public static TimeKeyHandler injectTimeKeyHandler(AppScope scope) {
-      return new TimeKeyHandler(injectSecundaryDateHandler(), injectFullPointPositionHandler(scope));
+      return new TimeKeyHandler(injectSecundaryDateHandler(scope), injectFullPointPositionHandler(scope));
    }
 
 }

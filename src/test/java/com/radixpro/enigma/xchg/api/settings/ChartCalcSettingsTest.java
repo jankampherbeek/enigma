@@ -7,7 +7,8 @@
 
 package com.radixpro.enigma.xchg.api.settings;
 
-import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.references.*;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
 import org.junit.Before;
 import org.junit.Test;
 

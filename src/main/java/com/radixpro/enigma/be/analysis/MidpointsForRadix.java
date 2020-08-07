@@ -7,10 +7,10 @@
 
 package com.radixpro.enigma.be.analysis;
 
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedMidpoint;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.analysis.MidpointTypes;
+import com.radixpro.enigma.domain.analysis.AnalyzablePoint;
+import com.radixpro.enigma.domain.analysis.AnalyzedMidpoint;
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.references.MidpointTypes;
 
 import java.util.ArrayList;
 import java.util.List;

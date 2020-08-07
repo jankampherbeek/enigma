@@ -6,11 +6,11 @@
 
 package com.radixpro.enigma.ui.configs;
 
-import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.domain.config.ConfiguredAspect;
+import com.radixpro.enigma.references.AspectTypes;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
-import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
-import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
 import org.junit.Before;
 import org.junit.Test;
 

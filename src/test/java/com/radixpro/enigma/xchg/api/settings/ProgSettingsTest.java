@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.xchg.api.settings;
 
-import com.radixpro.enigma.xchg.domain.Ayanamshas;
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.references.Ayanamshas;
+import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
 import org.junit.Before;
 import org.junit.Test;

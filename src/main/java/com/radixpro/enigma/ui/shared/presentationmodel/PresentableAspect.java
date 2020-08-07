@@ -7,14 +7,14 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
+import com.radixpro.enigma.domain.analysis.AnalyzedAspect;
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.references.CelestialObjects;
+import com.radixpro.enigma.references.MundanePoints;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForAspect;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForCelObject;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-import com.radixpro.enigma.xchg.domain.MundanePoints;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspect;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

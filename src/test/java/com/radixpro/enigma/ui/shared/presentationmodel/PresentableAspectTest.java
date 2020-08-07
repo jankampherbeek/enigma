@@ -7,11 +7,11 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzedAspect;
-import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.domain.analysis.AnalyzablePoint;
+import com.radixpro.enigma.domain.analysis.AnalyzedAspect;
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.references.AspectTypes;
+import com.radixpro.enigma.references.CelestialObjects;
 import org.junit.Before;
 import org.junit.Test;
 

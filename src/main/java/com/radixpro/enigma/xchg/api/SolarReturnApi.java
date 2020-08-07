@@ -7,12 +7,12 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.calc.handlers.SolarReturnHandler;
-import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.be.handlers.SolarReturnHandler;
+import com.radixpro.enigma.domain.astronpos.CalculatedChart;
+import com.radixpro.enigma.domain.reqresp.SolarReturnRequest;
+import com.radixpro.enigma.domain.reqresp.SolarReturnResponse;
 import com.radixpro.enigma.shared.exceptions.NoPositionFoundException;
-import com.radixpro.enigma.xchg.api.requests.SolarReturnRequest;
-import com.radixpro.enigma.xchg.api.responses.SolarReturnResponse;
-import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
 import org.apache.log4j.Logger;
 
 import static com.google.common.base.Preconditions.checkNotNull;

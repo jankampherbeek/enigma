@@ -6,6 +6,9 @@
 
 package com.radixpro.enigma.xchg.domain;
 
+import com.radixpro.enigma.references.ChartTypes;
+import com.radixpro.enigma.references.Ratings;
+
 import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkNotNull;

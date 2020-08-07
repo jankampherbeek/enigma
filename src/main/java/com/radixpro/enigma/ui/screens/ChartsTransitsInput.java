@@ -7,7 +7,15 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.domain.config.Configuration;
+import com.radixpro.enigma.domain.config.ConfiguredCelObject;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.reqresp.EphProgCalcRequest;
+import com.radixpro.enigma.domain.reqresp.IProgCalcRequest;
+import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
+import com.radixpro.enigma.references.Ayanamshas;
+import com.radixpro.enigma.references.EclipticProjections;
+import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.screens.blocks.DateTimeInputBlock;
@@ -16,15 +24,11 @@ import com.radixpro.enigma.ui.screens.blocks.ProgMetaInputBlock;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import com.radixpro.enigma.ui.shared.creators.PaneFactory;
-import com.radixpro.enigma.xchg.api.ApiFactory;
-import com.radixpro.enigma.xchg.api.requests.EphProgCalcRequest;
-import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
-import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
+import com.radixpro.enigma.xchg.api.TransitsApi;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
-import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.config.Configuration;
-import com.radixpro.enigma.xchg.domain.config.ConfiguredCelObject;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
+import com.radixpro.enigma.xchg.domain.Location;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -60,17 +64,20 @@ public class ChartsTransitsInput extends InputScreen {
    private final ProgMetaInputBlock progMetaInputBlock;
    private final LocationInputBlock locationInputBlock;
    private final DateTimeInputBlock dateTimeInputBlock;
+   private final TransitsApi transitsApi;
 
    /**
     * @param progMetaInputBlock Input block for meta info. PRE: not null.
     * @param locationInputBlock Input block for location. PRE: not null.
     * @param dateTimeInputBlock Input block for date and time. PRE: not null.
+    * @param transitsApi        Api for the calculation of transits. PRE: not null.
     */
    public ChartsTransitsInput(final ProgMetaInputBlock progMetaInputBlock, final LocationInputBlock locationInputBlock,
-                              final DateTimeInputBlock dateTimeInputBlock) {
+                              final DateTimeInputBlock dateTimeInputBlock, final TransitsApi transitsApi) {
       this.progMetaInputBlock = checkNotNull(progMetaInputBlock);
       this.locationInputBlock = checkNotNull(locationInputBlock);
       this.dateTimeInputBlock = checkNotNull(dateTimeInputBlock);
+      this.transitsApi = checkNotNull(transitsApi);
    }
 
    public void show() {
@@ -151,7 +158,7 @@ public class ChartsTransitsInput extends InputScreen {
             Ayanamshas ayanamsha = config.getAstronConfiguration().getAyanamsha();
             ICalcSettings settings = new ProgSettings(points, ayanamsha, eclProj == EclipticProjections.SIDEREAL, obsPos == ObserverPositions.TOPOCENTRIC);
             IProgCalcRequest request = new EphProgCalcRequest(dateTime, location, settings);
-            SimpleProgResponse response = ApiFactory.getTransitsApi().calculateTransits(request);
+            SimpleProgResponse response = transitsApi.calculateTransits(request);
             // TODO transfer results of response to screen that shows positions.
 
          } catch (InputBlockIncompleteException e) {

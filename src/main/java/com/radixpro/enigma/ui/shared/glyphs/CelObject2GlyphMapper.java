@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.glyphs;
 
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
 
 import static com.google.common.base.Preconditions.checkNotNull;

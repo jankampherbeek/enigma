@@ -11,7 +11,7 @@ import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
-import com.radixpro.enigma.xchg.domain.TimeZones;
+import com.radixpro.enigma.references.TimeZones;
 import swisseph.SweDate;
 
 import static com.google.common.base.Preconditions.checkNotNull;

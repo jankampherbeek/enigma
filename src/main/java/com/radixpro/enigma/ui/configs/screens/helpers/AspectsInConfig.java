@@ -6,10 +6,10 @@
 
 package com.radixpro.enigma.ui.configs.screens.helpers;
 
-import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.domain.config.ConfiguredAspect;
+import com.radixpro.enigma.references.AspectCategory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
-import com.radixpro.enigma.xchg.domain.AspectCategory;
-import com.radixpro.enigma.xchg.domain.config.ConfiguredAspect;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

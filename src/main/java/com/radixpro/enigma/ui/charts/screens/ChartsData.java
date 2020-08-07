@@ -6,17 +6,17 @@
 
 package com.radixpro.enigma.ui.charts.screens;
 
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.domain.astronpos.CalculatedChart;
+import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
 import com.radixpro.enigma.ui.shared.creators.LabelFactory;
 import com.radixpro.enigma.ui.shared.presentationmodel.*;
 import com.radixpro.enigma.xchg.domain.ChartData;
-import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
-import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -16,6 +16,10 @@ public class UiValidatorsInjector {
       // prevent instantiation
    }
 
+   public static ConfigNameValidator injectConfigNameValidator(AppScope scope) {
+      return new ConfigNameValidator(XchgApiInjector.injectPersistedConfigurationApi(scope));
+   }
+
    public static ValidatedChartName injectValidatedChartName(AppScope scope) {
       return new ValidatedChartName(XchgApiInjector.injectPersistedChartDataApi(scope));
    }

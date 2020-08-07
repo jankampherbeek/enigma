@@ -7,16 +7,21 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
-import com.radixpro.enigma.shared.common.Rosetta;
+import com.radixpro.enigma.references.ChartTypes;
+import com.radixpro.enigma.references.Ratings;
+import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.*;
 import com.radixpro.enigma.ui.validators.*;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
-import com.radixpro.enigma.xchg.domain.*;
+import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.ChartMetaData;
+import com.radixpro.enigma.xchg.domain.Location;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;

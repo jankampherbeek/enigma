@@ -7,7 +7,8 @@
 
 package com.radixpro.enigma.be.calc.assist;
 
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.domain.astronpos.SpaeculumPropSaItem;
+import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
 import org.junit.Before;
 import org.junit.Test;

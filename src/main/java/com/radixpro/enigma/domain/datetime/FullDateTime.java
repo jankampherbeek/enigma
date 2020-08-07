@@ -7,10 +7,10 @@
 
 package com.radixpro.enigma.domain.datetime;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.be.calc.handlers.JulianDayHandler;
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.xchg.domain.TimeZones;
+import com.radixpro.enigma.references.TimeZones;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

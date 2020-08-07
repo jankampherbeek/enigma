@@ -6,10 +6,10 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.persistency.daos.ConfigurationDao;
+import com.radixpro.enigma.be.persistency.ConfigurationDao;
+import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
-import com.radixpro.enigma.xchg.domain.config.Configuration;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ public class PersistedConfigurationApi {
    private final ConfigurationDao dao;
 
 
-   public PersistedConfigurationApi() {
-      dao = new ConfigurationDao();
+   public PersistedConfigurationApi(final ConfigurationDao dao) {
+      this.dao = dao;
    }
 
    public int insert(final Configuration configuration) {

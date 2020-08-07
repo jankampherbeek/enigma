@@ -8,13 +8,18 @@
 package com.radixpro.enigma.be.handlers;
 
 import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
+import com.radixpro.enigma.domain.astronpos.AllMundanePositions;
+import com.radixpro.enigma.domain.astronpos.CalculatedChart;
+import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.references.Ayanamshas;
+import com.radixpro.enigma.references.EclipticProjections;
+import com.radixpro.enigma.references.HouseSystems;
+import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
-import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.astrondata.AllMundanePositions;
-import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
-import com.radixpro.enigma.xchg.domain.astrondata.FullPointPosition;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
+import com.radixpro.enigma.xchg.domain.Location;
 
 import java.util.ArrayList;
 import java.util.List;

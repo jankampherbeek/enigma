@@ -6,16 +6,16 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.IPosition;
+import com.radixpro.enigma.domain.config.Configuration;
+import com.radixpro.enigma.references.MundanePoints;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.creators.PlotCoordinatesFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.xchg.api.ApiFactory;
 import com.radixpro.enigma.xchg.api.AspectsApi;
-import com.radixpro.enigma.xchg.domain.MundanePoints;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.config.Configuration;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;

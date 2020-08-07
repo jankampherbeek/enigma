@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.be.calc.assist;
 
-import com.radixpro.enigma.xchg.domain.SeFlags;
+import com.radixpro.enigma.references.SeFlags;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -8,9 +8,9 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.be.handlers.AspectsHandler;
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
+import com.radixpro.enigma.domain.config.AspectConfiguration;
 
 import java.util.List;
 

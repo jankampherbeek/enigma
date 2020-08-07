@@ -8,12 +8,12 @@
 package com.radixpro.enigma.be.handlers;
 
 import com.radixpro.enigma.be.analysis.ProgRadixAspects;
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
-import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
-import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
+import com.radixpro.enigma.domain.reqresp.EphProgAspectResponse;
+import com.radixpro.enigma.domain.reqresp.ProgAnalyzeRequest;
+import com.radixpro.enigma.references.AspectTypes;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,6 +7,9 @@
 
 package com.radixpro.enigma.xchg.domain;
 
+import com.radixpro.enigma.references.Ayanamshas;
+import com.radixpro.enigma.references.CelestialObjects;
+import com.radixpro.enigma.references.HouseSystems;
 import org.junit.Before;
 import org.junit.Test;
 

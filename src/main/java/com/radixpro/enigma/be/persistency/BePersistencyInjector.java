@@ -22,4 +22,13 @@ public class BePersistencyInjector {
    public static ChartDataDao injectChartDataDao(AppScope scope) {
       return new ChartDataDao(scope.getAppDb());
    }
+
+   public static ConfigurationDao injectConfigurationDao(AppScope scope) {
+      return new ConfigurationDao(scope.getAppDb());
+   }
+
+   public static PropertyDao injectPropertyDao(AppScope scope) {
+      return new PropertyDao(scope.getAppDb());
+   }
+
 }

@@ -7,15 +7,11 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.be.calc.handlers.EphProgCalcHandler;
+import com.radixpro.enigma.be.handlers.EphProgCalcHandler;
 import com.radixpro.enigma.be.handlers.ProgAspectHandler;
 import com.radixpro.enigma.be.handlers.SecundaryDateHandler;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.xchg.api.requests.IProgCalcRequest;
-import com.radixpro.enigma.xchg.api.requests.ProgAnalyzeRequest;
-import com.radixpro.enigma.xchg.api.requests.SecundaryCalcRequest;
-import com.radixpro.enigma.xchg.api.responses.EphProgAspectResponse;
-import com.radixpro.enigma.xchg.api.responses.SimpleProgResponse;
+import com.radixpro.enigma.domain.reqresp.*;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

@@ -7,8 +7,7 @@
 
 package com.radixpro.enigma.domain.astronpos;
 
-import com.radixpro.enigma.xchg.domain.MundanePoints;
-import com.radixpro.enigma.xchg.domain.astrondata.CoordinateSet;
+import com.radixpro.enigma.references.MundanePoints;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;

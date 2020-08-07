@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.glyphs;
 
-import com.radixpro.enigma.xchg.domain.CelestialObjects;
+import com.radixpro.enigma.references.CelestialObjects;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

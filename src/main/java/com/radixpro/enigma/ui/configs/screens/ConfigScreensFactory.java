@@ -7,14 +7,12 @@
 
 package com.radixpro.enigma.ui.configs.screens;
 
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.shared.common.SessionState;
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
-import com.radixpro.enigma.xchg.api.ApiFactory;
-import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
-import com.radixpro.enigma.xchg.domain.config.Configuration;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -37,24 +35,21 @@ public class ConfigScreensFactory {
             new AspectsInConfig(rosetta), rosetta);
       return new ConfigDetails(prop4Config, rosetta, SessionState.getInstance());
    }
+//
+//   /**
+//    * Build instance of ConfigEdit.
+//    *
+//    * @param config The actual configuration.
+//    * @return instance of ConfigEdit.
+//    */
+//   public ConfigEdit createConfigEdit(final Configuration config) {
+//      checkNotNull(config);
+//      return new ConfigEdit(Rosetta.getRosetta(), SessionState.getInstance());
+//   }
 
-   /**
-    * Build instance of ConfigEdit.
-    *
-    * @param config The actual configuration.
-    * @return instance of ConfigEdit.
-    */
-   public ConfigEdit createConfigEdit(final Configuration config) {
-      checkNotNull(config);
-      return new ConfigEdit(Rosetta.getRosetta(), SessionState.getInstance());
-   }
+//   public ConfigNew createConfigNew() {
+//      return new ConfigNew(Rosetta.getRosetta(), ApiFactory.getPersistedConfigurationApi(), SessionState.getInstance());
+//   }
 
-   public ConfigNew createConfigNew() {
-      return new ConfigNew(Rosetta.getRosetta(), ApiFactory.getPersistedConfigurationApi(), SessionState.getInstance());
-   }
 
-   public ConfigOverview createConfigOverview() {
-      return new ConfigOverview(ApiFactory.getPersistedConfigurationApi(), new PersistedPropertyApi(), Rosetta.getRosetta(),
-            SessionState.getInstance());
-   }
 }

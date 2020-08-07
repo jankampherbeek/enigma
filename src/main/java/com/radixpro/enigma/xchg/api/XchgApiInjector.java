@@ -34,8 +34,33 @@ public class XchgApiInjector {
       return new PersistedChartDataApi(BePersistencyInjector.injectChartDataDao(scope));
    }
 
+   public static PersistedConfigurationApi injectPersistedConfigurationApi(AppScope scope) {
+      return new PersistedConfigurationApi(BePersistencyInjector.injectConfigurationDao(scope));
+   }
+
+   public static PersistedPropertyApi injectPersistedPropertyApi(AppScope scope) {
+      return new PersistedPropertyApi(BePersistencyInjector.injectPropertyDao(scope));
+   }
+
+   public static PrimaryApi injectPrimaryApi(AppScope scope) {
+      return new PrimaryApi(BeHandlersInjector.injectPrimaryHandler(scope));
+   }
+
+   public static SecundaryApi injectSecundaryApi(AppScope scope) {
+      return new SecundaryApi(BeHandlersInjector.injectEphProgCalcHandler(scope), BeHandlersInjector.injectSecundaryDateHandler(scope),
+            BeHandlersInjector.injectProgAspectHandler(scope));
+   }
+
+   public static SolarReturnApi injectSolarReturnApi(AppScope scope) {
+      return new SolarReturnApi(BeHandlersInjector.injectSolarReturnHandler(scope), scope.getRosetta());
+   }
+
    public static TetenburgApi injectTetenburgApi(AppScope scope) {
       return new TetenburgApi(BeHandlersInjector.injectTetenburgHandler(scope));
+   }
+
+   public static TransitsApi injectTransitsApi(AppScope scope) {
+      return new TransitsApi(BeHandlersInjector.injectEphProgCalcHandler(scope), BeHandlersInjector.injectProgAspectHandler(scope));
    }
 
    public static VersionApi injectVersionApi(AppScope scope) {

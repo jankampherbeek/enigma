@@ -7,15 +7,23 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.domain.analysis.MetaDataForAnalysis;
+import com.radixpro.enigma.domain.astronpos.CalculatedChart;
+import com.radixpro.enigma.domain.config.Configuration;
+import com.radixpro.enigma.domain.config.ConfiguredCelObject;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.reqresp.CalculatedChartRequest;
+import com.radixpro.enigma.domain.reqresp.CalculatedChartResponse;
+import com.radixpro.enigma.references.Ayanamshas;
+import com.radixpro.enigma.references.EclipticProjections;
+import com.radixpro.enigma.references.HouseSystems;
+import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.shared.common.SessionState;
 import com.radixpro.enigma.ui.charts.screens.ChartsData;
 import com.radixpro.enigma.ui.charts.screens.ChartsDrawing2d;
-import com.radixpro.enigma.ui.configs.screens.ConfigOverview;
-import com.radixpro.enigma.ui.configs.screens.ConfigScreensFactory;
 import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
@@ -32,14 +40,10 @@ import com.radixpro.enigma.xchg.api.CalculatedChartApi;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
-import com.radixpro.enigma.xchg.api.requests.CalculatedChartRequest;
-import com.radixpro.enigma.xchg.api.responses.CalculatedChartResponse;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
-import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.analysis.MetaDataForAnalysis;
-import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
-import com.radixpro.enigma.xchg.domain.config.Configuration;
-import com.radixpro.enigma.xchg.domain.config.ConfiguredCelObject;
+import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.IChartPoints;
+import com.radixpro.enigma.xchg.domain.Location;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -77,14 +81,15 @@ public class ChartsStart {
    private final ChartsTransitsInput chartsTransitsInput;
    private final ChartsSearch chartsSearch;
    private final ChartsInput chartsInput;
+   private final ConfigOverview configOverview;
    private final SessionState state;
    private final PersistedPropertyApi propApi;
    private final PersistedConfigurationApi confApi;
    private final PersistedChartDataApi chartDataApi;
-   private ObservableList<PresentableChartData> selectedCharts;
-   private Stage stage;
-   private List<PresentableChartData> availableCharts;
    private final CalculatedChartApi calculatedChartApi;
+   private ObservableList<PresentableChartData> selectedCharts;
+   private List<PresentableChartData> availableCharts;
+   private Stage stage;
    private Button btnDeleteChart;
    private Button btnShowChart;
    private MenuItem miShowChart;
@@ -105,7 +110,8 @@ public class ChartsStart {
    public ChartsStart(final Rosetta rosetta, final SessionState state, final CalculatedChartApi calculatedChartApi,
                       final ChartsTetenburg chartsTetenburg, final ChartsAspects chartsAspects, final ChartsMidpoints chartsMidpoints,
                       final ChartsTransitsInput chartsTransitsInput, final ChartsSearch chartsSearch, final ChartsInput chartsInput,
-                      final PersistedChartDataApi chartDataApi) {
+                      final PersistedChartDataApi chartDataApi, final PersistedConfigurationApi confApi, final PersistedPropertyApi propApi,
+                      final ConfigOverview configOverview) {
       this.rosetta = checkNotNull(rosetta);
       this.state = checkNotNull(state);
       this.calculatedChartApi = checkNotNull(calculatedChartApi);
@@ -115,9 +121,10 @@ public class ChartsStart {
       this.chartsTransitsInput = chartsTransitsInput;
       this.chartsSearch = chartsSearch;
       this.chartsInput = chartsInput;
+      this.configOverview = configOverview;
       this.chartDataApi = chartDataApi;
-      propApi = new PersistedPropertyApi();
-      confApi = new PersistedConfigurationApi();
+      this.propApi = propApi;
+      this.confApi = confApi;
    }
 
    public void show() {
@@ -310,7 +317,7 @@ public class ChartsStart {
    }
 
    void onConfig() {
-      final ConfigOverview configOverview = new ConfigScreensFactory().createConfigOverview();
+      configOverview.show();
       currentConfig = state.getSelectedConfig();
       initialize();
       showIt();

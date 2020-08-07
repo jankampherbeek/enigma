@@ -8,9 +8,9 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.be.handlers.CalculatedChartHandler;
-import com.radixpro.enigma.xchg.api.requests.CalculatedChartRequest;
-import com.radixpro.enigma.xchg.api.responses.CalculatedChartResponse;
-import com.radixpro.enigma.xchg.domain.astrondata.CalculatedChart;
+import com.radixpro.enigma.domain.astronpos.CalculatedChart;
+import com.radixpro.enigma.domain.reqresp.CalculatedChartRequest;
+import com.radixpro.enigma.domain.reqresp.CalculatedChartResponse;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

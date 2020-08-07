@@ -8,8 +8,6 @@
 package com.radixpro.enigma;
 
 import com.radixpro.enigma.be.persistency.AppDb;
-import com.radixpro.enigma.shared.common.Rosetta;
-import com.radixpro.enigma.shared.common.SessionState;
 
 /**
  * Application Scope for DIY-DI

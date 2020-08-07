@@ -8,6 +8,7 @@
 package com.radixpro.enigma.be.calc;
 
 import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.be.handlers.BeHandlersInjector;
 
 public class BeCalcInjector {
 
@@ -15,5 +16,15 @@ public class BeCalcInjector {
       return SeFrontend.getFrontend();
    }    // TODO DI move to AppScope
 
+   public static CoordSetForDateTimeCalc injectCoordSetForDateTimeCalc(AppScope scope) {
+      return new CoordSetForDateTimeCalc(injectSeFrontend(scope));
+   }
 
+   public static JdFromPosCalc injectJdFromPosCalc(AppScope scope) {
+      return new JdFromPosCalc(injectCoordSetForDateTimeCalc(scope));
+   }
+
+   public static SpaeculumPropSaCalculator injectSpaeculumPropSaCalculator(AppScope scope) {
+      return new SpaeculumPropSaCalculator(BeHandlersInjector.injectObliquityHandler(scope));
+   }
 }

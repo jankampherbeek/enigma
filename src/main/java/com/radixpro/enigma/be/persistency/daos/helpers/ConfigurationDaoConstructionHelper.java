@@ -8,11 +8,10 @@
 package com.radixpro.enigma.be.persistency.daos.helpers;
 
 import com.google.common.base.Preconditions;
-import com.radixpro.enigma.be.persistency.daos.ConfigurationDao;
+import com.radixpro.enigma.be.persistency.ConfigurationDao;
+import com.radixpro.enigma.domain.config.*;
+import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
-import com.radixpro.enigma.xchg.domain.*;
-import com.radixpro.enigma.xchg.domain.analysis.AspectTypes;
-import com.radixpro.enigma.xchg.domain.config.*;
 import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;

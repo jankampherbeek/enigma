@@ -8,10 +8,10 @@
 package com.radixpro.enigma.be.handlers;
 
 import com.radixpro.enigma.be.analysis.AspectsForRadix;
+import com.radixpro.enigma.domain.analysis.AnalyzablePoint;
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.xchg.domain.analysis.AnalyzablePoint;
-import com.radixpro.enigma.xchg.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.xchg.domain.config.AspectConfiguration;
+import com.radixpro.enigma.domain.config.AspectConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
