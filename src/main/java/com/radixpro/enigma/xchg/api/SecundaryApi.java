@@ -21,14 +21,7 @@ public class SecundaryApi {
    private final SecundaryDateHandler secundaryDateHandler;
    private final ProgAspectHandler aspectHandler;
 
-   /**
-    * Create via factory.
-    *
-    * @param calcHandler    Handler for calculations. PRE: not null.
-    * @param secDateHandler Handler for calculating the secundary date. PRE: not null.
-    * @param aspectHandler  Handler to find the aspects. PRE: not null.
-    * @see ApiFactory
-    */
+
    public SecundaryApi(final EphProgCalcHandler calcHandler, final SecundaryDateHandler secDateHandler, final ProgAspectHandler aspectHandler) {
       this.secundaryDateHandler = checkNotNull(secDateHandler);
       this.aspectHandler = checkNotNull(aspectHandler);

@@ -8,12 +8,12 @@
 package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
-import com.radixpro.enigma.ui.shared.InputStatus;
-import com.radixpro.enigma.ui.shared.creators.ChoiceBoxFactory;
-import com.radixpro.enigma.ui.shared.creators.GridPaneBuilder;
-import com.radixpro.enigma.ui.shared.creators.LabelFactory;
-import com.radixpro.enigma.ui.shared.creators.TextFieldFactory;
+import com.radixpro.enigma.ui.creators.ChoiceBoxFactory;
+import com.radixpro.enigma.ui.creators.GridPaneBuilder;
+import com.radixpro.enigma.ui.creators.LabelFactory;
+import com.radixpro.enigma.ui.creators.TextFieldFactory;
 import com.radixpro.enigma.ui.validators.ValidatedLatitude;
 import com.radixpro.enigma.ui.validators.ValidatedLongitude;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;

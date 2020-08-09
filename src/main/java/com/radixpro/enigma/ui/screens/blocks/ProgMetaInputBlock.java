@@ -8,9 +8,9 @@
 package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.SessionState;
-import com.radixpro.enigma.ui.shared.InputStatus;
-import com.radixpro.enigma.ui.shared.creators.LabelFactory;
-import com.radixpro.enigma.ui.shared.creators.TextFieldFactory;
+import com.radixpro.enigma.references.InputStatus;
+import com.radixpro.enigma.ui.creators.LabelFactory;
+import com.radixpro.enigma.ui.creators.TextFieldFactory;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

@@ -26,13 +26,7 @@ public class SolarReturnApi {
    private final SolarReturnHandler handler;
    private final Rosetta rosetta;
 
-   /**
-    * Use ApiProgFactory for instantiation.
-    *
-    * @param handler handler to fullfil incoming requests.
-    * @param rosetta handles the resource bundle translations.
-    * @see ApiFactory
-    */
+
    public SolarReturnApi(final SolarReturnHandler handler, final Rosetta rosetta) {
       this.handler = checkNotNull(handler);
       this.rosetta = checkNotNull(rosetta);

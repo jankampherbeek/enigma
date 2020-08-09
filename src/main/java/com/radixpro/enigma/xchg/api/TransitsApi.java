@@ -24,13 +24,6 @@ public class TransitsApi {
    private final EphProgCalcHandler calcHandler;
    private final ProgAspectHandler aspectHandler;
 
-   /**
-    * Constructor should be created by factory.
-    *
-    * @param calcHandler   handler for calculating transit positions. PRE: not null.
-    * @param aspectHandler handler for analyzing tansit aspects. PRE: not null.
-    * @see ApiFactory
-    */
    public TransitsApi(final EphProgCalcHandler calcHandler,
                       final ProgAspectHandler aspectHandler) {
       this.calcHandler = checkNotNull(calcHandler);

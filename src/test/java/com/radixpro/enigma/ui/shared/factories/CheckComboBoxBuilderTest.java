@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
-import com.radixpro.enigma.ui.shared.creators.CheckComboBoxBuilder;
+import com.radixpro.enigma.ui.creators.CheckComboBoxBuilder;
 import org.controlsfx.control.CheckComboBox;
 import org.junit.Test;
 import org.junit.runner.RunWith;

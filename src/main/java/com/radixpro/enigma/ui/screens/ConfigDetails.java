@@ -9,12 +9,12 @@ package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.screens.helpers.PropertiesForConfig;
 import com.radixpro.enigma.ui.screens.helpers.PropertiesTableForConfig;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.ui.shared.creators.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;

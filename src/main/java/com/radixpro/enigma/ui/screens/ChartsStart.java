@@ -16,24 +16,19 @@ import com.radixpro.enigma.domain.config.ConfiguredCelObject;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartRequest;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartResponse;
-import com.radixpro.enigma.references.Ayanamshas;
-import com.radixpro.enigma.references.EclipticProjections;
-import com.radixpro.enigma.references.HouseSystems;
-import com.radixpro.enigma.references.ObserverPositions;
+import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.ui.charts.screens.ChartsData;
-import com.radixpro.enigma.ui.charts.screens.ChartsDrawing2d;
+import com.radixpro.enigma.ui.creators.ButtonFactory;
+import com.radixpro.enigma.ui.creators.LabelFactory;
+import com.radixpro.enigma.ui.creators.PaneFactory;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.screens.helpers.PropertiesForConfig;
 import com.radixpro.enigma.ui.screens.helpers.PropertiesTableForConfig;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.ui.shared.InputStatus;
-import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
-import com.radixpro.enigma.ui.shared.creators.LabelFactory;
-import com.radixpro.enigma.ui.shared.creators.PaneFactory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableChartData;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import com.radixpro.enigma.xchg.api.CalculatedChartApi;
@@ -77,6 +72,7 @@ public class ChartsStart {
    private final ChartsAspects chartsAspects;
    private final Rosetta rosetta;
    private final ChartsTetenburg chartsTetenburg;
+   private final ChartsDrawing2d chartsDrawing2d;
    private final ChartsMidpoints chartsMidpoints;
    private final ChartsTransitsInput chartsTransitsInput;
    private final ChartsSearch chartsSearch;
@@ -116,7 +112,7 @@ public class ChartsStart {
                       final ChartsTransitsInput chartsTransitsInput, final ChartsSearch chartsSearch, final ChartsInput chartsInput,
                       final PersistedChartDataApi chartDataApi, final PersistedConfigurationApi confApi, final PersistedPropertyApi propApi,
                       final ConfigOverview configOverview, final PropertiesForConfig propertiesForConfig, final CelObjectsInConfig celObjectsInConfig,
-                      final AspectsInConfig aspectsInConfig, final PropertiesTableForConfig propertiesTableForConfig) {
+                      final AspectsInConfig aspectsInConfig, final PropertiesTableForConfig propertiesTableForConfig, final ChartsDrawing2d chartsDrawing2d) {
       this.rosetta = checkNotNull(rosetta);
       this.state = checkNotNull(state);
       this.calculatedChartApi = checkNotNull(calculatedChartApi);
@@ -134,6 +130,7 @@ public class ChartsStart {
       this.celObjectsInConfig = celObjectsInConfig;
       this.aspectsInConfig = aspectsInConfig;
       this.propertiesTableForConfig = propertiesTableForConfig;
+      this.chartsDrawing2d = chartsDrawing2d;
    }
 
    public void show() {
@@ -464,7 +461,7 @@ public class ChartsStart {
 
    private void drawChart2D() {
       String chartName = state.getSelectedChart().getChartData().getChartMetaData().getName();
-      ChartsDrawing2d chartsDrawing2d = new ChartsDrawing2d(state);    // todo use factory
+//      ChartsDrawing2d chartsDrawing2d = new ChartsDrawing2d(state);    // todo use factory
       chartsDrawing2d.setDrawingInfo();
    }
 

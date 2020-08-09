@@ -25,6 +25,10 @@ public class UiScreensInjector {
             ScreensHelpersInjector.injectChartDataHelper(scope));
    }
 
+   public static ChartsDrawing2d injectChartsDrawing2d(AppScope scope) {
+      return new ChartsDrawing2d(ScreensHelpersInjector.injectRadixWheel(scope), scope.getRosetta(), scope.getSessionState());
+   }
+
    public static ChartsInput injectChartsInput(AppScope scope) {
       return new ChartsInput(scope.getRosetta(), XchgApiInjector.injectPersistedChartDataApi(scope), UiValidatorsInjector.injectValidatedChartName(scope),
             UiValidatorsInjector.injectValidatedDate(scope), UiValidatorsInjector.injectValidatedTime(scope),
@@ -46,7 +50,7 @@ public class UiScreensInjector {
             XchgApiInjector.injectPersistedChartDataApi(scope), XchgApiInjector.injectPersistedConfigurationApi(scope),
             XchgApiInjector.injectPersistedPropertyApi(scope), UiScreensInjector.injectConfigOverview(scope),
             ScreensHelpersInjector.injectPropertiesForConfig(scope), ScreensHelpersInjector.injectCelObjectsInConfig(scope),
-            ScreensHelpersInjector.injectAspectsInConfig(scope), ScreensHelpersInjector.injectPropertiesTableForConfig(scope));
+            ScreensHelpersInjector.injectAspectsInConfig(scope), ScreensHelpersInjector.injectPropertiesTableForConfig(scope), injectChartsDrawing2d(scope));
    }
 
    public static ChartsTransitsInput injectChartsTransitsInput(AppScope scope) {

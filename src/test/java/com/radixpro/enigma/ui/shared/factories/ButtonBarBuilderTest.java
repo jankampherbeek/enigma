@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
-import com.radixpro.enigma.ui.shared.creators.ButtonBarBuilder;
+import com.radixpro.enigma.ui.creators.ButtonBarBuilder;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import org.junit.Before;

@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.shared;
 
-import com.radixpro.enigma.ui.shared.controllers.EmergencyExit;
+import com.radixpro.enigma.ui.screens.EmergencyExit;
 import org.apache.log4j.Logger;
 
 /**

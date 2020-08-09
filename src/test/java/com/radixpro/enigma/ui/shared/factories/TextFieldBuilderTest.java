@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
-import com.radixpro.enigma.ui.shared.creators.TextFieldBuilder;
+import com.radixpro.enigma.ui.creators.TextFieldBuilder;
 import javafx.scene.control.TextField;
 import org.junit.Test;
 import org.junit.runner.RunWith;

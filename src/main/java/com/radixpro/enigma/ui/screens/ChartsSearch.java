@@ -8,8 +8,8 @@
 package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.ui.shared.creators.*;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
 import com.radixpro.enigma.xchg.domain.ChartData;
 import javafx.geometry.Insets;

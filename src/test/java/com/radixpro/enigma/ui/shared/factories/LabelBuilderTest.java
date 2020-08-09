@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
-import com.radixpro.enigma.ui.shared.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilder;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import org.junit.Test;

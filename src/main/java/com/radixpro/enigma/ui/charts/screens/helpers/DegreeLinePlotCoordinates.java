@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
-import com.radixpro.enigma.ui.shared.creators.PlotCoordinatesFactory;
+import com.radixpro.enigma.ui.creators.PlotCoordinatesFactory;
 import org.apache.commons.lang3.ArrayUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;

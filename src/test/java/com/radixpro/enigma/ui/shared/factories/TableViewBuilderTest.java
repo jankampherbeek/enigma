@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
-import com.radixpro.enigma.ui.shared.creators.TableViewBuilder;
+import com.radixpro.enigma.ui.creators.TableViewBuilder;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.junit.Before;

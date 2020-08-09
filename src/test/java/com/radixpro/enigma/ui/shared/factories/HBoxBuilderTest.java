@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
-import com.radixpro.enigma.ui.shared.creators.HBoxBuilder;
+import com.radixpro.enigma.ui.creators.HBoxBuilder;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import org.junit.Before;

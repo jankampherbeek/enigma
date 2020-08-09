@@ -24,18 +24,6 @@ public class CaHandlersFactory {
    public static FullPointPositionHandler getFullPointPositionHandler() {
       return new FullPointPositionHandler(SeFrontend.getFrontend());
    }
-//
-//   public static ObliquityHandler getObliquityHandler() {
-//      return new ObliquityHandler(SeFrontend.getFrontend());
-//   }
-
-//   public static MundanePositionsHandler getMundanePositionsHandler() {
-//      return new MundanePositionsHandler(SeFrontend.getFrontend(), getObliquityHandler());
-//   }
-
-//   public static CalculatedChartHandler getCalculatedChartHandler() {
-//      return new CalculatedChartHandler(getFullPointPositionHandler(), getMundanePositionsHandler());
-//   }
 
    public static CoordSetForDateTimeCalc getCoordSetForDateTimeCalc() {
       return new CoordSetForDateTimeCalc(SeFrontend.getFrontend());

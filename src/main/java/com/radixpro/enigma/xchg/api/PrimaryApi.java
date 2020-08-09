@@ -17,12 +17,6 @@ public class PrimaryApi {
 
    private final PrimaryHandler primaryHandler;
 
-   /**
-    * Instantiate via factory.
-    *
-    * @param primaryHandler handler. PRE: not null.
-    * @see ApiFactory
-    */
    public PrimaryApi(final PrimaryHandler primaryHandler) {
       this.primaryHandler = checkNotNull(primaryHandler);
    }

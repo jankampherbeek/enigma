@@ -8,6 +8,7 @@
 package com.radixpro.enigma.ui.screens.helpers;
 
 import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.xchg.api.XchgApiInjector;
 
 
 public class ScreensHelpersInjector {
@@ -34,6 +35,10 @@ public class ScreensHelpersInjector {
 
    public static PropertiesTableForConfig injectPropertiesTableForConfig(AppScope scope) {
       return new PropertiesTableForConfig(scope.getRosetta());
+   }
+
+   public static RadixWheel injectRadixWheel(AppScope scope) {
+      return new RadixWheel(XchgApiInjector.injectAspectsApi(scope));
    }
 
 }

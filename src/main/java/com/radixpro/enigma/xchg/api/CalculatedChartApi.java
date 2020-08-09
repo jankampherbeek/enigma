@@ -21,12 +21,7 @@ public class CalculatedChartApi {
 
    private final CalculatedChartHandler handler;
 
-   /**
-    * Instantiate via factory.
-    *
-    * @param handler handler for the calculation. PRE: not null.
-    * @see ApiFactory
-    */
+
    public CalculatedChartApi(final CalculatedChartHandler handler) {
       this.handler = checkNotNull(handler);
    }
