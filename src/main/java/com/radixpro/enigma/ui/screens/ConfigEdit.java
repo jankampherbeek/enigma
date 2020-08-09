@@ -82,11 +82,11 @@ public class ConfigEdit {
    public ConfigEdit(final PersistedConfigurationApi pcApi, final Rosetta rosetta, final SessionState state) {
       this.rosetta = checkNotNull(rosetta);
       this.state = checkNotNull(state);
-      this.config = state.getSelectedConfig();
       this.pcApi = pcApi;
    }
 
    public void show() {
+      this.config = state.getSelectedConfig();
       populateStage();
       defineListeners();
       stage.showAndWait();

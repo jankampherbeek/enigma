@@ -2,9 +2,10 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.configs.screens.helpers;
+package com.radixpro.enigma.ui.screens.helpers;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
@@ -23,8 +24,9 @@ public class PropertiesTableForConfig {
 
    private final Rosetta rosetta;
 
-   public PropertiesTableForConfig() {
-      rosetta = Rosetta.getRosetta();
+   public PropertiesTableForConfig(final Rosetta rosetta) {
+
+      this.rosetta = checkNotNull(Rosetta.getRosetta());
    }
 
 

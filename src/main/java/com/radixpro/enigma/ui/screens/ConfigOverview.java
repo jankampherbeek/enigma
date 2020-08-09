@@ -11,7 +11,6 @@ import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.shared.Property;
-import com.radixpro.enigma.ui.configs.screens.ConfigScreensFactory;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.*;
@@ -52,6 +51,7 @@ public class ConfigOverview {
    private final PersistedConfigurationApi configApi;
    private final ConfigNew configNew;
    private final ConfigEdit configEdit;
+   private final ConfigDetails configDetails;
    private final PersistedPropertyApi propApi;
    private final SessionState state;
    private ObservableList<PresentableConfiguration> selectedItems;
@@ -67,23 +67,20 @@ public class ConfigOverview {
    private TableView<PresentableConfiguration> tableView;
 
    /**
-    * Instantiate via factory
-    *
     * @param configApi api for persisted configurations.
     * @param propApi   api for persisted properties.
     * @param rosetta   handler for resource bundles.
     * @param state     state with the currently selected config.
-    * @see ConfigScreensFactory
     */
    public ConfigOverview(final PersistedConfigurationApi configApi, final PersistedPropertyApi propApi, final ConfigNew configNew, final ConfigEdit configEdit,
-                         final Rosetta rosetta,
-                         final SessionState state) {
+                         final ConfigDetails configDetails, final Rosetta rosetta, final SessionState state) {
       this.configApi = checkNotNull(configApi);
       this.propApi = checkNotNull(propApi);
       this.configNew = checkNotNull(configNew);
       this.configEdit = checkNotNull(configEdit);
-      this.rosetta = rosetta;
-      this.state = state;
+      this.configDetails = checkNotNull(configDetails);
+      this.rosetta = checkNotNull(rosetta);
+      this.state = checkNotNull(state);
    }
 
    public void show() {
@@ -195,11 +192,10 @@ public class ConfigOverview {
    }
 
    private void onNew() {
+      configNew.show();
       if (InputStatus.READY == configNew.getInputStatus()) {
          int newConfigId = configNew.getNewConfigId();
-         configNew.show();
-//         configEdit.show();
-//         new ConfigScreensFactory().createConfigEdit(configApi.read(newConfigId).get(0));
+         configEdit.show();
          stage.close();
       }
    }
@@ -207,7 +203,8 @@ public class ConfigOverview {
    private void onDetails() {
       PresentableConfiguration config = selectedItems.get(0);
       int configId = config.getConfigId();
-      new ConfigScreensFactory().createConfigDetails(configApi.read(configId).get(0));
+      configDetails.show();
+//      new ConfigScreensFactory().createConfigDetails(configApi.read(configId).get(0));
    }
 
    private void onDelete() {

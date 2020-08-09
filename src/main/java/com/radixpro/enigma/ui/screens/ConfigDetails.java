@@ -2,14 +2,17 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.configs.screens;
+package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.SessionState;
-import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
-import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesTableForConfig;
+import com.radixpro.enigma.ui.screens.helpers.AspectsInConfig;
+import com.radixpro.enigma.ui.screens.helpers.CelObjectsInConfig;
+import com.radixpro.enigma.ui.screens.helpers.PropertiesForConfig;
+import com.radixpro.enigma.ui.screens.helpers.PropertiesTableForConfig;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.creators.*;
 import javafx.scene.Scene;
@@ -39,23 +42,34 @@ public class ConfigDetails {
    private static final double SEPARATOR_HEIGHT = 20.0;
    private static final double GAP = 6.0;
    private final Rosetta rosetta;
-   private final String configName;
+   private final SessionState state;
+   private final PropertiesTableForConfig propertiesTableForConfig;
    private final PropertiesForConfig propertiesForConfig;
+   private final CelObjectsInConfig celObjectsInConfig;
+   private final AspectsInConfig aspectsInConfig;
+   private String configName;
    private Stage stage;
    private Button btnHelp;
    private Button btnExit;
 
 
-   public ConfigDetails(final PropertiesForConfig propertiesForConfig, final Rosetta rosetta, final SessionState state) {
+   public ConfigDetails(final PropertiesForConfig propertiesForConfig, final PropertiesTableForConfig propertiesTableForConfig,
+                        final CelObjectsInConfig celObjectsInConfig, final AspectsInConfig aspectsInConfig, final Rosetta rosetta, final SessionState state) {
       this.rosetta = checkNotNull(rosetta);
-      checkNotNull(state);
-      this.configName = state.getSelectedConfig().getName();
+      this.state = checkNotNull(state);
       this.propertiesForConfig = checkNotNull(propertiesForConfig);
+      this.propertiesTableForConfig = checkNotNull(propertiesTableForConfig);
+      this.celObjectsInConfig = checkNotNull(celObjectsInConfig);
+      this.aspectsInConfig = checkNotNull(aspectsInConfig);
+   }
+
+   public void show() {
+      this.configName = state.getSelectedConfig().getName();
       populateStage();
       defineListeners();
       stage.show();
-      LOG.info("ConfigDetails initialized for config: " + configName);
    }
+
 
    private void populateStage() {
       btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
@@ -64,7 +78,8 @@ public class ConfigDetails {
       buttonBar.getButtons().addAll(btnHelp, btnExit);
       Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.details.title")).setPrefWidth(OUTER_WIDTH).setStyleClass("titletext").build();
       Label lblSubTitle = new LabelBuilder(configName).setPrefWidth(OUTER_WIDTH).setStyleClass("subtitletext").build();
-      TableView tableView = new PropertiesTableForConfig().getTableView(TV_HEIGHT, INNER_WIDTH, propertiesForConfig.getProperties());  // TODO replace with builder
+      TableView tableView = propertiesTableForConfig.getTableView(TV_HEIGHT, INNER_WIDTH,
+            propertiesForConfig.getProperties(state.getSelectedConfig(), celObjectsInConfig, aspectsInConfig));  // TODO replace with builder
       Pane paneTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
       Pane paneSubTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
       Pane paneData = new PaneBuilder().setWidth(INNER_WIDTH).setHeight(TV_HEIGHT).setChildren(tableView).build();

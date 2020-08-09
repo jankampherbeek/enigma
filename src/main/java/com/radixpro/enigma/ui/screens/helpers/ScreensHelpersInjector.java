@@ -9,14 +9,31 @@ package com.radixpro.enigma.ui.screens.helpers;
 
 import com.radixpro.enigma.AppScope;
 
+
 public class ScreensHelpersInjector {
 
    private ScreensHelpersInjector() {
       // prevent instantiation
    }
 
+   public static AspectsInConfig injectAspectsInConfig(AppScope scope) {
+      return new AspectsInConfig(scope.getRosetta());
+   }
+
+   public static CelObjectsInConfig injectCelObjectsInConfig(AppScope scope) {
+      return new CelObjectsInConfig(scope.getRosetta());
+   }
+
    public static ChartDataHelper injectChartDataHelper(AppScope scope) {
       return new ChartDataHelper(scope.getSessionState());
+   }
+
+   public static PropertiesForConfig injectPropertiesForConfig(AppScope scope) {
+      return new PropertiesForConfig(scope.getRosetta());
+   }
+
+   public static PropertiesTableForConfig injectPropertiesTableForConfig(AppScope scope) {
+      return new PropertiesTableForConfig(scope.getRosetta());
    }
 
 }

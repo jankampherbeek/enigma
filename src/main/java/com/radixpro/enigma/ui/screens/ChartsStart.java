@@ -24,11 +24,11 @@ import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.ui.charts.screens.ChartsData;
 import com.radixpro.enigma.ui.charts.screens.ChartsDrawing2d;
-import com.radixpro.enigma.ui.configs.screens.helpers.AspectsInConfig;
-import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
-import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesForConfig;
-import com.radixpro.enigma.ui.configs.screens.helpers.PropertiesTableForConfig;
 import com.radixpro.enigma.ui.domain.FullChart;
+import com.radixpro.enigma.ui.screens.helpers.AspectsInConfig;
+import com.radixpro.enigma.ui.screens.helpers.CelObjectsInConfig;
+import com.radixpro.enigma.ui.screens.helpers.PropertiesForConfig;
+import com.radixpro.enigma.ui.screens.helpers.PropertiesTableForConfig;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.InputStatus;
 import com.radixpro.enigma.ui.shared.creators.ButtonFactory;
@@ -87,6 +87,10 @@ public class ChartsStart {
    private final PersistedConfigurationApi confApi;
    private final PersistedChartDataApi chartDataApi;
    private final CalculatedChartApi calculatedChartApi;
+   private final PropertiesForConfig propertiesForConfig;
+   private final PropertiesTableForConfig propertiesTableForConfig;
+   private final CelObjectsInConfig celObjectsInConfig;
+   private final AspectsInConfig aspectsInConfig;
    private ObservableList<PresentableChartData> selectedCharts;
    private List<PresentableChartData> availableCharts;
    private Stage stage;
@@ -111,7 +115,8 @@ public class ChartsStart {
                       final ChartsTetenburg chartsTetenburg, final ChartsAspects chartsAspects, final ChartsMidpoints chartsMidpoints,
                       final ChartsTransitsInput chartsTransitsInput, final ChartsSearch chartsSearch, final ChartsInput chartsInput,
                       final PersistedChartDataApi chartDataApi, final PersistedConfigurationApi confApi, final PersistedPropertyApi propApi,
-                      final ConfigOverview configOverview) {
+                      final ConfigOverview configOverview, final PropertiesForConfig propertiesForConfig, final CelObjectsInConfig celObjectsInConfig,
+                      final AspectsInConfig aspectsInConfig, final PropertiesTableForConfig propertiesTableForConfig) {
       this.rosetta = checkNotNull(rosetta);
       this.state = checkNotNull(state);
       this.calculatedChartApi = checkNotNull(calculatedChartApi);
@@ -125,6 +130,10 @@ public class ChartsStart {
       this.chartDataApi = chartDataApi;
       this.propApi = propApi;
       this.confApi = confApi;
+      this.propertiesForConfig = propertiesForConfig;
+      this.celObjectsInConfig = celObjectsInConfig;
+      this.aspectsInConfig = aspectsInConfig;
+      this.propertiesTableForConfig = propertiesTableForConfig;
    }
 
    public void show() {
@@ -306,12 +315,8 @@ public class ChartsStart {
 
    private Pane createPaneConfigDetails() {
       Pane pane = PaneFactory.createPane(TV_HEIGHT, WIDTH);
-
-      // TODO Release 2020.2: replace with DI
-      PropertiesForConfig prop4Config = new PropertiesForConfig(currentConfig,
-            new CelObjectsInConfig(rosetta),
-            new AspectsInConfig(rosetta), rosetta);
-      TableView<PresentableProperty> tvConfigs = new PropertiesTableForConfig().getTableView(TV_HEIGHT, WIDTH, prop4Config.getProperties());
+      TableView<PresentableProperty> tvConfigs = propertiesTableForConfig.getTableView(TV_HEIGHT, WIDTH,
+            propertiesForConfig.getProperties(currentConfig, celObjectsInConfig, aspectsInConfig));
       pane.getChildren().add(tvConfigs);
       return pane;
    }

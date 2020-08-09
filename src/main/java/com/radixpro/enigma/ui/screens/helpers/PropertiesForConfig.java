@@ -2,9 +2,10 @@
  * Jan Kampherbeek, (c) 2020.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
+ *
  */
 
-package com.radixpro.enigma.ui.configs.screens.helpers;
+package com.radixpro.enigma.ui.screens.helpers;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.config.Configuration;
@@ -20,25 +21,18 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class PropertiesForConfig {
 
-   private final Configuration config;
-   private final CelObjectsInConfig celObjectsInConfig;
-   private final AspectsInConfig aspectsInConfig;
    private final Rosetta rosetta;
 
-
-   public PropertiesForConfig(Configuration config, CelObjectsInConfig celObjectsInConfig,
-                              AspectsInConfig aspectsInConfig, Rosetta rosetta) {
-      this.config = checkNotNull(config);
-      this.celObjectsInConfig = checkNotNull(celObjectsInConfig);
-      this.aspectsInConfig = checkNotNull(aspectsInConfig);
+   public PropertiesForConfig(Rosetta rosetta) {
       this.rosetta = checkNotNull(rosetta);
    }
 
-   public List<PresentableProperty> getProperties() {
-      return createProperties();
+   public List<PresentableProperty> getProperties(final Configuration config, final CelObjectsInConfig celObjectsInConfig,
+                                                  final AspectsInConfig aspectsInConfig) {
+      return createProperties(config, celObjectsInConfig, aspectsInConfig);
    }
 
-   private List<PresentableProperty> createProperties() {
+   private List<PresentableProperty> createProperties(final Configuration config, final CelObjectsInConfig celObjectsInConfig, final AspectsInConfig aspectsInConfig) {
       List<PresentableProperty> properties = new ArrayList<>();
       properties.add(new PresentableProperty(rosetta.getText("ui.general.name"), config.getName()));
       properties.add(new PresentableProperty(rosetta.getText("ui.general.description"), config.getDescription()));
@@ -56,4 +50,5 @@ public class PropertiesForConfig {
       properties.addAll(aspectsInConfig.constructProperties(config.getDelinConfiguration().getAspectConfiguration().getAspects()));
       return properties;
    }
+
 }

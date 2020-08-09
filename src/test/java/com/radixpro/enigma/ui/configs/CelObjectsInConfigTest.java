@@ -9,7 +9,7 @@ package com.radixpro.enigma.ui.configs;
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.config.ConfiguredCelObject;
 import com.radixpro.enigma.references.CelestialObjects;
-import com.radixpro.enigma.ui.configs.screens.helpers.CelObjectsInConfig;
+import com.radixpro.enigma.ui.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import org.junit.Before;
 import org.junit.Test;

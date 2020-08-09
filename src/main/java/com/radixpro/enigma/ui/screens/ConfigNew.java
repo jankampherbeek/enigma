@@ -116,7 +116,10 @@ public class ConfigNew {
    }
 
    private void onOk() {
-      newConfigId = api.insert(createEditedConfig());
+      Configuration editedConfig = createEditedConfig();
+      newConfigId = api.insert(editedConfig);
+      editedConfig.setId(newConfigId);
+      state.setSelectedConfig(editedConfig);
       stage.close();
    }
 
