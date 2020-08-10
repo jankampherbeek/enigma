@@ -240,7 +240,7 @@ public class ChartsStart {
    @SuppressWarnings({"unchecked", "rawtypes"})
    private TableView<PresentableChartData> createTableViewCharts() {
       TableView<PresentableChartData> tableView = new TableView<>();
-      tableView.setPlaceholder(new Label(Rosetta.getRosetta().getText("ui.charts.start.placeholdercharts")));
+      tableView.setPlaceholder(new Label(rosetta.getText("ui.charts.start.placeholdercharts")));
       tableView.setPrefHeight(TV_HEIGHT);
       tableView.setPrefWidth(WIDTH);
       colName = new TableColumn<>(rosetta.getText("ui.charts.start.colheaderchartname"));

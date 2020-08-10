@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.testsupport;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.be.persistency.AppDb;
 import com.radixpro.enigma.be.versions.Updater;
 
@@ -20,28 +21,38 @@ import java.sql.Statement;
  */
 public class DbTestSupport {
 
-   private final Connection con;
-   private final AppDb appDb;
+   private static Connection con;
+   private static AppDb appDb;
+   private static boolean initialized = false;
 
-   public DbTestSupport() {
-      this.appDb = AppDb.initAppDb("test");
-      this.con = appDb.getConnection();
-      initDatabase();
+   private DbTestSupport() {
+      // prevent instantiation
    }
 
-   private void initDatabase() {
+   public static AppDb useDb() {
+      if (!initialized) {
+         appDb = AppDb.initAppDb("test");
+         con = appDb.getConnection();
+         initDatabase();
+         Rosetta.defineRosetta(appDb);
+         initialized = true;
+      }
+      return appDb;
+   }
+
+   private static void initDatabase() {
       emptyDatabase();
       new Updater(appDb).updateStep20202();
    }
 
-   private void emptyDatabase() {
+   private static void emptyDatabase() {
       File traceFile = new File("test" + File.separator + "db" + File.separator + "enigmadb.trace.db");
       if (traceFile.exists()) traceFile.delete();
       File dbFile = new File("test" + File.separator + "db" + File.separator + "enigmadb.mv.db");
       if (dbFile.exists()) dropTables();
    }
 
-   private void dropTables() {
+   private static void dropTables() {
       dropIt("configsaspects");
       dropIt("configspoints");
       dropIt("chartsevents");
@@ -63,7 +74,7 @@ public class DbTestSupport {
       dropIt("properties");
    }
 
-   private void dropIt(final String tableName) {
+   private static void dropIt(final String tableName) {
       final String query = "DROP TABLE " + tableName + ";";
       try {
          Statement statement = con.createStatement();

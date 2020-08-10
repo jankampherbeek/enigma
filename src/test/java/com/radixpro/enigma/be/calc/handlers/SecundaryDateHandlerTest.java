@@ -13,6 +13,7 @@ import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.references.TimeZones;
+import com.radixpro.enigma.testsupport.DbTestSupport;
 import com.radixpro.enigma.xchg.domain.Location;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +29,8 @@ public class SecundaryDateHandlerTest {
 
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
+      DbTestSupport.useDb();
       birthDateTime = constructDateTime(new SimpleDate(2000, 1, 1, true),
             new SimpleTime(0, 0, 0));
       eventDateTime = constructDateTime(new SimpleDate(2010, 1, 1, true),
