@@ -16,6 +16,8 @@ import com.radixpro.enigma.domain.reqresp.InputDataFileResponse;
 import com.radixpro.enigma.shared.exceptions.InputDataException;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,9 +60,18 @@ public class InputDataFileHandler {
    private String createFullPathJsonFile(final String fileName, final String fullPathProjDir) {
       String path = fullPathProjDir;
       if (!path.endsWith(File.separator)) path += File.separator;
+      path += "data" + File.separator;
+      checkOrCreateFolder(path);
       int pos = fileName.lastIndexOf(File.separator);
       String fileNameNoPath = fileName.substring(pos + 1);
       return path + fileNameNoPath;
+   }
+
+   private void checkOrCreateFolder(final String fullPathFolder) {
+      if (Files.notExists(Path.of(fullPathFolder))) {
+         File newFolder = new File(fullPathFolder);
+         newFolder.mkdir();
+      }
    }
 
 
