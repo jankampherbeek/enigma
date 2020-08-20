@@ -85,9 +85,9 @@ public class ConfigNew {
       Label lblInstruction = new LabelBuilder(rosetta.getText("ui.configs.new.instruction")).build();
       Label lblName = new LabelBuilder(rosetta.getText("ui.general.name")).setPrefWidth(DATA_TEXT_WIDTH).build();
       Label lblDescription = new LabelBuilder(rosetta.getText("ui.general.description")).setPrefWidth(DATA_TEXT_WIDTH).build();
-      btnOk = new ButtonBuilder(rosetta.getText("ui.shared.btn.ok")).setDisabled(true).build();
-      btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
-      btnCancel = new ButtonBuilder(rosetta.getText("ui.shared.btn.exit")).setDisabled(false).build();
+      btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(true).build();
+      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      btnCancel = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnOk, btnHelp, btnCancel).build();
       nameInput = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).build();
       descriptionInput = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).build();

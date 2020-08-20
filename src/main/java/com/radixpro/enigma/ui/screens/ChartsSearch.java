@@ -11,7 +11,7 @@ import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
-import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -50,9 +50,9 @@ public class ChartsSearch {
 
    private TextField tfSearchArg;
 
-   private ChartData selectedItem;
+   private FullChartInputData selectedItem;
    private boolean selectionMade = false;
-   private List<ChartData> chartsFound;
+   private List<FullChartInputData> chartsFound;
 
    public ChartsSearch(Rosetta rosetta, PersistedChartDataApi persistedChartDataApi) {
       this.rosetta = rosetta;
@@ -73,24 +73,24 @@ public class ChartsSearch {
 
    @SuppressWarnings("unchecked")
    private void defineLeafs() {
-      lblInstruction = LabelFactory.createLabel(rosetta.getText("ui.charts.search.instruction"), FULL_DATA_WIDTH);
-      lblPageTitle = LabelFactory.createLabel(rosetta.getText("ui.charts.search.pagetitle"), "titletext", FULL_DATA_WIDTH);
-      lvSearchResults = ListViewFactory.createListView(LV_HEIGHT, SMALL_DATA_WIDTH, "inputDefault");
-      tfSearchArg = TextFieldFactory.createTextField(INPUT_HEIGHT, SMALL_DATA_WIDTH, "inputDefault");
+      lblInstruction = new LabelBuilder("ui.charts.search.instruction").setPrefWidth(FULL_DATA_WIDTH).build();
+      lblPageTitle = new LabelBuilder("ui.charts.search.pagetitle").setStyleClass("titletext").setPrefWidth(FULL_DATA_WIDTH).build();
+      lvSearchResults = new ListViewBuilder().setHeight(LV_HEIGHT).setWidth(SMALL_DATA_WIDTH).setStyleClass("inputDefault").build();
+      tfSearchArg = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(SMALL_DATA_WIDTH).setStyleClass("inputDefault").build();
    }
 
    private void definePanes() {
-      panePageTitle = PaneFactory.createPane(TITLE_HEIGHT, WIDTH, "titlepane");
+      panePageTitle = new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").build();
    }
 
    private void defineButtons() {
-      btnSearch = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.search"), false);
+      btnSearch = new ButtonBuilder("ui.shared.btn.search").setDisabled(false).build();
       btnSearch.setOnAction(click -> onSearch());
-      btnCancel = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.cancel"), false);
+      btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).build();
       btnCancel.setOnAction(click -> onCancel());
-      btnHelp = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.help"), false);
+      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
       btnHelp.setOnAction(click -> onHelp());
-      btnOk = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.ok"), false);
+      btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(false).build();
       btnOk.setOnAction(click -> onSelectOk());
    }
 
@@ -111,7 +111,7 @@ public class ChartsSearch {
 
 
    private GridPane createGridPane() {
-      GridPane gridPane = GridPaneFactory.createGridPane(GP_HEIGHT, WIDTH, GAP);
+      GridPane gridPane = new GridPaneBuilder().setPrefHeight(GP_HEIGHT).setPrefWidth(WIDTH).setHGap(GAP).setVGap(GAP).build();
       gridPane.add(lblInstruction, 0, 0, 2, 1);
       gridPane.add(tfSearchArg, 0, 1, 1, 1);
       gridPane.add(btnSearch, 1, 1, 1, 1);
@@ -132,8 +132,8 @@ public class ChartsSearch {
       lvSearchResults.getItems().clear();
       String arg = tfSearchArg.getText();
       chartsFound = persistedChartDataApi.search(arg);
-      for (ChartData chartData : chartsFound) {
-         lvSearchResults.getItems().add(chartData.getChartMetaData().getName());
+      for (FullChartInputData fullChartInputData : chartsFound) {
+         lvSearchResults.getItems().add(fullChartInputData.getChartMetaData().getName());
       }
    }
 
@@ -155,7 +155,7 @@ public class ChartsSearch {
       stage.close();
    }
 
-   public ChartData getSelectedItem() {
+   public FullChartInputData getSelectedItem() {
       return this.selectedItem;
    }
 

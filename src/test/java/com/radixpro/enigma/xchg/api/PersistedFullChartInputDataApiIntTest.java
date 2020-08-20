@@ -17,13 +17,13 @@ import com.radixpro.enigma.references.ChartTypes;
 import com.radixpro.enigma.references.Ratings;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.testsupport.DbTestSupport;
-import com.radixpro.enigma.xchg.domain.ChartData;
 import com.radixpro.enigma.xchg.domain.ChartMetaData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
 import com.radixpro.enigma.xchg.domain.Location;
 import org.junit.Before;
 
-public class PersistedChartDataApiIntTest {
+public class PersistedFullChartInputDataApiIntTest {
 
    private AppDb appDb;
    private PersistedChartDataApi pChartApi;
@@ -86,7 +86,7 @@ public class PersistedChartDataApiIntTest {
 //      pChartApi.delete(id2);
 //   }
 
-   private ChartData createChartData(final String name) {
+   private FullChartInputData createChartData(final String name) {
       final SimpleTime sTime = new SimpleTime(18, 21, 30);
       final SimpleDate sDate = new SimpleDate(2020, 6, 18, true);
       final FullDateTime fDateTime = new FullDateTime(new SimpleDateTime(sDate, sTime), TimeZones.CET, true, 0.0);
@@ -94,6 +94,6 @@ public class PersistedChartDataApiIntTest {
       final GeographicCoordinate geoLong = new GeographicCoordinate(6, 54, 0, "E", 6.9);
       final Location location = new Location(geoLong, geoLat, "Enschede");
       final ChartMetaData metaData = new ChartMetaData(name, "test for " + name, "source", ChartTypes.NATAL, Ratings.DD);
-      return new ChartData(0, fDateTime, location, metaData);
+      return new FullChartInputData(0, fDateTime, location, metaData);
    }
 }

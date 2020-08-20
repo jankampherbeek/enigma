@@ -30,6 +30,10 @@ public class XchgApiInjector {
       return new MidpointsApi(BeHandlersInjector.injectMidpointsHandler(scope));
    }
 
+   public static InputDataFileApi injectInputDataFileApi(AppScope scope) {
+      return new InputDataFileApi(BeHandlersInjector.injectInputDataFileHandler(scope));
+   }
+
    public static PersistedChartDataApi injectPersistedChartDataApi(AppScope scope) {
       return new PersistedChartDataApi(BePersistencyInjector.injectChartDataDao(scope));
    }

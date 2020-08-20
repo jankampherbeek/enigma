@@ -19,8 +19,8 @@ import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.validators.*;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
-import com.radixpro.enigma.xchg.domain.ChartData;
 import com.radixpro.enigma.xchg.domain.ChartMetaData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.Location;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -85,9 +85,6 @@ public class ChartsInput {
    private Button calculatebtn;
    private boolean timeZoneLocalSelected = false;
    private int newChartId;
-//   private ValidatedLongitude valLong;
-//   private ValidatedLongitude valLongLocalTime;
-//   private ValidatedLatitude valLat;
 
    private boolean chartNameValid;
    private boolean longitudeValid;
@@ -96,8 +93,6 @@ public class ChartsInput {
    private boolean timeValid;
    private boolean localTimeValid;
 
-   //   private ValidatedDate valDate;
-//   private ValidatedTime valTime;
    private double valLong;
    private double valLat;
    private SimpleDate valDate;
@@ -132,46 +127,46 @@ public class ChartsInput {
 
    @SuppressWarnings("unchecked")
    private void defineLeafs() {
-      lblDescription = LabelFactory.createLabel(rosetta.getText("ui.charts.input.description"), INPUT_DATA_WIDTH);
-      lblLocalTime = LabelFactory.createLabel(rosetta.getText("ui.charts.input.time.localtime"), INPUT_MINOR_DATA_WIDTH);
+      lblDescription = new LabelBuilder("ui.charts.input.description").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblLocalTime = new LabelBuilder("ui.charts.input.time.localtime").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
       lblLocalTime.setDisable(true);
-      lblName = LabelFactory.createLabel(rosetta.getText("ui.charts.input.name"), INPUT_DATA_WIDTH);
-      lblPageTitle = LabelFactory.createLabel(rosetta.getText("ui.charts.input.pagetitle"), "titletext", INPUT_WIDTH);
-      lblRating = LabelFactory.createLabel(rosetta.getText("ui.charts.input.rating"), INPUT_HALF_DATA_WIDTH);
-      lblSource = LabelFactory.createLabel(rosetta.getText("ui.charts.input.source"), INPUT_DATA_WIDTH);
-      lblSubject = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subject"), INPUT_HALF_DATA_WIDTH);
-      lblSubTitleGeneral = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.general"), "subtitletext", INPUT_WIDTH);
-      lblSubTitleLocation = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.location"), "subtitletext", INPUT_WIDTH);
-      lblSubTitleDateAndTime = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.dateandtime"), "subtitletext", INPUT_WIDTH);
-      cBoxDst = CheckBoxFactory.createCheckBox(Pos.CENTER_RIGHT, "inputDefault");
-      cbCalendar = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, "inputDefault");
-      cbEastWest = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, "inputDefault");
-      cbLocalEastWest = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, "inputDefault");
+      lblName = new LabelBuilder("ui.charts.input.name").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblPageTitle = new LabelBuilder("ui.charts.input.pagetitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
+      lblRating = new LabelBuilder("ui.charts.input.rating").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      lblSource = new LabelBuilder("ui.charts.input.source").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblSubject = new LabelBuilder("ui.charts.input.subject").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      lblSubTitleGeneral = new LabelBuilder("ui.charts.input.subtitle.general").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
+      lblSubTitleLocation = new LabelBuilder("ui.charts.input.subtitle.location").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
+      lblSubTitleDateAndTime = new LabelBuilder("ui.charts.input.subtitle.dateandtime").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
+      cBoxDst = new CheckBoxBuilder().setAlignment(Pos.CENTER_RIGHT).setStyleClass("inputDefault").build();
+      cbCalendar = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MICRO_DATA_WIDTH).setStyleClass("inputDefault").build();
+      cbEastWest = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MICRO_DATA_WIDTH).setStyleClass("inputDefault").build();
+      cbLocalEastWest = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MICRO_DATA_WIDTH).setStyleClass("inputDefault").build();
       cbLocalEastWest.setDisable(true);
       cbLocalEastWest.setFocusTraversable(false);
-      cbNorthSouth = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, "inputDefault");
-      cbRating = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_HALF_DATA_WIDTH, "inputDefault");
-      cbSubject = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_HALF_DATA_WIDTH, "inputDefault");
-      cbTimeZone = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_DATA_WIDTH, "inputDefault");
+      cbNorthSouth = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MICRO_DATA_WIDTH).setStyleClass("inputDefault").build();
+      cbRating = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_HALF_DATA_WIDTH).setStyleClass("inputDefault").build();
+      cbSubject = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_HALF_DATA_WIDTH).setStyleClass("inputDefault").build();
+      cbTimeZone = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_DATA_WIDTH).setStyleClass("inputDefault").build();
 
-      tfDate = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, "inputDefault");
-      tfDescription = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_DATA_WIDTH, "inputDefault");
-      tfLocaltime = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, "inputDefault");
+      tfDate = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass("inputDefault").build();
+      tfDescription = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_DATA_WIDTH).setStyleClass("inputDefault").build();
+      tfLocaltime = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass("inputDefault").build();
       tfLocaltime.setEditable(false);
       tfLocaltime.setDisable(true);
-      tfLocationLatitude = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, "inputDefault");
-      tfLocationLongitude = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, "inputDefault");
-      tfLocationName = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_DATA_WIDTH, "inputDefault");
-      tfName = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_DATA_WIDTH, "inputDefault");
-      tfSource = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_DATA_WIDTH, "inputDefault");
-      tfTime = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, "inputDefault");
+      tfLocationLatitude = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass("inputDefault").build();
+      tfLocationLongitude = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass("inputDefault").build();
+      tfLocationName = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_DATA_WIDTH).setStyleClass("inputDefault").build();
+      tfName = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_DATA_WIDTH).setStyleClass("inputDefault").build();
+      tfSource = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_DATA_WIDTH).setStyleClass("inputDefault").build();
+      tfTime = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass("inputDefault").build();
    }
 
    private void definePanes() {
-      panePageTitle = PaneFactory.createPane(TITLE_HEIGHT, INPUT_WIDTH, "titlepane");
-      paneSubTitleGeneral = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, "subtitlepane");
-      paneSubTitleLocation = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, "subtitlepane");
-      paneSubTitleDateAndTime = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, "subtitlepane");
+      panePageTitle = new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass("titlepane").build();
+      paneSubTitleGeneral = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass("subtitlepane").build();
+      paneSubTitleLocation = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass("subtitlepane").build();
+      paneSubTitleDateAndTime = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass("subtitlepane").build();
    }
 
    private void defineStructure() {
@@ -192,7 +187,7 @@ public class ChartsInput {
    }
 
    private GridPane createGridPaneGeneral() {
-      GridPane gridPane = GridPaneFactory.createGridPane(GP_GENERAL_HEIGHT, INPUT_WIDTH, GAP);
+      GridPane gridPane = new GridPaneBuilder().setPrefHeight(GP_GENERAL_HEIGHT).setPrefWidth(INPUT_WIDTH).setVGap(GAP).setHGap(GAP).build();
       gridPane.add(lblName, 0, 0, 2, 1);
       gridPane.add(tfName, 0, 1, 2, 1);
       gridPane.add(lblSubject, 0, 2, 1, 1);
@@ -417,8 +412,8 @@ public class ChartsInput {
 
    private int saveData() {
       int chartId = 0;
-      ChartData chartData = new ChartData(chartId, constructFullDateTime(), constructLocation(), constructMetaData());
-      return persistedChartDataApi.insert(chartData);
+      FullChartInputData fullChartInputData = new FullChartInputData(chartId, constructFullDateTime(), constructLocation(), constructMetaData());
+      return persistedChartDataApi.insert(fullChartInputData);
    }
 
    private ChartMetaData constructMetaData() {

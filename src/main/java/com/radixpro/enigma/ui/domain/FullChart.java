@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.domain;
 
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
-import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -17,22 +17,22 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class FullChart {
 
-   private final ChartData chartData;
+   private final FullChartInputData fullChartInputData;
    private final CalculatedChart calculatedChart;
 
    /**
     * Constructor defines all properties.
     *
-    * @param chartData       Inputted data for the chart.
-    * @param calculatedChart Calculted positions for the chart.
+    * @param fullChartInputData Inputted data for the chart.
+    * @param calculatedChart    Calculted positions for the chart.
     */
-   public FullChart(final ChartData chartData, final CalculatedChart calculatedChart) {
-      this.chartData = checkNotNull(chartData);
+   public FullChart(final FullChartInputData fullChartInputData, final CalculatedChart calculatedChart) {
+      this.fullChartInputData = checkNotNull(fullChartInputData);
       this.calculatedChart = checkNotNull(calculatedChart);
    }
 
-   public ChartData getChartData() {
-      return chartData;
+   public FullChartInputData getChartData() {
+      return fullChartInputData;
    }
 
    public CalculatedChart getCalculatedChart() {

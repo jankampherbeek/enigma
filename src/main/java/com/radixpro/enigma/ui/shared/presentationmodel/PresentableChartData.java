@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
-import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -19,20 +19,20 @@ public class PresentableChartData {
    private final String chartName;
    private final String chartDescr;
    private final String chartDataDescr;
-   private final ChartData originalData;
+   private final FullChartInputData originalData;
 
-   public PresentableChartData(final ChartData chartData) {
-      checkNotNull(chartData);
-      chartId = chartData.getId();
-      chartName = chartData.getChartMetaData().getName();
-      chartDescr = chartData.getChartMetaData().getDescription();
-      chartDataDescr = createDataDescription(chartData);
-      originalData = chartData;
+   public PresentableChartData(final FullChartInputData fullChartInputData) {
+      checkNotNull(fullChartInputData);
+      chartId = fullChartInputData.getId();
+      chartName = fullChartInputData.getChartMetaData().getName();
+      chartDescr = fullChartInputData.getChartMetaData().getDescription();
+      chartDataDescr = createDataDescription(fullChartInputData);
+      originalData = fullChartInputData;
    }
 
-   private String createDataDescription(final ChartData chartData) {
+   private String createDataDescription(final FullChartInputData fullChartInputData) {
       StringBuilder descrSb = new StringBuilder();
-      PresentableDateTime dateTime4Text = new PresentableDateTime(chartData.getFullDateTime());
+      PresentableDateTime dateTime4Text = new PresentableDateTime(fullChartInputData.getFullDateTime());
       descrSb.append(dateTime4Text.getDate());
       descrSb.append(" ");
       descrSb.append(dateTime4Text.getTime());
@@ -55,7 +55,7 @@ public class PresentableChartData {
       return chartDataDescr;
    }
 
-   public ChartData getOriginalData() {
+   public FullChartInputData getOriginalData() {
       return originalData;
    }
 }

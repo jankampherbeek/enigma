@@ -24,6 +24,14 @@ public class PersistedPropertyApi {
       this.dao = checkNotNull(dao);
    }
 
+   public void insert(final Property property) {
+      checkNotNull(property);
+      try {
+         dao.insert(property);
+      } catch (DatabaseException de) {
+         new FailFastHandler().terminate(de.getMessage());
+      }
+   }
 
    public void update(final Property property) {
       checkNotNull(property);

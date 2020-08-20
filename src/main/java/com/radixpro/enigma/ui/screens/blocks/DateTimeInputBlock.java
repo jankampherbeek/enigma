@@ -76,24 +76,24 @@ public class DateTimeInputBlock extends InputBlock {
       dateValid = false;
       timeValid = false;
       localTimeValid = false;
-      lblLocalTime = LabelFactory.createLabel(rosetta.getText("ui.charts.input.time.localtime"), INPUT_MINOR_DATA_WIDTH);
+      lblLocalTime = new LabelBuilder("ui.charts.input.time.localtime").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
       lblLocalTime.setDisable(true);
-      lblDate = LabelFactory.createLabel(rosetta.getText("ui.charts.input.date.name"), INPUT_MINOR_DATA_WIDTH);
-      lblCalendar = LabelFactory.createLabel(rosetta.getText("ui.charts.input.date.calendar"), INPUT_MICRO_DATA_WIDTH);
-      lblTime = LabelFactory.createLabel(rosetta.getText("ui.charts.input.time.name"), INPUT_MINOR_DATA_WIDTH);
-      lblTimeZone = LabelFactory.createLabel(rosetta.getText("ui.charts.input.time.timezone"), INPUT_DATA_WIDTH);
-      lblDst = LabelFactory.createLabel(rosetta.getText("ui.shared.dst"), INPUT_MICRO_DATA_WIDTH);
-      cBoxDst = CheckBoxFactory.createCheckBox(Pos.CENTER_RIGHT, INPUT_STYLE);
-      cbCalendar = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, INPUT_STYLE);
-      cbLocalEastWest = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, INPUT_STYLE);
+      lblDate = new LabelBuilder("ui.charts.input.date.name").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
+      lblCalendar = new LabelBuilder("ui.charts.input.date.calendar").setPrefWidth(INPUT_MICRO_DATA_WIDTH).build();
+      lblTime = new LabelBuilder("ui.charts.input.time.name").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
+      lblTimeZone = new LabelBuilder("ui.charts.input.time.timezone").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblDst = new LabelBuilder("ui.shared.dst").setPrefWidth(INPUT_MICRO_DATA_WIDTH).build();
+      cBoxDst = new CheckBoxBuilder().setAlignment(Pos.CENTER_RIGHT).setStyleClass(INPUT_STYLE).build();
+      cbCalendar = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MICRO_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
+      cbLocalEastWest = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MICRO_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
       cbLocalEastWest.setDisable(true);
       cbLocalEastWest.setFocusTraversable(false);
-      cbTimeZone = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_DATA_WIDTH, INPUT_STYLE);
-      tfDate = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, INPUT_STYLE);
-      tfLocaltime = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, INPUT_STYLE);
+      cbTimeZone = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
+      tfDate = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
+      tfLocaltime = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
       tfLocaltime.setEditable(false);
       tfLocaltime.setDisable(true);
-      tfTime = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, INPUT_STYLE);
+      tfTime = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
       initCalendar();
       initLocalEastWest();
       initTimeZone();
@@ -112,7 +112,7 @@ public class DateTimeInputBlock extends InputBlock {
    }
 
    private void createGridPane() {
-      gridPane = GridPaneFactory.createGridPane(INPUT_DATETIME_HEIGHT, INPUT_WIDTH, GAP);
+      gridPane = new GridPaneBuilder().setPrefHeight(INPUT_DATETIME_HEIGHT).setPrefWidth(INPUT_WIDTH).setHGap(GAP).setVGap(GAP).build();
       gridPane.add(lblDate, 0, 0, 1, 1);
       gridPane.add(lblCalendar, 1, 0, 1, 1);
       gridPane.add(lblTime, 2, 0, 1, 1);
@@ -138,7 +138,7 @@ public class DateTimeInputBlock extends InputBlock {
    }
 
    private void initTimeZone() {
-      var observableList = TimeZones.UT.getObservableList();
+      ObservableList<String> observableList = TimeZones.UT.getObservableList();
       cbTimeZone.setItems(observableList);
       cbTimeZone.getSelectionModel().select(1);  // UT
    }

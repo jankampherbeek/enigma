@@ -12,9 +12,9 @@ import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.analysis.MetaDataForAnalysis;
 import com.radixpro.enigma.domain.config.Configuration;
-import com.radixpro.enigma.ui.creators.ButtonFactory;
-import com.radixpro.enigma.ui.creators.LabelFactory;
-import com.radixpro.enigma.ui.creators.PaneFactory;
+import com.radixpro.enigma.ui.creators.ButtonBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.screens.helpers.ChartDataHelper;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableAspect;
@@ -82,8 +82,8 @@ public class ChartsMidpoints {
    }
 
    private Pane createPaneTitle() {
-      final Pane pane = PaneFactory.createPane(TITLE_HEIGHT, WIDTH, "titlepane");
-      pane.getChildren().add(LabelFactory.createLabel(rosetta.getText("ui.charts.midpoints.pagetitle"), "titletext", WIDTH));
+      final Pane pane = new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").build();
+      pane.getChildren().add(new LabelBuilder("ui.charts.midpoints.pagetitle").setPrefWidth(WIDTH).setStyleClass("titletext").build());
       return pane;
    }
 
@@ -136,8 +136,8 @@ public class ChartsMidpoints {
    private ButtonBar createButtonBar() {
       ButtonBar buttonBar = new ButtonBar();
       buttonBar.setPadding(new Insets(GAP, GAP, GAP, GAP));
-      Button btnHelp = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.help"), false);
-      Button btnExit = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.exit"), false);
+      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      Button btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
 
       btnHelp.setOnAction(click -> onHelp());
       btnExit.setOnAction(click -> stage.close());

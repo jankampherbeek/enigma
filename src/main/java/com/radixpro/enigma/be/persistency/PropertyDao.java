@@ -34,8 +34,35 @@ public class PropertyDao extends DaoParent {
       this.appDb = checkNotNull(appDb);
    }
 
+
+   public void insert(final Property newProp) throws DatabaseException {
+      checkNotNull(newProp);
+      Connection con = appDb.getConnection();
+      final String insertProperties = "INSERT into properties(value, key) values(?, ?);";
+      try {
+         try (PreparedStatement pStmtProperties = con.prepareStatement(insertProperties)) {
+            pStmtProperties.setString(1, newProp.getValue());
+            pStmtProperties.setString(2, newProp.getKey());
+            int result = pStmtProperties.executeUpdate();
+            if (result != 1) {
+               con.rollback();
+               throw new DatabaseException("Could not insert property " + newProp.getKey());
+            }
+         }
+      } catch (SQLException throwables) {
+         try {
+            con.rollback();
+         } catch (SQLException e) {
+            LOG.error("SQLException when trying to rollback : " + e.getMessage());
+         }
+         throw new DatabaseException("SQLException when inserting property " + newProp.getKey() + ". Exception :  " + throwables.getMessage());
+      } finally {
+         appDb.closeConnection();
+      }
+   }
+
    /**
-    * Updates teh value of a property.
+    * Updates the value of a property.
     *
     * @param updateProp Property with new content and he id to search for.
     * @throws DatabaseException is thrown for any database error.

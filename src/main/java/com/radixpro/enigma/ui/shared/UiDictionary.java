@@ -13,7 +13,8 @@ public class UiDictionary {
    public static final String INPUT_DEFAULT_STYLE = "-fx-background-radius:5; ";
    public static final String INPUT_ERROR_STYLE = "-fx-background-radius:5;  -fx-background-color:yellow;";
    public static final String STYLESHEET = "css/enigma.css";
-
+   public static final String STYLE_SUBTITLE_TEXT = "subtitletext";
+   public static final String STYLE_SUBTITLE_PANE = "subtitlepane";
    public static final String DATE_SEPARATOR = "/";
    public static final int HOUR_MIN = 0;
    public static final int HOUR_MAX = 23;
@@ -35,6 +36,7 @@ public class UiDictionary {
    public static final double INPUT_DATA_WIDTH = 588.0;
    public static final double INPUT_HALF_DATA_WIDTH = 288.0;
    public static final double INPUT_HEIGHT = 25.0;
+   public static final double INPUT_HEIGHT_DOUBLE = 50.0;
    public static final double INPUT_LOCATION_HEIGHT = 130.0;
    public static final double INPUT_MINOR_DATA_WIDTH = 236.0;
    public static final double INPUT_MICRO_DATA_WIDTH = 40;

@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.validators;
 
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
-import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class ValidatedChartName {
    }
 
    public boolean validate(final String input) {
-      List<ChartData> existingChart;
+      List<FullChartInputData> existingChart;
       validated = true;
       nameText = input;
       if (nameText.length() < 1) validated = false;

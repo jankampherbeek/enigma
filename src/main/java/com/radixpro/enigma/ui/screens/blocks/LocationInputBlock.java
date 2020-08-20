@@ -10,10 +10,10 @@ package com.radixpro.enigma.ui.screens.blocks;
 import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
-import com.radixpro.enigma.ui.creators.ChoiceBoxFactory;
+import com.radixpro.enigma.ui.creators.ChoiceBoxBuilder;
 import com.radixpro.enigma.ui.creators.GridPaneBuilder;
-import com.radixpro.enigma.ui.creators.LabelFactory;
-import com.radixpro.enigma.ui.creators.TextFieldFactory;
+import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.TextFieldBuilder;
 import com.radixpro.enigma.ui.validators.ValidatedLatitude;
 import com.radixpro.enigma.ui.validators.ValidatedLongitude;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
@@ -49,9 +49,6 @@ public class LocationInputBlock extends InputBlock {
    private boolean longitudeValid = false;
    private boolean latitudeValid = false;
 
-   /**
-    * @param state
-    */
    public LocationInputBlock(final SessionState state, final ValidatedLongitude valLong, final ValidatedLatitude valLat) {
       super(state);
       this.valLong = valLong;
@@ -60,14 +57,14 @@ public class LocationInputBlock extends InputBlock {
 
    @Override
    protected void initialize() {
-      lblLocationName = LabelFactory.createLabel(rosetta.getText("ui.charts.input.location.name"), INPUT_DATA_WIDTH);
-      lblLocationLatitude = LabelFactory.createLabel(rosetta.getText("ui.charts.input.location.latitude"), INPUT_HALF_DATA_WIDTH);
-      lblLocationLongitude = LabelFactory.createLabel(rosetta.getText("ui.charts.input.location.longitude"), INPUT_HALF_DATA_WIDTH);
-      tfLocationLatitude = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, INPUT_STYLE);
-      tfLocationLongitude = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_MINOR_DATA_WIDTH, INPUT_STYLE);
-      tfLocationName = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_DATA_WIDTH, INPUT_STYLE);
-      cbEastWest = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, INPUT_STYLE);
-      cbNorthSouth = ChoiceBoxFactory.createChoiceBox(INPUT_HEIGHT, INPUT_MICRO_DATA_WIDTH, INPUT_STYLE);
+      lblLocationName = new LabelBuilder("ui.charts.input.location.name").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblLocationLatitude = new LabelBuilder("ui.charts.input.location.latitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      lblLocationLongitude = new LabelBuilder("ui.charts.input.location.longitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      tfLocationLatitude = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
+      tfLocationLongitude = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
+      tfLocationName = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
+      cbEastWest = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MICRO_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
+      cbNorthSouth = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MICRO_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
       initLongitude();
       initLatitude();
       tfLocationLongitude.textProperty().addListener((observable, oldValue, newValue) -> validateLongitude(newValue));

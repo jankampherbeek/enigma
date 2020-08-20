@@ -11,6 +11,7 @@ import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.analysis.BeAnalysisInjector;
 import com.radixpro.enigma.be.calc.BeCalcInjector;
 import com.radixpro.enigma.be.calc.SeFrontend;
+import com.radixpro.enigma.be.persistency.BePersistencyInjector;
 import com.radixpro.enigma.xchg.api.XchgApiInjector;
 
 public class BeHandlersInjector {
@@ -34,6 +35,10 @@ public class BeHandlersInjector {
 
    public static FullPointPositionHandler injectFullPointPositionHandler(AppScope scope) {
       return new FullPointPositionHandler(BeCalcInjector.injectSeFrontend(scope));
+   }
+
+   public static InputDataFileHandler injectInputDataFileHandler(AppScope scope) {
+      return new InputDataFileHandler(BePersistencyInjector.injectDataReaderCsv(scope), BePersistencyInjector.injectJsonWriter(scope), scope.getRosetta());
    }
 
    public static MidpointsHandler injectMidpointsHandler(AppScope scope) {

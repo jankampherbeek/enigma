@@ -19,10 +19,17 @@ import static org.junit.Assert.*;
 public class ButtonBuilderTest {
 
    private final String text = "A button";
+   private final String rbKey = "ui.stats.start.noprojdirbtn";
 
    @Test
    public void onlyConstructor() {
-      Button button = new ButtonBuilder(text).build();
+      Button button = new ButtonBuilder(rbKey).build();
+      assertEquals("Define folder", button.getText());
+   }
+
+   @Test
+   public void setText() {
+      Button button = new ButtonBuilder(rbKey).setText(text).build();
       assertEquals(text, button.getText());
    }
 

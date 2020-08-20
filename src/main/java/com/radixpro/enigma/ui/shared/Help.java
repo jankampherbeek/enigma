@@ -7,9 +7,9 @@
 package com.radixpro.enigma.ui.shared;
 
 import com.radixpro.enigma.Rosetta;
-import com.radixpro.enigma.ui.creators.ButtonFactory;
-import com.radixpro.enigma.ui.creators.LabelFactory;
-import com.radixpro.enigma.ui.creators.PaneFactory;
+import com.radixpro.enigma.ui.creators.ButtonBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.PaneBuilder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -81,20 +81,15 @@ public class Help {
    }
 
    private Label createLblHelpTitle() {
-      return LabelFactory.createLabel(title, "titletext", INNER_WIDTH);
+      return new LabelBuilder("").setText(title).setPrefWidth(INNER_WIDTH).setStyleClass("titletext").build();
    }
 
    private Pane createTitlePane() {
-      Pane pane = PaneFactory.createPane(TITLE_HEIGHT, INNER_WIDTH, "titlepane");
-      pane.getChildren().add(createLblHelpTitle());
-      return pane;
+      return new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(INNER_WIDTH).setStyleClass("titlepane").setChildren(createLblHelpTitle()).build();
    }
 
    private Pane createContentPane() {
-      Pane pane = new Pane();
-      pane.setPrefWidth(INNER_WIDTH);
-      pane.getChildren().add(createContentWebView());
-      return pane;
+      return new PaneBuilder().setWidth(INNER_WIDTH).setChildren(createContentWebView()).build();
    }
 
    private ButtonBar createButtonBar() {
@@ -114,7 +109,7 @@ public class Help {
    }
 
    private Button createCloseButton() {
-      Button button = ButtonFactory.createButton(Rosetta.getRosetta().getText("ui.shared.btn.exit"), false);
+      Button button = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
       button.setOnAction(click -> onClose());
       return button;
    }

@@ -13,7 +13,7 @@ import com.radixpro.enigma.ui.screens.UiScreensInjector;
 public class UiCommonInjector {
 
    public static Dashboard injectDashboard(AppScope scope) {
-      return new Dashboard(scope.getRosetta(), UiScreensInjector.injectChartsStart(scope));
+      return new Dashboard(scope.getRosetta(), UiScreensInjector.injectChartsStart(scope), UiScreensInjector.injectStatsStart(scope));
    }
 
 

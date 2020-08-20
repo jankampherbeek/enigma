@@ -9,6 +9,7 @@ package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.ui.creators.PaneBuilder;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -32,11 +33,7 @@ public abstract class InputScreen {
    }
 
    protected Pane createPaneBtnBar() {
-      Pane pane = new Pane();
-      pane.setPrefHeight(BUTTONBAR_HEIGHT);
-      pane.setPrefWidth(INPUT_WIDTH);
-      pane.getChildren().add(createBtnBar());
-      return pane;
+      return new PaneBuilder().setHeight(BUTTONBAR_HEIGHT).setWidth(INPUT_WIDTH).setChildren(createBtnBar()).build();
    }
 
    protected void popupCheckErrors() {

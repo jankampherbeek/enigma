@@ -19,8 +19,8 @@ import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
-import com.radixpro.enigma.ui.creators.LabelFactory;
-import com.radixpro.enigma.ui.creators.PaneFactory;
+import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.screens.blocks.DateTimeInputBlock;
 import com.radixpro.enigma.ui.screens.blocks.LocationInputBlock;
 import com.radixpro.enigma.ui.screens.blocks.ProgMetaInputBlock;
@@ -50,8 +50,6 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 public class ChartsTransitsInput extends InputScreen {
    private static final Logger LOG = Logger.getLogger(ChartsTransitsInput.class);
    private static final double HEIGHT = 600.0;
-   private static final String STYLE_SUBTITLE_TEXT = "subtitletext";
-   private static final String STYLE_SUBTITLE_PANE = "subtitlepane";
    private Label lblPageTitle;
    private Label lblSubTitleDateAndTime;
    private Label lblSubTitleGeneral;
@@ -89,17 +87,17 @@ public class ChartsTransitsInput extends InputScreen {
    }
 
    private void defineLeafs() {
-      lblPageTitle = LabelFactory.createLabel(rosetta.getText("ui.charts.transitsinput.pagetitle"), "titletext", INPUT_WIDTH);
-      lblSubTitleGeneral = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.general"), STYLE_SUBTITLE_TEXT, INPUT_WIDTH);
-      lblSubTitleLocation = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.location"), STYLE_SUBTITLE_TEXT, INPUT_WIDTH);
-      lblSubTitleDateAndTime = LabelFactory.createLabel(rosetta.getText("ui.charts.input.subtitle.dateandtime"), STYLE_SUBTITLE_TEXT, INPUT_WIDTH);
+      lblPageTitle = new LabelBuilder("ui.charts.transitsinput.pagetitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
+      lblSubTitleGeneral = new LabelBuilder("ui.charts.input.subtitle.general").setPrefWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_TEXT).build();
+      lblSubTitleLocation = new LabelBuilder("ui.charts.input.subtitle.location").setPrefWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_TEXT).build();
+      lblSubTitleDateAndTime = new LabelBuilder("ui.charts.input.subtitle.dateandtime").setPrefWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_TEXT).build();
    }
 
    private void definePanes() {
-      panePageTitle = PaneFactory.createPane(TITLE_HEIGHT, INPUT_WIDTH, "titlepane");
-      paneSubTitleGeneral = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, STYLE_SUBTITLE_PANE);
-      paneSubTitleLocation = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, STYLE_SUBTITLE_PANE);
-      paneSubTitleDateAndTime = PaneFactory.createPane(SUBTITLE_HEIGHT, INPUT_WIDTH, STYLE_SUBTITLE_PANE);
+      panePageTitle = new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass("titlepane").build();
+      paneSubTitleGeneral = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_PANE).build();
+      paneSubTitleLocation = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_PANE).build();
+      paneSubTitleDateAndTime = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_PANE).build();
    }
 
    private void defineStructure() {

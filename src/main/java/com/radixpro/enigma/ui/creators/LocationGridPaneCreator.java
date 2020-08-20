@@ -22,7 +22,6 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
  */
 public class LocationGridPaneCreator {
 
-   private Rosetta rosetta;
    private Label lblLocationName;
    private Label lblLocationLatitude;
    private Label lblLocationLongitude;
@@ -58,10 +57,10 @@ public class LocationGridPaneCreator {
    }
 
    private void initialize() {
-      rosetta = Rosetta.getRosetta();
-      lblLocationName = LabelFactory.createLabel(rosetta.getText("ui.charts.input.location.name"), INPUT_DATA_WIDTH);
-      lblLocationLatitude = LabelFactory.createLabel(rosetta.getText("ui.charts.input.location.latitude"), INPUT_HALF_DATA_WIDTH);
-      lblLocationLongitude = LabelFactory.createLabel(rosetta.getText("ui.charts.input.location.longitude"), INPUT_HALF_DATA_WIDTH);
+      Rosetta rosetta = Rosetta.getRosetta();
+      lblLocationName = new LabelBuilder("ui.charts.input.location.name").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblLocationLatitude = new LabelBuilder("ui.charts.input.location.latitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      lblLocationLongitude = new LabelBuilder("ui.charts.input.location.longitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
    }
 
 }

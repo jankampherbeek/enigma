@@ -12,6 +12,7 @@ import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector;
 import com.radixpro.enigma.ui.screens.helpers.ScreensHelpersInjector;
 import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
 import com.radixpro.enigma.xchg.api.XchgApiInjector;
+import javafx.stage.DirectoryChooser;
 
 
 public class UiScreensInjector {
@@ -81,5 +82,13 @@ public class UiScreensInjector {
    public static ConfigOverview injectConfigOverview(AppScope scope) {
       return new ConfigOverview(XchgApiInjector.injectPersistedConfigurationApi(scope), XchgApiInjector.injectPersistedPropertyApi(scope),
             injectConfigNew(scope), injectConfigEdit(scope), injectConfigDetails(scope), scope.getRosetta(), scope.getSessionState());
+   }
+
+   public static StatsInputData injectStatsInputData(AppScope scope) {
+      return new StatsInputData(scope.getRosetta(), XchgApiInjector.injectInputDataFileApi(scope), XchgApiInjector.injectPersistedPropertyApi(scope));
+   }
+
+   public static StatsStart injectStatsStart(AppScope scope) {
+      return new StatsStart(XchgApiInjector.injectPersistedPropertyApi(scope), new DirectoryChooser(), injectStatsInputData(scope));
    }
 }

@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.domain;
 
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
-import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,19 +21,19 @@ import static org.junit.Assert.assertEquals;
 public class FullChartTest {
 
    @Mock
-   private ChartData chartDataMock;
+   private FullChartInputData fullChartInputDataMock;
    @Mock
    private CalculatedChart calculatedChartMock;
    private FullChart fullChart;
 
    @Before
    public void setUp() throws Exception {
-      fullChart = new FullChart(chartDataMock, calculatedChartMock);
+      fullChart = new FullChart(fullChartInputDataMock, calculatedChartMock);
    }
 
    @Test
    public void getChartData() {
-      assertEquals(chartDataMock, fullChart.getChartData());
+      assertEquals(fullChartInputDataMock, fullChart.getChartData());
    }
 
    @Test

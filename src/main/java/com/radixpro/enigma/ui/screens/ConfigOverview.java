@@ -94,13 +94,13 @@ public class ConfigOverview {
       Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.overview.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
       Label lblInstruction = new LabelBuilder(rosetta.getText("ui.configs.overview.instruction")).setPrefHeight(INSTRUCTION_HEIGHT).setPrefWidth(WIDTH)
             .setAlignment(Pos.CENTER).build();
-      btnSelect = new ButtonBuilder(rosetta.getText("ui.shared.btn.select")).setDisabled(true).build();
-      btnNew = new ButtonBuilder(rosetta.getText("ui.shared.btn.new")).setDisabled(true).build();
-      btnDetails = new ButtonBuilder(rosetta.getText("ui.shared.btn.details")).setDisabled(true).build();
-      btnEdit = new ButtonBuilder(rosetta.getText("ui.shared.btn.edit")).setDisabled(true).setFocusTraversable(false).build();
-      btnDelete = new ButtonBuilder(rosetta.getText("ui.shared.btn.delete")).setDisabled(true).setFocusTraversable(false).build();
-      btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
-      btnExit = new ButtonBuilder(rosetta.getText("ui.shared.btn.exit")).setDisabled(false).build();
+      btnSelect = new ButtonBuilder("ui.shared.btn.select").setDisabled(true).build();
+      btnNew = new ButtonBuilder("ui.shared.btn.new").setDisabled(true).build();
+      btnDetails = new ButtonBuilder("ui.shared.btn.details").setDisabled(true).build();
+      btnEdit = new ButtonBuilder("ui.shared.btn.edit").setDisabled(true).setFocusTraversable(false).build();
+      btnDelete = new ButtonBuilder("ui.shared.btn.delete").setDisabled(true).setFocusTraversable(false).build();
+      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnSelect, btnDetails, btnEdit, btnNew, btnDelete, btnHelp, btnExit).build();
       TableColumn<PresentableConfiguration, String> nameColumn = new TableColumnBuilder().setText(rosetta.getText("ui.general.name"))
             .setCellValueFactory(new PropertyValueFactory<>("configName")).build();

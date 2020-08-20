@@ -15,8 +15,8 @@ import com.radixpro.enigma.references.ChartTypes;
 import com.radixpro.enigma.references.Ratings;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
-import com.radixpro.enigma.xchg.domain.ChartData;
 import com.radixpro.enigma.xchg.domain.ChartMetaData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
 import com.radixpro.enigma.xchg.domain.Location;
 import org.apache.log4j.Logger;
@@ -45,34 +45,35 @@ public class ChartDataDao extends DaoParent {
    /**
     * Insert an instance of ChartData.
     *
-    * @param insertChartData The ChartData instance to insert.
+    * @param insertFullChartInputData The ChartData instance to insert.
     * @throws DatabaseException Any exception is logged and rethrown as a Database exception.
     */
-   public int insert(final ChartData insertChartData) throws DatabaseException {
-      checkNotNull(insertChartData);
+   public int insert(final FullChartInputData insertFullChartInputData) throws DatabaseException {
+      checkNotNull(insertFullChartInputData);
       final String insertChart = "INSERT INTO charts (id, name, description, source, idcharttype, idrating, caldate, time, calendar, dst, idtz, offsetlmt" +
             ", locname, geolong, geolat) values(chartsseq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 //      final AppDb appDb = AppDb.getInstance();
       final Connection con = appDb.getConnection();
       int chartId = -1;
       try (PreparedStatement pStmtCharts = con.prepareStatement(insertChart)) {
-         pStmtCharts.setString(1, insertChartData.getChartMetaData().getName());
-         pStmtCharts.setString(2, insertChartData.getChartMetaData().getDescription());
-         pStmtCharts.setString(3, insertChartData.getChartMetaData().getSource());
-         pStmtCharts.setInt(4, insertChartData.getChartMetaData().getChartType().getId());
-         pStmtCharts.setInt(5, insertChartData.getChartMetaData().getRating().getId());
-         pStmtCharts.setString(6, createCalDate(insertChartData.getFullDateTime()));
-         pStmtCharts.setString(7, createTime(insertChartData.getFullDateTime()));
-         pStmtCharts.setString(8, (insertChartData.getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j"));
-         pStmtCharts.setBoolean(9, insertChartData.getFullDateTime().isDst());
-         pStmtCharts.setInt(10, insertChartData.getFullDateTime().getTimeZone().getId());
-         pStmtCharts.setDouble(11, insertChartData.getFullDateTime().getOffsetForLmt());
-         pStmtCharts.setString(12, insertChartData.getLocation().getName());
-         pStmtCharts.setString(13, createGeoLongitude(insertChartData.getLocation()));
-         pStmtCharts.setString(14, createGeoLatitude(insertChartData.getLocation()));
+         pStmtCharts.setString(1, insertFullChartInputData.getChartMetaData().getName());
+         pStmtCharts.setString(2, insertFullChartInputData.getChartMetaData().getDescription());
+         pStmtCharts.setString(3, insertFullChartInputData.getChartMetaData().getSource());
+         pStmtCharts.setInt(4, insertFullChartInputData.getChartMetaData().getChartType().getId());
+         pStmtCharts.setInt(5, insertFullChartInputData.getChartMetaData().getRating().getId());
+         pStmtCharts.setString(6, createCalDate(insertFullChartInputData.getFullDateTime()));
+         pStmtCharts.setString(7, createTime(insertFullChartInputData.getFullDateTime()));
+         pStmtCharts.setString(8, (insertFullChartInputData.getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j"));
+         pStmtCharts.setBoolean(9, insertFullChartInputData.getFullDateTime().isDst());
+         pStmtCharts.setInt(10, insertFullChartInputData.getFullDateTime().getTimeZone().getId());
+         pStmtCharts.setDouble(11, insertFullChartInputData.getFullDateTime().getOffsetForLmt());
+         pStmtCharts.setString(12, insertFullChartInputData.getLocation().getName());
+         pStmtCharts.setString(13, createGeoLongitude(insertFullChartInputData.getLocation()));
+         pStmtCharts.setString(14, createGeoLatitude(insertFullChartInputData.getLocation()));
 
          int result = pStmtCharts.executeUpdate();
-         if (result != 1) throw new DatabaseException("Could not insert chart " + insertChartData.getChartMetaData().getName() + " . No rows changed.");
+         if (result != 1)
+            throw new DatabaseException("Could not insert chart " + insertFullChartInputData.getChartMetaData().getName() + " . No rows changed.");
          final String queryCurrVal = "SELECT chartsseq.CURRVAL;";
          try (Statement stmtCurrval = con.createStatement();
               ResultSet rsCurrVal = stmtCurrval.executeQuery(queryCurrVal)) {
@@ -87,7 +88,7 @@ public class ChartDataDao extends DaoParent {
          } catch (SQLException e) {
             LOG.error("SQLException when trying to rollback : " + e.getMessage());
          }
-         throw new DatabaseException("SQLException when inserting chart " + insertChartData.getChartMetaData().getName() + ". Exception :  " +
+         throw new DatabaseException("SQLException when inserting chart " + insertFullChartInputData.getChartMetaData().getName() + ". Exception :  " +
                throwables.getMessage());
       } finally {
          appDb.closeConnection();
@@ -116,8 +117,8 @@ public class ChartDataDao extends DaoParent {
     * @param chartDataId Id of the ChartData to retrieve.
     * @return List with ChartData, the list will be empty if the ChartData is not found.
     */
-   public List<ChartData> read(final int chartDataId) {
-      List<ChartData> chartDataList = new ArrayList<>();
+   public List<FullChartInputData> read(final int chartDataId) {
+      List<FullChartInputData> fullChartInputDataList = new ArrayList<>();
       final String queryCharts = SEL_CHARTS + " FROM charts WHERE id = ?;";
 //      final AppDb appDb = AppDb.getInstance();
       final Connection con = appDb.getConnection();
@@ -125,13 +126,13 @@ public class ChartDataDao extends DaoParent {
          pStmt.setLong(1, chartDataId);
          try (ResultSet rsCharts = pStmt.executeQuery()) {
             while (rsCharts.next()) {
-               chartDataList.add(createChartData(rsCharts));
+               fullChartInputDataList.add(createChartData(rsCharts));
             }
          }
       } catch (SQLException throwables) {
          LOG.error("SQLException when reading charts for id: " + chartDataId + " . Msg: " + throwables.getMessage());
       }
-      return chartDataList;
+      return fullChartInputDataList;
    }
 
    /**
@@ -139,22 +140,22 @@ public class ChartDataDao extends DaoParent {
     *
     * @return A list with all instances of ChartData.
     */
-   public List<ChartData> readAll() {
+   public List<FullChartInputData> readAll() {
       final String queryCharts = SEL_CHARTS + " FROM charts;";
 //      final AppDb appDb = AppDb.getInstance();
       final Connection con = appDb.getConnection();
-      List<ChartData> chartDataList = new ArrayList<>();
+      List<FullChartInputData> fullChartInputDataList = new ArrayList<>();
       try {
          try (Statement stmtCharts = con.createStatement();
               ResultSet rsCharts = stmtCharts.executeQuery(queryCharts)) {
             while (rsCharts.next()) {
-               chartDataList.add(createChartData(rsCharts));
+               fullChartInputDataList.add(createChartData(rsCharts));
             }
          }
       } catch (SQLException throwables) {
          LOG.error("SQLException when reading all charts. Msg : " + throwables.getMessage());
       }
-      return chartDataList;
+      return fullChartInputDataList;
    }
 
    /**
@@ -163,9 +164,9 @@ public class ChartDataDao extends DaoParent {
     * @param searchName The name to search for. There should be an exact match. Returns all Charts if searchName is an empty string. PRE: not null.
     * @return A list with found instances of ChartData that have the same name as the searchname.
     */
-   public List<ChartData> search(final String searchName) {
+   public List<FullChartInputData> search(final String searchName) {
       checkNotNull(searchName);
-      List<ChartData> chartDataList = new ArrayList<>();
+      List<FullChartInputData> fullChartInputDataList = new ArrayList<>();
       final String queryCharts = SEL_CHARTS + " FROM charts WHERE name ILIKE '%' || ? || '%';";
 //      final AppDb appDb = AppDb.getInstance();
       final Connection con = appDb.getConnection();
@@ -173,16 +174,16 @@ public class ChartDataDao extends DaoParent {
          pStmt.setString(1, searchName);
          try (ResultSet rsCharts = pStmt.executeQuery()) {
             while (rsCharts.next()) {
-               chartDataList.add(createChartData(rsCharts));
+               fullChartInputDataList.add(createChartData(rsCharts));
             }
          }
       } catch (SQLException throwables) {
          LOG.error("SQLException when searching for charts with name: " + searchName + " . Msg: " + throwables.getMessage());
       }
-      return chartDataList;
+      return fullChartInputDataList;
    }
 
-   private ChartData createChartData(ResultSet rsCharts) throws SQLException {
+   private FullChartInputData createChartData(ResultSet rsCharts) throws SQLException {
       int id = rsCharts.getInt("id");
       String name = rsCharts.getString("name");
       String description = rsCharts.getString("description");
@@ -201,7 +202,7 @@ public class ChartDataDao extends DaoParent {
       FullDateTime fullDateTime = createDateTime(calDate, time, calendar, dst, idTz, offsetLmt);
       Location location = new Location(createCoordinate(geoLong), createCoordinate(geoLat), locName);
       ChartMetaData metaData = new ChartMetaData(name, description, source, ChartTypes.chartTypeForId(idChartType), Ratings.getRatingForId(idRating));
-      return new ChartData(id, fullDateTime, location, metaData);
+      return new FullChartInputData(id, fullDateTime, location, metaData);
    }
 
    private FullDateTime createDateTime(final String date, final String time, final String cal, final boolean dst, final int idTz, final double offsetLmt) {

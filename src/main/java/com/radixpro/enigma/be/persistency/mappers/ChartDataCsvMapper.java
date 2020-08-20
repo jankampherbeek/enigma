@@ -7,58 +7,61 @@ import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.references.ChartTypes;
 import com.radixpro.enigma.references.Ratings;
 import com.radixpro.enigma.references.TimeZones;
-import com.radixpro.enigma.xchg.domain.ChartData;
 import com.radixpro.enigma.xchg.domain.ChartMetaData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
 import com.radixpro.enigma.xchg.domain.Location;
 
+/**
+ * Should remain avaiable up to release 2020.2 to support reading existing csv data.
+ */
 public class ChartDataCsvMapper {
 
-   public ChartData chartDataFromCsv(final String[] csvLine) {
+   public FullChartInputData chartDataFromCsv(final String[] csvLine) {
       return handleCsvLine(csvLine);
    }
 
-   public String[] csvFromChartData(final ChartData chartData) {
-      return handleChartData(chartData);
+   public String[] csvFromChartData(final FullChartInputData fullChartInputData) {
+      return handleChartData(fullChartInputData);
    }
 
-   private ChartData handleCsvLine(final String[] csvLine) {
+   private FullChartInputData handleCsvLine(final String[] csvLine) {
       int id = Integer.parseInt(csvLine[0]);
       ChartMetaData chartMetaData = createMetaData(csvLine);
       FullDateTime fullDateTime = createFullDateTime(csvLine);
       Location location = createLocation(csvLine);
-      return new ChartData(id, fullDateTime, location, chartMetaData);
+      return new FullChartInputData(id, fullDateTime, location, chartMetaData);
    }
 
-   private String[] handleChartData(final ChartData chartData) {
-      String id = Long.toString(chartData.getId());
-      String name = chartData.getChartMetaData().getName();
-      String description = chartData.getChartMetaData().getDescription();
-      String source = chartData.getChartMetaData().getSource();
-      String chartType = Integer.toString(chartData.getChartMetaData().getChartType().getId());
-      String rating = Integer.toString(chartData.getChartMetaData().getRating().getId());
-      String year = Integer.toString(chartData.getFullDateTime().getSimpleDateTime().getDate().getYear());
-      String month = Integer.toString(chartData.getFullDateTime().getSimpleDateTime().getDate().getMonth());
-      String day = Integer.toString(chartData.getFullDateTime().getSimpleDateTime().getDate().getDay());
-      String greg = chartData.getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "y" : "n";
-      String hour = Integer.toString(chartData.getFullDateTime().getSimpleDateTime().getTime().getHour());
-      String minute = Integer.toString(chartData.getFullDateTime().getSimpleDateTime().getTime().getMinute());
-      String second = Integer.toString(chartData.getFullDateTime().getSimpleDateTime().getTime().getSecond());
-      String timezone = Integer.toString(chartData.getFullDateTime().getTimeZone().getId());
-      String dst = chartData.getFullDateTime().isDst() ? "y" : "n";
-      String offsetLmt = Double.toString(chartData.getFullDateTime().getOffsetForLmt());
-      String locName = chartData.getLocation().getName();
-      String longDeg = Integer.toString(chartData.getLocation().getLongInput().getDegrees());
-      String longMin = Integer.toString(chartData.getLocation().getLongInput().getMinutes());
-      String longSec = Integer.toString(chartData.getLocation().getLongInput().getSeconds());
-      String longDir = chartData.getLocation().getLongInput().getDirection();
-      String longVal = Double.toString(chartData.getLocation().getLongInput().getValue());
+   private String[] handleChartData(final FullChartInputData fullChartInputData) {
+      String id = Long.toString(fullChartInputData.getId());
+      String name = fullChartInputData.getChartMetaData().getName();
+      String description = fullChartInputData.getChartMetaData().getDescription();
+      String source = fullChartInputData.getChartMetaData().getSource();
+      String chartType = Integer.toString(fullChartInputData.getChartMetaData().getChartType().getId());
+      String rating = Integer.toString(fullChartInputData.getChartMetaData().getRating().getId());
+      String year = Integer.toString(fullChartInputData.getFullDateTime().getSimpleDateTime().getDate().getYear());
+      String month = Integer.toString(fullChartInputData.getFullDateTime().getSimpleDateTime().getDate().getMonth());
+      String day = Integer.toString(fullChartInputData.getFullDateTime().getSimpleDateTime().getDate().getDay());
+      String greg = fullChartInputData.getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "y" : "n";
+      String hour = Integer.toString(fullChartInputData.getFullDateTime().getSimpleDateTime().getTime().getHour());
+      String minute = Integer.toString(fullChartInputData.getFullDateTime().getSimpleDateTime().getTime().getMinute());
+      String second = Integer.toString(fullChartInputData.getFullDateTime().getSimpleDateTime().getTime().getSecond());
+      String timezone = Integer.toString(fullChartInputData.getFullDateTime().getTimeZone().getId());
+      String dst = fullChartInputData.getFullDateTime().isDst() ? "y" : "n";
+      String offsetLmt = Double.toString(fullChartInputData.getFullDateTime().getOffsetForLmt());
+      String locName = fullChartInputData.getLocation().getName();
+      String longDeg = Integer.toString(fullChartInputData.getLocation().getLongInput().getDegrees());
+      String longMin = Integer.toString(fullChartInputData.getLocation().getLongInput().getMinutes());
+      String longSec = Integer.toString(fullChartInputData.getLocation().getLongInput().getSeconds());
+      String longDir = fullChartInputData.getLocation().getLongInput().getDirection();
+      String longVal = Double.toString(fullChartInputData.getLocation().getLongInput().getValue());
 
-      String latDeg = Integer.toString(chartData.getLocation().getLatInput().getDegrees());
-      String latMin = Integer.toString(chartData.getLocation().getLatInput().getMinutes());
-      String latSec = Integer.toString(chartData.getLocation().getLatInput().getSeconds());
-      String latDir = chartData.getLocation().getLatInput().getDirection();
-      String latVal = Double.toString(chartData.getLocation().getLatInput().getValue());
+      String latDeg = Integer.toString(fullChartInputData.getLocation().getLatInput().getDegrees());
+      String latMin = Integer.toString(fullChartInputData.getLocation().getLatInput().getMinutes());
+      String latSec = Integer.toString(fullChartInputData.getLocation().getLatInput().getSeconds());
+      String latDir = fullChartInputData.getLocation().getLatInput().getDirection();
+      String latVal = Double.toString(fullChartInputData.getLocation().getLatInput().getValue());
 
       return new String[]{id, name, description, source, chartType, rating, year, month, day, greg, hour, minute,
             second, timezone, dst, offsetLmt, locName, longDeg, longMin, longSec, longDir, longVal, latDeg, latMin,

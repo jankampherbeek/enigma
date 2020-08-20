@@ -10,15 +10,15 @@ import com.radixpro.enigma.domain.datetime.FullDateTime;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class ChartData {          // TODO rename to prevent confusion about ChartsData
+public class FullChartInputData {
 
    private final int id;
    private final FullDateTime fullDateTime;
    private final Location location;
    private final ChartMetaData chartMetaData;
 
-   public ChartData(final int id, final FullDateTime fullDateTime, final Location location,
-                    final ChartMetaData chartMetaData) {
+   public FullChartInputData(final int id, final FullDateTime fullDateTime, final Location location,
+                             final ChartMetaData chartMetaData) {
       this.id = id;
       this.fullDateTime = checkNotNull(fullDateTime);
       this.location = checkNotNull(location);

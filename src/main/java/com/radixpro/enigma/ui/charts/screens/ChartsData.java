@@ -11,12 +11,12 @@ import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.ui.creators.ButtonFactory;
-import com.radixpro.enigma.ui.creators.LabelFactory;
+import com.radixpro.enigma.ui.creators.ButtonBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.presentationmodel.*;
-import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -49,10 +49,9 @@ public class ChartsData {
    private final Stage stage;
    private final Rosetta rosetta;
    private final CalculatedChart calculatedChart;
-   private final SessionState state;
    private final String glyphFont;
    private final String dataFont;
-   private final ChartData chartData;
+   private final FullChartInputData fullChartInputData;
    private TableView tvMundaneData;
    private TableColumn<String, PresentableMundanePosition> tvMundColName;
    private TableColumn<String, PresentableMundanePosition> tvMundColLongitude;
@@ -64,9 +63,8 @@ public class ChartsData {
 
    public ChartsData(final SessionState state) {
       checkArgument(null != state & state.selectedConfigIsSet());
-      this.state = state;
       FullChart fullChart = state.getSelectedChart();
-      this.chartData = fullChart.getChartData();
+      this.fullChartInputData = fullChart.getChartData();
       this.calculatedChart = fullChart.getCalculatedChart();
       stage = new Stage();
       rosetta = Rosetta.getRosetta();
@@ -76,7 +74,6 @@ public class ChartsData {
       stage.show();
    }
 
-
    private GridPane createGridPane() {
       GridPane gridPane = new GridPane();
       gridPane.setPrefHeight(DATA_HEIGHT);
@@ -84,8 +81,8 @@ public class ChartsData {
       gridPane.setVgap(GAP);
       gridPane.setPadding(new Insets(GAP, GAP, GAP, GAP));
       String title = rosetta.getText("ui.charts.data.pagetitleprefix") + " "
-            + chartData.getChartMetaData().getName();
-      gridPane.add(LabelFactory.createLabel(title, WIDTH), 0, 0, 3, 1);
+            + fullChartInputData.getChartMetaData().getName();
+      gridPane.add(new LabelBuilder("").setText(title).setPrefWidth(WIDTH).build(), 0, 0, 3, 1);
       TableView tvCelObjects = createTVCelObjectData();
       gridPane.add(tvCelObjects, 0, 1, 3, 1);
       createTVMundaneData();
@@ -224,13 +221,13 @@ public class ChartsData {
       vBox.getStylesheets().add(STYLESHEET);
       vBox.setPrefWidth(HALF_WIDTH);
       vBox.setPrefHeight(TV_MUNDOBJECTS_HEIGHT);
-      vBox.getChildren().add(0, LabelFactory.createLabel(chartData.getChartMetaData().getName()));
-      vBox.getChildren().add(1, LabelFactory.createLabel(chartData.getChartMetaData().getDescription()));
-      vBox.getChildren().add(2, LabelFactory.createLabel(rosetta.getText(chartData.getChartMetaData().getChartType().getNameForRB())));
-      vBox.getChildren().add(3, LabelFactory.createLabel(chartData.getChartMetaData().getSource()));
-      vBox.getChildren().add(4, LabelFactory.createLabel(rosetta.getText(chartData.getChartMetaData().getRating().getNameForRB())));
-      vBox.getChildren().add(5, LabelFactory.createLabel(chartData.getFullDateTime().getFormattedDateTime()));
-      vBox.getChildren().add(6, LabelFactory.createLabel(chartData.getLocation().getFormattedLocation()));
+      vBox.getChildren().add(0, new LabelBuilder("").setText(fullChartInputData.getChartMetaData().getName()).build());
+      vBox.getChildren().add(1, new LabelBuilder("").setText(fullChartInputData.getChartMetaData().getDescription()).build());
+      vBox.getChildren().add(2, new LabelBuilder(fullChartInputData.getChartMetaData().getChartType().getNameForRB()).build());
+      vBox.getChildren().add(3, new LabelBuilder("").setText(fullChartInputData.getChartMetaData().getSource()).build());
+      vBox.getChildren().add(4, new LabelBuilder(fullChartInputData.getChartMetaData().getRating().getNameForRB()).build());
+      vBox.getChildren().add(5, new LabelBuilder("").setText(fullChartInputData.getFullDateTime().getFormattedDateTime()).build());
+      vBox.getChildren().add(6, new LabelBuilder("").setText(fullChartInputData.getLocation().getFormattedLocation()).build());
       return vBox;
    }
 
@@ -244,8 +241,8 @@ public class ChartsData {
 
    private ButtonBar createBtnBar() {
       ButtonBar btnBar = new ButtonBar();
-      Button helpBtn = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.help"), false);
-      Button exitBtn = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.exit"), false);
+      Button helpBtn = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      Button exitBtn = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
       helpBtn.setOnAction(click -> onHelp());
       exitBtn.setOnAction(click -> stage.close());
       btnBar.getButtons().add(helpBtn);

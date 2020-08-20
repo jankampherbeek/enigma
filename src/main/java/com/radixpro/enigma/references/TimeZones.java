@@ -78,6 +78,15 @@ public enum TimeZones {
       return TimeZones.UT;
    }
 
+   public TimeZones timeZoneForNameEnglish(final String zoneEnglishName) {
+      for (TimeZones timeZone : TimeZones.values()) {
+         if (timeZone.name().equalsIgnoreCase(zoneEnglishName)) {
+            return timeZone;
+         }
+      }
+      return TimeZones.UT;
+   }
+
    public ObservableList<String> getObservableList() {
       final Rosetta rosetta = Rosetta.getRosetta();
       final List<String> localnames = new ArrayList<>();

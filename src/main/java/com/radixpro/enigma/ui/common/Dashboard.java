@@ -9,9 +9,9 @@ package com.radixpro.enigma.ui.common;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.shared.common.EnigmaDictionary;
-import com.radixpro.enigma.ui.creators.ButtonFactory;
-import com.radixpro.enigma.ui.creators.LabelFactory;
-import com.radixpro.enigma.ui.creators.PaneFactory;
+import com.radixpro.enigma.ui.creators.ButtonBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.screens.ChartsStart;
 import com.radixpro.enigma.ui.screens.StatsStart;
 import com.radixpro.enigma.ui.shared.Help;
@@ -29,6 +29,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 public class Dashboard {
@@ -36,11 +37,13 @@ public class Dashboard {
    private static final double GAP = 6.0;
    private final Rosetta rosetta;
    private final ChartsStart chartsStart;
+   private final StatsStart statsStart;
    private Stage stage;
 
-   public Dashboard(final Rosetta rosetta, final ChartsStart chartsStart) {
+   public Dashboard(final Rosetta rosetta, final ChartsStart chartsStart, final StatsStart statsStart) {
       this.rosetta = rosetta;
-      this.chartsStart = chartsStart;
+      this.chartsStart = checkNotNull(chartsStart);
+      this.statsStart = checkNotNull(statsStart);
    }
 
    public void showDashboard() {
@@ -48,12 +51,12 @@ public class Dashboard {
       ButtonBar buttonBar = createButtonBar();
       ImageView imageView = createImage();
 
-      Label lblInstruct = LabelFactory.createLabel(rosetta.getText("ui.db.instruct"));
-      Label lblDescription = LabelFactory.createLabel(rosetta.getText("ui.db.describe") + ": " + EnigmaDictionary.VERSION,
-            20.0, 28.0, "descriptiontext");
-      Label lblTitle = LabelFactory.createLabel(rosetta.getText("ui.db.title"), 247.0, 9.0, "titletext");
-      Pane titlePane = PaneFactory.createPane(57.0, 620.0, "titlepane");
-      Pane descriptionPane = PaneFactory.createPane(185.0, 120.0, "descriptionpane");
+      Label lblInstruct = new LabelBuilder("ui.db.instruct").build();
+      Label lblDescription = new LabelBuilder("").setText(rosetta.getText("ui.db.describe") + ": " + EnigmaDictionary.VERSION).setLayoutX(20.0).
+            setLayoutY(28.0).setStyleClass("descriptiontext").build();
+      Label lblTitle = new LabelBuilder("ui.db.title").setLayoutX(247.0).setLayoutY(9.0).setStyleClass("titletext").build();
+      Pane titlePane = new PaneBuilder().setHeight(57.0).setWidth(620.0).setStyleClass("titlepane").build();
+      Pane descriptionPane = new PaneBuilder().setHeight(185.0).setWidth(120.0).setStyleClass("descriptionpane").build();
 
       titlePane.getChildren().add(lblTitle);
       descriptionPane.getChildren().add(lblDescription);
@@ -89,13 +92,13 @@ public class Dashboard {
       buttonBar.setPadding(new Insets(GAP, GAP, GAP, GAP));
       buttonBar.setPrefWidth(600.0);
 
-      Button btnHelp = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.help"), false);
-      Button btnCharts = ButtonFactory.createButton(rosetta.getText("ui.db.btn.charts"), false);
-      Button btnPeriods = ButtonFactory.createButton(rosetta.getText("ui.db.btn.periods"), true);
-      Button btnStats = ButtonFactory.createButton(rosetta.getText("ui.db.btn.stats"), false);
-      Button btnTools = ButtonFactory.createButton(rosetta.getText("ui.db.btn.tools"), true);
-      Button btnLanguage = ButtonFactory.createButton(rosetta.getText("ui.db.btn.language"), false);
-      Button btnExit = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.exit"), false);
+      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      Button btnCharts = new ButtonBuilder("ui.db.btn.charts").setDisabled(false).build();
+      Button btnPeriods = new ButtonBuilder("ui.db.btn.periods").setDisabled(true).build();
+      Button btnStats = new ButtonBuilder("ui.db.btn.stats").setDisabled(false).build();
+      Button btnTools = new ButtonBuilder("ui.db.btn.tools").setDisabled(true).build();
+      Button btnLanguage = new ButtonBuilder("ui.db.btn.language").setDisabled(false).build();
+      Button btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
 
       btnHelp.setOnAction(click -> onHelp());
       btnLanguage.setOnAction(click -> onLanguage());
@@ -135,16 +138,12 @@ public class Dashboard {
       showDashboard();
    }
 
-//   private void onCharts() {
-//      new ChartsStart(new Stage(), rosetta, ChartsSessionState.getInstance(), ApiFactory.getCalculatedChartApi());
-//   }
-
    private void onCharts() {
       chartsStart.show();
    }
 
    private void onStats() {
-      new StatsStart();
+      statsStart.show();
    }
 
    private void onExit() {

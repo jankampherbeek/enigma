@@ -9,7 +9,7 @@ package com.radixpro.enigma.xchg.api;
 import com.radixpro.enigma.be.persistency.ChartDataDao;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
-import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +24,11 @@ public class PersistedChartDataApi {
       this.dao = dao;
    }
 
-   public int insert(final ChartData chartData) {
-      checkNotNull(chartData);
+   public int insert(final FullChartInputData fullChartInputData) {
+      checkNotNull(fullChartInputData);
       int chartId = -1;
       try {
-         chartId = dao.insert(chartData);
+         chartId = dao.insert(fullChartInputData);
       } catch (DatabaseException de) {
          System.out.println(de.getMessage());
          //     new FailFastHandler().terminate(de.getMessage());
@@ -44,21 +44,21 @@ public class PersistedChartDataApi {
       }
    }
 
-   public List<ChartData> read(final int id) {
+   public List<FullChartInputData> read(final int id) {
       return dao.read(id);
    }
 
-   public List<ChartData> readAll() {
-      List<ChartData> chartDataResult = new ArrayList<>();
+   public List<FullChartInputData> readAll() {
+      List<FullChartInputData> fullChartInputDataResult = new ArrayList<>();
       try {
-         chartDataResult = dao.readAll();
+         fullChartInputDataResult = dao.readAll();
       } catch (Exception e) {
          System.out.println(e.getMessage());
       }
-      return chartDataResult;
+      return fullChartInputDataResult;
    }
 
-   public List<ChartData> search(final String searchName) {
+   public List<FullChartInputData> search(final String searchName) {
       checkNotNull(searchName);
       return dao.search(searchName);
    }

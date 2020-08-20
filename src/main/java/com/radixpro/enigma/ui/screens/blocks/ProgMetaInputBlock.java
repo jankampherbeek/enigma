@@ -9,8 +9,8 @@ package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.references.InputStatus;
-import com.radixpro.enigma.ui.creators.LabelFactory;
-import com.radixpro.enigma.ui.creators.TextFieldFactory;
+import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.TextFieldBuilder;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -30,9 +30,6 @@ public class ProgMetaInputBlock extends InputBlock {
    private Label lblInputEvent;
    private TextField tfEvent;
 
-   /**
-    * @param state
-    */
    public ProgMetaInputBlock(SessionState state) {
       super(state);
    }
@@ -40,11 +37,12 @@ public class ProgMetaInputBlock extends InputBlock {
    @Override
    protected void initialize() {
       inputStatus = InputStatus.READY;    // always ready, as no validation is done.
-      lblMetaChart = LabelFactory.createLabel(rosetta.getText("ui.charts.meta.chartname") + " " +
-            state.getSelectedChart().getChartData().getChartMetaData().getName(), INPUT_WIDTH);
-      lblMetaConfig = LabelFactory.createLabel(rosetta.getText("ui.charts.meta.configname") + " " + state.getSelectedConfig().getName(), INPUT_WIDTH);
-      lblInputEvent = LabelFactory.createLabel(rosetta.getText("ui.progmetainput.lbl.eventinput"), INPUT_WIDTH);
-      tfEvent = TextFieldFactory.createTextField(INPUT_HEIGHT, INPUT_DATA_WIDTH, INPUT_STYLE);
+      lblMetaChart = new LabelBuilder("").setText(rosetta.getText("ui.charts.meta.chartname") + " " +
+            state.getSelectedChart().getChartData().getChartMetaData().getName()).setPrefWidth(INPUT_WIDTH).build();
+      lblMetaConfig = new LabelBuilder("").setText(rosetta.getText("ui.charts.meta.configname") + " " + state.getSelectedConfig().getName()).
+            setPrefWidth(INPUT_WIDTH).build();
+      lblInputEvent = new LabelBuilder("ui.progmetainput.lbl.eventinput").setPrefWidth(INPUT_WIDTH).build();
+      tfEvent = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
       createVBox();
    }
 

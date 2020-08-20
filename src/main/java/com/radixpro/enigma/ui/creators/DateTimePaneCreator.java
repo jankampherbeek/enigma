@@ -31,7 +31,7 @@ public class DateTimePaneCreator {
                                   final ChoiceBox<String> cbCalendar, final ChoiceBox<String> cbTimeZone, final ChoiceBox<String> cbLocalEastWest,
                                   final CheckBox cBoxDst) {
       initialize();
-      GridPane gridPane = GridPaneFactory.createGridPane(INPUT_DATETIME_HEIGHT, INPUT_WIDTH, GAP);
+      GridPane gridPane = new GridPaneBuilder().setPrefHeight(INPUT_DATETIME_HEIGHT).setPrefWidth(INPUT_WIDTH).setHGap(GAP).setVGap(GAP).build();
       gridPane.add(lblDate, 0, 0, 1, 1);
       gridPane.add(lblCalendar, 1, 0, 1, 1);
       gridPane.add(lblTime, 2, 0, 1, 1);
@@ -50,11 +50,11 @@ public class DateTimePaneCreator {
 
    private void initialize() {
       rosetta = Rosetta.getRosetta();
-      lblDate = LabelFactory.createLabel(rosetta.getText("ui.charts.input.date.name"), INPUT_MINOR_DATA_WIDTH);
-      lblCalendar = LabelFactory.createLabel(rosetta.getText("ui.charts.input.date.calendar"), INPUT_MICRO_DATA_WIDTH);
-      lblTime = LabelFactory.createLabel(rosetta.getText("ui.charts.input.time.name"), INPUT_MINOR_DATA_WIDTH);
-      lblTimeZone = LabelFactory.createLabel(rosetta.getText("ui.charts.input.time.timezone"), INPUT_DATA_WIDTH);
-      lblDst = LabelFactory.createLabel(rosetta.getText("ui.shared.dst"), INPUT_MICRO_DATA_WIDTH);
+      lblDate = new LabelBuilder("ui.charts.input.date.name").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
+      lblCalendar = new LabelBuilder("ui.charts.input.date.calendar").setPrefWidth(INPUT_MICRO_DATA_WIDTH).build();
+      lblTime = new LabelBuilder("ui.charts.input.time.name").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
+      lblTimeZone = new LabelBuilder("ui.charts.input.time.timezone").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblDst = new LabelBuilder("ui.shared.dst").setPrefWidth(INPUT_MICRO_DATA_WIDTH).build();
    }
 
 }

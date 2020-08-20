@@ -92,9 +92,9 @@ public class ConfigEdit {
    }
 
    private void populateStage() {
-      btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
-      btnCancel = new ButtonBuilder(rosetta.getText("ui.shared.btn.cancel")).setDisabled(false).build();
-      btnOk = new ButtonBuilder(rosetta.getText("ui.shared.btn.ok")).setDisabled(false).build();
+      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).build();
+      btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnOk).build();
       Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.edit.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
       Label lblSubTitle = new LabelBuilder(config.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();

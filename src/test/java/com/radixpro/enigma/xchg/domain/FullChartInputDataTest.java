@@ -16,7 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ChartDataTest {
+public class FullChartInputDataTest {
 
    private final int id = 123;
    @Mock
@@ -25,35 +25,35 @@ public class ChartDataTest {
    private Location locationMock;
    @Mock
    private ChartMetaData chartMetaDataMock;
-   private ChartData chartData;
+   private FullChartInputData fullChartInputData;
 
    @Before
    public void setUp() {
-      chartData = new ChartData(id, fullDateTimeMock, locationMock, chartMetaDataMock);
+      fullChartInputData = new FullChartInputData(id, fullDateTimeMock, locationMock, chartMetaDataMock);
    }
 
    @Test
    public void getSimpleDateTime() {
-      assertEquals(fullDateTimeMock, chartData.getFullDateTime());
+      assertEquals(fullDateTimeMock, fullChartInputData.getFullDateTime());
    }
 
    @Test
    public void getLocation() {
-      assertEquals(locationMock, chartData.getLocation());
+      assertEquals(locationMock, fullChartInputData.getLocation());
    }
 
    @Test
    public void getId() {
-      assertEquals(id, chartData.getId());
+      assertEquals(id, fullChartInputData.getId());
    }
 
    @Test
    public void getChartMetaData() {
-      assertEquals(chartMetaDataMock, chartData.getChartMetaData());
+      assertEquals(chartMetaDataMock, fullChartInputData.getChartMetaData());
    }
 
    @Test
    public void testToString() {
-      assertEquals("ChartData(id=123, fullDateTime=fullDateTimeMock, location=locationMock, chartMetaData=chartMetaDataMock)", chartData.toString());
+      assertEquals("ChartData(id=123, fullDateTime=fullDateTimeMock, location=locationMock, chartMetaData=chartMetaDataMock)", fullChartInputData.toString());
    }
 }

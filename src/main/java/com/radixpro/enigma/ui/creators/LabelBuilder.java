@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.ui.creators;
 
+import com.radixpro.enigma.Rosetta;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 
@@ -14,20 +15,36 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Creates a Label, based on the Builder pattern.
+ * Creates a Label, based on the Builder pattern.</br>
+ * If a text is entered, this will overwrite the value as indicated with rbKey (key to the resourcebundle).
  */
 public class LabelBuilder {
 
-   private final String text;
+   private final Rosetta rosetta;
+   private String rbKey = "";
+   private String text = "";
    private double prefWidth;
    private double prefHeight;
    private double layoutX;
    private double layoutY;
-   private String styleClass;
    private Pos alignment;
+   private String styleClass;
 
-   public LabelBuilder(final String text) {
-      this.text = checkNotNull(text);
+   public LabelBuilder(final String rbKey) {
+      this.rbKey = checkNotNull(rbKey);
+      this.rosetta = Rosetta.getRosetta();
+   }
+
+   /**
+    * Use only to overwrite the text from the resourcebundle.
+    *
+    * @param text Text to rep[lace the value from the resource bundle.
+    * @return Partially initialized LabelBuilder.
+    */
+   public LabelBuilder setText(final String text) {
+      checkNotNull(text);
+      this.text = text;
+      return this;
    }
 
    public LabelBuilder setPrefWidth(final double prefWidth) {
@@ -63,7 +80,10 @@ public class LabelBuilder {
    }
 
    public Label build() {
-      Label label = new Label(text);
+      String lblText = "";
+      if (!text.isEmpty()) lblText = text;
+      else lblText = (rbKey.isEmpty() ? "" : rosetta.getText(rbKey));
+      Label label = new Label(lblText);
       if (prefWidth > 0.0) label.setPrefWidth(prefWidth);
       if (prefHeight > 0.0) label.setPrefHeight(prefHeight);
       if (layoutX > 0.0) label.setLayoutX(layoutX);

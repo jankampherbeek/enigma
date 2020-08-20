@@ -20,9 +20,9 @@ import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.ui.charts.screens.ChartsData;
-import com.radixpro.enigma.ui.creators.ButtonFactory;
-import com.radixpro.enigma.ui.creators.LabelFactory;
-import com.radixpro.enigma.ui.creators.PaneFactory;
+import com.radixpro.enigma.ui.creators.ButtonBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.screens.helpers.CelObjectsInConfig;
@@ -36,7 +36,7 @@ import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
-import com.radixpro.enigma.xchg.domain.ChartData;
+import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
 import com.radixpro.enigma.xchg.domain.Location;
 import javafx.collections.ListChangeListener;
@@ -220,21 +220,18 @@ public class ChartsStart {
 
 
    private Pane createPaneTitle() {
-      final Pane pane = PaneFactory.createPane(TITLE_HEIGHT, WIDTH, "titlepane");
-      pane.getChildren().add(LabelFactory.createLabel(rosetta.getText("ui.charts.start.pagetitle"), "titletext", WIDTH));
-      return pane;
+      final Label label = new LabelBuilder("ui.charts.start.pagetitle").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      return new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").setChildren(label).build();
    }
 
    private Pane createPaneSubTitleCharts() {
-      final Pane pane = PaneFactory.createPane(SUBTITLE_HEIGHT, WIDTH, "subtitlepane");
-      pane.getChildren().add(LabelFactory.createLabel(rosetta.getText("ui.charts.start.chartstitle"), "subtitletext", WIDTH));
-      return pane;
+      final Label label = new LabelBuilder("ui.charts.start.chartstitle").setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
+      return new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(WIDTH).setStyleClass("subtitlepane").setChildren(label).build();
    }
 
    private Pane createPaneSubTitleConfigs() {
-      final Pane pane = PaneFactory.createPane(SUBTITLE_HEIGHT, WIDTH, "subtitlepane");
-      pane.getChildren().add(LabelFactory.createLabel(rosetta.getText("ui.charts.start.configtitle"), "subtitletext", WIDTH));
-      return pane;
+      final Label label = new LabelBuilder("ui.charts.start.configtitle").setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
+      return new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(WIDTH).setStyleClass("subtitlepane").setChildren(label).build();
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
@@ -262,17 +259,17 @@ public class ChartsStart {
    }
 
    private Pane createPaneChartBtns() {
-      final Pane pane = PaneFactory.createPane(BTN_PANE_HEIGHT, WIDTH);
+      final Pane pane = new PaneBuilder().setWidth(WIDTH).setHeight(BTN_PANE_HEIGHT).build();
       pane.getChildren().add(createButtonBarCharts());
       return pane;
    }
 
    private ButtonBar createButtonBarCharts() {
       ButtonBar buttonBar = new ButtonBar();
-      btnShowChart = ButtonFactory.createButton(rosetta.getText("ui.charts.start.btn.show"), true);
-      btnDeleteChart = ButtonFactory.createButton(rosetta.getText("ui.charts.start.btn.delete"), true);
-      Button btnNewChart = ButtonFactory.createButton(rosetta.getText("ui.charts.start.btn.new"), false);
-      Button btnSearchChart = ButtonFactory.createButton(rosetta.getText("ui.charts.start.btn.search"), false);
+      btnShowChart = new ButtonBuilder("ui.charts.start.btn.show").setDisabled(true).build();
+      btnDeleteChart = new ButtonBuilder("ui.charts.start.btn.delete").setDisabled(true).build();
+      Button btnNewChart = new ButtonBuilder("ui.charts.start.btn.new").setDisabled(false).build();
+      Button btnSearchChart = new ButtonBuilder("ui.charts.start.btn.search").setDisabled(false).build();
 
       btnShowChart.setOnAction(click -> onShowSelectedChart());
       btnDeleteChart.setOnAction(click -> onDeleteChart());
@@ -287,16 +284,14 @@ public class ChartsStart {
    }
 
    private Pane createPaneGeneralButtons() {
-      final Pane pane = PaneFactory.createPane(BTN_PANE_HEIGHT, WIDTH);
-      pane.getChildren().add(createButtonBarGeneral());
-      return pane;
+      return new PaneBuilder().setHeight(BTN_PANE_HEIGHT).setWidth(WIDTH).setChildren(createButtonBarGeneral()).build();
    }
 
    private ButtonBar createButtonBarGeneral() {
       ButtonBar buttonBar = new ButtonBar();
-      Button btnHelp = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.help"), false);
-      Button btnConfig = ButtonFactory.createButton(rosetta.getText("ui.charts.start.btn.config"), false);
-      Button btnExit = ButtonFactory.createButton(rosetta.getText("ui.shared.btn.exit"), false);
+      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      Button btnConfig = new ButtonBuilder("ui.charts.start.btn.config").setDisabled(false).build();
+      Button btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
 
       btnConfig.setOnAction(click -> onConfig());
       btnHelp.setOnAction(click -> onHelp());
@@ -307,11 +302,11 @@ public class ChartsStart {
    }
 
    private Pane createPaneSeparator() {
-      return PaneFactory.createPane(SEPARATOR_HEIGHT, WIDTH);
+      return new PaneBuilder().setHeight(SEPARATOR_HEIGHT).setWidth(WIDTH).build();
    }
 
    private Pane createPaneConfigDetails() {
-      Pane pane = PaneFactory.createPane(TV_HEIGHT, WIDTH);
+      Pane pane = new PaneBuilder().setHeight(TV_HEIGHT).setWidth(WIDTH).build();
       TableView<PresentableProperty> tvConfigs = propertiesTableForConfig.getTableView(TV_HEIGHT, WIDTH,
             propertiesForConfig.getProperties(currentConfig, celObjectsInConfig, aspectsInConfig));
       pane.getChildren().add(tvConfigs);
@@ -329,7 +324,7 @@ public class ChartsStart {
       chartsInput.show();
       if (chartsInput.getInputStatus() == InputStatus.READY) {
          int newChartId = chartsInput.getNewChartId();
-         ChartData chartData = addChart(newChartId);
+         FullChartInputData fullChartInputData = addChart(newChartId);
 //         showChart();    // TODO show automatically or change user manual    If shown, make sure it is saved in the state
       }
    }
@@ -337,8 +332,8 @@ public class ChartsStart {
    void onSearchChart() {
       chartsSearch.show();
       if (chartsSearch.isSelectionMade()) {
-         ChartData chartData = chartsSearch.getSelectedItem();
-         PresentableChartData presentableChartData = new PresentableChartData(chartData);
+         FullChartInputData fullChartInputData = chartsSearch.getSelectedItem();
+         PresentableChartData presentableChartData = new PresentableChartData(fullChartInputData);
          availableCharts.add(presentableChartData);
          colName.setCellValueFactory(new PropertyValueFactory<>("chartName"));
          colData.setCellValueFactory(new PropertyValueFactory<>("chartDataDescr"));
@@ -376,7 +371,7 @@ public class ChartsStart {
          HouseSystems houseSystem = config.getAstronConfiguration().getHouseSystem();
          ChartCalcSettings settings = new ChartCalcSettings(points, obsPos, eclProj, ayanamsha, houseSystem);
          final PresentableChartData presentableChartData = selectedCharts.get(0);
-         ChartData chartData = presentableChartData.getOriginalData();
+         FullChartInputData fullChartInputData = presentableChartData.getOriginalData();
          FullDateTime dateTime = presentableChartData.getOriginalData().getFullDateTime();
          Location location = presentableChartData.getOriginalData().getLocation();
          CalculatedChartRequest request = new CalculatedChartRequest(settings, dateTime, location);
@@ -384,7 +379,7 @@ public class ChartsStart {
          CalculatedChartResponse response = calculatedChartApi.calcChart(request);
          CalculatedChart calculatedChart = response.getCalculatedChart();
          // TODO check resultMsg
-         FullChart fullChart = new FullChart(chartData, calculatedChart);
+         FullChart fullChart = new FullChart(fullChartInputData, calculatedChart);
          state.setSelectedChart(fullChart);
       }
    }
@@ -404,13 +399,13 @@ public class ChartsStart {
    }
 
 
-   private ChartData addChart(final int chartId) {
-      ChartData chartData = chartDataApi.read(chartId).get(0);
-      PresentableChartData presentableChartData = new PresentableChartData(chartData);
+   private FullChartInputData addChart(final int chartId) {
+      FullChartInputData fullChartInputData = chartDataApi.read(chartId).get(0);
+      PresentableChartData presentableChartData = new PresentableChartData(fullChartInputData);
       colName.setCellValueFactory(new PropertyValueFactory<>("chartName"));
       colData.setCellValueFactory(new PropertyValueFactory<>("chartDataDescr"));
       tvCharts.getItems().add(presentableChartData);
-      return chartData;
+      return fullChartInputData;
    }
 
    private void onDeleteChart() {

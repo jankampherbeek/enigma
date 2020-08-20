@@ -54,7 +54,8 @@ public class ConfigDetails {
 
 
    public ConfigDetails(final PropertiesForConfig propertiesForConfig, final PropertiesTableForConfig propertiesTableForConfig,
-                        final CelObjectsInConfig celObjectsInConfig, final AspectsInConfig aspectsInConfig, final Rosetta rosetta, final SessionState state) {
+                        final CelObjectsInConfig celObjectsInConfig, final AspectsInConfig aspectsInConfig,
+                        final Rosetta rosetta, final SessionState state) {
       this.rosetta = checkNotNull(rosetta);
       this.state = checkNotNull(state);
       this.propertiesForConfig = checkNotNull(propertiesForConfig);
@@ -72,12 +73,14 @@ public class ConfigDetails {
 
 
    private void populateStage() {
-      btnHelp = new ButtonBuilder(rosetta.getText("ui.shared.btn.help")).setDisabled(false).build();
-      btnExit = new ButtonBuilder(rosetta.getText("ui.shared.btn.exit")).setDisabled(false).build();
+      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBar();                       // TODO replace with builder
       buttonBar.getButtons().addAll(btnHelp, btnExit);
-      Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.details.title")).setPrefWidth(OUTER_WIDTH).setStyleClass("titletext").build();
-      Label lblSubTitle = new LabelBuilder(configName).setPrefWidth(OUTER_WIDTH).setStyleClass("subtitletext").build();
+
+
+      Label lblTitle = new LabelBuilder("ui.configs.details.title").setPrefWidth(OUTER_WIDTH).setStyleClass("titletext").build();
+      Label lblSubTitle = new LabelBuilder("").setText(configName).setPrefWidth(OUTER_WIDTH).setStyleClass("subtitletext").build();
       TableView tableView = propertiesTableForConfig.getTableView(TV_HEIGHT, INNER_WIDTH,
             propertiesForConfig.getProperties(state.getSelectedConfig(), celObjectsInConfig, aspectsInConfig));  // TODO replace with builder
       Pane paneTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
