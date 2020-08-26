@@ -8,6 +8,7 @@
 package com.radixpro.enigma.be.persistency;
 
 import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector;
 import com.radixpro.enigma.shared.converters.ShConvertersInjector;
 
 public class BePersistencyInjector {
@@ -25,8 +26,16 @@ public class BePersistencyInjector {
       return new ConfigurationDao(scope.getAppDb());
    }
 
+   public static DataFileDao injectDataFileDao(AppScope scope) {
+      return new DataFileDao(injectJsonReader(scope), BePersMappersInjector.injectInputDataSetMapper(scope));
+   }
+
    public static DataReaderCsv injectDataReaderCsv(AppScope scope) {
       return new DataReaderCsv(ShConvertersInjector.injectCsv2LocationConverter(scope), ShConvertersInjector.injectCsv2FullDateTimeConverter(scope));
+   }
+
+   public static JsonReader injectJsonReader(AppScope scope) {
+      return new JsonReader();
    }
 
    public static JsonWriter injectJsonWriter(AppScope scope) {

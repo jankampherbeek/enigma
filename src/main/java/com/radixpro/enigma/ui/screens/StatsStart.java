@@ -7,16 +7,14 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.shared.Property;
-import com.radixpro.enigma.ui.creators.ButtonBuilder;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
-import com.radixpro.enigma.ui.creators.PaneBuilder;
+import com.radixpro.enigma.ui.creators.*;
+import com.radixpro.enigma.ui.screens.blocks.StatsDataBlock;
+import com.radixpro.enigma.ui.screens.blocks.StatsProjBlock;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
@@ -30,34 +28,37 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 public class StatsStart {
 
-   private static final double WIDTH = 600.0;
    private static final double PROJ_HEIGHT = 200.0;
    private final static String KEY_PROJDIR = "projdir";
+   private final Rosetta rosetta;
    private final PersistedPropertyApi propApi;
    private final DirectoryChooser dirChooser;
-   private final StatsInputData statsInputData;
-   private Button btnDefineProjDir;
-   private Button btnInputData;
+   private final StatsDataBlock dataBlock;
+   private final StatsProjBlock projBlock;
    private String fullPathProjDir;
    private Stage stage;
    private Label lblPageTitle;
-   private Label lblSubTitleProjects;
    private Label lblSubTitleNoProjdir;
    private Label lblDefineProjDir;
+   private Button btnDefineProjDir;
+   private Button btnInputData;
    private Pane panePageTitle;
-   private Pane paneSubTitleProjects;
    private Pane paneProjects;
+   private Pane paneBtnBar;
 
 
-   public StatsStart(final PersistedPropertyApi propApi, final DirectoryChooser dirChooser, final StatsInputData statsInputData) {
+   public StatsStart(final Rosetta rosetta, final StatsDataBlock dataBlock, final StatsProjBlock projBlock,
+                     final PersistedPropertyApi propApi, final DirectoryChooser dirChooser) {
+      this.rosetta = rosetta;
+      this.dataBlock = dataBlock;
+      this.projBlock = projBlock;
       this.propApi = checkNotNull(propApi);
       this.dirChooser = checkNotNull(dirChooser);
-      this.statsInputData = statsInputData;
    }
 
    public void show() {
       stage = new Stage();
-      stage.setWidth(WIDTH);
+      stage.setWidth(START_WIDTH);
       List<Property> properties = propApi.read(KEY_PROJDIR);
       fullPathProjDir = (0 == properties.size() ? "" : properties.get(0).getValue());
       defineLeafs();
@@ -69,19 +70,17 @@ public class StatsStart {
    }
 
    private void defineLeafs() {
-      lblPageTitle = new LabelBuilder("ui.stats.start.pagetitle").setStyleClass("titletext").setPrefWidth(INPUT_WIDTH).build();
-      lblSubTitleProjects = new LabelBuilder("ui.stats.start.projtitle").setStyleClass("subtitletext").setPrefWidth(INPUT_WIDTH).build();
-      lblSubTitleNoProjdir = new LabelBuilder("ui.stats.start.noprojdirtitle").setStyleClass("subtitletext").setPrefWidth(INPUT_WIDTH).build();
-      lblDefineProjDir = new LabelBuilder("ui.stats.start.noprojdirtext").setPrefWidth(INPUT_WIDTH).build();
+      lblPageTitle = new LabelBuilder("ui.stats.start.pagetitle").setStyleClass("titletext").setPrefWidth(START_WIDTH).build();
+      lblSubTitleNoProjdir = new LabelBuilder("ui.stats.start.noprojdirtitle").setStyleClass("subtitletext").setPrefWidth(START_WIDTH).build();
+      lblDefineProjDir = new LabelBuilder("ui.stats.start.noprojdirtext").setPrefWidth(START_WIDTH).build();
       btnDefineProjDir = new ButtonBuilder("ui.stats.start.noprojdirbtn").setDisabled(false).build();
       btnInputData = new ButtonBuilder("ui.stats.start.inputdatabtn").setDisabled(false).build();
-
    }
 
    private void definePanes() {
-      panePageTitle = new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass("titlepane").build();
-      paneSubTitleProjects = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_PANE).build();
-      paneProjects = new PaneBuilder().setHeight(PROJ_HEIGHT).setWidth(INPUT_WIDTH).build();
+      panePageTitle = new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(START_WIDTH).setStyleClass("titlepane").build();
+      paneProjects = new PaneBuilder().setHeight(PROJ_HEIGHT).setWidth(START_WIDTH).build();
+      paneBtnBar = new PaneBuilder().setHeight(BUTTONBAR_HEIGHT).setWidth(START_WIDTH).setChildren(createBtnBar()).build();
    }
 
    private void defineStructure() {
@@ -89,40 +88,51 @@ public class StatsStart {
 
       panePageTitle.getChildren().add(lblPageTitle);
       if (fullPathProjDir.isEmpty()) {
-         paneSubTitleProjects.getChildren().add(lblSubTitleNoProjdir);
+//         paneSubTitleProjects.getChildren().add(lblSubTitleNoProjdir);
          paneProjects.getChildren().add(createVBoxDefineProjDir());
       } else {
-         paneSubTitleProjects.getChildren().add(lblSubTitleProjects);
+//         paneSubTitleProjects.getChildren().add(lblSubTitleProjects);
          // define PaneProjects with overview of projects
       }
 
    }
 
    private VBox createVBoxDefineProjDir() {
-      VBox vBox = new VBox();
-      vBox.setPadding(new Insets(GAP, GAP, GAP, GAP));
-      vBox.getChildren().addAll(lblDefineProjDir, btnDefineProjDir);
-      return vBox;
+      return new VBoxBuilder().setPadding(GAP).setWidth(START_WIDTH).setChildren(lblDefineProjDir, btnDefineProjDir).build();
    }
 
    private VBox createVBox() {
-      VBox vBox = new VBox();
-      vBox.getStylesheets().add(STYLESHEET);
-      vBox.getChildren().addAll(panePageTitle, paneSubTitleProjects, paneProjects, createBtnBar());
-      return vBox;
+      return new VBoxBuilder().setWidth(START_WIDTH).setChildren(createMenuBar(), panePageTitle, dataBlock.getVBox(), projBlock.getVBox(), paneBtnBar).build();
+   }
+
+   private MenuBar createMenuBar() {
+      Menu menuGeneral = new Menu(rosetta.getText("menu.general"));
+      MenuItem miExit = new MenuItem(rosetta.getText("menu.general.exit"));
+      miExit.setOnAction(e -> stage.close());
+      menuGeneral.getItems().add(miExit);
+      Menu menuProjects = new Menu(rosetta.getText("menu.stats.projects"));
+      MenuItem miNewProject = new MenuItem(rosetta.getText("menu.stats.projects.new"));
+      MenuItem miSearchProject = new MenuItem(rosetta.getText("menu.stats.projects.search"));
+      MenuItem miEditProject = new MenuItem(rosetta.getText("menu.stats.projects.edit"));
+      MenuItem miOpenProject = new MenuItem(rosetta.getText("menu.stats.projects.open"));
+      menuProjects.getItems().addAll(miNewProject, miSearchProject, miEditProject, miOpenProject);
+      Menu menuData = new Menu(rosetta.getText("menu.stats.data"));
+      MenuItem miNewData = new MenuItem(rosetta.getText("menu.stats.data.new"));
+      MenuItem miSearchData = new MenuItem(rosetta.getText("menu.stats.data.search"));
+      MenuItem miDetailsData = new MenuItem(rosetta.getText("menu.stats.data.details"));
+      menuData.getItems().addAll(miNewData, miSearchData, miDetailsData);
+      Menu menuHelp = new Menu(rosetta.getText("menu.general.help"));
+      MenuItem miShowHelp = new MenuItem(rosetta.getText("menu.general.help.showhelp"));
+      menuHelp.getItems().add(miShowHelp);
+      MenuBar menuBar = new MenuBar();
+      menuBar.getMenus().addAll(menuGeneral, menuProjects, menuData, menuHelp);
+      return menuBar;
    }
 
    private ButtonBar createBtnBar() {
-      ButtonBar buttonBar = new ButtonBar();
-      Button exitBtn = new Button("Exit");
-      Button searchBtn = new Button("Search project");
-      Button newButton = new Button("New project");
-      Button editButton = new Button("Edit project");
-      Button runButton = new Button("Run test");
-      btnInputData.setOnAction(click -> onInputData());
-      searchBtn.setOnAction(click -> onSearch());
-      buttonBar.getButtons().addAll(exitBtn, searchBtn, newButton, editButton, runButton, btnInputData);
-      return buttonBar;
+      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      Button btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      return new ButtonBarBuilder().setButtons(btnHelp, btnExit).build();
    }
 
    private void onDefineProjDir() {
@@ -142,9 +152,6 @@ public class StatsStart {
       return "";
    }
 
-   private void onInputData() {
-      statsInputData.show();
-   }
 
    private void onSearch() {
       new StatsSearch();

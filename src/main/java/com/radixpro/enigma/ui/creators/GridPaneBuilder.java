@@ -9,6 +9,7 @@ package com.radixpro.enigma.ui.creators;
 
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -22,6 +23,7 @@ public class GridPaneBuilder {
    private double padding;
    private double hGap;
    private double vGap;
+   private String styleSheet;
 
    public GridPaneBuilder setPrefHeight(final double prefHeight) {
       checkArgument(prefHeight > 0.0);
@@ -53,6 +55,11 @@ public class GridPaneBuilder {
       return this;
    }
 
+   public GridPaneBuilder setStyleSheet(@NotNull final String styleSheet) {
+      this.styleSheet = styleSheet;
+      return this;
+   }
+
    public GridPane build() {
       GridPane gridPane = new GridPane();
       if (prefHeight > 0.0) gridPane.setPrefHeight(prefHeight);
@@ -60,6 +67,7 @@ public class GridPaneBuilder {
       if (padding > 0.0) gridPane.setPadding(new Insets(padding, padding, padding, padding));
       if (hGap > 0.0) gridPane.setHgap(hGap);
       if (vGap > 0.0) gridPane.setVgap(vGap);
+      if (null != styleSheet && !styleSheet.isBlank()) gridPane.getStylesheets().add(styleSheet);
       return gridPane;
    }
 

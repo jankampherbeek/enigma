@@ -91,8 +91,8 @@ public class ConfigOverview {
    }
 
    private void populateStage() {
-      Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.overview.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      Label lblInstruction = new LabelBuilder(rosetta.getText("ui.configs.overview.instruction")).setPrefHeight(INSTRUCTION_HEIGHT).setPrefWidth(WIDTH)
+      Label lblTitle = new LabelBuilder("ui.configs.overview.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblInstruction = new LabelBuilder("ui.configs.overview.instruction").setPrefHeight(INSTRUCTION_HEIGHT).setPrefWidth(WIDTH)
             .setAlignment(Pos.CENTER).build();
       btnSelect = new ButtonBuilder("ui.shared.btn.select").setDisabled(true).build();
       btnNew = new ButtonBuilder("ui.shared.btn.new").setDisabled(true).build();

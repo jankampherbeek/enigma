@@ -8,9 +8,9 @@
 package com.radixpro.enigma.domain.analysis;
 
 import com.radixpro.enigma.references.AspectTypes;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Actual aspect between a transit position and a radix postion.
@@ -27,19 +27,19 @@ public class AnalyzedAspectTransit implements IAnalyzedPair {
    /**
     * Constructor defines all properties.
     *
-    * @param transitPoint transiting point. PRE: not null.
-    * @param radixPoint   radix point. PRE: not null.
-    * @param aspectType   Aspect type (angle). PRE: not null.
+    * @param transitPoint transiting point.
+    * @param radixPoint   radix point.
+    * @param aspectType   Aspect type (angle).
     * @param orb          actual orb. PRE: >= 0.0 .
     * @param maxOrb       max orb. PRE: >= 0.0 .
     */
-   public AnalyzedAspectTransit(final AnalyzablePoint transitPoint, final AnalyzablePoint radixPoint, final AspectTypes aspectType,
+   public AnalyzedAspectTransit(@NotNull final AnalyzablePoint transitPoint, @NotNull final AnalyzablePoint radixPoint, @NotNull final AspectTypes aspectType,
                                 final double orb, final double maxOrb) {
       checkArgument(orb >= 0.0);
       checkArgument(maxOrb >= 0.0);
-      this.transitPoint = checkNotNull(transitPoint);
-      this.radixPoint = checkNotNull(radixPoint);
-      this.aspectType = checkNotNull(aspectType);
+      this.transitPoint = transitPoint;
+      this.radixPoint = radixPoint;
+      this.aspectType = aspectType;
       this.orb = orb;
       this.maxOrb = maxOrb;
       percOrb = (orb / maxOrb * 100.0);

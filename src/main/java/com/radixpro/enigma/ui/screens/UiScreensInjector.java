@@ -84,11 +84,22 @@ public class UiScreensInjector {
             injectConfigNew(scope), injectConfigEdit(scope), injectConfigDetails(scope), scope.getRosetta(), scope.getSessionState());
    }
 
-   public static StatsInputData injectStatsInputData(AppScope scope) {
-      return new StatsInputData(scope.getRosetta(), XchgApiInjector.injectInputDataFileApi(scope), XchgApiInjector.injectPersistedPropertyApi(scope));
+   public static StatsDataNew injectStatsDataNew(AppScope scope) {
+      return new StatsDataNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), XchgApiInjector.injectInputDataFileApi(scope),
+            XchgApiInjector.injectPersistedPropertyApi(scope));
+   }
+
+   public static StatsDataSearch injectStatsDataSearch(AppScope scope) {
+      return new StatsDataSearch(XchgApiInjector.injectPersistedDataFileApi(scope), scope.getRosetta());
+   }
+
+   public static StatsProjNew injectStatsProjNew(AppScope scope) {
+      return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), ScreensBlocksInjector.injectDataFilesInputBlock(scope));
    }
 
    public static StatsStart injectStatsStart(AppScope scope) {
-      return new StatsStart(XchgApiInjector.injectPersistedPropertyApi(scope), new DirectoryChooser(), injectStatsInputData(scope));
+      return new StatsStart(scope.getRosetta(), ScreensBlocksInjector.injectStatsDataBlock(scope), ScreensBlocksInjector.injectStatsProjBlock(scope),
+            XchgApiInjector.injectPersistedPropertyApi(scope), new DirectoryChooser());
    }
+
 }

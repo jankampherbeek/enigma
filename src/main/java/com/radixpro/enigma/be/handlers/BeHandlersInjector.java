@@ -28,6 +28,10 @@ public class BeHandlersInjector {
       return new CalculatedChartHandler(injectFullPointPositionHandler(scope), injectMundanePositionsHandler(scope));
    }
 
+   public static DataFileHandler injectDataFileHandler(AppScope scope) {
+      return new DataFileHandler(BePersistencyInjector.injectDataFileDao(scope), XchgApiInjector.injectPersistedPropertyApi(scope));
+   }
+
    // TODO retrieve SeFrontend from scope
    public static EphProgCalcHandler injectEphProgCalcHandler(AppScope scope) {
       return new EphProgCalcHandler(SeFrontend.getFrontend());

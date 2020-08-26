@@ -7,11 +7,11 @@
 
 package com.radixpro.enigma.ui.screens;
 
-import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.reqresp.InputDataFileRequest;
 import com.radixpro.enigma.domain.reqresp.InputDataFileResponse;
 import com.radixpro.enigma.references.DataInputFormats;
 import com.radixpro.enigma.ui.creators.*;
+import com.radixpro.enigma.ui.screens.blocks.NameDescriptionInputBlock;
 import com.radixpro.enigma.xchg.api.InputDataFileApi;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import javafx.collections.ObservableList;
@@ -31,11 +31,11 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 /**
  * Screen for adding data files to Enigma.
  */
-public class StatsInputData extends InputScreen {
+public class StatsDataNew extends InputScreen {
 
-   private final static String KEY_PROJDIR = "projdir";
-   private final static double HEIGHT = 700.0;
-   private final Rosetta rosetta;
+   private static final String KEY_PROJDIR = "projdir";
+   private static final double HEIGHT = 700.0;
+   private final NameDescriptionInputBlock nameDescrBlock;
    private final InputDataFileApi inputDataFileApi;
    private final PersistedPropertyApi propApi;
    private Stage stage;
@@ -48,13 +48,15 @@ public class StatsInputData extends InputScreen {
    private Label lblResults;
    private Pane panePageTitle;
    private Pane paneResults;
+   private Pane paneExplanation;
+   private Pane paneFormat;
    private ChoiceBox<String> cbInputFormats;
    private TextField tfName;
    private TextField tfDescription;
    private DataInputFormats selectedInputFormat;
 
-   public StatsInputData(final Rosetta rosetta, final InputDataFileApi inputDataFileApi, final PersistedPropertyApi propApi) {
-      this.rosetta = checkNotNull(rosetta);
+   public StatsDataNew(final NameDescriptionInputBlock nameDescrBlock, final InputDataFileApi inputDataFileApi, final PersistedPropertyApi propApi) {
+      this.nameDescrBlock = nameDescrBlock;
       this.inputDataFileApi = checkNotNull(inputDataFileApi);
       this.propApi = checkNotNull(propApi);
    }
@@ -90,6 +92,8 @@ public class StatsInputData extends InputScreen {
    private void definePanes() {
       panePageTitle = new PaneBuilder().setWidth(INPUT_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblPageTitle).build();
       paneResults = new PaneBuilder().setWidth(INPUT_WIDTH).setHeight(300).setChildren(lblResults).build();
+      paneExplanation = new PaneBuilder().setWidth(INPUT_WIDTH).setHeight(50.0).setChildren(lblExplanation).build();
+      paneFormat = new PaneBuilder().setWidth(INPUT_WIDTH).setChildren(lblFormat, cbInputFormats).build();
    }
 
    private GridPane createInputGridPane() {
@@ -105,10 +109,9 @@ public class StatsInputData extends InputScreen {
       return gridPane;
    }
 
-
    private VBox createVBox() {
       return new VBoxBuilder().setHeight(HEIGHT).setWidth(INPUT_WIDTH).setPadding(GAP).
-            setChildren(panePageTitle, createInputGridPane(), paneResults, createBtnBar()).build();
+            setChildren(panePageTitle, paneExplanation, nameDescrBlock.getVBox(this), paneFormat, createBtnBarDataFile(), paneResults, createBtnBar()).build();
    }
 
    private ButtonBar createBtnBarDataFile() {
@@ -146,19 +149,19 @@ public class StatsInputData extends InputScreen {
       }
    }
 
-   private void checkStatus() {
+   @Override
+   public void checkStatus() {
       boolean statusOk = DataInputFormats.UNDEFINED != selectedInputFormat && null != tfName.getText() && !tfName.getText().isBlank() && null != tfDescription
             && !tfDescription.getText().isBlank();
       btnDataFile.setDisable(!statusOk);
    }
-
 
    private void processDataFile(final File dataFile) {
       String fullPathProjdir = propApi.read(KEY_PROJDIR).get(0).getValue();
       DataInputFormats inputFormat = selectedInputFormat;
       InputDataFileRequest request = new InputDataFileRequest(tfName.getText(), tfDescription.getText(), dataFile, fullPathProjdir);
       InputDataFileResponse response = inputDataFileApi.addDataFile(request);
-      // process response
+      // TODO process response
    }
 
 }

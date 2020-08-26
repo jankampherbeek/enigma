@@ -88,7 +88,7 @@ public class LabelBuilder {
       if (prefHeight > 0.0) label.setPrefHeight(prefHeight);
       if (layoutX > 0.0) label.setLayoutX(layoutX);
       if (layoutY > 0.0) label.setLayoutY(layoutY);
-      if (null != styleClass && !styleClass.isEmpty()) label.getStyleClass().add(styleClass);
+      if (null != styleClass && !styleClass.isBlank()) label.getStyleClass().add(styleClass);
       if (null != alignment) label.setAlignment(alignment);
       return label;
    }

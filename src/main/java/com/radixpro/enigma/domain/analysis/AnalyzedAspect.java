@@ -8,9 +8,9 @@
 package com.radixpro.enigma.domain.analysis;
 
 import com.radixpro.enigma.references.AspectTypes;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * ValueObject for an aspect that has been analyzed.
@@ -29,18 +29,18 @@ public class AnalyzedAspect implements IAnalyzedPair {
     * Constructor defines all parameters.
     * PRE: 0.0 <= actualOrb <= maxOrb
     *
-    * @param firstPoint  First point that was compared. PRE: not null.
-    * @param secondPoint Second point that was compared. PRE: not null.
-    * @param aspectType  Type of aspect. PRE: not null.
+    * @param firstPoint  First point that was compared.
+    * @param secondPoint Second point that was compared.
+    * @param aspectType  Type of aspect.
     * @param actualOrb   The actual orb fir this aspect.
     * @param maxOrb      The maximum orb for this aspect.
     */
-   public AnalyzedAspect(final AnalyzablePoint firstPoint, final AnalyzablePoint secondPoint,
-                         final AspectTypes aspectType, final double actualOrb, final double maxOrb) {
+   public AnalyzedAspect(@NotNull final AnalyzablePoint firstPoint, @NotNull final AnalyzablePoint secondPoint,
+                         @NotNull final AspectTypes aspectType, final double actualOrb, final double maxOrb) {
       checkArgument(0.0 <= actualOrb && actualOrb <= maxOrb);
-      this.firstPoint = checkNotNull(firstPoint);
-      this.secondPoint = checkNotNull(secondPoint);
-      this.aspectType = checkNotNull(aspectType);
+      this.firstPoint = firstPoint;
+      this.secondPoint = secondPoint;
+      this.aspectType = aspectType;
       this.actualOrb = actualOrb;
       this.maxOrb = maxOrb;
       this.percOrb = calculatePercOrb();

@@ -19,14 +19,20 @@ import java.sql.Statement;
 /**
  * Parent for classes that perform tests using then database.
  */
-public class DbTestSupport {
+public class TestSupport {
 
    private static Connection con;
    private static AppDb appDb;
    private static boolean initialized = false;
 
-   private DbTestSupport() {
+   private TestSupport() {
       // prevent instantiation
+   }
+
+   public static void initRosetta() {
+      if (null == appDb) appDb = AppDb.initAppDb("test");
+      Rosetta.defineRosetta(appDb);
+      Rosetta.getRosetta().setLanguage("en");
    }
 
    public static AppDb useDb() {

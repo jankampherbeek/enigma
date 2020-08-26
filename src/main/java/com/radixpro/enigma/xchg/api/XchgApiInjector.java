@@ -42,6 +42,10 @@ public class XchgApiInjector {
       return new PersistedConfigurationApi(BePersistencyInjector.injectConfigurationDao(scope));
    }
 
+   public static PersistedDataFileApi injectPersistedDataFileApi(AppScope scope) {
+      return new PersistedDataFileApi(BeHandlersInjector.injectDataFileHandler(scope));
+   }
+
    public static PersistedPropertyApi injectPersistedPropertyApi(AppScope scope) {
       return new PersistedPropertyApi(BePersistencyInjector.injectPropertyDao(scope));
    }

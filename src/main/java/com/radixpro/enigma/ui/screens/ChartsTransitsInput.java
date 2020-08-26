@@ -177,7 +177,8 @@ public class ChartsTransitsInput extends InputScreen {
 //      new Help(rosetta.getHelpText("help.chartsinput.title"), rosetta.getHelpText("help.chartsinput.content"));
    }
 
-   private void checkStatus() {
+   @Override
+   public void checkStatus() {
       boolean inputOk = (locationInputBlock.getInputStatus() == InputStatus.READY
             && (dateTimeInputBlock.getInputStatus() == InputStatus.READY)
             && (progMetaInputBlock.getInputStatus() == InputStatus.READY));

@@ -32,6 +32,8 @@ public abstract class InputScreen {
       rosetta = Rosetta.getRosetta();
    }
 
+   public abstract void checkStatus();
+
    protected Pane createPaneBtnBar() {
       return new PaneBuilder().setHeight(BUTTONBAR_HEIGHT).setWidth(INPUT_WIDTH).setChildren(createBtnBar()).build();
    }

@@ -20,6 +20,7 @@
         <java.version>14</java.version>
         <javafx.version>14.0.1</javafx.version>
         <jfoenix.version>9.0.9</jfoenix.version>
+        <json-simple.version>1.1.1</json-simple.version>
         <junit.version>4.12</junit.version>
         <mack.version>2.01.00-02</mack.version>
         <maven.compiler.release>14</maven.compiler.release>
@@ -91,6 +92,11 @@
             <version>${jackson.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>${json-simple.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons.version}</version>
@@ -121,6 +127,12 @@
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

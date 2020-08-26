@@ -62,8 +62,8 @@ public class Csv2FullDateTimeConverter {
          SimpleDate date = new SimpleDate(year, month, day, calendar.equalsIgnoreCase("G"));
          SimpleTime time = new SimpleTime(hour, minute, second);
          dateTime = new SimpleDateTime(date, time);
-         timeZone = TimeZones.timeZoneForId(Integer.parseInt(zone));
-         if (timeZone == TimeZones.UT && (timeZone.getId() != Integer.parseInt(zone)))
+         timeZone = TimeZones.timeZoneForName(zone);
+         if (timeZone == TimeZones.UT && ("UT" != zone))
             throw new InputDataException("Encountered unknown index for timezone when parsing FullDateTime : " + zone);
       } catch (NumberFormatException nfe) {
          throw new InputDataException("NumberFormatException when parsing FullDateTime : " + dateTxt + " " + timeTxt);

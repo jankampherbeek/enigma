@@ -43,9 +43,11 @@ public class Rosetta {
    }
 
    public static Rosetta defineRosetta(final AppDb pAppDb) {
-      appDb = pAppDb;
-      instance = new Rosetta();
-      instance.reInitialize();
+      if (null == instance) {
+         appDb = pAppDb;
+         instance = new Rosetta();
+         instance.reInitialize();
+      }
       return instance;
    }
 

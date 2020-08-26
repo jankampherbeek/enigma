@@ -8,8 +8,7 @@
 package com.radixpro.enigma.domain.analysis;
 
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Value object for point that can be analyzed.
@@ -19,8 +18,8 @@ public class AnalyzablePoint {
    private final IChartPoints chartPoint;
    private final double position;
 
-   public AnalyzablePoint(final IChartPoints chartPoint, final double position) {
-      this.chartPoint = checkNotNull(chartPoint);
+   public AnalyzablePoint(@NotNull final IChartPoints chartPoint, final double position) {
+      this.chartPoint = chartPoint;
       this.position = position;
    }
 

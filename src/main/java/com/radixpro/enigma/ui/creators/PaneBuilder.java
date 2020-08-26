@@ -50,7 +50,7 @@ public class PaneBuilder {
       Pane pane = new Pane();
       if (width > 0.0) pane.setPrefWidth(width);
       if (height > 0.0) pane.setPrefHeight(height);
-      if (styleClass != null && !styleClass.isEmpty()) pane.getStyleClass().add(styleClass);
+      if (styleClass != null && !styleClass.isBlank()) pane.getStyleClass().add(styleClass);
       if (children != null && children.length > 0) pane.getChildren().addAll(children);
       return pane;
    }

@@ -1,3 +1,4 @@
+/* General css for Enigma */
 .root {
     -fx-background-color: azure;
 }
@@ -75,9 +76,8 @@ error {
     -fx-control-inner-background: yellow;
 }
 @font-face {
-    src: url("/resources/fonts/EnigmaAstrology.ttf");
+    src: url('/resources/fonts/EnigmaAstrology.ttf';) format ('truetype');
 }
 .glyph {
     -fx-font-family: "EnigmaAstrology";
 }
-

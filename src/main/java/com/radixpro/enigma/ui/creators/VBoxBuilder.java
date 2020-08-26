@@ -23,6 +23,7 @@ public class VBoxBuilder {
    private double prefWidth;
    private double padding;
    private double prefHeight;
+   private String style;
    private Node[] children;
 
 
@@ -49,12 +50,18 @@ public class VBoxBuilder {
       return this;
    }
 
+   public VBoxBuilder setStyle(final String style) {
+      this.style = style;
+      return this;
+   }
+
    public VBox build() {
       VBox vBox = new VBox();
       vBox.getStylesheets().add(STYLESHEET);
       vBox.setPrefWidth(prefWidth);
       if (prefHeight > 0.0) vBox.setPrefHeight(prefHeight);
       if (padding > 0.0) vBox.setPadding(new Insets(padding, padding, padding, padding));
+      if (null != style && !style.isBlank()) vBox.setStyle(style);
       if (children != null && children.length > 0) vBox.getChildren().addAll(children);
       return vBox;
    }

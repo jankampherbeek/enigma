@@ -20,6 +20,7 @@ import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
 import com.radixpro.enigma.xchg.domain.Location;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -48,8 +49,7 @@ public class ChartDataDao extends DaoParent {
     * @param insertFullChartInputData The ChartData instance to insert.
     * @throws DatabaseException Any exception is logged and rethrown as a Database exception.
     */
-   public int insert(final FullChartInputData insertFullChartInputData) throws DatabaseException {
-      checkNotNull(insertFullChartInputData);
+   public int insert(@NotNull final FullChartInputData insertFullChartInputData) throws DatabaseException {
       final String insertChart = "INSERT INTO charts (id, name, description, source, idcharttype, idrating, caldate, time, calendar, dst, idtz, offsetlmt" +
             ", locname, geolong, geolat) values(chartsseq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 //      final AppDb appDb = AppDb.getInstance();

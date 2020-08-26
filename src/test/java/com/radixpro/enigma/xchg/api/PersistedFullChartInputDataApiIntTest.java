@@ -16,7 +16,7 @@ import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.references.ChartTypes;
 import com.radixpro.enigma.references.Ratings;
 import com.radixpro.enigma.references.TimeZones;
-import com.radixpro.enigma.testsupport.DbTestSupport;
+import com.radixpro.enigma.testsupport.TestSupport;
 import com.radixpro.enigma.xchg.domain.ChartMetaData;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
@@ -30,7 +30,7 @@ public class PersistedFullChartInputDataApiIntTest {
 
    @Before
    public void setUp() throws Exception {
-      appDb = DbTestSupport.useDb();
+      appDb = TestSupport.useDb();
       pChartApi = XchgApiInjector.injectPersistedChartDataApi(new AppScope());
    }
 

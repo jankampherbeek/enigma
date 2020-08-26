@@ -27,7 +27,7 @@ public class AppScopeFactory {
    }
 
    private static void createAppScope() {
-      AppDb appDb = DbTestSupport.useDb();
+      AppDb appDb = TestSupport.useDb();
       appScope = new AppScope();
       appScope.setAppDb(appDb);
       appScope.setRosetta(Rosetta.defineRosetta(appDb));

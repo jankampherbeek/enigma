@@ -41,8 +41,11 @@ public class UiDictionary {
    public static final double INPUT_MINOR_DATA_WIDTH = 236.0;
    public static final double INPUT_MICRO_DATA_WIDTH = 40;
    public static final double INPUT_WIDTH = 600.0;
+   public static final double SMALL_INPUT_WIDTH = 500.0;
+   public static final double START_WIDTH = 700.0;
    public static final double SUBTITLE_HEIGHT = 30.0;
    public static final double TITLE_HEIGHT = 45.0;
+   public static final double TV_HEIGHT = 200.0;
 
 
    private UiDictionary() {

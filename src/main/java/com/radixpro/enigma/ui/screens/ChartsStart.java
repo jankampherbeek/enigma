@@ -55,17 +55,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
+import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 public class ChartsStart {
 
    private static final Logger LOG = Logger.getLogger(ChartsStart.class);
-
-   private static final double WIDTH = 700.0;
    private static final double HEIGHT = 700.0;
-   private static final double TITLE_HEIGHT = 45.0;
-   private static final double SUBTITLE_HEIGHT = 30.0;
-   private static final double TV_HEIGHT = 200.0;
    private static final double TV_COL_WIDTH = 350.0;
    private static final double BTN_PANE_HEIGHT = 30.0;
    private static final double SEPARATOR_HEIGHT = 20.0;
@@ -144,7 +139,7 @@ public class ChartsStart {
 
    private void showChartOverview() {
       stage.setMinHeight(HEIGHT);
-      stage.setMinWidth(WIDTH);
+      stage.setMinWidth(START_WIDTH);
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.setTitle(rosetta.getText("ui.charts.start.pagetitle"));
       showIt();
@@ -157,7 +152,7 @@ public class ChartsStart {
    private VBox createVBox() {
       VBox vBox = new VBox();
       vBox.getStylesheets().add(STYLESHEET);
-      vBox.setPrefWidth(WIDTH);
+      vBox.setPrefWidth(START_WIDTH);
       vBox.setPrefHeight(HEIGHT);
       tvCharts = createTableViewCharts();
       vBox.getChildren().addAll(createMenuBar(), createPaneTitle(), createPaneSubTitleCharts(), tvCharts,
@@ -220,18 +215,18 @@ public class ChartsStart {
 
 
    private Pane createPaneTitle() {
-      final Label label = new LabelBuilder("ui.charts.start.pagetitle").setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      return new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").setChildren(label).build();
+      final Label label = new LabelBuilder("ui.charts.start.pagetitle").setPrefWidth(START_WIDTH).setStyleClass("titletext").build();
+      return new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(START_WIDTH).setStyleClass("titlepane").setChildren(label).build();
    }
 
    private Pane createPaneSubTitleCharts() {
-      final Label label = new LabelBuilder("ui.charts.start.chartstitle").setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
-      return new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(WIDTH).setStyleClass("subtitlepane").setChildren(label).build();
+      final Label label = new LabelBuilder("ui.charts.start.chartstitle").setPrefWidth(START_WIDTH).setStyleClass("subtitletext").build();
+      return new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(START_WIDTH).setStyleClass("subtitlepane").setChildren(label).build();
    }
 
    private Pane createPaneSubTitleConfigs() {
-      final Label label = new LabelBuilder("ui.charts.start.configtitle").setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
-      return new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(WIDTH).setStyleClass("subtitlepane").setChildren(label).build();
+      final Label label = new LabelBuilder("ui.charts.start.configtitle").setPrefWidth(START_WIDTH).setStyleClass("subtitletext").build();
+      return new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(START_WIDTH).setStyleClass("subtitlepane").setChildren(label).build();
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
@@ -239,7 +234,7 @@ public class ChartsStart {
       TableView<PresentableChartData> tableView = new TableView<>();
       tableView.setPlaceholder(new Label(rosetta.getText("ui.charts.start.placeholdercharts")));
       tableView.setPrefHeight(TV_HEIGHT);
-      tableView.setPrefWidth(WIDTH);
+      tableView.setPrefWidth(START_WIDTH);
       colName = new TableColumn<>(rosetta.getText("ui.charts.start.colheaderchartname"));
       colData = new TableColumn<>(rosetta.getText("ui.charts.start.colheaderchartdata"));
       colName.setCellValueFactory(new PropertyValueFactory("chartName"));
@@ -259,7 +254,7 @@ public class ChartsStart {
    }
 
    private Pane createPaneChartBtns() {
-      final Pane pane = new PaneBuilder().setWidth(WIDTH).setHeight(BTN_PANE_HEIGHT).build();
+      final Pane pane = new PaneBuilder().setWidth(START_WIDTH).setHeight(BTN_PANE_HEIGHT).build();
       pane.getChildren().add(createButtonBarCharts());
       return pane;
    }
@@ -284,7 +279,7 @@ public class ChartsStart {
    }
 
    private Pane createPaneGeneralButtons() {
-      return new PaneBuilder().setHeight(BTN_PANE_HEIGHT).setWidth(WIDTH).setChildren(createButtonBarGeneral()).build();
+      return new PaneBuilder().setHeight(BTN_PANE_HEIGHT).setWidth(START_WIDTH).setChildren(createButtonBarGeneral()).build();
    }
 
    private ButtonBar createButtonBarGeneral() {
@@ -302,12 +297,12 @@ public class ChartsStart {
    }
 
    private Pane createPaneSeparator() {
-      return new PaneBuilder().setHeight(SEPARATOR_HEIGHT).setWidth(WIDTH).build();
+      return new PaneBuilder().setHeight(SEPARATOR_HEIGHT).setWidth(START_WIDTH).build();
    }
 
    private Pane createPaneConfigDetails() {
-      Pane pane = new PaneBuilder().setHeight(TV_HEIGHT).setWidth(WIDTH).build();
-      TableView<PresentableProperty> tvConfigs = propertiesTableForConfig.getTableView(TV_HEIGHT, WIDTH,
+      Pane pane = new PaneBuilder().setHeight(TV_HEIGHT).setWidth(START_WIDTH).build();
+      TableView<PresentableProperty> tvConfigs = propertiesTableForConfig.getTableView(TV_HEIGHT, START_WIDTH,
             propertiesForConfig.getProperties(currentConfig, celObjectsInConfig, aspectsInConfig));
       pane.getChildren().add(tvConfigs);
       return pane;

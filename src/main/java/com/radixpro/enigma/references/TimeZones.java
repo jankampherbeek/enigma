@@ -68,10 +68,10 @@ public enum TimeZones {
       return TimeZones.UT;
    }
 
-   public TimeZones timeZoneForName(final String zoneLocalName) {
+   public static TimeZones timeZoneForName(final String zoneLocalName) {
       final Rosetta rosetta = Rosetta.getRosetta();
       for (TimeZones timeZone : TimeZones.values()) {
-         if (rosetta.getText(timeZone.nameForRB).equals(zoneLocalName)) {
+         if (rosetta.getText(timeZone.nameForRB).contains(zoneLocalName)) {
             return timeZone;
          }
       }
