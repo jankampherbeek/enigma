@@ -14,7 +14,7 @@ import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.shared.converters.Csv2FullDateTimeConverter;
 import com.radixpro.enigma.shared.converters.Csv2LocationConverter;
 import com.radixpro.enigma.shared.exceptions.InputDataException;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -91,9 +91,9 @@ public class DataReaderCsv {
          String timeTxt = line[6].trim();
          String zone = line[7].trim();
          String dst = line[8].trim();
-         Location location = locationConverter.convert(lonTxt, latTxt);
+         LocationOld locationOld = locationConverter.convert(lonTxt, latTxt);
          FullDateTime fullDateTime = dateTimeConverter.convert(dateTxt, timeTxt, cal, zone, dst);
-         cInputData = new ChartInputData(id, name, fullDateTime, location);
+         cInputData = new ChartInputData(id, name, fullDateTime, locationOld);
       } catch (Exception e) {
          noErrors = false;
          errorLines.add(Arrays.toString(line));

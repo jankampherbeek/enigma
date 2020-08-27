@@ -28,7 +28,7 @@ import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.ui.validators.ValidatedDate;
 import com.radixpro.enigma.xchg.api.TetenburgApi;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -211,13 +211,13 @@ public class ChartsTetenburg {
             solarSpeed = fpp.getEclPos().getSpeed().getMainCoord();
          }
       }
-      Location location = fullChart.getChartData().getLocation();
+      LocationOld locationOld = fullChart.getChartData().getLocation();
       FullDateTime birthDateTime = fullChart.getChartData().getFullDateTime();
 
       SimpleTime simpleTime = new SimpleTime(0, 0, 0);
       SimpleDateTime simpleDateTime = new SimpleDateTime(valDate.getSimpleDate(), simpleTime);
       FullDateTime progDateTime = new FullDateTime(simpleDateTime, birthDateTime.getTimeZone(), birthDateTime.isDst(), birthDateTime.getOffsetForLmt());
-      TetenburgRequest request = new TetenburgRequest(longMc, solarSpeed, location, birthDateTime, progDateTime);
+      TetenburgRequest request = new TetenburgRequest(longMc, solarSpeed, locationOld, birthDateTime, progDateTime);
       TetenburgResponse response = api.calculateCriticalPoint(request);
       if (!response.getResultMsg().equals("OK")) lblResultValue.setText(response.getResultMsg());
       else {

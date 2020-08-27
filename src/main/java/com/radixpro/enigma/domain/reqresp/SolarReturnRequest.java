@@ -8,8 +8,8 @@
 package com.radixpro.enigma.domain.reqresp;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
-import com.radixpro.enigma.xchg.domain.Location;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;

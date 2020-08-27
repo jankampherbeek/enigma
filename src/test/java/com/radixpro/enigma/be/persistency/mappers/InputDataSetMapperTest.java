@@ -11,7 +11,7 @@ import com.radixpro.enigma.domain.astronpos.InputDataSet;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.testsupport.JfxTestRunner;
 import com.radixpro.enigma.testsupport.TestSupport;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.junit.Before;
@@ -155,16 +155,16 @@ public class InputDataSetMapperTest {
 
    @Test
    public void jsonToLocation() {
-      Location location = inputDataSet.getInputData().get(1).getLocation();
-      assertEquals(5, location.getLongInput().getDegrees());
-      assertEquals(52, location.getLongInput().getMinutes());
-      assertEquals(0, location.getLongInput().getSeconds());
-      assertEquals("E", location.getLongInput().getDirection());
-      assertEquals(5.866666666666667, location.getLongInput().getValue(), DELTA_8_POS);
-      assertEquals(51, location.getLatInput().getDegrees());
-      assertEquals(48, location.getLatInput().getMinutes());
-      assertEquals(0, location.getLatInput().getSeconds());
-      assertEquals("N", location.getLatInput().getDirection());
-      assertEquals(51.8, location.getLatInput().getValue(), DELTA_8_POS);
+      LocationOld locationOld = inputDataSet.getInputData().get(1).getLocation();
+      assertEquals(5, locationOld.getLongInput().getDegrees());
+      assertEquals(52, locationOld.getLongInput().getMinutes());
+      assertEquals(0, locationOld.getLongInput().getSeconds());
+      assertEquals("E", locationOld.getLongInput().getDirection());
+      assertEquals(5.866666666666667, locationOld.getLongInput().getValue(), DELTA_8_POS);
+      assertEquals(51, locationOld.getLatInput().getDegrees());
+      assertEquals(48, locationOld.getLatInput().getMinutes());
+      assertEquals(0, locationOld.getLatInput().getSeconds());
+      assertEquals("N", locationOld.getLatInput().getDirection());
+      assertEquals(51.8, locationOld.getLatInput().getValue(), DELTA_8_POS);
    }
 }

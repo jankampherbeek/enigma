@@ -24,6 +24,7 @@ import com.radixpro.enigma.ui.creators.ButtonBuilder;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.domain.FullChart;
+import com.radixpro.enigma.ui.helpers.LocationCreator;
 import com.radixpro.enigma.ui.screens.helpers.AspectsInConfig;
 import com.radixpro.enigma.ui.screens.helpers.CelObjectsInConfig;
 import com.radixpro.enigma.ui.screens.helpers.PropertiesForConfig;
@@ -38,7 +39,7 @@ import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -368,8 +369,8 @@ public class ChartsStart {
          final PresentableChartData presentableChartData = selectedCharts.get(0);
          FullChartInputData fullChartInputData = presentableChartData.getOriginalData();
          FullDateTime dateTime = presentableChartData.getOriginalData().getFullDateTime();
-         Location location = presentableChartData.getOriginalData().getLocation();
-         CalculatedChartRequest request = new CalculatedChartRequest(settings, dateTime, location);
+         LocationOld locationOld = presentableChartData.getOriginalData().getLocation();
+         CalculatedChartRequest request = new CalculatedChartRequest(settings, dateTime, new LocationCreator().tempConvertOld2New(locationOld)); // TODO remove temporary conversion for Location
 
          CalculatedChartResponse response = calculatedChartApi.calcChart(request);
          CalculatedChart calculatedChart = response.getCalculatedChart();

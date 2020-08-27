@@ -8,8 +8,8 @@
 package com.radixpro.enigma.domain.reqresp;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
-import com.radixpro.enigma.xchg.domain.Location;
 
 /**
  * Interface for progressive calculation requests.

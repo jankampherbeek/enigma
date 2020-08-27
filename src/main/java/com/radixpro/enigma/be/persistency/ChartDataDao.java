@@ -18,7 +18,7 @@ import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import com.radixpro.enigma.xchg.domain.ChartMetaData;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
@@ -200,9 +200,9 @@ public class ChartDataDao extends DaoParent {
       String geoLong = rsCharts.getString("geolong");
       String geoLat = rsCharts.getString("geolat");
       FullDateTime fullDateTime = createDateTime(calDate, time, calendar, dst, idTz, offsetLmt);
-      Location location = new Location(createCoordinate(geoLong), createCoordinate(geoLat), locName);
+      LocationOld locationOld = new LocationOld(createCoordinate(geoLong), createCoordinate(geoLat), locName);
       ChartMetaData metaData = new ChartMetaData(name, description, source, ChartTypes.chartTypeForId(idChartType), Ratings.getRatingForId(idRating));
-      return new FullChartInputData(id, fullDateTime, location, metaData);
+      return new FullChartInputData(id, fullDateTime, locationOld, metaData);
    }
 
    private FullDateTime createDateTime(final String date, final String time, final String cal, final boolean dst, final int idTz, final double offsetLmt) {
@@ -261,9 +261,9 @@ public class ChartDataDao extends DaoParent {
       return hour + separator + minute + separator + second;
    }
 
-   private String createGeoLongitude(final Location location) {
+   private String createGeoLongitude(final LocationOld locationOld) {
       final String separator = ":";
-      GeographicCoordinate geoLong = location.getLongInput();
+      GeographicCoordinate geoLong = locationOld.getLongInput();
       final String direction = geoLong.getDirection();
       String degree = Integer.toString(geoLong.getDegrees());
       String minute = Integer.toString(geoLong.getMinutes());
@@ -275,9 +275,9 @@ public class ChartDataDao extends DaoParent {
       return degree + separator + minute + separator + second + " " + direction;
    }
 
-   private String createGeoLatitude(final Location location) {
+   private String createGeoLatitude(final LocationOld locationOld) {
       final String separator = ":";
-      GeographicCoordinate geoLat = location.getLatInput();
+      GeographicCoordinate geoLat = locationOld.getLatInput();
       final String direction = geoLat.getDirection();
       String degree = Integer.toString(geoLat.getDegrees());
       String minute = Integer.toString(geoLat.getMinutes());

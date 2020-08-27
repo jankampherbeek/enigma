@@ -9,7 +9,7 @@ package com.radixpro.enigma.be.calc.core;
 import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.domain.input.Location;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,8 +33,8 @@ public class SeFrontendTest {
    public void setUp() {
       double geoLat = 52.0;
       when(locationMock.getGeoLat()).thenReturn(geoLat);
-      double geoLong = 7.0;
-      when(locationMock.getGeoLong()).thenReturn(geoLong);
+      double geoLon = 7.0;
+      when(locationMock.getGeoLon()).thenReturn(geoLon);
    }
 
    @Test

@@ -17,7 +17,7 @@ import com.radixpro.enigma.ui.creators.TextFieldBuilder;
 import com.radixpro.enigma.ui.validators.ValidatedLatitude;
 import com.radixpro.enigma.ui.validators.ValidatedLongitude;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
@@ -134,7 +134,7 @@ public class LocationInputBlock extends InputBlock {
     *
     * @return Instance of Location.
     */
-   public Location getLocation() throws InputBlockIncompleteException {
+   public LocationOld getLocation() throws InputBlockIncompleteException {
       if (inputStatus != InputStatus.READY)
          throw new InputBlockIncompleteException("Retrieving location for LocationInput while InputSatus is " + inputStatus.name());
       String locName = tfLocationName.getText();
@@ -143,7 +143,7 @@ public class LocationInputBlock extends InputBlock {
             valLong.getValue());
       GeographicCoordinate latInput = new GeographicCoordinate(valLat.getDegrees(), valLat.getMinutes(), valLat.getSeconds(), cbNorthSouth.getValue(),
             valLat.getValue());
-      return new Location(longInput, latInput, locName);
+      return new LocationOld(longInput, latInput, locName);
    }
 
 }

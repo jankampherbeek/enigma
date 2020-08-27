@@ -13,18 +13,17 @@ import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.Ayanamshas;
 import com.radixpro.enigma.references.EclipticProjections;
 import com.radixpro.enigma.references.HouseSystems;
 import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-import com.radixpro.enigma.xchg.domain.Location;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * HAndler for the calculation of charts.
@@ -37,27 +36,25 @@ public class CalculatedChartHandler {
    /**
     * Instantiate via factory.
     *
-    * @param fullPointPositionHandler handler for full positions of celestial points. PRE: not null.
-    * @param mundanePositionsHandler  handler for mundane positions. PRE: not null.
+    * @param fullPointPositionHandler handler for full positions of celestial points.
+    * @param mundanePositionsHandler  handler for mundane positions.
     * @see CaHandlersFactory
     */
-   public CalculatedChartHandler(final FullPointPositionHandler fullPointPositionHandler, final MundanePositionsHandler mundanePositionsHandler) {
-      this.fullPointPositionHandler = checkNotNull(fullPointPositionHandler);
-      this.mundanePositionsHandler = checkNotNull(mundanePositionsHandler);
+   public CalculatedChartHandler(@NotNull final FullPointPositionHandler fullPointPositionHandler,
+                                 @NotNull final MundanePositionsHandler mundanePositionsHandler) {
+      this.fullPointPositionHandler = fullPointPositionHandler;
+      this.mundanePositionsHandler = mundanePositionsHandler;
    }
 
    /**
     * Handle the calculation of a chart.
     *
-    * @param settings Settigns for the calcualtion. PRE: not null.
-    * @param dateTime Date and time. PRE: not null.
-    * @param location Location. PRE: not null.
+    * @param settings Settigns for the calcualtion.
+    * @param dateTime Date and time.
+    * @param location Location.
     * @return result of the calculation.
     */
-   public CalculatedChart defineChart(final ChartCalcSettings settings, final FullDateTime dateTime, final Location location) {
-      checkNotNull(settings);
-      checkNotNull(dateTime);
-      checkNotNull(location);
+   public CalculatedChart defineChart(@NotNull final ChartCalcSettings settings, @NotNull final FullDateTime dateTime, @NotNull final Location location) {
       final double jdUt = dateTime.getJdUt();
       final ObserverPositions obsPos = settings.getObsPos();
       final EclipticProjections eclProj = settings.getEclProj();

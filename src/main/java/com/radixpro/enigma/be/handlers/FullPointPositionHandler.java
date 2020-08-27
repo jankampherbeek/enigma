@@ -14,13 +14,13 @@ import com.radixpro.enigma.domain.astronpos.CoordinateSet;
 import com.radixpro.enigma.domain.astronpos.CoordinateSet3D;
 import com.radixpro.enigma.domain.astronpos.FullPointCoordinate;
 import com.radixpro.enigma.domain.astronpos.FullPointPosition;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.Ayanamshas;
 import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.references.EclipticProjections;
 import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-import com.radixpro.enigma.xchg.domain.Location;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static swisseph.SweConst.*;
@@ -56,6 +56,7 @@ public class FullPointPositionHandler {
       checkNotNull(obsPos);
       checkNotNull(eclProj);
       checkNotNull(location);
+
       final int seId = (int) ((CelestialObjects) celObject).getSeId();
       int seFlags = SEFLG_SWIEPH | SEFLG_SPEED;
       if (obsPos == ObserverPositions.TOPOCENTRIC) seFlags = seFlags | SEFLG_TOPOCTR;

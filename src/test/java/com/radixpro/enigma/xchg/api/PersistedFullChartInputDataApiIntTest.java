@@ -20,7 +20,7 @@ import com.radixpro.enigma.testsupport.TestSupport;
 import com.radixpro.enigma.xchg.domain.ChartMetaData;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.junit.Before;
 
 public class PersistedFullChartInputDataApiIntTest {
@@ -92,8 +92,8 @@ public class PersistedFullChartInputDataApiIntTest {
       final FullDateTime fDateTime = new FullDateTime(new SimpleDateTime(sDate, sTime), TimeZones.CET, true, 0.0);
       final GeographicCoordinate geoLat = new GeographicCoordinate(52, 13, 0, "n", 52.216666666667);
       final GeographicCoordinate geoLong = new GeographicCoordinate(6, 54, 0, "E", 6.9);
-      final Location location = new Location(geoLong, geoLat, "Enschede");
+      final LocationOld locationOld = new LocationOld(geoLong, geoLat, "Enschede");
       final ChartMetaData metaData = new ChartMetaData(name, "test for " + name, "source", ChartTypes.NATAL, Ratings.DD);
-      return new FullChartInputData(0, fDateTime, location, metaData);
+      return new FullChartInputData(0, fDateTime, locationOld, metaData);
    }
 }

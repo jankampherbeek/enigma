@@ -8,10 +8,9 @@
 package com.radixpro.enigma.domain.reqresp;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
-import com.radixpro.enigma.xchg.domain.Location;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Request for the calculation of progressive positions based on ephejmeris calculations.
@@ -25,14 +24,14 @@ public class EphProgCalcRequest implements IProgCalcRequest {
    /**
     * Constructor defines all properties.
     *
-    * @param dateTime date and time. PRE: not null.
-    * @param location location (use depends on use of topocentric positions). PRE: not null.
-    * @param settings the settings to use. PRE: not null.
+    * @param dateTime date and time.
+    * @param location location (use depends on use of topocentric positions).
+    * @param settings the settings to use.
     */
-   public EphProgCalcRequest(final FullDateTime dateTime, final Location location, final ICalcSettings settings) {
-      this.dateTime = checkNotNull(dateTime);
-      this.location = checkNotNull(location);
-      this.settings = checkNotNull(settings);
+   public EphProgCalcRequest(@NotNull final FullDateTime dateTime, @NotNull final Location location, @NotNull final ICalcSettings settings) {
+      this.dateTime = dateTime;
+      this.location = location;
+      this.settings = settings;
    }
 
 

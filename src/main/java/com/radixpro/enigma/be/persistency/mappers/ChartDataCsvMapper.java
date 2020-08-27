@@ -10,7 +10,7 @@ import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.xchg.domain.ChartMetaData;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 
 /**
  * Should remain avaiable up to release 2020.2 to support reading existing csv data.
@@ -29,8 +29,8 @@ public class ChartDataCsvMapper {
       int id = Integer.parseInt(csvLine[0]);
       ChartMetaData chartMetaData = createMetaData(csvLine);
       FullDateTime fullDateTime = createFullDateTime(csvLine);
-      Location location = createLocation(csvLine);
-      return new FullChartInputData(id, fullDateTime, location, chartMetaData);
+      LocationOld locationOld = createLocation(csvLine);
+      return new FullChartInputData(id, fullDateTime, locationOld, chartMetaData);
    }
 
    private String[] handleChartData(final FullChartInputData fullChartInputData) {
@@ -102,7 +102,7 @@ public class ChartDataCsvMapper {
       return new FullDateTime(simpleDateTime, timeZone, dst, offsetLmt);
    }
 
-   private Location createLocation(String[] csvLine) {
+   private LocationOld createLocation(String[] csvLine) {
       String locName = csvLine[16];
       int longDeg = Integer.parseInt(csvLine[17]);
       int longMin = Integer.parseInt(csvLine[18]);
@@ -116,7 +116,7 @@ public class ChartDataCsvMapper {
       double latVal = Double.parseDouble(csvLine[26]);
       GeographicCoordinate longInput = new GeographicCoordinate(longDeg, longMin, longSec, longDir, longVal);
       GeographicCoordinate latInput = new GeographicCoordinate(latDeg, latMin, latSec, latDir, latVal);
-      return new Location(longInput, latInput, locName);
+      return new LocationOld(longInput, latInput, locName);
    }
 
 }

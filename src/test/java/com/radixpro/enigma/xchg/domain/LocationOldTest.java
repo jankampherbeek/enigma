@@ -11,48 +11,48 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class LocationTest {
+public class LocationOldTest {
 
    private static final double DELTA = 0.00000001;
    private final String name = "Location Name";
    private GeographicCoordinate longitudeGeoCoord;
    private GeographicCoordinate latitudeGeoCoord;
-   private Location location;
+   private LocationOld locationOld;
 
    @Before
    public void setUp() {
       longitudeGeoCoord = new GeographicCoordinate(122, 33, 44, "w", 122.56222222222222);
       latitudeGeoCoord = new GeographicCoordinate(18, 19, 20, "s", 18.32222222222222);
-      location = new Location(longitudeGeoCoord, latitudeGeoCoord, name);
+      locationOld = new LocationOld(longitudeGeoCoord, latitudeGeoCoord, name);
    }
 
    @Test
    public void getGeoLat() {
-      assertEquals(18.32222222222, location.getGeoLat(), DELTA);
+      assertEquals(18.32222222222, locationOld.getGeoLat(), DELTA);
    }
 
    @Test
    public void getGeoLong() {
-      assertEquals(122.562222222222, location.getGeoLong(), DELTA);
+      assertEquals(122.562222222222, locationOld.getGeoLong(), DELTA);
    }
 
    @Test
    public void getName() {
-      assertEquals(name, location.getName());
+      assertEquals(name, locationOld.getName());
    }
 
    @Test
    public void getLongInput() {
-      assertEquals(longitudeGeoCoord, location.getLongInput());
+      assertEquals(longitudeGeoCoord, locationOld.getLongInput());
    }
 
    @Test
    public void getLatInput() {
-      assertEquals(latitudeGeoCoord, location.getLatInput());
+      assertEquals(latitudeGeoCoord, locationOld.getLatInput());
    }
 
    @Test
    public void getFormattedLocation() {
-      assertEquals("Location Name / 122:33:44 w / 18:19:20 s", location.getFormattedLocation());
+      assertEquals("Location Name / 122:33:44 w / 18:19:20 s", locationOld.getFormattedLocation());
    }
 }

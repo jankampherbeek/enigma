@@ -8,10 +8,9 @@
 package com.radixpro.enigma.domain.reqresp;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
-import com.radixpro.enigma.xchg.domain.Location;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Request for the calcualtion of a chart
@@ -25,14 +24,14 @@ public class CalculatedChartRequest {
    /**
     * Constructor defines all properties.
     *
-    * @param settings Settings for the calculation. PRE: not null.
-    * @param dateTime Date and time. PRE: not null.
-    * @param location Location. PRE: not null.
+    * @param settings Settings for the calculation.
+    * @param dateTime Date and time.
+    * @param location Location.
     */
-   public CalculatedChartRequest(final ChartCalcSettings settings, final FullDateTime dateTime, final Location location) {
-      this.settings = checkNotNull(settings);
-      this.dateTime = checkNotNull(dateTime);
-      this.location = checkNotNull(location);
+   public CalculatedChartRequest(@NotNull final ChartCalcSettings settings, @NotNull final FullDateTime dateTime, @NotNull final Location location) {
+      this.settings = settings;
+      this.dateTime = dateTime;
+      this.location = location;
    }
 
    public ChartCalcSettings getSettings() {

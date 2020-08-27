@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.be.calc;
 
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.shared.Range;
-import com.radixpro.enigma.xchg.domain.Location;
 import swisseph.SwissLib;
 
 import static com.google.common.base.Preconditions.checkNotNull;

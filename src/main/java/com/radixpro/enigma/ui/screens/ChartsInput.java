@@ -21,7 +21,7 @@ import com.radixpro.enigma.ui.validators.*;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
 import com.radixpro.enigma.xchg.domain.ChartMetaData;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -425,9 +425,9 @@ public class ChartsInput {
       return new ChartMetaData(inputName, inputDescription, inputSource, inputChartType, inputRating);
    }
 
-   private Location constructLocation() {
+   private LocationOld constructLocation() {
       // TODO inject LocationCreator
-      return new LocationCreator().constructLocation(tfLocationName.getText(), cbEastWest.getValue(), cbNorthSouth.getValue(), validatedLongitude, validatedLatitude);
+      return new LocationCreatorOld().constructLocation(tfLocationName.getText(), cbEastWest.getValue(), cbNorthSouth.getValue(), validatedLongitude, validatedLatitude);
    }
 
    private FullDateTime constructFullDateTime() {

@@ -8,8 +8,7 @@
 package com.radixpro.enigma.domain.astronpos;
 
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Full set of positions with all coordinates for a specific celestial object.
@@ -24,17 +23,17 @@ public class FullPointPosition implements IPosition {
    /**
     * Constructor defines all properties.
     *
-    * @param celObject definition of celestial object. PRE: not null.
-    * @param eclPos    ecliptical position. PRE: not null.
-    * @param eqPos     equatorial positon. PRE: not null.
-    * @param horPos    horizontal position. PRE: not null.
+    * @param celObject definition of celestial object.
+    * @param eclPos    ecliptical position.
+    * @param eqPos     equatorial positon.
+    * @param horPos    horizontal position.
     */
-   public FullPointPosition(final IChartPoints celObject, final FullPointCoordinate eclPos, final FullPointCoordinate eqPos,
-                            final CoordinateSet horPos) {
-      this.celObject = checkNotNull(celObject);
-      this.eclPos = checkNotNull(eclPos);
-      this.eqPos = checkNotNull(eqPos);
-      this.horPos = checkNotNull(horPos);
+   public FullPointPosition(@NotNull final IChartPoints celObject, @NotNull final FullPointCoordinate eclPos, @NotNull final FullPointCoordinate eqPos,
+                            @NotNull final CoordinateSet horPos) {
+      this.celObject = celObject;
+      this.eclPos = eclPos;
+      this.eqPos = eqPos;
+      this.horPos = horPos;
    }
 
    @Override

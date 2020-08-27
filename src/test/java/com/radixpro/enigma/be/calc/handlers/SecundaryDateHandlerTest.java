@@ -14,7 +14,7 @@ import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.testsupport.TestSupport;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class SecundaryDateHandlerTest {
 
    private FullDateTime birthDateTime;
    private FullDateTime eventDateTime;
-   private Location location;
+   private LocationOld locationOld;
    private SecundaryDateHandler handler;
 
 

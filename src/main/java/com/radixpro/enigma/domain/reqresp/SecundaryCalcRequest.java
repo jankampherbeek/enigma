@@ -8,8 +8,8 @@
 package com.radixpro.enigma.domain.reqresp;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
-import com.radixpro.enigma.xchg.domain.Location;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -28,7 +28,7 @@ public class SecundaryCalcRequest implements IProgCalcRequest {
     *
     * @param dateTime      date and time of the event. PRE: not null.
     * @param birthDateTime date and time of the birth. PRE: not null.
-    * @param location      locationof birth. PRE: not null.
+    * @param location      location of birth. PRE: not null.
     * @param settings      Settings for the calcualtion. PRE: not null.
     */
    public SecundaryCalcRequest(final FullDateTime dateTime, final FullDateTime birthDateTime, final Location location, final ICalcSettings settings) {

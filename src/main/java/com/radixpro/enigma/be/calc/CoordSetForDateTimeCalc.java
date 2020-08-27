@@ -9,8 +9,8 @@ package com.radixpro.enigma.be.calc;
 
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.domain.astronpos.CoordinateSet;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.shared.FailFastHandler;
-import com.radixpro.enigma.xchg.domain.Location;
 import org.apache.log4j.Logger;
 
 import static com.google.common.base.Preconditions.checkNotNull;

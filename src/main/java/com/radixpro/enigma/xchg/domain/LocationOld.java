@@ -12,8 +12,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Geographic location. Is part of the persisted data for a chart.
+ *
+ * @Deprecated
  */
-public class Location implements Serializable {
+public class LocationOld implements Serializable {
 
    private final GeographicCoordinate longInput;
    private final GeographicCoordinate latInput;
@@ -29,7 +31,7 @@ public class Location implements Serializable {
     * @param latInput  geographic latitude. Pre: latInput != null.
     * @param name      Name of location. Pre: name != null.
     */
-   public Location(final GeographicCoordinate longInput, final GeographicCoordinate latInput, final String name) {
+   public LocationOld(final GeographicCoordinate longInput, final GeographicCoordinate latInput, final String name) {
       this.longInput = checkNotNull(longInput);
       this.latInput = checkNotNull(latInput);
       this.name = checkNotNull(name);

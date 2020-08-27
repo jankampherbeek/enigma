@@ -15,7 +15,7 @@ import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -48,8 +48,8 @@ public class InputDataSetMapper {
          int id = Integer.parseInt(jsonObject.get("id").toString());
          String name = (String) jsonObject.get("name");
          FullDateTime fullDateTime = createDateTime(jsonObject);
-         Location location = createLocation(jsonObject);
-         chartInputData.add(new ChartInputData(id, name, fullDateTime, location));
+         LocationOld locationOld = createLocation(jsonObject);
+         chartInputData.add(new ChartInputData(id, name, fullDateTime, locationOld));
       }
       return chartInputData;
    }
@@ -76,7 +76,7 @@ public class InputDataSetMapper {
       return new FullDateTime(simpleDateTime, timeZone, dst, offsetForLmt);
    }
 
-   private Location createLocation(JSONObject jsonObject) {
+   private LocationOld createLocation(JSONObject jsonObject) {
       JSONObject jsonLocation = (JSONObject) jsonObject.get("location");
       JSONObject jsonLongInput = (JSONObject) jsonLocation.get("longInput");
       int lonDegrees = Integer.parseInt(jsonLongInput.get("degrees").toString());
@@ -93,7 +93,7 @@ public class InputDataSetMapper {
       double latValue = Double.parseDouble(jsonLatInput.get("value").toString());
       GeographicCoordinate latitude = new GeographicCoordinate(latDegrees, latMinutes, latSeconds, latDirection, latValue);
       String name = "";
-      return new Location(longitude, latitude, name);
+      return new LocationOld(longitude, latitude, name);
 
 
    }

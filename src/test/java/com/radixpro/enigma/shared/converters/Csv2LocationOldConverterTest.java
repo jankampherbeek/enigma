@@ -8,14 +8,14 @@
 package com.radixpro.enigma.shared.converters;
 
 import com.radixpro.enigma.shared.exceptions.InputDataException;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 
-public class Csv2LocationConverterTest {
+public class Csv2LocationOldConverterTest {
 
    private String lonTxt = "123W45";
    private String latTxt = "33N18";
@@ -31,7 +31,7 @@ public class Csv2LocationConverterTest {
 
    @Test
    public void convertHappyFlow() throws InputDataException {
-      Location loc = converter.convert(lonTxt, latTxt);
+      LocationOld loc = converter.convert(lonTxt, latTxt);
       assertEquals(123, loc.getLongInput().getDegrees());
       assertEquals(45, loc.getLongInput().getMinutes());
       assertEquals(0, loc.getLongInput().getSeconds());

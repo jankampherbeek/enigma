@@ -8,7 +8,7 @@
 package com.radixpro.enigma.domain.astronpos;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -20,13 +20,13 @@ public class ChartInputData {
    final int id;
    final String name;
    final FullDateTime dateTime;
-   final Location location;
+   final LocationOld locationOld;
 
-   public ChartInputData(final int id, final String name, final FullDateTime dateTime, final Location location) {
+   public ChartInputData(final int id, final String name, final FullDateTime dateTime, final LocationOld locationOld) {
       this.id = id;
       this.name = checkNotNull(name);
       this.dateTime = checkNotNull(dateTime);
-      this.location = checkNotNull(location);
+      this.locationOld = checkNotNull(locationOld);
    }
 
    public int getId() {
@@ -41,7 +41,7 @@ public class ChartInputData {
       return dateTime;
    }
 
-   public Location getLocation() {
-      return location;
+   public LocationOld getLocation() {
+      return locationOld;
    }
 }

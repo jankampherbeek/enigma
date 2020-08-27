@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.be.calc;
 
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.domain.input.Location;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

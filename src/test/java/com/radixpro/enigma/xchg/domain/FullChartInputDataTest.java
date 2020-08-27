@@ -22,7 +22,7 @@ public class FullChartInputDataTest {
    @Mock
    private FullDateTime fullDateTimeMock;
    @Mock
-   private Location locationMock;
+   private LocationOld locationMock;
    @Mock
    private ChartMetaData chartMetaDataMock;
    private FullChartInputData fullChartInputData;

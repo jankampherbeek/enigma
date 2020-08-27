@@ -9,12 +9,12 @@ package com.radixpro.enigma.be.handlers;
 
 import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
-import com.radixpro.enigma.xchg.domain.Location;
 import org.apache.log4j.Logger;
 
 import static com.google.common.base.Preconditions.checkArgument;

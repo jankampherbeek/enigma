@@ -9,7 +9,7 @@ package com.radixpro.enigma.shared.converters;
 
 import com.radixpro.enigma.shared.exceptions.InputDataException;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 
 import java.util.Arrays;
 
@@ -28,10 +28,10 @@ public class Csv2LocationConverter {
     * @return The location with the correct coordinates. The location name is an empty string.
     * @throws InputDataException if any error is encoutered during the conversion.
     */
-   public Location convert(final String lonTxt, final String latTxt) throws InputDataException {
+   public LocationOld convert(final String lonTxt, final String latTxt) throws InputDataException {
       checkNotNull(lonTxt);
       checkNotNull(latTxt);
-      return new Location(createLongitude(lonTxt), createLatitude(latTxt), "");
+      return new LocationOld(createLongitude(lonTxt), createLatitude(latTxt), "");
    }
 
    private GeographicCoordinate createLongitude(final String lonTxt) throws InputDataException {

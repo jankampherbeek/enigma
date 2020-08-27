@@ -15,11 +15,12 @@ import com.radixpro.enigma.domain.astronpos.AllMundanePositions;
 import com.radixpro.enigma.domain.astronpos.CoordinateSet;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.astronpos.MundanePosition;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.Ayanamshas;
 import com.radixpro.enigma.references.EclipticProjections;
 import com.radixpro.enigma.references.HouseSystems;
 import com.radixpro.enigma.references.MundanePoints;
-import com.radixpro.enigma.xchg.domain.Location;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,18 +52,14 @@ public class MundanePositionsHandler {
     * Define mundane positions.
     *
     * @param jdUt        Julian day for UT.
-    * @param eclProj     Type of projection to the ecliptic. PRE: not null.
-    * @param ayanamsha   The ayanamsha to be used (could be 'NONE'). PRE: not null.
-    * @param houseSystem The housystem to be used. PRE: not null.
-    * @param location    Location. PRE: not null.
+    * @param eclProj     Type of projection to the ecliptic.
+    * @param ayanamsha   The ayanamsha to be used (could be 'NONE').
+    * @param houseSystem The housystem to be used.
+    * @param location    Location.
     * @return
     */
-   public AllMundanePositions definePositions(final double jdUt, final EclipticProjections eclProj, final Ayanamshas ayanamsha, final HouseSystems houseSystem,
-                                              final Location location) {
-      checkNotNull(eclProj);
-      checkNotNull(ayanamsha);
-      checkNotNull(houseSystem);
-      checkNotNull(location);
+   public AllMundanePositions definePositions(final double jdUt, @NotNull final EclipticProjections eclProj, @NotNull final Ayanamshas ayanamsha,
+                                              @NotNull final HouseSystems houseSystem, @NotNull final Location location) {
       int seFlags = SEFLG_SWIEPH;
       if (eclProj == EclipticProjections.SIDEREAL) seFlags = seFlags | SEFLG_SIDEREAL;
       final int seId = houseSystem.getSeId().charAt(0);

@@ -13,13 +13,13 @@ import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartRequest;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartResponse;
 import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.shared.exceptions.NoPositionFoundException;
 import com.radixpro.enigma.xchg.api.CalculatedChartApi;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
-import com.radixpro.enigma.xchg.domain.Location;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -21,6 +21,7 @@ import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
+import com.radixpro.enigma.ui.helpers.LocationCreator;
 import com.radixpro.enigma.ui.screens.blocks.DateTimeInputBlock;
 import com.radixpro.enigma.ui.screens.blocks.LocationInputBlock;
 import com.radixpro.enigma.ui.screens.blocks.ProgMetaInputBlock;
@@ -28,7 +29,7 @@ import com.radixpro.enigma.xchg.api.TransitsApi;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -141,7 +142,7 @@ public class ChartsTransitsInput extends InputScreen {
          try {
             String eventDescription = progMetaInputBlock.getEventDescription();
             FullDateTime dateTime = dateTimeInputBlock.getDateTime();
-            Location location = locationInputBlock.getLocation();
+            LocationOld locationOld = locationInputBlock.getLocation();
 
 
             // TODO add creation of settings to Config class
@@ -155,7 +156,7 @@ public class ChartsTransitsInput extends InputScreen {
             EclipticProjections eclProj = config.getAstronConfiguration().getEclipticProjection();
             Ayanamshas ayanamsha = config.getAstronConfiguration().getAyanamsha();
             ICalcSettings settings = new ProgSettings(points, ayanamsha, eclProj == EclipticProjections.SIDEREAL, obsPos == ObserverPositions.TOPOCENTRIC);
-            IProgCalcRequest request = new EphProgCalcRequest(dateTime, location, settings);
+            IProgCalcRequest request = new EphProgCalcRequest(dateTime, new LocationCreator().tempConvertOld2New(locationOld), settings);    // todo remove temporary conversion for Location
             SimpleProgResponse response = transitsApi.calculateTransits(request);
             // TODO transfer results of response to screen that shows positions.
 

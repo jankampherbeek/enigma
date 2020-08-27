@@ -9,9 +9,9 @@ package com.radixpro.enigma.be.calc;
 
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.HouseSystems;
 import com.radixpro.enigma.references.SeFlags;
-import com.radixpro.enigma.xchg.domain.Location;
 import org.apache.log4j.Logger;
 import swisseph.SweDate;
 import swisseph.SwissEph;
@@ -63,7 +63,7 @@ public class SeFrontend {
       var errorMsg = new StringBuffer();  // StringBuilder not possible because Java Port to the SE uses a StringBuffer.
 
       if (flags == (flags | SeFlags.TOPOCENTRIC.getSeValue())) {
-         swissEph.swe_set_topo(location.getGeoLong(), location.getGeoLat(), 0.0);
+         swissEph.swe_set_topo(location.getGeoLon(), location.getGeoLat(), 0.0);
       }
       swissEph.swe_calc_ut(jdUt, id, flags, allPositions, errorMsg);
       return new SePositionResultCelObjects(allPositions, errorMsg.toString());
@@ -98,7 +98,7 @@ public class SeFrontend {
       checkNotNull(eclCoord);
       checkArgument(3 == eclCoord.length);
       checkNotNull(location);
-      double[] geoPos = {location.getGeoLong(), location.getGeoLat(), 0.0};
+      double[] geoPos = {location.getGeoLon(), location.getGeoLat(), 0.0};
       double[] eclPos = {eclCoord[0], eclCoord[1], eclCoord[2]};
       double atPress = 0.0;
       double atTemp = 0.0;
@@ -124,7 +124,7 @@ public class SeFrontend {
       double[] cusps = new double[nrOfCusps + 1];
       double[] ascMc = new double[10];
       double[] tempCusps = new double[100];
-      swissEph.swe_houses(jdUt, flags, location.getGeoLat(), location.getGeoLong(), system, tempCusps, ascMc);
+      swissEph.swe_houses(jdUt, flags, location.getGeoLat(), location.getGeoLon(), system, tempCusps, ascMc);
       if (nrOfCusps >= 0) System.arraycopy(tempCusps, 1, cusps, 1, nrOfCusps);
       return new SePositionResultHouses(ascMc, cusps);
    }

@@ -10,15 +10,17 @@ package com.radixpro.enigma.ui.creators;
 import com.radixpro.enigma.ui.validators.ValidatedLatitude;
 import com.radixpro.enigma.ui.validators.ValidatedLongitude;
 import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.Location;
+import com.radixpro.enigma.xchg.domain.LocationOld;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Creator for location, based on data from input screen.
+ *
+ * @Deprecated
  */
-public class LocationCreator {
+public class LocationCreatorOld {
 
    /**
     * Create instance of Location.
@@ -30,8 +32,8 @@ public class LocationCreator {
     * @param valLat  validated value for latitude. PRE: not null, isValidated.
     * @return
     */
-   public Location constructLocation(final String locName, final String longDir, final String latDir, final ValidatedLongitude valLong,
-                                     final ValidatedLatitude valLat) {
+   public LocationOld constructLocation(final String locName, final String longDir, final String latDir, final ValidatedLongitude valLong,
+                                        final ValidatedLatitude valLat) {
 //      checkArgument(null != valLong && valLong.isValidated());
 //      checkArgument(null != valLat && valLat.isValidated());
 //      checkArgument(null != longDir && (longDir.equalsIgnoreCase("E") || longDir.equalsIgnoreCase("O") ||
@@ -47,7 +49,7 @@ public class LocationCreator {
       if (latDirTxt.equalsIgnoreCase("Z")) latDirTxt = "S";
       if (latDirTxt.equals("S")) valLat.applySouthernLatitude();
       GeographicCoordinate latCoord = new GeographicCoordinate(valLat.getDegrees(), valLat.getMinutes(), valLat.getSeconds(), latDir, valLat.getValue());
-      return new Location(lonCoord, latCoord, enteredLocation);
+      return new LocationOld(lonCoord, latCoord, enteredLocation);
    }
 
 }

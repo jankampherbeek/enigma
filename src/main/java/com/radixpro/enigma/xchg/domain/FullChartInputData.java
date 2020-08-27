@@ -14,14 +14,14 @@ public class FullChartInputData {
 
    private final int id;
    private final FullDateTime fullDateTime;
-   private final Location location;
+   private final LocationOld locationOld;
    private final ChartMetaData chartMetaData;
 
-   public FullChartInputData(final int id, final FullDateTime fullDateTime, final Location location,
+   public FullChartInputData(final int id, final FullDateTime fullDateTime, final LocationOld locationOld,
                              final ChartMetaData chartMetaData) {
       this.id = id;
       this.fullDateTime = checkNotNull(fullDateTime);
-      this.location = checkNotNull(location);
+      this.locationOld = checkNotNull(locationOld);
       this.chartMetaData = checkNotNull(chartMetaData);
    }
 
@@ -33,8 +33,8 @@ public class FullChartInputData {
       return fullDateTime;
    }
 
-   public Location getLocation() {
-      return location;
+   public LocationOld getLocation() {
+      return locationOld;
    }
 
    public ChartMetaData getChartMetaData() {
@@ -43,7 +43,7 @@ public class FullChartInputData {
 
    @Override
    public String toString() {
-      return String.format("ChartData(id=%d, fullDateTime=%s, location=%s, chartMetaData=%s)", id, fullDateTime, location, chartMetaData);
+      return String.format("ChartData(id=%d, fullDateTime=%s, location=%s, chartMetaData=%s)", id, fullDateTime, locationOld, chartMetaData);
    }
 
 }

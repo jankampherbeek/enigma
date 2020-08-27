@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.be.calc;
 
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.shared.exceptions.NoPositionFoundException;
-import com.radixpro.enigma.xchg.domain.Location;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;

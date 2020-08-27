@@ -13,14 +13,14 @@ import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.PrimaryCalcRequest;
 import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
 import com.radixpro.enigma.references.*;
+import com.radixpro.enigma.ui.helpers.LocationCreator;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
-import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-import com.radixpro.enigma.xchg.domain.Location;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -73,10 +73,7 @@ public class PrimaryApiIntTest {
    }
 
    private Location createLocation() {
-      final String name = "Anywhere";
-      final GeographicCoordinate gcLon = new GeographicCoordinate(6, 54, 0, "E", 6.9);
-      final GeographicCoordinate gcLat = new GeographicCoordinate(52, 0, 0, "N", 52.0);
-      return new Location(gcLon, gcLat, name);
+      return new LocationCreator().createLocation(52, 0, 0, "N", 6, 54, 9, "E");
    }
 
    private CalculatedChart createCalculatedChart() {

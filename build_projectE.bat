@@ -5,7 +5,7 @@ rem The script is an adaptation of the script by Dirk Lemmermann, see :
 rem https://github.com/dlemmermann/JPackageScriptFX
 rem ------ ENVIRONMENT --------------------------------------------------------
 rem The script depends on various environment variables to exist in order to
-rem run properly. The java version we want to use, the location of the java
+rem run properly. The java version we want to use, the locationOld of the java
 rem binaries (java home), and the project version as defined inside the pom.xml
 rem file, e.g. 1.0-SNAPSHOT.
 rem
