@@ -13,9 +13,8 @@ import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.TimeZones;
-import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -27,11 +26,13 @@ import java.util.List;
  */
 public class InputDataSetMapper {
 
+
    public InputDataSet jsonToInputDataSet(final JSONObject object) {
       return constructInputDataSet(object);
    }
 
    private InputDataSet constructInputDataSet(JSONObject object) {
+      // FIXME handle MetaData
       String name = (String) object.get("name");
       String description = (String) object.get("description");
       String origFileName = (String) object.get("origFileName");
@@ -42,14 +43,15 @@ public class InputDataSetMapper {
    }
 
    private List<ChartInputData> constructEntries(final JSONArray inputData) {
+      // FIXME handle MetaData
       List<ChartInputData> chartInputData = new ArrayList<>();
       for (Object dataObject : inputData) {
          JSONObject jsonObject = (JSONObject) dataObject;
          int id = Integer.parseInt(jsonObject.get("id").toString());
          String name = (String) jsonObject.get("name");
          FullDateTime fullDateTime = createDateTime(jsonObject);
-         LocationOld locationOld = createLocation(jsonObject);
-         chartInputData.add(new ChartInputData(id, name, fullDateTime, locationOld));
+         Location location = createLocation(jsonObject);
+         chartInputData.add(new ChartInputData(id, name, fullDateTime, location));
       }
       return chartInputData;
    }
@@ -76,26 +78,17 @@ public class InputDataSetMapper {
       return new FullDateTime(simpleDateTime, timeZone, dst, offsetForLmt);
    }
 
-   private LocationOld createLocation(JSONObject jsonObject) {
+   private Location createLocation(JSONObject jsonObject) {
       JSONObject jsonLocation = (JSONObject) jsonObject.get("location");
       JSONObject jsonLongInput = (JSONObject) jsonLocation.get("longInput");
-      int lonDegrees = Integer.parseInt(jsonLongInput.get("degrees").toString());
-      int lonMinutes = Integer.parseInt(jsonLongInput.get("minutes").toString());
-      int lonSeconds = Integer.parseInt(jsonLongInput.get("seconds").toString());
       String lonDirection = jsonLongInput.get("direction").toString();
-      double lonValue = Double.parseDouble(jsonLongInput.get("value").toString());
-      GeographicCoordinate longitude = new GeographicCoordinate(lonDegrees, lonMinutes, lonSeconds, lonDirection, lonValue);
+      int dirCorrection = "Ww".contains(lonDirection) ? -1 : 1;
+      double lonValue = (Double.parseDouble(jsonLongInput.get("value").toString())) * dirCorrection;
       JSONObject jsonLatInput = (JSONObject) jsonLocation.get("latInput");
-      int latDegrees = Integer.parseInt(jsonLatInput.get("degrees").toString());
-      int latMinutes = Integer.parseInt(jsonLatInput.get("minutes").toString());
-      int latSeconds = Integer.parseInt(jsonLatInput.get("seconds").toString());
       String latDirection = jsonLatInput.get("direction").toString();
-      double latValue = Double.parseDouble(jsonLatInput.get("value").toString());
-      GeographicCoordinate latitude = new GeographicCoordinate(latDegrees, latMinutes, latSeconds, latDirection, latValue);
-      String name = "";
-      return new LocationOld(longitude, latitude, name);
-
-
+      dirCorrection = "SsZz".contains(latDirection) ? -1 : 1;
+      double latValue = (Double.parseDouble(jsonLatInput.get("value").toString())) * dirCorrection;
+      return new Location(latValue, lonValue);
    }
 
 }

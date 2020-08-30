@@ -12,11 +12,10 @@ import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.TetenburgRequest;
 import com.radixpro.enigma.domain.reqresp.TetenburgResponse;
 import com.radixpro.enigma.references.TimeZones;
-import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,10 +40,8 @@ public class TetenburgApiIntTest {
       assertEquals(350.130787045016, response.getLongAsc(), DELTA_8_POS);
    }
 
-   private LocationOld createLocation() {
-      GeographicCoordinate geoLong = new GeographicCoordinate(6, 54, 0, "e", 6.9);
-      GeographicCoordinate geoLat = new GeographicCoordinate(52, 13, 0, "n", 52.216666666677);
-      return new LocationOld(geoLong, geoLat, "Enschede");
+   private Location createLocation() {
+      return new Location(52.2166666667, 6.9);
    }
 
    private FullDateTime createBirthDateTime() {

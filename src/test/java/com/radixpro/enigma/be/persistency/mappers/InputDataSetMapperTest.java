@@ -9,9 +9,9 @@ package com.radixpro.enigma.be.persistency.mappers;
 
 import com.radixpro.enigma.domain.astronpos.InputDataSet;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.testsupport.JfxTestRunner;
 import com.radixpro.enigma.testsupport.TestSupport;
-import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.junit.Before;
@@ -155,16 +155,8 @@ public class InputDataSetMapperTest {
 
    @Test
    public void jsonToLocation() {
-      LocationOld locationOld = inputDataSet.getInputData().get(1).getLocation();
-      assertEquals(5, locationOld.getLongInput().getDegrees());
-      assertEquals(52, locationOld.getLongInput().getMinutes());
-      assertEquals(0, locationOld.getLongInput().getSeconds());
-      assertEquals("E", locationOld.getLongInput().getDirection());
-      assertEquals(5.866666666666667, locationOld.getLongInput().getValue(), DELTA_8_POS);
-      assertEquals(51, locationOld.getLatInput().getDegrees());
-      assertEquals(48, locationOld.getLatInput().getMinutes());
-      assertEquals(0, locationOld.getLatInput().getSeconds());
-      assertEquals("N", locationOld.getLatInput().getDirection());
-      assertEquals(51.8, locationOld.getLatInput().getValue(), DELTA_8_POS);
+      Location location = inputDataSet.getInputData().get(1).getLocation();
+      assertEquals(51.8, location.getGeoLat(), DELTA_8_POS);
+      assertEquals(5.866666666666667, location.getGeoLon(), DELTA_8_POS);
    }
 }

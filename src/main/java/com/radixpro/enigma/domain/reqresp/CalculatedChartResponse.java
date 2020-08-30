@@ -8,6 +8,7 @@
 package com.radixpro.enigma.domain.reqresp;
 
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -23,10 +24,10 @@ public class CalculatedChartResponse {
     * Constructor defines all properties.
     *
     * @param calculatedChart The calcualted chart. PRE: if ResultMsg is "OK" then not null.
-    * @param resultMsg       Result message. IN case of error a descrioption, otherwise "OK". PRE: not null, not empty.
+    * @param resultMsg       Result message. In case of error a descrioption, otherwise "OK". PRE: not null, not empty.
     */
-   public CalculatedChartResponse(final CalculatedChart calculatedChart, final String resultMsg) {
-      checkArgument(resultMsg != null && !resultMsg.isEmpty());
+   public CalculatedChartResponse(final CalculatedChart calculatedChart, @NotNull final String resultMsg) {
+      checkArgument(!resultMsg.isBlank());
       checkArgument((resultMsg.equals("OK") && calculatedChart != null) || !resultMsg.equals("OK"));
       this.calculatedChart = calculatedChart;
       this.resultMsg = resultMsg;

@@ -7,6 +7,8 @@
 package com.radixpro.enigma.xchg.domain;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.ChartMetaData;
+import com.radixpro.enigma.domain.input.Location;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +24,7 @@ public class FullChartInputDataTest {
    @Mock
    private FullDateTime fullDateTimeMock;
    @Mock
-   private LocationOld locationMock;
+   private Location locationMock;
    @Mock
    private ChartMetaData chartMetaDataMock;
    private FullChartInputData fullChartInputData;

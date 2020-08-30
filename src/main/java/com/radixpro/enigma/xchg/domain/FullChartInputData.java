@@ -7,22 +7,23 @@
 package com.radixpro.enigma.xchg.domain;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.radixpro.enigma.domain.input.ChartMetaData;
+import com.radixpro.enigma.domain.input.Location;
+import org.jetbrains.annotations.NotNull;
 
 public class FullChartInputData {
 
    private final int id;
    private final FullDateTime fullDateTime;
-   private final LocationOld locationOld;
+   private final Location location;
    private final ChartMetaData chartMetaData;
 
-   public FullChartInputData(final int id, final FullDateTime fullDateTime, final LocationOld locationOld,
-                             final ChartMetaData chartMetaData) {
+   public FullChartInputData(final int id, @NotNull final FullDateTime fullDateTime, @NotNull final Location location,
+                             @NotNull final ChartMetaData chartMetaData) {
       this.id = id;
-      this.fullDateTime = checkNotNull(fullDateTime);
-      this.locationOld = checkNotNull(locationOld);
-      this.chartMetaData = checkNotNull(chartMetaData);
+      this.fullDateTime = fullDateTime;
+      this.location = location;
+      this.chartMetaData = chartMetaData;
    }
 
    public int getId() {
@@ -33,8 +34,8 @@ public class FullChartInputData {
       return fullDateTime;
    }
 
-   public LocationOld getLocation() {
-      return locationOld;
+   public Location getLocation() {
+      return location;
    }
 
    public ChartMetaData getChartMetaData() {
@@ -43,7 +44,7 @@ public class FullChartInputData {
 
    @Override
    public String toString() {
-      return String.format("ChartData(id=%d, fullDateTime=%s, location=%s, chartMetaData=%s)", id, fullDateTime, locationOld, chartMetaData);
+      return String.format("ChartData(id=%d, fullDateTime=%s, location=%s, chartMetaData=%s)", id, fullDateTime, location, chartMetaData);
    }
 
 }

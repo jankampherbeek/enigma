@@ -8,9 +8,8 @@
 package com.radixpro.enigma.domain.astronpos;
 
 import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.xchg.domain.LocationOld;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.radixpro.enigma.domain.input.Location;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Inputdata for a chart. Reflects the internal Json structure for inputdata for charts.
@@ -20,13 +19,13 @@ public class ChartInputData {
    final int id;
    final String name;
    final FullDateTime dateTime;
-   final LocationOld locationOld;
+   final Location location;
 
-   public ChartInputData(final int id, final String name, final FullDateTime dateTime, final LocationOld locationOld) {
+   public ChartInputData(final int id, @NotNull final String name, @NotNull final FullDateTime dateTime, @NotNull final Location location) {
       this.id = id;
-      this.name = checkNotNull(name);
-      this.dateTime = checkNotNull(dateTime);
-      this.locationOld = checkNotNull(locationOld);
+      this.name = name;
+      this.dateTime = dateTime;
+      this.location = location;
    }
 
    public int getId() {
@@ -41,7 +40,7 @@ public class ChartInputData {
       return dateTime;
    }
 
-   public LocationOld getLocation() {
-      return locationOld;
+   public Location getLocation() {
+      return location;
    }
 }

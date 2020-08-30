@@ -8,6 +8,7 @@
 package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.creators.ChoiceBoxBuilder;
@@ -16,14 +17,13 @@ import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.TextFieldBuilder;
 import com.radixpro.enigma.ui.validators.ValidatedLatitude;
 import com.radixpro.enigma.ui.validators.ValidatedLongitude;
-import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.LocationOld;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +49,13 @@ public class LocationInputBlock extends InputBlock {
    private boolean longitudeValid = false;
    private boolean latitudeValid = false;
 
-   public LocationInputBlock(final SessionState state, final ValidatedLongitude valLong, final ValidatedLatitude valLat) {
+   public LocationInputBlock(@NotNull final SessionState state, @NotNull final ValidatedLongitude valLong, @NotNull final ValidatedLatitude valLat) {
+      // FIXME handle creation of ChartMetaData
       super(state);
       this.valLong = valLong;
       this.valLat = valLat;
    }
+
 
    @Override
    protected void initialize() {
@@ -134,16 +136,10 @@ public class LocationInputBlock extends InputBlock {
     *
     * @return Instance of Location.
     */
-   public LocationOld getLocation() throws InputBlockIncompleteException {
+   public Location getLocation() throws InputBlockIncompleteException {
       if (inputStatus != InputStatus.READY)
          throw new InputBlockIncompleteException("Retrieving location for LocationInput while InputSatus is " + inputStatus.name());
-      String locName = tfLocationName.getText();
-      if (locName.isEmpty()) locName = "";
-      GeographicCoordinate longInput = new GeographicCoordinate(valLong.getDegrees(), valLong.getMinutes(), valLong.getSeconds(), cbEastWest.getValue(),
-            valLong.getValue());
-      GeographicCoordinate latInput = new GeographicCoordinate(valLat.getDegrees(), valLat.getMinutes(), valLat.getSeconds(), cbNorthSouth.getValue(),
-            valLat.getValue());
-      return new LocationOld(longInput, latInput, locName);
+      return new Location(valLat.getValue(), valLong.getValue());
    }
 
 }

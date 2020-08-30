@@ -11,6 +11,8 @@ import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
+import com.radixpro.enigma.domain.input.ChartMetaData;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.ChartTypes;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.references.Ratings;
@@ -19,9 +21,7 @@ import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.validators.*;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
-import com.radixpro.enigma.xchg.domain.ChartMetaData;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
-import com.radixpro.enigma.xchg.domain.LocationOld;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -422,12 +422,12 @@ public class ChartsInput {
       String inputSource = tfSource.getText().trim();
       Ratings inputRating = Ratings.ZZ.ratingForName(cbRating.getValue());
       ChartTypes inputChartType = ChartTypes.UNKNOWN.chartTypeForLocalName(cbSubject.getValue());
-      return new ChartMetaData(inputName, inputDescription, inputSource, inputChartType, inputRating);
+      String inputData = "";    // todo create inputData
+      return new ChartMetaData(inputName, inputDescription, inputChartType, inputRating, inputData);
    }
 
-   private LocationOld constructLocation() {
-      // TODO inject LocationCreator
-      return new LocationCreatorOld().constructLocation(tfLocationName.getText(), cbEastWest.getValue(), cbNorthSouth.getValue(), validatedLongitude, validatedLatitude);
+   private Location constructLocation() {
+      return new Location(validatedLatitude.getValue(), validatedLongitude.getValue());
    }
 
    private FullDateTime constructFullDateTime() {

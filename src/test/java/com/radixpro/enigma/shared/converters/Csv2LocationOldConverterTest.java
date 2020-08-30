@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.shared.converters;
 
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.shared.exceptions.InputDataException;
-import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,16 +31,9 @@ public class Csv2LocationOldConverterTest {
 
    @Test
    public void convertHappyFlow() throws InputDataException {
-      LocationOld loc = converter.convert(lonTxt, latTxt);
-      assertEquals(123, loc.getLongInput().getDegrees());
-      assertEquals(45, loc.getLongInput().getMinutes());
-      assertEquals(0, loc.getLongInput().getSeconds());
-      assertEquals("W", loc.getLongInput().getDirection());
-      assertEquals(123.75, loc.getGeoLong(), DELTA_8_POS);
-      assertEquals(33, loc.getLatInput().getDegrees());
-      assertEquals(18, loc.getLatInput().getMinutes());
-      assertEquals(0, loc.getLatInput().getSeconds());
+      Location loc = converter.convert(lonTxt, latTxt);
       assertEquals(33.3, loc.getGeoLat(), DELTA_8_POS);
+      assertEquals(-123.75, loc.getGeoLon(), DELTA_8_POS);
    }
 
    @Test(expected = InputDataException.class)

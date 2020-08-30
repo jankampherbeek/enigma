@@ -8,7 +8,6 @@
 package com.radixpro.enigma.ui.helpers;
 
 import com.radixpro.enigma.domain.input.Location;
-import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -57,13 +56,5 @@ public class LocationCreator {
       if ("WZSwzs".contains(dir)) return -1;
       return 1;
    }
-
-   /**
-    * Temporary solution to support the move from the old Location object (now LocationOld) to the simplified version.
-    */
-   public Location tempConvertOld2New(final LocationOld locOld) {
-      return new Location(locOld.getGeoLat(), locOld.getGeoLong());
-   }
-
 
 }

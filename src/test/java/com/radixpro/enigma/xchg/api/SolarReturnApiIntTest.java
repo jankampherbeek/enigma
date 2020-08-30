@@ -13,9 +13,7 @@ import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
-import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-import com.radixpro.enigma.xchg.domain.LocationOld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +43,6 @@ public class SolarReturnApiIntTest {
       SimpleTime time = new SimpleTime(8, 37, 30);
       SimpleDateTime dateTime = new SimpleDateTime(date, time);
       return new FullDateTime(dateTime, TimeZones.CET, false, 0.0);
-   }
-
-   private LocationOld createLocation() {
-      GeographicCoordinate geoLat = new GeographicCoordinate(52, 13, 0, "n", 52.21666666667);
-      GeographicCoordinate geoLong = new GeographicCoordinate(6, 54, 0, "e", 6.9);
-      return new LocationOld(geoLat, geoLong, "Enschede");
    }
 
    private ChartCalcSettings createSettings() {

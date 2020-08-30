@@ -224,10 +224,11 @@ public class ChartsData {
       vBox.getChildren().add(0, new LabelBuilder("").setText(fullChartInputData.getChartMetaData().getName()).build());
       vBox.getChildren().add(1, new LabelBuilder("").setText(fullChartInputData.getChartMetaData().getDescription()).build());
       vBox.getChildren().add(2, new LabelBuilder(fullChartInputData.getChartMetaData().getChartType().getNameForRB()).build());
-      vBox.getChildren().add(3, new LabelBuilder("").setText(fullChartInputData.getChartMetaData().getSource()).build());
+      vBox.getChildren().add(3, new LabelBuilder("").setText("source").build());  // FIXME change ChartData
       vBox.getChildren().add(4, new LabelBuilder(fullChartInputData.getChartMetaData().getRating().getNameForRB()).build());
       vBox.getChildren().add(5, new LabelBuilder("").setText(fullChartInputData.getFullDateTime().getFormattedDateTime()).build());
-      vBox.getChildren().add(6, new LabelBuilder("").setText(fullChartInputData.getLocation().getFormattedLocation()).build());
+//      vBox.getChildren().add(6, new LabelBuilder("").setText(fullChartInputData.getLocation().getFormattedLocation()).build());
+      // FIXME  add MetaChart to output in ChartsData
       return vBox;
    }
 

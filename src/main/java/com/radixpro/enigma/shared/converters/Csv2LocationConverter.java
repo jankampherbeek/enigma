@@ -7,13 +7,11 @@
 
 package com.radixpro.enigma.shared.converters;
 
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.shared.exceptions.InputDataException;
-import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.LocationOld;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Converter for csv data to Location.
@@ -25,16 +23,14 @@ public class Csv2LocationConverter {
     *
     * @param lonTxt input for longitude: degrees and mnutes separated with E or W for the direction. E.g. 6E54.
     * @param latTxt input for latitude: degrees and mnutes separated with N or S for the direction. E.g. 52N13.
-    * @return The location with the correct coordinates. The location name is an empty string.
+    * @return The location with the correct coordinates.
     * @throws InputDataException if any error is encoutered during the conversion.
     */
-   public LocationOld convert(final String lonTxt, final String latTxt) throws InputDataException {
-      checkNotNull(lonTxt);
-      checkNotNull(latTxt);
-      return new LocationOld(createLongitude(lonTxt), createLatitude(latTxt), "");
+   public Location convert(@NotNull final String lonTxt, @NotNull final String latTxt) throws InputDataException {
+      return new Location(createLatitude(latTxt), createLongitude(lonTxt));
    }
 
-   private GeographicCoordinate createLongitude(final String lonTxt) throws InputDataException {
+   private double createLongitude(final String lonTxt) throws InputDataException {
       String dir;
       String[] parts = lonTxt.toUpperCase().split("E");
       if (2 == parts.length) dir = "E";
@@ -47,7 +43,7 @@ public class Csv2LocationConverter {
       return createCoordinate(parts, dir);
    }
 
-   private GeographicCoordinate createLatitude(final String latTxt) throws InputDataException {
+   private double createLatitude(final String latTxt) throws InputDataException {
       String dir;
       String[] parts = latTxt.toUpperCase().split("N");
       if (2 == parts.length) dir = "N";
@@ -61,17 +57,17 @@ public class Csv2LocationConverter {
    }
 
 
-   private GeographicCoordinate createCoordinate(final String[] parts, final String direction) throws InputDataException {
+   private double createCoordinate(final String[] parts, final String direction) throws InputDataException {
       int degrees;
       int minutes;
+      int dirCorrection = "NOEnoe".contains(direction) ? 1 : -1;
       try {
          degrees = Integer.parseInt(parts[0]);
          minutes = Integer.parseInt(parts[1]);
       } catch (NumberFormatException nfe) {
          throw new InputDataException("NumberFormatException when parsing GeographicCoordinate for : " + Arrays.toString(parts));
       }
-      double value = degrees + (minutes / 60.0);
-      return new GeographicCoordinate(degrees, minutes, 0, direction, value);
+      return (degrees + (minutes / 60.0)) * dirCorrection;
    }
 
 }

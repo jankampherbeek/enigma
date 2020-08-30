@@ -13,14 +13,13 @@ import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
+import com.radixpro.enigma.domain.input.ChartMetaData;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.ChartTypes;
 import com.radixpro.enigma.references.Ratings;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.testsupport.TestSupport;
-import com.radixpro.enigma.xchg.domain.ChartMetaData;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
-import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
-import com.radixpro.enigma.xchg.domain.LocationOld;
 import org.junit.Before;
 
 public class PersistedFullChartInputDataApiIntTest {
@@ -90,10 +89,11 @@ public class PersistedFullChartInputDataApiIntTest {
       final SimpleTime sTime = new SimpleTime(18, 21, 30);
       final SimpleDate sDate = new SimpleDate(2020, 6, 18, true);
       final FullDateTime fDateTime = new FullDateTime(new SimpleDateTime(sDate, sTime), TimeZones.CET, true, 0.0);
-      final GeographicCoordinate geoLat = new GeographicCoordinate(52, 13, 0, "n", 52.216666666667);
-      final GeographicCoordinate geoLong = new GeographicCoordinate(6, 54, 0, "E", 6.9);
-      final LocationOld locationOld = new LocationOld(geoLong, geoLat, "Enschede");
-      final ChartMetaData metaData = new ChartMetaData(name, "test for " + name, "source", ChartTypes.NATAL, Ratings.DD);
-      return new FullChartInputData(0, fDateTime, locationOld, metaData);
+      final double geoLat = 52.216666666667;
+      final double geoLon = 6.9;
+      final Location location = new Location(geoLat, geoLon);
+      String inputData = "";    // todo create inputData
+      final ChartMetaData metaData = new ChartMetaData(name, "test for " + name, ChartTypes.NATAL, Ratings.DD, inputData);
+      return new FullChartInputData(0, fDateTime, location, metaData);
    }
 }

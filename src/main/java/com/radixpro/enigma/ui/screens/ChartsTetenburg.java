@@ -15,6 +15,7 @@ import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleDateTime;
 import com.radixpro.enigma.domain.datetime.SimpleTime;
+import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.TetenburgRequest;
 import com.radixpro.enigma.domain.reqresp.TetenburgResponse;
 import com.radixpro.enigma.references.CelestialObjects;
@@ -28,7 +29,6 @@ import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.ui.validators.ValidatedDate;
 import com.radixpro.enigma.xchg.api.TetenburgApi;
-import com.radixpro.enigma.xchg.domain.LocationOld;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -40,6 +40,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -80,16 +81,16 @@ public class ChartsTetenburg {
    private Pane paneSeparator;
    private Pane paneTitle;
    private TextField tfDate;
-   private ValidatedDate valDate;
+   private final ValidatedDate valDate;
    private boolean dateValid = false;
 
 
-   public ChartsTetenburg(final SessionState state, final Rosetta rosetta, final TetenburgApi api, final ValidatedDate valDate) {
+   public ChartsTetenburg(@NotNull final SessionState state, @NotNull final Rosetta rosetta, @NotNull final TetenburgApi api,
+                          @NotNull final ValidatedDate valDate) {
       this.state = state;
       this.rosetta = rosetta;
       this.api = api;
       this.valDate = valDate;
-
    }
 
    public void show(final MetaDataForAnalysis meta) {
@@ -211,13 +212,13 @@ public class ChartsTetenburg {
             solarSpeed = fpp.getEclPos().getSpeed().getMainCoord();
          }
       }
-      LocationOld locationOld = fullChart.getChartData().getLocation();
+      Location location = fullChart.getChartData().getLocation();
       FullDateTime birthDateTime = fullChart.getChartData().getFullDateTime();
 
       SimpleTime simpleTime = new SimpleTime(0, 0, 0);
       SimpleDateTime simpleDateTime = new SimpleDateTime(valDate.getSimpleDate(), simpleTime);
       FullDateTime progDateTime = new FullDateTime(simpleDateTime, birthDateTime.getTimeZone(), birthDateTime.isDst(), birthDateTime.getOffsetForLmt());
-      TetenburgRequest request = new TetenburgRequest(longMc, solarSpeed, locationOld, birthDateTime, progDateTime);
+      TetenburgRequest request = new TetenburgRequest(longMc, solarSpeed, location, birthDateTime, progDateTime);
       TetenburgResponse response = api.calculateCriticalPoint(request);
       if (!response.getResultMsg().equals("OK")) lblResultValue.setText(response.getResultMsg());
       else {
@@ -233,7 +234,7 @@ public class ChartsTetenburg {
    }
 
    private void checkStatus() {
-      boolean inputOk = (valDate != null && dateValid);
+      boolean inputOk = dateValid;
       btnCalc.setDisable(!inputOk);
       btnCalc.setFocusTraversable(inputOk);
    }
