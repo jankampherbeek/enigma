@@ -7,18 +7,13 @@
 
 package com.radixpro.enigma.be.persistency;
 
-import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleDate;
-import com.radixpro.enigma.domain.datetime.SimpleDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.domain.input.ChartMetaData;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.ChartTypes;
 import com.radixpro.enigma.references.Ratings;
-import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
-import com.radixpro.enigma.xchg.domain.GeographicCoordinate;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,7 +45,7 @@ public class ChartDataDao extends DaoParent {
     * @throws DatabaseException Any exception is logged and rethrown as a Database exception.
     */
    public int insert(@NotNull final FullChartInputData insertFullChartInputData) throws DatabaseException {
-      final String insertChart = "INSERT INTO charts (id, name, description, idcharttype, idrating, caldate, cal, time, geolat, geolon, datainput) " +
+      final String insertChart = "INSERT INTO charts (id, name, description, idcharttype, idrating, jdnr, cal, geolat, geolon, datainput) " +
             "values(chartsseq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       final Connection con = appDb.getConnection();
       int chartId = -1;
@@ -59,12 +54,11 @@ public class ChartDataDao extends DaoParent {
          pStmtCharts.setString(2, insertFullChartInputData.getChartMetaData().getDescription());
          pStmtCharts.setInt(3, insertFullChartInputData.getChartMetaData().getChartType().getId());
          pStmtCharts.setInt(4, insertFullChartInputData.getChartMetaData().getRating().getId());
-         pStmtCharts.setString(5, createCalDate(insertFullChartInputData.getFullDateTime()));
-         pStmtCharts.setString(6, (insertFullChartInputData.getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j"));
-         pStmtCharts.setDouble(7, createTime(insertFullChartInputData.getFullDateTime()));
-         pStmtCharts.setDouble(8, insertFullChartInputData.getLocation().getGeoLat());
-         pStmtCharts.setDouble(9, insertFullChartInputData.getLocation().getGeoLon());
-         pStmtCharts.setString(10, insertFullChartInputData.getChartMetaData().getInputData());
+         pStmtCharts.setDouble(5, insertFullChartInputData.getDateTimeJulian().getJd());
+         pStmtCharts.setString(6, insertFullChartInputData.getDateTimeJulian().getCalendar());
+         pStmtCharts.setDouble(7, insertFullChartInputData.getLocation().getGeoLat());
+         pStmtCharts.setDouble(8, insertFullChartInputData.getLocation().getGeoLon());
+         pStmtCharts.setString(9, insertFullChartInputData.getChartMetaData().getInputData());
          int result = pStmtCharts.executeUpdate();
          if (result != 1)
             throw new DatabaseException("Could not insert chart " + insertFullChartInputData.getChartMetaData().getName() + " . No rows changed.");
@@ -179,68 +173,53 @@ public class ChartDataDao extends DaoParent {
       String description = rsCharts.getString("description");
       int idChartType = rsCharts.getInt("idcharttype");
       int idRating = rsCharts.getInt("idrating");
-      String calDate = rsCharts.getString("caldate");
-      double time = rsCharts.getDouble("time");
-      String calendar = rsCharts.getString("calendar");
+      double jdnr = rsCharts.getDouble("jdnr");
+      String cal = rsCharts.getString("cal");
       double geoLat = rsCharts.getDouble("geolat");
       double geoLon = rsCharts.getDouble("geolon");
       String inputData = rsCharts.getString("inputdata");
 
-      FullDateTime fullDateTime = createDateTime(calDate, "", calendar, false, 1, 0.0);   // FIXME change FullDateTime in DAO, these are dummy values
+      DateTimeJulian dateTime = new DateTimeJulian(jdnr, cal);
       Location location = new Location(geoLat, geoLon);
       ChartMetaData metaData = new ChartMetaData(name, description, ChartTypes.chartTypeForId(idChartType), Ratings.getRatingForId(idRating), inputData);
-      return new FullChartInputData(id, fullDateTime, location, metaData);
+      return new FullChartInputData(id, dateTime, location, metaData);
    }
 
-   private FullDateTime createDateTime(final String date, final String time, final String cal, final boolean dst, final int idTz, final double offsetLmt) {
-      String[] dateParts = date.split("/");
-      int year = Integer.parseInt(dateParts[0].trim());
-      int month = Integer.parseInt(dateParts[1].trim());
-      int day = Integer.parseInt(dateParts[2].trim());
-      String[] timeParts = time.split(":");
-      int hour = Integer.parseInt(timeParts[0].trim());
-      int minute = Integer.parseInt(timeParts[1].trim());
-      int second = Integer.parseInt(timeParts[2].trim());
-      SimpleDate simpleDate = new SimpleDate(year, month, day, cal.equalsIgnoreCase("g"));
-      SimpleTime simpleTime = new SimpleTime(hour, minute, second);
-      SimpleDateTime simpleDateTime = new SimpleDateTime(simpleDate, simpleTime);
-      return new FullDateTime(simpleDateTime, TimeZones.timeZoneForId(idTz), dst, offsetLmt);
-   }
 
-   private GeographicCoordinate createCoordinate(final String geoCoordTxt) {  // always 11 pos    ddd:mm:ss D
-      String input = geoCoordTxt;
-      if (10 == geoCoordTxt.length()) input = ZERO + geoCoordTxt;
-      int deg = Integer.parseInt(input.substring(0, 3));
-      int min = Integer.parseInt(input.substring(4, 6));
-      int sec = Integer.parseInt(input.substring(7, 9));
-      String dir = input.substring(10);
-      double value = deg + min / 60.0 + sec / 3600.0;
-      if (dir.equalsIgnoreCase("s") || dir.equalsIgnoreCase("w")) value = -value;
-      return new GeographicCoordinate(deg, min, sec, dir, value);
-   }
+//   private GeographicCoordinate createCoordinate(final String geoCoordTxt) {  // always 11 pos    ddd:mm:ss D
+//      String input = geoCoordTxt;
+//      if (10 == geoCoordTxt.length()) input = ZERO + geoCoordTxt;
+//      int deg = Integer.parseInt(input.substring(0, 3));
+//      int min = Integer.parseInt(input.substring(4, 6));
+//      int sec = Integer.parseInt(input.substring(7, 9));
+//      String dir = input.substring(10);
+//      double value = deg + min / 60.0 + sec / 3600.0;
+//      if (dir.equalsIgnoreCase("s") || dir.equalsIgnoreCase("w")) value = -value;
+//      return new GeographicCoordinate(deg, min, sec, dir, value);
+//   }
+//
+//   private String createCalDate(final FullDateTime dateTime) {
+//      final String separator = "/";
+//      SimpleDate sDate = dateTime.getSimpleDateTime().getDate();
+//      int numYear = sDate.getYear();
+//      int absYear = Math.abs(numYear);
+//      String year = Integer.toString(absYear);
+//      String month = Integer.toString(sDate.getMonth());
+//      String day = Integer.toString(sDate.getDay());
+//      if (absYear < 10) year = ZERO + year;
+//      if (absYear < 100) year = ZERO + year;
+//      if (absYear < 1000) year = ZERO + year;
+//      year = (numYear >= 0 ? " " + year : "-" + year);
+//      if (month.length() == 1) month = ZERO + month;
+//      if (day.length() == 1) day = ZERO + day;
+//      return year + separator + month + separator + day;
+//   }
 
-   private String createCalDate(final FullDateTime dateTime) {
-      final String separator = "/";
-      SimpleDate sDate = dateTime.getSimpleDateTime().getDate();
-      int numYear = sDate.getYear();
-      int absYear = Math.abs(numYear);
-      String year = Integer.toString(absYear);
-      String month = Integer.toString(sDate.getMonth());
-      String day = Integer.toString(sDate.getDay());
-      if (absYear < 10) year = ZERO + year;
-      if (absYear < 100) year = ZERO + year;
-      if (absYear < 1000) year = ZERO + year;
-      year = (numYear >= 0 ? " " + year : "-" + year);
-      if (month.length() == 1) month = ZERO + month;
-      if (day.length() == 1) day = ZERO + day;
-      return year + separator + month + separator + day;
-   }
-
-   private double createTime(final FullDateTime dateTime) {
-      final String separator = ":";
-      SimpleTime sTime = dateTime.getSimpleDateTime().getTime();
-      return sTime.getHour() + sTime.getMinute() * 60.0 + sTime.getSecond() * 3600.0;
-   }
+//   private double createTime(final FullDateTime dateTime) {
+//      final String separator = ":";
+//      SimpleTime sTime = dateTime.getSimpleDateTime().getTime();
+//      return sTime.getHour() + sTime.getMinute() * 60.0 + sTime.getSecond() * 3600.0;
+//   }
 
    private void handleDelete(final Connection con, final long id) throws SQLException {
       final String queryDelete = "DELETE charts where id = ?;";

@@ -10,9 +10,7 @@ package com.radixpro.enigma.be.calc.handlers;
 import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.handlers.BeHandlersInjector;
 import com.radixpro.enigma.be.handlers.TimeKeyHandler;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleDate;
-import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.Ayanamshas;
 import com.radixpro.enigma.references.TimeKeys;
@@ -36,13 +34,9 @@ public class TimeKeyHandlerTest {
    private final double jd1 = 2420531.5;
    private final double jd2 = jd1 + TROPICAL_YEAR;
    @Mock
-   private SimpleDate dateMock;
+   private DateTimeJulian birthDateTimeMock;
    @Mock
-   private SimpleDateTime dateTimeMock;
-   @Mock
-   private FullDateTime birthDateTimeMock;
-   @Mock
-   private FullDateTime eventDateTimeMock;
+   private DateTimeJulian eventDateTimeMock;
    @Mock
    private Location locationMock;
    @Mock
@@ -51,11 +45,10 @@ public class TimeKeyHandlerTest {
 
    @Before
    public void setUp() throws Exception {
-      when(dateMock.isGregorian()).thenReturn(true);
-      when(dateTimeMock.getDate()).thenReturn(dateMock);
-      when(birthDateTimeMock.getSimpleDateTime()).thenReturn(dateTimeMock);
-      when(birthDateTimeMock.getJdUt()).thenReturn(jd1);
-      when(eventDateTimeMock.getJdUt()).thenReturn(jd2);
+      when(birthDateTimeMock.getJd()).thenReturn(jd1);
+      when(birthDateTimeMock.getCalendar()).thenReturn("G");
+      when(eventDateTimeMock.getJd()).thenReturn(jd2);
+//      when(eventDateTimeMock.getCalendar()).thenReturn("G");
       when(locationMock.getGeoLat()).thenReturn(52.0);
       when(settingsMock.getAyamsha()).thenReturn(Ayanamshas.NONE);
       when(settingsMock.isSidereal()).thenReturn(false);

@@ -9,12 +9,9 @@ package com.radixpro.enigma.be.persistency.mappers;
 
 import com.radixpro.enigma.domain.astronpos.ChartInputData;
 import com.radixpro.enigma.domain.astronpos.InputDataSet;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleDate;
-import com.radixpro.enigma.domain.datetime.SimpleDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
-import com.radixpro.enigma.references.TimeZones;
+import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -27,7 +24,7 @@ import java.util.List;
 public class InputDataSetMapper {
 
 
-   public InputDataSet jsonToInputDataSet(final JSONObject object) {
+   public InputDataSet jsonToInputDataSet(@NotNull final JSONObject object) {
       return constructInputDataSet(object);
    }
 
@@ -49,33 +46,17 @@ public class InputDataSetMapper {
          JSONObject jsonObject = (JSONObject) dataObject;
          int id = Integer.parseInt(jsonObject.get("id").toString());
          String name = (String) jsonObject.get("name");
-         FullDateTime fullDateTime = createDateTime(jsonObject);
+         DateTimeJulian dateTimeJulian = createDateTime(jsonObject);
          Location location = createLocation(jsonObject);
-         chartInputData.add(new ChartInputData(id, name, fullDateTime, location));
+         chartInputData.add(new ChartInputData(id, name, dateTimeJulian, location));
       }
       return chartInputData;
    }
 
-   private FullDateTime createDateTime(JSONObject jsonObject) {
-      JSONObject jsonFullDateTime = (JSONObject) jsonObject.get("dateTime");
-      JSONObject jsonSimpleDateTime = (JSONObject) jsonFullDateTime.get("simpleDateTime");
-      JSONObject jsonSimpleDate = (JSONObject) jsonSimpleDateTime.get("date");
-      int year = Integer.parseInt(jsonSimpleDate.get("year").toString());
-      int month = Integer.parseInt(jsonSimpleDate.get("month").toString());
-      int day = Integer.parseInt(jsonSimpleDate.get("day").toString());
-      boolean gregorian = Boolean.parseBoolean(jsonSimpleDate.get("gregorian").toString());
-      final SimpleDate simpleDate = new SimpleDate(year, month, day, gregorian);
-      JSONObject jsonSimpleTime = (JSONObject) jsonSimpleDateTime.get("time");
-      int hour = Integer.parseInt(jsonSimpleTime.get("hour").toString());
-      int minute = Integer.parseInt(jsonSimpleTime.get("minute").toString());
-      int second = Integer.parseInt(jsonSimpleTime.get("second").toString());
-      SimpleTime simpleTime = new SimpleTime(hour, minute, second);
-      SimpleDateTime simpleDateTime = new SimpleDateTime(simpleDate, simpleTime);
-      String timeZoneAbbr = jsonFullDateTime.get("timeZone").toString();
-      boolean dst = Boolean.parseBoolean(jsonFullDateTime.get("dst").toString());
-      double offsetForLmt = Double.parseDouble(jsonFullDateTime.get("offsetForLmt").toString());
-      TimeZones timeZone = TimeZones.valueOf(timeZoneAbbr);
-      return new FullDateTime(simpleDateTime, timeZone, dst, offsetForLmt);
+   private DateTimeJulian createDateTime(JSONObject jsonObject) {
+      double jdNr = (double) jsonObject.get("jdnr");
+      String cal = (String) jsonObject.get("cal");
+      return new DateTimeJulian(jdNr, cal);
    }
 
    private Location createLocation(JSONObject jsonObject) {

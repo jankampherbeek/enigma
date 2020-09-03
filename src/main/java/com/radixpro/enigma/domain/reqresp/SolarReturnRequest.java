@@ -7,45 +7,37 @@
 
 package com.radixpro.enigma.domain.reqresp;
 
-import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Request for the calculation of a Solar Return chart.
  */
 public class SolarReturnRequest {
 
-   private final FullDateTime birthDateTime;
+   private final DateTimeJulian birthDateTime;
    private final ChartCalcSettings settings;
    private final Location location;
    private final double longSun;
-   private final int yearForReturn;
+   private final int ageForReturn;
 
-   /**
-    * Constructor defines all properties.
-    *
-    * @param birthDateTime birthdate and birthtime. PRE: not null.
-    * @param settings      settings for the calcualtion. PRE: not null.
-    * @param location      location. If relocation is desired use current location. PRE: not null.
-    * @param longSun       ecliptical longitude of the Sun in the radix. PRE: 0.0 <= longSun < 360.0
-    * @param yearForReturn The year for which the solar chart needs to be calculated.
-    */
-   public SolarReturnRequest(final FullDateTime birthDateTime, final ChartCalcSettings settings, final Location location, final double longSun,
-                             final int yearForReturn) {
+
+   public SolarReturnRequest(@NotNull final DateTimeJulian birthDateTime, @NotNull final ChartCalcSettings settings, @NotNull final Location location,
+                             final double longSun, final int ageForReturn) {
       checkArgument(longSun >= 0.0 && longSun < 360.0);
-      this.birthDateTime = checkNotNull(birthDateTime);
-      this.settings = checkNotNull(settings);
-      this.location = checkNotNull(location);
+      this.birthDateTime = birthDateTime;
+      this.settings = settings;
+      this.location = location;
       this.longSun = longSun;
-      this.yearForReturn = yearForReturn;
+      this.ageForReturn = ageForReturn;
    }
 
 
-   public FullDateTime getBirthDateTime() {
+   public DateTimeJulian getBirthDateTime() {
       return birthDateTime;
    }
 
@@ -61,7 +53,7 @@ public class SolarReturnRequest {
       return longSun;
    }
 
-   public int getYearForReturn() {
-      return yearForReturn;
+   public int getAgeForReturn() {
+      return ageForReturn;
    }
 }

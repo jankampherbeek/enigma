@@ -40,7 +40,7 @@ public class EphProgCalcHandler {
 
    public SimpleProgResponse retrievePositions(final IProgCalcRequest request) {
       checkNotNull(request);
-      final List<IPosition> posVos = calculatePositions(request.getDateTime().getJdUt(), request.getLocation(), request.getSettings());
+      final List<IPosition> posVos = calculatePositions(request.getDateTime().getJd(), request.getLocation(), request.getSettings());
       return new SimpleProgResponse(posVos, request);
    }
 

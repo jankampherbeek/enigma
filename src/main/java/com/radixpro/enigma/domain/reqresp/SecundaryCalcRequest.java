@@ -7,43 +7,35 @@
 
 package com.radixpro.enigma.domain.reqresp;
 
-import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Request for secundary progressions.
  */
 public class SecundaryCalcRequest implements IProgCalcRequest {
 
-   private final FullDateTime dateTime;
-   private final FullDateTime birthDateTime;
+   private final DateTimeJulian dateTime;
+   private final DateTimeJulian birthDateTime;
    private final Location location;
    private final ICalcSettings settings;
 
-   /**
-    * Constructor defines all properties.
-    *
-    * @param dateTime      date and time of the event. PRE: not null.
-    * @param birthDateTime date and time of the birth. PRE: not null.
-    * @param location      location of birth. PRE: not null.
-    * @param settings      Settings for the calcualtion. PRE: not null.
-    */
-   public SecundaryCalcRequest(final FullDateTime dateTime, final FullDateTime birthDateTime, final Location location, final ICalcSettings settings) {
-      this.dateTime = checkNotNull(dateTime);
-      this.location = checkNotNull(location);
-      this.settings = checkNotNull(settings);
-      this.birthDateTime = checkNotNull(birthDateTime);
+   public SecundaryCalcRequest(@NotNull final DateTimeJulian eventDateTime, @NotNull final DateTimeJulian birthDateTime, @NotNull final Location location,
+                               @NotNull final ICalcSettings settings) {
+      this.dateTime = eventDateTime;
+      this.location = location;
+      this.settings = settings;
+      this.birthDateTime = birthDateTime;
    }
 
    @Override
-   public FullDateTime getDateTime() {
+   public DateTimeJulian getDateTime() {
       return dateTime;
    }
 
-   public FullDateTime getBirthDateTime() {
+   public DateTimeJulian getBirthDateTime() {
       return birthDateTime;
    }
 

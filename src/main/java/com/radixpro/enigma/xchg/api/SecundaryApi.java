@@ -10,10 +10,9 @@ package com.radixpro.enigma.xchg.api;
 import com.radixpro.enigma.be.handlers.EphProgCalcHandler;
 import com.radixpro.enigma.be.handlers.ProgAspectHandler;
 import com.radixpro.enigma.be.handlers.SecundaryDateHandler;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.reqresp.*;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 public class SecundaryApi {
 
@@ -22,10 +21,11 @@ public class SecundaryApi {
    private final ProgAspectHandler aspectHandler;
 
 
-   public SecundaryApi(final EphProgCalcHandler calcHandler, final SecundaryDateHandler secDateHandler, final ProgAspectHandler aspectHandler) {
-      this.secundaryDateHandler = checkNotNull(secDateHandler);
-      this.aspectHandler = checkNotNull(aspectHandler);
-      this.calcHandler = checkNotNull(calcHandler);
+   public SecundaryApi(@NotNull final EphProgCalcHandler calcHandler, @NotNull final SecundaryDateHandler secDateHandler,
+                       @NotNull final ProgAspectHandler aspectHandler) {
+      this.secundaryDateHandler = secDateHandler;
+      this.aspectHandler = aspectHandler;
+      this.calcHandler = calcHandler;
    }
 
    /**
@@ -35,9 +35,10 @@ public class SecundaryApi {
     * @return The calculated positions.
     */
    public SimpleProgResponse calculateSecundary(final SecundaryCalcRequest request) {
-      FullDateTime eventDateTime = request.getDateTime();
-      FullDateTime birthDateTime = request.getBirthDateTime();
-      FullDateTime secDateTime = secundaryDateHandler.calcSecundaryDate(birthDateTime, eventDateTime);
+      // FIXME check what these first four lines are doing
+      DateTimeJulian eventDateTime = request.getDateTime();
+      DateTimeJulian birthDateTime = request.getBirthDateTime();
+      DateTimeJulian secDateTime = secundaryDateHandler.calcSecundaryDate(birthDateTime, eventDateTime);
       IProgCalcRequest secRequest = new SecundaryCalcRequest(secDateTime, birthDateTime, request.getLocation(), request.getSettings());
       return calcHandler.retrievePositions(secRequest);
    }

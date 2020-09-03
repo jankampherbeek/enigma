@@ -8,16 +8,15 @@
 package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.Rosetta;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleDate;
-import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.domain.input.ChartMetaData;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.ChartTypes;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.references.Ratings;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.ui.creators.*;
+import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.validators.*;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
@@ -44,6 +43,7 @@ public class ChartsInput {
    private static final double INPUT_HEIGHT = 25.0;
    private final Rosetta rosetta;
    private final PersistedChartDataApi persistedChartDataApi;
+   private final DateTimeJulianCreator dateTimeJulianCreator;
    private final ValidatedChartName validatedChartName;
    private final ValidatedLatitude validatedLatitude;
    private final ValidatedLongitude validatedLongitude;
@@ -95,15 +95,12 @@ public class ChartsInput {
 
    private double valLong;
    private double valLat;
-   private SimpleDate valDate;
-   private SimpleTime valTime;
-   private SimpleTime valLocalTime;
 
    private InputStatus inputStatus = InputStatus.INCOMPLETE;
 
    public ChartsInput(final Rosetta rosetta, final PersistedChartDataApi persistedChartDataApi, final ValidatedChartName validatedChartName,
                       final ValidatedDate validatedDate, final ValidatedTime validatedTime, final ValidatedLongitude validatedLongitude,
-                      final ValidatedLatitude validatedLatitude) {
+                      final ValidatedLatitude validatedLatitude, final DateTimeJulianCreator dateTimeJulianCreator) {
       this.rosetta = rosetta;
       this.persistedChartDataApi = persistedChartDataApi;
       this.validatedChartName = validatedChartName;
@@ -111,6 +108,7 @@ public class ChartsInput {
       this.validatedTime = validatedTime;
       this.validatedLongitude = validatedLongitude;
       this.validatedLatitude = validatedLatitude;
+      this.dateTimeJulianCreator = dateTimeJulianCreator;
    }
 
    public void show() {
@@ -350,8 +348,8 @@ public class ChartsInput {
    }
 
    private void validateLocalTime(final String newLocalTime) {
-      validatedLocalTimeLong = new ValidatedLongitude();            // temporary solution
-      if (localTimeValid = validatedLocalTimeLong.validate(newLocalTime)) valLocalTime = validatedTime.getSimpleTime();
+      validatedLocalTimeLong = new ValidatedLongitude();            // TODO  temporary solution
+      localTimeValid = validatedLocalTimeLong.validate(newLocalTime);
       tfLocaltime.setStyle(localTimeValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
@@ -363,13 +361,13 @@ public class ChartsInput {
    }
 
    private void validateDate(final String newDate) {
-      if (dateValid = validatedDate.validate(newDate + '/' + cbCalendar.getValue())) valDate = validatedDate.getSimpleDate();
+      dateValid = validatedDate.validate(newDate + '/' + cbCalendar.getValue());
       tfDate.setStyle(dateValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
 
    private void validateTime(final String newTime) {
-      if (timeValid = validatedTime.validate(newTime)) valTime = validatedTime.getSimpleTime();
+      timeValid = validatedTime.validate(newTime);
       tfTime.setStyle(timeValid ? INPUT_DEFAULT_STYLE : INPUT_ERROR_STYLE);
       checkStatus();
    }
@@ -430,10 +428,10 @@ public class ChartsInput {
       return new Location(validatedLatitude.getValue(), validatedLongitude.getValue());
    }
 
-   private FullDateTime constructFullDateTime() {
-      // TODO inject FullDateTimeCreator
-      return new FullDateTimeCreator().constructFullDateTime(valDate, valTime, validatedLocalTimeLong, cbLocalEastWest.getValue(), cbTimeZone.getValue(),
-            cBoxDst.isSelected());
+   private DateTimeJulian constructFullDateTime() {
+      TimeZones zone = TimeZones.timeZoneForName(cbTimeZone.getValue());
+      double offsetLmt = validatedLocalTimeLong.getValue();
+      return dateTimeJulianCreator.createDateTime(tfDate.getText(), cbCalendar.getValue(), tfTime.getText(), zone, cBoxDst.isSelected(), offsetLmt);
    }
 
 }

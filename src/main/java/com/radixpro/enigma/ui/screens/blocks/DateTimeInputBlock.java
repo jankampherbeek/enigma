@@ -8,12 +8,12 @@
 package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.SessionState;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.creators.*;
+import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
 import com.radixpro.enigma.ui.validators.ValidatedDate;
 import com.radixpro.enigma.ui.validators.ValidatedLongitude;
 import com.radixpro.enigma.ui.validators.ValidatedTime;
@@ -25,6 +25,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,7 @@ public class DateTimeInputBlock extends InputBlock {
    private ValidatedDate valDate;
    private ValidatedTime valTime;
    private ValidatedLongitude valLongLocalTime;
+   private final DateTimeJulianCreator dateTimeJulianCreator;
    private boolean timeZoneLocalSelected = false;
    private GridPane gridPane;
    private boolean dateValid;
@@ -63,12 +65,13 @@ public class DateTimeInputBlock extends InputBlock {
     *
     * @param state
     */
-   public DateTimeInputBlock(final SessionState state, final ValidatedDate validatedDate, final ValidatedTime validatedTime,
-                             final ValidatedLongitude valLongLocalTime) {
+   public DateTimeInputBlock(@NotNull final SessionState state, @NotNull final ValidatedDate validatedDate, @NotNull final ValidatedTime validatedTime,
+                             @NotNull final ValidatedLongitude valLongLocalTime, @NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
       super(state);
       this.valDate = validatedDate;
       this.valTime = validatedTime;
       this.valLongLocalTime = valLongLocalTime;
+      this.dateTimeJulianCreator = dateTimeJulianCreator;
    }
 
    @Override
@@ -203,23 +206,17 @@ public class DateTimeInputBlock extends InputBlock {
       if (inputOk) inputStatus = InputStatus.READY;
    }
 
-   /**
-    * Returns populated GridPane.
-    */
    public GridPane getGridPane() {
       initialize();
       return gridPane;
    }
 
-   /**
-    * Retrieve date and time.
-    *
-    * @return Instance of FullDateTime.
-    */
-   public FullDateTime getDateTime() throws InputBlockIncompleteException {
+   public DateTimeJulian getDateTime() throws InputBlockIncompleteException {
       if (inputStatus != InputStatus.READY)
          throw new InputBlockIncompleteException("Retrieving date and time location for DateTimeInput while InputSatus is " + inputStatus.name());
-      SimpleDateTime dateTime = new SimpleDateTime(valDate.getSimpleDate(), valTime.getSimpleTime());
+      String dateText = tfDate.getText();
+      String timeText = tfTime.getText();
+      String cal = cbCalendar.getValue();
       TimeZones selectedTimeZone = TimeZones.UT.timeZoneForName(cbTimeZone.getValue());
       boolean selectedDst = cBoxDst.isSelected();
       double offSetForLmt = 0.0;
@@ -227,6 +224,6 @@ public class DateTimeInputBlock extends InputBlock {
          offSetForLmt = valLongLocalTime.getValue() / 15.0;
          if (cbLocalEastWest.getValue().equalsIgnoreCase("W")) offSetForLmt = -offSetForLmt;
       }
-      return new FullDateTime(dateTime, selectedTimeZone, selectedDst, offSetForLmt);
+      return dateTimeJulianCreator.createDateTime(dateText, cal, timeText, selectedTimeZone, selectedDst, offSetForLmt);
    }
 }

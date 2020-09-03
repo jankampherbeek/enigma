@@ -9,16 +9,14 @@ package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.persistency.AppDb;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleDate;
-import com.radixpro.enigma.domain.datetime.SimpleDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.domain.input.ChartMetaData;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.ChartTypes;
 import com.radixpro.enigma.references.Ratings;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.testsupport.TestSupport;
+import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import org.junit.Before;
 
@@ -86,14 +84,13 @@ public class PersistedFullChartInputDataApiIntTest {
 //   }
 
    private FullChartInputData createChartData(final String name) {
-      final SimpleTime sTime = new SimpleTime(18, 21, 30);
-      final SimpleDate sDate = new SimpleDate(2020, 6, 18, true);
-      final FullDateTime fDateTime = new FullDateTime(new SimpleDateTime(sDate, sTime), TimeZones.CET, true, 0.0);
+      final DateTimeJulian dateTimeJulian =
+            new DateTimeJulianCreator().createDateTime("2020/6/18", "G", "18:21:30", TimeZones.CET, false, 0.0d);
       final double geoLat = 52.216666666667;
       final double geoLon = 6.9;
       final Location location = new Location(geoLat, geoLon);
       String inputData = "";    // todo create inputData
       final ChartMetaData metaData = new ChartMetaData(name, "test for " + name, ChartTypes.NATAL, Ratings.DD, inputData);
-      return new FullChartInputData(0, fDateTime, location, metaData);
+      return new FullChartInputData(0, dateTimeJulian, location, metaData);
    }
 }

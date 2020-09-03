@@ -8,6 +8,7 @@
 package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.ui.helpers.UiHelpersInjector;
 import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector;
 import com.radixpro.enigma.ui.screens.helpers.ScreensHelpersInjector;
 import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
@@ -33,7 +34,8 @@ public class UiScreensInjector {
    public static ChartsInput injectChartsInput(AppScope scope) {
       return new ChartsInput(scope.getRosetta(), XchgApiInjector.injectPersistedChartDataApi(scope), UiValidatorsInjector.injectValidatedChartName(scope),
             UiValidatorsInjector.injectValidatedDate(scope), UiValidatorsInjector.injectValidatedTime(scope),
-            UiValidatorsInjector.injectValidatedLongitude(scope), UiValidatorsInjector.injectValidatedLatitude(scope));
+            UiValidatorsInjector.injectValidatedLongitude(scope), UiValidatorsInjector.injectValidatedLatitude(scope),
+            UiHelpersInjector.injectDateTimeJulianCreator(scope));
    }
 
    public static ChartsMidpoints injectChartsMidpoints(AppScope scope) {
@@ -61,7 +63,7 @@ public class UiScreensInjector {
 
    public static ChartsTetenburg injectChartsTetenburg(AppScope scope) {
       return new ChartsTetenburg(scope.getSessionState(), scope.getRosetta(), XchgApiInjector.injectTetenburgApi(scope),
-            UiValidatorsInjector.injectValidatedDate(scope));
+            UiValidatorsInjector.injectValidatedDate(scope), UiHelpersInjector.injectDateTimeJulianCreator(scope));
    }
 
    public static ConfigDetails injectConfigDetails(AppScope scope) {

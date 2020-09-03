@@ -47,11 +47,11 @@ public class PrimaryHandler {
       try {
          double solarArc = timeKeyHandler.retrieveTimeSpan(request.getDateTimeRadix(), request.getDateTime(), request.getTimeKey(), request.getLocation(),
                request.getSettings());
-         double eps = obliquityHandler.calcTrueObliquity(request.getDateTimeRadix().getJdUt());
+         double eps = obliquityHandler.calcTrueObliquity(request.getDateTimeRadix().getJd());
          double prMc = new Range(0, 360).checkValue(calculatedChart.getMundPoints().getMc().getLongitude() + solarArc);
          double prRaMc = CoordinateConversions.eclipticToEquatorial(new double[]{prMc, 0.0}, eps)[0];
          double prAsc = EnigmaAstronMath.ascFromRamc(prRaMc, geoLat, eps);
-         SpaeculumPropSaData spsData = spsCalculator.performCalculation(calculatedChart, request.getDateTimeRadix().getJdUt(),
+         SpaeculumPropSaData spsData = spsCalculator.performCalculation(calculatedChart, request.getDateTimeRadix().getJd(),
                request.getLocation().getGeoLat(), request.getSettings());
          for (SpaeculumPropSaItem item : spsData.getItems()) {
             double offset = item.getRa() - spsData.getRaMcRx();

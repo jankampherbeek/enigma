@@ -15,9 +15,6 @@ public class ShConvertersInjector {
       // prevent instantiation
    }
 
-   public static Csv2FullDateTimeConverter injectCsv2FullDateTimeConverter(AppScope scope) {
-      return new Csv2FullDateTimeConverter();
-   }
 
    public static Csv2LocationConverter injectCsv2LocationConverter(AppScope scope) {
       return new Csv2LocationConverter();

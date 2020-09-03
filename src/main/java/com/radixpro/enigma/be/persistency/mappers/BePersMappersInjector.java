@@ -8,11 +8,16 @@
 package com.radixpro.enigma.be.persistency.mappers;
 
 import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.ui.helpers.UiHelpersInjector;
 
 public class BePersMappersInjector {
 
    private BePersMappersInjector() {
       // prevent instantiation
+   }
+
+   public static ChartDataCsvMapper injectChartDataCsvMapper(AppScope scope) {
+      return new ChartDataCsvMapper(UiHelpersInjector.injectDateTimeJulianCreator(scope));
    }
 
    public static InputDataSetMapper injectInputDataSetMapper(AppScope scope) {

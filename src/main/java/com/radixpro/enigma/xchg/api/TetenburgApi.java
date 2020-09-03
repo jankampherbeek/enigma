@@ -30,7 +30,7 @@ public class TetenburgApi {
       String resultMsg = "OK";
       double longAsc = 0.0;
       try {
-         longAsc = handler.criticalPoint(request.getBirthDateTime().getJdUt(), request.getProgDateTime().getJdUt(), request.getLocation().getGeoLat(),
+         longAsc = handler.criticalPoint(request.getBirthDateTime().getJd(), request.getProgDateTime().getJd(), request.getLocation().getGeoLat(),
                request.getLongMcRadix(), request.getSolarSpeed());
       } catch (Exception e) {
          LOG.error("Exception when retrieving TetenburgResponse : " + e.getMessage());

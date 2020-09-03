@@ -12,19 +12,19 @@ import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.domain.analysis.MetaDataForAnalysis;
 import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.TetenburgRequest;
 import com.radixpro.enigma.domain.reqresp.TetenburgResponse;
 import com.radixpro.enigma.references.CelestialObjects;
+import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForSign;
 import com.radixpro.enigma.ui.creators.ButtonBuilder;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.creators.TextFieldBuilder;
 import com.radixpro.enigma.ui.domain.FullChart;
+import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.ui.validators.ValidatedDate;
@@ -62,6 +62,7 @@ public class ChartsTetenburg {
    private final SessionState state;
    private final Rosetta rosetta;
    private final TetenburgApi api;
+   private final DateTimeJulianCreator dateTimeJulianCreator;
    private Stage stage;
    private MetaDataForAnalysis meta;
    private FullChart fullChart;
@@ -86,18 +87,19 @@ public class ChartsTetenburg {
 
 
    public ChartsTetenburg(@NotNull final SessionState state, @NotNull final Rosetta rosetta, @NotNull final TetenburgApi api,
-                          @NotNull final ValidatedDate valDate) {
+                          @NotNull final ValidatedDate valDate, @NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
       this.state = state;
       this.rosetta = rosetta;
       this.api = api;
       this.valDate = valDate;
+      this.dateTimeJulianCreator = dateTimeJulianCreator;
    }
 
    public void show(final MetaDataForAnalysis meta) {
       stage = new Stage();
       this.meta = meta;
       this.fullChart = state.getSelectedChart();
-      this.calendar = fullChart.getChartData().getFullDateTime().getSimpleDateTime().getDate().isGregorian() ? "g" : "j";
+      this.calendar = fullChart.getChartData().getDateTimeJulian().getCalendar();
       defineLeafs();
       definePanes();
       defineButtons();
@@ -213,11 +215,15 @@ public class ChartsTetenburg {
          }
       }
       Location location = fullChart.getChartData().getLocation();
-      FullDateTime birthDateTime = fullChart.getChartData().getFullDateTime();
+      DateTimeJulian birthDateTime = fullChart.getChartData().getDateTimeJulian();
+      String dateText = tfDate.getText();
+      String timeText = "0:0:0";
+      String cal = fullChart.getChartData().getDateTimeJulian().getCalendar();
+      TimeZones zone = TimeZones.UT;
+      boolean dst = false;
+      double offsetLmt = 0.0;
+      DateTimeJulian progDateTime = dateTimeJulianCreator.createDateTime(dateText, cal, timeText, zone, dst, offsetLmt);
 
-      SimpleTime simpleTime = new SimpleTime(0, 0, 0);
-      SimpleDateTime simpleDateTime = new SimpleDateTime(valDate.getSimpleDate(), simpleTime);
-      FullDateTime progDateTime = new FullDateTime(simpleDateTime, birthDateTime.getTimeZone(), birthDateTime.isDst(), birthDateTime.getOffsetForLmt());
       TetenburgRequest request = new TetenburgRequest(longMc, solarSpeed, location, birthDateTime, progDateTime);
       TetenburgResponse response = api.calculateCriticalPoint(request);
       if (!response.getResultMsg().equals("OK")) lblResultValue.setText(response.getResultMsg());

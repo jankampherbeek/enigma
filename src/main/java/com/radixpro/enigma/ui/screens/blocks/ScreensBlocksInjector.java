@@ -8,6 +8,7 @@
 package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.AppScope;
+import com.radixpro.enigma.ui.helpers.UiHelpersInjector;
 import com.radixpro.enigma.ui.screens.UiScreensInjector;
 import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
 
@@ -23,7 +24,7 @@ public class ScreensBlocksInjector {
 
    public static DateTimeInputBlock injectDateTimeInputBlock(AppScope scope) {
       return new DateTimeInputBlock(scope.getSessionState(), UiValidatorsInjector.injectValidatedDate(scope), UiValidatorsInjector.injectValidatedTime(scope),
-            UiValidatorsInjector.injectValidatedLongitude(scope));
+            UiValidatorsInjector.injectValidatedLongitude(scope), UiHelpersInjector.injectDateTimeJulianCreator(scope));
    }
 
    public static LocationInputBlock injectLocationInputBlock(AppScope scope) {

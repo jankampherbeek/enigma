@@ -10,6 +10,7 @@ package com.radixpro.enigma.be.persistency;
 import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector;
 import com.radixpro.enigma.shared.converters.ShConvertersInjector;
+import com.radixpro.enigma.ui.helpers.UiHelpersInjector;
 
 public class BePersistencyInjector {
 
@@ -31,7 +32,7 @@ public class BePersistencyInjector {
    }
 
    public static DataReaderCsv injectDataReaderCsv(AppScope scope) {
-      return new DataReaderCsv(ShConvertersInjector.injectCsv2LocationConverter(scope), ShConvertersInjector.injectCsv2FullDateTimeConverter(scope));
+      return new DataReaderCsv(ShConvertersInjector.injectCsv2LocationConverter(scope), UiHelpersInjector.injectDateTimeJulianCreator(scope));
    }
 
    public static JsonReader injectJsonReader(AppScope scope) {

@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.domain.reqresp;
 
-import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import org.jetbrains.annotations.NotNull;
@@ -18,28 +18,26 @@ import org.jetbrains.annotations.NotNull;
 public class CalculatedChartRequest {
 
    private final ChartCalcSettings settings;
-   private final FullDateTime dateTime;
+   private final DateTimeJulian dateTimeJulian;
    private final Location location;
 
-   /**
-    * Constructor defines all properties.
-    *
-    * @param settings Settings for the calculation.
-    * @param dateTime Date and time.
-    * @param location Location.
-    */
-   public CalculatedChartRequest(@NotNull final ChartCalcSettings settings, @NotNull final FullDateTime dateTime, @NotNull final Location location) {
+
+   public CalculatedChartRequest(@NotNull final ChartCalcSettings settings, @NotNull final DateTimeJulian dateTimeJulian, @NotNull final Location location) {
       this.settings = settings;
-      this.dateTime = dateTime;
+      this.dateTimeJulian = dateTimeJulian;
       this.location = location;
+   }
+
+   public DateTimeJulian getDateTime() {   // TODO remove
+      return dateTimeJulian;
    }
 
    public ChartCalcSettings getSettings() {
       return settings;
    }
 
-   public FullDateTime getDateTime() {
-      return dateTime;
+   public DateTimeJulian getDateTimeJulian() {
+      return dateTimeJulian;
    }
 
    public Location getLocation() {

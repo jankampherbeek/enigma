@@ -7,14 +7,9 @@
 
 package com.radixpro.enigma.be.handlers;
 
-import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleDate;
-import com.radixpro.enigma.domain.datetime.SimpleDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleTime;
-import com.radixpro.enigma.references.TimeZones;
-import swisseph.SweDate;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.shared.common.EnigmaDictionary.TROPICAL_YEAR;
 
 /**
@@ -22,36 +17,24 @@ import static com.radixpro.enigma.shared.common.EnigmaDictionary.TROPICAL_YEAR;
  */
 public class SecundaryDateHandler {
 
-   public FullDateTime calcSecundaryDate(final FullDateTime birthDateTime, final FullDateTime eventDateTime) {
-      checkNotNull(birthDateTime);
-      checkNotNull(eventDateTime);
+   public DateTimeJulian calcSecundaryDate(@NotNull final DateTimeJulian birthDateTime, @NotNull final DateTimeJulian eventDateTime) {
       final double differenceInRealDays = getDifferenceInRealDays(birthDateTime, eventDateTime);
       final double differenceInSecDays = getDifferenceInSecDays(differenceInRealDays);
       return getSecundaryDate(birthDateTime, differenceInSecDays);
    }
 
-   private double getDifferenceInRealDays(final FullDateTime birthDateTime, final FullDateTime eventDateTime) {
-      return eventDateTime.getJdUt() - birthDateTime.getJdUt();
+   private double getDifferenceInRealDays(final DateTimeJulian birthDateTime, final DateTimeJulian eventDateTime) {
+      return eventDateTime.getJd() - birthDateTime.getJd();
    }
 
    private double getDifferenceInSecDays(final double differenceInRealDays) {
       return differenceInRealDays / TROPICAL_YEAR;
    }
 
-   private FullDateTime getSecundaryDate(FullDateTime birthDateTime, double differenceInSecDays) {
-      boolean gregorian = birthDateTime.getSimpleDateTime().getDate().isGregorian();
-      final double secundaryJdUt = birthDateTime.getJdUt() + differenceInSecDays;
-      final SweDate sweDate = new SweDate(secundaryJdUt, gregorian);
-      final SimpleDate simpleDate = new SimpleDate(sweDate.getYear(), sweDate.getMonth(), sweDate.getDay(), gregorian);
-      double ut = sweDate.getHour();
-      int hour = (int) ut;
-      double remaining = ut - hour;
-      int minute = (int) (remaining * 60.0);
-      remaining = (remaining * 60.0) - minute;
-      int second = (int) (remaining * 60.0);
-      SimpleTime simpleTime = new SimpleTime(hour, minute, second);
-      SimpleDateTime simpleDateTime = new SimpleDateTime(simpleDate, simpleTime);
-      return new FullDateTime(simpleDateTime, TimeZones.UT, false, 0.0);
+   private DateTimeJulian getSecundaryDate(final DateTimeJulian birthDateTime, double differenceInSecDays) {
+      final String gregorian = birthDateTime.getCalendar();
+      final double secundaryJdUt = birthDateTime.getJd() + differenceInSecDays;
+      return new DateTimeJulian(secundaryJdUt, gregorian);
    }
 
 }

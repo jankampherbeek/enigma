@@ -6,8 +6,8 @@
 
 package com.radixpro.enigma.xchg.domain;
 
-import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.input.ChartMetaData;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class FullChartInputDataTest {
 
    private final int id = 123;
    @Mock
-   private FullDateTime fullDateTimeMock;
+   private DateTimeJulian dateTimeMock;
    @Mock
    private Location locationMock;
    @Mock
@@ -31,12 +31,12 @@ public class FullChartInputDataTest {
 
    @Before
    public void setUp() {
-      fullChartInputData = new FullChartInputData(id, fullDateTimeMock, locationMock, chartMetaDataMock);
+      fullChartInputData = new FullChartInputData(id, dateTimeMock, locationMock, chartMetaDataMock);
    }
 
    @Test
    public void getSimpleDateTime() {
-      assertEquals(fullDateTimeMock, fullChartInputData.getFullDateTime());
+      assertEquals(dateTimeMock, fullChartInputData.getDateTimeJulian());
    }
 
    @Test
@@ -56,6 +56,6 @@ public class FullChartInputDataTest {
 
    @Test
    public void testToString() {
-      assertEquals("ChartData(id=123, fullDateTime=fullDateTimeMock, location=locationMock, chartMetaData=chartMetaDataMock)", fullChartInputData.toString());
+      assertEquals("ChartData(id=123, fullDateTime=dateTimeMock, location=locationMock, chartMetaData=chartMetaDataMock)", fullChartInputData.toString());
    }
 }

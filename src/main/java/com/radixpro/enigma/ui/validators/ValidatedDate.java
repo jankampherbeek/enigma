@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.validators;
 
-import com.radixpro.enigma.domain.datetime.SimpleDate;
 import com.radixpro.enigma.xchg.api.DateTimeApi;
 
 import static com.radixpro.enigma.ui.shared.UiDictionary.DATE_SEPARATOR;
@@ -19,7 +18,6 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.DATE_SEPARATOR;
 public class ValidatedDate {
 
    private final DateTimeApi dateTimeApi;
-   private SimpleDate simpleDate;
    private boolean validated;
 
 
@@ -43,18 +41,11 @@ public class ValidatedDate {
             day = Integer.parseInt(values[2]);
             gregorian = values[3].equalsIgnoreCase("g");
             validated = (dateTimeApi.checkDate(year, month, day, gregorian));
-            if (validated) simpleDate = new SimpleDate(year, month, day, gregorian);
          } catch (NumberFormatException nfe) {
             validated = false;
          }
       }
-      if (!validated) {
-         simpleDate = new SimpleDate(0, 1, 1, false);
-      }
       return validated;
    }
 
-   public SimpleDate getSimpleDate() {
-      return this.simpleDate;
-   }
 }

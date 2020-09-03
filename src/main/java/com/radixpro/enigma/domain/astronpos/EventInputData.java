@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.domain.astronpos;
 
-import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,10 +20,10 @@ public class EventInputData {
    final int id;
    final int chartId;
    final String description;
-   final FullDateTime dateTime;
+   final DateTimeJulian dateTime;
    final Location location;
 
-   public EventInputData(final int id, final int chartId, @NotNull final String description, @NotNull final FullDateTime dateTime,
+   public EventInputData(final int id, final int chartId, @NotNull final String description, @NotNull final DateTimeJulian dateTime,
                          @NotNull final Location location) {
       this.id = id;
       this.chartId = chartId;
@@ -44,7 +44,7 @@ public class EventInputData {
       return description;
    }
 
-   public FullDateTime getDateTime() {
+   public DateTimeJulian getDateTime() {
       return dateTime;
    }
 

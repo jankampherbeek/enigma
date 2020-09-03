@@ -39,22 +39,13 @@ public class Updater {
       performUpdate("CREATE TABLE IF NOT EXISTS VERSIONS (id INT PRIMARY KEY, versiontxt VARCHAR(12) NOT NULL);");
       performUpdate("CREATE SEQUENCE IF NOT EXISTS versionsSeq START WITH 100");
       performUpdate("CREATE TABLE IF NOT EXISTS properties (key VARCHAR(50) NOT NULL, value VARCHAR(100) NOT NULL);");
-//      performUpdate("CREATE TABLE IF NOT EXISTS charts (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL, description VARCHAR(256)" +
-//            ", source VARCHAR(256), idcharttype INT NOT NULL, idrating INT NOT NULL, calDate VARCHAR(11) NOT NULL, time VARCHAR(8) NOT NULL" +
-//            ", calendar VARCHAR(1) NOT NULL, dst BOOLEAN NOT NULL, idtz INT NOT NULL, offsetlmt DOUBLE, locname VARCHAR(255), geolong VARCHAR(11) NOT NULL" +
-//            ", geolat VARCHAR(11) NOT NULL, FOREIGN KEY (idcharttype) REFERENCES charttypes(id), FOREIGN KEY (idrating) REFERENCES ratings(id)" +
-//            ", FOREIGN KEY (idtz) REFERENCES timezones(id));");
       performUpdate("CREATE TABLE IF NOT EXISTS charts (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL, description VARCHAR(256)" +
-            ", idcharttype INT NOT NULL, idrating INT NOT NULL, caldate VARCHAR(11) NOT NULL, cal VARCHAR(1) NOT NULL, time DOUBLE NOT NULL" +
-            ", geolat DOUBLE NOT NULL, geolon DOUBLE NOT NULL, datainput VARCHAR(255), FOREIGN KEY (idcharttype) REFERENCES charttypes(id)" +
-            ", FOREIGN KEY (idrating) REFERENCES ratings(id));");
+            ", idcharttype INT NOT NULL, idrating INT NOT NULL, jdnr DOUBLE not null, cal VARCHAR(1) NOT NULL, geolat DOUBLE NOT NULL, geolon DOUBLE NOT NULL" +
+            ", datainput VARCHAR(255), FOREIGN KEY (idcharttype) REFERENCES charttypes(id), FOREIGN KEY (idrating) REFERENCES ratings(id));");
       performUpdate("CREATE UNIQUE INDEX ON charts(name ASC)");
       performUpdate("CREATE SEQUENCE IF NOT EXISTS chartsSeq START WITH 100");
-//      performUpdate("CREATE TABLE IF NOT EXISTS events (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL, description VARCHAR(256)" +
-//            ", datetime VARCHAR(16) NOT NULL, idtz INT, dst BOOLEAN, offsetlmt DOUBLE, locname VARCHAR(255), geolong VARCHAR(11), geolat VARCHAR(11)" +
-//            ", FOREIGN KEY (idtz) REFERENCES timezones(id));");
       performUpdate("CREATE TABLE IF NOT EXISTS events (id INT PRIMARY KEY, name VARCHAR(90) NOT NULL, description VARCHAR(256)" +
-            ", caldate VARCHAR(11) NOT NULL, cal VARCHAR(1) NOT NULL, time DOUBLE NOT NULL, geolat DOUBLE, geolon DOUBLE, datainput varchar(255));");
+            ", jdnr DOUBLE NOT NULL, cal VARCHAR(1) NOT NULL, geolat DOUBLE, geolon DOUBLE, datainput varchar(255));");
       performUpdate("CREATE UNIQUE INDEX ON events(name ASC)");
       performUpdate("CREATE TABLE IF NOT EXISTS configs (id INT PRIMARY KEY, parentid INT, name VARCHAR(90) NOT NULL, description VARCHAR(256)" +
             ", idhouses INT NOT NULL, idayanamshas INT NOT NULL, ideclprojs INT NOT NULL, idobspos INT NOT NULL, idasporbstrs INT NOT NULL" +

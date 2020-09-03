@@ -7,10 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleDate;
-import com.radixpro.enigma.domain.datetime.SimpleDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleTime;
 import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
@@ -38,12 +34,6 @@ public class SolarReturnApiIntTest {
 //      assertEquals(309.11833333, responseChart.getCelPoints().get(0).getLongitude(), DELTA_5_POS);
 //   }
 
-   private FullDateTime createFullDateTime() {
-      SimpleDate date = new SimpleDate(1953, 1, 29, true);
-      SimpleTime time = new SimpleTime(8, 37, 30);
-      SimpleDateTime dateTime = new SimpleDateTime(date, time);
-      return new FullDateTime(dateTime, TimeZones.CET, false, 0.0);
-   }
 
    private ChartCalcSettings createSettings() {
       List<IChartPoints> celPoints = new ArrayList<>();

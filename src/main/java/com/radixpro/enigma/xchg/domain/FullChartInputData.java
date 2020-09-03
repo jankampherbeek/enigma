@@ -6,22 +6,22 @@
 
 package com.radixpro.enigma.xchg.domain;
 
-import com.radixpro.enigma.domain.datetime.FullDateTime;
 import com.radixpro.enigma.domain.input.ChartMetaData;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import org.jetbrains.annotations.NotNull;
 
 public class FullChartInputData {
 
    private final int id;
-   private final FullDateTime fullDateTime;
+   private final DateTimeJulian dateTimeJulian;
    private final Location location;
    private final ChartMetaData chartMetaData;
 
-   public FullChartInputData(final int id, @NotNull final FullDateTime fullDateTime, @NotNull final Location location,
+   public FullChartInputData(final int id, @NotNull final DateTimeJulian dateTimeJulian, @NotNull final Location location,
                              @NotNull final ChartMetaData chartMetaData) {
       this.id = id;
-      this.fullDateTime = fullDateTime;
+      this.dateTimeJulian = dateTimeJulian;
       this.location = location;
       this.chartMetaData = chartMetaData;
    }
@@ -30,8 +30,8 @@ public class FullChartInputData {
       return id;
    }
 
-   public FullDateTime getFullDateTime() {
-      return fullDateTime;
+   public DateTimeJulian getDateTimeJulian() {
+      return dateTimeJulian;
    }
 
    public Location getLocation() {
@@ -44,7 +44,7 @@ public class FullChartInputData {
 
    @Override
    public String toString() {
-      return String.format("ChartData(id=%d, fullDateTime=%s, location=%s, chartMetaData=%s)", id, fullDateTime, location, chartMetaData);
+      return String.format("ChartData(id=%d, fullDateTime=%s, location=%s, chartMetaData=%s)", id, dateTimeJulian, location, chartMetaData);
    }
 
 }

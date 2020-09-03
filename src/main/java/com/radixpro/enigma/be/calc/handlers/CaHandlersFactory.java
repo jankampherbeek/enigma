@@ -10,7 +10,6 @@ package com.radixpro.enigma.be.calc.handlers;
 import com.radixpro.enigma.be.calc.CoordSetForDateTimeCalc;
 import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.handlers.FullPointPositionHandler;
-import swisseph.SweDate;
 
 /**
  * Factory for handlers that take care of calculations.
@@ -27,10 +26,6 @@ public class CaHandlersFactory {
 
    public static CoordSetForDateTimeCalc getCoordSetForDateTimeCalc() {
       return new CoordSetForDateTimeCalc(SeFrontend.getFrontend());
-   }
-
-   public static JulianDayHandler getJulianDayHandler() {
-      return new JulianDayHandler(new SweDate());
    }
 
 

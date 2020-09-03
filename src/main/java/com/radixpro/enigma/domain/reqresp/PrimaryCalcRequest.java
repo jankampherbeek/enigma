@@ -8,7 +8,7 @@
 package com.radixpro.enigma.domain.reqresp;
 
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.TimeKeys;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
@@ -19,8 +19,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PrimaryCalcRequest implements IProgCalcRequest {
 
-   private final FullDateTime dateTimeProg;
-   private final FullDateTime dateTimeRadix;
+   private final DateTimeJulian dateTimeProg;
+   private final DateTimeJulian dateTimeRadix;
    private final ICalcSettings settings;
    private final TimeKeys timeKey;
    private final Location location;
@@ -37,7 +37,7 @@ public class PrimaryCalcRequest implements IProgCalcRequest {
     * @param location        location of birth.
     * @param calculatedChart Positions of houses and planets.
     */
-   public PrimaryCalcRequest(@NotNull final FullDateTime dateTimeProg, @NotNull final FullDateTime dateTimeRadix, @NotNull final ICalcSettings settings,
+   public PrimaryCalcRequest(@NotNull final DateTimeJulian dateTimeProg, @NotNull final DateTimeJulian dateTimeRadix, @NotNull final ICalcSettings settings,
                              @NotNull final TimeKeys timekey, @NotNull final Location location, @NotNull final CalculatedChart calculatedChart) {
       this.dateTimeProg = dateTimeProg;
       this.dateTimeRadix = dateTimeRadix;
@@ -48,7 +48,7 @@ public class PrimaryCalcRequest implements IProgCalcRequest {
    }
 
    @Override
-   public FullDateTime getDateTime() {
+   public DateTimeJulian getDateTime() {
       return dateTimeProg;
    }
 
@@ -62,7 +62,7 @@ public class PrimaryCalcRequest implements IProgCalcRequest {
       return location;
    }
 
-   public FullDateTime getDateTimeRadix() {
+   public DateTimeJulian getDateTimeRadix() {
       return dateTimeRadix;
    }
 

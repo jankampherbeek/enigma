@@ -8,14 +8,12 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.AppScope;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleDate;
-import com.radixpro.enigma.domain.datetime.SimpleDateTime;
-import com.radixpro.enigma.domain.datetime.SimpleTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.TetenburgRequest;
 import com.radixpro.enigma.domain.reqresp.TetenburgResponse;
 import com.radixpro.enigma.references.TimeZones;
+import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +25,7 @@ public class TetenburgApiIntTest {
    private TetenburgApi api;
 
    @Before
-   public void setUp() throws Exception {
+   public void setUp() {
       api = XchgApiInjector.injectTetenburgApi(new AppScope());
    }
 
@@ -44,17 +42,11 @@ public class TetenburgApiIntTest {
       return new Location(52.2166666667, 6.9);
    }
 
-   private FullDateTime createBirthDateTime() {
-      SimpleDate date = new SimpleDate(1953, 1, 29, true);
-      SimpleTime time = new SimpleTime(8, 3, 30);
-      SimpleDateTime dateTime = new SimpleDateTime(date, time);
-      return new FullDateTime(dateTime, TimeZones.CET, false, 0.0);
+   private DateTimeJulian createBirthDateTime() {
+      return new DateTimeJulianCreator().createDateTime("1953/1/29", "G", "8:03:30", TimeZones.CET, false, 0.0);
    }
 
-   private FullDateTime createProgDateTime() {
-      SimpleDate date = new SimpleDate(1968, 1, 26, true);
-      SimpleTime time = new SimpleTime(22, 0, 0);
-      SimpleDateTime dateTime = new SimpleDateTime(date, time);
-      return new FullDateTime(dateTime, TimeZones.CET, false, 0.0);
+   private DateTimeJulian createProgDateTime() {
+      return new DateTimeJulianCreator().createDateTime("1968/1/26", "G", "22:00:00", TimeZones.CET, false, 0.0);
    }
 }

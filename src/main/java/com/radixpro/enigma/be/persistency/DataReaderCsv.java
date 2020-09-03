@@ -10,11 +10,13 @@ package com.radixpro.enigma.be.persistency;
 import com.opencsv.CSVReader;
 import com.radixpro.enigma.domain.astronpos.ChartInputData;
 import com.radixpro.enigma.domain.astronpos.InputDataSet;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
-import com.radixpro.enigma.shared.converters.Csv2FullDateTimeConverter;
+import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.shared.converters.Csv2LocationConverter;
 import com.radixpro.enigma.shared.exceptions.InputDataException;
+import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+
 
 /**
  * Reader for csv files using CSV_STANDARD_CHART or CSV_STANDARD_EVENT
@@ -32,28 +34,28 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class DataReaderCsv {
 
    private final Csv2LocationConverter locationConverter;
-   private final Csv2FullDateTimeConverter dateTimeConverter;
+   private final DateTimeJulianCreator dateTimeJulianCreator;
    private List<String> errorLines;
    private boolean noErrors;
 
-   public DataReaderCsv(final Csv2LocationConverter locationConverter, final Csv2FullDateTimeConverter dateTimeConverter) {
-      this.locationConverter = checkNotNull(locationConverter);
-      this.dateTimeConverter = checkNotNull(dateTimeConverter);
+   public DataReaderCsv(@NotNull final Csv2LocationConverter locationConverter, @NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
+      this.locationConverter = locationConverter;
+      this.dateTimeJulianCreator = dateTimeJulianCreator;
    }
 
    /**
     * Read csv and create an InputDataSet from the contents of the csv.
     *
-    * @param dataName    Name to identify the data. PRE: not null, not empty, not just spaces.
-    * @param description Description of the data. PRE: not null, not empty, not just spaces.
-    * @param fileName    Full path and name of the file to read. PRE: not null, not empty, not just spaces.
+    * @param dataName    Name to identify the data. PRE: not empty, not just spaces.
+    * @param description Description of the data. PRE: not empty, not just spaces.
+    * @param fileName    Full path and name of the file to read. PRE: not empty, not just spaces.
     * @return Populated instance of InputDataSet.
     * @throws InputDataException if an exception occurs.
     */
-   public InputDataSet readCsv(final String dataName, final String description, final String fileName) throws InputDataException {
-      checkArgument(null != dataName && !dataName.isBlank());
-      checkArgument(null != description && !description.isBlank());
-      checkArgument(null != fileName && !fileName.isBlank());
+   public InputDataSet readCsv(@NotNull final String dataName, @NotNull final String description, @NotNull final String fileName) throws InputDataException {
+      checkArgument(!dataName.isBlank());
+      checkArgument(!description.isBlank());
+      checkArgument(!fileName.isBlank());
       errorLines = new ArrayList<>();
       noErrors = true;
       List<String[]> lines;
@@ -89,11 +91,11 @@ public class DataReaderCsv {
          String dateTxt = line[4].trim();
          String cal = line[5].trim();
          String timeTxt = line[6].trim();
-         String zone = line[7].trim();
-         String dst = line[8].trim();
+         TimeZones zone = TimeZones.timeZoneForName(line[7].trim());
+         boolean dst = line[8].trim().equalsIgnoreCase("Y");
          Location location = locationConverter.convert(lonTxt, latTxt);
-         FullDateTime fullDateTime = dateTimeConverter.convert(dateTxt, timeTxt, cal, zone, dst);
-         cInputData = new ChartInputData(id, name, fullDateTime, location);
+         DateTimeJulian dateTimeJulian = dateTimeJulianCreator.createDateTime(dateTxt, cal, timeTxt, zone, dst, 0.0);
+         cInputData = new ChartInputData(id, name, dateTimeJulian, location);
       } catch (Exception e) {
          noErrors = false;
          errorLines.add(Arrays.toString(line));

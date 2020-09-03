@@ -32,10 +32,11 @@ public class PresentableChartData {
 
    private String createDataDescription(final FullChartInputData fullChartInputData) {
       StringBuilder descrSb = new StringBuilder();
-      PresentableDateTime dateTime4Text = new PresentableDateTime(fullChartInputData.getFullDateTime());
-      descrSb.append(dateTime4Text.getDate());
+      descrSb.append("Temporary dummy text");   // FIXME replace this text
+//      PresentableDateTime dateTime4Text = new PresentableDateTime(fullChartInputData.getDateTimeJulian());   // FIXME, read this info from ChartMetaData
+//      descrSb.append(dateTime4Text.getDate());
       descrSb.append(" ");
-      descrSb.append(dateTime4Text.getTime());
+//      descrSb.append(dateTime4Text.getTime());
       return descrSb.toString();
    }
 

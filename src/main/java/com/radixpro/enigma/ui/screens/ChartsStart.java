@@ -13,7 +13,7 @@ import com.radixpro.enigma.domain.analysis.MetaDataForAnalysis;
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.domain.config.ConfiguredCelObject;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartRequest;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartResponse;
@@ -367,7 +367,7 @@ public class ChartsStart {
          ChartCalcSettings settings = new ChartCalcSettings(points, obsPos, eclProj, ayanamsha, houseSystem);
          final PresentableChartData presentableChartData = selectedCharts.get(0);
          FullChartInputData fullChartInputData = presentableChartData.getOriginalData();
-         FullDateTime dateTime = presentableChartData.getOriginalData().getFullDateTime();
+         DateTimeJulian dateTime = presentableChartData.getOriginalData().getDateTimeJulian();
          Location location = presentableChartData.getOriginalData().getLocation();
          CalculatedChartRequest request = new CalculatedChartRequest(settings, dateTime, location);
 

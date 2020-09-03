@@ -9,7 +9,7 @@ package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.domain.config.ConfiguredCelObject;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.EphProgCalcRequest;
 import com.radixpro.enigma.domain.reqresp.IProgCalcRequest;
@@ -140,7 +140,7 @@ public class ChartsTransitsInput extends InputScreen {
       if (inputStatus == InputStatus.READY) {
          try {
             String eventDescription = progMetaInputBlock.getEventDescription();
-            FullDateTime dateTime = dateTimeInputBlock.getDateTime();
+            DateTimeJulian dateTime = dateTimeInputBlock.getDateTime();
             Location location = locationInputBlock.getLocation();
 
             // TODO add creation of settings to Config class

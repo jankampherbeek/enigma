@@ -15,7 +15,12 @@ public class UiHelpersInjector {
       // prevent instantiation
    }
 
+   public static DateTimeJulianCreator injectDateTimeJulianCreator(AppScope scope) {
+      return new DateTimeJulianCreator();
+   }
+
    public static LocationCreator injectLocationCreator(AppScope scope) {
       return new LocationCreator();
    }
+
 }

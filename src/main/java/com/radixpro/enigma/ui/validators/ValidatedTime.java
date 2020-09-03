@@ -7,8 +7,6 @@
 
 package com.radixpro.enigma.ui.validators;
 
-import com.radixpro.enigma.domain.datetime.SimpleTime;
-
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
@@ -17,7 +15,6 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
  */
 public class ValidatedTime {
 
-   private SimpleTime simpleTime;
    private boolean validated;
 
    // TODO split into converter and validator
@@ -36,16 +33,11 @@ public class ValidatedTime {
             validated = (hour >= HOUR_MIN && hour <= HOUR_MAX &&
                   minute >= MINUTE_MIN && minute <= MINUTE_MAX &&
                   second >= SECOND_MIN && second <= SECOND_MAX);
-            if (validated) simpleTime = new SimpleTime(hour, minute, second); // dummy values for timezone and dst
          } catch (NumberFormatException nfe) {
             validated = false;
          }
       }
-      if (!validated) simpleTime = new SimpleTime(0, 0, 0);
       return validated;
    }
 
-   public SimpleTime getSimpleTime() {
-      return this.simpleTime;
-   }
 }

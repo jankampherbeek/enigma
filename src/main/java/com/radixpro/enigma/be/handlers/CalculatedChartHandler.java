@@ -12,7 +12,7 @@ import com.radixpro.enigma.domain.astronpos.AllMundanePositions;
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.domain.datetime.FullDateTime;
+import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.Ayanamshas;
 import com.radixpro.enigma.references.EclipticProjections;
@@ -54,8 +54,8 @@ public class CalculatedChartHandler {
     * @param location Location.
     * @return result of the calculation.
     */
-   public CalculatedChart defineChart(@NotNull final ChartCalcSettings settings, @NotNull final FullDateTime dateTime, @NotNull final Location location) {
-      final double jdUt = dateTime.getJdUt();
+   public CalculatedChart defineChart(@NotNull final ChartCalcSettings settings, @NotNull final DateTimeJulian dateTime, @NotNull final Location location) {
+      final double jdUt = dateTime.getJd();
       final ObserverPositions obsPos = settings.getObsPos();
       final EclipticProjections eclProj = settings.getEclProj();
       final Ayanamshas ayanamsha = settings.getAyanamsha();

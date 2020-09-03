@@ -14,8 +14,7 @@ import com.radixpro.enigma.domain.reqresp.SolarReturnRequest;
 import com.radixpro.enigma.domain.reqresp.SolarReturnResponse;
 import com.radixpro.enigma.shared.exceptions.NoPositionFoundException;
 import org.apache.log4j.Logger;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Service for the calculation of a Solar Return Chart.
@@ -27,9 +26,9 @@ public class SolarReturnApi {
    private final Rosetta rosetta;
 
 
-   public SolarReturnApi(final SolarReturnHandler handler, final Rosetta rosetta) {
-      this.handler = checkNotNull(handler);
-      this.rosetta = checkNotNull(rosetta);
+   public SolarReturnApi(@NotNull final SolarReturnHandler handler, @NotNull final Rosetta rosetta) {
+      this.handler = handler;
+      this.rosetta = rosetta;
    }
 
    /**
@@ -38,12 +37,11 @@ public class SolarReturnApi {
     * @param request the request for the calculation. PRE: not null.
     * @return the response from the calculation.
     */
-   public SolarReturnResponse calculateSolarReturn(final SolarReturnRequest request) {
-      checkNotNull(request);
+   public SolarReturnResponse calculateSolarReturn(@NotNull final SolarReturnRequest request) {
       CalculatedChart solarReturnChart;
       String resultMsg = "OK";
       try {
-         solarReturnChart = handler.getSolarReturnChart(request.getLongSun(), request.getBirthDateTime(), request.getYearForReturn(),
+         solarReturnChart = handler.getSolarReturnChart(request.getLongSun(), request.getBirthDateTime(), request.getAgeForReturn(),
                request.getLocation(), request.getSettings());
       } catch (NoPositionFoundException e) {
          LOG.error("Could not find position in given period. NoPositionFoundException : " + e.getMessage());

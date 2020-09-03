@@ -37,7 +37,8 @@ public class CalculatedChartApi {
       CalculatedChart calculatedChart = null;
       String resultMsg = "OK";
       try {
-         calculatedChart = handler.defineChart(request.getSettings(), request.getDateTime(), request.getLocation());
+//         calculatedChart = handler.defineChart(request.getSettings(), request.getDateTime(), request.getLocation());
+         calculatedChart = handler.defineChart(request.getSettings(), request.getDateTime(), request.getLocation());    // FIXME, use Datetime
       } catch (Exception e) {
          resultMsg = "Exception when calculating a chart : " + e.getMessage();
       }
