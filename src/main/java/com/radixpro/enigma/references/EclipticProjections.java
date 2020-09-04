@@ -13,11 +13,10 @@ import com.radixpro.enigma.xchg.domain.helpers.IndexMapping;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public enum EclipticProjections {
    EMPTY(0, "eclipticprojections.unknown"),
@@ -27,9 +26,9 @@ public enum EclipticProjections {
    private final int id;
    private final String nameForRB;
 
-   EclipticProjections(final int id, final String nameForRB) {
+   EclipticProjections(final int id, @NotNull final String nameForRB) {
       this.id = id;
-      this.nameForRB = checkNotNull(nameForRB);
+      this.nameForRB = nameForRB;
    }
 
    public static EclipticProjections getProjectionForId(final int id) throws UnknownIdException {

@@ -12,12 +12,11 @@ import com.radixpro.enigma.be.persistency.PropertyDao;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * i18N manager, takes care of Resource Bundles and Locale's.<br>
@@ -43,7 +42,7 @@ public class Rosetta {
       // prevent instantiation
    }
 
-   public static Rosetta defineRosetta(final AppDb pAppDb) {
+   public static Rosetta defineRosetta(@NotNull final AppDb pAppDb) {
       if (null == instance) {
          appDb = pAppDb;
          instance = new Rosetta();
@@ -66,12 +65,10 @@ public class Rosetta {
     *
     * @param language use "en" for English or "du" for Dutch (case-sensitive).
     */
-   public void setLanguage(final String language) {
+   public void setLanguage(@NotNull final String language) {
       LOG.info("Setting language to : " + language);
-      final String selLang = checkNotNull(language);
-      if (selLang.equals(ENGLISH) || selLang.equals(DUTCH)) {
-         Property currentProp = propApi.read(PROP_LANG).get(0);
-         Property langProp = new Property(PROP_LANG, selLang);
+      if (language.equals(ENGLISH) || language.equals(DUTCH)) {
+         Property langProp = new Property(PROP_LANG, language);
          propApi.update(langProp);
          reInitialize();
       } else {
@@ -88,7 +85,7 @@ public class Rosetta {
       propApi = new PersistedPropertyApi(new PropertyDao(appDb));
       List<Property> props = propApi.read(PROP_LANG);
       String language = "en";    // handle first start as no database has been created.
-      if (props.size() > 0) {
+      if (!props.isEmpty()) {
          Property currentProp = propApi.read(PROP_LANG).get(0);
          language = currentProp.getValue();
       }
@@ -101,12 +98,12 @@ public class Rosetta {
       helpResourceBundle = ResourceBundle.getBundle(RB_HELP_LOCATION, locale);
    }
 
-   public String getText(final String key) {
-      return resourceBundle.getString(checkNotNull(key));
+   public String getText(@NotNull final String key) {
+      return resourceBundle.getString(key);
    }
 
-   public String getHelpText(final String key) {
-      return helpResourceBundle.getString(checkNotNull(key));
+   public String getHelpText(@NotNull final String key) {
+      return helpResourceBundle.getString(key);
    }
 
    public Locale getLocale() {

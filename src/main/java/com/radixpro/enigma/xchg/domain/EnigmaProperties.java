@@ -8,13 +8,12 @@ package com.radixpro.enigma.xchg.domain;
 
 import com.radixpro.enigma.shared.FailFastHandler;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Reads properties, these properties are retrieved from property-files.
@@ -30,8 +29,8 @@ public class EnigmaProperties {
     *
     * @param propType The type of the property, the filename without the extension '.properties'.
     */
-   public EnigmaProperties(final String propType) {
-      processProperties(checkNotNull(propType));
+   public EnigmaProperties(@NotNull final String propType) {
+      processProperties(propType);
    }
 
    private void processProperties(final String propType) {

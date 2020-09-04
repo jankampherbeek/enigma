@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.presentationmodel.valuetypes;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * DTO that holds a formatted String with degrees, minutes and seconds, and the index of the zodiacal sign.
@@ -16,8 +16,8 @@ public class LongWithGlyph {
    private final String position;
    private final int signIndex;
 
-   public LongWithGlyph(final String position, final int signIndex) {
-      this.position = checkNotNull(position);
+   public LongWithGlyph(@NotNull final String position, final int signIndex) {
+      this.position = position;
       this.signIndex = signIndex;
    }
 

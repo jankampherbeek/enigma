@@ -8,8 +8,7 @@
 package com.radixpro.enigma.domain.astronpos;
 
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Item for a single body/point in a spaeculum based on Placidian semi-arcs.
@@ -32,9 +31,9 @@ public class SpaeculumPropSaItem {
     * @param decl   declination
     * @param propSa proportion of semi-arc.
     */
-   public SpaeculumPropSaItem(final IChartPoints chartPoint, final double lon, final double ra, final double decl, final double sa, final double propSa,
-                              final int quadrant) {
-      this.chartPoint = checkNotNull(chartPoint);
+   public SpaeculumPropSaItem(@NotNull final IChartPoints chartPoint, final double lon, final double ra, final double decl, final double sa,
+                              final double propSa, final int quadrant) {
+      this.chartPoint = chartPoint;
       this.lon = lon;
       this.ra = ra;
       this.decl = decl;

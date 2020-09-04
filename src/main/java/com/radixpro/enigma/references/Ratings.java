@@ -10,15 +10,14 @@ package com.radixpro.enigma.references;
 import com.radixpro.enigma.Rosetta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
- * Enuim with ratings for the reliability of the time for a chart, as define buy Louise Rodden.
+ * Enum with ratings for the reliability of the time for a chart, as define buy Louise Rodden.
  * Adds a code 'ZZ' as fallback if the rating is unknown.
  * Is persistable as part of a saved chart.
  */
@@ -61,8 +60,7 @@ public enum Ratings implements Serializable {
     * @param ratingName The anme for the rating.
     * @return The resulting rating.
     */
-   public Ratings ratingForName(final String ratingName) {
-      checkNotNull(ratingName);
+   public Ratings ratingForName(@NotNull final String ratingName) {
       final Rosetta rosetta = Rosetta.getRosetta();
       for (Ratings rating : Ratings.values()) {
          if (rosetta.getText(rating.nameForRB).equals(ratingName)) {

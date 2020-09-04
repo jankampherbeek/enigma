@@ -12,10 +12,9 @@ import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A table with details of properties for a configuration.
@@ -24,9 +23,8 @@ public class PropertiesTableForConfig {
 
    private final Rosetta rosetta;
 
-   public PropertiesTableForConfig(final Rosetta rosetta) {
-
-      this.rosetta = checkNotNull(Rosetta.getRosetta());
+   public PropertiesTableForConfig(@NotNull final Rosetta rosetta) {
+      this.rosetta = rosetta;
    }
 
 
@@ -38,15 +36,12 @@ public class PropertiesTableForConfig {
     * @param properties List with actual properties.
     * @return Constructed table with properties int he form of a TableView.
     */
-   public TableView<PresentableProperty> getTableView(final double height, final double width,
-                                                      List<PresentableProperty> properties) {
-      checkNotNull(properties);
+   public TableView<PresentableProperty> getTableView(final double height, final double width, @NotNull List<PresentableProperty> properties) {
       return createTableView(height, width, properties);
    }
 
 
-   private TableView<PresentableProperty> createTableView(double height, double width,
-                                                          List<PresentableProperty> properties) {
+   private TableView<PresentableProperty> createTableView(double height, double width, List<PresentableProperty> properties) {
       TableView<PresentableProperty> tableView = new TableView<>();
       tableView.setPrefHeight(height);
       tableView.setPrefWidth(width);

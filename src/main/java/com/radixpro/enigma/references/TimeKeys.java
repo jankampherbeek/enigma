@@ -10,11 +10,10 @@ package com.radixpro.enigma.references;
 import com.radixpro.enigma.Rosetta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Time keys for progressions and directions.
@@ -29,7 +28,7 @@ public enum TimeKeys {
    private final int id;
    private final String nameForRB;
 
-   TimeKeys(final int id, final String nameForRb) {
+   TimeKeys(final int id, @NotNull final String nameForRb) {
       this.id = id;
       this.nameForRB = nameForRb;
    }
@@ -55,8 +54,7 @@ public enum TimeKeys {
     * @param keyName The anme for the timekey.
     * @return The resulting timekey.
     */
-   public TimeKeys timeKeyForName(final String keyName) {
-      checkNotNull(keyName);
+   public TimeKeys timeKeyForName(@NotNull final String keyName) {
       final Rosetta rosetta = Rosetta.getRosetta();
       for (TimeKeys timeKey : TimeKeys.values()) {
          if (rosetta.getText(timeKey.nameForRB).equals(keyName)) {

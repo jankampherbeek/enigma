@@ -9,8 +9,7 @@ package com.radixpro.enigma.references;
 
 
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 public enum MundanePoints implements IChartPoints {
    MC(1, "ui.shared.mc"),
@@ -24,9 +23,9 @@ public enum MundanePoints implements IChartPoints {
    private final String rbKey;
    private final ChartPointTypes pointType;
 
-   MundanePoints(final int id, final String rbKey) {
+   MundanePoints(final int id, @NotNull final String rbKey) {
       this.id = id;
-      this.rbKey = checkNotNull(rbKey);
+      this.rbKey = rbKey;
       this.pointType = ChartPointTypes.MUNDANE_POINTS;
    }
 

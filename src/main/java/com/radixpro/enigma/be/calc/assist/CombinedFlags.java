@@ -7,10 +7,9 @@
 package com.radixpro.enigma.be.calc.assist;
 
 import com.radixpro.enigma.references.SeFlags;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Combined result of all flags.
@@ -20,17 +19,16 @@ public class CombinedFlags {
    /**
     * Calculate combined value of flags.
     *
-    * @param flagList The flags to combine. PRE: not null.
+    * @param flagList The flags to combine.
     * @return the combined value of te flags.
     */
-   public long getCombinedValue(final List<SeFlags> flagList) {
-      return performCombination(checkNotNull(flagList));
+   public long getCombinedValue(@NotNull final List<SeFlags> flagList) {
+      return performCombination(flagList);
    }
 
-   private long performCombination(final List<SeFlags> flagList) {
-      List<SeFlags> selFlags = checkNotNull(flagList);
+   private long performCombination(@NotNull final List<SeFlags> flagList) {
       long result = 0;
-      for (SeFlags flag : selFlags) {
+      for (SeFlags flag : flagList) {
          result = result | flag.getSeValue();
       }
       return result;

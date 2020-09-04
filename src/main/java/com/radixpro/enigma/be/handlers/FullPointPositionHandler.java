@@ -21,8 +21,8 @@ import com.radixpro.enigma.references.EclipticProjections;
 import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static swisseph.SweConst.*;
 
 /**
@@ -38,25 +38,12 @@ public class FullPointPositionHandler {
     * @param seFrontend instance of SeFrontend. PRE: not null.
     * @see CaHandlersFactory
     */
-   public FullPointPositionHandler(final SeFrontend seFrontend) {
-      this.seFrontend = checkNotNull(seFrontend);
+   public FullPointPositionHandler(@NotNull final SeFrontend seFrontend) {
+      this.seFrontend = seFrontend;
    }
 
-   /**
-    * Defines a full position.
-    *
-    * @param jdUt     Julian Day for UT.
-    * @param obsPos   Position of the observer. PRE: not null.
-    * @param eclProj  Type of projection to the ecliptic. PRE: not null.
-    * @param location Location. PRE: not null.
-    * @return calculated values.
-    */
-   public FullPointPosition definePosition(final IChartPoints celObject, final double jdUt, final ObserverPositions obsPos,
-                                           final EclipticProjections eclProj, final Ayanamshas ayanamsha, final Location location) {
-      checkNotNull(obsPos);
-      checkNotNull(eclProj);
-      checkNotNull(location);
-
+   public FullPointPosition definePosition(@NotNull final IChartPoints celObject, final double jdUt, @NotNull final ObserverPositions obsPos,
+                                           @NotNull final EclipticProjections eclProj, @NotNull final Ayanamshas ayanamsha, @NotNull final Location location) {
       final int seId = (int) ((CelestialObjects) celObject).getSeId();
       int seFlags = SEFLG_SWIEPH | SEFLG_SPEED;
       if (obsPos == ObserverPositions.TOPOCENTRIC) seFlags = seFlags | SEFLG_TOPOCTR;

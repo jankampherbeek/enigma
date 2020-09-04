@@ -10,22 +10,20 @@ import com.radixpro.enigma.be.persistency.PropertyDao;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PersistedPropertyApi {
 
    private final PropertyDao dao;
 
-   public PersistedPropertyApi(final PropertyDao dao) {
-      this.dao = checkNotNull(dao);
+   public PersistedPropertyApi(@NotNull final PropertyDao dao) {
+      this.dao = dao;
    }
 
-   public void insert(final Property property) {
-      checkNotNull(property);
+   public void insert(@NotNull final Property property) {
       try {
          dao.insert(property);
       } catch (DatabaseException de) {
@@ -33,8 +31,7 @@ public class PersistedPropertyApi {
       }
    }
 
-   public void update(final Property property) {
-      checkNotNull(property);
+   public void update(@NotNull final Property property) {
       try {
          dao.update(property);
       } catch (DatabaseException de) {
@@ -42,8 +39,7 @@ public class PersistedPropertyApi {
       }
    }
 
-   public List<Property> read(final String key) {
-      checkNotNull(key);
+   public List<Property> read(@NotNull final String key) {
       List<Property> propList = new ArrayList<>();
       try {
          propList = dao.read(key);

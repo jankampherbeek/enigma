@@ -29,8 +29,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 public class ChartsDrawing2d {
 
@@ -47,10 +46,10 @@ public class ChartsDrawing2d {
    private final RadixWheel radixWheel;
 
 
-   public ChartsDrawing2d(final RadixWheel radixWheel, final Rosetta rosetta, final SessionState state) {
-      this.state = checkNotNull(state);
-      this.radixWheel = checkNotNull(radixWheel);
-      this.rosetta = checkNotNull(rosetta);
+   public ChartsDrawing2d(@NotNull final RadixWheel radixWheel, @NotNull final Rosetta rosetta, @NotNull final SessionState state) {
+      this.state = state;
+      this.radixWheel = radixWheel;
+      this.rosetta = rosetta;
       stage = new Stage();
    }
 

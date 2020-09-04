@@ -10,9 +10,9 @@ package com.radixpro.enigma.ui.creators;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 /**
@@ -45,8 +45,8 @@ public class VBoxBuilder {
       return this;
    }
 
-   public VBoxBuilder setChildren(final Node... children) {
-      this.children = checkNotNull(children);
+   public VBoxBuilder setChildren(@NotNull final Node... children) {
+      this.children = children;
       return this;
    }
 

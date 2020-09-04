@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.references;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Enum of categories for aspects.
@@ -27,9 +27,9 @@ public enum AspectCategory {
     * @param id     unique id, only for persistency purposes.
     * @param rbName the lookup name for the resource bundle.
     */
-   AspectCategory(final int id, final String rbName) {
+   AspectCategory(final int id, @NotNull final String rbName) {
       this.id = id;
-      this.rbName = checkNotNull(rbName);
+      this.rbName = rbName;
    }
 
    public int getId() {

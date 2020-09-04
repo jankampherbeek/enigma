@@ -13,8 +13,7 @@ import com.radixpro.enigma.ui.shared.glyphs.Sign2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongAndGlyphValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongWithGlyph;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlusMinusValue;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Wrapper around CelObjectSinglePosition for the ecliptic values; enables the use in a tableview.
@@ -29,10 +28,7 @@ public class PresentableEclipticPosition {
    private String celBodyGlyph;
 
 
-   public PresentableEclipticPosition(final CelestialObjects celestialObject,
-                                      final FullPointCoordinate fpCoordinate) {
-      checkNotNull(celestialObject);
-      checkNotNull(fpCoordinate);
+   public PresentableEclipticPosition(@NotNull final CelestialObjects celestialObject, @NotNull final FullPointCoordinate fpCoordinate) {
       createPresentablePosition(celestialObject, fpCoordinate);
    }
 

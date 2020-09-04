@@ -8,16 +8,14 @@ package com.radixpro.enigma.ui.shared.glyphs;
 
 import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Maps a celestial object to the corresponding glyph.
  */
 public class CelObject2GlyphMapper {
 
-   public String getGlyph(final IChartPoints celObject) {
-      checkNotNull(celObject);
+   public String getGlyph(@NotNull final IChartPoints celObject) {
       return switch ((CelestialObjects) celObject) {
          case SUN -> "a";
          case MOON -> "b";

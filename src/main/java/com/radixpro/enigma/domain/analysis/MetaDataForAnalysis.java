@@ -8,9 +8,9 @@
 package com.radixpro.enigma.domain.analysis;
 
 import com.radixpro.enigma.xchg.domain.general.IMetaData;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MetaDataForAnalysis implements IMetaData {
 
@@ -21,14 +21,14 @@ public class MetaDataForAnalysis implements IMetaData {
    /**
     * Constructor defines all properties.
     *
-    * @param name       Name of chartowner, for event, etc. PRE: not null.
-    * @param configName Name of configuration. PRE: not null.
+    * @param name       Name of chartowner, for event, etc.
+    * @param configName Name of configuration.
     * @param baseOrb    Base orb that has been used. PRE: baseOrb > 0.
     */
-   public MetaDataForAnalysis(final String name, final String configName, final double baseOrb) {
+   public MetaDataForAnalysis(@NotNull final String name, final String configName, final double baseOrb) {
       checkArgument(0.0 < baseOrb);
-      this.name = checkNotNull(name);
-      this.configName = checkNotNull(configName);
+      this.name = name;
+      this.configName = configName;
       this.baseOrb = baseOrb;
    }
 

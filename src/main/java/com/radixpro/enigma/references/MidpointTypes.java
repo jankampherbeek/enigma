@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.references;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 public enum MidpointTypes {
    FULL(1, 360.0, "midpoints.full"),
@@ -19,10 +19,10 @@ public enum MidpointTypes {
    private final double angle;
    private final String fullRbId;
 
-   MidpointTypes(final int id, final double angle, final String fullRbId) {
+   MidpointTypes(final int id, final double angle, @NotNull final String fullRbId) {
       this.id = id;
       this.angle = angle;
-      this.fullRbId = checkNotNull(fullRbId);
+      this.fullRbId = fullRbId;
    }
 
    public MidpointTypes getMidpointForId(int id) {

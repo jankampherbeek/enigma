@@ -12,11 +12,10 @@ import com.radixpro.enigma.domain.config.ConfiguredCelObject;
 import com.radixpro.enigma.references.CelObjectCategory;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Overview of celestial objects in a configuration.
@@ -26,23 +25,11 @@ public class CelObjectsInConfig {
    private static final Logger LOG = Logger.getLogger(CelObjectsInConfig.class);
    private final Rosetta rosetta;
 
-   /**
-    * Constructor is used by factory for ConfigDetails.
-    *
-    * @param rosetta instance of Rosetta(i18n).
-    */
-   public CelObjectsInConfig(final Rosetta rosetta) {
-      this.rosetta = checkNotNull(rosetta);
+   public CelObjectsInConfig(@NotNull final Rosetta rosetta) {
+      this.rosetta = rosetta;
    }
 
-   /**
-    * Create presentable properties for celstial objects.
-    *
-    * @param celObjects Celestial objects as defined in the configuration.
-    * @return The resulting presentable properties.
-    */
-   public List<PresentableProperty> constructProperties(final List<ConfiguredCelObject> celObjects) {
-      checkNotNull(celObjects);
+   public List<PresentableProperty> constructProperties(@NotNull final List<ConfiguredCelObject> celObjects) {
       List<PresentableProperty> presentableProperties = new ArrayList<>();
       StringBuilder classicCelObjectsAsText = new StringBuilder();
       StringBuilder modernCelObjectsAsText = new StringBuilder();

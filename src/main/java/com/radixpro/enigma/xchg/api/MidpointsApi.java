@@ -10,26 +10,20 @@ package com.radixpro.enigma.xchg.api;
 import com.radixpro.enigma.be.handlers.MidpointsHandler;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.IPosition;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MidpointsApi {
 
    private final MidpointsHandler handler;
 
-   /**
-    * Use ApiFactory.createMidpointsApi() for construction.
-    *
-    * @param handler The handler that prepares the analysis.
-    */
-   public MidpointsApi(final MidpointsHandler handler) {
-      this.handler = checkNotNull(handler);
+   public MidpointsApi(@NotNull final MidpointsHandler handler) {
+      this.handler = handler;
    }
 
-   public List<IAnalyzedPair> analyseMidpoints(final List<IPosition> celObjects, final List<IPosition> mundaneValues) {
-      return handler.retrieveMidpoints(checkNotNull(celObjects), checkNotNull(mundaneValues));
+   public List<IAnalyzedPair> analyseMidpoints(@NotNull final List<IPosition> celObjects, @NotNull final List<IPosition> mundaneValues) {
+      return handler.retrieveMidpoints(celObjects, mundaneValues);
    }
 
 }

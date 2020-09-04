@@ -8,9 +8,9 @@
 package com.radixpro.enigma.domain.analysis;
 
 import com.radixpro.enigma.references.MidpointTypes;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class AnalyzedMidpoint implements IAnalyzedPair {
 
@@ -24,23 +24,15 @@ public class AnalyzedMidpoint implements IAnalyzedPair {
    private final double percOrb;
 
    /**
-    * Constructor defines all parameters.
     * PRE: 0.0 <= actualOrb <= maxOrb
-    *
-    * @param firstPoint   First point that was compared. PRE: not null.
-    * @param secondPoint  Second point that was compared. PRE: not null.
-    * @param centerPoint  The point at the center of the midpoint.
-    * @param midpointType The type of midpoint.
-    * @param actualOrb    The actual orb fir this aspect.
-    * @param maxOrb       The maximum orb for this aspect.
     */
-   public AnalyzedMidpoint(final AnalyzablePoint firstPoint, final AnalyzablePoint secondPoint, final AnalyzablePoint centerPoint,
-                           final MidpointTypes midpointType, final double actualOrb, final double maxOrb) {
+   public AnalyzedMidpoint(@NotNull final AnalyzablePoint firstPoint, @NotNull final AnalyzablePoint secondPoint, @NotNull final AnalyzablePoint centerPoint,
+                           @NotNull final MidpointTypes midpointType, final double actualOrb, final double maxOrb) {
       checkArgument(0.0 <= actualOrb && actualOrb <= maxOrb);
-      this.firstPoint = checkNotNull(firstPoint);
-      this.secondPoint = checkNotNull(secondPoint);
-      this.centerPoint = checkNotNull(centerPoint);
-      this.midpointType = checkNotNull(midpointType);
+      this.firstPoint = firstPoint;
+      this.secondPoint = secondPoint;
+      this.centerPoint = centerPoint;
+      this.midpointType = midpointType;
       this.actualOrb = actualOrb;
       this.maxOrb = maxOrb;
       this.percOrb = calculatePercOrb();

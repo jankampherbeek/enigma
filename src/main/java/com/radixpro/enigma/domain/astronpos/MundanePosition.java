@@ -8,9 +8,9 @@
 package com.radixpro.enigma.domain.astronpos;
 
 import com.radixpro.enigma.references.MundanePoints;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Position for a point in the mundane frame (houses etc.).
@@ -25,17 +25,18 @@ public class MundanePosition implements IPosition {
    /**
     * Constructor defines all properties.
     *
-    * @param mundanePoint Type of mundane point (MC, Vertex,cusp etc.). PRE: not null.
+    * @param mundanePoint Type of mundane point (MC, Vertex,cusp etc.).
     * @param longitude    Ecliptical longitude (latitude does not apply for mundane points). PRE: 0.0 <= longitude < 360.0
-    * @param eqPos        Equatorial coordinates. PRE: not null.
-    * @param horPos       Horizontal coordinates. PRE: not null.
+    * @param eqPos        Equatorial coordinates.
+    * @param horPos       Horizontal coordinates.
     */
-   public MundanePosition(final MundanePoints mundanePoint, final double longitude, final CoordinateSet eqPos, final CoordinateSet horPos) {
-      this.mundanePoint = checkNotNull(mundanePoint);
+   public MundanePosition(@NotNull final MundanePoints mundanePoint, final double longitude, @NotNull final CoordinateSet eqPos,
+                          @NotNull final CoordinateSet horPos) {
+      this.mundanePoint = mundanePoint;
       checkArgument(0.0 <= longitude && longitude < 360.0);
       this.longitude = longitude;
-      this.eqPos = checkNotNull(eqPos);
-      this.horPos = checkNotNull(horPos);
+      this.eqPos = eqPos;
+      this.horPos = horPos;
    }
 
    @Override

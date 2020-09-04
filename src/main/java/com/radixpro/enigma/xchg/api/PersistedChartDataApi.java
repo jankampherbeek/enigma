@@ -10,22 +10,20 @@ import com.radixpro.enigma.be.persistency.ChartDataDao;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PersistedChartDataApi {
 
    private final ChartDataDao dao;
 
-   public PersistedChartDataApi(ChartDataDao dao) {
+   public PersistedChartDataApi(@NotNull ChartDataDao dao) {
       this.dao = dao;
    }
 
-   public int insert(final FullChartInputData fullChartInputData) {
-      checkNotNull(fullChartInputData);
+   public int insert(@NotNull final FullChartInputData fullChartInputData) {
       int chartId = -1;
       try {
          chartId = dao.insert(fullChartInputData);
@@ -58,8 +56,7 @@ public class PersistedChartDataApi {
       return fullChartInputDataResult;
    }
 
-   public List<FullChartInputData> search(final String searchName) {
-      checkNotNull(searchName);
+   public List<FullChartInputData> search(@NotNull final String searchName) {
       return dao.search(searchName);
    }
 
