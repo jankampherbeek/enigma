@@ -15,8 +15,7 @@ import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForAspect;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForCelObject;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 public class PresentableAspect {
    private String firstItemGlyph;
@@ -25,8 +24,8 @@ public class PresentableAspect {
    private String effectiveOrb;
    private String percOrb;
 
-   public PresentableAspect(final IAnalyzedPair aspect) {
-      createDataDescription(checkNotNull(aspect));
+   public PresentableAspect(@NotNull final IAnalyzedPair aspect) {
+      createDataDescription(aspect);
    }
 
    private void createDataDescription(IAnalyzedPair pair) {

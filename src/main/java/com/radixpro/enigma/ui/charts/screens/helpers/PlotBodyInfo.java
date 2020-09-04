@@ -8,8 +8,7 @@ package com.radixpro.enigma.ui.charts.screens.helpers;
 
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Postion of celestial body with an additional plotposition Can be used in a sort.
@@ -30,8 +29,8 @@ public class PlotBodyInfo {
     * @param angleFromAsc the angle in degrees from the ascendant, counted counter-clockwise
     * @param longitude    the ecliptical longitude
     */
-   public PlotBodyInfo(final IChartPoints celObject, final double angleFromAsc, final double longitude) {
-      this.celObject = checkNotNull(celObject);
+   public PlotBodyInfo(@NotNull final IChartPoints celObject, final double angleFromAsc, final double longitude) {
+      this.celObject = celObject;
       this.angleFromAsc = angleFromAsc;
       this.correctedAngle = angleFromAsc;
       this.posText = formatText(longitude);

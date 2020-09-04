@@ -19,17 +19,17 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 public class StatsStart {
 
    private static final double PROJ_HEIGHT = 200.0;
-   private final static String KEY_PROJDIR = "projdir";
+   private static final String KEY_PROJDIR = "projdir";
    private final Rosetta rosetta;
    private final PersistedPropertyApi propApi;
    private final DirectoryChooser dirChooser;
@@ -47,13 +47,13 @@ public class StatsStart {
    private Pane paneBtnBar;
 
 
-   public StatsStart(final Rosetta rosetta, final StatsDataBlock dataBlock, final StatsProjBlock projBlock,
-                     final PersistedPropertyApi propApi, final DirectoryChooser dirChooser) {
+   public StatsStart(@NotNull final Rosetta rosetta, @NotNull final StatsDataBlock dataBlock, @NotNull final StatsProjBlock projBlock,
+                     @NotNull final PersistedPropertyApi propApi, @NotNull final DirectoryChooser dirChooser) {
       this.rosetta = rosetta;
       this.dataBlock = dataBlock;
       this.projBlock = projBlock;
-      this.propApi = checkNotNull(propApi);
-      this.dirChooser = checkNotNull(dirChooser);
+      this.propApi = propApi;
+      this.dirChooser = dirChooser;
    }
 
    public void show() {

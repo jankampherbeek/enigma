@@ -26,18 +26,8 @@ public class PresentableChartData {
       chartId = fullChartInputData.getId();
       chartName = fullChartInputData.getChartMetaData().getName();
       chartDescr = fullChartInputData.getChartMetaData().getDescription();
-      chartDataDescr = createDataDescription(fullChartInputData);
+      chartDataDescr = fullChartInputData.getChartMetaData().getDataInput();
       originalData = fullChartInputData;
-   }
-
-   private String createDataDescription(final FullChartInputData fullChartInputData) {
-      StringBuilder descrSb = new StringBuilder();
-      descrSb.append("Temporary dummy text");   // FIXME replace this text
-//      PresentableDateTime dateTime4Text = new PresentableDateTime(fullChartInputData.getDateTimeJulian());   // FIXME, read this info from ChartMetaData
-//      descrSb.append(dateTime4Text.getDate());
-      descrSb.append(" ");
-//      descrSb.append(dateTime4Text.getTime());
-      return descrSb.toString();
    }
 
    public long getChartId() {

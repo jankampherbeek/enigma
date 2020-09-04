@@ -11,8 +11,7 @@ import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlainDmsValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlusMinusValue;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Wrapper around CelObjectSinglePosition for the equatorial values; enables the use in a tableview.
@@ -25,17 +24,11 @@ public class PresentableEquatorialPosition {
    private String formattedDeclSpeed;
    private String celBodyGlyph;
 
-   public PresentableEquatorialPosition(final CelestialObjects celestialObject,
-                                        final FullPointCoordinate fpCoordinate) {
-      checkNotNull(celestialObject);
-      checkNotNull(fpCoordinate);
+   public PresentableEquatorialPosition(@NotNull final CelestialObjects celestialObject, @NotNull final FullPointCoordinate fpCoordinate) {
       createPresentablePosition(celestialObject, fpCoordinate);
    }
 
-   private void createPresentablePosition(final CelestialObjects celestialObject,
-                                          final FullPointCoordinate fpCoordinate) {
-      checkNotNull(celestialObject);
-      checkNotNull(fpCoordinate);
+   private void createPresentablePosition(final CelestialObjects celestialObject, final FullPointCoordinate fpCoordinate) {
       formattedRightAscension = new PlainDmsValue(fpCoordinate.getPosition().getMainCoord()).getFormattedPosition();
       formattedRaSpeed = new PlusMinusValue(fpCoordinate.getSpeed().getMainCoord()).getFormattedPosition();
       formattedDeclination = new PlusMinusValue(fpCoordinate.getPosition().getDeviation()).getFormattedPosition();

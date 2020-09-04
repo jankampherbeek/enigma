@@ -37,11 +37,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
@@ -65,17 +65,17 @@ public class ChartsTransitsInput extends InputScreen {
    private final TransitsApi transitsApi;
 
    /**
-    * @param progMetaInputBlock Input block for meta info. PRE: not null.
-    * @param locationInputBlock Input block for location. PRE: not null.
-    * @param dateTimeInputBlock Input block for date and time. PRE: not null.
-    * @param transitsApi        Api for the calculation of transits. PRE: not null.
+    * @param progMetaInputBlock Input block for meta info.
+    * @param locationInputBlock Input block for location.
+    * @param dateTimeInputBlock Input block for date and time.
+    * @param transitsApi        Api for the calculation of transits.
     */
-   public ChartsTransitsInput(final ProgMetaInputBlock progMetaInputBlock, final LocationInputBlock locationInputBlock,
-                              final DateTimeInputBlock dateTimeInputBlock, final TransitsApi transitsApi) {
-      this.progMetaInputBlock = checkNotNull(progMetaInputBlock);
-      this.locationInputBlock = checkNotNull(locationInputBlock);
-      this.dateTimeInputBlock = checkNotNull(dateTimeInputBlock);
-      this.transitsApi = checkNotNull(transitsApi);
+   public ChartsTransitsInput(@NotNull final ProgMetaInputBlock progMetaInputBlock, @NotNull final LocationInputBlock locationInputBlock,
+                              @NotNull final DateTimeInputBlock dateTimeInputBlock, @NotNull final TransitsApi transitsApi) {
+      this.progMetaInputBlock = progMetaInputBlock;
+      this.locationInputBlock = locationInputBlock;
+      this.dateTimeInputBlock = dateTimeInputBlock;
+      this.transitsApi = transitsApi;
    }
 
    public void show() {

@@ -50,12 +50,22 @@ public class LocationInputBlock extends InputBlock {
    private boolean latitudeValid = false;
 
    public LocationInputBlock(@NotNull final SessionState state, @NotNull final ValidatedLongitude valLong, @NotNull final ValidatedLatitude valLat) {
-      // FIXME handle creation of ChartMetaData
       super(state);
       this.valLong = valLong;
       this.valLat = valLat;
    }
 
+   public String getLatitudeInput() {
+      return tfLocationLatitude.getText();
+   }
+
+   public String getLongitudeInput() {
+      return tfLocationLongitude.getText();
+   }
+
+   public String getLocationName() {
+      return tfLocationName.getText();
+   }
 
    @Override
    protected void initialize() {

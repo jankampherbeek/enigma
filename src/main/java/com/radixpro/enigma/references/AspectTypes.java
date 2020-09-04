@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.references;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Enum of supported aspects.
@@ -51,11 +51,11 @@ public enum AspectTypes {
     * @param angle          Angle of the aspect in degrees.
     * @param rbId           Id for the resource bundle to retrieve the name of the aspect.
     */
-   AspectTypes(final int id, final AspectCategory aspectCategory, final double angle, final String rbId) {
+   AspectTypes(final int id, @NotNull final AspectCategory aspectCategory, final double angle, @NotNull final String rbId) {
       this.id = id;
-      this.aspectCategory = checkNotNull(aspectCategory);
+      this.aspectCategory = aspectCategory;
       this.angle = angle;
-      this.fullRbId = checkNotNull(rbId);
+      this.fullRbId = rbId;
    }
 
    /**

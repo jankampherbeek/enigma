@@ -442,7 +442,7 @@ public class ChartsInput {
 
    private DateTimeJulian constructFullDateTime() {
       TimeZones zone = TimeZones.timeZoneForName(cbTimeZone.getValue());
-//      double offsetLmt = validatedLocalTimeLong.getValue();     // FIXME handle offset for local time
+//      double offsetLmt = validatedLocalTimeLong.getValue();     // FIXME handle offset for local time, combine fix with refactoring.
       double offsetLmt = 0.0;
       return dateTimeJulianCreator.createDateTime(tfDate.getText(), cbCalendar.getValue(), tfTime.getText(), zone, cBoxDst.isSelected(), offsetLmt);
    }

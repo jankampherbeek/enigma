@@ -13,11 +13,11 @@ import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.HouseSystems;
 import com.radixpro.enigma.references.SeFlags;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import swisseph.SweDate;
 import swisseph.SwissEph;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.shared.common.EnigmaDictionary.SE_LOCATION;
 
 /**
@@ -58,7 +58,7 @@ public class SeFrontend {
     * @return calculated positions. Array contains for ecliptical positions: from 0..5: Longitude, latitude, distance in AU, speed long, speed lat, speed dist,
     * and for equatorial positions from 0..5: right ascension, declination, distance in AU, speed RA, speed decl, speed dist.
     */
-   public SePositionResultCelObjects getPositionsForCelBody(final double jdUt, final int id, final int flags, final Location location) {
+   public SePositionResultCelObjects getPositionsForCelBody(final double jdUt, final int id, final int flags, @NotNull final Location location) {
       double[] allPositions = new double[6];
       var errorMsg = new StringBuffer();  // StringBuilder not possible because Java Port to the SE uses a StringBuffer.
 
@@ -94,10 +94,8 @@ public class SeFrontend {
     * @param flags    combined settings for the SE
     * @return calculated positions
     */
-   public double[] getHorizontalPosition(final double jdUt, final double[] eclCoord, final Location location, final int flags) {
-      checkNotNull(eclCoord);
+   public double[] getHorizontalPosition(final double jdUt, @NotNull final double[] eclCoord, @NotNull final Location location, final int flags) {
       checkArgument(3 == eclCoord.length);
-      checkNotNull(location);
       double[] geoPos = {location.getGeoLon(), location.getGeoLat(), 0.0};
       double[] eclPos = {eclCoord[0], eclCoord[1], eclCoord[2]};
       double atPress = 0.0;
@@ -118,9 +116,8 @@ public class SeFrontend {
     * @param nrOfCusps number of cusps for the current housesystem
     * @return calculated positions
     */
-   public SePositionResultHouses getPositionsForHouses(final double jdUt, final int flags, final Location location,
-                                                       final int system, final int nrOfCusps) {
-      checkNotNull(location);
+   public SePositionResultHouses getPositionsForHouses(final double jdUt, final int flags, @NotNull final Location location, final int system,
+                                                       final int nrOfCusps) {
       double[] cusps = new double[nrOfCusps + 1];
       double[] ascMc = new double[10];
       double[] tempCusps = new double[100];

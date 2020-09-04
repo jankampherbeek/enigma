@@ -6,10 +6,11 @@
 
 package com.radixpro.enigma.xchg.domain;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * DTO for a specific Geographic coordinate.
@@ -31,16 +32,16 @@ public class GeographicCoordinate implements Serializable {
     * @param direction The direction of the coordinate. Pre: length direction == 1
     * @param value     Teh calculated value of the coordinate.
     */
-   public GeographicCoordinate(final int degrees, final int minutes, final int seconds, final String direction,
+   public GeographicCoordinate(final int degrees, final int minutes, final int seconds, @NotNull final String direction,
                                final double value) {
       checkArgument(degrees >= 0);
       checkArgument(minutes >= 0 && minutes < 60);
       checkArgument(seconds >= 0 && seconds < 60);
-      checkArgument(direction != null && direction.length() == 1);
+      checkArgument(direction.length() == 1);
       this.degrees = degrees;
       this.minutes = minutes;
       this.seconds = seconds;
-      this.direction = checkNotNull(direction);
+      this.direction = direction;
       this.value = value;
    }
 

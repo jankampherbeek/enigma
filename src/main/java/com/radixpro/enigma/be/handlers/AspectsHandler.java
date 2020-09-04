@@ -12,12 +12,12 @@ import com.radixpro.enigma.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.config.AspectConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Prepares the analysis of aspects.
@@ -31,24 +31,22 @@ public class AspectsHandler {
     *
     * @param analyzer performs the real analysis.
     */
-   public AspectsHandler(final AspectsForRadix analyzer) {
-      this.analyzer = checkNotNull(analyzer);
+   public AspectsHandler(@NotNull final AspectsForRadix analyzer) {
+      this.analyzer = analyzer;
    }
 
    /**
     * Find active aspects.
     *
-    * @param celBodies     Celestial bodies to analyze. PRE: not null, size >= 2.
-    * @param mundaneValues MundaneValues, uses MC and Asc. PRE: not null.
-    * @param config        The configuration for aspects. PRE: not null.
+    * @param celBodies     Celestial bodies to analyze. PRE: size >= 2.
+    * @param mundaneValues MundaneValues, uses MC and Asc.
+    * @param config        The configuration for aspects.
     * @return actual aspects.
     */
-   public List<IAnalyzedPair> retrieveAspects(final List<IPosition> celBodies,
-                                              final List<IPosition> mundaneValues,
-                                              final AspectConfiguration config) {
-      checkArgument(celBodies != null && 2 <= celBodies.size());
-      checkNotNull(mundaneValues);
-      checkNotNull(config);
+   public List<IAnalyzedPair> retrieveAspects(@NotNull final List<IPosition> celBodies,
+                                              @NotNull final List<IPosition> mundaneValues,
+                                              @NotNull final AspectConfiguration config) {
+      checkArgument(2 <= celBodies.size());
       List<AnalyzablePoint> candidates = createCandidates(celBodies, mundaneValues);
       return analyzer.analyze(candidates, config);
 

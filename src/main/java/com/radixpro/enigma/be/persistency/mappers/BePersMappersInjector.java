@@ -17,7 +17,7 @@ public class BePersMappersInjector {
    }
 
    public static ChartDataCsvMapper injectChartDataCsvMapper(AppScope scope) {
-      return new ChartDataCsvMapper(UiHelpersInjector.injectDateTimeJulianCreator(scope));
+      return new ChartDataCsvMapper(UiHelpersInjector.injectDateTimeJulianCreator(scope), scope.getRosetta());
    }
 
    public static InputDataSetMapper injectInputDataSetMapper(AppScope scope) {

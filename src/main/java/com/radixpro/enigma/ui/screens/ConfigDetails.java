@@ -25,8 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Presentation of details for a specific configuration.
@@ -53,15 +52,15 @@ public class ConfigDetails {
    private Button btnExit;
 
 
-   public ConfigDetails(final PropertiesForConfig propertiesForConfig, final PropertiesTableForConfig propertiesTableForConfig,
-                        final CelObjectsInConfig celObjectsInConfig, final AspectsInConfig aspectsInConfig,
-                        final Rosetta rosetta, final SessionState state) {
-      this.rosetta = checkNotNull(rosetta);
-      this.state = checkNotNull(state);
-      this.propertiesForConfig = checkNotNull(propertiesForConfig);
-      this.propertiesTableForConfig = checkNotNull(propertiesTableForConfig);
-      this.celObjectsInConfig = checkNotNull(celObjectsInConfig);
-      this.aspectsInConfig = checkNotNull(aspectsInConfig);
+   public ConfigDetails(@NotNull final PropertiesForConfig propertiesForConfig, @NotNull final PropertiesTableForConfig propertiesTableForConfig,
+                        @NotNull final CelObjectsInConfig celObjectsInConfig, @NotNull final AspectsInConfig aspectsInConfig,
+                        @NotNull final Rosetta rosetta, @NotNull final SessionState state) {
+      this.rosetta = rosetta;
+      this.state = state;
+      this.propertiesForConfig = propertiesForConfig;
+      this.propertiesTableForConfig = propertiesTableForConfig;
+      this.celObjectsInConfig = celObjectsInConfig;
+      this.aspectsInConfig = aspectsInConfig;
    }
 
    public void show() {

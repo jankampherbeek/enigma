@@ -14,11 +14,10 @@ import com.radixpro.enigma.xchg.domain.helpers.IndexMapping;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Celestial bodies and id's to access the SE.
@@ -71,12 +70,12 @@ public enum CelestialObjects implements IChartPoints {
     * @param orbitalPeriod siderealorbital period.
     * @param nameForRB     key to address the resource bundle.
     */
-   CelestialObjects(final int id, final long seId, final CelObjectCategory category, final double orbitalPeriod, final String nameForRB) {
+   CelestialObjects(final int id, final long seId, @NotNull final CelObjectCategory category, final double orbitalPeriod, @NotNull final String nameForRB) {
       this.id = id;
       this.seId = seId;
       this.orbitalPeriod = orbitalPeriod;
-      this.category = checkNotNull(category);
-      this.nameForRB = checkNotNull(nameForRB);
+      this.category = category;
+      this.nameForRB = nameForRB;
       ChartPointTypes pointType = ChartPointTypes.CEL_BODIES;  // TODO add to constructor
    }
 

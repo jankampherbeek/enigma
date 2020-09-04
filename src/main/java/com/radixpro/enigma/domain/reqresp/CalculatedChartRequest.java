@@ -28,10 +28,6 @@ public class CalculatedChartRequest {
       this.location = location;
    }
 
-   public DateTimeJulian getDateTime() {   // TODO remove
-      return dateTimeJulian;
-   }
-
    public ChartCalcSettings getSettings() {
       return settings;
    }

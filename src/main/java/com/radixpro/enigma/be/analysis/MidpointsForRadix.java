@@ -11,12 +11,12 @@ import com.radixpro.enigma.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.domain.analysis.AnalyzedMidpoint;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.references.MidpointTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Calculate midpoints for radix.
@@ -25,8 +25,7 @@ public class MidpointsForRadix {
 
    private List<IAnalyzedPair> results;
 
-   public List<IAnalyzedPair> analyze(final List<AnalyzablePoint> candidates) {
-      checkNotNull(candidates);
+   public List<IAnalyzedPair> analyze(@NotNull final List<AnalyzablePoint> candidates) {
       checkArgument(1 < candidates.size());
       return performAnalysis(candidates);
    }

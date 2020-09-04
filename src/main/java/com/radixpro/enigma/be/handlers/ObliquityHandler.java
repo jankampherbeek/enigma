@@ -10,8 +10,8 @@ package com.radixpro.enigma.be.handlers;
 import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
 import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static swisseph.SweConst.SE_ECL_NUT;
 
 /**
@@ -27,8 +27,8 @@ public class ObliquityHandler {
     * @param seFrontend
     * @see CaHandlersFactory
     */
-   public ObliquityHandler(final SeFrontend seFrontend) {
-      this.seFrontend = checkNotNull(seFrontend);
+   public ObliquityHandler(@NotNull final SeFrontend seFrontend) {
+      this.seFrontend = seFrontend;
    }
 
    /**

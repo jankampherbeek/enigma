@@ -7,16 +7,16 @@
 
 package com.radixpro.enigma.domain.config;
 
-import java.io.Serializable;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.io.Serializable;
 
 public class DelinConfiguration implements Serializable {
 
    private final AspectConfiguration aspectConfiguration;
 
-   public DelinConfiguration(final AspectConfiguration aspectConfiguration) {
-      this.aspectConfiguration = checkNotNull(aspectConfiguration);
+   public DelinConfiguration(@NotNull final AspectConfiguration aspectConfiguration) {
+      this.aspectConfiguration = aspectConfiguration;
    }
 
    public AspectConfiguration getAspectConfiguration() {

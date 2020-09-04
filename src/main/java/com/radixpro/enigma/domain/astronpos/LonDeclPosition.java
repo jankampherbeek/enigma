@@ -8,8 +8,7 @@
 package com.radixpro.enigma.domain.astronpos;
 
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 public class LonDeclPosition implements IPosition {
 
@@ -17,8 +16,8 @@ public class LonDeclPosition implements IPosition {
    private final double longitude;
    private final double declination;
 
-   public LonDeclPosition(final IChartPoints chartPoint, final double longitude, final double declination) {
-      this.chartPoint = checkNotNull(chartPoint);
+   public LonDeclPosition(@NotNull final IChartPoints chartPoint, final double longitude, final double declination) {
+      this.chartPoint = chartPoint;
       this.longitude = longitude;
       this.declination = declination;
    }

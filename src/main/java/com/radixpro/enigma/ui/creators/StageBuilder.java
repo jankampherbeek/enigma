@@ -10,9 +10,9 @@ package com.radixpro.enigma.ui.creators;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Creates a Stage, based on the Builder pattern.
@@ -37,19 +37,19 @@ public class StageBuilder {
       return this;
    }
 
-   public StageBuilder setTitle(final String title) {
-      checkArgument(null != title && !title.isEmpty());
+   public StageBuilder setTitle(@NotNull final String title) {
+      checkArgument(!title.isBlank());
       this.title = title;
       return this;
    }
 
-   public StageBuilder setModality(final Modality modality) {
-      this.modality = checkNotNull(modality);
+   public StageBuilder setModality(@NotNull final Modality modality) {
+      this.modality = modality;
       return this;
    }
 
-   public StageBuilder setScene(final Scene scene) {
-      this.scene = checkNotNull(scene);
+   public StageBuilder setScene(@NotNull final Scene scene) {
+      this.scene = scene;
       return this;
    }
 

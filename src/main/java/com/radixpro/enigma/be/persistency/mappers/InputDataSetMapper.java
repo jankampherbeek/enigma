@@ -29,7 +29,6 @@ public class InputDataSetMapper {
    }
 
    private InputDataSet constructInputDataSet(JSONObject object) {
-      // FIXME handle MetaData
       String name = (String) object.get("name");
       String description = (String) object.get("description");
       String origFileName = (String) object.get("origFileName");
@@ -40,7 +39,6 @@ public class InputDataSetMapper {
    }
 
    private List<ChartInputData> constructEntries(final JSONArray inputData) {
-      // FIXME handle MetaData
       List<ChartInputData> chartInputData = new ArrayList<>();
       for (Object dataObject : inputData) {
          JSONObject jsonObject = (JSONObject) dataObject;

@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.domain.astronpos;
 
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.List;
 
 /**
  * All positions for cusps and sepcific points (asc, vertex etc.).
@@ -22,12 +22,12 @@ public class AllMundanePositions {
    /**
     * Constructor defines all properties.
     *
-    * @param cusps      cusps from 1 -- number of cusps for housesystem. PRE: not null.
-    * @param specPoints specific points (Mc, Ascendant, Vertex, Eastpoint). PRE: not null.
+    * @param cusps      cusps from 1 -- number of cusps for housesystem.
+    * @param specPoints specific points (Mc, Ascendant, Vertex, Eastpoint).
     */
-   public AllMundanePositions(final List<IPosition> cusps, final List<IPosition> specPoints) {
-      this.cusps = checkNotNull(cusps);
-      this.specPoints = checkNotNull(specPoints);
+   public AllMundanePositions(@NotNull final List<IPosition> cusps, @NotNull final List<IPosition> specPoints) {
+      this.cusps = cusps;
+      this.specPoints = specPoints;
    }
 
    public List<IPosition> getCusps() {

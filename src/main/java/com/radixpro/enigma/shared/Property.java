@@ -6,16 +6,16 @@
 
 package com.radixpro.enigma.shared;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 public class Property {
 
    private final String key;
    private String value;
 
-   public Property(final String key, final String value) {
-      this.key = checkNotNull(key);
-      this.value = checkNotNull(value);
+   public Property(@NotNull final String key, @NotNull final String value) {
+      this.key = key;
+      this.value = value;
    }
 
    public String getKey() {

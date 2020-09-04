@@ -18,14 +18,13 @@ import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.shared.exceptions.EnigmaMathException;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
- * Spaeculum forn primary directions that use proportions of the Placidian semi arcs.
+ * Spaeculum for primary directions that use proportions of the Placidian semi arcs.
  */
 public class SpaeculumPropSaCalculator {
 
@@ -42,13 +41,14 @@ public class SpaeculumPropSaCalculator {
    private SpaeculumPropSaData spaeculumPropSaData;
 
 
-   public SpaeculumPropSaCalculator(final ObliquityHandler obliquityHandler) {
-      this.obliquityHandler = checkNotNull(obliquityHandler);
+   public SpaeculumPropSaCalculator(@NotNull final ObliquityHandler obliquityHandler) {
+      this.obliquityHandler = obliquityHandler;
    }
 
-   public SpaeculumPropSaData performCalculation(final CalculatedChart calculatedChart, final double jdUt, final double geoLat, final ICalcSettings settings) {
-      this.calculatedChart = checkNotNull(calculatedChart);
-      this.settings = checkNotNull(settings);
+   public SpaeculumPropSaData performCalculation(@NotNull final CalculatedChart calculatedChart, final double jdUt, final double geoLat,
+                                                 @NotNull final ICalcSettings settings) {
+      this.calculatedChart = calculatedChart;
+      this.settings = settings;
       this.jdUt = jdUt;
       this.geoLat = geoLat;
       eps = obliquityHandler.calcTrueObliquity(jdUt);
