@@ -8,8 +8,7 @@ package com.radixpro.enigma.ui.charts.screens.helpers;
 
 import com.radixpro.enigma.ui.creators.PlotCoordinatesFactory;
 import org.apache.commons.lang3.ArrayUtils;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Calculates the coordinates to draw a cusp line.
@@ -24,8 +23,8 @@ public class CuspLinePlotCoordinates implements PlotCoordinates {
     * @param rectTriangle An already instantiated RectTriangleAbsolute.
     * @see PlotCoordinatesFactory
     */
-   public CuspLinePlotCoordinates(RectTriangleAbsolute rectTriangle) {
-      this.rectTriangle = checkNotNull(rectTriangle);
+   public CuspLinePlotCoordinates(@NotNull RectTriangleAbsolute rectTriangle) {
+      this.rectTriangle = rectTriangle;
    }
 
    /**
@@ -37,8 +36,7 @@ public class CuspLinePlotCoordinates implements PlotCoordinates {
     * @return The calculated coordinates.
     */
    @Override
-   public double[] defineCoordinates(final double angle, final IDrawMetrics drawMetrics) {
-      checkNotNull(drawMetrics);
+   public double[] defineCoordinates(final double angle, @NotNull final IDrawMetrics drawMetrics) {
       ChartDrawMetrics metrics = (ChartDrawMetrics) drawMetrics;
       double[] coords1 = rectTriangle.getCoordinates(metrics.getDiameterHousesCircle());
       double[] coords2 = rectTriangle.getCoordinates(metrics.getDiameterSignsCircle());

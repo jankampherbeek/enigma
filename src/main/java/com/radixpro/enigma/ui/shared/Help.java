@@ -22,8 +22,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 /**
@@ -41,15 +41,9 @@ public class Help {
    private final String content;
    private Stage stage;
 
-   /**
-    * Define title and content of the help page.
-    *
-    * @param title   Title of the help page.
-    * @param content Textual content of the help page.
-    */
-   public Help(final String title, final String content) {
-      this.title = checkNotNull(title);
-      this.content = checkNotNull(content);
+   public Help(@NotNull final String title, @NotNull final String content) {
+      this.title = title;
+      this.content = content;
       showContent();
    }
 

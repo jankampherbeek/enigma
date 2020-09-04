@@ -11,8 +11,7 @@ import com.radixpro.enigma.be.handlers.CalculatedChartHandler;
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartRequest;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartResponse;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Api for the calculation of a chart.
@@ -22,8 +21,8 @@ public class CalculatedChartApi {
    private final CalculatedChartHandler handler;
 
 
-   public CalculatedChartApi(final CalculatedChartHandler handler) {
-      this.handler = checkNotNull(handler);
+   public CalculatedChartApi(@NotNull final CalculatedChartHandler handler) {
+      this.handler = handler;
    }
 
    /**
@@ -32,8 +31,7 @@ public class CalculatedChartApi {
     * @param request Request for the calcualtion. PRE: not null.
     * @return response with the calculated chart.
     */
-   public CalculatedChartResponse calcChart(final CalculatedChartRequest request) {
-      checkNotNull(request);
+   public CalculatedChartResponse calcChart(@NotNull final CalculatedChartRequest request) {
       CalculatedChart calculatedChart = null;
       String resultMsg = "OK";
       try {

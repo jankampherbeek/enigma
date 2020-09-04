@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.domain.config;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 public class Configuration {
 
@@ -19,14 +19,14 @@ public class Configuration {
    private DelinConfiguration delinConfiguration;
 
 
-   public Configuration(final int id, final int parentId, final String name, final String description,
-                        final AstronConfiguration astronConfiguration, final DelinConfiguration delinConfiguration) {
+   public Configuration(final int id, final int parentId, @NotNull final String name, @NotNull final String description,
+                        @NotNull final AstronConfiguration astronConfiguration, @NotNull final DelinConfiguration delinConfiguration) {
       this.id = id;
       this.parentId = parentId;
-      this.name = checkNotNull(name);
-      this.description = checkNotNull(description);
-      this.astronConfiguration = checkNotNull(astronConfiguration);
-      this.delinConfiguration = checkNotNull(delinConfiguration);
+      this.name = name;
+      this.description = description;
+      this.astronConfiguration = astronConfiguration;
+      this.delinConfiguration = delinConfiguration;
    }
 
    public int getId() {

@@ -28,11 +28,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 @SuppressWarnings("rawtypes")
@@ -61,8 +61,8 @@ public class ChartsData {
    private TableColumn<String, PresentableMundanePosition> tvMundColAzimuth;
    private TableColumn<String, PresentableMundanePosition> tvMundColAltitude;
 
-   public ChartsData(final SessionState state) {
-      checkArgument(null != state & state.selectedConfigIsSet());
+   public ChartsData(@NotNull final SessionState state) {
+      checkArgument(state.selectedConfigIsSet());
       FullChart fullChart = state.getSelectedChart();
       this.fullChartInputData = fullChart.getChartData();
       this.calculatedChart = fullChart.getCalculatedChart();
@@ -194,9 +194,7 @@ public class ChartsData {
    }
 
    @SuppressWarnings("unchecked")
-   private void handlePresMundPos(final String name, final IPosition pos) {
-      checkNotNull(name);
-      checkNotNull(pos);
+   private void handlePresMundPos(@NotNull final String name, @NotNull final IPosition pos) {
       PresentableMundanePosition presMundPos = new PresentableMundanePosition(name, pos);
       tvMundColName.setCellValueFactory(new PropertyValueFactory<>("name"));
       tvMundColLongitude.setCellValueFactory(new PropertyValueFactory<>("formattedLongitude"));

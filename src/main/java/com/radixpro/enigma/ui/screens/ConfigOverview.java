@@ -29,10 +29,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Overview of configurations with the possibility to perform actions on these configurations.
@@ -72,15 +72,16 @@ public class ConfigOverview {
     * @param rosetta   handler for resource bundles.
     * @param state     state with the currently selected config.
     */
-   public ConfigOverview(final PersistedConfigurationApi configApi, final PersistedPropertyApi propApi, final ConfigNew configNew, final ConfigEdit configEdit,
-                         final ConfigDetails configDetails, final Rosetta rosetta, final SessionState state) {
-      this.configApi = checkNotNull(configApi);
-      this.propApi = checkNotNull(propApi);
-      this.configNew = checkNotNull(configNew);
-      this.configEdit = checkNotNull(configEdit);
-      this.configDetails = checkNotNull(configDetails);
-      this.rosetta = checkNotNull(rosetta);
-      this.state = checkNotNull(state);
+   public ConfigOverview(@NotNull final PersistedConfigurationApi configApi, @NotNull final PersistedPropertyApi propApi, @NotNull final ConfigNew configNew,
+                         @NotNull final ConfigEdit configEdit, @NotNull final ConfigDetails configDetails, @NotNull final Rosetta rosetta,
+                         @NotNull final SessionState state) {
+      this.configApi = configApi;
+      this.propApi = propApi;
+      this.configNew = configNew;
+      this.configEdit = configEdit;
+      this.configDetails = configDetails;
+      this.rosetta = rosetta;
+      this.state = state;
    }
 
    public void show() {

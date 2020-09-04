@@ -13,12 +13,12 @@ import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.config.AspectConfiguration;
 import com.radixpro.enigma.domain.config.ConfiguredAspect;
 import com.radixpro.enigma.references.AspectCategory;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Calculates aspects for radix positions.
@@ -32,10 +32,7 @@ public class AspectsForRadix {
     * @param config     Configuration for aspects. PRE: not null.
     * @return the calculated aspects.
     */
-   public List<IAnalyzedPair> analyze(final List<AnalyzablePoint> candidates,
-                                      final AspectConfiguration config) {
-      checkNotNull(candidates);
-      checkNotNull(config);
+   public List<IAnalyzedPair> analyze(@NotNull final List<AnalyzablePoint> candidates, @NotNull final AspectConfiguration config) {
       checkArgument(1 < candidates.size());
       return performAnalysis(candidates, config);
    }

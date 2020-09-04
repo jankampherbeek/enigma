@@ -9,13 +9,10 @@ package com.radixpro.enigma.ui.creators;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Creates a Pane, based on the Builder pattern.
- */
 public class PaneBuilder {
 
    private double width;
@@ -35,14 +32,13 @@ public class PaneBuilder {
       return this;
    }
 
-   public PaneBuilder setStyleClass(final String styleClass) {
-
-      this.styleClass = checkNotNull(styleClass);
+   public PaneBuilder setStyleClass(@NotNull final String styleClass) {
+      this.styleClass = styleClass;
       return this;
    }
 
-   public PaneBuilder setChildren(final Node... children) {
-      this.children = checkNotNull(children);
+   public PaneBuilder setChildren(@NotNull final Node... children) {
+      this.children = children;
       return this;
    }
 

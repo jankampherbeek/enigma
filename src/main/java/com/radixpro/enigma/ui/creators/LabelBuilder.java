@@ -10,9 +10,9 @@ package com.radixpro.enigma.ui.creators;
 import com.radixpro.enigma.Rosetta;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Creates a Label, based on the Builder pattern.</br>
@@ -21,7 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class LabelBuilder {
 
    private final Rosetta rosetta;
-   private String rbKey = "";
+   private String rbKey;
    private String text = "";
    private double prefWidth;
    private double prefHeight;
@@ -30,8 +30,8 @@ public class LabelBuilder {
    private Pos alignment;
    private String styleClass;
 
-   public LabelBuilder(final String rbKey) {
-      this.rbKey = checkNotNull(rbKey);
+   public LabelBuilder(@NotNull final String rbKey) {
+      this.rbKey = rbKey;
       this.rosetta = Rosetta.getRosetta();
    }
 
@@ -41,8 +41,7 @@ public class LabelBuilder {
     * @param text Text to rep[lace the value from the resource bundle.
     * @return Partially initialized LabelBuilder.
     */
-   public LabelBuilder setText(final String text) {
-      checkNotNull(text);
+   public LabelBuilder setText(@NotNull final String text) {
       this.text = text;
       return this;
    }
@@ -69,18 +68,18 @@ public class LabelBuilder {
       return this;
    }
 
-   public LabelBuilder setStyleClass(final String styleClass) {
-      this.styleClass = checkNotNull(styleClass);
+   public LabelBuilder setStyleClass(@NotNull final String styleClass) {
+      this.styleClass = styleClass;
       return this;
    }
 
-   public LabelBuilder setAlignment(final Pos alignment) {
-      this.alignment = checkNotNull(alignment);
+   public LabelBuilder setAlignment(@NotNull final Pos alignment) {
+      this.alignment = alignment;
       return this;
    }
 
    public Label build() {
-      String lblText = "";
+      String lblText;
       if (!text.isEmpty()) lblText = text;
       else lblText = (rbKey.isEmpty() ? "" : rosetta.getText(rbKey));
       Label label = new Label(lblText);

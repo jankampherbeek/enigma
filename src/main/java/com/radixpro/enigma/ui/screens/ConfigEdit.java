@@ -28,11 +28,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 import org.controlsfx.control.CheckComboBox;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_DEFAULT_STYLE;
 import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_ERROR_STYLE;
 
@@ -78,9 +78,9 @@ public class ConfigEdit {
    private Label lblEclipticProjection;
    private Label lblCelObjects;
 
-   public ConfigEdit(final PersistedConfigurationApi pcApi, final Rosetta rosetta, final SessionState state) {
-      this.rosetta = checkNotNull(rosetta);
-      this.state = checkNotNull(state);
+   public ConfigEdit(@NotNull final PersistedConfigurationApi pcApi, @NotNull final Rosetta rosetta, @NotNull final SessionState state) {
+      this.rosetta = rosetta;
+      this.state = state;
       this.pcApi = pcApi;
    }
 

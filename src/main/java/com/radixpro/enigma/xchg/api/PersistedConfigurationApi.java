@@ -11,11 +11,10 @@ import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PersistedConfigurationApi {
 
@@ -23,12 +22,11 @@ public class PersistedConfigurationApi {
    private final ConfigurationDao dao;
 
 
-   public PersistedConfigurationApi(final ConfigurationDao dao) {
+   public PersistedConfigurationApi(@NotNull final ConfigurationDao dao) {
       this.dao = dao;
    }
 
-   public int insert(final Configuration configuration) {
-      checkNotNull(configuration);
+   public int insert(@NotNull final Configuration configuration) {
       int configId = -1;
       try {
          configId = dao.insert(configuration);
@@ -38,8 +36,7 @@ public class PersistedConfigurationApi {
       return configId;
    }
 
-   public void update(final Configuration configuration) {
-      checkNotNull(configuration);
+   public void update(@NotNull final Configuration configuration) {
       try {
          dao.update(configuration);
       } catch (DatabaseException de) {
@@ -65,8 +62,7 @@ public class PersistedConfigurationApi {
       return configs;
    }
 
-   public List<Configuration> search(final String searchName) {
-      checkNotNull(searchName);
+   public List<Configuration> search(@NotNull final String searchName) {
       List<Configuration> configs = new ArrayList<>();
       try {
          configs = dao.search(searchName);

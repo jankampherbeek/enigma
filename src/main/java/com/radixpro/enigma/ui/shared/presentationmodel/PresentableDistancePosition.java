@@ -10,8 +10,7 @@ import com.radixpro.enigma.domain.astronpos.FullPointCoordinate;
 import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.DecimalValue;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Wrapper around CelObjectSinglePosition for the distance values; enables the use in a tableview.
@@ -22,15 +21,12 @@ public class PresentableDistancePosition {
    private String formattedDistSpeed;
    private String celBodyGlyph;
 
-   public PresentableDistancePosition(final CelestialObjects celestialObject,
-                                      final FullPointCoordinate celObjectSinglePosition) {
-      createPresentablePosition(checkNotNull(celestialObject), checkNotNull(celObjectSinglePosition));
+   public PresentableDistancePosition(@NotNull final CelestialObjects celestialObject, @NotNull final FullPointCoordinate celObjectSinglePosition) {
+      createPresentablePosition(celestialObject, celObjectSinglePosition);
    }
 
    private void createPresentablePosition(final CelestialObjects celestialObject,
                                           final FullPointCoordinate celObjectSinglePosition) {
-      checkNotNull(celestialObject);
-      checkNotNull(celObjectSinglePosition);
       formattedDistance = new DecimalValue(celObjectSinglePosition.getPosition().getDistance()).getFormattedPosition();
       formattedDistSpeed = new DecimalValue(celObjectSinglePosition.getPosition().getDistance()).getFormattedPosition();
       celBodyGlyph = new CelObject2GlyphMapper().getGlyph(celestialObject);

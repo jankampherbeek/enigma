@@ -7,12 +7,13 @@
 
 package com.radixpro.enigma.ui.validators;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Parent for validators.
  */
-public abstract class ValidatedInput {
+public abstract class ValidatedInput {  // TODO check if class can be removed
 
    protected final String input;
    protected boolean validated = false;
@@ -22,8 +23,8 @@ public abstract class ValidatedInput {
     *
     * @param input The inputted data.
     */
-   public ValidatedInput(final String input) {
-      this.input = checkNotNull(input);
+   public ValidatedInput(@NotNull final String input) {
+      this.input = input;
    }
 
 //   protected abstract void validate();

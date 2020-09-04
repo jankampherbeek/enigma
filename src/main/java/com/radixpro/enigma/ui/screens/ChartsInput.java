@@ -420,7 +420,7 @@ public class ChartsInput {
       String inputSource = tfSource.getText().trim();
       Ratings inputRating = Ratings.ZZ.ratingForName(cbRating.getValue());
       ChartTypes inputChartType = ChartTypes.UNKNOWN.chartTypeForLocalName(cbSubject.getValue());
-      String inputData = "";    // todo create inputData
+      String inputData = inputSource + " " + rosetta.getText(inputRating.getNameForRB()) + " en de rest....";    // todo create inputData
       return new ChartMetaData(inputName, inputDescription, inputChartType, inputRating, inputData);
    }
 
@@ -430,7 +430,8 @@ public class ChartsInput {
 
    private DateTimeJulian constructFullDateTime() {
       TimeZones zone = TimeZones.timeZoneForName(cbTimeZone.getValue());
-      double offsetLmt = validatedLocalTimeLong.getValue();
+//      double offsetLmt = validatedLocalTimeLong.getValue();     // FIXME handle offset for local time
+      double offsetLmt = 0.0;
       return dateTimeJulianCreator.createDateTime(tfDate.getText(), cbCalendar.getValue(), tfTime.getText(), zone, cBoxDst.isSelected(), offsetLmt);
    }
 

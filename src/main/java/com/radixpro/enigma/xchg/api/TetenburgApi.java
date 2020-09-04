@@ -11,8 +11,7 @@ import com.radixpro.enigma.be.handlers.TetenburgHandler;
 import com.radixpro.enigma.domain.reqresp.TetenburgRequest;
 import com.radixpro.enigma.domain.reqresp.TetenburgResponse;
 import org.apache.log4j.Logger;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Api for the calculation of critical points according to the theory of Ton Tetenburg.
@@ -22,11 +21,11 @@ public class TetenburgApi {
    private final TetenburgHandler handler;
 
 
-   public TetenburgApi(final TetenburgHandler handler) {
-      this.handler = checkNotNull(handler);
+   public TetenburgApi(@NotNull final TetenburgHandler handler) {
+      this.handler = handler;
    }
 
-   public TetenburgResponse calculateCriticalPoint(final TetenburgRequest request) {
+   public TetenburgResponse calculateCriticalPoint(@NotNull final TetenburgRequest request) {
       String resultMsg = "OK";
       double longAsc = 0.0;
       try {

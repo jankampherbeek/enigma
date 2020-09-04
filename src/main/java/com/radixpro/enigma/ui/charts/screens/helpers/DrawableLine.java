@@ -8,9 +8,9 @@
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
 import javafx.scene.paint.Color;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Data that is used to draw a line.
@@ -22,20 +22,12 @@ public class DrawableLine {
    private final double lineWidth;
    private final Color lineColor;
 
-   /**
-    * Constructor defines all properties.
-    *
-    * @param startPoint the first point. PRE: not null.
-    * @param endPoint   the second point. PRE: not null.
-    * @param lineWidth  width of the line to draw. PRE: lineWidth > 0.0.
-    * @param lineColor  color of the line. PRE: not null.
-    */
-   public DrawableLine(final Point startPoint, final Point endPoint, final double lineWidth, final Color lineColor) {
+   public DrawableLine(@NotNull final Point startPoint, @NotNull final Point endPoint, final double lineWidth, @NotNull final Color lineColor) {
       checkArgument(0.0 < lineWidth);
-      this.startPoint = checkNotNull(startPoint);
-      this.endPoint = checkNotNull(endPoint);
+      this.startPoint = startPoint;
+      this.endPoint = endPoint;
       this.lineWidth = lineWidth;
-      this.lineColor = checkNotNull(lineColor);
+      this.lineColor = lineColor;
    }
 
    public Point getStartPoint() {

@@ -6,7 +6,8 @@
 
 package com.radixpro.enigma.be.calc.assist;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * DTO for the result of a SE calculation for houses, holds array with positions and a possible error Message.
@@ -23,9 +24,9 @@ public class SePositionResultHouses {
     *              co-ascendant (Walter Koch), co-ascendant (Michael Munkasey), polar ascendant (M. Munkasey)
     * @param cusps Array with teh cusps starting at position 1. Position 0 is not used.
     */
-   public SePositionResultHouses(final double[] ascMc, final double[] cusps) {
-      this.ascMc = checkNotNull(ascMc);
-      this.cusps = checkNotNull(cusps);
+   public SePositionResultHouses(@NotNull final double[] ascMc, @NotNull final double[] cusps) {
+      this.ascMc = ascMc;
+      this.cusps = cusps;
    }
 
    public double[] getAscMc() {

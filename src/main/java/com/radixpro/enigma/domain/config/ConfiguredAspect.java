@@ -8,10 +8,9 @@
 package com.radixpro.enigma.domain.config;
 
 import com.radixpro.enigma.references.AspectTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Configuration info for a specific aspect.
@@ -23,11 +22,10 @@ public class ConfiguredAspect implements Serializable {
    private final int orbPercentage;
    private final String glyph;
 
-   public ConfiguredAspect(final AspectTypes aspect, final int orbPercentage, final String glyph,
-                           final boolean showInDrawing) {
-      this.aspect = checkNotNull(aspect);
+   public ConfiguredAspect(@NotNull final AspectTypes aspect, final int orbPercentage, @NotNull final String glyph, final boolean showInDrawing) {
+      this.aspect = aspect;
       this.orbPercentage = orbPercentage;
-      this.glyph = checkNotNull(glyph);
+      this.glyph = glyph;
       this.showInDrawing = showInDrawing;
    }
 

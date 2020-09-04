@@ -13,13 +13,12 @@ import com.radixpro.enigma.domain.config.*;
 import com.radixpro.enigma.references.*;
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Helper for ConfigurationDao. Mutable class.
@@ -52,26 +51,16 @@ public class ConfigurationDaoConstructionHelper {
     *
     * @param configResultSet PRE: not null.
     */
-   public ConfigurationDaoConstructionHelper(final ResultSet configResultSet) {
-      this.configResultSet = checkNotNull(configResultSet);
+   public ConfigurationDaoConstructionHelper(@NotNull final ResultSet configResultSet) {
+      this.configResultSet = configResultSet;
    }
 
-   /**
-    * Sets the resultset for aspects.
-    *
-    * @param aspectsResultSet PRE: not null.
-    */
-   public void setAspectsResultSet(final ResultSet aspectsResultSet) {
-      this.aspectsResultSet = checkNotNull(aspectsResultSet);
+   public void setAspectsResultSet(@NotNull final ResultSet aspectsResultSet) {
+      this.aspectsResultSet = aspectsResultSet;
    }
 
-   /**
-    * Sets the resultset for points.
-    *
-    * @param pointsResultSet PRE: not null.
-    */
-   public void setPointsResultSet(final ResultSet pointsResultSet) {
-      this.pointsResultSet = checkNotNull(pointsResultSet);
+   public void setPointsResultSet(@NotNull final ResultSet pointsResultSet) {
+      this.pointsResultSet = pointsResultSet;
    }
 
    /**
@@ -81,7 +70,7 @@ public class ConfigurationDaoConstructionHelper {
     * @return the configuration.
     */
    public Configuration getConfiguration() {
-      Preconditions.checkState((null != aspectsResultSet) && (null != pointsResultSet));
+      Preconditions.checkState((null != aspectsResultSet) && (null != pointsResultSet));      // TODO handle situation when PRE conditions are not being met
       return constructConfig();
    }
 

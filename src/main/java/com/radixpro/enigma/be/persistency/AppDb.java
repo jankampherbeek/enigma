@@ -23,7 +23,7 @@ public class AppDb {
    private static AppDb instance;
 
    private AppDb() {
-      this.props = new AppProperties("PROD");
+      this.props = new AppProperties("PROD");      // FIXME, handle environemnt PROD/DEV/TEST
       LOG.info("Instantiated AppDb.");
    }
 

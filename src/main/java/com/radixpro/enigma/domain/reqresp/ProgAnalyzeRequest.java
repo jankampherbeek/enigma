@@ -11,11 +11,11 @@ import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.references.AspectTypes;
 import com.radixpro.enigma.references.ProgAnalysisType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Request for analyzing aspects between progressive positions and radix.
@@ -37,14 +37,14 @@ public class ProgAnalyzeRequest {
     * @param aspects         aspects that need to be used. PRE: not null and not empty.
     * @param orb             the orb to use during analysis. PRE: orb > 0.0 .
     */
-   public ProgAnalyzeRequest(final ProgAnalysisType type, final List<IPosition> progPositions, final CalculatedChart calculatedChart,
-                             final List<AspectTypes> aspects, final double orb) {
+   public ProgAnalyzeRequest(@NotNull final ProgAnalysisType type, @NotNull final List<IPosition> progPositions, @NotNull final CalculatedChart calculatedChart,
+                             @NotNull final List<AspectTypes> aspects, final double orb) {
       checkArgument(orb > 0.0);
-      checkArgument(null != progPositions && !progPositions.isEmpty());
-      checkArgument(null != aspects && !aspects.isEmpty());
-      this.type = checkNotNull(type);
+      checkArgument(!progPositions.isEmpty());
+      checkArgument(!aspects.isEmpty());
+      this.type = type;
       this.progPositions = progPositions;
-      this.calculatedChart = checkNotNull(calculatedChart);
+      this.calculatedChart = calculatedChart;
       this.aspects = aspects;
       this.orb = orb;
    }

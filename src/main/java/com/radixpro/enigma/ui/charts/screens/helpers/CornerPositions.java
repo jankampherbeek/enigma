@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Calculates the positions for the corner texts.
@@ -15,8 +15,8 @@ public class CornerPositions {
 
    final ChartDrawMetrics metrics;
 
-   public CornerPositions(final ChartDrawMetrics metrics) {
-      this.metrics = checkNotNull(metrics);
+   public CornerPositions(@NotNull final ChartDrawMetrics metrics) {
+      this.metrics = metrics;
    }
 
    public double[] defineCoordinates(final double angleMc) {

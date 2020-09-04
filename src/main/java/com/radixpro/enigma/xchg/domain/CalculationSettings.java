@@ -9,11 +9,10 @@ package com.radixpro.enigma.xchg.domain;
 import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.domain.config.ConfiguredCelObject;
 import com.radixpro.enigma.references.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class CalculationSettings {
 
@@ -24,11 +23,11 @@ public class CalculationSettings {
    private final boolean topocentric;
 
 
-   public CalculationSettings(final List<CelestialObjects> celBodies, final HouseSystems houseSystem,
-                              final Ayanamshas ayanamsha, final boolean sidereal, final boolean topocentric) {
-      this.celBodies = checkNotNull(celBodies);
-      this.houseSystem = checkNotNull(houseSystem);
-      this.ayanamsha = checkNotNull(ayanamsha);
+   public CalculationSettings(@NotNull final List<CelestialObjects> celBodies, @NotNull final HouseSystems houseSystem, @NotNull final Ayanamshas ayanamsha,
+                              final boolean sidereal, final boolean topocentric) {
+      this.celBodies = celBodies;
+      this.houseSystem = houseSystem;
+      this.ayanamsha = ayanamsha;
       this.sidereal = sidereal;
       this.topocentric = topocentric;
    }

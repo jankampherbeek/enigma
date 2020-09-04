@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.be.calc.assist;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Container for the result of a SE calculation for celestial bodies.
@@ -24,9 +24,9 @@ public class SePositionResultCelObjects {
     *                     speed of main position, speed of deviation, speed of distance.
     * @param errorMsg     Error message or "OK".
     */
-   public SePositionResultCelObjects(final double[] allPositions, final String errorMsg) {
-      this.allPositions = checkNotNull(allPositions);
-      this.errorMsg = checkNotNull(errorMsg);
+   public SePositionResultCelObjects(@NotNull final double[] allPositions, @NotNull final String errorMsg) {
+      this.allPositions = allPositions;
+      this.errorMsg = errorMsg;
    }
 
    public double[] getAllPositions() {

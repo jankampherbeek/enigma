@@ -13,6 +13,7 @@ import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import org.apache.log4j.Logger;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -85,8 +86,12 @@ public class Rosetta {
 
    private void initi18N() {
       propApi = new PersistedPropertyApi(new PropertyDao(appDb));
-      Property currentProp = propApi.read(PROP_LANG).get(0);
-      String language = currentProp.getValue();
+      List<Property> props = propApi.read(PROP_LANG);
+      String language = "en";    // handle first start as no database has been created.
+      if (props.size() > 0) {
+         Property currentProp = propApi.read(PROP_LANG).get(0);
+         language = currentProp.getValue();
+      }
       if (language.equals(DUTCH)) locale = new Locale(DUTCH, DUTCH.toUpperCase());
       else locale = new Locale(ENGLISH, ENGLISH.toUpperCase());
    }

@@ -20,11 +20,11 @@ import com.radixpro.enigma.xchg.api.AspectsApi;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.shared.common.EnigmaDictionary.GLYPH_FONTNAME;
 import static com.radixpro.enigma.shared.common.EnigmaDictionary.TEXT_FONTNAME;
 
@@ -48,15 +48,16 @@ public class RadixWheel {
    private double corrForXY;
    private Configuration currentConfig;
 
-   public RadixWheel(final AspectsApi aspectsApi) {
-      this.aspectsApi = checkNotNull(aspectsApi);
+   public RadixWheel(@NotNull final AspectsApi aspectsApi) {
+      this.aspectsApi = aspectsApi;
    }
 
-   public void drawWheel(final GraphicsContext gc, final ChartDrawMetrics metrics, final FullChart fullChart, final Configuration currentConfig) {
-      this.gc = checkNotNull(gc);
-      this.metrics = checkNotNull(metrics);
-      this.fChart = checkNotNull(fullChart);
-      this.currentConfig = checkNotNull(currentConfig);
+   public void drawWheel(@NotNull final GraphicsContext gc, @NotNull final ChartDrawMetrics metrics, @NotNull final FullChart fullChart,
+                         @NotNull final Configuration currentConfig) {
+      this.gc = gc;
+      this.metrics = metrics;
+      this.fChart = fullChart;
+      this.currentConfig = currentConfig;
       defineGlobals();
       performDraw();
    }
@@ -290,8 +291,7 @@ public class RadixWheel {
       }
    }
 
-   private void drawConnectLines(final PlotBodyInfo plotBodyInfo) {
-      checkNotNull(plotBodyInfo);
+   private void drawConnectLines(@NotNull final PlotBodyInfo plotBodyInfo) {
       prepareConnectLines();
       double hypothenusa1 = metrics.getDiameterCelBodiesMedium() - metrics.getDistanceConnectLines();
       double hypothenusa2 = metrics.getSizeHousesCircle() / 2;
@@ -305,8 +305,7 @@ public class RadixWheel {
       gc.setGlobalAlpha(0.6);
    }
 
-   private void drawCelObjectPosition(final PlotBodyInfo plotBodyInfo) {
-      checkNotNull(plotBodyInfo);
+   private void drawCelObjectPosition(@NotNull final PlotBodyInfo plotBodyInfo) {
       gc.setFont(new Font(TEXT_FONTNAME, metrics.getSizeTextFont()));
       gc.setStroke(CELBODY_POSITION_COLOR);
       gc.setFill(CELBODY_POSITION_COLOR);

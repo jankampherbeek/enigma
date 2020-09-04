@@ -8,11 +8,11 @@
 package com.radixpro.enigma.domain.reqresp;
 
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Response for analyzed transitary aspects.
@@ -28,10 +28,10 @@ public class EphProgAspectResponse {
     * @param chartId         Id for chart. PRE: >= 0.
     * @param analyzedAspects all aspects from transits. PRE: not null.
     */
-   public EphProgAspectResponse(final long chartId, final List<IAnalyzedPair> analyzedAspects) {
+   public EphProgAspectResponse(final long chartId, @NotNull final List<IAnalyzedPair> analyzedAspects) {
       checkArgument(chartId >= 0);
       this.chartId = chartId;
-      this.analyzedAspects = checkNotNull(analyzedAspects);
+      this.analyzedAspects = analyzedAspects;
    }
 
    public long getChartId() {

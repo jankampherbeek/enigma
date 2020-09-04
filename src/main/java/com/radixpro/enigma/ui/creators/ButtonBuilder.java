@@ -9,8 +9,7 @@ package com.radixpro.enigma.ui.creators;
 
 import com.radixpro.enigma.Rosetta;
 import javafx.scene.control.Button;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Creates a Button, based on the Builder pattern.</br>
@@ -18,18 +17,18 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class ButtonBuilder {
 
-   private String rbKey = "";
+   private final String rbKey;
    private String text = "";
    private boolean disabled = false;
    private boolean focusTraversable = false;
-   private Rosetta rosetta;
+   private final Rosetta rosetta;
 
-   public ButtonBuilder(final String rbKey) {
-      this.rbKey = checkNotNull(rbKey);
+   public ButtonBuilder(@NotNull final String rbKey) {
+      this.rbKey = rbKey;
       this.rosetta = Rosetta.getRosetta();
    }
 
-   public ButtonBuilder setText(final String text) {
+   public ButtonBuilder setText(@NotNull final String text) {
       this.text = text;
       return this;
    }

@@ -30,7 +30,7 @@ public class ChartDataDao extends DaoParent {
 
    private static final Logger LOG = Logger.getLogger(ChartDataDao.class);
    private static final String SEL_CHARTS =
-         "SELECT id, name, description, source, idcharttype, idrating, caldate, time, calendar, dst, idtz, offsetlmt, locname, geolong, geolat ";
+         "SELECT id, name, description, idcharttype, idrating, jdnr, cal, geolat, geolon, datainput ";
    private static final String ZERO = "0";
    private AppDb appDb;
 
@@ -46,7 +46,7 @@ public class ChartDataDao extends DaoParent {
     */
    public int insert(@NotNull final FullChartInputData insertFullChartInputData) throws DatabaseException {
       final String insertChart = "INSERT INTO charts (id, name, description, idcharttype, idrating, jdnr, cal, geolat, geolon, datainput) " +
-            "values(chartsseq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "values(chartsseq.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       final Connection con = appDb.getConnection();
       int chartId = -1;
       try (PreparedStatement pStmtCharts = con.prepareStatement(insertChart)) {
@@ -177,11 +177,11 @@ public class ChartDataDao extends DaoParent {
       String cal = rsCharts.getString("cal");
       double geoLat = rsCharts.getDouble("geolat");
       double geoLon = rsCharts.getDouble("geolon");
-      String inputData = rsCharts.getString("inputdata");
+      String datainput = "" + rsCharts.getString("datainput");
 
       DateTimeJulian dateTime = new DateTimeJulian(jdnr, cal);
       Location location = new Location(geoLat, geoLon);
-      ChartMetaData metaData = new ChartMetaData(name, description, ChartTypes.chartTypeForId(idChartType), Ratings.getRatingForId(idRating), inputData);
+      ChartMetaData metaData = new ChartMetaData(name, description, ChartTypes.chartTypeForId(idChartType), Ratings.getRatingForId(idRating), datainput);
       return new FullChartInputData(id, dateTime, location, metaData);
    }
 

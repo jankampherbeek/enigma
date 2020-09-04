@@ -9,18 +9,15 @@ package com.radixpro.enigma.ui.creators;
 
 import javafx.scene.Node;
 import javafx.scene.control.ButtonBar;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Creates a ButtonBar, based on the Builder pattern.
- */
 public class ButtonBarBuilder {
 
    private Node[] buttons;
 
-   public ButtonBarBuilder setButtons(final Node... buttons) {
-      this.buttons = checkNotNull(buttons);
+   public ButtonBarBuilder setButtons(@NotNull final Node... buttons) {
+      this.buttons = buttons;
       return this;
    }
 

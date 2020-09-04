@@ -10,11 +10,10 @@ package com.radixpro.enigma.ui.screens.helpers;
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Set of properties from a configuration, in the form of preentable properties.
@@ -23,12 +22,12 @@ public class PropertiesForConfig {
 
    private final Rosetta rosetta;
 
-   public PropertiesForConfig(Rosetta rosetta) {
-      this.rosetta = checkNotNull(rosetta);
+   public PropertiesForConfig(@NotNull Rosetta rosetta) {
+      this.rosetta = rosetta;
    }
 
-   public List<PresentableProperty> getProperties(final Configuration config, final CelObjectsInConfig celObjectsInConfig,
-                                                  final AspectsInConfig aspectsInConfig) {
+   public List<PresentableProperty> getProperties(@NotNull final Configuration config, @NotNull final CelObjectsInConfig celObjectsInConfig,
+                                                  @NotNull final AspectsInConfig aspectsInConfig) {
       return createProperties(config, celObjectsInConfig, aspectsInConfig);
    }
 
