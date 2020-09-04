@@ -10,11 +10,10 @@ package com.radixpro.enigma.references;
 import com.radixpro.enigma.Rosetta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public enum ChartTypes {
    UNKNOWN(0, "charttype.unknown"),
@@ -28,9 +27,9 @@ public enum ChartTypes {
    private final int id;
    private final String nameForRB;
 
-   ChartTypes(final int id, final String nameForRB) {
+   ChartTypes(final int id, @NotNull final String nameForRB) {
       this.id = id;
-      this.nameForRB = checkNotNull(nameForRB);
+      this.nameForRB = nameForRB;
    }
 
    public static ChartTypes chartTypeForId(final int id) {
@@ -42,8 +41,7 @@ public enum ChartTypes {
       return ChartTypes.UNKNOWN;
    }
 
-   public ChartTypes chartTypeForLocalName(final String localName) {
-      checkNotNull(localName);
+   public ChartTypes chartTypeForLocalName(@NotNull final String localName) {
       final Rosetta rosetta = Rosetta.getRosetta();
       for (ChartTypes chartType : ChartTypes.values()) {
          if (rosetta.getText(chartType.nameForRB).equals(localName)) {

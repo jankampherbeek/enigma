@@ -8,10 +8,9 @@
 package com.radixpro.enigma.domain.config;
 
 import com.radixpro.enigma.references.CelestialObjects;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Configuration for a specific celestial object.
@@ -30,12 +29,12 @@ public class ConfiguredCelObject implements Serializable {
     * @param orbPercentage Percentage for orb calculation.
     * @param showInDrawing True if object should be shown in drawing.
     */
-   public ConfiguredCelObject(final CelestialObjects celObject,
-                              final String glyph,
+   public ConfiguredCelObject(@NotNull final CelestialObjects celObject,
+                              @NotNull final String glyph,
                               final int orbPercentage,
                               final boolean showInDrawing) {
-      this.celObject = checkNotNull(celObject);
-      this.glyph = checkNotNull(glyph);
+      this.celObject = celObject;
+      this.glyph = glyph;
       this.orbPercentage = orbPercentage;
       this.showInDrawing = showInDrawing;
    }

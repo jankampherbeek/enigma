@@ -7,8 +7,9 @@
 
 package com.radixpro.enigma.domain.reqresp;
 
+import org.jetbrains.annotations.NotNull;
+
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Response for the calculation of a critical point according to the theory by Ton Tetenburg.
@@ -22,12 +23,12 @@ public class TetenburgResponse {
     * Constructor defines all properties.
     *
     * @param longAsc   ecliptical longitude of calculated Ascendant. PRE: 0.0 <= longAsc < 360.0
-    * @param resultMsg If no error occurred: "OK", otherwise text that explains the error. PRE: not null.
+    * @param resultMsg If no error occurred: "OK", otherwise text that explains the error.
     */
-   public TetenburgResponse(final double longAsc, final String resultMsg) {
+   public TetenburgResponse(final double longAsc, @NotNull final String resultMsg) {
       checkArgument(0.0 <= longAsc && longAsc < 360.0);
       this.longAsc = longAsc;
-      this.resultMsg = checkNotNull(resultMsg);
+      this.resultMsg = resultMsg;
    }
 
    public double getLongAsc() {

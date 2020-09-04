@@ -10,6 +10,7 @@ package com.radixpro.enigma.be.persistency;
 import com.radixpro.enigma.be.versions.Updater;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,8 +18,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Dao for Property. Supports only updating and reading a property.
@@ -30,13 +29,12 @@ public class PropertyDao extends DaoParent {
 
    private final AppDb appDb;
 
-   public PropertyDao(final AppDb appDb) {
-      this.appDb = checkNotNull(appDb);
+   public PropertyDao(@NotNull final AppDb appDb) {
+      this.appDb = appDb;
    }
 
 
-   public void insert(final Property newProp) throws DatabaseException {
-      checkNotNull(newProp);
+   public void insert(@NotNull final Property newProp) throws DatabaseException {
       Connection con = appDb.getConnection();
       final String insertProperties = "INSERT into properties(value, key) values(?, ?);";
       try {
@@ -67,8 +65,7 @@ public class PropertyDao extends DaoParent {
     * @param updateProp Property with new content and he id to search for.
     * @throws DatabaseException is thrown for any database error.
     */
-   public void update(final Property updateProp) throws DatabaseException {
-      checkNotNull(updateProp);
+   public void update(@NotNull final Property updateProp) throws DatabaseException {
       Connection con = appDb.getConnection();
       final String updateProperties = "UPDATE properties SET value = ?  WHERE key = ? ;";
       try {
@@ -100,8 +97,7 @@ public class PropertyDao extends DaoParent {
     * @param key the key to search for.
     * @return A list with properties. The list should contain one or zero properties.
     */
-   public List<Property> read(final String key) {
-      checkNotNull(key);
+   public List<Property> read(@NotNull final String key) {
       List<Property> properties = new ArrayList<>();
       final String queryProperties = "SELECT key, value FROM properties where key = ?;";
       final Connection con = appDb.getConnection();

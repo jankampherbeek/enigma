@@ -12,8 +12,7 @@ import com.radixpro.enigma.domain.astronpos.CoordinateSet;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.shared.FailFastHandler;
 import org.apache.log4j.Logger;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Calculates a CoordinateSet, a set of two coordinates.
@@ -29,7 +28,7 @@ public class CoordSetForDateTimeCalc {
     * @param seFrontend Instance of seFrontEnd.
     * @see com.radixpro.enigma.be.calc.handlers.CaHandlersFactory
     */
-   public CoordSetForDateTimeCalc(final SeFrontend seFrontend) {
+   public CoordSetForDateTimeCalc(@NotNull final SeFrontend seFrontend) {
       this.seFrontend = seFrontend;
    }
 
@@ -42,8 +41,10 @@ public class CoordSetForDateTimeCalc {
     * @param location Location. Is only used for parallax. PRE: not null.
     * @return the calculated coordinates.
     */
-   public CoordinateSet calcSet(final double jdUt, final int id, final int flags, final Location location) {
-      checkNotNull(location);
+   public CoordinateSet calcSet(final double jdUt,
+                                final int id,
+                                final int flags,
+                                @NotNull final Location location) {
       SePositionResultCelObjects resultSet = seFrontend.getPositionsForCelBody(jdUt, id, flags, location);
       if (!resultSet.getErrorMsg().isEmpty()) {
          LOG.error("Error while calculating position for point : " + id + " using flags : " + flags + " and jdUt : " + jdUt);

@@ -7,8 +7,7 @@
 package com.radixpro.enigma.ui.shared.presentationmodel;
 
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Wrapper around ChartData; enables the use in a tableview.
@@ -21,8 +20,7 @@ public class PresentableChartData {
    private final String chartDataDescr;
    private final FullChartInputData originalData;
 
-   public PresentableChartData(final FullChartInputData fullChartInputData) {
-      checkNotNull(fullChartInputData);
+   public PresentableChartData(@NotNull final FullChartInputData fullChartInputData) {
       chartId = fullChartInputData.getId();
       chartName = fullChartInputData.getChartMetaData().getName();
       chartDescr = fullChartInputData.getChartMetaData().getDescription();

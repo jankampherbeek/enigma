@@ -13,8 +13,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
@@ -36,13 +36,11 @@ public class LocationGridPaneCreator {
     * @param cbNorthSouth        ChoiceBox for north/south. PRE: not null.
     * @return The populated GridPane.
     */
-   public GridPane createGridPane(final TextField tfLocationName, final TextField tfLocationLongitude, final TextField tfLocationLatitude,
-                                  final ChoiceBox<String> cbEastWest, final ChoiceBox<String> cbNorthSouth) {
-      checkNotNull(tfLocationName);
-      checkNotNull(tfLocationLongitude);
-      checkNotNull(tfLocationLatitude);
-      checkNotNull(cbEastWest);
-      checkNotNull(cbNorthSouth);
+   public GridPane createGridPane(@NotNull final TextField tfLocationName,
+                                  @NotNull final TextField tfLocationLongitude,
+                                  @NotNull final TextField tfLocationLatitude,
+                                  @NotNull final ChoiceBox<String> cbEastWest,
+                                  @NotNull final ChoiceBox<String> cbNorthSouth) {
       initialize();
       GridPane gridPane = new GridPaneBuilder().setPrefHeight(INPUT_LOCATION_HEIGHT).setHGap(GAP).setVGap(GAP).setPadding(GAP).build();
       gridPane.add(lblLocationName, 0, 0, 4, 1);

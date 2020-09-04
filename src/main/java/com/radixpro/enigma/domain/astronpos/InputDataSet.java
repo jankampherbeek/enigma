@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.domain.astronpos;
 
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.List;
 
 /**
  * Input dataset to be saved in Json format.
@@ -22,12 +22,16 @@ public class InputDataSet {
    public final String dateTime;
    public final List<ChartInputData> inputData;
 
-   public InputDataSet(final String name, final String description, final String origFileName, final String dateTime, final List<ChartInputData> inputData) {
-      this.name = checkNotNull(name);
-      this.description = checkNotNull(description);
-      this.origFileName = checkNotNull(origFileName);
-      this.dateTime = checkNotNull(dateTime);
-      this.inputData = checkNotNull(inputData);
+   public InputDataSet(@NotNull final String name,
+                       @NotNull final String description,
+                       @NotNull final String origFileName,
+                       @NotNull final String dateTime,
+                       @NotNull final List<ChartInputData> inputData) {
+      this.name = name;
+      this.description = description;
+      this.origFileName = origFileName;
+      this.dateTime = dateTime;
+      this.inputData = inputData;
    }
 
    public String getName() {

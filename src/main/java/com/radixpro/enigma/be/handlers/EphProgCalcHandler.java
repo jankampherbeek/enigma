@@ -20,11 +20,10 @@ import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.references.SeFlags;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 
 /**
@@ -38,13 +37,14 @@ public class EphProgCalcHandler {
       this.seFrontend = seFrontend;
    }
 
-   public SimpleProgResponse retrievePositions(final IProgCalcRequest request) {
-      checkNotNull(request);
+   public SimpleProgResponse retrievePositions(@NotNull final IProgCalcRequest request) {
       final List<IPosition> posVos = calculatePositions(request.getDateTime().getJd(), request.getLocation(), request.getSettings());
       return new SimpleProgResponse(posVos, request);
    }
 
-   private List<IPosition> calculatePositions(final double jdUt, final Location location, final ICalcSettings settings) {
+   private List<IPosition> calculatePositions(final double jdUt,
+                                              final Location location,
+                                              final ICalcSettings settings) {
       Ayanamshas ayanamsha = settings.getAyamsha();
       boolean sidereal = settings.isSidereal();
       List<SeFlags> flagListEcl = new ArrayList<>();

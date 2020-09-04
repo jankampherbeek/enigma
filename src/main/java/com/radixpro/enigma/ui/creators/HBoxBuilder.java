@@ -9,9 +9,9 @@ package com.radixpro.enigma.ui.creators;
 
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Creates a HBox, based on the Builder pattern.
@@ -34,8 +34,8 @@ public class HBoxBuilder {
       return this;
    }
 
-   public HBoxBuilder setChildren(final Node... children) {
-      this.children = checkNotNull(children);
+   public HBoxBuilder setChildren(@NotNull final Node... children) {
+      this.children = children;
       return this;
    }
 

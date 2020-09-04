@@ -9,8 +9,7 @@ package com.radixpro.enigma.ui.domain;
 
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Calculatred chart and the date for this chart.
@@ -26,9 +25,9 @@ public class FullChart {
     * @param fullChartInputData Inputted data for the chart.
     * @param calculatedChart    Calculted positions for the chart.
     */
-   public FullChart(final FullChartInputData fullChartInputData, final CalculatedChart calculatedChart) {
-      this.fullChartInputData = checkNotNull(fullChartInputData);
-      this.calculatedChart = checkNotNull(calculatedChart);
+   public FullChart(@NotNull final FullChartInputData fullChartInputData, @NotNull final CalculatedChart calculatedChart) {
+      this.fullChartInputData = fullChartInputData;
+      this.calculatedChart = calculatedChart;
    }
 
    public FullChartInputData getChartData() {

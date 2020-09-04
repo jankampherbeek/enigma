@@ -8,12 +8,12 @@
 package com.radixpro.enigma.domain.config;
 
 import com.radixpro.enigma.references.AspectOrbStructures;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Configuration for aspects.
@@ -28,17 +28,17 @@ public class AspectConfiguration implements Serializable {
    /**
     * Constructor defines all members.
     *
-    * @param aspects        Supported aspects including orb-percentage. PRE: not null.
+    * @param aspects        Supported aspects including orb-percentage.
     * @param baseOrb        The base orb. Pre: > 0.
-    * @param orbStructure   Structure to be used for orbs. PRE: not null.
+    * @param orbStructure   Structure to be used for orbs.
     * @param drawInOutGoing Indicates if separate glyphs will be used for in- and outgoing aspects.
     */
-   public AspectConfiguration(final List<ConfiguredAspect> aspects, final double baseOrb,
-                              final AspectOrbStructures orbStructure, final boolean drawInOutGoing) {
+   public AspectConfiguration(@NotNull final List<ConfiguredAspect> aspects, final double baseOrb,
+                              @NotNull final AspectOrbStructures orbStructure, final boolean drawInOutGoing) {
       checkArgument(baseOrb > 0.0);
-      this.aspects = checkNotNull(aspects);
+      this.aspects = aspects;
       this.baseOrb = baseOrb;
-      this.orbStructure = checkNotNull(orbStructure);
+      this.orbStructure = orbStructure;
       this.drawInOutGoing = drawInOutGoing;
    }
 

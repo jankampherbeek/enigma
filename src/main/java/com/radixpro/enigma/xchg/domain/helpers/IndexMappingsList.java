@@ -6,9 +6,9 @@
 
 package com.radixpro.enigma.xchg.domain.helpers;
 
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.List;
 
 /**
  * Collection of all IndexMappings for a specific enum.
@@ -17,8 +17,8 @@ public class IndexMappingsList {
 
    final List<IndexMapping> allIndexMappings;
 
-   public IndexMappingsList(final List<IndexMapping> allIndexMappings) {
-      this.allIndexMappings = checkNotNull(allIndexMappings);
+   public IndexMappingsList(@NotNull final List<IndexMapping> allIndexMappings) {
+      this.allIndexMappings = allIndexMappings;
    }
 
    public List<IndexMapping> getAllIndexMappings() {

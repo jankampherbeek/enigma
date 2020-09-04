@@ -14,14 +14,13 @@ import com.radixpro.enigma.domain.astronpos.InputDataSet;
 import com.radixpro.enigma.domain.reqresp.InputDataFileRequest;
 import com.radixpro.enigma.domain.reqresp.InputDataFileResponse;
 import com.radixpro.enigma.shared.exceptions.InputDataException;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Handler for reading and converting input data.
@@ -32,8 +31,10 @@ public class InputDataFileHandler {
    private final JsonWriter jsonWriter;
    private final Rosetta rosetta;
 
-   public InputDataFileHandler(final DataReaderCsv dataReaderCsv, final JsonWriter jsonWriter, final Rosetta rosetta) {
-      this.dataReaderCsv = checkNotNull(dataReaderCsv);
+   public InputDataFileHandler(@NotNull final DataReaderCsv dataReaderCsv,
+                               @NotNull final JsonWriter jsonWriter,
+                               @NotNull final Rosetta rosetta) {
+      this.dataReaderCsv = dataReaderCsv;
       this.jsonWriter = jsonWriter;
       this.rosetta = rosetta;
    }
@@ -57,7 +58,8 @@ public class InputDataFileHandler {
       return new InputDataFileResponse(resultMsg, errorLines, success);
    }
 
-   private String createFullPathJsonFile(final String fileName, final String fullPathProjDir) {
+   private String createFullPathJsonFile(final String fileName,
+                                         final String fullPathProjDir) {
       String path = fullPathProjDir;
       if (!path.endsWith(File.separator)) path += File.separator;
       path += "data" + File.separator;

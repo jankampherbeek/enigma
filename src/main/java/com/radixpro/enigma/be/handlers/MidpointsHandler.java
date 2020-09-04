@@ -11,12 +11,12 @@ import com.radixpro.enigma.be.analysis.MidpointsForRadix;
 import com.radixpro.enigma.domain.analysis.AnalyzablePoint;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.IPosition;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Prepares the analysis of midpoints.
@@ -30,8 +30,8 @@ public class MidpointsHandler {
     *
     * @param analyzer performs the real analysis.
     */
-   public MidpointsHandler(final MidpointsForRadix analyzer) {
-      this.analyzer = checkNotNull(analyzer);
+   public MidpointsHandler(@NotNull final MidpointsForRadix analyzer) {
+      this.analyzer = analyzer;
    }
 
    /**
@@ -41,14 +41,15 @@ public class MidpointsHandler {
     * @param mundaneValues MundaneValues, uses MC and Asc. PRE: not null.
     * @return actual midpoints.
     */
-   public List<IAnalyzedPair> retrieveMidpoints(final List<IPosition> celBodies, final List<IPosition> mundaneValues) {
-      checkArgument(celBodies != null && 2 <= celBodies.size());
-      checkNotNull(mundaneValues);
+   public List<IAnalyzedPair> retrieveMidpoints(@NotNull final List<IPosition> celBodies,
+                                                @NotNull final List<IPosition> mundaneValues) {
+      checkArgument(2 <= celBodies.size());
       List<AnalyzablePoint> candidates = createCandidates(celBodies, mundaneValues);
       return analyzer.analyze(candidates);
    }
 
-   private List<AnalyzablePoint> createCandidates(List<IPosition> celBodies, List<IPosition> mundaneValues) {
+   private List<AnalyzablePoint> createCandidates(List<IPosition> celBodies,
+                                                  List<IPosition> mundaneValues) {
       List<AnalyzablePoint> candidates = new ArrayList<>();
       for (IPosition pos : celBodies) {
          candidates.add(new AnalyzablePoint(pos.getChartPoint(), pos.getLongitude()));

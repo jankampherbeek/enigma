@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.domain.astronpos;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * All coordinates for position and speed within a specific coordiantesystem.
@@ -20,12 +20,13 @@ public class FullPointCoordinate {
    /**
     * Constructor defines all properties.
     *
-    * @param position Momentary position using 3 coordinates. PRE: not null.
-    * @param speed    Speed using 3 coordinates. PRE: not null.
+    * @param position Momentary position using 3 coordinates.
+    * @param speed    Speed using 3 coordinates.
     */
-   public FullPointCoordinate(final CoordinateSet3D position, final CoordinateSet3D speed) {
-      this.position = checkNotNull(position);
-      this.speed = checkNotNull(speed);
+   public FullPointCoordinate(@NotNull final CoordinateSet3D position,
+                              @NotNull final CoordinateSet3D speed) {
+      this.position = position;
+      this.speed = speed;
    }
 
    public CoordinateSet3D getPosition() {

@@ -8,8 +8,7 @@
 package com.radixpro.enigma.ui.creators;
 
 import com.radixpro.enigma.ui.charts.screens.helpers.*;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Factory for implementations of PlotCoordinates.
@@ -27,8 +26,7 @@ public class PlotCoordinatesFactory {
     * @param drawMetrics . An acutal instance of ChartDrawMetrics.
     * @return instance of CuspLinePlotCoordinates.
     */
-   public static CuspLinePlotCoordinates createCuspLinePlotCoordinates(final double angle, final IDrawMetrics drawMetrics) {
-      checkNotNull(drawMetrics);
+   public static CuspLinePlotCoordinates createCuspLinePlotCoordinates(final double angle, @NotNull final IDrawMetrics drawMetrics) {
       ChartDrawMetrics metrics = (ChartDrawMetrics) drawMetrics;
       RectTriangleAbsolute rectTriangle = new RectTriangleAbsolute(angle, metrics.getCorrForXY());
       return new CuspLinePlotCoordinates(rectTriangle);
@@ -37,12 +35,11 @@ public class PlotCoordinatesFactory {
    /**
     * Create instance of CuspTextCoordinates.
     *
-    * @param angle        The angle to be used for calculating the coordinates.
+    * @param angle       The angle to be used for calculating the coordinates.
     * @param drawMetrics An actual instance of ChartDrawMetrics.
     * @return instance of CuspTextPlotCoordinates.
     */
-   public static CuspTextPlotCoordinates createCuspTextPlotCoordinates(final double angle, final IDrawMetrics drawMetrics) {
-      checkNotNull(drawMetrics);
+   public static CuspTextPlotCoordinates createCuspTextPlotCoordinates(final double angle, @NotNull final IDrawMetrics drawMetrics) {
       ChartDrawMetrics metrics = (ChartDrawMetrics) drawMetrics;
       RectTriangleAbsolute rectTriangle = new RectTriangleAbsolute(angle, metrics.getCorrForXY());
       return new CuspTextPlotCoordinates(rectTriangle);
@@ -55,8 +52,7 @@ public class PlotCoordinatesFactory {
     * @param drawMetrics An actual instance of ChartDrawMetrics.
     * @return instance of DegreeLinePlotCoordinates.
     */
-   public static DegreeLinePlotCoordinates createDegreeLinePlotCoordinates(final double angle, final IDrawMetrics drawMetrics) {
-      checkNotNull(drawMetrics);
+   public static DegreeLinePlotCoordinates createDegreeLinePlotCoordinates(final double angle, @NotNull final IDrawMetrics drawMetrics) {
       ChartDrawMetrics metrics = (ChartDrawMetrics) drawMetrics;
       RectTriangleAbsolute rectTriangle = new RectTriangleAbsolute(angle, metrics.getCorrForXY());
       return new DegreeLinePlotCoordinates(rectTriangle);

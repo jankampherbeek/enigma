@@ -15,8 +15,7 @@ import com.radixpro.enigma.references.MundanePoints;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForCelObject;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 public class PresentableMidpoint {
 
@@ -29,9 +28,9 @@ public class PresentableMidpoint {
    private final Rosetta rosetta;
 
    // TODO combine logic of PresentableMidpoint and PresentableAspect (maybe abstract parent ?).
-   public PresentableMidpoint(final IAnalyzedPair midpoint) {
+   public PresentableMidpoint(@NotNull final IAnalyzedPair midpoint) {
       rosetta = Rosetta.getRosetta();
-      createDataDescription(checkNotNull(midpoint));
+      createDataDescription(midpoint);
    }
 
 

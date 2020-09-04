@@ -25,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static swisseph.SweConst.*;
 
 /**
@@ -39,13 +38,14 @@ public class MundanePositionsHandler {
    /**
     * Initialization via Factory.
     *
-    * @param seFrontend       instance of SeFrontend. PRE: not null.
-    * @param obliquityHandler handler for the calculation of epsilon(obliquity). PRE: not null.
+    * @param seFrontend       instance of SeFrontend.
+    * @param obliquityHandler handler for the calculation of epsilon(obliquity).
     * @see CaHandlersFactory
     */
-   public MundanePositionsHandler(final SeFrontend seFrontend, final ObliquityHandler obliquityHandler) {
-      this.seFrontend = checkNotNull(seFrontend);
-      this.obliquityHandler = checkNotNull(obliquityHandler);
+   public MundanePositionsHandler(@NotNull final SeFrontend seFrontend,
+                                  @NotNull final ObliquityHandler obliquityHandler) {
+      this.seFrontend = seFrontend;
+      this.obliquityHandler = obliquityHandler;
    }
 
    /**

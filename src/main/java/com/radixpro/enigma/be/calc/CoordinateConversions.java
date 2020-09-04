@@ -9,9 +9,9 @@ package com.radixpro.enigma.be.calc;
 
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.shared.Range;
+import org.jetbrains.annotations.NotNull;
 import swisseph.SwissLib;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static swisseph.SweConst.SE_ECL2HOR;
 
 /**
@@ -30,8 +30,8 @@ public final class CoordinateConversions {
     * @param obliquity      Obliquity (Epsilon) in degrees.
     * @return Array with right ascension and declination in degrees.
     */
-   public static double[] eclipticToEquatorial(final double[] eclipticValues, final double obliquity) {
-      checkNotNull(eclipticValues);
+   public static double[] eclipticToEquatorial(@NotNull final double[] eclipticValues,
+                                               final double obliquity) {
       final double[] fullEclValues = {eclipticValues[0], eclipticValues[1], 1.0};
       var equatorialValues = new double[3];
       new SwissLib().swe_cotrans(fullEclValues, equatorialValues, -obliquity);  // obliquity must be negative !
@@ -75,13 +75,13 @@ public final class CoordinateConversions {
     * Convert to horizontal position.
     *
     * @param jdUt     Julian day number for UT.
-    * @param eclCoord ecliptical coördinates: index 0 = longitude, 1 = latitude, 2 = distance. PRE: not null.
-    * @param location location. PRE: not null.
+    * @param eclCoord ecliptical coördinates: index 0 = longitude, 1 = latitude, 2 = distance.
+    * @param location location.
     * @return array with azimuth and altitude (in that sequence).
     */
-   public static double[] eclipticToHorizontal(final double jdUt, final double[] eclCoord, final Location location) {
+   public static double[] eclipticToHorizontal(final double jdUt, @NotNull final double[] eclCoord, @NotNull final Location location) {
       // TODO Release 2020.2 Check handling of sidereal positions
-      return SeFrontend.getFrontend().getHorizontalPosition(jdUt, checkNotNull(eclCoord), checkNotNull(location), SE_ECL2HOR);
+      return SeFrontend.getFrontend().getHorizontalPosition(jdUt, eclCoord, location, SE_ECL2HOR);
    }
 
 }

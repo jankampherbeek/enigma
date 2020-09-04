@@ -50,11 +50,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 public class ChartsStart {
@@ -102,16 +102,18 @@ public class ChartsStart {
    private TableColumn<PresentableChartData, String> colData;
    private Configuration currentConfig;
 
-   public ChartsStart(final Rosetta rosetta, final SessionState state, final CalculatedChartApi calculatedChartApi,
-                      final ChartsTetenburg chartsTetenburg, final ChartsAspects chartsAspects, final ChartsMidpoints chartsMidpoints,
-                      final ChartsTransitsInput chartsTransitsInput, final ChartsSearch chartsSearch, final ChartsInput chartsInput,
-                      final PersistedChartDataApi chartDataApi, final PersistedConfigurationApi confApi, final PersistedPropertyApi propApi,
-                      final ConfigOverview configOverview, final PropertiesForConfig propertiesForConfig, final CelObjectsInConfig celObjectsInConfig,
-                      final AspectsInConfig aspectsInConfig, final PropertiesTableForConfig propertiesTableForConfig, final ChartsDrawing2d chartsDrawing2d) {
-      this.rosetta = checkNotNull(rosetta);
-      this.state = checkNotNull(state);
-      this.calculatedChartApi = checkNotNull(calculatedChartApi);
-      this.chartsTetenburg = checkNotNull(chartsTetenburg);
+   public ChartsStart(@NotNull final Rosetta rosetta, @NotNull final SessionState state, @NotNull final CalculatedChartApi calculatedChartApi,
+                      @NotNull final ChartsTetenburg chartsTetenburg, @NotNull final ChartsAspects chartsAspects,
+                      @NotNull final ChartsMidpoints chartsMidpoints, @NotNull final ChartsTransitsInput chartsTransitsInput,
+                      @NotNull final ChartsSearch chartsSearch, @NotNull final ChartsInput chartsInput, @NotNull final PersistedChartDataApi chartDataApi,
+                      @NotNull final PersistedConfigurationApi confApi, @NotNull final PersistedPropertyApi propApi,
+                      @NotNull final ConfigOverview configOverview, @NotNull final PropertiesForConfig propertiesForConfig,
+                      @NotNull final CelObjectsInConfig celObjectsInConfig, @NotNull final AspectsInConfig aspectsInConfig,
+                      @NotNull final PropertiesTableForConfig propertiesTableForConfig, @NotNull final ChartsDrawing2d chartsDrawing2d) {
+      this.rosetta = rosetta;
+      this.state = state;
+      this.calculatedChartApi = calculatedChartApi;
+      this.chartsTetenburg = chartsTetenburg;
       this.chartsAspects = chartsAspects;
       this.chartsMidpoints = chartsMidpoints;
       this.chartsTransitsInput = chartsTransitsInput;

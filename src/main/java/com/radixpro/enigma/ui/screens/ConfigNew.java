@@ -25,8 +25,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_DEFAULT_STYLE;
 import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_ERROR_STYLE;
 
@@ -64,10 +64,11 @@ public class ConfigNew {
     * @param api     Api for persistency of configurations.
     * @param state   contains current config
     */
-   public ConfigNew(final Rosetta rosetta, final PersistedConfigurationApi api, final ConfigNameValidator nameValidator, final SessionState state) {
-      this.rosetta = checkNotNull(rosetta);
-      this.state = checkNotNull(state);
-      this.api = checkNotNull(api);
+   public ConfigNew(@NotNull final Rosetta rosetta, @NotNull final PersistedConfigurationApi api, @NotNull final ConfigNameValidator nameValidator,
+                    @NotNull final SessionState state) {
+      this.rosetta = rosetta;
+      this.state = state;
+      this.api = api;
       this.valName = nameValidator;
    }
 

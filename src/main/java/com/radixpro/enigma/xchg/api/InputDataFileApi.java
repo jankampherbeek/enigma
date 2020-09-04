@@ -10,8 +10,7 @@ package com.radixpro.enigma.xchg.api;
 import com.radixpro.enigma.be.handlers.InputDataFileHandler;
 import com.radixpro.enigma.domain.reqresp.InputDataFileRequest;
 import com.radixpro.enigma.domain.reqresp.InputDataFileResponse;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Api for converting and saving input data.
@@ -20,8 +19,8 @@ public class InputDataFileApi {
 
    private final InputDataFileHandler handler;
 
-   public InputDataFileApi(final InputDataFileHandler handler) {
-      this.handler = checkNotNull(handler);
+   public InputDataFileApi(@NotNull final InputDataFileHandler handler) {
+      this.handler = handler;
    }
 
    public InputDataFileResponse addDataFile(InputDataFileRequest request) {

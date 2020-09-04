@@ -11,8 +11,7 @@ import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.ui.shared.glyphs.CelObject2GlyphMapper;
 import com.radixpro.enigma.ui.shared.glyphs.Sign2GlyphMapper;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.*;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Wrapper around CelObjectSinglePosition; enables the use in a tableview.
@@ -41,16 +40,13 @@ public class PresentableCelObjectPosition {
     *                   Also knows which celestial object we are showing.
     * @param horPos     contains azimuth and altitude
     */
-   public PresentableCelObjectPosition(final FullPointPosition fpPosition,
-                                       final double[] horPos) {
-      createPresentablePosition(checkNotNull(fpPosition), checkNotNull(horPos));
+   public PresentableCelObjectPosition(@NotNull final FullPointPosition fpPosition,
+                                       @NotNull final double[] horPos) {
+      createPresentablePosition(fpPosition, horPos);
    }
 
-   private void createPresentablePosition(final FullPointPosition fpPosition,
-                                          final double[] horPos) {
-      checkNotNull(fpPosition);
-      checkNotNull(horPos);
-
+   private void createPresentablePosition(@NotNull final FullPointPosition fpPosition,
+                                          @NotNull final double[] horPos) {
       final FullPointCoordinate eclPos = fpPosition.getEclPos();
       final FullPointCoordinate equPos = fpPosition.getEqPos();
       double mainEclPos = eclPos.getPosition().getMainCoord();

@@ -21,8 +21,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
  * Dao for chart data. Reads and persists the data to calcualte a chart, but not the calculated chart itself.
  */
@@ -32,7 +30,7 @@ public class ChartDataDao extends DaoParent {
    private static final String SEL_CHARTS =
          "SELECT id, name, description, idcharttype, idrating, jdnr, cal, geolat, geolon, datainput ";
    private static final String ZERO = "0";
-   private AppDb appDb;
+   private final AppDb appDb;
 
    public ChartDataDao(AppDb appDb) {
       this.appDb = appDb;
@@ -149,8 +147,7 @@ public class ChartDataDao extends DaoParent {
     * @param searchName The name to search for. There should be an exact match. Returns all Charts if searchName is an empty string. PRE: not null.
     * @return A list with found instances of ChartData that have the same name as the searchname.
     */
-   public List<FullChartInputData> search(final String searchName) {
-      checkNotNull(searchName);
+   public List<FullChartInputData> search(@NotNull final String searchName) {
       List<FullChartInputData> fullChartInputDataList = new ArrayList<>();
       final String queryCharts = SEL_CHARTS + " FROM charts WHERE name ILIKE '%' || ? || '%';";
       final Connection con = appDb.getConnection();

@@ -13,8 +13,7 @@ import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongAndGlyphVa
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.LongWithGlyph;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlainDmsValue;
 import com.radixpro.enigma.ui.shared.presentationmodel.valuetypes.PlusMinusValue;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Wrapper around HousePosition; enables the use in a tableview.
@@ -35,9 +34,9 @@ public class PresentableMundanePosition {
     * @param name     Name for the mundane position. Possibly a number for the cusp, an acronym for vertex etc.
     * @param position An instance of MundanePosition that contains the data that must be presented.
     */
-   public PresentableMundanePosition(final String name, final IPosition position) {
-      this.name = checkNotNull(name);
-      createMundanePosition(checkNotNull(position));
+   public PresentableMundanePosition(@NotNull final String name, @NotNull final IPosition position) {
+      this.name = name;
+      createMundanePosition(position);
    }
 
    private void createMundanePosition(final IPosition position) {

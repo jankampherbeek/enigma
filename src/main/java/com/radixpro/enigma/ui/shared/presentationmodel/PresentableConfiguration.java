@@ -8,8 +8,7 @@ package com.radixpro.enigma.ui.shared.presentationmodel;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.config.Configuration;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Wrapper for Configuration; enables the use in a tableview.
@@ -27,8 +26,7 @@ public class PresentableConfiguration {
     *
     * @param configuration The configuration to present.
     */
-   public PresentableConfiguration(final Configuration configuration) {
-      checkNotNull(configuration);
+   public PresentableConfiguration(@NotNull final Configuration configuration) {
       configId = configuration.getId();
       configName = configuration.getName();
       configDescription = configuration.getDescription();

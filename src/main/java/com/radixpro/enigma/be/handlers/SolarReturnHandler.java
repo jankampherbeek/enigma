@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.shared.common.EnigmaDictionary.TROPICAL_YEAR;
 
 /**
@@ -45,8 +44,9 @@ public class SolarReturnHandler {
     * @param jdFromPosCalc Instance of JdPosFromCalc
     * @see CaHandlersFactory
     */
-   public SolarReturnHandler(@NotNull final JdFromPosCalc jdFromPosCalc, @NotNull final CalculatedChartApi calculatedChartApi) {
-      this.jdFromPosCalc = checkNotNull(jdFromPosCalc);
+   public SolarReturnHandler(@NotNull final JdFromPosCalc jdFromPosCalc,
+                             @NotNull final CalculatedChartApi calculatedChartApi) {
+      this.jdFromPosCalc = jdFromPosCalc;
       this.calculatedChartApi = calculatedChartApi;
    }
 
@@ -61,7 +61,10 @@ public class SolarReturnHandler {
     * @return The calculated solar return chart.
     * @throws NoPositionFoundException if the position of longSun cold not be found within 3 days bewfore and after the birthdate in yearForReturn.
     */
-   public CalculatedChart getSolarReturnChart(final double longSun, @NotNull final DateTimeJulian birthDateTime, final int yearForReturn, @NotNull final Location location,
+   public CalculatedChart getSolarReturnChart(final double longSun,
+                                              @NotNull final DateTimeJulian birthDateTime,
+                                              final int yearForReturn,
+                                              @NotNull final Location location,
                                               @NotNull final ChartCalcSettings settings) throws NoPositionFoundException {
       checkArgument(longSun >= 0.0 && longSun < 360.0);
       return createSolarReturnChart(longSun, birthDateTime, yearForReturn, location, settings);

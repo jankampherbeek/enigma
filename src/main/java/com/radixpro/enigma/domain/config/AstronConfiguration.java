@@ -11,11 +11,10 @@ import com.radixpro.enigma.references.Ayanamshas;
 import com.radixpro.enigma.references.EclipticProjections;
 import com.radixpro.enigma.references.HouseSystems;
 import com.radixpro.enigma.references.ObserverPositions;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Astronomical parts of the configuration.
@@ -37,16 +36,16 @@ public class AstronConfiguration implements Serializable {
     * @param observerPosition   Positionof the observer.
     * @param celObjects         The supported celestial objects.
     */
-   public AstronConfiguration(final HouseSystems houseSystem,
-                              final Ayanamshas ayanamsha,
-                              final EclipticProjections eclipticProjection,
-                              final ObserverPositions observerPosition,
-                              final List<ConfiguredCelObject> celObjects) {
-      this.houseSystem = checkNotNull(houseSystem);
-      this.ayanamsha = checkNotNull(ayanamsha);
-      this.eclipticProjection = checkNotNull(eclipticProjection);
-      this.observerPosition = checkNotNull(observerPosition);
-      this.celObjects = checkNotNull(celObjects);
+   public AstronConfiguration(@NotNull final HouseSystems houseSystem,
+                              @NotNull final Ayanamshas ayanamsha,
+                              @NotNull final EclipticProjections eclipticProjection,
+                              @NotNull final ObserverPositions observerPosition,
+                              @NotNull final List<ConfiguredCelObject> celObjects) {
+      this.houseSystem = houseSystem;
+      this.ayanamsha = ayanamsha;
+      this.eclipticProjection = eclipticProjection;
+      this.observerPosition = observerPosition;
+      this.celObjects = celObjects;
    }
 
    public HouseSystems getHouseSystem() {

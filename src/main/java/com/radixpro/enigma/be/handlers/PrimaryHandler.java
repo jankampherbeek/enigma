@@ -16,11 +16,10 @@ import com.radixpro.enigma.domain.reqresp.PrimaryCalcRequest;
 import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
 import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PrimaryHandler {
 
@@ -30,17 +29,18 @@ public class PrimaryHandler {
    private final SpaeculumPropSaCalculator spsCalculator;
 
 
-   public PrimaryHandler(final PrimaryPositionsHandler primaryPositionsHandler, final TimeKeyHandler timeKeyHandler, final ObliquityHandler obliquityHandler,
-                         final SpaeculumPropSaCalculator spsCalculator) {
-      this.primaryPositionsHandler = checkNotNull(primaryPositionsHandler);
-      this.timeKeyHandler = checkNotNull(timeKeyHandler);
+   public PrimaryHandler(@NotNull final PrimaryPositionsHandler primaryPositionsHandler,
+                         @NotNull final TimeKeyHandler timeKeyHandler,
+                         @NotNull final ObliquityHandler obliquityHandler,
+                         @NotNull final SpaeculumPropSaCalculator spsCalculator) {
+      this.primaryPositionsHandler = primaryPositionsHandler;
+      this.timeKeyHandler = timeKeyHandler;
       this.spsCalculator = spsCalculator;
       this.obliquityHandler = obliquityHandler;
    }
 
 
-   public SimpleProgResponse performCalculations(final PrimaryCalcRequest request) {
-      checkNotNull(request);
+   public SimpleProgResponse performCalculations(@NotNull final PrimaryCalcRequest request) {
       List<IPosition> responsePositions = new ArrayList<>();
       final CalculatedChart calculatedChart = request.getCalculatedChart();
       final double geoLat = request.getLocation().getGeoLat();

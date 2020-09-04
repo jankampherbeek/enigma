@@ -7,9 +7,9 @@
 
 package com.radixpro.enigma.domain.astronpos;
 
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.List;
 
 /**
  * Positions for a calculated chart.
@@ -22,12 +22,13 @@ public class CalculatedChart {
    /**
     * Constructor defines all properties.
     *
-    * @param celPoints  positions for celestial bodies. PRE: not null.
-    * @param mundPoints positions for mundane points. PRE: not null.
+    * @param celPoints  positions for celestial bodies.
+    * @param mundPoints positions for mundane points.
     */
-   public CalculatedChart(final List<IPosition> celPoints, final AllMundanePositions mundPoints) {
-      this.celPoints = checkNotNull(celPoints);
-      this.mundPoints = checkNotNull(mundPoints);
+   public CalculatedChart(@NotNull final List<IPosition> celPoints,
+                          @NotNull final AllMundanePositions mundPoints) {
+      this.celPoints = celPoints;
+      this.mundPoints = mundPoints;
    }
 
    public List<IPosition> getCelPoints() {

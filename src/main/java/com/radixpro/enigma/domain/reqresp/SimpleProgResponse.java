@@ -8,10 +8,9 @@
 package com.radixpro.enigma.domain.reqresp;
 
 import com.radixpro.enigma.domain.astronpos.IPosition;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Response for calculated progressive positions.
@@ -21,15 +20,10 @@ public class SimpleProgResponse {
    private final List<IPosition> positions;
    private final IProgCalcRequest request;
 
-   /**
-    * Constructor defines all properties.
-    *
-    * @param positions calculated progresive positions. PRE: not null.
-    * @param request   the original request. PRE: not null.
-    */
-   public SimpleProgResponse(final List<IPosition> positions, final IProgCalcRequest request) {
-      this.positions = checkNotNull(positions);
-      this.request = checkNotNull(request);
+   public SimpleProgResponse(@NotNull final List<IPosition> positions,
+                             @NotNull final IProgCalcRequest request) {
+      this.positions = positions;
+      this.request = request;
    }
 
    public List<IPosition> getPositions() {

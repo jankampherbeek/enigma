@@ -22,10 +22,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
@@ -55,10 +55,12 @@ public class StatsDataNew extends InputScreen {
    private TextField tfDescription;
    private DataInputFormats selectedInputFormat;
 
-   public StatsDataNew(final NameDescriptionInputBlock nameDescrBlock, final InputDataFileApi inputDataFileApi, final PersistedPropertyApi propApi) {
+   public StatsDataNew(@NotNull final NameDescriptionInputBlock nameDescrBlock,
+                       @NotNull final InputDataFileApi inputDataFileApi,
+                       @NotNull final PersistedPropertyApi propApi) {
       this.nameDescrBlock = nameDescrBlock;
-      this.inputDataFileApi = checkNotNull(inputDataFileApi);
-      this.propApi = checkNotNull(propApi);
+      this.inputDataFileApi = inputDataFileApi;
+      this.propApi = propApi;
    }
 
    public void show() {

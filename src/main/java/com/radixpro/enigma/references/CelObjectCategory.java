@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.references;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Enum with categories for celestial objects.
@@ -31,9 +31,10 @@ public enum CelObjectCategory {
     * @param id        The id of the category.
     * @param nameForRB The name to access the resource bundle for a translated text.
     */
-   CelObjectCategory(final int id, final String nameForRB) {
+   CelObjectCategory(final int id,
+                     @NotNull final String nameForRB) {
       this.id = id;
-      this.nameForRB = checkNotNull(nameForRB);
+      this.nameForRB = nameForRB;
    }
 
    public int getId() {

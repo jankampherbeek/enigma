@@ -10,9 +10,9 @@ package com.radixpro.enigma.be.calc;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.shared.exceptions.NoPositionFoundException;
+import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Finds the Julian Day (for UT) for a given position within a time range. Should only be used if retrogradation cannot occur (Sun, Moon, Mean Node, or
@@ -38,16 +38,15 @@ public class JdFromPosCalc {
     * @param startJd  Julian Day to start with. PRE: < endJd.
     * @param endJd    Julian Day to end with. PRE: > startJd.
     * @param position The calculated position.
-    * @param point    The celestial point to calculate. PRE: not null.
+    * @param point    The celestial point to calculate.
     * @param flags    Flags for the SE, this also indicates what corodinatesystem is used, tropical/sidereal, etc.
-    * @param location The location, this is only used if the flags indicate that parallax is used. PRE: not null.
+    * @param location The location, this is only used if the flags indicate that parallax is used.
     * @return The calculated Julian Day number.
     * @throws NoPositionFoundException if position could not be found.
     */
-   public double findJd(final double startJd, final double endJd, final double position, final CelestialObjects point, final int flags, final Location location)
+   public double findJd(final double startJd, final double endJd, final double position, @NotNull final CelestialObjects point, final int flags,
+                        @NotNull final Location location)
          throws NoPositionFoundException {
-      checkNotNull(point);
-      checkNotNull(location);
       checkArgument(startJd < endJd);
       return jdForPosition(startJd, endJd, position, point, flags, location);
    }

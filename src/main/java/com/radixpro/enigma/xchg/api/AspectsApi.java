@@ -11,10 +11,9 @@ import com.radixpro.enigma.be.handlers.AspectsHandler;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.config.AspectConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class AspectsApi {
 
@@ -25,14 +24,14 @@ public class AspectsApi {
     *
     * @param handler The handler that prepares the analysis.
     */
-   public AspectsApi(final AspectsHandler handler) {
-      this.handler = checkNotNull(handler);
+   public AspectsApi(@NotNull final AspectsHandler handler) {
+      this.handler = handler;
    }
 
-   public List<IAnalyzedPair> analyzeAspects(final List<IPosition> celObjects,
-                                             final List<IPosition> mundaneValues,
-                                             final AspectConfiguration config) {
-      return handler.retrieveAspects(checkNotNull(celObjects), checkNotNull(mundaneValues), checkNotNull(config));
+   public List<IAnalyzedPair> analyzeAspects(@NotNull final List<IPosition> celObjects,
+                                             @NotNull final List<IPosition> mundaneValues,
+                                             @NotNull final AspectConfiguration config) {
+      return handler.retrieveAspects(celObjects, mundaneValues, config);
    }
 
 }

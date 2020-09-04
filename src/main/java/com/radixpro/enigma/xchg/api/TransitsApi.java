@@ -13,8 +13,7 @@ import com.radixpro.enigma.domain.reqresp.EphProgAspectResponse;
 import com.radixpro.enigma.domain.reqresp.IProgCalcRequest;
 import com.radixpro.enigma.domain.reqresp.ProgAnalyzeRequest;
 import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * API for transits.
@@ -24,10 +23,10 @@ public class TransitsApi {
    private final EphProgCalcHandler calcHandler;
    private final ProgAspectHandler aspectHandler;
 
-   public TransitsApi(final EphProgCalcHandler calcHandler,
-                      final ProgAspectHandler aspectHandler) {
-      this.calcHandler = checkNotNull(calcHandler);
-      this.aspectHandler = checkNotNull(aspectHandler);
+   public TransitsApi(@NotNull final EphProgCalcHandler calcHandler,
+                      @NotNull final ProgAspectHandler aspectHandler) {
+      this.calcHandler = calcHandler;
+      this.aspectHandler = aspectHandler;
    }
 
    public SimpleProgResponse calculateTransits(final IProgCalcRequest request) {

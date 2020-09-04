@@ -15,8 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
@@ -35,8 +35,8 @@ public class StatsProjBlock {
    private Pane paneBtnBar;
    private TableView tvProj;
 
-   public StatsProjBlock(final StatsProjNew statsProjNew) {
-      this.statsProjNew = checkNotNull(statsProjNew);
+   public StatsProjBlock(@NotNull final StatsProjNew statsProjNew) {
+      this.statsProjNew = statsProjNew;
    }
 
    public VBox getVBox() {

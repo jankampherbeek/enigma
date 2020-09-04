@@ -13,12 +13,11 @@ import com.radixpro.enigma.domain.config.ConfiguredAspect;
 import com.radixpro.enigma.domain.config.ConfiguredCelObject;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ConfigurationDao extends DaoParent {
 
@@ -38,9 +37,8 @@ public class ConfigurationDao extends DaoParent {
       this.appDb = appDb;
    }
 
-   public int insert(final Configuration insertConfig) throws DatabaseException {
+   public int insert(@NotNull final Configuration insertConfig) throws DatabaseException {
       int configId = -1;
-      checkNotNull(insertConfig);
       final Connection con = appDb.getConnection();
       final String insertConfigs = "INSERT INTO configs (id, parentid, name, description, idhouses, idayanamshas, ideclprojs, idobspos, idasporbstrs, baseorb" +
             ", drawinoutgoing) values(configsseq.NEXTVAL, ?,?,?,?,?,?,?,?,?,?); ";
@@ -103,8 +101,7 @@ public class ConfigurationDao extends DaoParent {
    }
 
 
-   public void update(final Configuration updateConfig) throws DatabaseException {
-      checkNotNull(updateConfig);
+   public void update(@NotNull final Configuration updateConfig) throws DatabaseException {
       Connection con = appDb.getConnection();
       final String updateConfigs = "UPDATE configs set name = ?, description = ?, idhouses = ?, idayanamshas = ?, ideclprojs = ?, idobspos = ? " +
             ", idasporbstrs = ?, baseorb = ?, drawinoutgoing = ? WHERE id = ?;";

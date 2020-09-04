@@ -7,10 +7,11 @@
 
 package com.radixpro.enigma.domain.reqresp;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Response after reading a dtafile and converting it to Json.
@@ -21,10 +22,12 @@ public class InputDataFileResponse {
    private final List<String> errorLines;
    private final boolean success;
 
-   public InputDataFileResponse(final String resultMsg, final List<String> errorLines, final boolean success) {
-      checkArgument(null != resultMsg && !resultMsg.isEmpty());
+   public InputDataFileResponse(@NotNull final String resultMsg,
+                                @NotNull final List<String> errorLines,
+                                final boolean success) {
+      checkArgument(!resultMsg.isBlank());
       this.resultMsg = resultMsg;
-      this.errorLines = checkNotNull(errorLines);
+      this.errorLines = errorLines;
       this.success = success;
    }
 

@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.charts.screens.helpers;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Calculates the positions for alle cusplines for the corners.
@@ -17,8 +17,8 @@ public class CornerLines {
    final double hypothenusaLarge;
    final double hypothenusaSmall;
 
-   public CornerLines(final ChartDrawMetrics metrics) {
-      this.metrics = checkNotNull(metrics);
+   public CornerLines(@NotNull final ChartDrawMetrics metrics) {
+      this.metrics = metrics;
       this.hypothenusaLarge = metrics.getDiameterOuterCircle() + metrics.getOffsetOuterCircle();
       this.hypothenusaSmall = metrics.getDiameterHousesCircle() + (metrics.getWidthThickLines() / 2);
    }
