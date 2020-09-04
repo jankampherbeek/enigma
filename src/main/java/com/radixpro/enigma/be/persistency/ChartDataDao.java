@@ -58,7 +58,7 @@ public class ChartDataDao extends DaoParent {
          pStmtCharts.setString(6, insertFullChartInputData.getDateTimeJulian().getCalendar());
          pStmtCharts.setDouble(7, insertFullChartInputData.getLocation().getGeoLat());
          pStmtCharts.setDouble(8, insertFullChartInputData.getLocation().getGeoLon());
-         pStmtCharts.setString(9, insertFullChartInputData.getChartMetaData().getInputData());
+         pStmtCharts.setString(9, insertFullChartInputData.getChartMetaData().getDataInput());
          int result = pStmtCharts.executeUpdate();
          if (result != 1)
             throw new DatabaseException("Could not insert chart " + insertFullChartInputData.getChartMetaData().getName() + " . No rows changed.");
@@ -171,8 +171,8 @@ public class ChartDataDao extends DaoParent {
       int id = rsCharts.getInt("id");
       String name = rsCharts.getString("name");
       String description = rsCharts.getString("description");
-      int idChartType = rsCharts.getInt("idcharttype");
-      int idRating = rsCharts.getInt("idrating");
+      ChartTypes chartType = ChartTypes.chartTypeForId(rsCharts.getInt("idcharttype"));
+      Ratings rating = Ratings.getRatingForId(rsCharts.getInt("idrating"));
       double jdnr = rsCharts.getDouble("jdnr");
       String cal = rsCharts.getString("cal");
       double geoLat = rsCharts.getDouble("geolat");
@@ -181,7 +181,7 @@ public class ChartDataDao extends DaoParent {
 
       DateTimeJulian dateTime = new DateTimeJulian(jdnr, cal);
       Location location = new Location(geoLat, geoLon);
-      ChartMetaData metaData = new ChartMetaData(name, description, ChartTypes.chartTypeForId(idChartType), Ratings.getRatingForId(idRating), datainput);
+      ChartMetaData metaData = new ChartMetaData(name, description, chartType, rating, datainput);
       return new FullChartInputData(id, dateTime, location, metaData);
    }
 

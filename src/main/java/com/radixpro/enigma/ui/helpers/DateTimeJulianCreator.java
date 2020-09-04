@@ -40,7 +40,7 @@ public class DateTimeJulianCreator {
       String[] parts = timeText.split(":");
       int hour = Integer.parseInt(parts[0]);
       int minute = Integer.parseInt(parts[1]);
-      int second = Integer.parseInt(parts[2]);
+      int second = (parts.length == 3 ? Integer.parseInt(parts[2]) : 0);
       double time = hour + minute / 60.0 + second / 3600.0;
       if (dst) time--;
       if (zone.name().equals("LMT")) time -= offsetLmt;

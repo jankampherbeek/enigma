@@ -28,8 +28,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 public class Dashboard {
@@ -40,10 +40,10 @@ public class Dashboard {
    private final StatsStart statsStart;
    private Stage stage;
 
-   public Dashboard(final Rosetta rosetta, final ChartsStart chartsStart, final StatsStart statsStart) {
+   public Dashboard(@NotNull final Rosetta rosetta, @NotNull final ChartsStart chartsStart, @NotNull final StatsStart statsStart) {
       this.rosetta = rosetta;
-      this.chartsStart = checkNotNull(chartsStart);
-      this.statsStart = checkNotNull(statsStart);
+      this.chartsStart = chartsStart;
+      this.statsStart = statsStart;
    }
 
    public void showDashboard() {

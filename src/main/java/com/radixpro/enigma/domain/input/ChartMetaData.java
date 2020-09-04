@@ -20,16 +20,17 @@ public class ChartMetaData implements Serializable {
 
    private final String name;
    private final String description;
+   private final String dataInput;
    private final ChartTypes chartType;
    private final Ratings rating;
-   private String inputData;
 
-   public ChartMetaData(@NotNull final String name, @NotNull final String description, @NotNull final ChartTypes chartType, @NotNull final Ratings rating,
-                        @NotNull String inputData) {
+   public ChartMetaData(@NotNull final String name, @NotNull final String description, @NotNull ChartTypes chartType, @NotNull Ratings rating,
+                        @NotNull String dataInput) {
       this.name = name;
       this.description = description;
       this.chartType = chartType;
       this.rating = rating;
+      this.dataInput = dataInput;
    }
 
    public String getName() {
@@ -40,15 +41,15 @@ public class ChartMetaData implements Serializable {
       return description;
    }
 
+   public String getDataInput() {
+      return dataInput;
+   }
+
    public ChartTypes getChartType() {
       return chartType;
    }
 
    public Ratings getRating() {
       return rating;
-   }
-
-   public String getInputData() {
-      return inputData;
    }
 }

@@ -414,14 +414,26 @@ public class ChartsInput {
       return persistedChartDataApi.insert(fullChartInputData);
    }
 
+   private String constructDataInput() {
+      String SPACE = " ";
+      String NEWLINE = "\n";
+      TimeZones zone = TimeZones.timeZoneForName(cbTimeZone.getValue());
+      String offsetLmt = "";
+      if (zone == TimeZones.LMT) offsetLmt = "Offset : " + tfLocaltime.getText() + SPACE + cbLocalEastWest.getValue();
+      String dstText = rosetta.getText(cBoxDst.isSelected() ? "ui.shared.dst" : "ui.shared.nodst");
+      return tfDate.getText() + SPACE + cbCalendar.getValue() + SPACE + tfTime.getText() + SPACE + rosetta.getText(zone.getNameForRB()) + SPACE + dstText +
+            offsetLmt + NEWLINE + tfLocationLatitude.getText() + cbEastWest.getValue() + SPACE + tfLocationLongitude.getText() + SPACE +
+            cbNorthSouth.getValue() + NEWLINE + rosetta.getText("ui.shared.source") + SPACE + tfSource.getText();
+   }
+
    private ChartMetaData constructMetaData() {
       String inputName = tfName.getText();
       String inputDescription = tfDescription.getText().trim();
       String inputSource = tfSource.getText().trim();
       Ratings inputRating = Ratings.ZZ.ratingForName(cbRating.getValue());
       ChartTypes inputChartType = ChartTypes.UNKNOWN.chartTypeForLocalName(cbSubject.getValue());
-      String inputData = inputSource + " " + rosetta.getText(inputRating.getNameForRB()) + " en de rest....";    // todo create inputData
-      return new ChartMetaData(inputName, inputDescription, inputChartType, inputRating, inputData);
+      String dataInput = constructDataInput();
+      return new ChartMetaData(inputName, inputDescription, inputChartType, inputRating, dataInput);
    }
 
    private Location constructLocation() {
