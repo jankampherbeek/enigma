@@ -21,7 +21,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 public class LabelBuilder {
 
    private final Rosetta rosetta;
-   private String rbKey;
+   private final String rbKey;
    private String text = "";
    private double prefWidth;
    private double prefHeight;

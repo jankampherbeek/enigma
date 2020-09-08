@@ -201,9 +201,8 @@ public class ConfigurationDao extends DaoParent {
     *
     * @param searchName the search argument.
     * @return a list with zero or more configurations.
-    * @throws DatabaseException is thrown for any database error.
     */
-   public List<Configuration> search(final String searchName) throws DatabaseException {
+   public List<Configuration> search(final String searchName) {
       List<Configuration> resultConfigs = new ArrayList<>();
       final String queryConfigs = SEL_CONFIGS + " FROM configs WHERE name ILIKE '%' || ? || '%';";
       final Connection con = appDb.getConnection();

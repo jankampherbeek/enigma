@@ -41,8 +41,8 @@ public class LocationInputBlock extends InputBlock {
    private TextField tfLocationLatitude;
    private TextField tfLocationLongitude;
    private TextField tfLocationName;
-   private ValidatedLongitude valLong;
-   private ValidatedLatitude valLat;
+   private final ValidatedLongitude valLong;
+   private final ValidatedLatitude valLat;
    private ChoiceBox<String> cbEastWest;
    private ChoiceBox<String> cbNorthSouth;
    private GridPane gridPane;

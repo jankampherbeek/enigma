@@ -45,7 +45,9 @@ public class SpaeculumPropSaCalculator {
       this.obliquityHandler = obliquityHandler;
    }
 
-   public SpaeculumPropSaData performCalculation(@NotNull final CalculatedChart calculatedChart, final double jdUt, final double geoLat,
+   public SpaeculumPropSaData performCalculation(@NotNull final CalculatedChart calculatedChart,
+                                                 final double jdUt,
+                                                 final double geoLat,
                                                  @NotNull final ICalcSettings settings) {
       this.calculatedChart = calculatedChart;
       this.settings = settings;
@@ -62,7 +64,8 @@ public class SpaeculumPropSaCalculator {
       return new SpaeculumPropSaData(raMcRx, items);
    }
 
-   private SpaeculumPropSaItem itemForCelestialBody(final int id, final double jdUt) {
+   private SpaeculumPropSaItem itemForCelestialBody(final int id,
+                                                    final double jdUt) {
       SpaeculumPropSaItem item;
       double lon = 0.0;
       double decl = 0.0;
@@ -102,7 +105,12 @@ public class SpaeculumPropSaCalculator {
     * @param raPos  Right ascension of position where the proportion is calculated for.
     * @return The proportion of the semi-arc.
     */
-   private double getPlacideanPropOfSa(double geoLat, double eps, double raMc, double raPos, double sa, int quadrant) {
+   private double getPlacideanPropOfSa(double geoLat,
+                                       double eps,
+                                       double raMc,
+                                       double raPos,
+                                       double sa,
+                                       int quadrant) {
       double meridianDistance = raPos - raMc;
       if (quadrant == 4 || quadrant == 2) {
          meridianDistance = new Range(0, 180).checkValue(meridianDistance);
@@ -114,7 +122,9 @@ public class SpaeculumPropSaCalculator {
       return proportion;
    }
 
-   private int defineQuadrant(double lon, double mc, double asc) {
+   private int defineQuadrant(double lon,
+                              double mc,
+                              double asc) {
       double distanceFromMC = new Range(0, 360).checkValue(lon - mc);
       double distanceFromAsc = new Range(0, 360).checkValue(lon - asc);
       boolean eastHemisphere = false;

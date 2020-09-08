@@ -13,7 +13,6 @@ public class EnigmaMathException extends Exception {
       super(message);
    }
 
-   ;
 
 
 }

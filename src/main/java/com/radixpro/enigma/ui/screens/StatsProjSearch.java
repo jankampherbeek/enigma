@@ -14,11 +14,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class StatsSearch {
+public class StatsProjSearch {
 
    private static final double WIDTH = 600.0;
 
-   public StatsSearch() {
+   public StatsProjSearch() {
       showIt();
    }
 

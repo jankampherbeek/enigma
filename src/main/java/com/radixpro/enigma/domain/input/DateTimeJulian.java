@@ -14,8 +14,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class DateTimeJulian {
 
-   private double jd;
-   private String calendar;
+   private final double jd;
+   private final String calendar;
 
    public DateTimeJulian(final double jd, @NotNull String calendar) {
       this.calendar = calendar;

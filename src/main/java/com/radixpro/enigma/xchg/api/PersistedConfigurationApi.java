@@ -66,7 +66,7 @@ public class PersistedConfigurationApi {
       List<Configuration> configs = new ArrayList<>();
       try {
          configs = dao.search(searchName);
-      } catch (DatabaseException de) {
+      } catch (Exception de) {
          new FailFastHandler().terminate(de.getMessage());
       }
       return configs;

@@ -154,7 +154,7 @@ public class StatsStart {
 
 
    private void onSearch() {
-      new StatsSearch();
+      new StatsProjSearch();
    }
 
 

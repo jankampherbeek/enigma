@@ -71,7 +71,7 @@ public class EphProgCalcHandler {
          final CoordinateSet fullHorCoordinates = new CoordinateSet(horCoordinates[0], horCoordinates[1]);
          final FullPointCoordinate fullEclCoordinates = createFullPointCoordinate(posEcl);
          final FullPointCoordinate fullEqCoordinates = createFullPointCoordinate(posEq);
-         posResults.add(new FullPointPosition((CelestialObjects) point, fullEclCoordinates, fullEqCoordinates, fullHorCoordinates));
+         posResults.add(new FullPointPosition(point, fullEclCoordinates, fullEqCoordinates, fullHorCoordinates));
       }
       return posResults;
    }

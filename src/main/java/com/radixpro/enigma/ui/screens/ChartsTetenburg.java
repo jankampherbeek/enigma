@@ -220,9 +220,8 @@ public class ChartsTetenburg {
       String timeText = "0:0:0";
       String cal = fullChart.getChartData().getDateTimeJulian().getCalendar();
       TimeZones zone = TimeZones.UT;
-      boolean dst = false;
       double offsetLmt = 0.0;
-      DateTimeJulian progDateTime = dateTimeJulianCreator.createDateTime(dateText, cal, timeText, zone, dst, offsetLmt);
+      DateTimeJulian progDateTime = dateTimeJulianCreator.createDateTime(dateText, cal, timeText, zone, false, offsetLmt);
 
       TetenburgRequest request = new TetenburgRequest(longMc, solarSpeed, location, birthDateTime, progDateTime);
       TetenburgResponse response = api.calculateCriticalPoint(request);

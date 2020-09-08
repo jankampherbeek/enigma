@@ -50,9 +50,9 @@ public class DateTimeInputBlock extends InputBlock {
    private TextField tfDate;
    private TextField tfLocaltime;
    private TextField tfTime;
-   private ValidatedDate valDate;
-   private ValidatedTime valTime;
-   private ValidatedLongitude valLongLocalTime;
+   private final ValidatedDate valDate;
+   private final ValidatedTime valTime;
+   private final ValidatedLongitude valLongLocalTime;
    private final DateTimeJulianCreator dateTimeJulianCreator;
    private boolean timeZoneLocalSelected = false;
    private GridPane gridPane;

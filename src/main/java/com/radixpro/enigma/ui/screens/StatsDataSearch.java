@@ -31,8 +31,8 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 public class StatsDataSearch {
 
    private static final double HEIGHT = 800.0;
-   private PersistedDataFileApi api;
-   private Rosetta rosetta;
+   private final PersistedDataFileApi api;
+   private final Rosetta rosetta;
    private Label lblTitle;
    private Label lblInstruction;
    private Pane paneTitle;

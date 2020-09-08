@@ -83,8 +83,7 @@ public class EnigmaMath {
     * @return Arc tangent of first argument divided by second argument
     */
    public static final double atan2(double value1, double value2) {
-      double result = Math.toDegrees(Math.atan2(value1, value2));
-      return result;
+      return Math.toDegrees(Math.atan2(value1, value2));
    }
 
 }
