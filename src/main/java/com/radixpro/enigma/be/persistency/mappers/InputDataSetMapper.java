@@ -52,22 +52,47 @@ public class InputDataSetMapper {
    }
 
    private DateTimeJulian createDateTime(JSONObject jsonObject) {
-      double jdNr = (double) jsonObject.get("jdnr");
-      String cal = (String) jsonObject.get("cal");
+      JSONObject dateTimeObject = (JSONObject) jsonObject.get("dateTime");
+      double jdNr = (double) dateTimeObject.get("jd");
+      String cal = (String) dateTimeObject.get("calendar");
       return new DateTimeJulian(jdNr, cal);
    }
 
    private Location createLocation(JSONObject jsonObject) {
-      JSONObject jsonLocation = (JSONObject) jsonObject.get("location");
-      JSONObject jsonLongInput = (JSONObject) jsonLocation.get("longInput");
-      String lonDirection = jsonLongInput.get("direction").toString();
-      int dirCorrection = "Ww".contains(lonDirection) ? -1 : 1;
-      double lonValue = (Double.parseDouble(jsonLongInput.get("value").toString())) * dirCorrection;
-      JSONObject jsonLatInput = (JSONObject) jsonLocation.get("latInput");
-      String latDirection = jsonLatInput.get("direction").toString();
-      dirCorrection = "SsZz".contains(latDirection) ? -1 : 1;
-      double latValue = (Double.parseDouble(jsonLatInput.get("value").toString())) * dirCorrection;
+      JSONObject dateTimeObject = (JSONObject) jsonObject.get("location");
+      double latValue = (Double.parseDouble(dateTimeObject.get("geoLat").toString()));
+      double lonValue = (Double.parseDouble(dateTimeObject.get("geoLon").toString()));
       return new Location(latValue, lonValue);
    }
 
 }
+
+//{
+//  "name" : "testx",
+//  "description" : "descrx",
+//  "origFileName" : "C:\\enigma-data\\inputdata\\test1.csv",
+//  "dateTime" : "2020-09-10T20:34:21.454645400",
+//  "inputData" : [ {
+//    "id" : 22,
+//    "name" : "Jan",
+//    "dateTime" : {
+//      "jd" : 2434406.8177083335,
+//      "calendar" : "g"
+//    },
+//    "location" : {
+//      "geoLat" : 52.21666666666667,
+//      "geoLon" : 6.9
+//    }
+//  }, {
+//    "id" : 23,
+//    "name" : "Piet",
+//    "dateTime" : {
+//      "jd" : 2447708.9375,
+//      "calendar" : "g"
+//    },
+//    "location" : {
+//      "geoLat" : 51.8,
+//      "geoLon" : 5.866666666666667
+//    }
+//  } ]
+//}
