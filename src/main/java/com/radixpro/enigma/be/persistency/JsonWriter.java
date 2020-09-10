@@ -10,6 +10,7 @@ package com.radixpro.enigma.be.persistency;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +21,9 @@ import java.io.IOException;
  */
 public class JsonWriter {
 
-   public void write2File(String pathFilename, Object object2Write, boolean useIndent) {
+   public void write2File(@NotNull final String pathFilename,
+                          @NotNull final Object object2Write,
+                          final boolean useIndent) {
       ObjectMapper mapper = new ObjectMapper();
       mapper.configure(SerializationFeature.INDENT_OUTPUT, useIndent);
       mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);

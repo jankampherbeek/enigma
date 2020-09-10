@@ -17,6 +17,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.NotNull;
 
 import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_WIDTH;
 import static com.radixpro.enigma.ui.shared.UiDictionary.TITLE_HEIGHT;
@@ -32,7 +33,8 @@ public class StatsProjNew extends InputScreen {
    private Label lblTitle;
    private Pane paneTitle;
 
-   public StatsProjNew(final NameDescriptionInputBlock nameDescrBlock, final DataFilesInputBlock dataFilesBlock) {
+   public StatsProjNew(@NotNull final NameDescriptionInputBlock nameDescrBlock,
+                       @NotNull final DataFilesInputBlock dataFilesBlock) {
       super();
       this.nameDescrBlock = nameDescrBlock;
       this.dataFilesBlock = dataFilesBlock;
@@ -46,8 +48,8 @@ public class StatsProjNew extends InputScreen {
 
    @Override
    public void checkStatus() {
-      if (null != nameDescrBlock.getTfDescr().getText() && !nameDescrBlock.getTfDescr().getText().isBlank() &&
-            null != nameDescrBlock.getTfDescr() && !nameDescrBlock.getTfDescr().getText().isBlank()) {
+      if (null != nameDescrBlock.getDescr() && !nameDescrBlock.getDescr().isBlank() &&
+            null != nameDescrBlock.getDescr() && !nameDescrBlock.getDescr().isBlank()) {
          // enable buttons
       } else {
          // disable buttons

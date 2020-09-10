@@ -42,12 +42,12 @@ public class NameDescriptionInputBlock extends InputBlock {
       return createVBox();
    }
 
-   public TextField getTfName() {
-      return tfName;
+   public String getName() {
+      return tfName.getText();
    }
 
-   public TextField getTfDescr() {
-      return tfDescr;
+   public String getDescr() {
+      return tfDescr.getText();
    }
 
    @Override

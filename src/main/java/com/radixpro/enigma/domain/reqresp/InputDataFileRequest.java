@@ -7,6 +7,8 @@
 
 package com.radixpro.enigma.domain.reqresp;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -21,11 +23,14 @@ public class InputDataFileRequest {
    private final File dataFile;
    private final String fullPathProjDir;
 
-   public InputDataFileRequest(final String dataName, final String description, final File dataFile, final String fullPathProjDir) {
+   public InputDataFileRequest(@NotNull final String dataName,
+                               @NotNull final String description,
+                               @NotNull final File dataFile,
+                               @NotNull final String fullPathProjDir) {
       this.dataFile = dataFile;
-      checkArgument(null != dataName && !dataName.isBlank());
-      checkArgument(null != description && !description.isBlank());
-      checkArgument(null != fullPathProjDir && !fullPathProjDir.isBlank());
+      checkArgument(!dataName.isBlank());
+      checkArgument(!description.isBlank());
+      checkArgument(!fullPathProjDir.isBlank());
       this.dataName = dataName;
       this.description = description;
       this.fullPathProjDir = fullPathProjDir;

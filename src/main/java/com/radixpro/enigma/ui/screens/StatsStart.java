@@ -35,6 +35,7 @@ public class StatsStart {
    private final DirectoryChooser dirChooser;
    private final StatsDataBlock dataBlock;
    private final StatsProjBlock projBlock;
+   private boolean projDirDefined;
    private String fullPathProjDir;
    private Stage stage;
    private Label lblPageTitle;
@@ -60,12 +61,19 @@ public class StatsStart {
       stage = new Stage();
       stage.setWidth(START_WIDTH);
       List<Property> properties = propApi.read(KEY_PROJDIR);
-      fullPathProjDir = (0 == properties.size() ? "" : properties.get(0).getValue());
+      if (0 == properties.size()) {
+         fullPathProjDir = "";
+         projDirDefined = false;
+      } else {
+         fullPathProjDir = properties.get(0).getValue();
+         projDirDefined = true;
+      }
       defineLeafs();
       definePanes();
       defineStructure();
 
-      stage.setScene(new Scene(createVBox()));
+      if (projDirDefined) stage.setScene(new Scene(createVBox()));
+      else stage.setScene(new Scene(createVBoxDefineProjDir()));
       stage.showAndWait();
    }
 
@@ -87,7 +95,7 @@ public class StatsStart {
       btnDefineProjDir.setOnAction(click -> onDefineProjDir());
 
       panePageTitle.getChildren().add(lblPageTitle);
-      if (fullPathProjDir.isEmpty()) {
+      if (fullPathProjDir.isBlank()) {
 //         paneSubTitleProjects.getChildren().add(lblSubTitleNoProjdir);
          paneProjects.getChildren().add(createVBoxDefineProjDir());
       } else {
@@ -110,22 +118,24 @@ public class StatsStart {
       MenuItem miExit = new MenuItem(rosetta.getText("menu.general.exit"));
       miExit.setOnAction(e -> stage.close());
       menuGeneral.getItems().add(miExit);
+      Menu menuData = new Menu(rosetta.getText("menu.stats.data"));
+      MenuItem miNewData = new MenuItem(rosetta.getText("menu.stats.data.new"));
+      miNewData.setOnAction(click -> dataBlock.onNew());
+      MenuItem miSearchData = new MenuItem(rosetta.getText("menu.stats.data.search"));
+      miSearchData.setOnAction((click -> dataBlock.onSearch()));
+      MenuItem miDetailsData = new MenuItem(rosetta.getText("menu.stats.data.details"));
+      menuData.getItems().addAll(miNewData, miSearchData, miDetailsData);
       Menu menuProjects = new Menu(rosetta.getText("menu.stats.projects"));
       MenuItem miNewProject = new MenuItem(rosetta.getText("menu.stats.projects.new"));
       MenuItem miSearchProject = new MenuItem(rosetta.getText("menu.stats.projects.search"));
       MenuItem miEditProject = new MenuItem(rosetta.getText("menu.stats.projects.edit"));
       MenuItem miOpenProject = new MenuItem(rosetta.getText("menu.stats.projects.open"));
       menuProjects.getItems().addAll(miNewProject, miSearchProject, miEditProject, miOpenProject);
-      Menu menuData = new Menu(rosetta.getText("menu.stats.data"));
-      MenuItem miNewData = new MenuItem(rosetta.getText("menu.stats.data.new"));
-      MenuItem miSearchData = new MenuItem(rosetta.getText("menu.stats.data.search"));
-      MenuItem miDetailsData = new MenuItem(rosetta.getText("menu.stats.data.details"));
-      menuData.getItems().addAll(miNewData, miSearchData, miDetailsData);
       Menu menuHelp = new Menu(rosetta.getText("menu.general.help"));
       MenuItem miShowHelp = new MenuItem(rosetta.getText("menu.general.help.showhelp"));
       menuHelp.getItems().add(miShowHelp);
       MenuBar menuBar = new MenuBar();
-      menuBar.getMenus().addAll(menuGeneral, menuProjects, menuData, menuHelp);
+      menuBar.getMenus().addAll(menuGeneral, menuData, menuProjects, menuHelp);
       return menuBar;
    }
 

@@ -16,22 +16,25 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Handler to access datafiles
+ * Handler to access datafiles using the internal Json format.
  */
 public class DataFileHandler {
 
    private final DataFileDao dao;
-   private final PersistedPropertyApi propApi;
+   private static final String PROJDIR_KEY = "projdir";
+   private static final String DATA_FOLDER = "data";
+   private final String projDir;
 
-   public DataFileHandler(@NotNull final DataFileDao dao, @NotNull final PersistedPropertyApi propApi) {
+   public DataFileHandler(@NotNull final DataFileDao dao,
+                          @NotNull final PersistedPropertyApi propApi) {
       this.dao = dao;
-      this.propApi = propApi;
+      projDir = propApi.read(PROJDIR_KEY).get(0).getValue();
    }
 
    public List<DataFileDescription> readDataFileDesciptions() {
-      final String projDir = propApi.read("projdir").get(0).getValue();
-      File projDirFile = new File(projDir + File.separator + "data" + File.separator);
+      File projDirFile = new File(projDir + File.separator + DATA_FOLDER + File.separator);
       return dao.readDataFileList(projDirFile);
    }
+
 
 }

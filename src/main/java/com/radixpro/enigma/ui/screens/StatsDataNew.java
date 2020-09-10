@@ -84,7 +84,7 @@ public class StatsDataNew extends InputScreen {
       selectedInputFormat = DataInputFormats.CSV_CHARTS_STANDARD;
       tfName = new TextFieldBuilder().setPrefWidth(INPUT_DATA_WIDTH).build();
       tfDescription = new TextFieldBuilder().setPrefWidth(INPUT_DATA_WIDTH).build();
-      btnDataFile = new ButtonBuilder("ui.stats.inputdata.btn.datafile").setDisabled(true).build();
+      btnDataFile = new ButtonBuilder("ui.stats.inputdata.btn.datafile").setDisabled(false).build();
       btnDataFile.setOnAction(click -> onDataFile());
       tfName.textProperty().addListener((observable, oldValue, newValue) -> checkStatus());
       tfDescription.textProperty().addListener((observable, oldValue, newValue) -> checkStatus());
@@ -137,7 +137,7 @@ public class StatsDataNew extends InputScreen {
 
    private void defineInputFormat(final String newValue) {
       selectedInputFormat = DataInputFormats.UNDEFINED.formatForName(newValue);
-      btnDataFile.setDisable(selectedInputFormat == DataInputFormats.UNDEFINED);
+//      btnDataFile.setDisable(selectedInputFormat == DataInputFormats.UNDEFINED);
    }
 
    private void onHelp() {
@@ -155,15 +155,15 @@ public class StatsDataNew extends InputScreen {
    public void checkStatus() {
       boolean statusOk = DataInputFormats.UNDEFINED != selectedInputFormat && null != tfName.getText() && !tfName.getText().isBlank() && null != tfDescription
             && !tfDescription.getText().isBlank();
-      btnDataFile.setDisable(!statusOk);
+//      btnDataFile.setDisable(!statusOk);
    }
 
    private void processDataFile(final File dataFile) {
       String fullPathProjdir = propApi.read(KEY_PROJDIR).get(0).getValue();
       DataInputFormats inputFormat = selectedInputFormat;
-      InputDataFileRequest request = new InputDataFileRequest(tfName.getText(), tfDescription.getText(), dataFile, fullPathProjdir);
+      InputDataFileRequest request = new InputDataFileRequest(nameDescrBlock.getName(), nameDescrBlock.getDescr(), dataFile, fullPathProjdir);
       InputDataFileResponse response = inputDataFileApi.addDataFile(request);
-      // TODO process response
+      lblResults.setText(response.getResultMsg());
    }
 
 }

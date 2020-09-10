@@ -41,7 +41,6 @@ public class StatsDataBlock {
       this.dataSearch = dataSearch;
    }
 
-
    public VBox getVBox() {
       initialize();
       return createVBox();
@@ -78,11 +77,11 @@ public class StatsDataBlock {
       return new VBoxBuilder().setWidth(START_WIDTH).setHeight(BLOCK_HEIGHT).setChildren(paneSubTitle, tvDataFiles, paneBtnBar).build();
    }
 
-   private void onNew() {
+   public void onNew() {
       dataNew.show();
    }
 
-   private void onSearch() {
+   public void onSearch() {
       dataSearch.show();
    }
 

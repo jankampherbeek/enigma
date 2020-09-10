@@ -26,7 +26,8 @@ public class DataFileDao {
    private final JsonReader jsonReader;
    private final InputDataSetMapper mapper;
 
-   public DataFileDao(@NotNull final JsonReader jsonReader, @NotNull final InputDataSetMapper mapper) {
+   public DataFileDao(@NotNull final JsonReader jsonReader,
+                      @NotNull final InputDataSetMapper mapper) {
       this.jsonReader = jsonReader;
       this.mapper = mapper;
    }
