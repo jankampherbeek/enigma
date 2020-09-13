@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.references;
 
-import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,27 +37,27 @@ public class AyanamshasTest {
    }
 
    @Test
-   public void getAyanamshaForId() throws UnknownIdException {
-      assertEquals(Ayanamshas.RAMAN, ayanamsha.getAyanamshaForId(3));
+   public void getAyanamshaForId() {
+      assertEquals(Ayanamshas.RAMAN, Ayanamshas.getAyanamshaForId(3));
    }
 
-   @Test(expected = UnknownIdException.class)
-   public void getAyanamshaForIdNotFound() throws UnknownIdException {
-      ayanamsha.getAyanamshaForId(1000);
+   @Test
+   public void getAyanamshaForIdNotFound() {
+      assertEquals(Ayanamshas.NONE, Ayanamshas.getAyanamshaForId(1000));
    }
 
    @Test
    public void total() {
-      assertEquals(42, Ayanamshas.values().length);
+      assertEquals(41, Ayanamshas.values().length);
    }
 
    @Test
    public void getObservableList() {
-      assertEquals(41, ayanamsha.getObservableList().size());
+      assertEquals(41, Ayanamshas.getObservableList().size());
    }
 
    @Test
    public void getIndexMappings() {
-      assertEquals(41, ayanamsha.getIndexMappings().getAllIndexMappings().size());
+      assertEquals(41, Ayanamshas.getIndexMappings().getAllIndexMappings().size());
    }
 }

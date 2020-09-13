@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.references;
 
-import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,24 +33,24 @@ public class EclipticProjectionsTest {
    }
 
    @Test
-   public void getProjectionForId() throws UnknownIdException {
-      assertEquals(EclipticProjections.TROPICAL, projection.getProjectionForId(1));
+   public void getProjectionForId() {
+      assertEquals(EclipticProjections.TROPICAL, EclipticProjections.getProjectionForId(1));
    }
 
-   @Test(expected = UnknownIdException.class)
-   public void getProjectionForIdNotFound() throws UnknownIdException {
-      projection.getProjectionForId(1000);
+   @Test
+   public void getProjectionForIdNotFound() {
+      assertEquals(EclipticProjections.TROPICAL, EclipticProjections.getProjectionForId(1000));
    }
 
    @Test
    public void getObservableList() {
-      assertEquals(2, projection.getObservableList().size());
+      assertEquals(2, EclipticProjections.getObservableList().size());
    }
 
 
    @Test
    public void getIndexMappings() {
-      IndexMappingsList imList = projection.getIndexMappings();
+      IndexMappingsList imList = EclipticProjections.getIndexMappings();
       assertEquals(2, imList.getAllIndexMappings().size());
    }
 }

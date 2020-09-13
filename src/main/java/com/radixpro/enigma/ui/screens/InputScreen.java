@@ -21,9 +21,9 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_WIDTH;
 
 public abstract class InputScreen {
 
-   protected Stage stage;
-   protected Rosetta rosetta;
-   protected SessionState state;
+   protected final Stage stage;
+   protected final Rosetta rosetta;
+   protected final SessionState state;
 
    public InputScreen() {
       state = SessionState.getInstance();

@@ -17,8 +17,8 @@ import com.radixpro.enigma.references.InputStatus;
 public abstract class InputBlock {
 
    protected static final String INPUT_STYLE = "inputDefault";
-   protected Rosetta rosetta;
-   protected SessionState state;
+   protected final Rosetta rosetta;
+   protected final SessionState state;
    protected InputStatus inputStatus = InputStatus.INCOMPLETE;
 
    /**

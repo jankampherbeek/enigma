@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.references;
 
-import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -28,27 +27,27 @@ public class ObserverPositionsTest {
 
 
    @Test
-   public void getObserverPositionForId() throws UnknownIdException {
-      assertEquals(ObserverPositions.TOPOCENTRIC, observerPosition.getObserverPositionForId(2));
+   public void getObserverPositionForId() {
+      assertEquals(ObserverPositions.TOPOCENTRIC, ObserverPositions.getObserverPositionForId(2));
    }
 
-   @Test(expected = UnknownIdException.class)
-   public void getObserverPositionForIdNotFound() throws UnknownIdException {
-      observerPosition.getObserverPositionForId(1000);
+   @Test
+   public void getObserverPositionForIdNotFound() {
+      assertEquals(ObserverPositions.GEOCENTRIC, ObserverPositions.getObserverPositionForId(1000));
    }
 
    @Test
    public void total() {
-      assertEquals(3, ObserverPositions.values().length);
+      assertEquals(2, ObserverPositions.values().length);
    }
 
    @Test
    public void getObservableList() {
-      assertEquals(2, observerPosition.getObservableList().size());
+      assertEquals(2, ObserverPositions.getObservableList().size());
    }
 
    @Test
    public void getIndexMappings() {
-      assertEquals(2, observerPosition.getIndexMappings().getAllIndexMappings().size());
+      assertEquals(2, ObserverPositions.getIndexMappings().getAllIndexMappings().size());
    }
 }

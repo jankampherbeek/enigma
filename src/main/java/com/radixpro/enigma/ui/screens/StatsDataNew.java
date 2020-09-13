@@ -113,7 +113,7 @@ public class StatsDataNew extends InputScreen {
 
    private VBox createVBox() {
       return new VBoxBuilder().setHeight(HEIGHT).setWidth(INPUT_WIDTH).setPadding(GAP).
-            setChildren(panePageTitle, paneExplanation, nameDescrBlock.getVBox(this), paneFormat, createBtnBarDataFile(), paneResults, createBtnBar()).build();
+            setChildren(panePageTitle, paneExplanation, nameDescrBlock.getGridPane(this), paneFormat, createBtnBarDataFile(), paneResults, createBtnBar()).build();
    }
 
    private ButtonBar createBtnBarDataFile() {

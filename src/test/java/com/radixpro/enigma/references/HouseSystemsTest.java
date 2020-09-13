@@ -62,26 +62,26 @@ public class HouseSystemsTest {
 
    @Test
    public void total() {
-      assertEquals(21, HouseSystems.values().length);
+      assertEquals(22, HouseSystems.values().length);
    }
 
    @Test
    public void getSystemForId() throws UnknownIdException {
-      assertEquals(HouseSystems.PLACIDUS, houseSystem.getSystemForId(6));
+      assertEquals(HouseSystems.PLACIDUS, HouseSystems.getSystemForId(6));
    }
 
-   @Test(expected = UnknownIdException.class)
+   @Test
    public void getSystemForIdNotFound() throws UnknownIdException {
-      houseSystem.getSystemForId(1000);
+      assertEquals(HouseSystems.WHOLESIGN, HouseSystems.getSystemForId(1000));
    }
 
    @Test
    public void getObservableList() {
-      assertEquals(20, houseSystem.getObservableList().size());
+      assertEquals(22, HouseSystems.getObservableList().size());
    }
 
    @Test
    public void getIndexMappings() {
-      assertEquals(20, houseSystem.getIndexMappings().getAllIndexMappings().size());
+      assertEquals(22, houseSystem.getIndexMappings().getAllIndexMappings().size());
    }
 }

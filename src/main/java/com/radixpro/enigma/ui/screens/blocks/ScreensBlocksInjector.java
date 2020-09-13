@@ -18,6 +18,10 @@ public class ScreensBlocksInjector {
       // prevent instantiation
    }
 
+   public static BaseConfigInputBlock injectBaseConfigInputBlock(AppScope scope) {
+      return new BaseConfigInputBlock(scope.getSessionState());
+   }
+
    public static DataFilesInputBlock injectDataFilesInputBlock(AppScope scope) {
       return new DataFilesInputBlock(scope.getSessionState());
    }

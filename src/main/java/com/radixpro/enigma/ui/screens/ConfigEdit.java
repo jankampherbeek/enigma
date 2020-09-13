@@ -96,28 +96,28 @@ public class ConfigEdit {
       btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).build();
       btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnOk).build();
-      Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.edit.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      Label lblSubTitle = new LabelBuilder(config.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
-      lblDescription = new LabelBuilder(rosetta.getText("ui.general.description")).setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblHouseSystem = new LabelBuilder(rosetta.getText("ui.general.housesystem")).setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblAyanamsha = new LabelBuilder(rosetta.getText("ui.general.ayanamsha")).setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblObserverPosition = new LabelBuilder(rosetta.getText("ui.general.observerposition")).setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblEclipticProjection = new LabelBuilder(rosetta.getText("ui.general.eclipticprojection")).setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblCelObjects = new LabelBuilder(rosetta.getText("ui.general.celobjects")).setPrefWidth(DATA_TEXT_WIDTH).build();
+      Label lblTitle = new LabelBuilder("ui.configs.edit.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblSubTitle = new LabelBuilder("").setText(config.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
+      lblDescription = new LabelBuilder("ui.general.description").setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblHouseSystem = new LabelBuilder("ui.general.housesystem").setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblAyanamsha = new LabelBuilder("ui.general.ayanamsha").setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblObserverPosition = new LabelBuilder("ui.general.observerposition").setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblEclipticProjection = new LabelBuilder("ui.general.eclipticprojection").setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblCelObjects = new LabelBuilder("ui.general.celobjects").setPrefWidth(DATA_TEXT_WIDTH).build();
       Pane paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
       Pane paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitleplane").setChildren(lblSubTitle).build();
       descriptionInput = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).setText(config.getDescription()).build();
-      choiceBoxHouseSystem = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(HouseSystems.EMPTY.getObservableList()).build();
-      indexMappingsHouseSystems = HouseSystems.EMPTY.getIndexMappings();
+      choiceBoxHouseSystem = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(HouseSystems.getObservableList()).build();
+      indexMappingsHouseSystems = HouseSystems.getIndexMappings();
       choiceBoxHouseSystem.getSelectionModel().select(indexMappingsHouseSystems.getSequenceIdForEnumId(config.getAstronConfiguration().getHouseSystem().getId()));
-      choiceBoxObserverPos = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(ObserverPositions.EMPTY.getObservableList()).build();
-      indexMappingsObsPositions = ObserverPositions.EMPTY.getIndexMappings();
+      choiceBoxObserverPos = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(ObserverPositions.getObservableList()).build();
+      indexMappingsObsPositions = ObserverPositions.getIndexMappings();
       choiceBoxObserverPos.getSelectionModel().select(indexMappingsObsPositions.getSequenceIdForEnumId(config.getAstronConfiguration().getObserverPosition().getId()));
-      choiceBoxEclipticProj = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(EclipticProjections.EMPTY.getObservableList()).build();
-      indexMappingsEclProjections = EclipticProjections.EMPTY.getIndexMappings();
+      choiceBoxEclipticProj = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(EclipticProjections.getObservableList()).build();
+      indexMappingsEclProjections = EclipticProjections.getIndexMappings();
       choiceBoxEclipticProj.getSelectionModel().select(indexMappingsEclProjections.getSequenceIdForEnumId(config.getAstronConfiguration().getEclipticProjection().getId()));
-      choiceBoxAyanamsha = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(Ayanamshas.EMPTY.getObservableList()).build();
-      indexMappingsAyanamshas = Ayanamshas.EMPTY.getIndexMappings();
+      choiceBoxAyanamsha = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(Ayanamshas.getObservableList()).build();
+      indexMappingsAyanamshas = Ayanamshas.getIndexMappings();
       choiceBoxAyanamsha.getSelectionModel().select(indexMappingsAyanamshas.getSequenceIdForEnumId(config.getAstronConfiguration().getAyanamsha().getId()));
       checkComboBoxCelObjects = createComboBoxCelObject();
       checkComboBoxCelObjects = createComboBoxCelObject();
@@ -135,7 +135,7 @@ public class ConfigEdit {
       choiceBoxEclipticProj.getSelectionModel().selectedIndexProperty().addListener((ov, value, newValue) -> onEclipticChange());
    }
 
-   private GridPane createGridPane() {
+   private GridPane createGridPane() {   // TODO replace with NameDescriptionInputBLock and BaseConfigInputBlock
       GridPane gridPane = new GridPaneBuilder().setPrefHeight(CONFIGDATA_HEIGHT).setHGap(6.0).setVGap(6.0).build();
       gridPane.add(lblDescription, 0, 1, 1, 1);
       gridPane.add(descriptionInput, 1, 1, 1, 1);
@@ -210,40 +210,17 @@ public class ConfigEdit {
    private void constructConfig() {
       config.setDescription(descriptionInput.getText());
       int houseIndex = choiceBoxHouseSystem.getSelectionModel().getSelectedIndex();
-      HouseSystems houseSystem;
-      try {
-         houseSystem = HouseSystems.EMPTY.getSystemForId(indexMappingsHouseSystems.getEnumIdForSequenceId(houseIndex));
-      } catch (UnknownIdException e) {
-         houseSystem = HouseSystems.WHOLESIGN;
-         LOG.error("Could not find housesystem when constructing config, defined HouseSystems.WHOLESIGN instead. Original message : " + e.getMessage());
-      }
+      HouseSystems houseSystem = HouseSystems.getSystemForId(indexMappingsHouseSystems.getEnumIdForSequenceId(houseIndex));
       config.getAstronConfiguration().setHouseSystem(houseSystem);
       int observerPosIndex = choiceBoxObserverPos.getSelectionModel().getSelectedIndex();
-      ObserverPositions obsPos = null;
-      try {
-         obsPos = ObserverPositions.EMPTY.getObserverPositionForId(indexMappingsObsPositions.getEnumIdForSequenceId(observerPosIndex));
-      } catch (UnknownIdException e) {
-         obsPos = ObserverPositions.GEOCENTRIC;
-         LOG.error("Could not find observer position when constructing config, defined ObserverPositions.GEOCENTRIC instead. Original message : " + e.getMessage());
-      }
+      ObserverPositions obsPos = ObserverPositions.getObserverPositionForId(indexMappingsObsPositions.getEnumIdForSequenceId(observerPosIndex));
       config.getAstronConfiguration().setObserverPosition(obsPos);
       int eclProjIndex = choiceBoxEclipticProj.getSelectionModel().getSelectedIndex();
-      EclipticProjections eclProj = null;
-      try {
-         eclProj = EclipticProjections.EMPTY.getProjectionForId(indexMappingsEclProjections.getEnumIdForSequenceId(eclProjIndex));
-      } catch (UnknownIdException e) {
-         eclProj = EclipticProjections.TROPICAL;
-         LOG.error("Could not find ecliptic projection when constructing config, defined EclipticProjections.TROPICAL instead. Original message : " + e.getMessage());
-      }
+      EclipticProjections eclProj = EclipticProjections.getProjectionForId(indexMappingsEclProjections.getEnumIdForSequenceId(eclProjIndex));
       config.getAstronConfiguration().setEclipticProjection(eclProj);
       int ayanamshaIndex = choiceBoxAyanamsha.getSelectionModel().getSelectedIndex();
-      Ayanamshas ayanamsha = null;
-      try {
-         ayanamsha = eclProj == EclipticProjections.SIDEREAL ? Ayanamshas.NONE.getAyanamshaForId(indexMappingsAyanamshas.getEnumIdForSequenceId(ayanamshaIndex)) : Ayanamshas.NONE;
-      } catch (UnknownIdException e) {
-            ayanamsha = Ayanamshas.LAHIRI;
-            LOG.error("Could not find ayanamsha when constructing config, defined Ayanamshas.LAHIRI instead. Original message : " + e.getMessage());
-      }
+      Ayanamshas ayanamsha = eclProj == EclipticProjections.SIDEREAL ?
+            Ayanamshas.getAyanamshaForId(indexMappingsAyanamshas.getEnumIdForSequenceId(ayanamshaIndex)) : Ayanamshas.NONE;
       config.getAstronConfiguration().setAyanamsha(ayanamsha);
 
       List<ConfiguredCelObject> celObjects = new ArrayList<>();

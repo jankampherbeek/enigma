@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * Astronomical parts of the configuration.
+ * TODO use BaseAstronConfig, removed mutability
  */
 public class AstronConfiguration implements Serializable {
 
@@ -28,7 +29,7 @@ public class AstronConfiguration implements Serializable {
    private List<ConfiguredCelObject> celObjects;
 
    /**
-    * Constructor defines all memebers.
+    * Constructor defines all members.
     *
     * @param houseSystem        Selected house system.
     * @param ayanamsha          Selected ayanamasha, Ayanamshas.NONE for tropical zodiac.

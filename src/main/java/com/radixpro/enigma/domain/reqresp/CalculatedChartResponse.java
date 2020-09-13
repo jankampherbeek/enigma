@@ -28,7 +28,7 @@ public class CalculatedChartResponse {
     */
    public CalculatedChartResponse(final CalculatedChart calculatedChart, @NotNull final String resultMsg) {
       checkArgument(!resultMsg.isBlank());
-      checkArgument((resultMsg.equals("OK") && calculatedChart != null) || !resultMsg.equals("OK"));
+      checkArgument(!resultMsg.equals("OK") || calculatedChart != null);
       this.calculatedChart = calculatedChart;
       this.resultMsg = resultMsg;
    }

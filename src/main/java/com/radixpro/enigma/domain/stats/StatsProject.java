@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.domain.stats;
 
+import com.radixpro.enigma.domain.config.BaseAstronConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -18,13 +19,16 @@ public class StatsProject {
 
    private final String name;
    private final String description;
+   private final BaseAstronConfig baseAstronConfig;
    private final List<IStatsScenario> scenarios;
 
    public StatsProject(@NotNull final String name,
                        @NotNull final String description,
+                       @NotNull final BaseAstronConfig baseAstronConfig,
                        @NotNull final List<IStatsScenario> scenarios) {
       this.name = name;
       this.description = description;
+      this.baseAstronConfig = baseAstronConfig;
       this.scenarios = scenarios;
    }
 
@@ -34,6 +38,10 @@ public class StatsProject {
 
    public String getDescription() {
       return description;
+   }
+
+   public BaseAstronConfig getBaseAstronConfig() {
+      return baseAstronConfig;
    }
 
    public List<IStatsScenario> getScenarios() {

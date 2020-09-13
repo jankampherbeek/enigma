@@ -25,7 +25,9 @@ public class MetaDataForAnalysis implements IMetaData {
     * @param configName Name of configuration.
     * @param baseOrb    Base orb that has been used. PRE: baseOrb > 0.
     */
-   public MetaDataForAnalysis(@NotNull final String name, final String configName, final double baseOrb) {
+   public MetaDataForAnalysis(@NotNull final String name,
+                              @NotNull final String configName,
+                              final double baseOrb) {
       checkArgument(0.0 < baseOrb);
       this.name = name;
       this.configName = configName;

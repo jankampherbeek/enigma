@@ -80,12 +80,13 @@ public class ConfigNew {
    }
 
    private void populateStage() {
-      Label lblTitle = new LabelBuilder(rosetta.getText("ui.configs.new.title")).setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      Label lblSubTitle = new LabelBuilder(rosetta.getText("ui.configs.new.copyfrom") + " " + config.getName()).setPrefWidth(WIDTH)
+      Label lblTitle = new LabelBuilder("ui.configs.new.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+
+      Label lblSubTitle = new LabelBuilder("").setText(rosetta.getText("ui.configs.new.copyfrom") + " " + config.getName()).setPrefWidth(WIDTH)
             .setStyleClass("subtitletext").build();
-      Label lblInstruction = new LabelBuilder(rosetta.getText("ui.configs.new.instruction")).build();
-      Label lblName = new LabelBuilder(rosetta.getText("ui.general.name")).setPrefWidth(DATA_TEXT_WIDTH).build();
-      Label lblDescription = new LabelBuilder(rosetta.getText("ui.general.description")).setPrefWidth(DATA_TEXT_WIDTH).build();
+      Label lblInstruction = new LabelBuilder("ui.configs.new.instruction").build();
+      Label lblName = new LabelBuilder("ui.general.name").setPrefWidth(DATA_TEXT_WIDTH).build();
+      Label lblDescription = new LabelBuilder("ui.general.description").setPrefWidth(DATA_TEXT_WIDTH).build();
       btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(true).build();
       btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
       btnCancel = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();

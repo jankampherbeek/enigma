@@ -18,7 +18,8 @@ public class AnalyzablePoint {
    private final IChartPoints chartPoint;
    private final double position;
 
-   public AnalyzablePoint(@NotNull final IChartPoints chartPoint, final double position) {
+   public AnalyzablePoint(@NotNull final IChartPoints chartPoint,
+                          final double position) {
       this.chartPoint = chartPoint;
       this.position = position;
    }

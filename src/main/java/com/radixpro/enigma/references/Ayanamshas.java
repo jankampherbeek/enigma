@@ -8,17 +8,16 @@
 package com.radixpro.enigma.references;
 
 import com.radixpro.enigma.Rosetta;
-import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMapping;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public enum Ayanamshas {
-   EMPTY(-2, -1, "ayanamshas.unknown"),
    NONE(-1, -1, "ayanamshas.none"),
    FAGAN(0, 0, "ayanamshas.fagan"),
    LAHIRI(1, 1, "ayanamshas.lahiri"),
@@ -64,6 +63,7 @@ public enum Ayanamshas {
    private final String nameForRB;
    private final int seId;
    private final int id;
+   private static final Logger LOG = Logger.getLogger(Ayanamshas.class);
 
    Ayanamshas(final int id, final int seId, final String nameForRB) {
       this.id = id;
@@ -71,13 +71,14 @@ public enum Ayanamshas {
       this.nameForRB = nameForRB;
    }
 
-   public static Ayanamshas getAyanamshaForId(int id) throws UnknownIdException {
+   public static Ayanamshas getAyanamshaForId(int id) {
       for (Ayanamshas ayanamsha : Ayanamshas.values()) {
          if (ayanamsha.getId() == id) {
             return ayanamsha;
          }
       }
-      throw new UnknownIdException("Tried to read Ayanamsha with invalid id : " + id);
+      LOG.error("Could not find Ayanamsha for id : " + id + ". Returned NONE instead.");
+      return Ayanamshas.NONE;
    }
 
    /**
@@ -85,20 +86,20 @@ public enum Ayanamshas {
     *
     * @return The constructed observable list.
     */
-   public ObservableList<String> getObservableList() {
+   public static ObservableList<String> getObservableList() {
       final Rosetta rosetta = Rosetta.getRosetta();
       final List<String> ayanamshaNames = new ArrayList<>();
       for (Ayanamshas ayanamsha : Ayanamshas.values()) {
-         if (ayanamsha != Ayanamshas.EMPTY) ayanamshaNames.add(rosetta.getText(ayanamsha.nameForRB));
+         ayanamshaNames.add(rosetta.getText(ayanamsha.nameForRB));
       }
       return FXCollections.observableArrayList(ayanamshaNames);
    }
 
-   public IndexMappingsList getIndexMappings() {
+   public static IndexMappingsList getIndexMappings() {
       List<IndexMapping> idList = new ArrayList<>();
       int runningIndex = 0;
       for (Ayanamshas ayanamsha : Ayanamshas.values()) {
-         if (ayanamsha != Ayanamshas.EMPTY) idList.add(new IndexMapping(runningIndex++, ayanamsha.getId()));
+         idList.add(new IndexMapping(runningIndex++, ayanamsha.getId()));
       }
       return new IndexMappingsList(idList);
    }

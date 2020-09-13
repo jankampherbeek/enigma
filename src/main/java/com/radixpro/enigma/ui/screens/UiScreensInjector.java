@@ -96,7 +96,8 @@ public class UiScreensInjector {
    }
 
    public static StatsProjNew injectStatsProjNew(AppScope scope) {
-      return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), ScreensBlocksInjector.injectDataFilesInputBlock(scope));
+      return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), ScreensBlocksInjector.injectDataFilesInputBlock(scope),
+            ScreensBlocksInjector.injectBaseConfigInputBlock(scope));
    }
 
    public static StatsStart injectStatsStart(AppScope scope) {

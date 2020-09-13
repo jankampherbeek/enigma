@@ -7,12 +7,12 @@
 
 package com.radixpro.enigma.ui.screens;
 
-import com.radixpro.enigma.ui.creators.LabelBuilder;
-import com.radixpro.enigma.ui.creators.PaneBuilder;
-import com.radixpro.enigma.ui.creators.VBoxBuilder;
+import com.radixpro.enigma.ui.creators.*;
+import com.radixpro.enigma.ui.screens.blocks.BaseConfigInputBlock;
 import com.radixpro.enigma.ui.screens.blocks.DataFilesInputBlock;
 import com.radixpro.enigma.ui.screens.blocks.NameDescriptionInputBlock;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -30,14 +30,18 @@ public class StatsProjNew extends InputScreen {
    private static final double HEIGHT = 600.0;
    private final NameDescriptionInputBlock nameDescrBlock;
    private final DataFilesInputBlock dataFilesBlock;
-   private Label lblTitle;
-   private Pane paneTitle;
+   private final BaseConfigInputBlock configBlock;
+   private Button btnOk;
+   private Button btnHelp;
+   private Button btnCancel;
 
    public StatsProjNew(@NotNull final NameDescriptionInputBlock nameDescrBlock,
-                       @NotNull final DataFilesInputBlock dataFilesBlock) {
+                       @NotNull final DataFilesInputBlock dataFilesBlock,
+                       @NotNull final BaseConfigInputBlock configBlock) {
       super();
       this.nameDescrBlock = nameDescrBlock;
       this.dataFilesBlock = dataFilesBlock;
+      this.configBlock = configBlock;
    }
 
    public void show() {
@@ -48,35 +52,35 @@ public class StatsProjNew extends InputScreen {
 
    @Override
    public void checkStatus() {
-      if (null != nameDescrBlock.getDescr() && !nameDescrBlock.getDescr().isBlank() &&
-            null != nameDescrBlock.getDescr() && !nameDescrBlock.getDescr().isBlank()) {
-         // enable buttons
-      } else {
-         // disable buttons
-      }
+      btnOk.setDisable(null == nameDescrBlock.getName() || nameDescrBlock.getName().isBlank() ||
+            null == nameDescrBlock.getDescr() || nameDescrBlock.getDescr().isBlank());
    }
-
 
    private void initialize() {
-      createLabels();
-      createPanes();
+//      createPanes();
    }
 
-   private void createLabels() {
-      lblTitle = new LabelBuilder("ui.stats.newproj.title").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
-   }
-
-   private void createPanes() {
-      paneTitle = new PaneBuilder().setWidth(INPUT_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
+   private Pane createPaneTitle() {
+      Label label = new LabelBuilder("ui.stats.newproj.title").setPrefWidth(INPUT_WIDTH).setPrefHeight(TITLE_HEIGHT).setStyleClass("titletext").build();
+      return new PaneBuilder().setWidth(INPUT_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(label).build();
    }
 
 
    private VBox createVBox() {
-      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(HEIGHT).setChildren(paneTitle, nameDescrBlock.getVBox(this)).build();
+      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(HEIGHT).setChildren(
+            createPaneTitle(),
+            nameDescrBlock.getGridPane(this),
+            configBlock.getGridPane(),
+            dataFilesBlock.getVBox(this),
+            createPaneBtnBar()
+      ).build();
    }
 
    @Override
    protected ButtonBar createBtnBar() {
-      return null;
+      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).build();
+      btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(true).build();
+      return new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnOk).build();
    }
 }

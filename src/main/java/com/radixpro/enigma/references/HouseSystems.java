@@ -8,11 +8,12 @@
 package com.radixpro.enigma.references;
 
 import com.radixpro.enigma.Rosetta;
-import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMapping;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,8 @@ import java.util.List;
 /**
  * Housesystems for calculation, internal id and id for SE.
  */
-public enum HouseSystems {  // todo add NO_HOUSES at position 1, add Gauquelin at position 20
-   EMPTY(0, "", "houses.unknown", 0, false, false, false),
+public enum HouseSystems {
+   NO_HOUSES(1, "", "houses.none", 0, false, false, false),
    WHOLESIGN(2, "W", "houses.wholesign", 12, true, false, true),
    EQUAL(3, "A", "houses.equalasc", 12, true, false, true),
    EQUAL_MC(4, "D", "houses.equalmc", 12, true, false, true),
@@ -40,6 +41,7 @@ public enum HouseSystems {  // todo add NO_HOUSES at position 1, add Gauquelin a
    HORIZON(17, "H", "houses.azimuth", 12, true, false, true),
    CARTER(18, "F", "houses.carter", 12, true, false, true),
    EQUAL_ARIES(19, "N", "houses.equalaries", 12, true, false, true),
+   GAUQUELIN(20, "G", "houses.gauquelin", 36, true, false, true),
    SUNSHINE(21, "i", "houses.sunshine", 12, true, false, false),
    SUNSHINE_TREINDL(22, "I", "houses.sunshinetreindl", 12, true, false, true);
 
@@ -50,10 +52,16 @@ public enum HouseSystems {  // todo add NO_HOUSES at position 1, add Gauquelin a
    private final boolean counterClockwise;
    private final boolean quadrantSystem;
    private final boolean cuspIsStart;
+   private static final Logger LOG = Logger.getLogger(HouseSystems.class);
 
 
-   HouseSystems(final int id, final String seId, final String nameForRB, final int nrOfCusps,
-                final boolean counterClockwise, final boolean quadrantSystem, final boolean cuspIsStart) {
+   HouseSystems(final int id,
+                @NotNull final String seId,
+                @NotNull final String nameForRB,
+                final int nrOfCusps,
+                final boolean counterClockwise,
+                final boolean quadrantSystem,
+                final boolean cuspIsStart) {
       this.id = id;
       this.seId = seId;
       this.nameForRB = nameForRB;
@@ -63,13 +71,14 @@ public enum HouseSystems {  // todo add NO_HOUSES at position 1, add Gauquelin a
       this.cuspIsStart = cuspIsStart;
    }
 
-   public static HouseSystems getSystemForId(int id) throws UnknownIdException {
+   public static HouseSystems getSystemForId(int id) {
       for (HouseSystems system : HouseSystems.values()) {
          if (system.getId() == id) {
             return system;
          }
       }
-      throw new UnknownIdException("Tried to read HouseSystems with invalid id : " + id);
+      LOG.error("Could not find HouseSystem for id : " + id + ". Returned WHOLESIGN instead.");
+      return HouseSystems.WHOLESIGN;
    }
 
    /**
@@ -77,20 +86,20 @@ public enum HouseSystems {  // todo add NO_HOUSES at position 1, add Gauquelin a
     *
     * @return The constructed observable list.
     */
-   public ObservableList<String> getObservableList() {
+   public static ObservableList<String> getObservableList() {
       final Rosetta rosetta = Rosetta.getRosetta();
       final List<String> houseSystemNames = new ArrayList<>();
       for (HouseSystems houseSystem : HouseSystems.values()) {
-         if (houseSystem != HouseSystems.EMPTY) houseSystemNames.add(rosetta.getText(houseSystem.nameForRB));
+         houseSystemNames.add(rosetta.getText(houseSystem.nameForRB));
       }
       return FXCollections.observableArrayList(houseSystemNames);
    }
 
-   public IndexMappingsList getIndexMappings() {
+   public static IndexMappingsList getIndexMappings() {
       List<IndexMapping> idList = new ArrayList<>();
       int runningIndex = 0;
       for (HouseSystems houseSystem : HouseSystems.values()) {
-         if (houseSystem != HouseSystems.EMPTY) idList.add(new IndexMapping(runningIndex++, houseSystem.getId()));
+         idList.add(new IndexMapping(runningIndex++, houseSystem.getId()));
       }
       return new IndexMappingsList(idList);
    }

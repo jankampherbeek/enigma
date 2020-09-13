@@ -10,6 +10,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -23,7 +24,7 @@ public abstract class DaoParent {
    protected static final String DB_LOCATION = "c:/enigma-data/db/";
 
 
-   protected CSVReader createReader(String filename) throws DatabaseException {
+   protected CSVReader createReader(@NotNull final String filename) throws DatabaseException {
       CSVReader reader;
       try {
          reader = new CSVReader(new FileReader(filename));

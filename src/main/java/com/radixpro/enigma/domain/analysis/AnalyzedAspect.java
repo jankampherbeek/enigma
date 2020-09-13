@@ -35,8 +35,11 @@ public class AnalyzedAspect implements IAnalyzedPair {
     * @param actualOrb   The actual orb fir this aspect.
     * @param maxOrb      The maximum orb for this aspect.
     */
-   public AnalyzedAspect(@NotNull final AnalyzablePoint firstPoint, @NotNull final AnalyzablePoint secondPoint,
-                         @NotNull final AspectTypes aspectType, final double actualOrb, final double maxOrb) {
+   public AnalyzedAspect(@NotNull final AnalyzablePoint firstPoint,
+                         @NotNull final AnalyzablePoint secondPoint,
+                         @NotNull final AspectTypes aspectType,
+                         final double actualOrb,
+                         final double maxOrb) {
       checkArgument(0.0 <= actualOrb && actualOrb <= maxOrb);
       this.firstPoint = firstPoint;
       this.secondPoint = secondPoint;

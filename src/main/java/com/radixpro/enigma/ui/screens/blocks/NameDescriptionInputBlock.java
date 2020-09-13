@@ -8,38 +8,40 @@
 package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.ui.creators.GridPaneBuilder;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.creators.TextFieldBuilder;
-import com.radixpro.enigma.ui.creators.VBoxBuilder;
 import com.radixpro.enigma.ui.screens.InputScreen;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 public class NameDescriptionInputBlock extends InputBlock {
 
-   private static final double BLOCK_HEIGHT = 200.0;
-   private static final double DATA_HEIGHT = 150.0;
+   private static final double BLOCK_HEIGHT = 120.0;
+   private static final double DATA_TEXT_WIDTH = 150.0;
+   private static final double DATA_INPUT_WIDTH = 350.0;
    private InputScreen mainScreen;
-   private Label lblName;
-   private Label lblDescr;
-   private Label lblSubTitle;
    private TextField tfName;
    private TextField tfDescr;
-   private Pane paneSubTitle;
 
    public NameDescriptionInputBlock(SessionState state) {
       super(state);
    }
 
-   public VBox getVBox(InputScreen mainScreen) {
+   @Override
+   protected void initialize() {
+      createInputs();
+   }
+
+   public GridPane getGridPane(InputScreen mainScreen) {
       this.mainScreen = mainScreen;
       initialize();
-      return createVBox();
+      return createGridPane();
    }
 
    public String getName() {
@@ -50,28 +52,28 @@ public class NameDescriptionInputBlock extends InputBlock {
       return tfDescr.getText();
    }
 
-   @Override
-   protected void initialize() {
-      createLeafs();
-      createPanes();
-   }
-
-   private void createLeafs() {
-      lblSubTitle = new LabelBuilder("ui.shared.lbl.namedescsubtitle").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
-      lblName = new LabelBuilder("ui.shared.lbl.name").setPrefWidth(INPUT_WIDTH).build();
-      lblDescr = new LabelBuilder("ui.shared.lbl.description").setPrefWidth(INPUT_WIDTH).build();
-      tfName = new TextFieldBuilder().setPrefWidth(INPUT_WIDTH).setPrefHeight(INPUT_HEIGHT).setStyleClass("inputDefault").build();
+   private void createInputs() {
+      tfName = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).setPrefHeight(INPUT_HEIGHT).setStyleClass("inputDefault").build();
       tfName.textProperty().addListener((observable, oldValue, newValue) -> onChange());
-      tfDescr = new TextFieldBuilder().setPrefWidth(INPUT_WIDTH).setPrefHeight(INPUT_HEIGHT).setStyleClass("inputDefault").build();
+      tfDescr = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).setPrefHeight(INPUT_HEIGHT).setStyleClass("inputDefault").build();
       tfDescr.textProperty().addListener((observable, oldValue, newValue) -> onChange());
    }
 
-   private void createPanes() {
-      paneSubTitle = new PaneBuilder().setWidth(INPUT_WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass(STYLE_SUBTITLE_PANE).setChildren(lblSubTitle).build();
+   private GridPane createGridPane() {
+      GridPane gridPane = new GridPaneBuilder().setPrefHeight(BLOCK_HEIGHT).setPrefWidth(INPUT_WIDTH).setHGap(GAP).setVGap(GAP).build();
+      gridPane.add(createPaneSubTitle(), 0, 0, 2, 1);
+      gridPane.add(new LabelBuilder("ui.shared.lbl.name").setPrefWidth(DATA_TEXT_WIDTH).setPrefHeight(INPUT_HEIGHT).build(),
+            0, 1, 1, 1);
+      gridPane.add(tfName, 1, 1, 1, 1);
+      gridPane.add(new LabelBuilder("ui.shared.lbl.description").setPrefWidth(DATA_TEXT_WIDTH).setPrefHeight(INPUT_HEIGHT).build(),
+            0, 2, 1, 1);
+      gridPane.add(tfDescr, 1, 2, 1, 1);
+      return gridPane;
    }
 
-   private VBox createVBox() {
-      return new VBoxBuilder().setWidth(START_WIDTH).setHeight(BLOCK_HEIGHT).setChildren(paneSubTitle, lblName, tfName, lblDescr, tfDescr).build();
+   private Pane createPaneSubTitle() {
+      Label label = new LabelBuilder("ui.shared.lbl.namedescsubtitle").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
+      return new PaneBuilder().setWidth(INPUT_WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass(STYLE_SUBTITLE_PANE).setChildren(label).build();
    }
 
    private void onChange() {

@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public abstract class ValidatedInput {  // TODO check if class can be removed
 
    protected final String input;
-   protected boolean validated = false;
+   protected final boolean validated = false;
 
    /**
     * Constructor is used by all children to save inputted data.

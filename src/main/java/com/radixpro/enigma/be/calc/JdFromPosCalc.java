@@ -44,14 +44,23 @@ public class JdFromPosCalc {
     * @return The calculated Julian Day number.
     * @throws NoPositionFoundException if position could not be found.
     */
-   public double findJd(final double startJd, final double endJd, final double position, @NotNull final CelestialObjects point, final int flags,
+   public double findJd(final double startJd,
+                        final double endJd,
+                        final double position,
+                        @NotNull final CelestialObjects point,
+                        final int flags,
                         @NotNull final Location location)
          throws NoPositionFoundException {
       checkArgument(startJd < endJd);
       return jdForPosition(startJd, endJd, position, point, flags, location);
    }
 
-   private double jdForPosition(double startJd, double endJd, double position, CelestialObjects point, int flags, Location location)
+   private double jdForPosition(double startJd,
+                                double endJd,
+                                double position,
+                                @NotNull final CelestialObjects point,
+                                int flags,
+                                @NotNull final Location location)
          throws NoPositionFoundException {
       double posEnd;
       double posCheck;

@@ -5,9 +5,6 @@
  *
  */
 
-/**
- * Inputblock for datafiles.
- */
 package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.SessionState;
@@ -19,22 +16,25 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.NotNull;
 
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 public class DataFilesInputBlock extends InputBlock {
 
+   private static final double HEIGHT = 120.0;
    private InputScreen mainScreen;
    private Label lblSubTitle;
    private Pane paneSubTitle;
    private TableView tvDataFiles;
 
-   public DataFilesInputBlock(SessionState state) {
+   public DataFilesInputBlock(@NotNull final SessionState state) {
       super(state);
 
    }
 
-   public VBox getVBox(InputScreen mainScreen) {
+   public VBox getVBox(@NotNull final InputScreen mainScreen) {
+      this.mainScreen = mainScreen;
       initialize();
       return createVBox();
    }
@@ -46,9 +46,9 @@ public class DataFilesInputBlock extends InputBlock {
    }
 
    private void defineLeafs() {
-      lblSubTitle = new LabelBuilder("uit.stats.datafiles.subtitle").setPrefWidth(INPUT_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
+      lblSubTitle = new LabelBuilder("ui.stats.datafiles.subtitle").setPrefWidth(INPUT_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
             setStyleClass("subtitletext").build();
-      tvDataFiles = new TableViewBuilder().setPrefWidth(INPUT_WIDTH).setPrefHeight(100.0).build();
+      tvDataFiles = new TableViewBuilder().setPrefWidth(INPUT_WIDTH).setPrefHeight(HEIGHT).build();
    }
 
    private void definePanes() {
@@ -69,7 +69,7 @@ public class DataFilesInputBlock extends InputBlock {
    }
 
    private void onSearch() {
-      // open search screen and wselect datafile
+      // open search screen and select datafile
       mainScreen.checkStatus();
    }
 

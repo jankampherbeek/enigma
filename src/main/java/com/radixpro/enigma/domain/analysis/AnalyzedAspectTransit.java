@@ -33,8 +33,11 @@ public class AnalyzedAspectTransit implements IAnalyzedPair {
     * @param orb          actual orb. PRE: >= 0.0 .
     * @param maxOrb       max orb. PRE: >= 0.0 .
     */
-   public AnalyzedAspectTransit(@NotNull final AnalyzablePoint transitPoint, @NotNull final AnalyzablePoint radixPoint, @NotNull final AspectTypes aspectType,
-                                final double orb, final double maxOrb) {
+   public AnalyzedAspectTransit(@NotNull final AnalyzablePoint transitPoint,
+                                @NotNull final AnalyzablePoint radixPoint,
+                                @NotNull final AspectTypes aspectType,
+                                final double orb,
+                                final double maxOrb) {
       checkArgument(orb >= 0.0);
       checkArgument(maxOrb >= 0.0);
       this.transitPoint = transitPoint;

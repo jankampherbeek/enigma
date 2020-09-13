@@ -8,36 +8,37 @@
 package com.radixpro.enigma.references;
 
 import com.radixpro.enigma.Rosetta;
-import com.radixpro.enigma.shared.exceptions.UnknownIdException;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMapping;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public enum EclipticProjections {
-   EMPTY(0, "eclipticprojections.unknown"),
    TROPICAL(1, "eclipticprojections.tropical"),
    SIDEREAL(2, "eclipticprojections.sidereal");
 
    private final int id;
    private final String nameForRB;
+   private static final Logger LOG = Logger.getLogger(EclipticProjections.class);
 
    EclipticProjections(final int id, @NotNull final String nameForRB) {
       this.id = id;
       this.nameForRB = nameForRB;
    }
 
-   public static EclipticProjections getProjectionForId(final int id) throws UnknownIdException {
+   public static EclipticProjections getProjectionForId(final int id) {
       for (EclipticProjections eclipticProjection : EclipticProjections.values()) {
          if (eclipticProjection.getId() == id) {
             return eclipticProjection;
          }
       }
-      throw new UnknownIdException("Tried to read EclipticProjections with invalid id : " + id);
+      LOG.error("Could not find EclipticPRojection for id : " + id + ". Returned TROPICAL instead.");
+      return EclipticProjections.TROPICAL;
    }
 
    /**
@@ -45,12 +46,11 @@ public enum EclipticProjections {
     *
     * @return The constructed observable list.
     */
-   public ObservableList<String> getObservableList() {
+   public static ObservableList<String> getObservableList() {
       final Rosetta rosetta = Rosetta.getRosetta();
       final List<String> eclipticalProjNames = new ArrayList<>();
       for (EclipticProjections eclipticProjection : EclipticProjections.values()) {
-         if (eclipticProjection != EclipticProjections.EMPTY)
-            eclipticalProjNames.add(rosetta.getText(eclipticProjection.nameForRB));
+         eclipticalProjNames.add(rosetta.getText(eclipticProjection.nameForRB));
       }
       return FXCollections.observableArrayList(eclipticalProjNames);
    }
@@ -63,13 +63,11 @@ public enum EclipticProjections {
       return nameForRB;
    }
 
-
-   public IndexMappingsList getIndexMappings() {
+   public static IndexMappingsList getIndexMappings() {
       List<IndexMapping> idList = new ArrayList<>();
       int runningIndex = 0;
       for (EclipticProjections eclipticProjection : EclipticProjections.values()) {
-         if (eclipticProjection != EclipticProjections.EMPTY)
-            idList.add(new IndexMapping(runningIndex++, eclipticProjection.getId()));
+         idList.add(new IndexMapping(runningIndex++, eclipticProjection.getId()));
       }
       return new IndexMappingsList(idList);
    }

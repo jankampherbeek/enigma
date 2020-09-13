@@ -26,8 +26,12 @@ public class AnalyzedMidpoint implements IAnalyzedPair {
    /**
     * PRE: 0.0 <= actualOrb <= maxOrb
     */
-   public AnalyzedMidpoint(@NotNull final AnalyzablePoint firstPoint, @NotNull final AnalyzablePoint secondPoint, @NotNull final AnalyzablePoint centerPoint,
-                           @NotNull final MidpointTypes midpointType, final double actualOrb, final double maxOrb) {
+   public AnalyzedMidpoint(@NotNull final AnalyzablePoint firstPoint,
+                           @NotNull final AnalyzablePoint secondPoint,
+                           @NotNull final AnalyzablePoint centerPoint,
+                           @NotNull final MidpointTypes midpointType,
+                           final double actualOrb,
+                           final double maxOrb) {
       checkArgument(0.0 <= actualOrb && actualOrb <= maxOrb);
       this.firstPoint = firstPoint;
       this.secondPoint = secondPoint;
