@@ -96,13 +96,17 @@ public class UiScreensInjector {
    }
 
    public static StatsProjNew injectStatsProjNew(AppScope scope) {
-      return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), ScreensBlocksInjector.injectDataFilesInputBlock(scope),
-            ScreensBlocksInjector.injectBaseConfigInputBlock(scope));
+      return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), ScreensBlocksInjector.injectBaseConfigInputBlock(scope),
+            injectStatsDataSearch(scope));
+   }
+
+   public static StatsProjSearch injectStatsProjSearch(AppScope scope) {
+      return new StatsProjSearch(scope);
    }
 
    public static StatsStart injectStatsStart(AppScope scope) {
       return new StatsStart(scope.getRosetta(), ScreensBlocksInjector.injectStatsDataBlock(scope), ScreensBlocksInjector.injectStatsProjBlock(scope),
-            XchgApiInjector.injectPersistedPropertyApi(scope), new DirectoryChooser());
+            injectStatsProjSearch(scope), XchgApiInjector.injectPersistedPropertyApi(scope), new DirectoryChooser());
    }
 
 }

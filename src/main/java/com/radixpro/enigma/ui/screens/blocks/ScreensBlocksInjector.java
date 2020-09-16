@@ -22,10 +22,6 @@ public class ScreensBlocksInjector {
       return new BaseConfigInputBlock(scope.getSessionState());
    }
 
-   public static DataFilesInputBlock injectDataFilesInputBlock(AppScope scope) {
-      return new DataFilesInputBlock(scope.getSessionState());
-   }
-
    public static DateTimeInputBlock injectDateTimeInputBlock(AppScope scope) {
       return new DateTimeInputBlock(scope.getSessionState(), UiValidatorsInjector.injectValidatedDate(scope), UiValidatorsInjector.injectValidatedTime(scope),
             UiValidatorsInjector.injectValidatedLongitude(scope), UiHelpersInjector.injectDateTimeJulianCreator(scope));

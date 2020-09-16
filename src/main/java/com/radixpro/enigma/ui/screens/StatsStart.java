@@ -35,6 +35,7 @@ public class StatsStart {
    private final DirectoryChooser dirChooser;
    private final StatsDataBlock dataBlock;
    private final StatsProjBlock projBlock;
+   private final StatsProjSearch projSearch;
    private boolean projDirDefined;
    private String fullPathProjDir;
    private Stage stage;
@@ -48,11 +49,16 @@ public class StatsStart {
    private Pane paneBtnBar;
 
 
-   public StatsStart(@NotNull final Rosetta rosetta, @NotNull final StatsDataBlock dataBlock, @NotNull final StatsProjBlock projBlock,
-                     @NotNull final PersistedPropertyApi propApi, @NotNull final DirectoryChooser dirChooser) {
+   public StatsStart(@NotNull final Rosetta rosetta,
+                     @NotNull final StatsDataBlock dataBlock,
+                     @NotNull final StatsProjBlock projBlock,
+                     @NotNull final StatsProjSearch projSearch,
+                     @NotNull final PersistedPropertyApi propApi,
+                     @NotNull final DirectoryChooser dirChooser) {
       this.rosetta = rosetta;
       this.dataBlock = dataBlock;
       this.projBlock = projBlock;
+      this.projSearch = projSearch;
       this.propApi = propApi;
       this.dirChooser = dirChooser;
    }
@@ -164,7 +170,7 @@ public class StatsStart {
 
 
    private void onSearch() {
-      new StatsProjSearch();
+      projSearch.show();
    }
 
 

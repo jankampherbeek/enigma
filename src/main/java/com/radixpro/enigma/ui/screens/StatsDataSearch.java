@@ -12,10 +12,7 @@ import com.radixpro.enigma.domain.stats.DataFileDescription;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.xchg.api.PersistedDataFileApi;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -44,6 +41,8 @@ public class StatsDataSearch {
    private ListView<String> lvSearchResults;
    private List<DataFileDescription> dataFileDescriptions;
    private Stage stage;
+   private DataFileDescription selectedItem;
+   private boolean selectionMade = false;
 
 
    public StatsDataSearch(@NotNull final PersistedDataFileApi api, @NotNull Rosetta rosetta) {
@@ -90,7 +89,12 @@ public class StatsDataSearch {
       gridPane.add(tfSearchArg, 0, 2, 1, 1);
       gridPane.add(btnSearch, 1, 2, 1, 1);
       gridPane.add(lvSearchResults, 0, 3, 1, 1);
+      gridPane.add(createButtonBar(), 0, 4, 2, 1);
       return gridPane;
+   }
+
+   private ButtonBar createButtonBar() {
+      return new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnOk).build();
    }
 
    private void onSearch() {
@@ -112,7 +116,19 @@ public class StatsDataSearch {
    }
 
    private void onOk() {
-
+      int index = lvSearchResults.getSelectionModel().getSelectedIndex();
+      if (index >= 0) {
+         selectedItem = dataFileDescriptions.get(index);
+         selectionMade = true;
+      }
+      stage.close();
    }
 
+   public DataFileDescription getSelectedItem() {
+      return selectedItem;
+   }
+
+   public boolean isSelectionMade() {
+      return selectionMade;
+   }
 }

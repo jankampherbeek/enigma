@@ -7,22 +7,25 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.AppScope;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 public class StatsProjSearch {
 
    private static final double WIDTH = 600.0;
+   private final AppScope scope;
 
-   public StatsProjSearch() {
-      showIt();
+   public StatsProjSearch(@NotNull final AppScope scope) {
+      this.scope = scope;
    }
 
-   private void showIt() {
+   public void show() {
       Stage stage = new Stage();
       stage.setWidth(WIDTH);
       stage.setScene(new Scene(createVBox()));
