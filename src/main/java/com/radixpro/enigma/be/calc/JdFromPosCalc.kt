@@ -4,84 +4,52 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.be.calc
 
-package com.radixpro.enigma.be.calc;
-
-import com.radixpro.enigma.domain.input.Location;
-import com.radixpro.enigma.references.CelestialObjects;
-import com.radixpro.enigma.shared.exceptions.NoPositionFoundException;
-import org.jetbrains.annotations.NotNull;
-
-import static com.google.common.base.Preconditions.checkArgument;
+import com.radixpro.enigma.domain.input.Location
+import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.shared.exceptions.NoPositionFoundException
 
 /**
  * Finds the Julian Day (for UT) for a given position within a time range. Should only be used if retrogradation cannot occur (Sun, Moon, Mean Node, or
- * helicoentric positions).
+ * heliocentric positions).
  */
-public class JdFromPosCalc {
+class JdFromPosCalc(private val coordSetCalc: CoordSetForDateTimeCalc) {
 
-   private final CoordSetForDateTimeCalc coordSetCalc;
+    @Throws(NoPositionFoundException::class)
+    fun findJd(startJd: Double,
+               endJd: Double,
+               position: Double,
+               point: CelestialObjects,
+               flags: Int,
+               location: Location): Double {
+        require(startJd < endJd)
+        return jdForPosition(startJd, endJd, position, point, flags, location)
+    }
 
-   /**
-    * Use ProgCalcFactory to instantiate.
-    *
-    * @param coordSetCalc instance of CoordSetForDAteTimeCalc, used to calculat the positions.
-    * @see com.radixpro.enigma.be.calc.handlers.CaHandlersFactory
-    */
-   public JdFromPosCalc(final CoordSetForDateTimeCalc coordSetCalc) {
-      this.coordSetCalc = coordSetCalc;
-   }
-
-   /**
-    * Finds Julian Day (for UT).
-    *
-    * @param startJd  Julian Day to start with. PRE: < endJd.
-    * @param endJd    Julian Day to end with. PRE: > startJd.
-    * @param position The calculated position.
-    * @param point    The celestial point to calculate.
-    * @param flags    Flags for the SE, this also indicates what corodinatesystem is used, tropical/sidereal, etc.
-    * @param location The location, this is only used if the flags indicate that parallax is used.
-    * @return The calculated Julian Day number.
-    * @throws NoPositionFoundException if position could not be found.
-    */
-   public double findJd(final double startJd,
-                        final double endJd,
-                        final double position,
-                        @NotNull final CelestialObjects point,
-                        final int flags,
-                        @NotNull final Location location)
-         throws NoPositionFoundException {
-      checkArgument(startJd < endJd);
-      return jdForPosition(startJd, endJd, position, point, flags, location);
-   }
-
-   private double jdForPosition(double startJd,
-                                double endJd,
-                                double position,
-                                @NotNull final CelestialObjects point,
-                                int flags,
-                                @NotNull final Location location)
-         throws NoPositionFoundException {
-      double posEnd;
-      double posCheck;
-      double tempStart = startJd;
-      double tempEnd = endJd;
-      double tempCheck = startJd + (endJd - startJd) / 2.0;
-      int counter = 0;
-      boolean found = false;
-      while (counter < 10000 && !found) {
-         counter++;
-         posEnd = coordSetCalc.calcSet(tempEnd, (int) point.getSeId(), flags, location).getMainCoord();
-         posCheck = coordSetCalc.calcSet(tempCheck, (int) point.getSeId(), flags, location).getMainCoord();
-         if ((posEnd - posCheck) > 180.0) posCheck += 180.0;
-         if (Math.abs(posCheck - position) < 0.000001) found = true;
-         if (position < posCheck) tempEnd = tempCheck;
-         else tempStart = tempCheck;
-         tempCheck = tempStart + (tempEnd - tempStart) / 2.0;
-      }
-      if (found) return tempCheck;
-      else throw new NoPositionFoundException("Could not find position for " + point.getId());
-   }
-
-
+    @Throws(NoPositionFoundException::class)
+    private fun jdForPosition(startJd: Double,
+                              endJd: Double,
+                              position: Double,
+                              point: CelestialObjects,
+                              flags: Int,
+                              location: Location): Double {
+        var posEnd: Double
+        var posCheck: Double
+        var tempStart = startJd
+        var tempEnd = endJd
+        var tempCheck = startJd + (endJd - startJd) / 2.0
+        var counter = 0
+        var found = false
+        while (counter < 10000 && !found) {
+            counter++
+            posEnd = coordSetCalc.calcSet(tempEnd, point.seId.toInt(), flags, location).mainCoord
+            posCheck = coordSetCalc.calcSet(tempCheck, point.seId.toInt(), flags, location).mainCoord
+            if (posEnd - posCheck > 180.0) posCheck += 180.0
+            if (Math.abs(posCheck - position) < 0.000001) found = true
+            if (position < posCheck) tempEnd = tempCheck else tempStart = tempCheck
+            tempCheck = tempStart + (tempEnd - tempStart) / 2.0
+        }
+        return if (found) tempCheck else throw NoPositionFoundException("Could not find position for " + point.id)
+    }
 }

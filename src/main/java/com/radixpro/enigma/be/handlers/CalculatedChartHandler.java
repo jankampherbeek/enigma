@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.be.handlers;
 
-import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.domain.astronpos.AllMundanePositions;
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.astronpos.FullPointPosition;
@@ -25,21 +24,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * HAndler for the calculation of charts.
- */
+
 public class CalculatedChartHandler {
 
    private final FullPointPositionHandler fullPointPositionHandler;
    private final MundanePositionsHandler mundanePositionsHandler;
 
-   /**
-    * Instantiate via factory.
-    *
-    * @param fullPointPositionHandler handler for full positions of celestial points.
-    * @param mundanePositionsHandler  handler for mundane positions.
-    * @see CaHandlersFactory
-    */
+
    public CalculatedChartHandler(@NotNull final FullPointPositionHandler fullPointPositionHandler,
                                  @NotNull final MundanePositionsHandler mundanePositionsHandler) {
       this.fullPointPositionHandler = fullPointPositionHandler;

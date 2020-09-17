@@ -4,13 +4,11 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.references
 
-package com.radixpro.enigma.references;
-
-public enum StandardConfigurations {
-
-   WESTERN_STANDARD,
-   ASTRONOMICAL_CORRECT,
-   HELLENISTIC,
-   VEDIC
+enum class StandardConfigurations {
+    WESTERN_STANDARD,
+    ASTRONOMICAL_CORRECT,
+    HELLENISTIC,
+    VEDIC
 }

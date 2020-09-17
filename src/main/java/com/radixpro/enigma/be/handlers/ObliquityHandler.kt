@@ -4,47 +4,23 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.be.handlers
 
-package com.radixpro.enigma.be.handlers;
-
-import com.radixpro.enigma.be.calc.SeFrontend;
-import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
-import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
-import org.jetbrains.annotations.NotNull;
-
-import static swisseph.SweConst.SE_ECL_NUT;
+import com.radixpro.enigma.be.calc.SeFrontend
+import swisseph.SweConst
 
 /**
  * Obliquity of the earth-axis.
  */
-public class ObliquityHandler {
+class ObliquityHandler(private val seFrontend: SeFrontend) {
 
-   private final SeFrontend seFrontend;
+    fun calcTrueObliquity(jdUt: Double): Double {
+        return performCalculation(jdUt)
+    }
 
-   /**
-    * Instantiate via Factory.
-    *
-    * @param seFrontend
-    * @see CaHandlersFactory
-    */
-   public ObliquityHandler(@NotNull final SeFrontend seFrontend) {
-      this.seFrontend = seFrontend;
-   }
-
-   /**
-    * Calculate true obliquityy.
-    *
-    * @param jdUt julian day in UT.
-    * @return calculated epsilon (obliquity).
-    */
-   public double calcTrueObliquity(final double jdUt) {
-      return performCalculation(jdUt);
-   }
-
-   private double performCalculation(final double jdUt) {
-      int flags = 0;
-      final SePositionResultCelObjects calculatedPos = seFrontend.getPositionsForEpsilon(jdUt, SE_ECL_NUT, flags);
-      return calculatedPos.getAllPositions()[0];
-   }
-
+    private fun performCalculation(jdUt: Double): Double {
+        val flags = 0
+        val calculatedPos = seFrontend.getPositionsForEpsilon(jdUt, SweConst.SE_ECL_NUT, flags)
+        return calculatedPos.allPositions[0]
+    }
 }

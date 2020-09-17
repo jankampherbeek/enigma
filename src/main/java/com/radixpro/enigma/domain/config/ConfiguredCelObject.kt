@@ -4,54 +4,12 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.domain.config
 
-package com.radixpro.enigma.domain.config;
+import com.radixpro.enigma.references.CelestialObjects
+import java.io.Serializable
 
-import com.radixpro.enigma.references.CelestialObjects;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.Serializable;
-
-/**
- * Configuration for a specific celestial object.
- */
-public class ConfiguredCelObject implements Serializable {
-   private final CelestialObjects celObject;
-   private final String glyph;
-   private final int orbPercentage;
-   private final boolean showInDrawing;
-
-   /**
-    * Constructor defines all members.
-    *
-    * @param celObject     The celestial object.
-    * @param glyph         The glyph to be used.
-    * @param orbPercentage Percentage for orb calculation.
-    * @param showInDrawing True if object should be shown in drawing.
-    */
-   public ConfiguredCelObject(@NotNull final CelestialObjects celObject,
-                              @NotNull final String glyph,
-                              final int orbPercentage,
-                              final boolean showInDrawing) {
-      this.celObject = celObject;
-      this.glyph = glyph;
-      this.orbPercentage = orbPercentage;
-      this.showInDrawing = showInDrawing;
-   }
-
-   public CelestialObjects getCelObject() {
-      return celObject;
-   }
-
-   public String getGlyph() {
-      return glyph;
-   }
-
-   public int getOrbPercentage() {
-      return orbPercentage;
-   }
-
-   public boolean isShowInDrawing() {
-      return showInDrawing;
-   }
-}
+class ConfiguredCelObject(val celObject: CelestialObjects,
+                          val glyph: String,
+                          val orbPercentage: Int,
+                          val isShowInDrawing: Boolean) : Serializable

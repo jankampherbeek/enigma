@@ -38,7 +38,7 @@ public class DataFileDao {
       InputDataSet inputDataSet;
       for (String fileName : fileNames) {
          inputDataSet = readData(projDataFolder, fileName);
-         descriptions.add(new DataFileDescription(inputDataSet.getName(), inputDataSet.description, inputDataSet.inputData.size()));
+         descriptions.add(new DataFileDescription(inputDataSet.getName(), inputDataSet.getDescription(), inputDataSet.getInputData().size()));
       }
       return descriptions;
    }

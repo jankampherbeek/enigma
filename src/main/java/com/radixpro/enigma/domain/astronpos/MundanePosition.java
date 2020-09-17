@@ -10,8 +10,6 @@ package com.radixpro.enigma.domain.astronpos;
 import com.radixpro.enigma.references.MundanePoints;
 import org.jetbrains.annotations.NotNull;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 /**
  * Position for a point in the mundane frame (houses etc.).
  */
@@ -33,7 +31,6 @@ public class MundanePosition implements IPosition {
    public MundanePosition(@NotNull final MundanePoints mundanePoint, final double longitude, @NotNull final CoordinateSet eqPos,
                           @NotNull final CoordinateSet horPos) {
       this.mundanePoint = mundanePoint;
-      checkArgument(0.0 <= longitude && longitude < 360.0);
       this.longitude = longitude;
       this.eqPos = eqPos;
       this.horPos = horPos;

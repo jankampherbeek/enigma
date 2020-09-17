@@ -6,4 +6,8 @@
  */
 package com.radixpro.enigma.domain.astronpos
 
-class CalculatedChart(val celPoints: List<IPosition>, val mundPoints: AllMundanePositions)
+/**
+ * All coordinates for position and speed within a specific coordinatesystem.
+ */
+class FullPointCoordinate(val position: CoordinateSet3D,
+                          val speed: CoordinateSet3D)

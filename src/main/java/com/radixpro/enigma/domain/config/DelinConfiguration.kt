@@ -4,24 +4,8 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.domain.config
 
-package com.radixpro.enigma.domain.config;
+import java.io.Serializable
 
-import org.jetbrains.annotations.NotNull;
-
-import java.io.Serializable;
-
-public class DelinConfiguration implements Serializable {
-
-   private final AspectConfiguration aspectConfiguration;
-
-   public DelinConfiguration(@NotNull final AspectConfiguration aspectConfiguration) {
-      this.aspectConfiguration = aspectConfiguration;
-   }
-
-   public AspectConfiguration getAspectConfiguration() {
-      return aspectConfiguration;
-   }
-
-
-}
+class DelinConfiguration(val aspectConfiguration: AspectConfiguration) : Serializable
