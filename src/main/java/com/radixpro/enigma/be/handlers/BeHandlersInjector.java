@@ -34,7 +34,7 @@ public class BeHandlersInjector {
 
    // TODO retrieve SeFrontend from scope
    public static EphProgCalcHandler injectEphProgCalcHandler(AppScope scope) {
-      return new EphProgCalcHandler(SeFrontend.getFrontend());
+      return new EphProgCalcHandler(SeFrontend.INSTANCE);
    }
 
    public static FullPointPositionHandler injectFullPointPositionHandler(AppScope scope) {

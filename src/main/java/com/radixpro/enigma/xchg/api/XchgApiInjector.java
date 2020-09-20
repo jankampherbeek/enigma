@@ -23,7 +23,7 @@ public class XchgApiInjector {
    }
 
    public static DateTimeApi injectDateTimeApi(AppScope scope) {
-      return new DateTimeApi(SeFrontend.getFrontend());
+      return new DateTimeApi(SeFrontend.INSTANCE);
    }     // TODO move SeFrontend to scope
 
    public static MidpointsApi injectMidpointsApi(AppScope scope) {

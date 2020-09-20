@@ -81,7 +81,7 @@ public final class CoordinateConversions {
     */
    public static double[] eclipticToHorizontal(final double jdUt, @NotNull final double[] eclCoord, @NotNull final Location location) {
       // TODO Release 2020.2 Check handling of sidereal positions
-      return SeFrontend.getFrontend().getHorizontalPosition(jdUt, eclCoord, location, SE_ECL2HOR);
+      return SeFrontend.INSTANCE.getHorizontalPosition(jdUt, eclCoord, location, SE_ECL2HOR);
    }
 
 }
