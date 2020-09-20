@@ -10,7 +10,6 @@ package com.radixpro.enigma.be.handlers;
 import com.radixpro.enigma.be.calc.CoordinateConversions;
 import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
-import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.domain.astronpos.AllMundanePositions;
 import com.radixpro.enigma.domain.astronpos.CoordinateSet;
 import com.radixpro.enigma.domain.astronpos.IPosition;
@@ -35,13 +34,6 @@ public class MundanePositionsHandler {
    private final SeFrontend seFrontend;
    private final ObliquityHandler obliquityHandler;
 
-   /**
-    * Initialization via Factory.
-    *
-    * @param seFrontend       instance of SeFrontend.
-    * @param obliquityHandler handler for the calculation of epsilon(obliquity).
-    * @see CaHandlersFactory
-    */
    public MundanePositionsHandler(@NotNull final SeFrontend seFrontend,
                                   @NotNull final ObliquityHandler obliquityHandler) {
       this.seFrontend = seFrontend;

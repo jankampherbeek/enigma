@@ -10,34 +10,30 @@ package com.radixpro.enigma.be.calc;
 import com.radixpro.enigma.domain.input.Location;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 public class CoordinateConversionsTest {
 
    private final double jdUt = 123456.789;
    private final double[] eclipticalCoordinates = new double[]{100.1, 2.1, 3.1};
-   @Mock
-   private Location locationMock;
+   private Location location;
 
    @Before
    public void setUp() {
+      location = new Location(0.0, 0.0);
       int flags = 0;
    }
 
    @Test
    public void getAzimuth() {
-      assertEquals(116.98747217272705, CoordinateConversions.eclipticToHorizontal(jdUt, eclipticalCoordinates, locationMock)[0], DELTA_8_POS);
+      assertEquals(116.98747217272705, CoordinateConversions.eclipticToHorizontal(jdUt, eclipticalCoordinates, location)[0], DELTA_8_POS);
    }
 
    @Test
    public void getAltitude() {
-      assertEquals(16.26345612775, CoordinateConversions.eclipticToHorizontal(jdUt, eclipticalCoordinates, locationMock)[1], DELTA_8_POS);
+      assertEquals(16.26345612775, CoordinateConversions.eclipticToHorizontal(jdUt, eclipticalCoordinates, location)[1], DELTA_8_POS);
    }
 
 }

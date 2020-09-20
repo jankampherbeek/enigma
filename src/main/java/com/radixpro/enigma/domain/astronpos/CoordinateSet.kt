@@ -6,4 +6,8 @@
  */
 package com.radixpro.enigma.domain.astronpos
 
-open class CalculatedChart(val celPoints: List<IPosition>, val mundPoints: AllMundanePositions)
+/**
+ * Coordinates excluding distance.
+ */
+open class CoordinateSet(val mainCoord: Double,
+                         val deviation: Double)

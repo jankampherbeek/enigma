@@ -6,5 +6,5 @@
  */
 package com.radixpro.enigma.domain.config
 
-class Configuration(var id: Int, var parentId: Int, var name: String, var description: String,
-                    var astronConfiguration: AstronConfiguration, var delinConfiguration: DelinConfiguration)
+open class Configuration(var id: Int, var parentId: Int, var name: String, var description: String,
+                         var astronConfiguration: AstronConfiguration, var delinConfiguration: DelinConfiguration)

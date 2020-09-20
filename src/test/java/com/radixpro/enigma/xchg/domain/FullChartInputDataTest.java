@@ -9,39 +9,37 @@ package com.radixpro.enigma.xchg.domain;
 import com.radixpro.enigma.domain.input.ChartMetaData;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
+import com.radixpro.enigma.references.ChartTypes;
+import com.radixpro.enigma.references.Ratings;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 public class FullChartInputDataTest {
 
    private final int id = 123;
-   @Mock
-   private DateTimeJulian dateTimeMock;
-   @Mock
-   private Location locationMock;
-   @Mock
-   private ChartMetaData chartMetaDataMock;
+   private DateTimeJulian dateTime;
+   private Location location;
+   private ChartMetaData chartMetaData;
    private FullChartInputData fullChartInputData;
 
    @Before
    public void setUp() {
-      fullChartInputData = new FullChartInputData(id, dateTimeMock, locationMock, chartMetaDataMock);
+      location = new Location(0.0, 0.0);
+      dateTime = new DateTimeJulian(123.456, "G");
+      chartMetaData = new ChartMetaData("a", "b", ChartTypes.ELECTION, Ratings.A, "c");
+      fullChartInputData = new FullChartInputData(id, dateTime, location, chartMetaData);
    }
 
    @Test
    public void getSimpleDateTime() {
-      assertEquals(dateTimeMock, fullChartInputData.getDateTimeJulian());
+      assertEquals(dateTime, fullChartInputData.getDateTimeJulian());
    }
 
    @Test
    public void getLocation() {
-      assertEquals(locationMock, fullChartInputData.getLocation());
+      assertEquals(location, fullChartInputData.getLocation());
    }
 
    @Test
@@ -51,11 +49,7 @@ public class FullChartInputDataTest {
 
    @Test
    public void getChartMetaData() {
-      assertEquals(chartMetaDataMock, fullChartInputData.getChartMetaData());
+      assertEquals(chartMetaData, fullChartInputData.getChartMetaData());
    }
 
-   @Test
-   public void testToString() {
-      assertEquals("ChartData(id=123, fullDateTime=dateTimeMock, location=locationMock, chartMetaData=chartMetaDataMock)", fullChartInputData.toString());
-   }
 }

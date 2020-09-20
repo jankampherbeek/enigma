@@ -9,7 +9,6 @@ package com.radixpro.enigma.be.handlers;
 
 import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
-import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.domain.astronpos.CoordinateSet;
 import com.radixpro.enigma.domain.astronpos.CoordinateSet3D;
 import com.radixpro.enigma.domain.astronpos.FullPointCoordinate;
@@ -32,12 +31,6 @@ public class FullPointPositionHandler {
 
    private final SeFrontend seFrontend;
 
-   /**
-    * Initialization via AstronDataHandlersFactory.
-    *
-    * @param seFrontend instance of SeFrontend. PRE: not null.
-    * @see CaHandlersFactory
-    */
    public FullPointPositionHandler(@NotNull final SeFrontend seFrontend) {
       this.seFrontend = seFrontend;
    }

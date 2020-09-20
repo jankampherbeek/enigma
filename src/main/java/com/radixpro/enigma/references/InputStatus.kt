@@ -4,6 +4,10 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
-package com.radixpro.enigma.domain.astronpos
+package com.radixpro.enigma.references
 
-open class CalculatedChart(val celPoints: List<IPosition>, val mundPoints: AllMundanePositions)
+enum class InputStatus {
+    INCOMPLETE,
+    CANCELLED,
+    READY
+}

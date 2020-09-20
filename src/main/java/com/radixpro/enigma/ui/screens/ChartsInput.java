@@ -430,7 +430,7 @@ public class ChartsInput {
       String inputName = tfName.getText();
       String inputDescription = tfDescription.getText().trim();
       String inputSource = tfSource.getText().trim();
-      Ratings inputRating = Ratings.ZZ.ratingForName(cbRating.getValue());
+      Ratings inputRating = Ratings.ratingForName(cbRating.getValue());
       ChartTypes inputChartType = ChartTypes.UNKNOWN.chartTypeForLocalName(cbSubject.getValue());
       String dataInput = constructDataInput();
       return new ChartMetaData(inputName, inputDescription, inputChartType, inputRating, dataInput);

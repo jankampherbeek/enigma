@@ -22,12 +22,6 @@ public class CoordSetForDateTimeCalc {
    private static final Logger LOG = Logger.getLogger(CoordSetForDateTimeCalc.class);
    private final SeFrontend seFrontend;
 
-   /**
-    * Use factory to instantiate this class.
-    *
-    * @param seFrontend Instance of seFrontEnd.
-    * @see com.radixpro.enigma.be.calc.handlers.CaHandlersFactory
-    */
    public CoordSetForDateTimeCalc(@NotNull final SeFrontend seFrontend) {
       this.seFrontend = seFrontend;
    }

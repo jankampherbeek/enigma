@@ -9,7 +9,6 @@ package com.radixpro.enigma.be.handlers;
 
 import com.radixpro.enigma.be.calc.JdFromPosCalc;
 import com.radixpro.enigma.be.calc.assist.CombinedFlags;
-import com.radixpro.enigma.be.calc.handlers.CaHandlersFactory;
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
@@ -38,12 +37,6 @@ public class SolarReturnHandler {
    private final JdFromPosCalc jdFromPosCalc;
    private final CalculatedChartApi calculatedChartApi;
 
-   /**
-    * Initialisation via ProgCalcFactory.
-    *
-    * @param jdFromPosCalc Instance of JdPosFromCalc
-    * @see CaHandlersFactory
-    */
    public SolarReturnHandler(@NotNull final JdFromPosCalc jdFromPosCalc,
                              @NotNull final CalculatedChartApi calculatedChartApi) {
       this.jdFromPosCalc = jdFromPosCalc;

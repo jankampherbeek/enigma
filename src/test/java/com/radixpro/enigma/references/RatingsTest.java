@@ -42,7 +42,7 @@ public class RatingsTest {
 
    @Test
    public void ratingForName() {
-      assertEquals(Ratings.B, rating.ratingForName("B - Biography or autobiography"));
+      assertEquals(Ratings.B, Ratings.ratingForName("B - Biography or autobiography"));
    }
 
    @Test
@@ -52,7 +52,7 @@ public class RatingsTest {
 
    @Test
    public void getObservableList() {
-      var observableList = rating.getObservableList();
+      var observableList = Ratings.getObservableList();
       assertEquals(8, observableList.size());
    }
 }

@@ -12,29 +12,20 @@ import com.radixpro.enigma.be.calc.assist.SePositionResultHouses;
 import com.radixpro.enigma.domain.input.Location;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
 public class SeFrontendTest {
 
    private final double delta = 0.00000001;
    private final double jdUt = 1234567.89;
    private final int flags = 1;
 
-   @Mock
-   private Location locationMock;
+   private Location location;
 
    @Before
    public void setUp() {
-      double geoLat = 52.0;
-      when(locationMock.getGeoLat()).thenReturn(geoLat);
-      double geoLon = 7.0;
-      when(locationMock.getGeoLon()).thenReturn(geoLon);
+      location = new Location(52.0, 7.0);
    }
 
    @Test
@@ -46,7 +37,7 @@ public class SeFrontendTest {
    @Test
    public void getPositionsForCelBody() {
       int bodyId = 4;
-      SePositionResultCelObjects result = SeFrontend.getFrontend().getPositionsForCelBody(jdUt, bodyId, flags, locationMock);
+      SePositionResultCelObjects result = SeFrontend.getFrontend().getPositionsForCelBody(jdUt, bodyId, flags, location);
       assertEquals(148.08135699695939, result.getAllPositions()[0], delta);
    }
 
@@ -54,7 +45,7 @@ public class SeFrontendTest {
    public void getPositionsForHouses() {
       int nrOfCusps = 12;
       char system = 'p';
-      SePositionResultHouses result = SeFrontend.getFrontend().getPositionsForHouses(jdUt, flags, locationMock,
+      SePositionResultHouses result = SeFrontend.getFrontend().getPositionsForHouses(jdUt, flags, location,
             system, nrOfCusps);
       assertEquals(59.97963584631173, result.getCusps()[3], delta);
       assertEquals(258.18944437108246, result.getAscMc()[2], delta);
@@ -65,7 +56,7 @@ public class SeFrontendTest {
       int horFlags = 0;    // ecliptical
       double[] eclipticalCoordinates = new double[]{22.2, 2.2, 5.2};
       double[] result = SeFrontend.getFrontend().getHorizontalPosition(jdUt, eclipticalCoordinates,
-            locationMock, horFlags);
+            location, horFlags);
       assertEquals(238.22139830075912, result[0], delta);
       assertEquals(-9.634283826590398, result[1], delta);
 

@@ -13,9 +13,6 @@ import com.radixpro.enigma.domain.reqresp.CalculatedChartRequest;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartResponse;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * Api for the calculation of a chart.
- */
 public class CalculatedChartApi {
 
    private final CalculatedChartHandler handler;
@@ -25,14 +22,8 @@ public class CalculatedChartApi {
       this.handler = handler;
    }
 
-   /**
-    * Service for the calculation of a chart.
-    *
-    * @param request Request for the calcualtion. PRE: not null.
-    * @return response with the calculated chart.
-    */
    public CalculatedChartResponse calcChart(@NotNull final CalculatedChartRequest request) {
-      CalculatedChart calculatedChart = null;
+      CalculatedChart calculatedChart = null;                   // FIXME assignment to null
       String resultMsg = "OK";
       try {
          calculatedChart = handler.defineChart(request.getSettings(), request.getDateTimeJulian(), request.getLocation());
