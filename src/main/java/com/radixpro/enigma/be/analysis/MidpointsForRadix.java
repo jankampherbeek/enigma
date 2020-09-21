@@ -18,9 +18,6 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-/**
- * Calculate midpoints for radix.
- */
 public class MidpointsForRadix {
 
    private List<IAnalyzedPair> results;

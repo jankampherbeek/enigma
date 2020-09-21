@@ -6,7 +6,6 @@
  */
 package com.radixpro.enigma.be.calc
 
-import com.google.common.base.Preconditions
 import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects
 import com.radixpro.enigma.be.calc.assist.SePositionResultHouses
 import com.radixpro.enigma.domain.input.Location
@@ -20,15 +19,12 @@ import swisseph.SwissEph
 /**
  * Simple wrapper to access the Java port to the SE by Thomas Mack.
  * Implemented as a singleton to prevent multiple instantiations.
- * Always use this wrapper to access the Java port.
  */
 object SeFrontend {
 
     private val LOG = Logger.getLogger(SeFrontend::class.java)
     private const val PATH: String = SE_LOCATION
     private val swissEph = SwissEph(PATH)
-
-    fun getFrontend(): SeFrontend = this
 
     /**
      * Calculate ecliptical or equatorial positions for a body
@@ -82,7 +78,7 @@ object SeFrontend {
                               eclCoord: DoubleArray,
                               location: Location,
                               flags: Int): DoubleArray {
-        Preconditions.checkArgument(3 == eclCoord.size)
+        require(3 == eclCoord.size)
         val geoPos = doubleArrayOf(location.geoLon, location.geoLat, 0.0)
         val eclPos = doubleArrayOf(eclCoord[0], eclCoord[1], eclCoord[2])
         val atPress = 0.0
@@ -154,25 +150,4 @@ object SeFrontend {
         return sweDate1.year == sweDate2.year && sweDate1.month == sweDate2.month && sweDate1.day == sweDate2.day
     }
 
-//    companion object {
-//        private val LOG = Logger.getLogger(SeFrontend::class.java)
-//        private val PATH: String = SE_LOCATION
-//        private var instance: SeFrontend? = null
-
-    /**
-     * Retrieve instance of singleton for SeFrontend.
-     *
-     * @return unique instance
-     */
-//        @JvmStatic
-//        val frontend: SeFrontend?
-//            get() {
-//
-//                if (instance == null) {
-//                    instance = SeFrontend()
-//                    LOG.info("Created singleton instance for SeFrontend.")
-//                }
-//                return instance
-//            }
-//    }
 }
