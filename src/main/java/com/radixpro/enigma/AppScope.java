@@ -46,12 +46,12 @@ public class AppScope {
    public void setRosetta(Rosetta rosetta) {
       this.rosetta = rosetta;
    }
-
-   public AppDb getAppDb() {
-      return appDb;
-   }
-
-   public void setAppDb(AppDb appDb) {
-      this.appDb = appDb;
-   }
+//
+//   public AppDb getAppDb() {
+//      return appDb;
+//   }
+//
+//   public void setAppDb(AppDb appDb) {
+//      this.appDb = appDb;
+//   }
 }

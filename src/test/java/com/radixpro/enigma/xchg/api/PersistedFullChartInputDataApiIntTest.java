@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.persistency.AppDb;
 import com.radixpro.enigma.domain.input.ChartMetaData;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
@@ -28,7 +27,7 @@ public class PersistedFullChartInputDataApiIntTest {
    @Before
    public void setUp() throws Exception {
       appDb = TestSupport.useDb();
-      pChartApi = XchgApiInjector.injectPersistedChartDataApi(new AppScope());
+      pChartApi = XchgApiInjector.injectPersistedChartDataApi();
    }
 
    // TODO enable and fix integrationtests for PersistedChartDataApi

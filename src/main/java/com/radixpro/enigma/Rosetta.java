@@ -42,9 +42,9 @@ public class Rosetta {
       // prevent instantiation
    }
 
-   public static Rosetta defineRosetta(@NotNull final AppDb pAppDb) {
+   public static Rosetta defineRosetta() {
       if (null == instance) {
-         appDb = pAppDb;
+         appDb = AppDb.getInstance();
          instance = new Rosetta();
          instance.reInitialize();
       }
@@ -82,7 +82,7 @@ public class Rosetta {
    }
 
    private void initi18N() {
-      propApi = new PersistedPropertyApi(new PropertyDao(appDb));
+      propApi = new PersistedPropertyApi(new PropertyDao());
       List<Property> props = propApi.read(PROP_LANG);
       String language = "en";    // handle first start as no database has been created.
       if (!props.isEmpty()) {

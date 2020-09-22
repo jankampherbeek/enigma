@@ -33,8 +33,8 @@ public class ConfigurationDao extends DaoParent {
    private static final String ZERO_ROWS = "No rows changed.";
    private final AppDb appDb;
 
-   public ConfigurationDao(final AppDb appDb) {
-      this.appDb = appDb;
+   public ConfigurationDao() {
+      this.appDb = AppDb.getInstance();
    }
 
    public int insert(@NotNull final Configuration insertConfig) throws DatabaseException {

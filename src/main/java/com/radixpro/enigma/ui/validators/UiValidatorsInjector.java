@@ -17,11 +17,11 @@ public class UiValidatorsInjector {
    }
 
    public static ConfigNameValidator injectConfigNameValidator(AppScope scope) {
-      return new ConfigNameValidator(XchgApiInjector.injectPersistedConfigurationApi(scope));
+      return new ConfigNameValidator(XchgApiInjector.injectPersistedConfigurationApi());
    }
 
    public static ValidatedChartName injectValidatedChartName(AppScope scope) {
-      return new ValidatedChartName(XchgApiInjector.injectPersistedChartDataApi(scope));
+      return new ValidatedChartName(XchgApiInjector.injectPersistedChartDataApi());
    }
 
    public static ValidatedDate injectValidatedDate(AppScope scope) {

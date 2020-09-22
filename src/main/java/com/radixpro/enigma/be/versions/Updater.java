@@ -18,8 +18,9 @@ public class Updater {
    private static final Logger LOG = Logger.getLogger(Updater.class);
    private final AppDb appDb;
    private Connection con;
-   public Updater(final AppDb appDb) {
-      this.appDb = appDb;
+
+   public Updater() {
+      this.appDb = AppDb.getInstance();
    }
 
    public void updateStep20202() {

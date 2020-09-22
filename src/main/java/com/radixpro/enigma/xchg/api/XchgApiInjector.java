@@ -34,20 +34,20 @@ public class XchgApiInjector {
       return new InputDataFileApi(BeHandlersInjector.injectInputDataFileHandler(scope));
    }
 
-   public static PersistedChartDataApi injectPersistedChartDataApi(AppScope scope) {
-      return new PersistedChartDataApi(BePersistencyInjector.injectChartDataDao(scope));
+   public static PersistedChartDataApi injectPersistedChartDataApi() {
+      return new PersistedChartDataApi(BePersistencyInjector.injectChartDataDao());
    }
 
-   public static PersistedConfigurationApi injectPersistedConfigurationApi(AppScope scope) {
-      return new PersistedConfigurationApi(BePersistencyInjector.injectConfigurationDao(scope));
+   public static PersistedConfigurationApi injectPersistedConfigurationApi() {
+      return new PersistedConfigurationApi(BePersistencyInjector.injectConfigurationDao());
    }
 
    public static PersistedDataFileApi injectPersistedDataFileApi(AppScope scope) {
       return new PersistedDataFileApi(BeHandlersInjector.injectDataFileHandler(scope));
    }
 
-   public static PersistedPropertyApi injectPersistedPropertyApi(AppScope scope) {
-      return new PersistedPropertyApi(BePersistencyInjector.injectPropertyDao(scope));
+   public static PersistedPropertyApi injectPersistedPropertyApi() {
+      return new PersistedPropertyApi(BePersistencyInjector.injectPropertyDao());
    }
 
    public static PrimaryApi injectPrimaryApi(AppScope scope) {
@@ -71,8 +71,8 @@ public class XchgApiInjector {
       return new TransitsApi(BeHandlersInjector.injectEphProgCalcHandler(scope), BeHandlersInjector.injectProgAspectHandler(scope));
    }
 
-   public static VersionApi injectVersionApi(AppScope scope) {
-      return new VersionApi(BePersistencyInjector.injectVersionDao(scope));
+   public static VersionApi injectVersionApi() {
+      return new VersionApi(BePersistencyInjector.injectVersionDao());
    }
 
 }

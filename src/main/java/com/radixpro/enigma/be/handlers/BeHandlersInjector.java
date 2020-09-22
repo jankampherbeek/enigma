@@ -29,7 +29,7 @@ public class BeHandlersInjector {
    }
 
    public static DataFileHandler injectDataFileHandler(AppScope scope) {
-      return new DataFileHandler(BePersistencyInjector.injectDataFileDao(scope), XchgApiInjector.injectPersistedPropertyApi(scope));
+      return new DataFileHandler(BePersistencyInjector.injectDataFileDao(scope), XchgApiInjector.injectPersistedPropertyApi());
    }
 
    // TODO retrieve SeFrontend from scope

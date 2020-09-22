@@ -27,13 +27,12 @@ import java.util.List;
 public class ChartDataDao extends DaoParent {
 
    private static final Logger LOG = Logger.getLogger(ChartDataDao.class);
-   private static final String SEL_CHARTS =
-         "SELECT id, name, description, idcharttype, idrating, jdnr, cal, geolat, geolon, datainput ";
+   private static final String SEL_CHARTS = "SELECT id, name, description, idcharttype, idrating, jdnr, cal, geolat, geolon, datainput ";
    private static final String ZERO = "0";
    private final AppDb appDb;
 
-   public ChartDataDao(AppDb appDb) {
-      this.appDb = appDb;
+   public ChartDataDao() {
+      this.appDb = AppDb.getInstance();
    }
 
    /**

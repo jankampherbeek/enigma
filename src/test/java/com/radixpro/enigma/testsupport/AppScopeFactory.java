@@ -29,7 +29,6 @@ public class AppScopeFactory {
    private static void createAppScope() {
       AppDb appDb = TestSupport.useDb();
       appScope = new AppScope();
-      appScope.setAppDb(appDb);
-      appScope.setRosetta(Rosetta.defineRosetta(appDb));
+      appScope.setRosetta(Rosetta.defineRosetta());     // TODO laten vervallen
    }
 }

@@ -18,13 +18,12 @@ import java.sql.Statement;
 public class AppDb {
 
    private static final Logger LOG = Logger.getLogger(AppDb.class);
-   private final AppProperties props;
+   private AppProperties props;
    private Connection con;
    private static AppDb instance;
 
    private AppDb() {
-      this.props = new AppProperties("PROD");      // FIXME, handle environemnt PROD/DEV/TEST
-      LOG.info("Instantiated AppDb.");
+      // prevent instantiation
    }
 
    private AppDb(final String environment) {
@@ -32,23 +31,12 @@ public class AppDb {
       LOG.info("Instantiated AppDb.");
    }
 
-   /**
-    * Create db settings for prod, dev or test.
-    *
-    * @param environment
-    * @return
-    */
    public static AppDb initAppDb(final String environment) {
       if (null == instance) instance = new AppDb(environment);
       return instance;
    }
 
-   /**
-    * Always uses production database.
-    *
-    * @return single instance of AppDb.
-    */
-   public static AppDb getInstance() {   // TODO consider to remove null-check and creation of appDb. This should have been done by initAppDb()
+   public static AppDb getInstance() {
       if (null == instance) instance = new AppDb();
       return instance;
    }
@@ -56,10 +44,9 @@ public class AppDb {
    public Connection getConnection() {
       if (null == con) {
          try {
-            Class.forName("org.h2.Driver");
             con = DriverManager.getConnection("jdbc:h2:" + props.getDatabasePath());
             LOG.info("SQL connection created succesfully.");
-         } catch (SQLException | ClassNotFoundException e) {
+         } catch (SQLException e) {
             LOG.error("Exception when creating connection : " + e.getMessage());
          }
       }
@@ -70,8 +57,9 @@ public class AppDb {
       try {
          if (null != con && !con.isClosed()) {
 
-            Statement st = con.createStatement();
-            st.execute("SHUTDOWN");
+            try (Statement st = con.createStatement()) {
+               st.execute("SHUTDOWN");
+            }
             con.close();
             con = null;
          }

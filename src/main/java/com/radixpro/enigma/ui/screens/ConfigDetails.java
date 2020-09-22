@@ -54,8 +54,8 @@ public class ConfigDetails {
 
    public ConfigDetails(@NotNull final PropertiesForConfig propertiesForConfig, @NotNull final PropertiesTableForConfig propertiesTableForConfig,
                         @NotNull final CelObjectsInConfig celObjectsInConfig, @NotNull final AspectsInConfig aspectsInConfig,
-                        @NotNull final Rosetta rosetta, @NotNull final SessionState state) {
-      this.rosetta = rosetta;
+                        @NotNull final SessionState state) {
+      this.rosetta = Rosetta.getRosetta();
       this.state = state;
       this.propertiesForConfig = propertiesForConfig;
       this.propertiesTableForConfig = propertiesTableForConfig;

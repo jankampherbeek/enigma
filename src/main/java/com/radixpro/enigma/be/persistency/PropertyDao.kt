@@ -11,13 +11,10 @@ import com.radixpro.enigma.shared.exceptions.DatabaseException
 import java.sql.SQLException
 import java.util.*
 
-/**
- * Dao for Property. Supports only updating and reading a property.
- * All inserts are done via the class Updater.
- *
- * @see Updater
- */
-class PropertyDao(private val appDb: AppDb) : DaoParent() {
+class PropertyDao() : DaoParent() {
+
+    var appDb = AppDb.getInstance()!!
+
     @Throws(DatabaseException::class)
     fun insert(newProp: Property) {
         val con = appDb.connection

@@ -7,23 +7,21 @@
 package com.radixpro.enigma.be.persistency;
 
 import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 import com.radixpro.enigma.shared.exceptions.DatabaseException;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
+// TODO make this class a useful parent for DAO's.
 public abstract class DaoParent {
 
    protected static final Logger LOG = Logger.getLogger(DaoParent.class);
-   protected static final String DB_LOCATION = "c:/enigma-data/db/";
+   protected static final String DB_LOCATION = "c:/enigma-data/db/";    // TODO read from properties
 
 
+   // TODO temporary solution to read files from 2020.1 , replace
    protected CSVReader createReader(@NotNull final String filename) throws DatabaseException {
       CSVReader reader;
       try {
@@ -34,27 +32,5 @@ public abstract class DaoParent {
       return reader;
    }
 
-   protected void writeData(List<String[]> data2Write, String filename) throws DatabaseException {
-      try (FileOutputStream fos = new FileOutputStream(filename);
-           OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
-           CSVWriter writer = new CSVWriter(osw)) {
-         writer.writeAll(data2Write);
-      } catch (IOException e) {
-         LOG.error("Could not create a CSVWriter when accessing file : " + filename);
-         throw new DatabaseException("Could not create a CSVWriter : " + e.getMessage());
-      }
-   }
-
-   protected void updateFiles(String filenameOld, String filenameCurrent, String filenameNew) {
-      File bakFile = new File(filenameOld);
-      File currentFile = new File(filenameCurrent);
-      File newFile = new File(filenameNew);
-      try {
-         Files.copy(currentFile.toPath(), bakFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-         Files.copy(newFile.toPath(), currentFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-   }
 
 }

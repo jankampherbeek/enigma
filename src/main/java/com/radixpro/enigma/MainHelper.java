@@ -34,12 +34,11 @@ public class MainHelper extends Application {
       scope = new AppScope();
       scope.setSessionState(SessionState.getInstance());
       AppDb appDb = AppDb.initAppDb(env);
-      scope.setAppDb(appDb);
       scope.setEnv(env);
-      Rosetta rosetta = Rosetta.defineRosetta(appDb);
+      Rosetta rosetta = Rosetta.defineRosetta();
       scope.setRosetta(rosetta);
       LOG.info("Started Enigma.");
-      Injector.injectAppVersion(scope);
+      Injector.injectAppVersion();
       Injector.injectDashboard(scope).showDashboard();
    }
 

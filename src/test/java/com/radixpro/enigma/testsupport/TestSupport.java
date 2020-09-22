@@ -31,7 +31,7 @@ public class TestSupport {
 
    public static void initRosetta() {
       if (null == appDb) appDb = AppDb.initAppDb("test");
-      Rosetta.defineRosetta(appDb);
+      Rosetta.defineRosetta();
       Rosetta.getRosetta().setLanguage("en");
    }
 
@@ -40,7 +40,7 @@ public class TestSupport {
          appDb = AppDb.initAppDb("test");
          con = appDb.getConnection();
          initDatabase();
-         Rosetta.defineRosetta(appDb);
+         Rosetta.defineRosetta();
          initialized = true;
       }
       return appDb;
@@ -48,7 +48,7 @@ public class TestSupport {
 
    private static void initDatabase() {
       emptyDatabase();
-      new Updater(appDb).updateStep20202();
+      new Updater().updateStep20202();
    }
 
    private static void emptyDatabase() {

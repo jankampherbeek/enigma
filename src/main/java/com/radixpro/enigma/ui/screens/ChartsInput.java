@@ -98,10 +98,10 @@ public class ChartsInput {
 
    private InputStatus inputStatus = InputStatus.INCOMPLETE;
 
-   public ChartsInput(final Rosetta rosetta, final PersistedChartDataApi persistedChartDataApi, final ValidatedChartName validatedChartName,
+   public ChartsInput(final PersistedChartDataApi persistedChartDataApi, final ValidatedChartName validatedChartName,
                       final ValidatedDate validatedDate, final ValidatedTime validatedTime, final ValidatedLongitude validatedLongitude,
                       final ValidatedLatitude validatedLatitude, final DateTimeJulianCreator dateTimeJulianCreator) {
-      this.rosetta = rosetta;
+      this.rosetta = Rosetta.getRosetta();
       this.persistedChartDataApi = persistedChartDataApi;
       this.validatedChartName = validatedChartName;
       this.validatedDate = validatedDate;

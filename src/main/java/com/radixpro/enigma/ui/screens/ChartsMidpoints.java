@@ -51,8 +51,8 @@ public class ChartsMidpoints {
    private MetaDataForAnalysis meta;
 
 
-   public ChartsMidpoints(final SessionState state, final Rosetta rosetta, final MidpointsApi midpointsApi, final ChartDataHelper helper) {
-      this.rosetta = rosetta;
+   public ChartsMidpoints(final SessionState state, final MidpointsApi midpointsApi, final ChartDataHelper helper) {
+      this.rosetta = Rosetta.getRosetta();
       this.state = state;
       this.midpointsApi = midpointsApi;
       this.helper = helper;

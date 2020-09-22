@@ -19,12 +19,12 @@ public class BePersistencyInjector {
    }
 
 
-   public static ChartDataDao injectChartDataDao(AppScope scope) {
-      return new ChartDataDao(scope.getAppDb());
+   public static ChartDataDao injectChartDataDao() {
+      return new ChartDataDao();
    }
 
-   public static ConfigurationDao injectConfigurationDao(AppScope scope) {
-      return new ConfigurationDao(scope.getAppDb());
+   public static ConfigurationDao injectConfigurationDao() {
+      return new ConfigurationDao();
    }
 
    public static DataFileDao injectDataFileDao(AppScope scope) {
@@ -43,11 +43,11 @@ public class BePersistencyInjector {
       return new JsonWriter();
    }
 
-   public static PropertyDao injectPropertyDao(AppScope scope) {
-      return new PropertyDao(scope.getAppDb());
+   public static PropertyDao injectPropertyDao() {
+      return new PropertyDao();
    }
 
-   public static VersionDao injectVersionDao(AppScope scope) {
+   public static VersionDao injectVersionDao() {
       return new VersionDao();
    }
 }

@@ -23,8 +23,8 @@ public class Injector {
       return UiCommonInjector.injectDashboard(scope);
    }
 
-   public static AppVersion injectAppVersion(AppScope scope) {
-      return VersionsInjector.injectAppVersion(scope);
+   public static AppVersion injectAppVersion() {
+      return VersionsInjector.injectAppVersion();
    }
 
 }
