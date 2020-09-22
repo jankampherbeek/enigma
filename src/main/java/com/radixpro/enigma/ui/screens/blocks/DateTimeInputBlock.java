@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
-import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.references.TimeZones;
@@ -65,9 +64,9 @@ public class DateTimeInputBlock extends InputBlock {
     *
     * @param state
     */
-   public DateTimeInputBlock(@NotNull final SessionState state, @NotNull final ValidatedDate validatedDate, @NotNull final ValidatedTime validatedTime,
+   public DateTimeInputBlock(@NotNull final ValidatedDate validatedDate, @NotNull final ValidatedTime validatedTime,
                              @NotNull final ValidatedLongitude valLongLocalTime, @NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
-      super(state);
+      super();
       this.valDate = validatedDate;
       this.valTime = validatedTime;
       this.valLongLocalTime = valLongLocalTime;

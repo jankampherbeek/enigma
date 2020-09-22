@@ -26,7 +26,7 @@ public abstract class InputScreen {
    protected final SessionState state;
 
    public InputScreen() {
-      state = SessionState.getInstance();
+      state = SessionState.INSTANCE;
       stage = new Stage();
       stage.setWidth(INPUT_WIDTH);
       rosetta = Rosetta.getRosetta();

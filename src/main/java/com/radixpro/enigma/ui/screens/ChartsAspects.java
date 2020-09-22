@@ -44,11 +44,11 @@ public class ChartsAspects {
    private List<IAnalyzedPair> aspects;
    private MetaDataForAnalysis meta;
 
-   public ChartsAspects(final SessionState state, final Rosetta rosetta, final AspectsApi aspectsApi, final ChartDataHelper helper) {
-      this.rosetta = rosetta;
+   public ChartsAspects(final AspectsApi aspectsApi, final ChartDataHelper helper) {
+      this.rosetta = Rosetta.getRosetta();
       this.aspectsApi = aspectsApi;
-      this.state = state;
       this.helper = helper;
+      this.state = SessionState.INSTANCE;
    }
 
    public void show() {

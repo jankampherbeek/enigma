@@ -33,7 +33,7 @@ public class SessionStateTest {
 
    @Before
    public void setUp() throws Exception {
-      sessionState = SessionState.getInstance();
+      sessionState = SessionState.INSTANCE;
    }
    
    @Test

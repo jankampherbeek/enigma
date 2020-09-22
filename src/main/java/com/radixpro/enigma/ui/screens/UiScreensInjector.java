@@ -23,12 +23,11 @@ public class UiScreensInjector {
    }
 
    public static ChartsAspects injectChartsAspects(AppScope scope) {
-      return new ChartsAspects(scope.getSessionState(), scope.getRosetta(), XchgApiInjector.injectAspectsApi(scope),
-            ScreensHelpersInjector.injectChartDataHelper(scope));
+      return new ChartsAspects(XchgApiInjector.injectAspectsApi(scope), ScreensHelpersInjector.injectChartDataHelper(scope));
    }
 
    public static ChartsDrawing2d injectChartsDrawing2d(AppScope scope) {
-      return new ChartsDrawing2d(ScreensHelpersInjector.injectRadixWheel(scope), scope.getRosetta(), scope.getSessionState());
+      return new ChartsDrawing2d(ScreensHelpersInjector.injectRadixWheel(scope), scope.getRosetta());
    }
 
    public static ChartsInput injectChartsInput(AppScope scope) {
@@ -39,8 +38,7 @@ public class UiScreensInjector {
    }
 
    public static ChartsMidpoints injectChartsMidpoints(AppScope scope) {
-      return new ChartsMidpoints(scope.getSessionState(), XchgApiInjector.injectMidpointsApi(scope),
-            ScreensHelpersInjector.injectChartDataHelper(scope));
+      return new ChartsMidpoints(XchgApiInjector.injectMidpointsApi(scope), ScreensHelpersInjector.injectChartDataHelper(scope));
    }
 
    public static ChartsSearch injectChartsSearch(AppScope scope) {
@@ -48,7 +46,7 @@ public class UiScreensInjector {
    }
 
    public static ChartsStart injectChartsStart(AppScope scope) {
-      return new ChartsStart(scope.getRosetta(), scope.getSessionState(), XchgApiInjector.injectCalculatedChartApi(scope), injectChartsTetenburg(scope),
+      return new ChartsStart(scope.getRosetta(), XchgApiInjector.injectCalculatedChartApi(scope), injectChartsTetenburg(scope),
             injectChartsAspects(scope), injectChartsMidpoints(scope), injectChartsTransitsInput(scope), injectChartsSearch(scope), injectChartsInput(scope),
             XchgApiInjector.injectPersistedChartDataApi(), XchgApiInjector.injectPersistedConfigurationApi(),
             XchgApiInjector.injectPersistedPropertyApi(), UiScreensInjector.injectConfigOverview(scope),
@@ -62,28 +60,27 @@ public class UiScreensInjector {
    }
 
    public static ChartsTetenburg injectChartsTetenburg(AppScope scope) {
-      return new ChartsTetenburg(scope.getSessionState(), scope.getRosetta(), XchgApiInjector.injectTetenburgApi(scope),
+      return new ChartsTetenburg(scope.getRosetta(), XchgApiInjector.injectTetenburgApi(scope),
             UiValidatorsInjector.injectValidatedDate(scope), UiHelpersInjector.injectDateTimeJulianCreator(scope));
    }
 
    public static ConfigDetails injectConfigDetails(AppScope scope) {
       return new ConfigDetails(ScreensHelpersInjector.injectPropertiesForConfig(scope),
             ScreensHelpersInjector.injectPropertiesTableForConfig(scope), ScreensHelpersInjector.injectCelObjectsInConfig(scope),
-            ScreensHelpersInjector.injectAspectsInConfig(scope), scope.getSessionState());
+            ScreensHelpersInjector.injectAspectsInConfig(scope));
    }
 
    public static ConfigEdit injectConfigEdit(AppScope scope) {
-      return new ConfigEdit(XchgApiInjector.injectPersistedConfigurationApi(), scope.getRosetta(), scope.getSessionState());
+      return new ConfigEdit(XchgApiInjector.injectPersistedConfigurationApi(), scope.getRosetta());
    }
 
    public static ConfigNew injectConfigNew(AppScope scope) {
-      return new ConfigNew(scope.getRosetta(), XchgApiInjector.injectPersistedConfigurationApi(), UiValidatorsInjector.injectConfigNameValidator(scope),
-            scope.getSessionState());
+      return new ConfigNew(scope.getRosetta(), XchgApiInjector.injectPersistedConfigurationApi(), UiValidatorsInjector.injectConfigNameValidator(scope));
    }
 
    public static ConfigOverview injectConfigOverview(AppScope scope) {
       return new ConfigOverview(XchgApiInjector.injectPersistedConfigurationApi(), XchgApiInjector.injectPersistedPropertyApi(),
-            injectConfigNew(scope), injectConfigEdit(scope), injectConfigDetails(scope), scope.getRosetta(), scope.getSessionState());
+            injectConfigNew(scope), injectConfigEdit(scope), injectConfigDetails(scope), scope.getRosetta());
    }
 
    public static StatsDataNew injectStatsDataNew(AppScope scope) {

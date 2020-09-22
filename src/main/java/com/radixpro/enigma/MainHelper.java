@@ -32,7 +32,6 @@ public class MainHelper extends Application {
    @Override
    public void start(Stage primaryStage) {
       scope = new AppScope();
-      scope.setSessionState(SessionState.getInstance());
       AppDb appDb = AppDb.initAppDb(env);
       scope.setEnv(env);
       Rosetta rosetta = Rosetta.defineRosetta();

@@ -19,25 +19,25 @@ public class ScreensBlocksInjector {
    }
 
    public static BaseConfigInputBlock injectBaseConfigInputBlock(AppScope scope) {
-      return new BaseConfigInputBlock(scope.getSessionState());
+      return new BaseConfigInputBlock();
    }
 
    public static DateTimeInputBlock injectDateTimeInputBlock(AppScope scope) {
-      return new DateTimeInputBlock(scope.getSessionState(), UiValidatorsInjector.injectValidatedDate(scope), UiValidatorsInjector.injectValidatedTime(scope),
+      return new DateTimeInputBlock(UiValidatorsInjector.injectValidatedDate(scope), UiValidatorsInjector.injectValidatedTime(scope),
             UiValidatorsInjector.injectValidatedLongitude(scope), UiHelpersInjector.injectDateTimeJulianCreator(scope));
    }
 
    public static LocationInputBlock injectLocationInputBlock(AppScope scope) {
-      return new LocationInputBlock(scope.getSessionState(), UiValidatorsInjector.injectValidatedLongitude(scope),
+      return new LocationInputBlock(UiValidatorsInjector.injectValidatedLongitude(scope),
             UiValidatorsInjector.injectValidatedLatitude(scope));
    }
 
    public static NameDescriptionInputBlock injectNameDescriptionInputBlock(AppScope scope) {
-      return new NameDescriptionInputBlock(scope.getSessionState());
+      return new NameDescriptionInputBlock();
    }
 
    public static ProgMetaInputBlock injectProgMetaInputBLock(AppScope scope) {
-      return new ProgMetaInputBlock(scope.getSessionState());
+      return new ProgMetaInputBlock();
    }
 
    public static StatsDataBlock injectStatsDataBlock(AppScope scope) {

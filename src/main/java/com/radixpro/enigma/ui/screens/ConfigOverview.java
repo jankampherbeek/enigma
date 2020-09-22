@@ -66,22 +66,15 @@ public class ConfigOverview {
    private Button btnExit;
    private TableView<PresentableConfiguration> tableView;
 
-   /**
-    * @param configApi api for persisted configurations.
-    * @param propApi   api for persisted properties.
-    * @param rosetta   handler for resource bundles.
-    * @param state     state with the currently selected config.
-    */
    public ConfigOverview(@NotNull final PersistedConfigurationApi configApi, @NotNull final PersistedPropertyApi propApi, @NotNull final ConfigNew configNew,
-                         @NotNull final ConfigEdit configEdit, @NotNull final ConfigDetails configDetails, @NotNull final Rosetta rosetta,
-                         @NotNull final SessionState state) {
+                         @NotNull final ConfigEdit configEdit, @NotNull final ConfigDetails configDetails, @NotNull final Rosetta rosetta) {
       this.configApi = configApi;
       this.propApi = propApi;
       this.configNew = configNew;
       this.configEdit = configEdit;
       this.configDetails = configDetails;
       this.rosetta = rosetta;
-      this.state = state;
+      this.state = SessionState.INSTANCE;
    }
 
    public void show() {

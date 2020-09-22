@@ -4,63 +4,28 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma
 
-package com.radixpro.enigma;
-
-import com.radixpro.enigma.domain.config.Configuration;
-import com.radixpro.enigma.ui.domain.FullChart;
-import org.apache.log4j.Logger;
+import com.radixpro.enigma.domain.config.Configuration
+import com.radixpro.enigma.ui.domain.FullChart
 
 /**
  * Remembers state of several components.
  * Implemented as singleton. Is mutable.
  */
-public class SessionState {
+object SessionState {
+    var selectedChart: FullChart? = null
+    var selectedConfig: Configuration? = null
+    fun deSelectChart() {
+        selectedChart = null
+    }
 
-   private static final Logger LOG = Logger.getLogger(SessionState.class);
-   private static SessionState instance = null;
-   private FullChart selectedChart;
-   private Configuration selectedConfig;
+    fun selectedChartIsSet(): Boolean {
+        return selectedChart != null
+    }
 
-   private SessionState() {
-      // prevent instantiation
-   }
-
-   public static SessionState getInstance() {
-      if (instance == null) {
-         instance = new SessionState();
-         LOG.info("Created singleton instance for ChartsSessionState.");
-      }
-      return instance;
-   }
-
-   public void deSelectChart() {
-      selectedChart = null;
-   }
-
-   public FullChart getSelectedChart() {
-      return selectedChart;
-   }
-
-   public void setSelectedChart(FullChart selectedChart) {
-      this.selectedChart = selectedChart;
-   }
-
-   public boolean selectedChartIsSet() {
-      return selectedChart != null;
-   }
-
-   public Configuration getSelectedConfig() {
-      return selectedConfig;
-   }
-
-   public void setSelectedConfig(Configuration selectedConfig) {
-      this.selectedConfig = selectedConfig;
-   }
-
-   public boolean selectedConfigIsSet() {
-      return selectedConfig != null;
-   }
-
+    fun selectedConfigIsSet(): Boolean {
+        return selectedConfig != null
+    }
 
 }

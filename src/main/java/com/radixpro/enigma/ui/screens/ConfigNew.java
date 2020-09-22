@@ -57,17 +57,9 @@ public class ConfigNew {
    private Button btnHelp;
    private Button btnCancel;
 
-   /**
-    * Construction via factory.
-    *
-    * @param rosetta Handler for resource bundles.
-    * @param api     Api for persistency of configurations.
-    * @param state   contains current config
-    */
-   public ConfigNew(@NotNull final Rosetta rosetta, @NotNull final PersistedConfigurationApi api, @NotNull final ConfigNameValidator nameValidator,
-                    @NotNull final SessionState state) {
+   public ConfigNew(@NotNull final Rosetta rosetta, @NotNull final PersistedConfigurationApi api, @NotNull final ConfigNameValidator nameValidator) {
       this.rosetta = rosetta;
-      this.state = state;
+      this.state = SessionState.INSTANCE;
       this.api = api;
       this.valName = nameValidator;
    }
@@ -81,7 +73,6 @@ public class ConfigNew {
 
    private void populateStage() {
       Label lblTitle = new LabelBuilder("ui.configs.new.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
-
       Label lblSubTitle = new LabelBuilder("").setText(rosetta.getText("ui.configs.new.copyfrom") + " " + config.getName()).setPrefWidth(WIDTH)
             .setStyleClass("subtitletext").build();
       Label lblInstruction = new LabelBuilder("ui.configs.new.instruction").build();

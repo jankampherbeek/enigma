@@ -21,8 +21,8 @@ public class ChartDataHelper {
 
    private final SessionState state;
 
-   public ChartDataHelper(final SessionState state) {
-      this.state = state;
+   public ChartDataHelper() {
+      this.state = SessionState.INSTANCE;
    }
 
    public List<IPosition> getCelObjectList() {

@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
-import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.references.Ayanamshas;
 import com.radixpro.enigma.references.EclipticProjections;
 import com.radixpro.enigma.references.HouseSystems;
@@ -21,7 +20,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import org.jetbrains.annotations.NotNull;
 
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
@@ -37,8 +35,8 @@ public class BaseConfigInputBlock extends InputBlock {
    private ChoiceBox choiceBoxEclipticProj;
    private ChoiceBox choiceBoxAyanamsha;
 
-   public BaseConfigInputBlock(@NotNull final SessionState state) {
-      super(state);
+   public BaseConfigInputBlock() {
+      super();
    }
 
    public GridPane getGridPane() {

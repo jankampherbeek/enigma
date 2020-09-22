@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
-import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
@@ -49,8 +48,8 @@ public class LocationInputBlock extends InputBlock {
    private boolean longitudeValid = false;
    private boolean latitudeValid = false;
 
-   public LocationInputBlock(@NotNull final SessionState state, @NotNull final ValidatedLongitude valLong, @NotNull final ValidatedLatitude valLat) {
-      super(state);
+   public LocationInputBlock(@NotNull final ValidatedLongitude valLong, @NotNull final ValidatedLatitude valLat) {
+      super();
       this.valLong = valLong;
       this.valLat = valLat;
    }

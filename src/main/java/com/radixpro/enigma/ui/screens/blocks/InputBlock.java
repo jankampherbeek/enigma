@@ -24,8 +24,8 @@ public abstract class InputBlock {
    /**
     * Constructor handles creation of block.
     */
-   public InputBlock(SessionState state) {
-      this.state = state;
+   public InputBlock() {
+      this.state = SessionState.INSTANCE;
       rosetta = Rosetta.getRosetta();
    }
 

@@ -26,7 +26,7 @@ public class ScreensHelpersInjector {
    }
 
    public static ChartDataHelper injectChartDataHelper(AppScope scope) {
-      return new ChartDataHelper(scope.getSessionState());
+      return new ChartDataHelper();
    }
 
    public static PropertiesForConfig injectPropertiesForConfig(AppScope scope) {

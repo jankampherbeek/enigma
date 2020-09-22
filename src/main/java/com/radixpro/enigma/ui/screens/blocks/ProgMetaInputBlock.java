@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
-import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.TextFieldBuilder;
@@ -30,8 +29,8 @@ public class ProgMetaInputBlock extends InputBlock {
    private Label lblInputEvent;
    private TextField tfEvent;
 
-   public ProgMetaInputBlock(SessionState state) {
-      super(state);
+   public ProgMetaInputBlock() {
+      super();
    }
 
    @Override

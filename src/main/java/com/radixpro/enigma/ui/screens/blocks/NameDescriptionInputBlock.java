@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
-import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.ui.creators.GridPaneBuilder;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
@@ -29,8 +28,8 @@ public class NameDescriptionInputBlock extends InputBlock {
    private TextField tfName;
    private TextField tfDescr;
 
-   public NameDescriptionInputBlock(SessionState state) {
-      super(state);
+   public NameDescriptionInputBlock() {
+      super();
    }
 
    @Override

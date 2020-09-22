@@ -102,7 +102,7 @@ public class ChartsStart {
    private TableColumn<PresentableChartData, String> colData;
    private Configuration currentConfig;
 
-   public ChartsStart(@NotNull final Rosetta rosetta, @NotNull final SessionState state, @NotNull final CalculatedChartApi calculatedChartApi,
+   public ChartsStart(@NotNull final Rosetta rosetta, @NotNull final CalculatedChartApi calculatedChartApi,
                       @NotNull final ChartsTetenburg chartsTetenburg, @NotNull final ChartsAspects chartsAspects,
                       @NotNull final ChartsMidpoints chartsMidpoints, @NotNull final ChartsTransitsInput chartsTransitsInput,
                       @NotNull final ChartsSearch chartsSearch, @NotNull final ChartsInput chartsInput, @NotNull final PersistedChartDataApi chartDataApi,
@@ -111,7 +111,7 @@ public class ChartsStart {
                       @NotNull final CelObjectsInConfig celObjectsInConfig, @NotNull final AspectsInConfig aspectsInConfig,
                       @NotNull final PropertiesTableForConfig propertiesTableForConfig, @NotNull final ChartsDrawing2d chartsDrawing2d) {
       this.rosetta = rosetta;
-      this.state = state;
+      this.state = SessionState.INSTANCE;
       this.calculatedChartApi = calculatedChartApi;
       this.chartsTetenburg = chartsTetenburg;
       this.chartsAspects = chartsAspects;

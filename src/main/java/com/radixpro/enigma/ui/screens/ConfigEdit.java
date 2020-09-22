@@ -78,9 +78,9 @@ public class ConfigEdit {
    private Label lblEclipticProjection;
    private Label lblCelObjects;
 
-   public ConfigEdit(@NotNull final PersistedConfigurationApi pcApi, @NotNull final Rosetta rosetta, @NotNull final SessionState state) {
+   public ConfigEdit(@NotNull final PersistedConfigurationApi pcApi, @NotNull final Rosetta rosetta) {
       this.rosetta = rosetta;
-      this.state = state;
+      this.state = SessionState.INSTANCE;
       this.pcApi = pcApi;
    }
 
