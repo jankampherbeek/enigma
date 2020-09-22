@@ -20,12 +20,12 @@ public class BeHandlersInjector {
       // prevent instantiation
    }
 
-   public static AspectsHandler injectAspectsHandler(AppScope scope) {
-      return new AspectsHandler(BeAnalysisInjector.injectAspectsForRadix(scope));
+   public static AspectsHandler injectAspectsHandler() {
+      return new AspectsHandler(BeAnalysisInjector.injectAspectsForRadix());
    }
 
-   public static CalculatedChartHandler injectCalculatedChartHandler(AppScope scope) {
-      return new CalculatedChartHandler(injectFullPointPositionHandler(scope), injectMundanePositionsHandler(scope));
+   public static CalculatedChartHandler injectCalculatedChartHandler() {
+      return new CalculatedChartHandler(injectFullPointPositionHandler(), injectMundanePositionsHandler());
    }
 
    public static DataFileHandler injectDataFileHandler(AppScope scope) {
@@ -33,32 +33,32 @@ public class BeHandlersInjector {
    }
 
    // TODO retrieve SeFrontend from scope
-   public static EphProgCalcHandler injectEphProgCalcHandler(AppScope scope) {
+   public static EphProgCalcHandler injectEphProgCalcHandler() {
       return new EphProgCalcHandler(SeFrontend.INSTANCE);
    }
 
-   public static FullPointPositionHandler injectFullPointPositionHandler(AppScope scope) {
-      return new FullPointPositionHandler(BeCalcInjector.injectSeFrontend(scope));
+   public static FullPointPositionHandler injectFullPointPositionHandler() {
+      return new FullPointPositionHandler(BeCalcInjector.injectSeFrontend());
    }
 
-   public static InputDataFileHandler injectInputDataFileHandler(AppScope scope) {
-      return new InputDataFileHandler(BePersistencyInjector.injectDataReaderCsv(scope), BePersistencyInjector.injectJsonWriter(scope), scope.getRosetta());
+   public static InputDataFileHandler injectInputDataFileHandler() {
+      return new InputDataFileHandler(BePersistencyInjector.injectDataReaderCsv(), BePersistencyInjector.injectJsonWriter());
    }
 
-   public static MidpointsHandler injectMidpointsHandler(AppScope scope) {
-      return new MidpointsHandler(BeAnalysisInjector.injectMidpointsForRadix(scope));
+   public static MidpointsHandler injectMidpointsHandler() {
+      return new MidpointsHandler(BeAnalysisInjector.injectMidpointsForRadix());
    }
 
-   public static MundanePositionsHandler injectMundanePositionsHandler(AppScope scope) {
-      return new MundanePositionsHandler(BeCalcInjector.injectSeFrontend(scope), injectObliquityHandler(scope));
+   public static MundanePositionsHandler injectMundanePositionsHandler() {
+      return new MundanePositionsHandler(BeCalcInjector.injectSeFrontend(), injectObliquityHandler());
    }
 
-   public static ObliquityHandler injectObliquityHandler(AppScope scope) {
-      return new ObliquityHandler(BeCalcInjector.injectSeFrontend(scope));
+   public static ObliquityHandler injectObliquityHandler() {
+      return new ObliquityHandler(BeCalcInjector.injectSeFrontend());
    }
 
    public static PrimaryHandler injectPrimaryHandler(AppScope scope) {
-      return new PrimaryHandler(injectPrimaryPositionsHandler(scope), injectTimeKeyHandler(scope), injectObliquityHandler(scope),
+      return new PrimaryHandler(injectPrimaryPositionsHandler(scope), injectTimeKeyHandler(scope), injectObliquityHandler(),
             BeCalcInjector.injectSpaeculumPropSaCalculator(scope));
    }
 
@@ -67,7 +67,7 @@ public class BeHandlersInjector {
    }
 
    public static ProgAspectHandler injectProgAspectHandler(AppScope scope) {
-      return new ProgAspectHandler(BeAnalysisInjector.injectProgRadixAspects(scope));
+      return new ProgAspectHandler(BeAnalysisInjector.injectProgRadixAspects());
    }
 
    public static SecundaryDateHandler injectSecundaryDateHandler(AppScope scope) {
@@ -75,15 +75,15 @@ public class BeHandlersInjector {
    }
 
    public static SolarReturnHandler injectSolarReturnHandler(AppScope scope) {
-      return new SolarReturnHandler(BeCalcInjector.injectJdFromPosCalc(scope), XchgApiInjector.injectCalculatedChartApi(scope));
+      return new SolarReturnHandler(BeCalcInjector.injectJdFromPosCalc(scope), XchgApiInjector.injectCalculatedChartApi());
    }
 
-   public static TetenburgHandler injectTetenburgHandler(AppScope scope) {
-      return new TetenburgHandler(BeCalcInjector.injectSeFrontend(scope), injectObliquityHandler(scope));
+   public static TetenburgHandler injectTetenburgHandler() {
+      return new TetenburgHandler(BeCalcInjector.injectSeFrontend(), injectObliquityHandler());
    }
 
    public static TimeKeyHandler injectTimeKeyHandler(AppScope scope) {
-      return new TimeKeyHandler(injectSecundaryDateHandler(scope), injectFullPointPositionHandler(scope));
+      return new TimeKeyHandler(injectSecundaryDateHandler(scope), injectFullPointPositionHandler());
    }
 
 }

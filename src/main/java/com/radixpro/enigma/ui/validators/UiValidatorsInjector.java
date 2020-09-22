@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.validators;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.xchg.api.XchgApiInjector;
 
 public class UiValidatorsInjector {
@@ -16,27 +15,27 @@ public class UiValidatorsInjector {
       // prevent instantiation
    }
 
-   public static ConfigNameValidator injectConfigNameValidator(AppScope scope) {
+   public static ConfigNameValidator injectConfigNameValidator() {
       return new ConfigNameValidator(XchgApiInjector.injectPersistedConfigurationApi());
    }
 
-   public static ValidatedChartName injectValidatedChartName(AppScope scope) {
+   public static ValidatedChartName injectValidatedChartName() {
       return new ValidatedChartName(XchgApiInjector.injectPersistedChartDataApi());
    }
 
-   public static ValidatedDate injectValidatedDate(AppScope scope) {
-      return new ValidatedDate(XchgApiInjector.injectDateTimeApi(scope));
+   public static ValidatedDate injectValidatedDate() {
+      return new ValidatedDate(XchgApiInjector.injectDateTimeApi());
    }
 
-   public static ValidatedLatitude injectValidatedLatitude(AppScope scope) {
+   public static ValidatedLatitude injectValidatedLatitude() {
       return new ValidatedLatitude();
    }
 
-   public static ValidatedLongitude injectValidatedLongitude(AppScope scope) {
+   public static ValidatedLongitude injectValidatedLongitude() {
       return new ValidatedLongitude();
    }
 
-   public static ValidatedTime injectValidatedTime(AppScope scope) {
+   public static ValidatedTime injectValidatedTime() {
       return new ValidatedTime();
    }
 

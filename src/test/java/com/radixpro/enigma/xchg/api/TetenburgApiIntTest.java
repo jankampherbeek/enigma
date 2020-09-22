@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.TetenburgRequest;
@@ -26,7 +25,7 @@ public class TetenburgApiIntTest {
 
    @Before
    public void setUp() {
-      api = XchgApiInjector.injectTetenburgApi(new AppScope());
+      api = XchgApiInjector.injectTetenburgApi();
    }
 
    @Test

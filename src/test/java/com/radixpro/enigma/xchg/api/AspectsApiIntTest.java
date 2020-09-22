@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.config.AspectConfiguration;
@@ -67,7 +66,7 @@ public class AspectsApiIntTest {
       mundaneValues.add(mcPosMock);
       mundaneValues.add(ascPosMock);
       config = createConfig();
-      api = XchgApiInjector.injectAspectsApi(new AppScope());
+      api = XchgApiInjector.injectAspectsApi();
    }
 
    @Test

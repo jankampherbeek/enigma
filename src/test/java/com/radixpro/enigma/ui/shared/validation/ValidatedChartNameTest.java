@@ -6,7 +6,6 @@
 
 package com.radixpro.enigma.ui.shared.validation;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
 import com.radixpro.enigma.ui.validators.ValidatedChartName;
 import org.junit.Before;
@@ -23,7 +22,7 @@ public class ValidatedChartNameTest {
 
    @Before
    public void setUp() {
-      valChartName = UiValidatorsInjector.injectValidatedChartName(new AppScope());
+      valChartName = UiValidatorsInjector.injectValidatedChartName();
    }
 
    //   @Test   TODO release 2020.2: disabled test, requires init for db

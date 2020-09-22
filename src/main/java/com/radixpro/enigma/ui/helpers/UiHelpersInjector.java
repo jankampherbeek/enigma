@@ -7,19 +7,17 @@
 
 package com.radixpro.enigma.ui.helpers;
 
-import com.radixpro.enigma.AppScope;
-
 public class UiHelpersInjector {
 
    private UiHelpersInjector() {
       // prevent instantiation
    }
 
-   public static DateTimeJulianCreator injectDateTimeJulianCreator(AppScope scope) {
+   public static DateTimeJulianCreator injectDateTimeJulianCreator() {
       return new DateTimeJulianCreator();
    }
 
-   public static LocationCreator injectLocationCreator(AppScope scope) {
+   public static LocationCreator injectLocationCreator() {
       return new LocationCreator();
    }
 

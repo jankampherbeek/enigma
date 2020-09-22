@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.domain.analysis.AnalyzedMidpoint;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.IPosition;
@@ -90,7 +89,7 @@ public class MidpointsApiIntTest {
       mundaneValues = new ArrayList<>();
       mundaneValues.add(mcPosMock);
       mundaneValues.add(ascPosMock);
-      api = XchgApiInjector.injectMidpointsApi(new AppScope());
+      api = XchgApiInjector.injectMidpointsApi();
    }
 
    @Test

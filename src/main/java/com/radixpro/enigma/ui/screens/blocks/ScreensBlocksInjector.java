@@ -18,18 +18,18 @@ public class ScreensBlocksInjector {
       // prevent instantiation
    }
 
-   public static BaseConfigInputBlock injectBaseConfigInputBlock(AppScope scope) {
+   public static BaseConfigInputBlock injectBaseConfigInputBlock() {
       return new BaseConfigInputBlock();
    }
 
-   public static DateTimeInputBlock injectDateTimeInputBlock(AppScope scope) {
-      return new DateTimeInputBlock(UiValidatorsInjector.injectValidatedDate(scope), UiValidatorsInjector.injectValidatedTime(scope),
-            UiValidatorsInjector.injectValidatedLongitude(scope), UiHelpersInjector.injectDateTimeJulianCreator(scope));
+   public static DateTimeInputBlock injectDateTimeInputBlock() {
+      return new DateTimeInputBlock(UiValidatorsInjector.injectValidatedDate(), UiValidatorsInjector.injectValidatedTime(),
+            UiValidatorsInjector.injectValidatedLongitude(), UiHelpersInjector.injectDateTimeJulianCreator());
    }
 
    public static LocationInputBlock injectLocationInputBlock(AppScope scope) {
-      return new LocationInputBlock(UiValidatorsInjector.injectValidatedLongitude(scope),
-            UiValidatorsInjector.injectValidatedLatitude(scope));
+      return new LocationInputBlock(UiValidatorsInjector.injectValidatedLongitude(),
+            UiValidatorsInjector.injectValidatedLatitude());
    }
 
    public static NameDescriptionInputBlock injectNameDescriptionInputBlock(AppScope scope) {

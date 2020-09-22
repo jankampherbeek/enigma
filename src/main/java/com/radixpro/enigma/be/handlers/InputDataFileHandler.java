@@ -34,11 +34,10 @@ public class InputDataFileHandler {
    private final Rosetta rosetta;
 
    public InputDataFileHandler(@NotNull final DataReaderCsv dataReaderCsv,
-                               @NotNull final JsonWriter jsonWriter,
-                               @NotNull final Rosetta rosetta) {
+                               @NotNull final JsonWriter jsonWriter) {
       this.dataReaderCsv = dataReaderCsv;
       this.jsonWriter = jsonWriter;
-      this.rosetta = rosetta;
+      this.rosetta = Rosetta.getRosetta();
    }
 
    public InputDataFileResponse handleDataFile(final InputDataFileRequest request) {

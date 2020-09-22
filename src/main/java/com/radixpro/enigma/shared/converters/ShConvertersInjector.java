@@ -7,8 +7,6 @@
 
 package com.radixpro.enigma.shared.converters;
 
-import com.radixpro.enigma.AppScope;
-
 public class ShConvertersInjector {
 
    private ShConvertersInjector() {
@@ -16,7 +14,7 @@ public class ShConvertersInjector {
    }
 
 
-   public static Csv2LocationConverter injectCsv2LocationConverter(AppScope scope) {
+   public static Csv2LocationConverter injectCsv2LocationConverter() {
       return new Csv2LocationConverter();
    }
 

@@ -57,8 +57,8 @@ public class ConfigNew {
    private Button btnHelp;
    private Button btnCancel;
 
-   public ConfigNew(@NotNull final Rosetta rosetta, @NotNull final PersistedConfigurationApi api, @NotNull final ConfigNameValidator nameValidator) {
-      this.rosetta = rosetta;
+   public ConfigNew(@NotNull final PersistedConfigurationApi api, @NotNull final ConfigNameValidator nameValidator) {
+      this.rosetta = Rosetta.getRosetta();
       this.state = SessionState.INSTANCE;
       this.api = api;
       this.valName = nameValidator;

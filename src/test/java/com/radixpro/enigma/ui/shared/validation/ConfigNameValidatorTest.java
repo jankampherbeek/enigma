@@ -6,7 +6,6 @@
 
 package com.radixpro.enigma.ui.shared.validation;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.ui.validators.ConfigNameValidator;
 import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
 import org.junit.Before;
@@ -17,7 +16,7 @@ public class ConfigNameValidatorTest {
 
    @Before
    public void setUp() {
-      validator = UiValidatorsInjector.injectConfigNameValidator(new AppScope());
+      validator = UiValidatorsInjector.injectConfigNameValidator();
    }
 
    // TODO fix tests for ConfigNameValidator

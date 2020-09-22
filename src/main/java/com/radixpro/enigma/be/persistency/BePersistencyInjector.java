@@ -28,18 +28,18 @@ public class BePersistencyInjector {
    }
 
    public static DataFileDao injectDataFileDao(AppScope scope) {
-      return new DataFileDao(injectJsonReader(scope), BePersMappersInjector.injectInputDataSetMapper(scope));
+      return new DataFileDao(injectJsonReader(), BePersMappersInjector.injectInputDataSetMapper(scope));
    }
 
-   public static DataReaderCsv injectDataReaderCsv(AppScope scope) {
-      return new DataReaderCsv(ShConvertersInjector.injectCsv2LocationConverter(scope), UiHelpersInjector.injectDateTimeJulianCreator(scope));
+   public static DataReaderCsv injectDataReaderCsv() {
+      return new DataReaderCsv(ShConvertersInjector.injectCsv2LocationConverter(), UiHelpersInjector.injectDateTimeJulianCreator());
    }
 
-   public static JsonReader injectJsonReader(AppScope scope) {
+   public static JsonReader injectJsonReader() {
       return new JsonReader();
    }
 
-   public static JsonWriter injectJsonWriter(AppScope scope) {
+   public static JsonWriter injectJsonWriter() {
       return new JsonWriter();
    }
 

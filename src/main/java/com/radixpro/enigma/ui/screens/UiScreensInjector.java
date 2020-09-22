@@ -23,7 +23,7 @@ public class UiScreensInjector {
    }
 
    public static ChartsAspects injectChartsAspects(AppScope scope) {
-      return new ChartsAspects(XchgApiInjector.injectAspectsApi(scope), ScreensHelpersInjector.injectChartDataHelper(scope));
+      return new ChartsAspects(XchgApiInjector.injectAspectsApi(), ScreensHelpersInjector.injectChartDataHelper(scope));
    }
 
    public static ChartsDrawing2d injectChartsDrawing2d(AppScope scope) {
@@ -31,14 +31,14 @@ public class UiScreensInjector {
    }
 
    public static ChartsInput injectChartsInput(AppScope scope) {
-      return new ChartsInput(XchgApiInjector.injectPersistedChartDataApi(), UiValidatorsInjector.injectValidatedChartName(scope),
-            UiValidatorsInjector.injectValidatedDate(scope), UiValidatorsInjector.injectValidatedTime(scope),
-            UiValidatorsInjector.injectValidatedLongitude(scope), UiValidatorsInjector.injectValidatedLatitude(scope),
-            UiHelpersInjector.injectDateTimeJulianCreator(scope));
+      return new ChartsInput(XchgApiInjector.injectPersistedChartDataApi(), UiValidatorsInjector.injectValidatedChartName(),
+            UiValidatorsInjector.injectValidatedDate(), UiValidatorsInjector.injectValidatedTime(),
+            UiValidatorsInjector.injectValidatedLongitude(), UiValidatorsInjector.injectValidatedLatitude(),
+            UiHelpersInjector.injectDateTimeJulianCreator());
    }
 
    public static ChartsMidpoints injectChartsMidpoints(AppScope scope) {
-      return new ChartsMidpoints(XchgApiInjector.injectMidpointsApi(scope), ScreensHelpersInjector.injectChartDataHelper(scope));
+      return new ChartsMidpoints(XchgApiInjector.injectMidpointsApi(), ScreensHelpersInjector.injectChartDataHelper(scope));
    }
 
    public static ChartsSearch injectChartsSearch(AppScope scope) {
@@ -46,7 +46,7 @@ public class UiScreensInjector {
    }
 
    public static ChartsStart injectChartsStart(AppScope scope) {
-      return new ChartsStart(scope.getRosetta(), XchgApiInjector.injectCalculatedChartApi(scope), injectChartsTetenburg(scope),
+      return new ChartsStart(scope.getRosetta(), XchgApiInjector.injectCalculatedChartApi(), injectChartsTetenburg(scope),
             injectChartsAspects(scope), injectChartsMidpoints(scope), injectChartsTransitsInput(scope), injectChartsSearch(scope), injectChartsInput(scope),
             XchgApiInjector.injectPersistedChartDataApi(), XchgApiInjector.injectPersistedConfigurationApi(),
             XchgApiInjector.injectPersistedPropertyApi(), UiScreensInjector.injectConfigOverview(scope),
@@ -56,12 +56,12 @@ public class UiScreensInjector {
 
    public static ChartsTransitsInput injectChartsTransitsInput(AppScope scope) {
       return new ChartsTransitsInput(ScreensBlocksInjector.injectProgMetaInputBLock(scope), ScreensBlocksInjector.injectLocationInputBlock(scope),
-            ScreensBlocksInjector.injectDateTimeInputBlock(scope), XchgApiInjector.injectTransitsApi(scope));
+            ScreensBlocksInjector.injectDateTimeInputBlock(), XchgApiInjector.injectTransitsApi(scope));
    }
 
    public static ChartsTetenburg injectChartsTetenburg(AppScope scope) {
-      return new ChartsTetenburg(scope.getRosetta(), XchgApiInjector.injectTetenburgApi(scope),
-            UiValidatorsInjector.injectValidatedDate(scope), UiHelpersInjector.injectDateTimeJulianCreator(scope));
+      return new ChartsTetenburg(scope.getRosetta(), XchgApiInjector.injectTetenburgApi(),
+            UiValidatorsInjector.injectValidatedDate(), UiHelpersInjector.injectDateTimeJulianCreator());
    }
 
    public static ConfigDetails injectConfigDetails(AppScope scope) {
@@ -74,17 +74,17 @@ public class UiScreensInjector {
       return new ConfigEdit(XchgApiInjector.injectPersistedConfigurationApi(), scope.getRosetta());
    }
 
-   public static ConfigNew injectConfigNew(AppScope scope) {
-      return new ConfigNew(scope.getRosetta(), XchgApiInjector.injectPersistedConfigurationApi(), UiValidatorsInjector.injectConfigNameValidator(scope));
+   public static ConfigNew injectConfigNew() {
+      return new ConfigNew(XchgApiInjector.injectPersistedConfigurationApi(), UiValidatorsInjector.injectConfigNameValidator());
    }
 
    public static ConfigOverview injectConfigOverview(AppScope scope) {
       return new ConfigOverview(XchgApiInjector.injectPersistedConfigurationApi(), XchgApiInjector.injectPersistedPropertyApi(),
-            injectConfigNew(scope), injectConfigEdit(scope), injectConfigDetails(scope), scope.getRosetta());
+            injectConfigNew(), injectConfigEdit(scope), injectConfigDetails(scope), scope.getRosetta());
    }
 
    public static StatsDataNew injectStatsDataNew(AppScope scope) {
-      return new StatsDataNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), XchgApiInjector.injectInputDataFileApi(scope),
+      return new StatsDataNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), XchgApiInjector.injectInputDataFileApi(),
             XchgApiInjector.injectPersistedPropertyApi());
    }
 
@@ -93,7 +93,7 @@ public class UiScreensInjector {
    }
 
    public static StatsProjNew injectStatsProjNew(AppScope scope) {
-      return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), ScreensBlocksInjector.injectBaseConfigInputBlock(scope),
+      return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), ScreensBlocksInjector.injectBaseConfigInputBlock(),
             injectStatsDataSearch(scope));
    }
 

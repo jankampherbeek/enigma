@@ -7,19 +7,17 @@
 
 package com.radixpro.enigma.be.analysis;
 
-import com.radixpro.enigma.AppScope;
-
 public class BeAnalysisInjector {
 
-   public static AspectsForRadix injectAspectsForRadix(AppScope scope) {
+   public static AspectsForRadix injectAspectsForRadix() {
       return new AspectsForRadix();
    }
 
-   public static MidpointsForRadix injectMidpointsForRadix(AppScope scope) {
+   public static MidpointsForRadix injectMidpointsForRadix() {
       return new MidpointsForRadix();
    }
 
-   public static ProgRadixAspects injectProgRadixAspects(AppScope scope) {
+   public static ProgRadixAspects injectProgRadixAspects() {
       return new ProgRadixAspects();
    }
 

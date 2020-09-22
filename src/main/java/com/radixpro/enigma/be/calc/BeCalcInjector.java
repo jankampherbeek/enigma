@@ -12,12 +12,12 @@ import com.radixpro.enigma.be.handlers.BeHandlersInjector;
 
 public class BeCalcInjector {
 
-   public static SeFrontend injectSeFrontend(AppScope scope) {
+   public static SeFrontend injectSeFrontend() {
       return SeFrontend.INSTANCE;
    }    // TODO DI move to AppScope
 
    public static CoordSetForDateTimeCalc injectCoordSetForDateTimeCalc(AppScope scope) {
-      return new CoordSetForDateTimeCalc(injectSeFrontend(scope));
+      return new CoordSetForDateTimeCalc(injectSeFrontend());
    }
 
    public static JdFromPosCalc injectJdFromPosCalc(AppScope scope) {
@@ -25,6 +25,6 @@ public class BeCalcInjector {
    }
 
    public static SpaeculumPropSaCalculator injectSpaeculumPropSaCalculator(AppScope scope) {
-      return new SpaeculumPropSaCalculator(BeHandlersInjector.injectObliquityHandler(scope));
+      return new SpaeculumPropSaCalculator(BeHandlersInjector.injectObliquityHandler());
    }
 }

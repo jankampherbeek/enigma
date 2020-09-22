@@ -14,24 +14,24 @@ import com.radixpro.enigma.be.persistency.BePersistencyInjector;
 
 public class XchgApiInjector {
 
-   public static AspectsApi injectAspectsApi(AppScope scope) {
-      return new AspectsApi(BeHandlersInjector.injectAspectsHandler(scope));
+   public static AspectsApi injectAspectsApi() {
+      return new AspectsApi(BeHandlersInjector.injectAspectsHandler());
    }
 
-   public static CalculatedChartApi injectCalculatedChartApi(AppScope scope) {
-      return new CalculatedChartApi(BeHandlersInjector.injectCalculatedChartHandler(scope));
+   public static CalculatedChartApi injectCalculatedChartApi() {
+      return new CalculatedChartApi(BeHandlersInjector.injectCalculatedChartHandler());
    }
 
-   public static DateTimeApi injectDateTimeApi(AppScope scope) {
+   public static DateTimeApi injectDateTimeApi() {
       return new DateTimeApi(SeFrontend.INSTANCE);
    }     // TODO move SeFrontend to scope
 
-   public static MidpointsApi injectMidpointsApi(AppScope scope) {
-      return new MidpointsApi(BeHandlersInjector.injectMidpointsHandler(scope));
+   public static MidpointsApi injectMidpointsApi() {
+      return new MidpointsApi(BeHandlersInjector.injectMidpointsHandler());
    }
 
-   public static InputDataFileApi injectInputDataFileApi(AppScope scope) {
-      return new InputDataFileApi(BeHandlersInjector.injectInputDataFileHandler(scope));
+   public static InputDataFileApi injectInputDataFileApi() {
+      return new InputDataFileApi(BeHandlersInjector.injectInputDataFileHandler());
    }
 
    public static PersistedChartDataApi injectPersistedChartDataApi() {
@@ -55,7 +55,7 @@ public class XchgApiInjector {
    }
 
    public static SecundaryApi injectSecundaryApi(AppScope scope) {
-      return new SecundaryApi(BeHandlersInjector.injectEphProgCalcHandler(scope), BeHandlersInjector.injectSecundaryDateHandler(scope),
+      return new SecundaryApi(BeHandlersInjector.injectEphProgCalcHandler(), BeHandlersInjector.injectSecundaryDateHandler(scope),
             BeHandlersInjector.injectProgAspectHandler(scope));
    }
 
@@ -63,12 +63,12 @@ public class XchgApiInjector {
       return new SolarReturnApi(BeHandlersInjector.injectSolarReturnHandler(scope), scope.getRosetta());
    }
 
-   public static TetenburgApi injectTetenburgApi(AppScope scope) {
-      return new TetenburgApi(BeHandlersInjector.injectTetenburgHandler(scope));
+   public static TetenburgApi injectTetenburgApi() {
+      return new TetenburgApi(BeHandlersInjector.injectTetenburgHandler());
    }
 
    public static TransitsApi injectTransitsApi(AppScope scope) {
-      return new TransitsApi(BeHandlersInjector.injectEphProgCalcHandler(scope), BeHandlersInjector.injectProgAspectHandler(scope));
+      return new TransitsApi(BeHandlersInjector.injectEphProgCalcHandler(), BeHandlersInjector.injectProgAspectHandler(scope));
    }
 
    public static VersionApi injectVersionApi() {

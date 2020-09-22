@@ -38,7 +38,7 @@ public class ScreensHelpersInjector {
    }
 
    public static RadixWheel injectRadixWheel(AppScope scope) {
-      return new RadixWheel(XchgApiInjector.injectAspectsApi(scope));
+      return new RadixWheel(XchgApiInjector.injectAspectsApi());
    }
 
 }
