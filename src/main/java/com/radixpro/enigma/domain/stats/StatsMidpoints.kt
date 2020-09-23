@@ -11,5 +11,5 @@ import com.radixpro.enigma.references.MidpointTypes
 /**
  * Definition of midpoints for statistical research.
  */
-class StatsMidpoints(val midpointType: MidpointTypes,
-                     override val orb: Double) : IStatsTripleRelations
+data class StatsMidpoints(val midpointType: MidpointTypes,
+                          override val orb: Double) : IStatsTripleRelations

@@ -12,6 +12,6 @@ import com.radixpro.enigma.references.MinMaxType
 /**
  * Definition of minimum/maximum positions for statistical research.
  */
-class StatsMinMax(override val minMaxType: MinMaxType,
-                  override val distanceType: DistanceTypes,
-                  override val separation: Double) : IStatsMinMaxRelations
+data class StatsMinMax(override val minMaxType: MinMaxType,
+                       override val distanceType: DistanceTypes,
+                       override val separation: Double) : IStatsMinMaxRelations

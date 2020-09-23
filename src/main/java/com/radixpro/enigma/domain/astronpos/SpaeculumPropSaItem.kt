@@ -16,5 +16,5 @@ import com.radixpro.enigma.xchg.domain.IChartPoints
  * @param decl   declination
  * @param propSa proportion of semi-arc.
  */
-class SpaeculumPropSaItem(val chartPoint: IChartPoints, val lon: Double, val ra: Double, val decl: Double, val sa: Double,
-                          val propSa: Double, val quadrant: Int)
+data class SpaeculumPropSaItem(val chartPoint: IChartPoints, val lon: Double, val ra: Double, val decl: Double, val sa: Double,
+                               val propSa: Double, val quadrant: Int)

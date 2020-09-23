@@ -9,7 +9,7 @@ package com.radixpro.enigma.domain.config
 import com.radixpro.enigma.references.AspectOrbStructures
 import java.io.Serializable
 
-class AspectConfiguration(var aspects: List<ConfiguredAspect>,
-                          val baseOrb: Double,
-                          val orbStructure: AspectOrbStructures,
-                          val isDrawInOutGoing: Boolean) : Serializable
+data class AspectConfiguration(var aspects: List<ConfiguredAspect>,
+                               val baseOrb: Double,
+                               val orbStructure: AspectOrbStructures,
+                               val isDrawInOutGoing: Boolean) : Serializable

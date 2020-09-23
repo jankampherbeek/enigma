@@ -11,11 +11,11 @@ import com.radixpro.enigma.references.AspectTypes
 /**
  * Actual aspect between a transit position and a radix postion.
  */
-class AnalyzedAspectTransit(override val first: AnalyzablePoint,
-                            override val second: AnalyzablePoint,
-                            val aspectType: AspectTypes,
-                            override val actualOrb: Double,
-                            override val maxOrb: Double) : IAnalyzedPair {
+data class AnalyzedAspectTransit(override val first: AnalyzablePoint,
+                                 override val second: AnalyzablePoint,
+                                 val aspectType: AspectTypes,
+                                 override val actualOrb: Double,
+                                 override val maxOrb: Double) : IAnalyzedPair {
     override val percOrb: Double = actualOrb / maxOrb * 100.0
 
 }

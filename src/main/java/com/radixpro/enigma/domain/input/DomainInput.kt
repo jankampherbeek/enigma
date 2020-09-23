@@ -11,17 +11,17 @@ import com.radixpro.enigma.references.ChartTypes
 import com.radixpro.enigma.references.Ratings
 import java.io.Serializable
 
-class ChartMetaData(val name: String,
-                    val description: String,
-                    val chartType: ChartTypes,
-                    val rating: Ratings,
-                    val dataInput: String) : Serializable
+data class ChartMetaData(val name: String,
+                         val description: String,
+                         val chartType: ChartTypes,
+                         val rating: Ratings,
+                         val dataInput: String) : Serializable
 
-class DateTimeJulian(val jd: Double,
-                     val calendar: String)
+data class DateTimeJulian(val jd: Double,
+                          val calendar: String)
 
-class Location(val geoLat: Double,
-               val geoLon: Double)
+data class Location(val geoLat: Double,
+                    val geoLon: Double)
 
 
 

@@ -11,5 +11,5 @@ import com.radixpro.enigma.xchg.domain.IChartPoints
 /**
  * A celestial object or point that can be analyzed statistically.
  */
-class Player(val point: IChartPoints,
-             val position: Double)
+data class Player(val point: IChartPoints,
+                  val position: Double)

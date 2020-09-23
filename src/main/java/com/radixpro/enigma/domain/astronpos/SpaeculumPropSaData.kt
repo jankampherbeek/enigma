@@ -9,4 +9,4 @@ package com.radixpro.enigma.domain.astronpos
 /**
  * Spaeculum data for primary directions based on proportional semi-arcs.
  */
-class SpaeculumPropSaData(val raMcRx: Double, val items: List<SpaeculumPropSaItem>)
+data class SpaeculumPropSaData(val raMcRx: Double, val items: List<SpaeculumPropSaItem>)

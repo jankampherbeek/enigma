@@ -9,4 +9,4 @@ package com.radixpro.enigma.domain.stats
 /**
  * Short description for a data file.
  */
-class DataFileDescription(val name: String, val description: String, val nrOfRecords: Int)
+data class DataFileDescription(val name: String, val description: String, val nrOfRecords: Int)

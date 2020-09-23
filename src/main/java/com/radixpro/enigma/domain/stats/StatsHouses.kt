@@ -12,8 +12,8 @@ import com.radixpro.enigma.references.StatsRangeTypes
 /**
  * Definition of houses for statistical research.
  */
-class StatsHouses(val houseSystem: HouseSystems,
-                  override val index: Int) : IStatsRangeRelations {
+data class StatsHouses(val houseSystem: HouseSystems,
+                       override val index: Int) : IStatsRangeRelations {
     override val rangeType: StatsRangeTypes = StatsRangeTypes.HOUSES
 
 }

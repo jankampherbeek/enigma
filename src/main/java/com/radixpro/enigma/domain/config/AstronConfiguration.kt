@@ -21,8 +21,8 @@ import java.io.Serializable
  * @param observerPosition   Positionof the observer.
  * @param celObjects         The supported celestial objects.
  */
-class AstronConfiguration(var houseSystem: HouseSystems,
-                          var ayanamsha: Ayanamshas,
-                          var eclipticProjection: EclipticProjections,
-                          var observerPosition: ObserverPositions,
-                          var celObjects: List<ConfiguredCelObject>) : Serializable
+data class AstronConfiguration(var houseSystem: HouseSystems,
+                               var ayanamsha: Ayanamshas,
+                               var eclipticProjection: EclipticProjections,
+                               var observerPosition: ObserverPositions,
+                               var celObjects: List<ConfiguredCelObject>) : Serializable

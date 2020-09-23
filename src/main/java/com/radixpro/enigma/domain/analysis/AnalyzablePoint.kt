@@ -11,5 +11,5 @@ import com.radixpro.enigma.xchg.domain.IChartPoints
 /**
  * Value object for point that can be analyzed.
  */
-class AnalyzablePoint(val chartPoint: IChartPoints,
-                      val position: Double)
+data class AnalyzablePoint(val chartPoint: IChartPoints,
+                           val position: Double)

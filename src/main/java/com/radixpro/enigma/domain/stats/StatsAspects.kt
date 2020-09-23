@@ -11,5 +11,5 @@ import com.radixpro.enigma.references.AspectTypes
 /**
  * Definition of aspects for statistical research.
  */
-class StatsAspects(val aspectType: AspectTypes,
-                   override val orb: Double) : IStatsDualRelations
+data class StatsAspects(val aspectType: AspectTypes,
+                        override val orb: Double) : IStatsDualRelations

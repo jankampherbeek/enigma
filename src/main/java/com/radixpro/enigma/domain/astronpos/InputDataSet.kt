@@ -9,8 +9,8 @@ package com.radixpro.enigma.domain.astronpos
 /**
  * Input dataset to be saved in Json format.
  */
-class InputDataSet(val name: String,
-                   val description: String,
-                   val origFileName: String,
-                   val dateTime: String,
-                   val inputData: List<ChartInputData>)
+data class InputDataSet(val name: String,
+                        val description: String,
+                        val origFileName: String,
+                        val dateTime: String,
+                        val inputData: List<ChartInputData>)

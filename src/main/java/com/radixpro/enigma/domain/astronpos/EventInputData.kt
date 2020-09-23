@@ -12,4 +12,4 @@ import com.radixpro.enigma.domain.input.Location
 /**
  * Inputdata for an event. Reflects the internal Json structure for inputdata for events.
  */
-class EventInputData(val id: Int, val chartId: Int, val description: String, val dateTime: DateTimeJulian, val location: Location)
+data class EventInputData(val id: Int, val chartId: Int, val description: String, val dateTime: DateTimeJulian, val location: Location)

@@ -11,9 +11,9 @@ import com.radixpro.enigma.references.StatsScenarioTypes
 /**
  * Scenario for statistical research into minimum and maximum positions.
  */
-class StatsScenarioMinMax(override val rbName: String,
-                          override val rbDescription: String,
-                          override val players: List<Player>) : IStatsScenario {
+data class StatsScenarioMinMax(override val rbName: String,
+                               override val rbDescription: String,
+                               override val players: List<Player>) : IStatsScenario {
     override val scenarioType: StatsScenarioTypes
         get() = StatsScenarioTypes.MINMAX
 }

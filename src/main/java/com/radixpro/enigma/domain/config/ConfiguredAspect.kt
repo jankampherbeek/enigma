@@ -9,7 +9,7 @@ package com.radixpro.enigma.domain.config
 import com.radixpro.enigma.references.AspectTypes
 import java.io.Serializable
 
-class ConfiguredAspect(val aspect: AspectTypes,
-                       val orbPercentage: Int,
-                       val glyph: String,
-                       val isShowInDrawing: Boolean) : Serializable
+data class ConfiguredAspect(val aspect: AspectTypes,
+                            val orbPercentage: Int,
+                            val glyph: String,
+                            val isShowInDrawing: Boolean) : Serializable

@@ -27,57 +27,57 @@ interface IProgCalcRequest {
     val location: Location?
 }
 
-class CalculatedChartRequest(val settings: ChartCalcSettings,
-                             val dateTimeJulian: DateTimeJulian,
-                             val location: Location)
+data class CalculatedChartRequest(val settings: ChartCalcSettings,
+                                  val dateTimeJulian: DateTimeJulian,
+                                  val location: Location)
 
 /**
  * Request for the calculation of progressive positions based on ephejmeris calculations.
  */
-class EphProgCalcRequest(override val dateTime: DateTimeJulian,
-                         override val location: Location,
-                         override val settings: ICalcSettings) : IProgCalcRequest
+data class EphProgCalcRequest(override val dateTime: DateTimeJulian,
+                              override val location: Location,
+                              override val settings: ICalcSettings) : IProgCalcRequest
 
 /**
  * Request for reading a datafile and saving it in Json format in the project folder.
  */
-class InputDataFileRequest(val dataName: String,
-                           val description: String,
-                           val dataFile: File,
-                           val fullPathProjDir: String)
+data class InputDataFileRequest(val dataName: String,
+                                val description: String,
+                                val dataFile: File,
+                                val fullPathProjDir: String)
 
-class PrimaryCalcRequest(override val dateTime: DateTimeJulian,
-                         val dateTimeRadix: DateTimeJulian,
-                         override val settings: ICalcSettings,
-                         val timeKey: TimeKeys,
-                         override val location: Location,
-                         val calculatedChart: CalculatedChart) : IProgCalcRequest
+data class PrimaryCalcRequest(override val dateTime: DateTimeJulian,
+                              val dateTimeRadix: DateTimeJulian,
+                              override val settings: ICalcSettings,
+                              val timeKey: TimeKeys,
+                              override val location: Location,
+                              val calculatedChart: CalculatedChart) : IProgCalcRequest
 
 /**
  * Request for analyzing aspects between progressive positions and radix.
  */
-class ProgAnalyzeRequest(val type: ProgAnalysisType,
-                         val progPositions: List<IPosition>,
-                         val calculatedChart: CalculatedChart,
-                         val aspects: List<AspectTypes>,
-                         val orb: Double)
+data class ProgAnalyzeRequest(val type: ProgAnalysisType,
+                              val progPositions: List<IPosition>,
+                              val calculatedChart: CalculatedChart,
+                              val aspects: List<AspectTypes>,
+                              val orb: Double)
 
-class SecundaryCalcRequest(override val dateTime: DateTimeJulian,
-                           val birthDateTime: DateTimeJulian,
-                           override val location: Location,
-                           override val settings: ICalcSettings) : IProgCalcRequest
+data class SecundaryCalcRequest(override val dateTime: DateTimeJulian,
+                                val birthDateTime: DateTimeJulian,
+                                override val location: Location,
+                                override val settings: ICalcSettings) : IProgCalcRequest
 
-class SolarReturnRequest(val birthDateTime: DateTimeJulian,
-                         val settings: ChartCalcSettings,
-                         val location: Location,
-                         val longSun: Double,
-                         val ageForReturn: Int)
+data class SolarReturnRequest(val birthDateTime: DateTimeJulian,
+                              val settings: ChartCalcSettings,
+                              val location: Location,
+                              val longSun: Double,
+                              val ageForReturn: Int)
 
 /**
  * Request for the calculation of a critical point according to the theory of Ton TEtenburg.
  */
-class TetenburgRequest(val longMcRadix: Double,
-                       val solarSpeed: Double,
-                       val location: Location,
-                       val birthDateTime: DateTimeJulian,
-                       val progDateTime: DateTimeJulian)
+data class TetenburgRequest(val longMcRadix: Double,
+                            val solarSpeed: Double,
+                            val location: Location,
+                            val birthDateTime: DateTimeJulian,
+                            val progDateTime: DateTimeJulian)

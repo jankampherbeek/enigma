@@ -8,11 +8,11 @@ package com.radixpro.enigma.domain.analysis
 
 import com.radixpro.enigma.references.AspectTypes
 
-class AnalyzedAspect(override val first: AnalyzablePoint,
-                     override val second: AnalyzablePoint,
-                     val aspectType: AspectTypes,
-                     override val actualOrb: Double,
-                     override val maxOrb: Double) : IAnalyzedPair {
+data class AnalyzedAspect(override val first: AnalyzablePoint,
+                          override val second: AnalyzablePoint,
+                          val aspectType: AspectTypes,
+                          override val actualOrb: Double,
+                          override val maxOrb: Double) : IAnalyzedPair {
     override val percOrb: Double
 
 

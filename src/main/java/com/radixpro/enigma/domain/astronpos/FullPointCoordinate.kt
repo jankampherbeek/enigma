@@ -9,5 +9,5 @@ package com.radixpro.enigma.domain.astronpos
 /**
  * All coordinates for position and speed within a specific coordinatesystem.
  */
-class FullPointCoordinate(val position: CoordinateSet3D,
-                          val speed: CoordinateSet3D)
+data class FullPointCoordinate(val position: CoordinateSet3D,
+                               val speed: CoordinateSet3D)

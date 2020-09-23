@@ -8,12 +8,12 @@ package com.radixpro.enigma.domain.analysis
 
 import com.radixpro.enigma.references.MidpointTypes
 
-class AnalyzedMidpoint(override val first: AnalyzablePoint,
-                       override val second: AnalyzablePoint,
-                       val centerPoint: AnalyzablePoint,
-                       val midpointType: MidpointTypes,
-                       override val actualOrb: Double,
-                       override val maxOrb: Double) : IAnalyzedPair {
+data class AnalyzedMidpoint(override val first: AnalyzablePoint,
+                            override val second: AnalyzablePoint,
+                            val centerPoint: AnalyzablePoint,
+                            val midpointType: MidpointTypes,
+                            override val actualOrb: Double,
+                            override val maxOrb: Double) : IAnalyzedPair {
     override val percOrb: Double
 
     private fun calculatePercOrb(): Double {

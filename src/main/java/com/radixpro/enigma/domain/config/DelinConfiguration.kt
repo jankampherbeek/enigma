@@ -8,4 +8,4 @@ package com.radixpro.enigma.domain.config
 
 import java.io.Serializable
 
-class DelinConfiguration(val aspectConfiguration: AspectConfiguration) : Serializable
+data class DelinConfiguration(val aspectConfiguration: AspectConfiguration) : Serializable

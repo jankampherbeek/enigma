@@ -9,7 +9,7 @@ package com.radixpro.enigma.domain.config
 import com.radixpro.enigma.references.CelestialObjects
 import java.io.Serializable
 
-class ConfiguredCelObject(val celObject: CelestialObjects,
-                          val glyph: String,
-                          val orbPercentage: Int,
-                          val isShowInDrawing: Boolean) : Serializable
+data class ConfiguredCelObject(val celObject: CelestialObjects,
+                               val glyph: String,
+                               val orbPercentage: Int,
+                               val isShowInDrawing: Boolean) : Serializable

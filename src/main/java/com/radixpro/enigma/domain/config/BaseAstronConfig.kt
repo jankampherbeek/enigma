@@ -11,7 +11,7 @@ import com.radixpro.enigma.references.EclipticProjections
 import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.ObserverPositions
 
-class BaseAstronConfig(val houseSystem: HouseSystems,
-                       val ayanamsha: Ayanamshas,
-                       val eclipticProjection: EclipticProjections,
-                       val observerPosition: ObserverPositions)
+data class BaseAstronConfig(val houseSystem: HouseSystems,
+                            val ayanamsha: Ayanamshas,
+                            val eclipticProjection: EclipticProjections,
+                            val observerPosition: ObserverPositions)

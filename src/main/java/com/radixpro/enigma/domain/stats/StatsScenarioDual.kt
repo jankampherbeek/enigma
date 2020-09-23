@@ -11,8 +11,8 @@ import com.radixpro.enigma.references.StatsScenarioTypes
 /**
  * Scenario for statistical research into relations between two objects.
  */
-class StatsScenarioDual(override val rbName: String,
-                        override val rbDescription: String,
-                        override val players: List<Player>,
-                        override val scenarioType: StatsScenarioTypes,
-                        val dualRelation: IStatsDualRelations) : IStatsScenario
+data class StatsScenarioDual(override val rbName: String,
+                             override val rbDescription: String,
+                             override val players: List<Player>,
+                             override val scenarioType: StatsScenarioTypes,
+                             val dualRelation: IStatsDualRelations) : IStatsScenario

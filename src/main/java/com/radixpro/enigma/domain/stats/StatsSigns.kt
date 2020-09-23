@@ -12,8 +12,8 @@ import com.radixpro.enigma.references.StatsRangeTypes
 /**
  * Definition of signs for statistical research.
  */
-class StatsSigns(val ayanamsha: Ayanamshas,
-                 override val index: Int) : IStatsRangeRelations {
+data class StatsSigns(val ayanamsha: Ayanamshas,
+                      override val index: Int) : IStatsRangeRelations {
     override val rangeType: StatsRangeTypes = StatsRangeTypes.SIGNS
 
 }

@@ -16,10 +16,10 @@ import com.radixpro.enigma.references.MundanePoints
  * @param eqPos        Equatorial coordinates.
  * @param horPos       Horizontal coordinates.
  */
-class MundanePosition(override val chartPoint: MundanePoints,
-                      override val longitude: Double,
-                      val eqPos: CoordinateSet,
-                      val horPos: CoordinateSet) : IPosition {
+data class MundanePosition(override val chartPoint: MundanePoints,
+                           override val longitude: Double,
+                           val eqPos: CoordinateSet,
+                           val horPos: CoordinateSet) : IPosition {
     override val declination: Double
         get() = eqPos.deviation
 }
