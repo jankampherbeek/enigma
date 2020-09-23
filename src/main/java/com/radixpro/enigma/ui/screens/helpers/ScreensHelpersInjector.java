@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens.helpers;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.xchg.api.XchgApiInjector;
 
 
@@ -17,24 +16,24 @@ public class ScreensHelpersInjector {
       // prevent instantiation
    }
 
-   public static AspectsInConfig injectAspectsInConfig(AppScope scope) {
-      return new AspectsInConfig(scope.getRosetta());
+   public static AspectsInConfig injectAspectsInConfig() {
+      return new AspectsInConfig();
    }
 
-   public static CelObjectsInConfig injectCelObjectsInConfig(AppScope scope) {
-      return new CelObjectsInConfig(scope.getRosetta());
+   public static CelObjectsInConfig injectCelObjectsInConfig() {
+      return new CelObjectsInConfig();
    }
 
    public static ChartDataHelper injectChartDataHelper() {
       return new ChartDataHelper();
    }
 
-   public static PropertiesForConfig injectPropertiesForConfig(AppScope scope) {
-      return new PropertiesForConfig(scope.getRosetta());
+   public static PropertiesForConfig injectPropertiesForConfig() {
+      return new PropertiesForConfig();
    }
 
-   public static PropertiesTableForConfig injectPropertiesTableForConfig(AppScope scope) {
-      return new PropertiesTableForConfig(scope.getRosetta());
+   public static PropertiesTableForConfig injectPropertiesTableForConfig() {
+      return new PropertiesTableForConfig();
    }
 
    public static RadixWheel injectRadixWheel() {

@@ -67,13 +67,13 @@ public class ConfigOverview {
    private TableView<PresentableConfiguration> tableView;
 
    public ConfigOverview(@NotNull final PersistedConfigurationApi configApi, @NotNull final PersistedPropertyApi propApi, @NotNull final ConfigNew configNew,
-                         @NotNull final ConfigEdit configEdit, @NotNull final ConfigDetails configDetails, @NotNull final Rosetta rosetta) {
+                         @NotNull final ConfigEdit configEdit, @NotNull final ConfigDetails configDetails) {
       this.configApi = configApi;
       this.propApi = propApi;
       this.configNew = configNew;
       this.configEdit = configEdit;
       this.configDetails = configDetails;
-      this.rosetta = rosetta;
+      this.rosetta = Rosetta.getRosetta();
       this.state = SessionState.INSTANCE;
    }
 

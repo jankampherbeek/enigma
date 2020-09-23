@@ -6,7 +6,6 @@
 
 package com.radixpro.enigma.ui.configs;
 
-import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.config.ConfiguredCelObject;
 import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.ui.screens.helpers.CelObjectsInConfig;
@@ -25,7 +24,7 @@ public class CelObjectsInConfigTest {
 
    @Before
    public void setUp() {
-      celObjectsInConfig = new CelObjectsInConfig(Rosetta.getRosetta());
+      celObjectsInConfig = new CelObjectsInConfig();
    }
 
    @Test

@@ -6,7 +6,6 @@
 
 package com.radixpro.enigma.ui.configs;
 
-import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.config.ConfiguredAspect;
 import com.radixpro.enigma.references.AspectTypes;
 import com.radixpro.enigma.ui.screens.helpers.AspectsInConfig;
@@ -25,7 +24,7 @@ public class AspectTypesInConfigTest {
 
    @Before
    public void setUp() {
-      aspectsInConfig = new AspectsInConfig(Rosetta.getRosetta());
+      aspectsInConfig = new AspectsInConfig();
    }
 
    @Test

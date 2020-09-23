@@ -86,10 +86,10 @@ public class ChartsTetenburg {
    private boolean dateValid = false;
 
 
-   public ChartsTetenburg(@NotNull final Rosetta rosetta, @NotNull final TetenburgApi api,
+   public ChartsTetenburg(@NotNull final TetenburgApi api,
                           @NotNull final ValidatedDate valDate, @NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
       this.state = SessionState.INSTANCE;
-      this.rosetta = rosetta;
+      this.rosetta = Rosetta.getRosetta();
       this.api = api;
       this.valDate = valDate;
       this.dateTimeJulianCreator = dateTimeJulianCreator;

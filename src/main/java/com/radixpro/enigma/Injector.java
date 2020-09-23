@@ -19,8 +19,8 @@ import com.radixpro.enigma.ui.common.UiCommonInjector;
  */
 public class Injector {
 
-   public static Dashboard injectDashboard(AppScope scope) {
-      return UiCommonInjector.injectDashboard(scope);
+   public static Dashboard injectDashboard() {
+      return UiCommonInjector.injectDashboard();
    }
 
    public static AppVersion injectAppVersion() {

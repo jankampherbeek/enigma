@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.ui.helpers.UiHelpersInjector;
 import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector;
 import com.radixpro.enigma.ui.screens.helpers.ScreensHelpersInjector;
@@ -45,13 +44,13 @@ public class UiScreensInjector {
       return new ChartsSearch(XchgApiInjector.injectPersistedChartDataApi());
    }
 
-   public static ChartsStart injectChartsStart(AppScope scope) {
-      return new ChartsStart(scope.getRosetta(), XchgApiInjector.injectCalculatedChartApi(), injectChartsTetenburg(scope),
+   public static ChartsStart injectChartsStart() {
+      return new ChartsStart(XchgApiInjector.injectCalculatedChartApi(), injectChartsTetenburg(),
             injectChartsAspects(), injectChartsMidpoints(), injectChartsTransitsInput(), injectChartsSearch(), injectChartsInput(),
             XchgApiInjector.injectPersistedChartDataApi(), XchgApiInjector.injectPersistedConfigurationApi(),
-            XchgApiInjector.injectPersistedPropertyApi(), UiScreensInjector.injectConfigOverview(scope),
-            ScreensHelpersInjector.injectPropertiesForConfig(scope), ScreensHelpersInjector.injectCelObjectsInConfig(scope),
-            ScreensHelpersInjector.injectAspectsInConfig(scope), ScreensHelpersInjector.injectPropertiesTableForConfig(scope), injectChartsDrawing2d());
+            XchgApiInjector.injectPersistedPropertyApi(), UiScreensInjector.injectConfigOverview(),
+            ScreensHelpersInjector.injectPropertiesForConfig(), ScreensHelpersInjector.injectCelObjectsInConfig(),
+            ScreensHelpersInjector.injectAspectsInConfig(), ScreensHelpersInjector.injectPropertiesTableForConfig(), injectChartsDrawing2d());
    }
 
    public static ChartsTransitsInput injectChartsTransitsInput() {
@@ -59,28 +58,28 @@ public class UiScreensInjector {
             ScreensBlocksInjector.injectDateTimeInputBlock(), XchgApiInjector.injectTransitsApi());
    }
 
-   public static ChartsTetenburg injectChartsTetenburg(AppScope scope) {
-      return new ChartsTetenburg(scope.getRosetta(), XchgApiInjector.injectTetenburgApi(),
+   public static ChartsTetenburg injectChartsTetenburg() {
+      return new ChartsTetenburg(XchgApiInjector.injectTetenburgApi(),
             UiValidatorsInjector.injectValidatedDate(), UiHelpersInjector.injectDateTimeJulianCreator());
    }
 
-   public static ConfigDetails injectConfigDetails(AppScope scope) {
-      return new ConfigDetails(ScreensHelpersInjector.injectPropertiesForConfig(scope),
-            ScreensHelpersInjector.injectPropertiesTableForConfig(scope), ScreensHelpersInjector.injectCelObjectsInConfig(scope),
-            ScreensHelpersInjector.injectAspectsInConfig(scope));
+   public static ConfigDetails injectConfigDetails() {
+      return new ConfigDetails(ScreensHelpersInjector.injectPropertiesForConfig(),
+            ScreensHelpersInjector.injectPropertiesTableForConfig(), ScreensHelpersInjector.injectCelObjectsInConfig(),
+            ScreensHelpersInjector.injectAspectsInConfig());
    }
 
-   public static ConfigEdit injectConfigEdit(AppScope scope) {
-      return new ConfigEdit(XchgApiInjector.injectPersistedConfigurationApi(), scope.getRosetta());
+   public static ConfigEdit injectConfigEdit() {
+      return new ConfigEdit(XchgApiInjector.injectPersistedConfigurationApi());
    }
 
    public static ConfigNew injectConfigNew() {
       return new ConfigNew(XchgApiInjector.injectPersistedConfigurationApi(), UiValidatorsInjector.injectConfigNameValidator());
    }
 
-   public static ConfigOverview injectConfigOverview(AppScope scope) {
+   public static ConfigOverview injectConfigOverview() {
       return new ConfigOverview(XchgApiInjector.injectPersistedConfigurationApi(), XchgApiInjector.injectPersistedPropertyApi(),
-            injectConfigNew(), injectConfigEdit(scope), injectConfigDetails(scope), scope.getRosetta());
+            injectConfigNew(), injectConfigEdit(), injectConfigDetails());
    }
 
    public static StatsDataNew injectStatsDataNew() {

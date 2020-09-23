@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.common;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.ui.screens.UiScreensInjector;
 
 public class UiCommonInjector {
@@ -17,8 +16,8 @@ public class UiCommonInjector {
    }
 
 
-   public static Dashboard injectDashboard(AppScope scope) {
-      return new Dashboard(scope.getRosetta(), UiScreensInjector.injectChartsStart(scope), UiScreensInjector.injectStatsStart());
+   public static Dashboard injectDashboard() {
+      return new Dashboard(UiScreensInjector.injectChartsStart(), UiScreensInjector.injectStatsStart());
    }
 
 

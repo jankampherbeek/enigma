@@ -23,8 +23,8 @@ public class PropertiesTableForConfig {
 
    private final Rosetta rosetta;
 
-   public PropertiesTableForConfig(@NotNull final Rosetta rosetta) {
-      this.rosetta = rosetta;
+   public PropertiesTableForConfig() {
+      this.rosetta = Rosetta.getRosetta();
    }
 
 

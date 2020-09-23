@@ -40,8 +40,8 @@ public class Dashboard {
    private final StatsStart statsStart;
    private Stage stage;
 
-   public Dashboard(@NotNull final Rosetta rosetta, @NotNull final ChartsStart chartsStart, @NotNull final StatsStart statsStart) {
-      this.rosetta = rosetta;
+   public Dashboard(@NotNull final ChartsStart chartsStart, @NotNull final StatsStart statsStart) {
+      this.rosetta = Rosetta.getRosetta();
       this.chartsStart = chartsStart;
       this.statsStart = statsStart;
    }

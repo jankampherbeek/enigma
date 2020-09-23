@@ -26,13 +26,9 @@ public class AspectsInConfig {
 
    private final Rosetta rosetta;
 
-   /**
-    * Constructor is used by factory for ConfigDetails.
-    *
-    * @param rosetta instance of Rosetta(i18n).
-    */
-   public AspectsInConfig(@NotNull final Rosetta rosetta) {
-      this.rosetta = rosetta;
+
+   public AspectsInConfig() {
+      this.rosetta = Rosetta.getRosetta();
    }
 
    /**

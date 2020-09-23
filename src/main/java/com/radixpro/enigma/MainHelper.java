@@ -38,7 +38,7 @@ public class MainHelper extends Application {
       scope.setRosetta(rosetta);
       LOG.info("Started Enigma.");
       Injector.injectAppVersion();
-      Injector.injectDashboard(scope).showDashboard();
+      Injector.injectDashboard().showDashboard();
    }
 
 }

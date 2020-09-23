@@ -25,8 +25,8 @@ public class CelObjectsInConfig {
    private static final Logger LOG = Logger.getLogger(CelObjectsInConfig.class);
    private final Rosetta rosetta;
 
-   public CelObjectsInConfig(@NotNull final Rosetta rosetta) {
-      this.rosetta = rosetta;
+   public CelObjectsInConfig() {
+      this.rosetta = Rosetta.getRosetta();
    }
 
    public List<PresentableProperty> constructProperties(@NotNull final List<ConfiguredCelObject> celObjects) {

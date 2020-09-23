@@ -22,8 +22,8 @@ public class PropertiesForConfig {
 
    private final Rosetta rosetta;
 
-   public PropertiesForConfig(@NotNull Rosetta rosetta) {
-      this.rosetta = rosetta;
+   public PropertiesForConfig() {
+      this.rosetta = Rosetta.getRosetta();
    }
 
    public List<PresentableProperty> getProperties(@NotNull final Configuration config, @NotNull final CelObjectsInConfig celObjectsInConfig,
