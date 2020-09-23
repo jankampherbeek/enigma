@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.be.persistency;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector;
 import com.radixpro.enigma.shared.converters.ShConvertersInjector;
 import com.radixpro.enigma.ui.helpers.UiHelpersInjector;
@@ -27,8 +26,8 @@ public class BePersistencyInjector {
       return new ConfigurationDao();
    }
 
-   public static DataFileDao injectDataFileDao(AppScope scope) {
-      return new DataFileDao(injectJsonReader(), BePersMappersInjector.injectInputDataSetMapper(scope));
+   public static DataFileDao injectDataFileDao() {
+      return new DataFileDao(injectJsonReader(), BePersMappersInjector.injectInputDataSetMapper());
    }
 
    public static DataReaderCsv injectDataReaderCsv() {

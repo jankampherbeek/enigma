@@ -12,7 +12,9 @@ import swisseph.SweConst
 /**
  * Obliquity of the earth-axis.
  */
-class ObliquityHandler(private val seFrontend: SeFrontend) {
+class ObliquityHandler() {
+
+    private val seFrontend: SeFrontend = SeFrontend
 
     fun calcTrueObliquity(jdUt: Double): Double {
         return performCalculation(jdUt)

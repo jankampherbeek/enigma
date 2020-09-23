@@ -25,7 +25,7 @@ public class ScreensHelpersInjector {
       return new CelObjectsInConfig(scope.getRosetta());
    }
 
-   public static ChartDataHelper injectChartDataHelper(AppScope scope) {
+   public static ChartDataHelper injectChartDataHelper() {
       return new ChartDataHelper();
    }
 
@@ -37,7 +37,7 @@ public class ScreensHelpersInjector {
       return new PropertiesTableForConfig(scope.getRosetta());
    }
 
-   public static RadixWheel injectRadixWheel(AppScope scope) {
+   public static RadixWheel injectRadixWheel() {
       return new RadixWheel(XchgApiInjector.injectAspectsApi());
    }
 

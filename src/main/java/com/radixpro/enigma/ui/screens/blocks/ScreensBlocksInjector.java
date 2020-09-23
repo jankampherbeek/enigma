@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.ui.helpers.UiHelpersInjector;
 import com.radixpro.enigma.ui.screens.UiScreensInjector;
 import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
@@ -27,24 +26,23 @@ public class ScreensBlocksInjector {
             UiValidatorsInjector.injectValidatedLongitude(), UiHelpersInjector.injectDateTimeJulianCreator());
    }
 
-   public static LocationInputBlock injectLocationInputBlock(AppScope scope) {
-      return new LocationInputBlock(UiValidatorsInjector.injectValidatedLongitude(),
-            UiValidatorsInjector.injectValidatedLatitude());
+   public static LocationInputBlock injectLocationInputBlock() {
+      return new LocationInputBlock(UiValidatorsInjector.injectValidatedLongitude(), UiValidatorsInjector.injectValidatedLatitude());
    }
 
-   public static NameDescriptionInputBlock injectNameDescriptionInputBlock(AppScope scope) {
+   public static NameDescriptionInputBlock injectNameDescriptionInputBlock() {
       return new NameDescriptionInputBlock();
    }
 
-   public static ProgMetaInputBlock injectProgMetaInputBLock(AppScope scope) {
+   public static ProgMetaInputBlock injectProgMetaInputBLock() {
       return new ProgMetaInputBlock();
    }
 
-   public static StatsDataBlock injectStatsDataBlock(AppScope scope) {
-      return new StatsDataBlock(UiScreensInjector.injectStatsDataNew(scope), UiScreensInjector.injectStatsDataSearch(scope));
+   public static StatsDataBlock injectStatsDataBlock() {
+      return new StatsDataBlock(UiScreensInjector.injectStatsDataNew(), UiScreensInjector.injectStatsDataSearch());
    }
 
-   public static StatsProjBlock injectStatsProjBlock(AppScope scope) {
-      return new StatsProjBlock(UiScreensInjector.injectStatsProjNew(scope));
+   public static StatsProjBlock injectStatsProjBlock() {
+      return new StatsProjBlock(UiScreensInjector.injectStatsProjNew());
    }
 }

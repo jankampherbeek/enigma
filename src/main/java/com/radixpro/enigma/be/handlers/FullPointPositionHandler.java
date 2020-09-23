@@ -31,8 +31,8 @@ public class FullPointPositionHandler {
 
    private final SeFrontend seFrontend;
 
-   public FullPointPositionHandler(@NotNull final SeFrontend seFrontend) {
-      this.seFrontend = seFrontend;
+   public FullPointPositionHandler() {
+      this.seFrontend = SeFrontend.INSTANCE;
    }
 
    public FullPointPosition definePosition(@NotNull final IChartPoints celObject, final double jdUt, @NotNull final ObserverPositions obsPos,

@@ -45,9 +45,9 @@ public class StatsDataSearch {
    private boolean selectionMade = false;
 
 
-   public StatsDataSearch(@NotNull final PersistedDataFileApi api, @NotNull Rosetta rosetta) {
+   public StatsDataSearch(@NotNull final PersistedDataFileApi api) {
       this.api = api;
-      this.rosetta = rosetta;
+      this.rosetta = Rosetta.getRosetta();
    }
 
    public void show() {

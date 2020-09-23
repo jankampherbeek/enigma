@@ -19,9 +19,9 @@ public class ChartDataCsvMapper {
    private final DateTimeJulianCreator dateTimeJulianCreator;
    private final Rosetta rosetta;
 
-   public ChartDataCsvMapper(@NotNull final DateTimeJulianCreator dateTimeJulianCreator, @NotNull final Rosetta rosetta) {
+   public ChartDataCsvMapper(@NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
       this.dateTimeJulianCreator = dateTimeJulianCreator;
-      this.rosetta = rosetta;
+      this.rosetta = Rosetta.getRosetta();
    }
 
    public FullChartInputData chartDataFromCsv(final String[] csvLine) {

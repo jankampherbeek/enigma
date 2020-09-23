@@ -18,7 +18,7 @@ public class UiCommonInjector {
 
 
    public static Dashboard injectDashboard(AppScope scope) {
-      return new Dashboard(scope.getRosetta(), UiScreensInjector.injectChartsStart(scope), UiScreensInjector.injectStatsStart(scope));
+      return new Dashboard(scope.getRosetta(), UiScreensInjector.injectChartsStart(scope), UiScreensInjector.injectStatsStart());
    }
 
 

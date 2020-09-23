@@ -54,8 +54,8 @@ public class ChartsSearch {
    private boolean selectionMade = false;
    private List<FullChartInputData> chartsFound;
 
-   public ChartsSearch(Rosetta rosetta, PersistedChartDataApi persistedChartDataApi) {
-      this.rosetta = rosetta;
+   public ChartsSearch(PersistedChartDataApi persistedChartDataApi) {
+      this.rosetta = Rosetta.getRosetta();
       this.persistedChartDataApi = persistedChartDataApi;
    }
 

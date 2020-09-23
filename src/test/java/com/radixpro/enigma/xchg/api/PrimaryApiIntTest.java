@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.domain.astronpos.*;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.Location;
@@ -35,7 +34,7 @@ public class PrimaryApiIntTest {
    @Before
    public void setUp() {
       dateTimeJulianCreator = new DateTimeJulianCreator();
-      api = XchgApiInjector.injectPrimaryApi(new AppScope());
+      api = XchgApiInjector.injectPrimaryApi();
    }
 
    @Test

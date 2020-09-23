@@ -22,8 +22,8 @@ public class CoordSetForDateTimeCalc {
    private static final Logger LOG = Logger.getLogger(CoordSetForDateTimeCalc.class);
    private final SeFrontend seFrontend;
 
-   public CoordSetForDateTimeCalc(@NotNull final SeFrontend seFrontend) {
-      this.seFrontend = seFrontend;
+   public CoordSetForDateTimeCalc() {
+      this.seFrontend = SeFrontend.INSTANCE;
    }
 
    /**

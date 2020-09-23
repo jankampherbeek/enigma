@@ -46,10 +46,10 @@ public class ChartsDrawing2d {
    private final RadixWheel radixWheel;
 
 
-   public ChartsDrawing2d(@NotNull final RadixWheel radixWheel, @NotNull final Rosetta rosetta) {
+   public ChartsDrawing2d(@NotNull final RadixWheel radixWheel) {
       this.state = SessionState.INSTANCE;
       this.radixWheel = radixWheel;
-      this.rosetta = rosetta;
+      this.rosetta = Rosetta.getRosetta();
       stage = new Stage();
    }
 

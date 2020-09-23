@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.be.handlers;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.analysis.BeAnalysisInjector;
 import com.radixpro.enigma.be.calc.BeCalcInjector;
 import com.radixpro.enigma.be.calc.SeFrontend;
@@ -28,8 +27,8 @@ public class BeHandlersInjector {
       return new CalculatedChartHandler(injectFullPointPositionHandler(), injectMundanePositionsHandler());
    }
 
-   public static DataFileHandler injectDataFileHandler(AppScope scope) {
-      return new DataFileHandler(BePersistencyInjector.injectDataFileDao(scope), XchgApiInjector.injectPersistedPropertyApi());
+   public static DataFileHandler injectDataFileHandler() {
+      return new DataFileHandler(BePersistencyInjector.injectDataFileDao(), XchgApiInjector.injectPersistedPropertyApi());
    }
 
    // TODO retrieve SeFrontend from scope
@@ -38,7 +37,7 @@ public class BeHandlersInjector {
    }
 
    public static FullPointPositionHandler injectFullPointPositionHandler() {
-      return new FullPointPositionHandler(BeCalcInjector.injectSeFrontend());
+      return new FullPointPositionHandler();
    }
 
    public static InputDataFileHandler injectInputDataFileHandler() {
@@ -50,40 +49,40 @@ public class BeHandlersInjector {
    }
 
    public static MundanePositionsHandler injectMundanePositionsHandler() {
-      return new MundanePositionsHandler(BeCalcInjector.injectSeFrontend(), injectObliquityHandler());
+      return new MundanePositionsHandler(injectObliquityHandler());
    }
 
    public static ObliquityHandler injectObliquityHandler() {
-      return new ObliquityHandler(BeCalcInjector.injectSeFrontend());
+      return new ObliquityHandler();
    }
 
-   public static PrimaryHandler injectPrimaryHandler(AppScope scope) {
-      return new PrimaryHandler(injectPrimaryPositionsHandler(scope), injectTimeKeyHandler(scope), injectObliquityHandler(),
-            BeCalcInjector.injectSpaeculumPropSaCalculator(scope));
+   public static PrimaryHandler injectPrimaryHandler() {
+      return new PrimaryHandler(injectPrimaryPositionsHandler(), injectTimeKeyHandler(), injectObliquityHandler(),
+            BeCalcInjector.injectSpaeculumPropSaCalculator());
    }
 
-   public static PrimaryPositionsHandler injectPrimaryPositionsHandler(AppScope scope) {
+   public static PrimaryPositionsHandler injectPrimaryPositionsHandler() {
       return new PrimaryPositionsHandler();
    }
 
-   public static ProgAspectHandler injectProgAspectHandler(AppScope scope) {
+   public static ProgAspectHandler injectProgAspectHandler() {
       return new ProgAspectHandler(BeAnalysisInjector.injectProgRadixAspects());
    }
 
-   public static SecundaryDateHandler injectSecundaryDateHandler(AppScope scope) {
+   public static SecundaryDateHandler injectSecundaryDateHandler() {
       return new SecundaryDateHandler();
    }
 
-   public static SolarReturnHandler injectSolarReturnHandler(AppScope scope) {
-      return new SolarReturnHandler(BeCalcInjector.injectJdFromPosCalc(scope), XchgApiInjector.injectCalculatedChartApi());
+   public static SolarReturnHandler injectSolarReturnHandler() {
+      return new SolarReturnHandler(BeCalcInjector.injectJdFromPosCalc(), XchgApiInjector.injectCalculatedChartApi());
    }
 
    public static TetenburgHandler injectTetenburgHandler() {
-      return new TetenburgHandler(BeCalcInjector.injectSeFrontend(), injectObliquityHandler());
+      return new TetenburgHandler(injectObliquityHandler());
    }
 
-   public static TimeKeyHandler injectTimeKeyHandler(AppScope scope) {
-      return new TimeKeyHandler(injectSecundaryDateHandler(scope), injectFullPointPositionHandler());
+   public static TimeKeyHandler injectTimeKeyHandler() {
+      return new TimeKeyHandler(injectSecundaryDateHandler(), injectFullPointPositionHandler());
    }
 
 }

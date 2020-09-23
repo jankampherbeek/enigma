@@ -49,13 +49,12 @@ public class StatsStart {
    private Pane paneBtnBar;
 
 
-   public StatsStart(@NotNull final Rosetta rosetta,
-                     @NotNull final StatsDataBlock dataBlock,
+   public StatsStart(@NotNull final StatsDataBlock dataBlock,
                      @NotNull final StatsProjBlock projBlock,
                      @NotNull final StatsProjSearch projSearch,
                      @NotNull final PersistedPropertyApi propApi,
                      @NotNull final DirectoryChooser dirChooser) {
-      this.rosetta = rosetta;
+      this.rosetta = Rosetta.getRosetta();
       this.dataBlock = dataBlock;
       this.projBlock = projBlock;
       this.projSearch = projSearch;

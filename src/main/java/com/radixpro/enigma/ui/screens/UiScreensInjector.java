@@ -22,41 +22,41 @@ public class UiScreensInjector {
       // prevent instantiation
    }
 
-   public static ChartsAspects injectChartsAspects(AppScope scope) {
-      return new ChartsAspects(XchgApiInjector.injectAspectsApi(), ScreensHelpersInjector.injectChartDataHelper(scope));
+   public static ChartsAspects injectChartsAspects() {
+      return new ChartsAspects(XchgApiInjector.injectAspectsApi(), ScreensHelpersInjector.injectChartDataHelper());
    }
 
-   public static ChartsDrawing2d injectChartsDrawing2d(AppScope scope) {
-      return new ChartsDrawing2d(ScreensHelpersInjector.injectRadixWheel(scope), scope.getRosetta());
+   public static ChartsDrawing2d injectChartsDrawing2d() {
+      return new ChartsDrawing2d(ScreensHelpersInjector.injectRadixWheel());
    }
 
-   public static ChartsInput injectChartsInput(AppScope scope) {
+   public static ChartsInput injectChartsInput() {
       return new ChartsInput(XchgApiInjector.injectPersistedChartDataApi(), UiValidatorsInjector.injectValidatedChartName(),
             UiValidatorsInjector.injectValidatedDate(), UiValidatorsInjector.injectValidatedTime(),
             UiValidatorsInjector.injectValidatedLongitude(), UiValidatorsInjector.injectValidatedLatitude(),
             UiHelpersInjector.injectDateTimeJulianCreator());
    }
 
-   public static ChartsMidpoints injectChartsMidpoints(AppScope scope) {
-      return new ChartsMidpoints(XchgApiInjector.injectMidpointsApi(), ScreensHelpersInjector.injectChartDataHelper(scope));
+   public static ChartsMidpoints injectChartsMidpoints() {
+      return new ChartsMidpoints(XchgApiInjector.injectMidpointsApi(), ScreensHelpersInjector.injectChartDataHelper());
    }
 
-   public static ChartsSearch injectChartsSearch(AppScope scope) {
-      return new ChartsSearch(scope.getRosetta(), XchgApiInjector.injectPersistedChartDataApi());
+   public static ChartsSearch injectChartsSearch() {
+      return new ChartsSearch(XchgApiInjector.injectPersistedChartDataApi());
    }
 
    public static ChartsStart injectChartsStart(AppScope scope) {
       return new ChartsStart(scope.getRosetta(), XchgApiInjector.injectCalculatedChartApi(), injectChartsTetenburg(scope),
-            injectChartsAspects(scope), injectChartsMidpoints(scope), injectChartsTransitsInput(scope), injectChartsSearch(scope), injectChartsInput(scope),
+            injectChartsAspects(), injectChartsMidpoints(), injectChartsTransitsInput(), injectChartsSearch(), injectChartsInput(),
             XchgApiInjector.injectPersistedChartDataApi(), XchgApiInjector.injectPersistedConfigurationApi(),
             XchgApiInjector.injectPersistedPropertyApi(), UiScreensInjector.injectConfigOverview(scope),
             ScreensHelpersInjector.injectPropertiesForConfig(scope), ScreensHelpersInjector.injectCelObjectsInConfig(scope),
-            ScreensHelpersInjector.injectAspectsInConfig(scope), ScreensHelpersInjector.injectPropertiesTableForConfig(scope), injectChartsDrawing2d(scope));
+            ScreensHelpersInjector.injectAspectsInConfig(scope), ScreensHelpersInjector.injectPropertiesTableForConfig(scope), injectChartsDrawing2d());
    }
 
-   public static ChartsTransitsInput injectChartsTransitsInput(AppScope scope) {
-      return new ChartsTransitsInput(ScreensBlocksInjector.injectProgMetaInputBLock(scope), ScreensBlocksInjector.injectLocationInputBlock(scope),
-            ScreensBlocksInjector.injectDateTimeInputBlock(), XchgApiInjector.injectTransitsApi(scope));
+   public static ChartsTransitsInput injectChartsTransitsInput() {
+      return new ChartsTransitsInput(ScreensBlocksInjector.injectProgMetaInputBLock(), ScreensBlocksInjector.injectLocationInputBlock(),
+            ScreensBlocksInjector.injectDateTimeInputBlock(), XchgApiInjector.injectTransitsApi());
    }
 
    public static ChartsTetenburg injectChartsTetenburg(AppScope scope) {
@@ -83,27 +83,27 @@ public class UiScreensInjector {
             injectConfigNew(), injectConfigEdit(scope), injectConfigDetails(scope), scope.getRosetta());
    }
 
-   public static StatsDataNew injectStatsDataNew(AppScope scope) {
-      return new StatsDataNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), XchgApiInjector.injectInputDataFileApi(),
+   public static StatsDataNew injectStatsDataNew() {
+      return new StatsDataNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(), XchgApiInjector.injectInputDataFileApi(),
             XchgApiInjector.injectPersistedPropertyApi());
    }
 
-   public static StatsDataSearch injectStatsDataSearch(AppScope scope) {
-      return new StatsDataSearch(XchgApiInjector.injectPersistedDataFileApi(scope), scope.getRosetta());
+   public static StatsDataSearch injectStatsDataSearch() {
+      return new StatsDataSearch(XchgApiInjector.injectPersistedDataFileApi());
    }
 
-   public static StatsProjNew injectStatsProjNew(AppScope scope) {
-      return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(scope), ScreensBlocksInjector.injectBaseConfigInputBlock(),
-            injectStatsDataSearch(scope));
+   public static StatsProjNew injectStatsProjNew() {
+      return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(), ScreensBlocksInjector.injectBaseConfigInputBlock(),
+            injectStatsDataSearch());
    }
 
-   public static StatsProjSearch injectStatsProjSearch(AppScope scope) {
-      return new StatsProjSearch(scope);
+   public static StatsProjSearch injectStatsProjSearch() {
+      return new StatsProjSearch();
    }
 
-   public static StatsStart injectStatsStart(AppScope scope) {
-      return new StatsStart(scope.getRosetta(), ScreensBlocksInjector.injectStatsDataBlock(scope), ScreensBlocksInjector.injectStatsProjBlock(scope),
-            injectStatsProjSearch(scope), XchgApiInjector.injectPersistedPropertyApi(), new DirectoryChooser());
+   public static StatsStart injectStatsStart() {
+      return new StatsStart(ScreensBlocksInjector.injectStatsDataBlock(), ScreensBlocksInjector.injectStatsProjBlock(),
+            injectStatsProjSearch(), XchgApiInjector.injectPersistedPropertyApi(), new DirectoryChooser());
    }
 
 }

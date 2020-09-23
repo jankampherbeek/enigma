@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.be.calc.handlers;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.handlers.BeHandlersInjector;
 import com.radixpro.enigma.be.handlers.TimeKeyHandler;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
@@ -47,7 +46,7 @@ public class TimeKeyHandlerTest {
       List<IChartPoints> points = new ArrayList<>();
       points.add(CelestialObjects.JUPITER);
       settings = new ProgSettings(points, Ayanamshas.NONE, false, false);
-      handler = BeHandlersInjector.injectTimeKeyHandler(new AppScope());
+      handler = BeHandlersInjector.injectTimeKeyHandler();
    }
 
    @Test

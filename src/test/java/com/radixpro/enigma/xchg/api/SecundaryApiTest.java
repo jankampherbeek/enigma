@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.AllMundanePositions;
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
@@ -57,7 +56,7 @@ public class SecundaryApiTest {
       when(posUraMock.getLongitude()).thenReturn(102.7);    // URANUS, 102.7, 0.3, 103.0, 4.0
       when(posAscMock.getLongitude()).thenReturn(162.5);    // ASC, 162.5, 0.0, 162.0, 20.0)
       when(posMarsMock.getChartPoint()).thenReturn(CelestialObjects.MARS);
-      api = XchgApiInjector.injectSecundaryApi(new AppScope());
+      api = XchgApiInjector.injectSecundaryApi();
    }
 
    @Test

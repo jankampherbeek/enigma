@@ -26,9 +26,9 @@ public class SolarReturnApi {
    private final Rosetta rosetta;
 
 
-   public SolarReturnApi(@NotNull final SolarReturnHandler handler, @NotNull final Rosetta rosetta) {
+   public SolarReturnApi(@NotNull final SolarReturnHandler handler) {
       this.handler = handler;
-      this.rosetta = rosetta;
+      this.rosetta = Rosetta.getRosetta();
    }
 
    /**

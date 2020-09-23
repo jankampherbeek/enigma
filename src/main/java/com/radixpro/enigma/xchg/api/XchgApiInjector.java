@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.calc.SeFrontend;
 import com.radixpro.enigma.be.handlers.BeHandlersInjector;
 import com.radixpro.enigma.be.persistency.BePersistencyInjector;
@@ -42,33 +41,33 @@ public class XchgApiInjector {
       return new PersistedConfigurationApi(BePersistencyInjector.injectConfigurationDao());
    }
 
-   public static PersistedDataFileApi injectPersistedDataFileApi(AppScope scope) {
-      return new PersistedDataFileApi(BeHandlersInjector.injectDataFileHandler(scope));
+   public static PersistedDataFileApi injectPersistedDataFileApi() {
+      return new PersistedDataFileApi(BeHandlersInjector.injectDataFileHandler());
    }
 
    public static PersistedPropertyApi injectPersistedPropertyApi() {
       return new PersistedPropertyApi(BePersistencyInjector.injectPropertyDao());
    }
 
-   public static PrimaryApi injectPrimaryApi(AppScope scope) {
-      return new PrimaryApi(BeHandlersInjector.injectPrimaryHandler(scope));
+   public static PrimaryApi injectPrimaryApi() {
+      return new PrimaryApi(BeHandlersInjector.injectPrimaryHandler());
    }
 
-   public static SecundaryApi injectSecundaryApi(AppScope scope) {
-      return new SecundaryApi(BeHandlersInjector.injectEphProgCalcHandler(), BeHandlersInjector.injectSecundaryDateHandler(scope),
-            BeHandlersInjector.injectProgAspectHandler(scope));
+   public static SecundaryApi injectSecundaryApi() {
+      return new SecundaryApi(BeHandlersInjector.injectEphProgCalcHandler(), BeHandlersInjector.injectSecundaryDateHandler(),
+            BeHandlersInjector.injectProgAspectHandler());
    }
 
-   public static SolarReturnApi injectSolarReturnApi(AppScope scope) {
-      return new SolarReturnApi(BeHandlersInjector.injectSolarReturnHandler(scope), scope.getRosetta());
+   public static SolarReturnApi injectSolarReturnApi() {
+      return new SolarReturnApi(BeHandlersInjector.injectSolarReturnHandler());
    }
 
    public static TetenburgApi injectTetenburgApi() {
       return new TetenburgApi(BeHandlersInjector.injectTetenburgHandler());
    }
 
-   public static TransitsApi injectTransitsApi(AppScope scope) {
-      return new TransitsApi(BeHandlersInjector.injectEphProgCalcHandler(), BeHandlersInjector.injectProgAspectHandler(scope));
+   public static TransitsApi injectTransitsApi() {
+      return new TransitsApi(BeHandlersInjector.injectEphProgCalcHandler(), BeHandlersInjector.injectProgAspectHandler());
    }
 
    public static VersionApi injectVersionApi() {

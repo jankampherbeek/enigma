@@ -14,8 +14,7 @@ import com.radixpro.enigma.shared.common.EnigmaDictionary
 /**
  * Handler for the calculation of the Critical Point as defined by Ton Tetenburg.
  */
-class TetenburgHandler(private val seFrontend: SeFrontend,
-                       private val oblHandler: ObliquityHandler) {
+class TetenburgHandler(private val oblHandler: ObliquityHandler) {
     fun criticalPoint(jdRadix: Double,
                       jdEvent: Double,
                       geoLat: Double,
@@ -28,6 +27,6 @@ class TetenburgHandler(private val seFrontend: SeFrontend,
         val eclValues = doubleArrayOf(progMc, 0.0, 1.0)
         val eqValues = CoordinateConversions.eclipticToEquatorial(eclValues, eps)
         val progRaMc = eqValues[0]
-        return seFrontend.ascFromMc(progRaMc, geoLat, eps)
+        return SeFrontend.ascFromMc(progRaMc, geoLat, eps)
     }
 }

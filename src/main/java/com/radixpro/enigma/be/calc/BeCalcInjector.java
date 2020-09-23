@@ -7,24 +7,19 @@
 
 package com.radixpro.enigma.be.calc;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.be.handlers.BeHandlersInjector;
 
 public class BeCalcInjector {
 
-   public static SeFrontend injectSeFrontend() {
-      return SeFrontend.INSTANCE;
-   }    // TODO DI move to AppScope
-
-   public static CoordSetForDateTimeCalc injectCoordSetForDateTimeCalc(AppScope scope) {
-      return new CoordSetForDateTimeCalc(injectSeFrontend());
+   public static CoordSetForDateTimeCalc injectCoordSetForDateTimeCalc() {
+      return new CoordSetForDateTimeCalc();
    }
 
-   public static JdFromPosCalc injectJdFromPosCalc(AppScope scope) {
-      return new JdFromPosCalc(injectCoordSetForDateTimeCalc(scope));
+   public static JdFromPosCalc injectJdFromPosCalc() {
+      return new JdFromPosCalc(injectCoordSetForDateTimeCalc());
    }
 
-   public static SpaeculumPropSaCalculator injectSpaeculumPropSaCalculator(AppScope scope) {
+   public static SpaeculumPropSaCalculator injectSpaeculumPropSaCalculator() {
       return new SpaeculumPropSaCalculator(BeHandlersInjector.injectObliquityHandler());
    }
 }

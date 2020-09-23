@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.xchg.api;
 
-import com.radixpro.enigma.AppScope;
 import com.radixpro.enigma.domain.analysis.AnalyzedAspectTransit;
 import com.radixpro.enigma.domain.astronpos.*;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
@@ -38,7 +37,7 @@ public class TransitsApiIntTest {
 
    @Before
    public void setUp() {
-      api = XchgApiInjector.injectTransitsApi(new AppScope());
+      api = XchgApiInjector.injectTransitsApi();
    }
 
    @Test
