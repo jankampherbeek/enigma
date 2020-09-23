@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.creators;
 
-import com.radixpro.enigma.Rosetta;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -20,7 +19,6 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
  * Creates a GridPane for datainput for date and time.
  */
 public class DateTimePaneCreator {
-   private Rosetta rosetta;
    private Label lblDate;
    private Label lblCalendar;
    private Label lblTime;
@@ -49,7 +47,6 @@ public class DateTimePaneCreator {
    }
 
    private void initialize() {
-      rosetta = Rosetta.getRosetta();
       lblDate = new LabelBuilder("ui.charts.input.date.name").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
       lblCalendar = new LabelBuilder("ui.charts.input.date.calendar").setPrefWidth(INPUT_MICRO_DATA_WIDTH).build();
       lblTime = new LabelBuilder("ui.charts.input.time.name").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();

@@ -74,7 +74,7 @@ data class SolarReturnRequest(val birthDateTime: DateTimeJulian,
                               val ageForReturn: Int)
 
 /**
- * Request for the calculation of a critical point according to the theory of Ton TEtenburg.
+ * Request for the calculation of a critical point according to the theory of Ton Tetenburg.
  */
 data class TetenburgRequest(val longMcRadix: Double,
                             val solarSpeed: Double,

@@ -10,12 +10,9 @@ import com.radixpro.enigma.be.handlers.InputDataFileHandler
 import com.radixpro.enigma.domain.reqresp.InputDataFileRequest
 import com.radixpro.enigma.domain.reqresp.InputDataFileResponse
 
-/**
- * Api for converting and saving input data.
- */
 class InputDataFileApi(private val handler: InputDataFileHandler) {
 
-    fun addDataFile(request: InputDataFileRequest?): InputDataFileResponse {
+    fun addDataFile(request: InputDataFileRequest): InputDataFileResponse {
         return handler.handleDataFile(request)
     }
 }

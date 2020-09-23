@@ -30,18 +30,16 @@ public enum DataInputFormats {
    }
 
    public ObservableList<String> getObservableList() {
-      final Rosetta rosetta = Rosetta.getRosetta();
       final List<String> formatKeys = new ArrayList<>();
       for (DataInputFormats format : DataInputFormats.values()) {
-         formatKeys.add(rosetta.getText(format.getRbKey()));
+         formatKeys.add(Rosetta.getText(format.getRbKey()));
       }
       return FXCollections.observableArrayList(formatKeys);
    }
 
    public DataInputFormats formatForName(final String name) {
-      final Rosetta rosetta = Rosetta.getRosetta();
       for (DataInputFormats format : DataInputFormats.values()) {
-         if (rosetta.getText(format.getRbKey()).equals(name)) {
+         if (Rosetta.getText(format.getRbKey()).equals(name)) {
             return format;
          }
       }

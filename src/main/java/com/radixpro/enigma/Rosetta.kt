@@ -4,109 +4,103 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma
 
-package com.radixpro.enigma;
-
-import com.radixpro.enigma.be.persistency.AppDb;
-import com.radixpro.enigma.be.persistency.PropertyDao;
-import com.radixpro.enigma.shared.Property;
-import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
-import org.apache.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import com.radixpro.enigma.be.persistency.PropertyDao
+import com.radixpro.enigma.shared.Property
+import com.radixpro.enigma.xchg.api.PersistedPropertyApi
+import org.apache.log4j.Logger
+import java.util.*
 
 /**
- * i18N manager, takes care of Resource Bundles and Locale's.<br>
+ * i18N manager, takes care of Resource Bundles and Locale's.<br></br>
  * Implemented as a singleton.
  */
-public class Rosetta {
+object Rosetta {
+    private var propApi: PersistedPropertyApi? = null
+    private var resourceBundle: ResourceBundle? = null
+    private var helpResourceBundle: ResourceBundle? = null
+    private val LOG = Logger.getLogger(Rosetta::class.java)
+    private const val RB_LOCATION = "texts"
+    private const val RB_HELP_LOCATION = "help"
+    private const val DUTCH = "du"
+    private const val ENGLISH = "en"
+    private const val PROP_LANG = "lang"
+    private var initialized = false;
 
-   private static final Logger LOG = Logger.getLogger(Rosetta.class);
-   private static final String RB_LOCATION = "texts";
-   private static final String RB_HELP_LOCATION = "help";
-   private static final String DUTCH = "du";
-   private static final String ENGLISH = "en";
-   private static final String PROP_LANG = "lang";
-   private static AppDb appDb;
-   private PersistedPropertyApi propApi;
-   private static Rosetta instance = null;
-   private ResourceBundle resourceBundle;
-   private ResourceBundle helpResourceBundle;
-   private Locale locale;
+    private var locale: Locale = Locale(ENGLISH, ENGLISH.toUpperCase())
+
+    /**
+     * Sets new language
+     *
+     * @param language use "en" for English or "du" for Dutch (case-sensitive).
+     */
+    @JvmStatic
+    fun setLanguage(language: String) {
+        LOG.info("Setting language to : $language")
+        if (language == ENGLISH || language == DUTCH) {
+            val langProp = Property(PROP_LANG, language)
+            propApi!!.update(langProp)
+            reInitialize()
+        } else {
+            LOG.error("Unsupported language encountered: $language")
+        }
+    }
+
+    private fun reInitialize() {
+        initi18N()
+        defineResourceBundles()
+        initialized = true
+    }
+
+    private fun initi18N() {
+        propApi = PersistedPropertyApi(PropertyDao())
+        val props = propApi!!.read(PROP_LANG)
+        var language = "en" // handle first start as no database has been created.
+        if (props.isNotEmpty()) {
+            val currentProp = propApi!!.read(PROP_LANG)[0]!!
+            language = currentProp.value
+        }
+        locale = if (language == DUTCH) Locale(DUTCH, DUTCH.toUpperCase()) else Locale(ENGLISH, ENGLISH.toUpperCase())
+    }
+
+    private fun defineResourceBundles() {
+        resourceBundle = ResourceBundle.getBundle(RB_LOCATION, locale)
+        helpResourceBundle = ResourceBundle.getBundle(RB_HELP_LOCATION, locale)
+    }
+
+    @JvmStatic
+    fun getText(key: String): String {
+        if (!initialized) reInitialize()
+        return resourceBundle!!.getString(key)
+    }
+
+    @JvmStatic
+    fun getHelpText(key: String): String {
+        if (!initialized) reInitialize()
+        return helpResourceBundle!!.getString(key)
+    }
+
+    @JvmStatic
+    fun getLocale(): Locale {
+        return locale
+    }
 
 
-   private Rosetta() {
-      // prevent instantiation
-   }
+//        /**
+//         * Retrieve instance of singleton Rosetta.
+//         *
+//         * @return instance of Rosetta.
+//         */
+//        var rosetta: Rosetta? = null
+//            private set
 
-   public static Rosetta defineRosetta() {
-      if (null == instance) {
-         appDb = AppDb.getInstance();
-         instance = new Rosetta();
-         instance.reInitialize();
-      }
-      return instance;
-   }
-
-   /**
-    * Retrieve instance of singleton Rosetta.
-    *
-    * @return instance of Rosetta.
-    */
-   public static Rosetta getRosetta() {
-      return instance;
-   }
-
-   /**
-    * Sets new language
-    *
-    * @param language use "en" for English or "du" for Dutch (case-sensitive).
-    */
-   public void setLanguage(@NotNull final String language) {
-      LOG.info("Setting language to : " + language);
-      if (language.equals(ENGLISH) || language.equals(DUTCH)) {
-         Property langProp = new Property(PROP_LANG, language);
-         propApi.update(langProp);
-         reInitialize();
-      } else {
-         LOG.error("Unsupported language encountered: " + language);
-      }
-   }
-
-   private void reInitialize() {
-      initi18N();
-      defineResourceBundles();
-   }
-
-   private void initi18N() {
-      propApi = new PersistedPropertyApi(new PropertyDao());
-      List<Property> props = propApi.read(PROP_LANG);
-      String language = "en";    // handle first start as no database has been created.
-      if (!props.isEmpty()) {
-         Property currentProp = propApi.read(PROP_LANG).get(0);
-         language = currentProp.getValue();
-      }
-      if (language.equals(DUTCH)) locale = new Locale(DUTCH, DUTCH.toUpperCase());
-      else locale = new Locale(ENGLISH, ENGLISH.toUpperCase());
-   }
-
-   private void defineResourceBundles() {
-      resourceBundle = ResourceBundle.getBundle(RB_LOCATION, locale);
-      helpResourceBundle = ResourceBundle.getBundle(RB_HELP_LOCATION, locale);
-   }
-
-   public String getText(@NotNull final String key) {
-      return resourceBundle.getString(key);
-   }
-
-   public String getHelpText(@NotNull final String key) {
-      return helpResourceBundle.getString(key);
-   }
-
-   public Locale getLocale() {
-      return locale;
-   }
+//        @JvmStatic
+//        fun defineRosetta(): Rosetta? {
+//            if (null == rosetta) {
+//                rosetta = Rosetta()
+//                rosetta!!.reInitialize()
+//            }
+//            return rosetta
+//        }
 }

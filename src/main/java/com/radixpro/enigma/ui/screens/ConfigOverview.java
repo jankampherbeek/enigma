@@ -47,7 +47,6 @@ public class ConfigOverview {
    private static final double INSTRUCTION_HEIGHT = 45.0;
    private static final double SEPARATOR_HEIGHT = 20.0;
    private static final double GAP = 6.0;
-   private final Rosetta rosetta;
    private final PersistedConfigurationApi configApi;
    private final ConfigNew configNew;
    private final ConfigEdit configEdit;
@@ -73,7 +72,6 @@ public class ConfigOverview {
       this.configNew = configNew;
       this.configEdit = configEdit;
       this.configDetails = configDetails;
-      this.rosetta = Rosetta.getRosetta();
       this.state = SessionState.INSTANCE;
    }
 
@@ -96,11 +94,11 @@ public class ConfigOverview {
       btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
       btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnSelect, btnDetails, btnEdit, btnNew, btnDelete, btnHelp, btnExit).build();
-      TableColumn<PresentableConfiguration, String> nameColumn = new TableColumnBuilder().setText(rosetta.getText("ui.general.name"))
+      TableColumn<PresentableConfiguration, String> nameColumn = new TableColumnBuilder().setText(Rosetta.getText("ui.general.name"))
             .setCellValueFactory(new PropertyValueFactory<>("configName")).build();
-      TableColumn<PresentableConfiguration, String> descriptionColumn = new TableColumnBuilder().setText(rosetta.getText("ui.general.description"))
+      TableColumn<PresentableConfiguration, String> descriptionColumn = new TableColumnBuilder().setText(Rosetta.getText("ui.general.description"))
             .setCellValueFactory(new PropertyValueFactory<>("configDescription")).build();
-      TableColumn<PresentableConfiguration, String> stndColumn = new TableColumnBuilder().setText(rosetta.getText("ui.configs.overview.colstandard"))
+      TableColumn<PresentableConfiguration, String> stndColumn = new TableColumnBuilder().setText(Rosetta.getText("ui.configs.overview.colstandard"))
             .setCellValueFactory(new PropertyValueFactory<>("standardIndication")).build();
       tableView = new TableViewBuilder().setPrefHeight(TV_HEIGHT).setPrefWidth(WIDTH).setColumns(nameColumn, descriptionColumn, stndColumn).build();
       Pane paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
@@ -111,7 +109,7 @@ public class ConfigOverview {
       VBox vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP)
             .setChildren(paneTitle, paneInstruction, paneStandard, paneSeparator, paneButtons).build();
       stage = new StageBuilder().setMinWidth(WIDTH).setMinHeight(HEIGHT).setModality(Modality.APPLICATION_MODAL)
-            .setTitle(rosetta.getText("ui.configs.overview.title")).setScene(new Scene(vBox)).build();
+            .setTitle(Rosetta.getText("ui.configs.overview.title")).setScene(new Scene(vBox)).build();
    }
 
    private void defineListeners() {
@@ -222,7 +220,7 @@ public class ConfigOverview {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.configoverview.title"), rosetta.getHelpText("help.configoverview.content"));
+      new Help(Rosetta.getHelpText("help.configoverview.title"), Rosetta.getHelpText("help.configoverview.content"));
    }
 
    private void onExit() {

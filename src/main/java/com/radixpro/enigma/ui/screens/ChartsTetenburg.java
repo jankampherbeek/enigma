@@ -60,7 +60,6 @@ public class ChartsTetenburg {
    private static final double INPUT_HEIGHT = 25.0;
    private static final double GAP = 6.0;
    private final SessionState state;
-   private final Rosetta rosetta;
    private final TetenburgApi api;
    private final DateTimeJulianCreator dateTimeJulianCreator;
    private Stage stage;
@@ -89,7 +88,6 @@ public class ChartsTetenburg {
    public ChartsTetenburg(@NotNull final TetenburgApi api,
                           @NotNull final ValidatedDate valDate, @NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
       this.state = SessionState.INSTANCE;
-      this.rosetta = Rosetta.getRosetta();
       this.api = api;
       this.valDate = valDate;
       this.dateTimeJulianCreator = dateTimeJulianCreator;
@@ -114,8 +112,8 @@ public class ChartsTetenburg {
 
 
    private void defineLeafs() {
-      lblName = new Label(rosetta.getText("ui.charts.tetenburg.lbl.nameprefix") + " " + meta.getName());
-      lblConfig = new Label(rosetta.getText("ui.charts.tetenburg.lbl.configprefix") + " " + meta.getConfigName());
+      lblName = new Label(Rosetta.getText("ui.charts.tetenburg.lbl.nameprefix") + " " + meta.getName());
+      lblConfig = new Label(Rosetta.getText("ui.charts.tetenburg.lbl.configprefix") + " " + meta.getConfigName());
       lblDate = new LabelBuilder("ui.charts.tetenburg.lbl.progdate").setPrefWidth(WIDTH * 0.4).build();
       lblResultValue = new Label("");
       lblSignGlyph = new Label("");
@@ -201,7 +199,7 @@ public class ChartsTetenburg {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.chartstetenburg.title"), rosetta.getHelpText("help.chartstetenburg.content"));
+      new Help(Rosetta.getHelpText("help.chartstetenburg.title"), Rosetta.getHelpText("help.chartstetenburg.content"));
    }
 
    private void onCalc() {
@@ -232,7 +230,7 @@ public class ChartsTetenburg {
          SexagesimalFormatter formatter = new SexagesimalFormatter(2);
          String longAscTxt = formatter.formatDm(longitudeInSign);
          lblResultValue.setFont(new Font(TEXT_FONTNAME, 14));
-         lblResultValue.setText(rosetta.getText("ui.charts.tetenburg.lbl.resultprefix") + longAscTxt);
+         lblResultValue.setText(Rosetta.getText("ui.charts.tetenburg.lbl.resultprefix") + longAscTxt);
          lblSignGlyph.setFont(new Font(GLYPH_FONTNAME, 16));
          lblSignGlyph.setText(new GlyphForSign().getGlyph((int) (longAsc / 30.0) + 1));
       }

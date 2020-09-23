@@ -51,7 +51,7 @@ public class Help {
       stage = new Stage();
       stage.setWidth(OUTER_WIDTH);
       stage.initModality(Modality.APPLICATION_MODAL);
-      stage.setTitle(Rosetta.getRosetta().getText("ui.helptitle"));
+      stage.setTitle(Rosetta.getText("ui.helptitle"));
       ButtonBar buttonBar = createButtonBar();
       Pane titlePane = createTitlePane();
       Pane contentPane = createContentPane();

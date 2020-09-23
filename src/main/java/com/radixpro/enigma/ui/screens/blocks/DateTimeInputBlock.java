@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.references.TimeZones;
@@ -132,8 +133,8 @@ public class DateTimeInputBlock extends InputBlock {
 
    private void initCalendar() {
       List<String> calList = new ArrayList<>();
-      calList.add(rosetta.getText("ui.shared.calendar.gregorian.char"));
-      calList.add(rosetta.getText("ui.shared.calendar.julian.char"));
+      calList.add(Rosetta.getText("ui.shared.calendar.gregorian.char"));
+      calList.add(Rosetta.getText("ui.shared.calendar.julian.char"));
       ObservableList<String> observableList = FXCollections.observableArrayList(calList);
       cbCalendar.setItems(observableList);
       cbCalendar.getSelectionModel().select(0);
@@ -147,8 +148,8 @@ public class DateTimeInputBlock extends InputBlock {
 
    private void initLocalEastWest() {
       List<String> longList = new ArrayList<>();
-      longList.add(rosetta.getText("ui.shared.direction.east.char"));
-      longList.add(rosetta.getText("ui.shared.direction.west.char"));
+      longList.add(Rosetta.getText("ui.shared.direction.east.char"));
+      longList.add(Rosetta.getText("ui.shared.direction.west.char"));
       var observableList = FXCollections.observableArrayList(longList);
       cbLocalEastWest.setItems(observableList);
       cbLocalEastWest.getSelectionModel().select(0);

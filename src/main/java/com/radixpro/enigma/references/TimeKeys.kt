@@ -30,9 +30,8 @@ enum class TimeKeys(val id: Int, val nameForRB: String) {
     }
 
     fun timeKeyForName(keyName: String): TimeKeys {
-        val rosetta = Rosetta.getRosetta()
         for (timeKey in values()) {
-            if (rosetta.getText(timeKey.nameForRB) == keyName) {
+            if (Rosetta.getText(timeKey.nameForRB) == keyName) {
                 return timeKey
             }
         }
@@ -41,10 +40,9 @@ enum class TimeKeys(val id: Int, val nameForRB: String) {
 
     val observableList: ObservableList<String>
         get() {
-            val rosetta = Rosetta.getRosetta()
             val keyNames: MutableList<String> = ArrayList()
             for (timeKey in values()) {
-                if (timeKey != NOT_DEFINED) keyNames.add(rosetta.getText(timeKey.nameForRB))
+                if (timeKey != NOT_DEFINED) keyNames.add(Rosetta.getText(timeKey.nameForRB))
             }
             return FXCollections.observableArrayList(keyNames)
         }

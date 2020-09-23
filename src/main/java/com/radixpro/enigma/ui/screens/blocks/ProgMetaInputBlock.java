@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.TextFieldBuilder;
@@ -36,9 +37,9 @@ public class ProgMetaInputBlock extends InputBlock {
    @Override
    protected void initialize() {
       inputStatus = InputStatus.READY;    // always ready, as no validation is done.
-      lblMetaChart = new LabelBuilder("").setText(rosetta.getText("ui.charts.meta.chartname") + " " +
+      lblMetaChart = new LabelBuilder("").setText(Rosetta.getText("ui.charts.meta.chartname") + " " +
             state.getSelectedChart().getChartData().getChartMetaData().getName()).setPrefWidth(INPUT_WIDTH).build();
-      lblMetaConfig = new LabelBuilder("").setText(rosetta.getText("ui.charts.meta.configname") + " " + state.getSelectedConfig().getName()).
+      lblMetaConfig = new LabelBuilder("").setText(Rosetta.getText("ui.charts.meta.configname") + " " + state.getSelectedConfig().getName()).
             setPrefWidth(INPUT_WIDTH).build();
       lblInputEvent = new LabelBuilder("ui.progmetainput.lbl.eventinput").setPrefWidth(INPUT_WIDTH).build();
       tfEvent = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();

@@ -41,9 +41,8 @@ enum class Ratings(val id: Int, val nameForRB: String) : Serializable {
 
         @JvmStatic
         fun ratingForName(ratingName: String): Ratings {
-            val rosetta = Rosetta.getRosetta()
             for (rating in values()) {
-                if (rosetta.getText(rating.nameForRB) == ratingName) {
+                if (Rosetta.getText(rating.nameForRB) == ratingName) {
                     return rating
                 }
             }
@@ -53,10 +52,9 @@ enum class Ratings(val id: Int, val nameForRB: String) : Serializable {
         @JvmStatic
         val observableList: ObservableList<String>
             get() {
-                val rosetta = Rosetta.getRosetta()
                 val ratingNames: MutableList<String> = ArrayList()
                 for (rating in values()) {
-                    ratingNames.add(rosetta.getText(rating.nameForRB))
+                    ratingNames.add(Rosetta.getText(rating.nameForRB))
                 }
                 return FXCollections.observableArrayList(ratingNames)
             }

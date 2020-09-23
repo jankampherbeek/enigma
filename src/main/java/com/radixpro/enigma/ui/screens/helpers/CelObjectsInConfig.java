@@ -23,11 +23,7 @@ import java.util.List;
 public class CelObjectsInConfig {
 
    private static final Logger LOG = Logger.getLogger(CelObjectsInConfig.class);
-   private final Rosetta rosetta;
 
-   public CelObjectsInConfig() {
-      this.rosetta = Rosetta.getRosetta();
-   }
 
    public List<PresentableProperty> constructProperties(@NotNull final List<ConfiguredCelObject> celObjects) {
       List<PresentableProperty> presentableProperties = new ArrayList<>();
@@ -42,7 +38,7 @@ public class CelObjectsInConfig {
       String nameText;
       for (ConfiguredCelObject celObject : celObjects) {
          category = celObject.getCelObject().getCategory().getId();
-         nameText = rosetta.getText(celObject.getCelObject().getRbKey()) + " ";
+         nameText = Rosetta.getText(celObject.getCelObject().getRbKey()) + " ";
          switch (category) {
             case 1 -> classicCelObjectsAsText.append(nameText);
             case 2 -> modernCelObjectsAsText.append(nameText);
@@ -56,19 +52,19 @@ public class CelObjectsInConfig {
          }
       }
       if (classicCelObjectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText(CelObjectCategory.CLASSICS.getNameForRB()), classicCelObjectsAsText.toString()));
+            Rosetta.getText(CelObjectCategory.CLASSICS.getNameForRB()), classicCelObjectsAsText.toString()));
       if (modernCelObjectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText(CelObjectCategory.MODERN.getNameForRB()), modernCelObjectsAsText.toString()));
+            Rosetta.getText(CelObjectCategory.MODERN.getNameForRB()), modernCelObjectsAsText.toString()));
       if (extraplutCelObjectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText(CelObjectCategory.EXTRA_PLUT.getNameForRB()), extraplutCelObjectsAsText.toString()));
+            Rosetta.getText(CelObjectCategory.EXTRA_PLUT.getNameForRB()), extraplutCelObjectsAsText.toString()));
       if (asteroidCelObjectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText(CelObjectCategory.ASTEROIDS.getNameForRB()), asteroidCelObjectsAsText.toString()));
+            Rosetta.getText(CelObjectCategory.ASTEROIDS.getNameForRB()), asteroidCelObjectsAsText.toString()));
       if (centaurCelObjectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText(CelObjectCategory.CENTAURS.getNameForRB()), centaurCelObjectsAsText.toString()));
+            Rosetta.getText(CelObjectCategory.CENTAURS.getNameForRB()), centaurCelObjectsAsText.toString()));
       if (intersectionsCelObjectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText(CelObjectCategory.INTERSECTIONS.getNameForRB()), intersectionsCelObjectsAsText.toString()));
+            Rosetta.getText(CelObjectCategory.INTERSECTIONS.getNameForRB()), intersectionsCelObjectsAsText.toString()));
       if (hypothetsCelObjectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText(CelObjectCategory.HYPOTHETS.getNameForRB()), hypothetsCelObjectsAsText.toString()));
+            Rosetta.getText(CelObjectCategory.HYPOTHETS.getNameForRB()), hypothetsCelObjectsAsText.toString()));
       return presentableProperties;
    }
 

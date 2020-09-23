@@ -59,10 +59,9 @@ enum class CelestialObjects(private val id: Int,
     //   VARUNA(29, 30000, CelObjectCategory.EXTRA_PLUT, "celobject.varuna");
     val observableList: ObservableList<String>
         get() {
-            val rosetta = Rosetta.getRosetta()
             val celObjectNames: MutableList<String> = ArrayList()
             for (celestialObject in values()) {
-                if (celestialObject != EMPTY) celObjectNames.add(rosetta.getText(celestialObject.nameForRB))
+                if (celestialObject != EMPTY) celObjectNames.add(Rosetta.getText(celestialObject.nameForRB))
             }
             return FXCollections.observableArrayList(celObjectNames)
         }

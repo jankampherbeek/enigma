@@ -69,9 +69,8 @@ enum class TimeZones(val id: Int, val nameForRB: String, val offset: Double) {
 
         @JvmStatic
         fun timeZoneForName(zoneLocalName: String?): TimeZones {
-            val rosetta = Rosetta.getRosetta()
             for (timeZone in values()) {
-                if (rosetta.getText(timeZone.nameForRB).contains(zoneLocalName!!)) {
+                if (Rosetta.getText(timeZone.nameForRB).contains(zoneLocalName!!)) {
                     return timeZone
                 }
             }
@@ -81,10 +80,9 @@ enum class TimeZones(val id: Int, val nameForRB: String, val offset: Double) {
         @JvmStatic
         val observableList: ObservableList<String>
             get() {
-                val rosetta = Rosetta.getRosetta()
                 val localnames: MutableList<String> = ArrayList()
                 for (timeZone in values()) {
-                    localnames.add(rosetta.getText(timeZone.nameForRB))
+                    localnames.add(Rosetta.getText(timeZone.nameForRB))
                 }
                 return FXCollections.observableArrayList(localnames)
             }

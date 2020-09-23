@@ -44,7 +44,6 @@ public class ConfigNew {
    private int newConfigId;
    private final ConfigNameValidator valName;
    private InputStatus inputStatus = InputStatus.INCOMPLETE;
-   private final Rosetta rosetta;
    private final SessionState state;
    private final PersistedConfigurationApi api;
    private boolean nameValid = false;
@@ -58,7 +57,6 @@ public class ConfigNew {
    private Button btnCancel;
 
    public ConfigNew(@NotNull final PersistedConfigurationApi api, @NotNull final ConfigNameValidator nameValidator) {
-      this.rosetta = Rosetta.getRosetta();
       this.state = SessionState.INSTANCE;
       this.api = api;
       this.valName = nameValidator;
@@ -73,7 +71,7 @@ public class ConfigNew {
 
    private void populateStage() {
       Label lblTitle = new LabelBuilder("ui.configs.new.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      Label lblSubTitle = new LabelBuilder("").setText(rosetta.getText("ui.configs.new.copyfrom") + " " + config.getName()).setPrefWidth(WIDTH)
+      Label lblSubTitle = new LabelBuilder("").setText(Rosetta.getText("ui.configs.new.copyfrom") + " " + config.getName()).setPrefWidth(WIDTH)
             .setStyleClass("subtitletext").build();
       Label lblInstruction = new LabelBuilder("ui.configs.new.instruction").build();
       Label lblName = new LabelBuilder("ui.general.name").setPrefWidth(DATA_TEXT_WIDTH).build();
@@ -92,7 +90,7 @@ public class ConfigNew {
       VBox vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP)
             .setChildren(paneTitle, paneSubTitle, paneInstruction, hBoxName, hBoxDescription, buttonBar).build();
       stage = new StageBuilder().setMinHeight(HEIGHT).setMinWidth(WIDTH).setModality(Modality.APPLICATION_MODAL)
-            .setTitle(rosetta.getText("ui.configs.new.title")).setScene(new Scene(vBox)).build();
+            .setTitle(Rosetta.getText("ui.configs.new.title")).setScene(new Scene(vBox)).build();
    }
 
    private void defineListeners() {
@@ -117,7 +115,7 @@ public class ConfigNew {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.confignew.title"), rosetta.getHelpText("help.confignew.content"));
+      new Help(Rosetta.getHelpText("help.confignew.title"), Rosetta.getHelpText("help.confignew.content"));
    }
 
    private Configuration createEditedConfig() {

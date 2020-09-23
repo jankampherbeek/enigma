@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.shared.converters;
 
-import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.testsupport.TestSupport;
 import org.junit.Before;
@@ -22,7 +21,7 @@ public class InputDataConversionBuilderTest {
    @Before
    public void setUp() throws Exception {
       TestSupport.initRosetta();
-      builder = new InputDataConversionBuilder(Rosetta.getRosetta());
+      builder = new InputDataConversionBuilder();
    }
 
    @Test

@@ -4,74 +4,61 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.be.handlers
 
-package com.radixpro.enigma.be.handlers;
+import com.radixpro.enigma.be.calc.SeFrontend
+import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects
+import com.radixpro.enigma.domain.astronpos.CoordinateSet
+import com.radixpro.enigma.domain.astronpos.CoordinateSet3D
+import com.radixpro.enigma.domain.astronpos.FullPointCoordinate
+import com.radixpro.enigma.domain.astronpos.FullPointPosition
+import com.radixpro.enigma.domain.input.Location
+import com.radixpro.enigma.references.Ayanamshas
+import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.EclipticProjections
+import com.radixpro.enigma.references.ObserverPositions
+import com.radixpro.enigma.shared.FailFastHandler
+import com.radixpro.enigma.xchg.domain.IChartPoints
+import swisseph.SweConst
 
-import com.radixpro.enigma.be.calc.SeFrontend;
-import com.radixpro.enigma.be.calc.assist.SePositionResultCelObjects;
-import com.radixpro.enigma.domain.astronpos.CoordinateSet;
-import com.radixpro.enigma.domain.astronpos.CoordinateSet3D;
-import com.radixpro.enigma.domain.astronpos.FullPointCoordinate;
-import com.radixpro.enigma.domain.astronpos.FullPointPosition;
-import com.radixpro.enigma.domain.input.Location;
-import com.radixpro.enigma.references.Ayanamshas;
-import com.radixpro.enigma.references.CelestialObjects;
-import com.radixpro.enigma.references.EclipticProjections;
-import com.radixpro.enigma.references.ObserverPositions;
-import com.radixpro.enigma.shared.FailFastHandler;
-import com.radixpro.enigma.xchg.domain.IChartPoints;
-import org.jetbrains.annotations.NotNull;
 
-import static swisseph.SweConst.*;
+class FullPointPositionHandler {
+    fun definePosition(celObject: IChartPoints, jdUt: Double, obsPos: ObserverPositions,
+                       eclProj: EclipticProjections, ayanamsha: Ayanamshas, location: Location): FullPointPosition {
+        val seId = (celObject as CelestialObjects).seId.toInt()
+        var seFlags = SweConst.SEFLG_SWIEPH or SweConst.SEFLG_SPEED
+        if (obsPos === ObserverPositions.TOPOCENTRIC) seFlags = seFlags or SweConst.SEFLG_TOPOCTR
+        // TODO release 2020.2: check for heliocentric
+        if (eclProj === EclipticProjections.SIDEREAL) seFlags = seFlags or SweConst.SEFLG_SIDEREAL
+        // TODO release 2020.2: include ayanamsha and support for sidereal
+        val positionResultEcl = SeFrontend.getPositionsForCelBody(jdUt, seId, seFlags, location)
+        val eclPos = convert(positionResultEcl)
+        seFlags = seFlags or SweConst.SEFLG_EQUATORIAL
+        val positionResultEq = SeFrontend.getPositionsForCelBody(jdUt, seId, seFlags, location)
+        val eqPos = convert(positionResultEq)
+        val coords = doubleArrayOf(eclPos.position.mainCoord, eclPos.position.deviation, 1.0)
+        val positionsHor = SeFrontend.getHorizontalPosition(jdUt, coords, location, seFlags)
+        val horPos = convert(positionsHor)
+        return FullPointPosition(celObject, eclPos, eqPos, horPos)
+    }
 
-/**
- * Takes care of calculating a full position for all relevant coördinates for a specific celestial body.
- */
-public class FullPointPositionHandler {
+    private fun convert(positionResult: SePositionResultCelObjects): FullPointCoordinate {
+        if (!positionResult.errorMsg.isEmpty()) FailFastHandler().terminate("Error when calculating cel point. " +
+                positionResult.errorMsg)
+        val allPositions = positionResult.allPositions
+        val mainPos = allPositions[0]
+        val devPos = allPositions[1]
+        val distPos = allPositions[2]
+        val mainSpeed = allPositions[3]
+        val devSpeed = allPositions[4]
+        val distSpeed = allPositions[5]
+        val position = CoordinateSet3D(mainPos, devPos, distPos)
+        val speed = CoordinateSet3D(mainSpeed, devSpeed, distSpeed)
+        return FullPointCoordinate(position, speed)
+    }
 
-   private final SeFrontend seFrontend;
-
-   public FullPointPositionHandler() {
-      this.seFrontend = SeFrontend.INSTANCE;
-   }
-
-   public FullPointPosition definePosition(@NotNull final IChartPoints celObject, final double jdUt, @NotNull final ObserverPositions obsPos,
-                                           @NotNull final EclipticProjections eclProj, @NotNull final Ayanamshas ayanamsha, @NotNull final Location location) {
-      final int seId = (int) ((CelestialObjects) celObject).getSeId();
-      int seFlags = SEFLG_SWIEPH | SEFLG_SPEED;
-      if (obsPos == ObserverPositions.TOPOCENTRIC) seFlags = seFlags | SEFLG_TOPOCTR;
-      // TODO release 2020.2: check for heliocentric
-      if (eclProj == EclipticProjections.SIDEREAL) seFlags = seFlags | SEFLG_SIDEREAL;
-      // TODO release 2020.2: include ayanamsha and support for sidereal
-      final SePositionResultCelObjects positionResultEcl = seFrontend.getPositionsForCelBody(jdUt, seId, seFlags, location);
-      FullPointCoordinate eclPos = convert(positionResultEcl);
-      seFlags = seFlags | SEFLG_EQUATORIAL;
-      final SePositionResultCelObjects positionResultEq = seFrontend.getPositionsForCelBody(jdUt, seId, seFlags, location);
-      FullPointCoordinate eqPos = convert(positionResultEq);
-      final double[] coords = {eclPos.getPosition().getMainCoord(), eclPos.getPosition().getDeviation(), 1.0};
-      double[] positionsHor = seFrontend.getHorizontalPosition(jdUt, coords, location, seFlags);
-      final CoordinateSet horPos = convert(positionsHor);
-      return new FullPointPosition(celObject, eclPos, eqPos, horPos);
-   }
-
-   private FullPointCoordinate convert(final SePositionResultCelObjects positionResult) {
-      if (!positionResult.getErrorMsg().isEmpty()) new FailFastHandler().terminate("Error when calculating cel point. " +
-            positionResult.getErrorMsg());
-      double[] allPositions = positionResult.getAllPositions();
-      double mainPos = allPositions[0];
-      double devPos = allPositions[1];
-      double distPos = allPositions[2];
-      double mainSpeed = allPositions[3];
-      double devSpeed = allPositions[4];
-      double distSpeed = allPositions[5];
-      CoordinateSet3D position = new CoordinateSet3D(mainPos, devPos, distPos);
-      CoordinateSet3D speed = new CoordinateSet3D(mainSpeed, devSpeed, distSpeed);
-      return new FullPointCoordinate(position, speed);
-   }
-
-   private CoordinateSet convert(final double[] positions) {
-      return new CoordinateSet(positions[0], positions[1]);
-   }
-
+    private fun convert(positions: DoubleArray): CoordinateSet {
+        return CoordinateSet(positions[0], positions[1])
+    }
 
 }

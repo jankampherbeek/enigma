@@ -41,7 +41,6 @@ public class ChartsInput {
    private static final double HEIGHT = 820.0;
    private static final double GP_GENERAL_HEIGHT = 240.0;
    private static final double INPUT_HEIGHT = 25.0;
-   private final Rosetta rosetta;
    private final PersistedChartDataApi persistedChartDataApi;
    private final DateTimeJulianCreator dateTimeJulianCreator;
    private final ValidatedChartName validatedChartName;
@@ -101,7 +100,6 @@ public class ChartsInput {
    public ChartsInput(final PersistedChartDataApi persistedChartDataApi, final ValidatedChartName validatedChartName,
                       final ValidatedDate validatedDate, final ValidatedTime validatedTime, final ValidatedLongitude validatedLongitude,
                       final ValidatedLatitude validatedLatitude, final DateTimeJulianCreator dateTimeJulianCreator) {
-      this.rosetta = Rosetta.getRosetta();
       this.persistedChartDataApi = persistedChartDataApi;
       this.validatedChartName = validatedChartName;
       this.validatedDate = validatedDate;
@@ -218,9 +216,9 @@ public class ChartsInput {
    private ButtonBar createBtnBar() {
       ButtonBar buttonBar = new ButtonBar();
 
-      calculatebtn = new Button(rosetta.getText("ui.shared.btn.calculate"));
-      Button helpBtn = new Button(rosetta.getText("ui.shared.btn.help"));
-      Button cancelBtn = new Button(rosetta.getText("ui.shared.btn.cancel"));
+      calculatebtn = new Button(Rosetta.getText("ui.shared.btn.calculate"));
+      Button helpBtn = new Button(Rosetta.getText("ui.shared.btn.help"));
+      Button cancelBtn = new Button(Rosetta.getText("ui.shared.btn.cancel"));
 
       calculatebtn.setOnAction(click -> onCalculate());
       helpBtn.setOnAction(click -> onHelp());
@@ -240,7 +238,7 @@ public class ChartsInput {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.chartsinput.title"), rosetta.getHelpText("help.chartsinput.content"));
+      new Help(Rosetta.getHelpText("help.chartsinput.title"), Rosetta.getHelpText("help.chartsinput.content"));
    }
 
    public InputStatus getInputStatus() {
@@ -295,8 +293,8 @@ public class ChartsInput {
 
    private void initLatitude() {
       List<String> latList = new ArrayList<>();
-      latList.add(rosetta.getText("ui.shared.direction.north.char"));
-      latList.add(rosetta.getText("ui.shared.direction.south.char"));
+      latList.add(Rosetta.getText("ui.shared.direction.north.char"));
+      latList.add(Rosetta.getText("ui.shared.direction.south.char"));
       var observableList = FXCollections.observableArrayList(latList);
       cbNorthSouth.setItems(observableList);
       cbNorthSouth.getSelectionModel().select(0);
@@ -304,8 +302,8 @@ public class ChartsInput {
 
    private void initLongitude() {
       List<String> longList = new ArrayList<>();
-      longList.add(rosetta.getText("ui.shared.direction.east.char"));
-      longList.add(rosetta.getText("ui.shared.direction.west.char"));
+      longList.add(Rosetta.getText("ui.shared.direction.east.char"));
+      longList.add(Rosetta.getText("ui.shared.direction.west.char"));
       var observableList = FXCollections.observableArrayList(longList);
       cbEastWest.setItems(observableList);
       cbEastWest.getSelectionModel().select(0);
@@ -313,8 +311,8 @@ public class ChartsInput {
 
    private void initCalendar() {
       List<String> calList = new ArrayList<>();
-      calList.add(rosetta.getText("ui.shared.calendar.gregorian.char"));
-      calList.add(rosetta.getText("ui.shared.calendar.julian.char"));
+      calList.add(Rosetta.getText("ui.shared.calendar.gregorian.char"));
+      calList.add(Rosetta.getText("ui.shared.calendar.julian.char"));
       var observableList = FXCollections.observableArrayList(calList);
       cbCalendar.setItems(observableList);
       cbCalendar.getSelectionModel().select(0);
@@ -328,8 +326,8 @@ public class ChartsInput {
 
    private void initLocalEastWest() {
       List<String> longList = new ArrayList<>();
-      longList.add(rosetta.getText("ui.shared.direction.east.char"));
-      longList.add(rosetta.getText("ui.shared.direction.west.char"));
+      longList.add(Rosetta.getText("ui.shared.direction.east.char"));
+      longList.add(Rosetta.getText("ui.shared.direction.west.char"));
       var observableList = FXCollections.observableArrayList(longList);
       cbLocalEastWest.setItems(observableList);
       cbLocalEastWest.getSelectionModel().select(0);
@@ -420,10 +418,10 @@ public class ChartsInput {
       TimeZones zone = TimeZones.timeZoneForName(cbTimeZone.getValue());
       String offsetLmt = "";
       if (zone == TimeZones.LMT) offsetLmt = "Offset : " + tfLocaltime.getText() + SPACE + cbLocalEastWest.getValue();
-      String dstText = rosetta.getText(cBoxDst.isSelected() ? "ui.shared.dst" : "ui.shared.nodst");
-      return tfDate.getText() + SPACE + cbCalendar.getValue() + SPACE + tfTime.getText() + SPACE + rosetta.getText(zone.getNameForRB()) + SPACE + dstText +
+      String dstText = Rosetta.getText(cBoxDst.isSelected() ? "ui.shared.dst" : "ui.shared.nodst");
+      return tfDate.getText() + SPACE + cbCalendar.getValue() + SPACE + tfTime.getText() + SPACE + Rosetta.getText(zone.getNameForRB()) + SPACE + dstText +
             offsetLmt + NEWLINE + tfLocationLatitude.getText() + cbEastWest.getValue() + SPACE + tfLocationLongitude.getText() + SPACE +
-            cbNorthSouth.getValue() + NEWLINE + rosetta.getText("ui.shared.source") + SPACE + tfSource.getText();
+            cbNorthSouth.getValue() + NEWLINE + Rosetta.getText("ui.shared.source") + SPACE + tfSource.getText();
    }
 
    private ChartMetaData constructMetaData() {

@@ -43,7 +43,6 @@ public class ChartsMidpoints {
    private static final double TITLE_HEIGHT = 45.0;
    private static final double GAP = 6.0;
    private final SessionState state;
-   private final Rosetta rosetta;
    private final MidpointsApi midpointsApi;
    private final ChartDataHelper helper;
    private Stage stage;
@@ -52,7 +51,6 @@ public class ChartsMidpoints {
 
 
    public ChartsMidpoints(final MidpointsApi midpointsApi, final ChartDataHelper helper) {
-      this.rosetta = Rosetta.getRosetta();
       this.state = SessionState.INSTANCE;
       this.midpointsApi = midpointsApi;
       this.helper = helper;
@@ -93,8 +91,8 @@ public class ChartsMidpoints {
       pane.setPrefHeight(TITLE_HEIGHT);
       VBox vBox = new VBox();
       vBox.setPrefWidth(WIDTH);
-      Label lblName = new Label(rosetta.getText("ui.charts.midpoints.lbl.nameprefix") + " " + meta.getName());
-      Label lblConfig = new Label(rosetta.getText("ui.charts.midpoints.lbl.configprefix") + " " + meta.getConfigName());
+      Label lblName = new Label(Rosetta.getText("ui.charts.midpoints.lbl.nameprefix") + " " + meta.getName());
+      Label lblConfig = new Label(Rosetta.getText("ui.charts.midpoints.lbl.configprefix") + " " + meta.getConfigName());
       vBox.getChildren().addAll(lblName, lblConfig);
       pane.getChildren().add(vBox);
       return pane;
@@ -109,8 +107,8 @@ public class ChartsMidpoints {
       TableColumn<String, PresentableAspect> secondPoint = new TableColumn<>();
       TableColumn<String, PresentableAspect> midpointType = new TableColumn<>("Disk");
       TableColumn<String, PresentableAspect> thirdPoint = new TableColumn<>();
-      TableColumn<String, PresentableAspect> effectiveOrb = new TableColumn<>(rosetta.getText("ui.charts.midpoints.col.effectiveorb"));
-      TableColumn<String, PresentableAspect> percOrb = new TableColumn<>(rosetta.getText("ui.charts.midpoints.col.percorb"));
+      TableColumn<String, PresentableAspect> effectiveOrb = new TableColumn<>(Rosetta.getText("ui.charts.midpoints.col.effectiveorb"));
+      TableColumn<String, PresentableAspect> percOrb = new TableColumn<>(Rosetta.getText("ui.charts.midpoints.col.percorb"));
       firstPoint.setStyle(FONT_STYLE_GLYPH);
       secondPoint.setStyle(FONT_STYLE_GLYPH);
       midpointType.setStyle(FONT_STYLE_DATA);
@@ -147,8 +145,8 @@ public class ChartsMidpoints {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.chartsmidpoints.title"),
-            rosetta.getHelpText("help.chartsmidpoints.content"));
+      new Help(Rosetta.getHelpText("help.chartsmidpoints.title"),
+            Rosetta.getHelpText("help.chartsmidpoints.content"));
 
    }
 }

@@ -47,7 +47,6 @@ public class ChartsData {
    private static final double BUTTONBAR_HEIGHT = 200.0;
    private static final double DATA_HEIGHT = 850.0;
    private final Stage stage;
-   private final Rosetta rosetta;
    private final CalculatedChart calculatedChart;
    private final String glyphFont;
    private final String dataFont;
@@ -67,7 +66,6 @@ public class ChartsData {
       this.fullChartInputData = fullChart.getChartData();
       this.calculatedChart = fullChart.getCalculatedChart();
       stage = new Stage();
-      rosetta = Rosetta.getRosetta();
       glyphFont = " -fx-font-family: \"EnigmaAstrology\";  -fx-font-size: 14;";
       dataFont = "-fx-font-family: \"Courier\";";
       stage.setScene(new Scene(createGridPane()));
@@ -80,7 +78,7 @@ public class ChartsData {
       gridPane.setHgap(GAP);
       gridPane.setVgap(GAP);
       gridPane.setPadding(new Insets(GAP, GAP, GAP, GAP));
-      String title = rosetta.getText("ui.charts.data.pagetitleprefix") + " "
+      String title = Rosetta.getText("ui.charts.data.pagetitleprefix") + " "
             + fullChartInputData.getChartMetaData().getName();
       gridPane.add(new LabelBuilder("").setText(title).setPrefWidth(WIDTH).build(), 0, 0, 3, 1);
       TableView tvCelObjects = createTVCelObjectData();
@@ -99,19 +97,19 @@ public class ChartsData {
       tableView.setPrefHeight(TV_CELOBJECTS_HEIGHT);
       tableView.setPrefWidth(WIDTH);
       TableColumn<String, PresentableEclipticPosition> tvEclColBodyGlyph = new TableColumn<>();
-      TableColumn<String, PresentableEclipticPosition> tvEclColLongitude = new TableColumn<>(rosetta.getText("ui.charts.data.tvecliptic.longitude"));
+      TableColumn<String, PresentableEclipticPosition> tvEclColLongitude = new TableColumn<>(Rosetta.getText("ui.charts.data.tvecliptic.longitude"));
       TableColumn<String, PresentableEclipticPosition> tvEclColSignGlyph = new TableColumn<>();
-      TableColumn<String, PresentableEclipticPosition> tvEclColLongSpeed = new TableColumn<>(rosetta.getText("ui.charts.data.tvecliptic.longspeed"));
-      TableColumn<String, PresentableEclipticPosition> tvEclColLatitude = new TableColumn<>(rosetta.getText("ui.charts.data.tvecliptic.latitude"));
-      TableColumn<String, PresentableEclipticPosition> tvEclColLatSpeed = new TableColumn<>(rosetta.getText("ui.charts.data.tvecliptic.latspeed"));
-      TableColumn<String, PresentableEquatorialPosition> tvEquColRa = new TableColumn<>(rosetta.getText("ui.charts.data.tvequator.ra"));
-      TableColumn<String, PresentableEquatorialPosition> tvEquColRaSpeed = new TableColumn<>(rosetta.getText("ui.charts.data.tvequator.raspeed"));
-      TableColumn<String, PresentableEquatorialPosition> tvEquColDecl = new TableColumn<>(rosetta.getText("ui.charts.data.tvequator.decl"));
-      TableColumn<String, PresentableEquatorialPosition> tvEquColDeclSpeed = new TableColumn<>(rosetta.getText("ui.charts.data.tvequator.declspeed"));
-      TableColumn<String, PresentableHorizontalPosition> tvHorColAzimuth = new TableColumn<>(rosetta.getText("ui.charts.data.tvhorizontal.azimuth"));
-      TableColumn<String, PresentableHorizontalPosition> tvHorColAltitude = new TableColumn<>(rosetta.getText("ui.charts.data.tvhorizontal.altitude"));
-      TableColumn<String, PresentableDistancePosition> tvDistColDistance = new TableColumn<>(rosetta.getText("ui.charts.data.tvdistance.radv"));
-      TableColumn<String, PresentableDistancePosition> tvDistColDistSpeed = new TableColumn<>(rosetta.getText("ui.charts.data.tvdistance.radvspeed"));
+      TableColumn<String, PresentableEclipticPosition> tvEclColLongSpeed = new TableColumn<>(Rosetta.getText("ui.charts.data.tvecliptic.longspeed"));
+      TableColumn<String, PresentableEclipticPosition> tvEclColLatitude = new TableColumn<>(Rosetta.getText("ui.charts.data.tvecliptic.latitude"));
+      TableColumn<String, PresentableEclipticPosition> tvEclColLatSpeed = new TableColumn<>(Rosetta.getText("ui.charts.data.tvecliptic.latspeed"));
+      TableColumn<String, PresentableEquatorialPosition> tvEquColRa = new TableColumn<>(Rosetta.getText("ui.charts.data.tvequator.ra"));
+      TableColumn<String, PresentableEquatorialPosition> tvEquColRaSpeed = new TableColumn<>(Rosetta.getText("ui.charts.data.tvequator.raspeed"));
+      TableColumn<String, PresentableEquatorialPosition> tvEquColDecl = new TableColumn<>(Rosetta.getText("ui.charts.data.tvequator.decl"));
+      TableColumn<String, PresentableEquatorialPosition> tvEquColDeclSpeed = new TableColumn<>(Rosetta.getText("ui.charts.data.tvequator.declspeed"));
+      TableColumn<String, PresentableHorizontalPosition> tvHorColAzimuth = new TableColumn<>(Rosetta.getText("ui.charts.data.tvhorizontal.azimuth"));
+      TableColumn<String, PresentableHorizontalPosition> tvHorColAltitude = new TableColumn<>(Rosetta.getText("ui.charts.data.tvhorizontal.altitude"));
+      TableColumn<String, PresentableDistancePosition> tvDistColDistance = new TableColumn<>(Rosetta.getText("ui.charts.data.tvdistance.radv"));
+      TableColumn<String, PresentableDistancePosition> tvDistColDistSpeed = new TableColumn<>(Rosetta.getText("ui.charts.data.tvdistance.radvspeed"));
 
       tvEclColBodyGlyph.setStyle(glyphFont);
       tvEclColSignGlyph.setStyle(glyphFont);
@@ -164,12 +162,12 @@ public class ChartsData {
       tvMundaneData.setPrefWidth(HALF_WIDTH);
 
       tvMundColName = new TableColumn<>();
-      tvMundColLongitude = new TableColumn<>(rosetta.getText("ui.charts.data.tvmundane.longitude"));
+      tvMundColLongitude = new TableColumn<>(Rosetta.getText("ui.charts.data.tvmundane.longitude"));
       tvMundColSignGlyph = new TableColumn<>();
-      tvMundColRa = new TableColumn<>(rosetta.getText("ui.charts.data.tvmundane.ra"));
-      tvMundColDecl = new TableColumn<>(rosetta.getText("ui.charts.data.tvmundane.decl"));
-      tvMundColAzimuth = new TableColumn<>(rosetta.getText("ui.charts.data.tvmundane.azimuth"));
-      tvMundColAltitude = new TableColumn<>(rosetta.getText("ui.charts.data.tvmundane.altitude"));
+      tvMundColRa = new TableColumn<>(Rosetta.getText("ui.charts.data.tvmundane.ra"));
+      tvMundColDecl = new TableColumn<>(Rosetta.getText("ui.charts.data.tvmundane.decl"));
+      tvMundColAzimuth = new TableColumn<>(Rosetta.getText("ui.charts.data.tvmundane.azimuth"));
+      tvMundColAltitude = new TableColumn<>(Rosetta.getText("ui.charts.data.tvmundane.altitude"));
 
       tvMundColSignGlyph.setStyle(glyphFont);
 
@@ -181,15 +179,15 @@ public class ChartsData {
       tvMundaneData.getColumns().add(tvMundColAzimuth);
       tvMundaneData.getColumns().add(tvMundColAltitude);
 
-      handlePresMundPos(rosetta.getText("ui.shared.mc"), calculatedChart.getMundPoints().getMc());
-      handlePresMundPos(rosetta.getText("ui.shared.asc"), calculatedChart.getMundPoints().getAsc());
+      handlePresMundPos(Rosetta.getText("ui.shared.mc"), calculatedChart.getMundPoints().getMc());
+      handlePresMundPos(Rosetta.getText("ui.shared.asc"), calculatedChart.getMundPoints().getAsc());
       final List<IPosition> cusps = calculatedChart.getMundPoints().getCusps();
       int count = cusps.size() - 1;  // index for houses runs from 1..12
       for (int i = 1; i <= count; i++) {
          handlePresMundPos(Integer.toString(i), cusps.get(i));
       }
-      handlePresMundPos(rosetta.getText("ui.shared.vertex"), calculatedChart.getMundPoints().getVertex());
-      handlePresMundPos(rosetta.getText("ui.shared.eastpoint"), calculatedChart.getMundPoints().getEastPoint());
+      handlePresMundPos(Rosetta.getText("ui.shared.vertex"), calculatedChart.getMundPoints().getVertex());
+      handlePresMundPos(Rosetta.getText("ui.shared.eastpoint"), calculatedChart.getMundPoints().getEastPoint());
 
    }
 
@@ -247,7 +245,7 @@ public class ChartsData {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.chartsdata.title"), rosetta.getHelpText("help.chartsdata.content"));
+      new Help(Rosetta.getHelpText("help.chartsdata.title"), Rosetta.getHelpText("help.chartsdata.content"));
    }
 
 }

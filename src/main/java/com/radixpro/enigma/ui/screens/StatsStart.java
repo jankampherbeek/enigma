@@ -30,7 +30,6 @@ public class StatsStart {
 
    private static final double PROJ_HEIGHT = 200.0;
    private static final String KEY_PROJDIR = "projdir";
-   private final Rosetta rosetta;
    private final PersistedPropertyApi propApi;
    private final DirectoryChooser dirChooser;
    private final StatsDataBlock dataBlock;
@@ -54,7 +53,6 @@ public class StatsStart {
                      @NotNull final StatsProjSearch projSearch,
                      @NotNull final PersistedPropertyApi propApi,
                      @NotNull final DirectoryChooser dirChooser) {
-      this.rosetta = Rosetta.getRosetta();
       this.dataBlock = dataBlock;
       this.projBlock = projBlock;
       this.projSearch = projSearch;
@@ -119,25 +117,25 @@ public class StatsStart {
    }
 
    private MenuBar createMenuBar() {
-      Menu menuGeneral = new Menu(rosetta.getText("menu.general"));
-      MenuItem miExit = new MenuItem(rosetta.getText("menu.general.exit"));
+      Menu menuGeneral = new Menu(Rosetta.getText("menu.general"));
+      MenuItem miExit = new MenuItem(Rosetta.getText("menu.general.exit"));
       miExit.setOnAction(e -> stage.close());
       menuGeneral.getItems().add(miExit);
-      Menu menuData = new Menu(rosetta.getText("menu.stats.data"));
-      MenuItem miNewData = new MenuItem(rosetta.getText("menu.stats.data.new"));
+      Menu menuData = new Menu(Rosetta.getText("menu.stats.data"));
+      MenuItem miNewData = new MenuItem(Rosetta.getText("menu.stats.data.new"));
       miNewData.setOnAction(click -> dataBlock.onNew());
-      MenuItem miSearchData = new MenuItem(rosetta.getText("menu.stats.data.search"));
+      MenuItem miSearchData = new MenuItem(Rosetta.getText("menu.stats.data.search"));
       miSearchData.setOnAction((click -> dataBlock.onSearch()));
-      MenuItem miDetailsData = new MenuItem(rosetta.getText("menu.stats.data.details"));
+      MenuItem miDetailsData = new MenuItem(Rosetta.getText("menu.stats.data.details"));
       menuData.getItems().addAll(miNewData, miSearchData, miDetailsData);
-      Menu menuProjects = new Menu(rosetta.getText("menu.stats.projects"));
-      MenuItem miNewProject = new MenuItem(rosetta.getText("menu.stats.projects.new"));
-      MenuItem miSearchProject = new MenuItem(rosetta.getText("menu.stats.projects.search"));
-      MenuItem miEditProject = new MenuItem(rosetta.getText("menu.stats.projects.edit"));
-      MenuItem miOpenProject = new MenuItem(rosetta.getText("menu.stats.projects.open"));
+      Menu menuProjects = new Menu(Rosetta.getText("menu.stats.projects"));
+      MenuItem miNewProject = new MenuItem(Rosetta.getText("menu.stats.projects.new"));
+      MenuItem miSearchProject = new MenuItem(Rosetta.getText("menu.stats.projects.search"));
+      MenuItem miEditProject = new MenuItem(Rosetta.getText("menu.stats.projects.edit"));
+      MenuItem miOpenProject = new MenuItem(Rosetta.getText("menu.stats.projects.open"));
       menuProjects.getItems().addAll(miNewProject, miSearchProject, miEditProject, miOpenProject);
-      Menu menuHelp = new Menu(rosetta.getText("menu.general.help"));
-      MenuItem miShowHelp = new MenuItem(rosetta.getText("menu.general.help.showhelp"));
+      Menu menuHelp = new Menu(Rosetta.getText("menu.general.help"));
+      MenuItem miShowHelp = new MenuItem(Rosetta.getText("menu.general.help.showhelp"));
       menuHelp.getItems().add(miShowHelp);
       MenuBar menuBar = new MenuBar();
       menuBar.getMenus().addAll(menuGeneral, menuData, menuProjects, menuHelp);

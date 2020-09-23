@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens;
 
-import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.stats.DataFileDescription;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.xchg.api.PersistedDataFileApi;
@@ -29,7 +28,6 @@ public class StatsDataSearch {
 
    private static final double HEIGHT = 800.0;
    private final PersistedDataFileApi api;
-   private final Rosetta rosetta;
    private Label lblTitle;
    private Label lblInstruction;
    private Pane paneTitle;
@@ -47,7 +45,6 @@ public class StatsDataSearch {
 
    public StatsDataSearch(@NotNull final PersistedDataFileApi api) {
       this.api = api;
-      this.rosetta = Rosetta.getRosetta();
    }
 
    public void show() {

@@ -61,10 +61,9 @@ enum class HouseSystems(val id: Int,
         @JvmStatic
         val observableList: ObservableList<String>
             get() {
-                val rosetta = Rosetta.getRosetta()
                 val houseSystemNames: MutableList<String> = ArrayList()
                 for (houseSystem in values()) {
-                    houseSystemNames.add(rosetta.getText(houseSystem.nameForRB))
+                    houseSystemNames.add(Rosetta.getText(houseSystem.nameForRB))
                 }
                 return FXCollections.observableArrayList(houseSystemNames)
             }

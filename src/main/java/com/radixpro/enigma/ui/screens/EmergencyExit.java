@@ -29,14 +29,12 @@ public class EmergencyExit {
    private static final double WIDTH = 600.0;
    private static final double HEIGHT = 400.0;
    private static final double GAP = 6.0;
-   private final Rosetta rosetta;
    private final Label lblExplanation;
    private final String explanationTxt;
 
    public EmergencyExit(final String causeOfError) {
       this.explanationTxt = causeOfError;
       lblExplanation = new Label();
-      rosetta = Rosetta.getRosetta();
       Stage stage = new Stage();
       stage.setWidth(WIDTH);
       stage.setHeight(HEIGHT);
@@ -68,14 +66,14 @@ public class EmergencyExit {
       Pane pane = new Pane();
       pane.setPrefHeight(160.0);
       lblExplanation.setWrapText(true);
-      lblExplanation.setText(rosetta.getText("emergencyexit.intro") + explanationTxt);
+      lblExplanation.setText(Rosetta.getText("emergencyexit.intro") + explanationTxt);
       pane.getChildren().add(lblExplanation);
       return pane;
    }
 
    private ButtonBar createBtnBar() {
       ButtonBar btnBar = new ButtonBar();
-      Button btnExit = new Button(rosetta.getText("emergencyexit.close"));
+      Button btnExit = new Button(Rosetta.getText("emergencyexit.close"));
       btnExit.setOnAction(click -> onExit());
       btnBar.getButtons().add(btnExit);
       return btnBar;
@@ -86,7 +84,7 @@ public class EmergencyExit {
    }
 
    public void initialize() {
-      lblExplanation.setText(rosetta.getText("emergencyexit.intro") + explanationTxt);
+      lblExplanation.setText(Rosetta.getText("emergencyexit.intro") + explanationTxt);
    }
 
 }

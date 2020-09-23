@@ -34,7 +34,6 @@ import org.jetbrains.annotations.NotNull;
 public class ChartsDrawing2d {
 
    private static final double GAP = 6.0;
-   private final Rosetta rosetta;
    private final Stage stage;
    private final SessionState state;
    private ChartDrawMetrics metrics;
@@ -49,7 +48,6 @@ public class ChartsDrawing2d {
    public ChartsDrawing2d(@NotNull final RadixWheel radixWheel) {
       this.state = SessionState.INSTANCE;
       this.radixWheel = radixWheel;
-      this.rosetta = Rosetta.getRosetta();
       stage = new Stage();
    }
 
@@ -68,7 +66,7 @@ public class ChartsDrawing2d {
 
       Pane chartPane = new Pane(canvas);
       Label lblName = new Label();
-      lblName.setText(rosetta.getText("ui.charts.draw.nameprefix") + " " + name);
+      lblName.setText(Rosetta.getText("ui.charts.draw.nameprefix") + " " + name);
 
       GridPane gridPane = new GridPane();
       gridPane.setPadding(new Insets(GAP, GAP, GAP, GAP));
@@ -97,7 +95,7 @@ public class ChartsDrawing2d {
       stage.setMinHeight(400.0);
       stage.setMinWidth(320.0);
       stage.setScene(new Scene(gridPane, 700, 1000));  // pane, hor pos, vert pos
-      stage.setTitle(rosetta.getText("ui.charts.draw.title"));
+      stage.setTitle(Rosetta.getText("ui.charts.draw.title"));
       stage.show();
 
       canvas.widthProperty().bind(chartPane.widthProperty());
@@ -109,9 +107,9 @@ public class ChartsDrawing2d {
 
    private ButtonBar createBtnBar() {
       ButtonBar btnBar = new ButtonBar();
-      Button btnClose = new Button(rosetta.getText("ui.shared.btn.exit"));
+      Button btnClose = new Button(Rosetta.getText("ui.shared.btn.exit"));
       btnClose.setDefaultButton(true);
-      Button btnHelp = new Button(rosetta.getText("ui.shared.btn.help"));
+      Button btnHelp = new Button(Rosetta.getText("ui.shared.btn.help"));
       btnHelp.setOnAction(click -> onHelp());
       btnClose.setOnAction(click -> stage.close());
       btnBar.getButtons().add(btnHelp);
@@ -142,7 +140,7 @@ public class ChartsDrawing2d {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.chartsdrawing.title"), rosetta.getHelpText("help.chartsdrawing.content"));
+      new Help(Rosetta.getHelpText("help.chartsdrawing.title"), Rosetta.getHelpText("help.chartsdrawing.content"));
    }
 
 

@@ -36,10 +36,9 @@ enum class ObserverPositions(val id: Int, val nameForRB: String) : Serializable 
         @JvmStatic
         val observableList: ObservableList<String>
             get() {
-                val rosetta = Rosetta.getRosetta()
                 val observerPosNames: MutableList<String> = ArrayList()
                 for (observerPosition in values()) {
-                    observerPosNames.add(rosetta.getText(observerPosition.nameForRB))
+                    observerPosNames.add(Rosetta.getText(observerPosition.nameForRB))
                 }
                 return FXCollections.observableArrayList(observerPosNames)
             }

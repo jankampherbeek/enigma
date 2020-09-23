@@ -35,7 +35,6 @@ public class ChartsSearch {
    private static final double LV_HEIGHT = 180.0;
    private static final double TITLE_HEIGHT = 45.0;
    private static final double INPUT_HEIGHT = 25.0;
-   private final Rosetta rosetta;
    private final PersistedChartDataApi persistedChartDataApi;
    private Stage stage;
    private Button btnCancel;
@@ -55,7 +54,6 @@ public class ChartsSearch {
    private List<FullChartInputData> chartsFound;
 
    public ChartsSearch(PersistedChartDataApi persistedChartDataApi) {
-      this.rosetta = Rosetta.getRosetta();
       this.persistedChartDataApi = persistedChartDataApi;
    }
 
@@ -138,7 +136,7 @@ public class ChartsSearch {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.chartssearch.title"), rosetta.getHelpText("help.chartssearch.content"));
+      new Help(Rosetta.getHelpText("help.chartssearch.title"), Rosetta.getHelpText("help.chartssearch.content"));
    }
 
    void onSelectOk() {

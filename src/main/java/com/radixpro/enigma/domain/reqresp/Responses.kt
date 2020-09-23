@@ -28,7 +28,7 @@ data class InputDataFileResponse(val resultMsg: String,
 data class SimpleProgResponse(val positions: List<IPosition>,
                               val request: IProgCalcRequest)
 
-data class SolarReturnResponse(val solarReturnChart: CalculatedChart,
+data class SolarReturnResponse(val solarReturnChart: CalculatedChart?,
                                val resultMsg: String)
 
 /**

@@ -20,7 +20,6 @@ import static com.google.common.base.Preconditions.checkArgument;
  */
 public class LabelBuilder {
 
-   private final Rosetta rosetta;
    private final String rbKey;
    private String text = "";
    private double prefWidth;
@@ -32,7 +31,6 @@ public class LabelBuilder {
 
    public LabelBuilder(@NotNull final String rbKey) {
       this.rbKey = rbKey;
-      this.rosetta = Rosetta.getRosetta();
    }
 
    /**
@@ -81,7 +79,7 @@ public class LabelBuilder {
    public Label build() {
       String lblText;
       if (!text.isEmpty()) lblText = text;
-      else lblText = (rbKey.isEmpty() ? "" : rosetta.getText(rbKey));
+      else lblText = (rbKey.isEmpty() ? "" : Rosetta.getText(rbKey));
       Label label = new Label(lblText);
       if (prefWidth > 0.0) label.setPrefWidth(prefWidth);
       if (prefHeight > 0.0) label.setPrefHeight(prefHeight);

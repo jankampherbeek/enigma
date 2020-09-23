@@ -74,10 +74,9 @@ enum class Ayanamshas(val id: Int, val seId: Int, val nameForRB: String) {
         @JvmStatic
         val observableList: ObservableList<String>
             get() {
-                val rosetta = Rosetta.getRosetta()
                 val ayanamshaNames: MutableList<String> = ArrayList()
                 for (ayanamsha in values()) {
-                    ayanamshaNames.add(rosetta.getText(ayanamsha.nameForRB))
+                    ayanamshaNames.add(Rosetta.getText(ayanamsha.nameForRB))
                 }
                 return FXCollections.observableArrayList(ayanamshaNames)
             }

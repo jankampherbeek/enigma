@@ -24,12 +24,6 @@ public class AspectsInConfig {
 
    private static final Logger LOG = Logger.getLogger(AspectsInConfig.class);
 
-   private final Rosetta rosetta;
-
-
-   public AspectsInConfig() {
-      this.rosetta = Rosetta.getRosetta();
-   }
 
    /**
     * Create presentable properties for aspects.
@@ -47,7 +41,7 @@ public class AspectsInConfig {
       StringBuilder declinationAspectsAsText = new StringBuilder();
       for (ConfiguredAspect aspect : aspects) {
          category = aspect.getAspect().getAspectCategory();
-         nameText = rosetta.getText(aspect.getAspect().getFullRbId()) + " ";
+         nameText = Rosetta.getText(aspect.getAspect().getFullRbId()) + " ";
          switch (category.getId()) {
             case 0 -> majorAspectsAsText.append(nameText);
             case 1 -> minorAspectsAsText.append(nameText);
@@ -58,13 +52,13 @@ public class AspectsInConfig {
          }
       }
       if (majorAspectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText("aspectcat.major"), majorAspectsAsText.toString()));
+            Rosetta.getText("aspectcat.major"), majorAspectsAsText.toString()));
       if (minorAspectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText("aspectcat.minor"), minorAspectsAsText.toString()));
+            Rosetta.getText("aspectcat.minor"), minorAspectsAsText.toString()));
       if (microAspectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText("aspectcat.micro"), microAspectsAsText.toString()));
+            Rosetta.getText("aspectcat.micro"), microAspectsAsText.toString()));
       if (declinationAspectsAsText.length() > 0) presentableProperties.add(new PresentableProperty(
-            rosetta.getText("aspectcat.declination"), declinationAspectsAsText.toString()));
+            Rosetta.getText("aspectcat.declination"), declinationAspectsAsText.toString()));
       return presentableProperties;
    }
 

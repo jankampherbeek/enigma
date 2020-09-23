@@ -35,10 +35,9 @@ enum class EclipticProjections(val id: Int, val nameForRB: String) {
         @JvmStatic
         val observableList: ObservableList<String>
             get() {
-                val rosetta = Rosetta.getRosetta()
                 val eclipticalProjNames: MutableList<String> = ArrayList()
                 for (eclipticProjection in values()) {
-                    eclipticalProjNames.add(rosetta.getText(eclipticProjection.nameForRB))
+                    eclipticalProjNames.add(Rosetta.getText(eclipticProjection.nameForRB))
                 }
                 return FXCollections.observableArrayList(eclipticalProjNames)
             }

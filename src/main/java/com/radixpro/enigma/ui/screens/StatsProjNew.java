@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.stats.DataFileDescription;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.screens.blocks.BaseConfigInputBlock;
@@ -127,9 +128,9 @@ public class StatsProjNew extends InputScreen {
 
    private void createTableView() {
       tvDataFiles = new TableViewBuilder().setPrefWidth(INPUT_WIDTH).setPrefHeight(HEIGHT).build();
-      tvDataFiles.setPlaceholder(new Label(rosetta.getText("ui.stats.placeholder.datafiles")));
-      colName = new TableColumn<>(rosetta.getText("ui.general.name"));
-      colDescr = new TableColumn<>(rosetta.getText("ui.general.description"));
+      tvDataFiles.setPlaceholder(new Label(Rosetta.getText("ui.stats.placeholder.datafiles")));
+      colName = new TableColumn<>(Rosetta.getText("ui.general.name"));
+      colDescr = new TableColumn<>(Rosetta.getText("ui.general.description"));
       colName.setCellValueFactory(new PropertyValueFactory("name"));
       colDescr.setCellValueFactory(new PropertyValueFactory("description"));
       colName.setPrefWidth(300.0);

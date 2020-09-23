@@ -8,7 +8,6 @@
 package com.radixpro.enigma.testsupport;
 
 import com.radixpro.enigma.AppScope;
-import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.be.persistency.AppDb;
 
 public class AppScopeFactory {
@@ -29,6 +28,5 @@ public class AppScopeFactory {
    private static void createAppScope() {
       AppDb appDb = TestSupport.useDb();
       appScope = new AppScope();
-      appScope.setRosetta(Rosetta.defineRosetta());     // TODO laten vervallen
    }
 }

@@ -4,52 +4,26 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.xchg.api
 
-package com.radixpro.enigma.xchg.api;
+import com.radixpro.enigma.be.handlers.EphProgCalcHandler
+import com.radixpro.enigma.be.handlers.ProgAspectHandler
+import com.radixpro.enigma.be.handlers.SecundaryDateHandler
+import com.radixpro.enigma.domain.reqresp.*
 
-import com.radixpro.enigma.be.handlers.EphProgCalcHandler;
-import com.radixpro.enigma.be.handlers.ProgAspectHandler;
-import com.radixpro.enigma.be.handlers.SecundaryDateHandler;
-import com.radixpro.enigma.domain.input.DateTimeJulian;
-import com.radixpro.enigma.domain.reqresp.*;
-import org.jetbrains.annotations.NotNull;
+class SecundaryApi(private val calcHandler: EphProgCalcHandler,
+                   private val secundaryDateHandler: SecundaryDateHandler,
+                   private val aspectHandler: ProgAspectHandler) {
 
-public class SecundaryApi {
+    fun calculateSecundary(request: SecundaryCalcRequest): SimpleProgResponse {
+        val eventDateTime = request.dateTime
+        val birthDateTime = request.birthDateTime
+        val secDateTime = secundaryDateHandler.calcSecundaryDate(birthDateTime, eventDateTime)
+        val secRequest: IProgCalcRequest = SecundaryCalcRequest(secDateTime, birthDateTime, request.location, request.settings)
+        return calcHandler.retrievePositions(secRequest)
+    }
 
-   private final EphProgCalcHandler calcHandler;
-   private final SecundaryDateHandler secundaryDateHandler;
-   private final ProgAspectHandler aspectHandler;
-
-
-   public SecundaryApi(@NotNull final EphProgCalcHandler calcHandler, @NotNull final SecundaryDateHandler secDateHandler,
-                       @NotNull final ProgAspectHandler aspectHandler) {
-      this.secundaryDateHandler = secDateHandler;
-      this.aspectHandler = aspectHandler;
-      this.calcHandler = calcHandler;
-   }
-
-   /**
-    * Calculate positions for secondary progressions.
-    *
-    * @param request Request with relevant data.
-    * @return The calculated positions.
-    */
-   public SimpleProgResponse calculateSecundary(final SecundaryCalcRequest request) {
-      // FIXME check what these first four lines are doing
-      DateTimeJulian eventDateTime = request.getDateTime();
-      DateTimeJulian birthDateTime = request.getBirthDateTime();
-      DateTimeJulian secDateTime = secundaryDateHandler.calcSecundaryDate(birthDateTime, eventDateTime);
-      IProgCalcRequest secRequest = new SecundaryCalcRequest(secDateTime, birthDateTime, request.getLocation(), request.getSettings());
-      return calcHandler.retrievePositions(secRequest);
-   }
-
-   /**
-    * Define aspects for secondary progressions.
-    *
-    * @param request Reques twith relevant data.
-    * @return Calcualted aspects.
-    */
-   public EphProgAspectResponse defineAspects(final ProgAnalyzeRequest request) {
-      return aspectHandler.analyzeAspects(request);
-   }
+    fun defineAspects(request: ProgAnalyzeRequest?): EphProgAspectResponse {
+        return aspectHandler.analyzeAspects(request)
+    }
 }

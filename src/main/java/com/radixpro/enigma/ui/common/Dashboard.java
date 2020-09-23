@@ -35,13 +35,11 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 public class Dashboard {
 
    private static final double GAP = 6.0;
-   private final Rosetta rosetta;
    private final ChartsStart chartsStart;
    private final StatsStart statsStart;
    private Stage stage;
 
    public Dashboard(@NotNull final ChartsStart chartsStart, @NotNull final StatsStart statsStart) {
-      this.rosetta = Rosetta.getRosetta();
       this.chartsStart = chartsStart;
       this.statsStart = statsStart;
    }
@@ -52,7 +50,7 @@ public class Dashboard {
       ImageView imageView = createImage();
 
       Label lblInstruct = new LabelBuilder("ui.db.instruct").build();
-      Label lblDescription = new LabelBuilder("").setText(rosetta.getText("ui.db.describe") + ": " + EnigmaDictionary.VERSION).setLayoutX(20.0).
+      Label lblDescription = new LabelBuilder("").setText(Rosetta.getText("ui.db.describe") + ": " + EnigmaDictionary.VERSION).setLayoutX(20.0).
             setLayoutY(28.0).setStyleClass("descriptiontext").build();
       Label lblTitle = new LabelBuilder("ui.db.title").setLayoutX(247.0).setLayoutY(9.0).setStyleClass("titletext").build();
       Pane titlePane = new PaneBuilder().setHeight(57.0).setWidth(620.0).setStyleClass("titlepane").build();
@@ -81,7 +79,7 @@ public class Dashboard {
       stage.setMinHeight(250.0);
       stage.setMinWidth(620.0);
       stage.initModality(Modality.APPLICATION_MODAL);
-      stage.setTitle(rosetta.getText("ui.db.title"));
+      stage.setTitle(Rosetta.getText("ui.db.title"));
       stage.setScene(new Scene(borderPane));
       stage.show();
    }
@@ -128,12 +126,12 @@ public class Dashboard {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.shareddb.title"), rosetta.getHelpText("help.shareddb.content"));
+      new Help(Rosetta.getHelpText("help.shareddb.title"), Rosetta.getHelpText("help.shareddb.content"));
    }
 
    private void onLanguage() {
-      String language = rosetta.getLocale().getLanguage();
-      rosetta.setLanguage(language.equalsIgnoreCase("du") ? "en" : "du");
+      String language = Rosetta.getLocale().getLanguage();
+      Rosetta.setLanguage(language.equalsIgnoreCase("du") ? "en" : "du");
       stage.close();
       showDashboard();
    }

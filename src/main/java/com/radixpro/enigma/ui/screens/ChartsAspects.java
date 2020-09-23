@@ -37,7 +37,6 @@ public class ChartsAspects {
    private static final double HEIGHT = 440.0;
    private static final double DATA_HEIGHT = 300.0;
    private final SessionState state;
-   private final Rosetta rosetta;
    private final AspectsApi aspectsApi;
    private final ChartDataHelper helper;
    private Stage stage;
@@ -45,7 +44,6 @@ public class ChartsAspects {
    private MetaDataForAnalysis meta;
 
    public ChartsAspects(final AspectsApi aspectsApi, final ChartDataHelper helper) {
-      this.rosetta = Rosetta.getRosetta();
       this.aspectsApi = aspectsApi;
       this.helper = helper;
       this.state = SessionState.INSTANCE;
@@ -86,8 +84,8 @@ public class ChartsAspects {
       pane.setPrefHeight(TITLE_HEIGHT);
       VBox vBox = new VBox();
       vBox.setPrefWidth(WIDTH);
-      Label lblName = new Label(rosetta.getText("ui.charts.aspects.lbl.nameprefix") + " " + meta.getName());
-      Label lblConfig = new Label(rosetta.getText("ui.charts.aspects.lbl.configprefix") + " " + meta.getConfigName());
+      Label lblName = new Label(Rosetta.getText("ui.charts.aspects.lbl.nameprefix") + " " + meta.getName());
+      Label lblConfig = new Label(Rosetta.getText("ui.charts.aspects.lbl.configprefix") + " " + meta.getConfigName());
       vBox.getChildren().addAll(lblName, lblConfig);
       pane.getChildren().add(vBox);
       return pane;
@@ -100,8 +98,8 @@ public class ChartsAspects {
       TableColumn<String, PresentableAspect> firstPoint = new TableColumn<>();
       TableColumn<String, PresentableAspect> aspect = new TableColumn<>();
       TableColumn<String, PresentableAspect> secondPoint = new TableColumn<>();
-      TableColumn<String, PresentableAspect> effectiveOrb = new TableColumn<>(rosetta.getText("ui.charts.aspects.col.effectiveorb"));
-      TableColumn<String, PresentableAspect> percOrb = new TableColumn<>(rosetta.getText("ui.charts.aspects.col.percorb"));
+      TableColumn<String, PresentableAspect> effectiveOrb = new TableColumn<>(Rosetta.getText("ui.charts.aspects.col.effectiveorb"));
+      TableColumn<String, PresentableAspect> percOrb = new TableColumn<>(Rosetta.getText("ui.charts.aspects.col.percorb"));
       firstPoint.setStyle(FONT_STYLE_GLYPH);
       secondPoint.setStyle(FONT_STYLE_GLYPH);
       aspect.setStyle(FONT_STYLE_GLYPH);
@@ -132,7 +130,7 @@ public class ChartsAspects {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.chartsaspects.title"), rosetta.getHelpText("help.chartsaspects.content"));
+      new Help(Rosetta.getHelpText("help.chartsaspects.title"), Rosetta.getHelpText("help.chartsaspects.content"));
    }
 
 }

@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens;
 
-import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import javafx.scene.control.ButtonBar;
@@ -22,14 +21,12 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.INPUT_WIDTH;
 public abstract class InputScreen {
 
    protected final Stage stage;
-   protected final Rosetta rosetta;
    protected final SessionState state;
 
    public InputScreen() {
       state = SessionState.INSTANCE;
       stage = new Stage();
       stage.setWidth(INPUT_WIDTH);
-      rosetta = Rosetta.getRosetta();
    }
 
    public abstract void checkStatus();

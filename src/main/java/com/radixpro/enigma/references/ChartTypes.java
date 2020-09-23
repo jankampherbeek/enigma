@@ -42,9 +42,8 @@ public enum ChartTypes {
    }
 
    public ChartTypes chartTypeForLocalName(@NotNull final String localName) {
-      final Rosetta rosetta = Rosetta.getRosetta();
       for (ChartTypes chartType : ChartTypes.values()) {
-         if (rosetta.getText(chartType.nameForRB).equals(localName)) {
+         if (Rosetta.getText(chartType.nameForRB).equals(localName)) {
             return chartType;
          }
       }
@@ -52,10 +51,9 @@ public enum ChartTypes {
    }
 
    public ObservableList<String> getObservableList() {
-      final Rosetta rosetta = Rosetta.getRosetta();
       final List<String> localnames = new ArrayList<>();
       for (ChartTypes chartType : ChartTypes.values()) {
-         localnames.add(rosetta.getText(chartType.nameForRB));
+         localnames.add(Rosetta.getText(chartType.nameForRB));
       }
       return FXCollections.observableArrayList(localnames);
    }

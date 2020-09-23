@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
@@ -97,8 +98,8 @@ public class LocationInputBlock extends InputBlock {
 
    private void initLatitude() {
       List<String> latList = new ArrayList<>();
-      latList.add(rosetta.getText("ui.shared.direction.north.char"));
-      latList.add(rosetta.getText("ui.shared.direction.south.char"));
+      latList.add(Rosetta.getText("ui.shared.direction.north.char"));
+      latList.add(Rosetta.getText("ui.shared.direction.south.char"));
       ObservableList<String> observableList = FXCollections.observableArrayList(latList);
       cbNorthSouth.setItems(observableList);
       cbNorthSouth.getSelectionModel().select(0);
@@ -106,8 +107,8 @@ public class LocationInputBlock extends InputBlock {
 
    private void initLongitude() {
       List<String> longList = new ArrayList<>();
-      longList.add(rosetta.getText("ui.shared.direction.east.char"));
-      longList.add(rosetta.getText("ui.shared.direction.west.char"));
+      longList.add(Rosetta.getText("ui.shared.direction.east.char"));
+      longList.add(Rosetta.getText("ui.shared.direction.west.char"));
       ObservableList<String> observableList = FXCollections.observableArrayList(longList);
       cbEastWest.setItems(observableList);
       cbEastWest.getSelectionModel().select(0);

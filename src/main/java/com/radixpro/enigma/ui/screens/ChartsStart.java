@@ -65,7 +65,6 @@ public class ChartsStart {
    private static final double BTN_PANE_HEIGHT = 30.0;
    private static final double SEPARATOR_HEIGHT = 20.0;
    private final ChartsAspects chartsAspects;
-   private final Rosetta rosetta;
    private final ChartsTetenburg chartsTetenburg;
    private final ChartsDrawing2d chartsDrawing2d;
    private final ChartsMidpoints chartsMidpoints;
@@ -110,7 +109,6 @@ public class ChartsStart {
                       @NotNull final ConfigOverview configOverview, @NotNull final PropertiesForConfig propertiesForConfig,
                       @NotNull final CelObjectsInConfig celObjectsInConfig, @NotNull final AspectsInConfig aspectsInConfig,
                       @NotNull final PropertiesTableForConfig propertiesTableForConfig, @NotNull final ChartsDrawing2d chartsDrawing2d) {
-      this.rosetta = Rosetta.getRosetta();
       this.state = SessionState.INSTANCE;
       this.calculatedChartApi = calculatedChartApi;
       this.chartsTetenburg = chartsTetenburg;
@@ -143,7 +141,7 @@ public class ChartsStart {
       stage.setMinHeight(HEIGHT);
       stage.setMinWidth(START_WIDTH);
       stage.initModality(Modality.APPLICATION_MODAL);
-      stage.setTitle(rosetta.getText("ui.charts.start.pagetitle"));
+      stage.setTitle(Rosetta.getText("ui.charts.start.pagetitle"));
       showIt();
    }
 
@@ -164,40 +162,40 @@ public class ChartsStart {
    }
 
    private MenuBar createMenuBar() {
-      Menu menuGeneral = new Menu(rosetta.getText("menu.general"));
-      MenuItem miExit = new MenuItem(rosetta.getText("menu.general.exit"));
+      Menu menuGeneral = new Menu(Rosetta.getText("menu.general"));
+      MenuItem miExit = new MenuItem(Rosetta.getText("menu.general.exit"));
       miExit.setOnAction(e -> stage.close());
       menuGeneral.getItems().add(miExit);
-      Menu menuCharts = new Menu(rosetta.getText("menu.charts"));
-      MenuItem miNewChart = new MenuItem(rosetta.getText("menu.charts.new"));
+      Menu menuCharts = new Menu(Rosetta.getText("menu.charts"));
+      MenuItem miNewChart = new MenuItem(Rosetta.getText("menu.charts.new"));
       miNewChart.setOnAction(e -> onNewChart());
-      MenuItem miSearchChart = new MenuItem(rosetta.getText("menu.charts.search"));
+      MenuItem miSearchChart = new MenuItem(Rosetta.getText("menu.charts.search"));
       miSearchChart.setOnAction(e -> onSearchChart());
-      miShowChart = new MenuItem(rosetta.getText("menu.charts.show"));
+      miShowChart = new MenuItem(Rosetta.getText("menu.charts.show"));
       miShowChart.setDisable(true);
       miShowChart.setOnAction(e -> onShowSelectedChart());
-      miDeleteChart = new MenuItem(rosetta.getText("menu.charts.delete"));
+      miDeleteChart = new MenuItem(Rosetta.getText("menu.charts.delete"));
       miDeleteChart.setDisable(true);
       miDeleteChart.setOnAction(e -> onDeleteChart());
       menuCharts.getItems().addAll(miNewChart, miSearchChart, miShowChart, miDeleteChart);
-      Menu menuConfigs = new Menu(rosetta.getText("menu.charts.configs"));
-      MenuItem miConfigScreen = new MenuItem(rosetta.getText("menu.charts.configs.overview"));
+      Menu menuConfigs = new Menu(Rosetta.getText("menu.charts.configs"));
+      MenuItem miConfigScreen = new MenuItem(Rosetta.getText("menu.charts.configs.overview"));
       miConfigScreen.setOnAction(e -> onConfig());
       menuConfigs.getItems().add(miConfigScreen);
-      Menu menuAnalysis = new Menu(rosetta.getText("menu.charts.analysis"));
-      miAspects = new MenuItem(rosetta.getText("menu.charts.analysis.aspects"));
+      Menu menuAnalysis = new Menu(Rosetta.getText("menu.charts.analysis"));
+      miAspects = new MenuItem(Rosetta.getText("menu.charts.analysis.aspects"));
       miAspects.setDisable(true);
       miAspects.setOnAction(e -> onAspects());
-      miMidpoints = new MenuItem(rosetta.getText("menu.charts.analysis.midpoints"));
+      miMidpoints = new MenuItem(Rosetta.getText("menu.charts.analysis.midpoints"));
       miMidpoints.setDisable(true);
       miMidpoints.setOnAction(e -> onMidpoints());
       menuAnalysis.getItems().addAll(miAspects, miMidpoints);
-      Menu menuProg = new Menu(rosetta.getText("menu.charts.progressive"));
-      miTransits = new MenuItem(rosetta.getText("menu.charts.progressive.transits"));
-      miPrimary = new MenuItem(rosetta.getText("menu.charts.progressive.primary"));
-      miSecondary = new MenuItem(rosetta.getText("menu.charts.progressive.secondary"));
-      miSolar = new MenuItem(rosetta.getText("menu.charts.progressive.solar"));
-      miTetenburg = new MenuItem(rosetta.getText("menu.charts.progressive.tetenburg"));
+      Menu menuProg = new Menu(Rosetta.getText("menu.charts.progressive"));
+      miTransits = new MenuItem(Rosetta.getText("menu.charts.progressive.transits"));
+      miPrimary = new MenuItem(Rosetta.getText("menu.charts.progressive.primary"));
+      miSecondary = new MenuItem(Rosetta.getText("menu.charts.progressive.secondary"));
+      miSolar = new MenuItem(Rosetta.getText("menu.charts.progressive.solar"));
+      miTetenburg = new MenuItem(Rosetta.getText("menu.charts.progressive.tetenburg"));
       miTransits.setDisable(true);
       miTransits.setOnAction(e -> onTransits());
       miSecondary.setDisable(true);
@@ -206,8 +204,8 @@ public class ChartsStart {
       miTetenburg.setDisable(true);
       miTetenburg.setOnAction(e -> onTetenburg());
       menuProg.getItems().addAll(miTransits, miPrimary, miSecondary, miSolar, miTetenburg);
-      Menu menuHelp = new Menu(rosetta.getText("menu.general.help"));
-      MenuItem miShowHelp = new MenuItem(rosetta.getText("menu.general.help.showhelp"));
+      Menu menuHelp = new Menu(Rosetta.getText("menu.general.help"));
+      MenuItem miShowHelp = new MenuItem(Rosetta.getText("menu.general.help.showhelp"));
       miShowHelp.setOnAction(e -> onHelp());
       menuHelp.getItems().add(miShowHelp);
       MenuBar menuBar = new MenuBar();
@@ -234,11 +232,11 @@ public class ChartsStart {
    @SuppressWarnings({"unchecked", "rawtypes"})
    private TableView<PresentableChartData> createTableViewCharts() {
       TableView<PresentableChartData> tableView = new TableView<>();
-      tableView.setPlaceholder(new Label(rosetta.getText("ui.charts.start.placeholdercharts")));
+      tableView.setPlaceholder(new Label(Rosetta.getText("ui.charts.start.placeholdercharts")));
       tableView.setPrefHeight(TV_HEIGHT);
       tableView.setPrefWidth(START_WIDTH);
-      colName = new TableColumn<>(rosetta.getText("ui.charts.start.colheaderchartname"));
-      colData = new TableColumn<>(rosetta.getText("ui.charts.start.colheaderchartdata"));
+      colName = new TableColumn<>(Rosetta.getText("ui.charts.start.colheaderchartname"));
+      colData = new TableColumn<>(Rosetta.getText("ui.charts.start.colheaderchartdata"));
       colName.setCellValueFactory(new PropertyValueFactory("chartName"));
       colData.setCellValueFactory(new PropertyValueFactory("chartDataDescr"));
       colName.setPrefWidth(TV_COL_WIDTH);
@@ -438,7 +436,7 @@ public class ChartsStart {
 
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.chartsstart.title"), rosetta.getHelpText("help.chartsstart.content"));
+      new Help(Rosetta.getHelpText("help.chartsstart.title"), Rosetta.getHelpText("help.chartsstart.content"));
    }
 
    private void showChart() {

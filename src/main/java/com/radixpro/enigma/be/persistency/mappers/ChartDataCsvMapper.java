@@ -17,11 +17,9 @@ import org.jetbrains.annotations.NotNull;
 public class ChartDataCsvMapper {
 
    private final DateTimeJulianCreator dateTimeJulianCreator;
-   private final Rosetta rosetta;
 
    public ChartDataCsvMapper(@NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
       this.dateTimeJulianCreator = dateTimeJulianCreator;
-      this.rosetta = Rosetta.getRosetta();
    }
 
    public FullChartInputData chartDataFromCsv(final String[] csvLine) {
@@ -48,7 +46,7 @@ public class ChartDataCsvMapper {
       String calText = csvLine[5].equalsIgnoreCase("Y") ? "G" : "J";
       String timeText = createTimeText(csvLine);
       String locationText = createLocationText(csvLine);
-      String inputData = dateText + SPACE + calText + SPACE + timeText + NEWLINE + locationText + NEWLINE + rosetta.getText("ui.shared.source") + SPACE +
+      String inputData = dateText + SPACE + calText + SPACE + timeText + NEWLINE + locationText + NEWLINE + Rosetta.getText("ui.shared.source") + SPACE +
             source;
       return new ChartMetaData(name, description, chartType, rating, inputData);
    }
@@ -73,9 +71,9 @@ public class ChartDataCsvMapper {
       String minute = csvLine[11];
       String second = csvLine[12];
       TimeZones timeZone = TimeZones.UT.timeZoneForId(Integer.parseInt(csvLine[13]));
-      String zone = rosetta.getText(timeZone.getNameForRB());
+      String zone = Rosetta.getText(timeZone.getNameForRB());
       boolean dst = "y".equalsIgnoreCase(csvLine[14]);
-      String dstText = rosetta.getText("y".equalsIgnoreCase(csvLine[14]) ? "ui.shared.dst" : "ui.shared.nodst");
+      String dstText = Rosetta.getText("y".equalsIgnoreCase(csvLine[14]) ? "ui.shared.dst" : "ui.shared.nodst");
       String sep = ":";
       String offsetLmtTxt = "";
       if (timeZone == TimeZones.LMT) offsetLmtTxt = csvLine[15] + " ";

@@ -51,7 +51,6 @@ public class ConfigEdit {
    private static final double DATA_TEXT_WIDTH = 150.0;
    private static final double DATA_INPUT_WIDTH = 350.0;
    private static final double GAP = 6.0;
-   private final Rosetta rosetta;
    private final SessionState state;
    private final PersistedConfigurationApi pcApi;
    private Configuration config;
@@ -79,7 +78,6 @@ public class ConfigEdit {
    private Label lblCelObjects;
 
    public ConfigEdit(@NotNull final PersistedConfigurationApi pcApi) {
-      this.rosetta = Rosetta.getRosetta();
       this.state = SessionState.INSTANCE;
       this.pcApi = pcApi;
    }
@@ -123,7 +121,7 @@ public class ConfigEdit {
       checkComboBoxCelObjects = createComboBoxCelObject();
       GridPane gridPane = createGridPane();
       VBox vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP).setChildren(paneTitle, paneSubTitle, gridPane, buttonBar).build();
-      stage = new StageBuilder().setMinHeight(HEIGHT).setMinWidth(WIDTH).setTitle(rosetta.getText("ui.configs.edit.title"))
+      stage = new StageBuilder().setMinHeight(HEIGHT).setMinWidth(WIDTH).setTitle(Rosetta.getText("ui.configs.edit.title"))
             .setModality(Modality.APPLICATION_MODAL).setScene(new Scene(vBox)).build();
    }
 
@@ -204,7 +202,7 @@ public class ConfigEdit {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.configedit.title"), rosetta.getHelpText("help.configedit.content"));
+      new Help(Rosetta.getHelpText("help.configedit.title"), Rosetta.getHelpText("help.configedit.content"));
    }
 
    private void constructConfig() {

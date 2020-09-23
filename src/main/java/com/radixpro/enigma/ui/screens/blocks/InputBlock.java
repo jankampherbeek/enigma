@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens.blocks;
 
-import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.references.InputStatus;
 
@@ -17,7 +16,6 @@ import com.radixpro.enigma.references.InputStatus;
 public abstract class InputBlock {
 
    protected static final String INPUT_STYLE = "inputDefault";
-   protected final Rosetta rosetta;
    protected final SessionState state;
    protected InputStatus inputStatus = InputStatus.INCOMPLETE;
 
@@ -26,7 +24,6 @@ public abstract class InputBlock {
     */
    public InputBlock() {
       this.state = SessionState.INSTANCE;
-      rosetta = Rosetta.getRosetta();
    }
 
    /**

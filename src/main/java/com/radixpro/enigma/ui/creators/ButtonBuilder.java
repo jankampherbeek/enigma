@@ -21,11 +21,9 @@ public class ButtonBuilder {
    private String text = "";
    private boolean disabled = false;
    private boolean focusTraversable = false;
-   private final Rosetta rosetta;
 
    public ButtonBuilder(@NotNull final String rbKey) {
       this.rbKey = rbKey;
-      this.rosetta = Rosetta.getRosetta();
    }
 
    public ButtonBuilder setText(@NotNull final String text) {
@@ -46,7 +44,7 @@ public class ButtonBuilder {
    public Button build() {
       String btnText = "";
       if (!text.isEmpty()) btnText = text;
-      else btnText = (rbKey.isEmpty() ? "" : rosetta.getText(rbKey));
+      else btnText = (rbKey.isEmpty() ? "" : Rosetta.getText(rbKey));
       Button button = new Button(btnText);
       button.setDisable(disabled);
       button.setFocusTraversable(focusTraversable);

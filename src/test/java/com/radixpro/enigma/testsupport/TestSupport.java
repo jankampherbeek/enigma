@@ -31,8 +31,7 @@ public class TestSupport {
 
    public static void initRosetta() {
       if (null == appDb) appDb = AppDb.initAppDb("test");
-      Rosetta.defineRosetta();
-      Rosetta.getRosetta().setLanguage("en");
+      Rosetta.setLanguage("en");
    }
 
    public static AppDb useDb() {
@@ -40,7 +39,6 @@ public class TestSupport {
          appDb = AppDb.initAppDb("test");
          con = appDb.getConnection();
          initDatabase();
-         Rosetta.defineRosetta();
          initialized = true;
       }
       return appDb;

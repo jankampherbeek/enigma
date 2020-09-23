@@ -18,10 +18,10 @@ class DataFileHandler(private val dao: DataFileDao,
                       propApi: PersistedPropertyApi) {
     private val projDirKey = "projdir"
     private val dataFolder = "data"
-    private val projDir: String
+    private val projDir: String?
 
     init {
-        projDir = propApi.read(projDirKey)[0].value
+        projDir = propApi.read(projDirKey)[0]?.value          // TODO do not access api but handler
     }
 
     fun readDataFileDesciptions(): List<DataFileDescription> {

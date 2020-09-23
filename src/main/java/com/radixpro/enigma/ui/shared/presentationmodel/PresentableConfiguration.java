@@ -31,7 +31,7 @@ public class PresentableConfiguration {
       configName = configuration.getName();
       configDescription = configuration.getDescription();
       standardIndication = configuration.getParentId() == 0L ?
-            Rosetta.getRosetta().getText("ui.shared.yes") : Rosetta.getRosetta().getText("ui.shared.no");
+            Rosetta.getText("ui.shared.yes") : Rosetta.getText("ui.shared.no");
       originalConfig = configuration;
    }
 

@@ -21,13 +21,6 @@ import java.util.List;
  */
 public class PropertiesTableForConfig {
 
-   private final Rosetta rosetta;
-
-   public PropertiesTableForConfig() {
-      this.rosetta = Rosetta.getRosetta();
-   }
-
-
    /**
     * Constructs the table
     *
@@ -45,9 +38,9 @@ public class PropertiesTableForConfig {
       TableView<PresentableProperty> tableView = new TableView<>();
       tableView.setPrefHeight(height);
       tableView.setPrefWidth(width);
-      TableColumn<PresentableProperty, String> propertyColumn = new TableColumn<>(rosetta.getText("config.propertyname"));
+      TableColumn<PresentableProperty, String> propertyColumn = new TableColumn<>(Rosetta.getText("config.propertyname"));
       propertyColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-      TableColumn<PresentableProperty, String> valueColumn = new TableColumn<>(rosetta.getText(("config.propertyvalue")));
+      TableColumn<PresentableProperty, String> valueColumn = new TableColumn<>(Rosetta.getText(("config.propertyvalue")));
       valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
       tableView.getColumns().add(propertyColumn);
       tableView.getColumns().add(valueColumn);

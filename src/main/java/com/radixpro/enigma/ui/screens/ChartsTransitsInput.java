@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.domain.config.ConfiguredCelObject;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
@@ -125,9 +126,9 @@ public class ChartsTransitsInput extends InputScreen {
    @Override
    protected ButtonBar createBtnBar() {
       ButtonBar buttonBar = new ButtonBar();
-      Button calculatebtn = new Button(rosetta.getText("ui.shared.btn.calculate"));
-      Button helpBtn = new Button(rosetta.getText("ui.shared.btn.help"));
-      Button cancelBtn = new Button(rosetta.getText("ui.shared.btn.cancel"));
+      Button calculatebtn = new Button(Rosetta.getText("ui.shared.btn.calculate"));
+      Button helpBtn = new Button(Rosetta.getText("ui.shared.btn.help"));
+      Button cancelBtn = new Button(Rosetta.getText("ui.shared.btn.cancel"));
       calculatebtn.setOnAction(click -> onCalculate());
       helpBtn.setOnAction(click -> onHelp());
       cancelBtn.setOnAction(click -> onCancel());
@@ -173,7 +174,7 @@ public class ChartsTransitsInput extends InputScreen {
 
    private void onHelp() {
       // TODO create help for input transits
-//      new Help(rosetta.getHelpText("help.chartsinput.title"), rosetta.getHelpText("help.chartsinput.content"));
+//      new Help(Rosetta.getHelpText("help.chartsinput.title"), Rosetta.getHelpText("help.chartsinput.content"));
    }
 
    @Override

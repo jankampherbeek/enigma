@@ -40,7 +40,6 @@ public class ConfigDetails {
    private static final double TV_HEIGHT = 450.0;
    private static final double SEPARATOR_HEIGHT = 20.0;
    private static final double GAP = 6.0;
-   private final Rosetta rosetta;
    private final SessionState state;
    private final PropertiesTableForConfig propertiesTableForConfig;
    private final PropertiesForConfig propertiesForConfig;
@@ -54,7 +53,6 @@ public class ConfigDetails {
 
    public ConfigDetails(@NotNull final PropertiesForConfig propertiesForConfig, @NotNull final PropertiesTableForConfig propertiesTableForConfig,
                         @NotNull final CelObjectsInConfig celObjectsInConfig, @NotNull final AspectsInConfig aspectsInConfig) {
-      this.rosetta = Rosetta.getRosetta();
       this.state = SessionState.INSTANCE;
       this.propertiesForConfig = propertiesForConfig;
       this.propertiesTableForConfig = propertiesTableForConfig;
@@ -88,7 +86,7 @@ public class ConfigDetails {
       VBox vBox = new VBoxBuilder().setWidth(OUTER_WIDTH).setHeight(HEIGHT).setPadding(GAP).setChildren(paneTitle, paneSubTitle, paneData, paneSeparator, buttonBar)
             .build();
       stage = new StageBuilder().setMinWidth(OUTER_WIDTH).setMinHeight(HEIGHT).setModality(Modality.APPLICATION_MODAL)
-            .setTitle(rosetta.getText("ui.configs.details.title")).setScene(new Scene(vBox)).build();
+            .setTitle(Rosetta.getText("ui.configs.details.title")).setScene(new Scene(vBox)).build();
    }
 
    private void defineListeners() {
@@ -97,7 +95,7 @@ public class ConfigDetails {
    }
 
    private void onHelp() {
-      new Help(rosetta.getHelpText("help.configdetails.title"), rosetta.getHelpText("help.configdetails.content"));
+      new Help(Rosetta.getHelpText("help.configdetails.title"), Rosetta.getHelpText("help.configdetails.content"));
    }
 
    private void onExit() {

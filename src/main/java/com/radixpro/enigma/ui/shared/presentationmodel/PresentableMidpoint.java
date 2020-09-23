@@ -25,11 +25,9 @@ public class PresentableMidpoint {
    private String midpointType;
    private String effectiveOrb;
    private String percOrb;
-   private final Rosetta rosetta;
 
    // TODO combine logic of PresentableMidpoint and PresentableAspect (maybe abstract parent ?).
    public PresentableMidpoint(@NotNull final IAnalyzedPair midpoint) {
-      rosetta = Rosetta.getRosetta();
       createDataDescription(midpoint);
    }
 
@@ -40,7 +38,7 @@ public class PresentableMidpoint {
       firstItemGlyph = defineGlyphForItem(pair.getFirst().getChartPoint());
       secondItemGlyph = defineGlyphForItem(pair.getSecond().getChartPoint());
       thirdItemGlyph = defineGlyphForItem(((AnalyzedMidpoint) pair).getCenterPoint().getChartPoint());
-      midpointType = rosetta.getText(midpoint.getMidpointType().getFullRbId());
+      midpointType = Rosetta.getText(midpoint.getMidpointType().getFullRbId());
       effectiveOrb = sexFormatter.formatDms(midpoint.getActualOrb());
       percOrb = Integer.toString((int) midpoint.getPercOrb());
    }
