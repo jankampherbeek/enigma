@@ -4,74 +4,93 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.xchg.api
 
-package com.radixpro.enigma.xchg.api;
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectAspectsHandler
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectCalculatedChartHandler
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectDataFileHandler
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectEphProgCalcHandler
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectInputDataFileHandler
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectMidpointsHandler
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectPrimaryHandler
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectProgAspectHandler
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectSecundaryDateHandler
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectSolarReturnHandler
+import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectTetenburgHandler
+import com.radixpro.enigma.be.persistency.BePersistencyInjector
 
-import com.radixpro.enigma.be.calc.SeFrontend;
-import com.radixpro.enigma.be.handlers.BeHandlersInjector;
-import com.radixpro.enigma.be.persistency.BePersistencyInjector;
+object XchgApiInjector {
+    @JvmStatic
+    fun injectAspectsApi(): AspectsApi {
+        return AspectsApi(injectAspectsHandler())
+    }
 
-public class XchgApiInjector {
+    @JvmStatic
+    fun injectCalculatedChartApi(): CalculatedChartApi {
+        return CalculatedChartApi(injectCalculatedChartHandler())
+    }
 
-   public static AspectsApi injectAspectsApi() {
-      return new AspectsApi(BeHandlersInjector.injectAspectsHandler());
-   }
+    @JvmStatic
+    fun injectDateTimeApi(): DateTimeApi {
+        return DateTimeApi()
+    }
 
-   public static CalculatedChartApi injectCalculatedChartApi() {
-      return new CalculatedChartApi(BeHandlersInjector.injectCalculatedChartHandler());
-   }
+    @JvmStatic
+    fun injectMidpointsApi(): MidpointsApi {
+        return MidpointsApi(injectMidpointsHandler())
+    }
 
-   public static DateTimeApi injectDateTimeApi() {
-      return new DateTimeApi(SeFrontend.INSTANCE);
-   }     // TODO move SeFrontend to scope
+    @JvmStatic
+    fun injectInputDataFileApi(): InputDataFileApi {
+        return InputDataFileApi(injectInputDataFileHandler())
+    }
 
-   public static MidpointsApi injectMidpointsApi() {
-      return new MidpointsApi(BeHandlersInjector.injectMidpointsHandler());
-   }
+    @JvmStatic
+    fun injectPersistedChartDataApi(): PersistedChartDataApi {
+        return PersistedChartDataApi(BePersistencyInjector.injectChartDataDao())
+    }
 
-   public static InputDataFileApi injectInputDataFileApi() {
-      return new InputDataFileApi(BeHandlersInjector.injectInputDataFileHandler());
-   }
+    @JvmStatic
+    fun injectPersistedConfigurationApi(): PersistedConfigurationApi {
+        return PersistedConfigurationApi(BePersistencyInjector.injectConfigurationDao())
+    }
 
-   public static PersistedChartDataApi injectPersistedChartDataApi() {
-      return new PersistedChartDataApi(BePersistencyInjector.injectChartDataDao());
-   }
+    @JvmStatic
+    fun injectPersistedDataFileApi(): PersistedDataFileApi {
+        return PersistedDataFileApi(injectDataFileHandler())
+    }
 
-   public static PersistedConfigurationApi injectPersistedConfigurationApi() {
-      return new PersistedConfigurationApi(BePersistencyInjector.injectConfigurationDao());
-   }
+    @JvmStatic
+    fun injectPersistedPropertyApi(): PersistedPropertyApi {
+        return PersistedPropertyApi(BePersistencyInjector.injectPropertyDao())
+    }
 
-   public static PersistedDataFileApi injectPersistedDataFileApi() {
-      return new PersistedDataFileApi(BeHandlersInjector.injectDataFileHandler());
-   }
+    @JvmStatic
+    fun injectPrimaryApi(): PrimaryApi {
+        return PrimaryApi(injectPrimaryHandler())
+    }
 
-   public static PersistedPropertyApi injectPersistedPropertyApi() {
-      return new PersistedPropertyApi(BePersistencyInjector.injectPropertyDao());
-   }
+    @JvmStatic
+    fun injectSecundaryApi(): SecundaryApi {
+        return SecundaryApi(injectEphProgCalcHandler(), injectSecundaryDateHandler(),
+                injectProgAspectHandler())
+    }
 
-   public static PrimaryApi injectPrimaryApi() {
-      return new PrimaryApi(BeHandlersInjector.injectPrimaryHandler());
-   }
+    fun injectSolarReturnApi(): SolarReturnApi {
+        return SolarReturnApi(injectSolarReturnHandler())
+    }
 
-   public static SecundaryApi injectSecundaryApi() {
-      return new SecundaryApi(BeHandlersInjector.injectEphProgCalcHandler(), BeHandlersInjector.injectSecundaryDateHandler(),
-            BeHandlersInjector.injectProgAspectHandler());
-   }
+    @JvmStatic
+    fun injectTetenburgApi(): TetenburgApi {
+        return TetenburgApi(injectTetenburgHandler())
+    }
 
-   public static SolarReturnApi injectSolarReturnApi() {
-      return new SolarReturnApi(BeHandlersInjector.injectSolarReturnHandler());
-   }
+    @JvmStatic
+    fun injectTransitsApi(): TransitsApi {
+        return TransitsApi(injectEphProgCalcHandler(), injectProgAspectHandler())
+    }
 
-   public static TetenburgApi injectTetenburgApi() {
-      return new TetenburgApi(BeHandlersInjector.injectTetenburgHandler());
-   }
-
-   public static TransitsApi injectTransitsApi() {
-      return new TransitsApi(BeHandlersInjector.injectEphProgCalcHandler(), BeHandlersInjector.injectProgAspectHandler());
-   }
-
-   public static VersionApi injectVersionApi() {
-      return new VersionApi(BePersistencyInjector.injectVersionDao());
-   }
-
+    fun injectVersionApi(): VersionApi {
+        return VersionApi(BePersistencyInjector.injectVersionDao())
+    }
 }

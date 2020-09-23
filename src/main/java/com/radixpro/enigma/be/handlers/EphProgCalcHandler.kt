@@ -22,7 +22,7 @@ import java.util.*
 /**
  * Handler for the calculation of progressive positions based on ephemeris calculations.
  */
-class EphProgCalcHandler(val seFrontend: SeFrontend) {
+class EphProgCalcHandler() {
 
 
     fun retrievePositions(request: IProgCalcRequest): SimpleProgResponse {
@@ -33,7 +33,7 @@ class EphProgCalcHandler(val seFrontend: SeFrontend) {
     private fun calculatePositions(jdUt: Double,
                                    location: Location?,
                                    settings: ICalcSettings): List<IPosition> {
-        val ayanamsha = settings.ayamsha
+        val ayanamsha = settings.ayanamsha
         val sidereal = settings.isSidereal
         val flagListEcl: MutableList<SeFlags> = ArrayList()
         val flagListEq: MutableList<SeFlags> = ArrayList()
@@ -51,8 +51,8 @@ class EphProgCalcHandler(val seFrontend: SeFrontend) {
         val points = settings.points
         for (point in points) {
             val seId = (point as CelestialObjects).seId.toInt()
-            val posEcl = seFrontend.getPositionsForCelBody(jdUt, seId, eclFlags, location!!)
-            val posEq = seFrontend.getPositionsForCelBody(jdUt, seId, eqFlags, location)
+            val posEcl = SeFrontend.getPositionsForCelBody(jdUt, seId, eclFlags, location!!)
+            val posEq = SeFrontend.getPositionsForCelBody(jdUt, seId, eqFlags, location)
             val coordSet = doubleArrayOf(posEcl.allPositions[0], posEcl.allPositions[1], posEcl.allPositions[2])
             val horCoordinates = CoordinateConversions.eclipticToHorizontal(jdUt, coordSet, location)
             val fullHorCoordinates = CoordinateSet(horCoordinates[0], horCoordinates[1])

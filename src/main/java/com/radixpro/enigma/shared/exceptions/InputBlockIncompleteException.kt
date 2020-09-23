@@ -4,12 +4,6 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.shared.exceptions
 
-package com.radixpro.enigma.shared.exceptions;
-
-public class InputBlockIncompleteException extends Exception {
-
-   public InputBlockIncompleteException(final String message) {
-      super(message);
-   }
-}
+class InputBlockIncompleteException(message: String?) : Exception(message)

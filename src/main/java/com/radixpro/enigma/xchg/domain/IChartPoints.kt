@@ -4,19 +4,13 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.xchg.domain
 
-package com.radixpro.enigma.xchg.domain;
+import com.radixpro.enigma.references.ChartPointTypes
 
-import com.radixpro.enigma.references.ChartPointTypes;
-
-public interface IChartPoints {
-
-   int getId();
-
-   String getRbKey();
-
-   IChartPoints getItemForId(final int id);
-
-   ChartPointTypes getPointType();
-
+interface IChartPoints {
+    val id: Int
+    val rbKey: String
+    fun getItemForId(id: Int): IChartPoints
+    val pointType: ChartPointTypes
 }

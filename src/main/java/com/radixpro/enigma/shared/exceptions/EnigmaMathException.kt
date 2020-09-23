@@ -4,15 +4,6 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.shared.exceptions
 
-package com.radixpro.enigma.shared.exceptions;
-
-public class EnigmaMathException extends Exception {
-
-   public EnigmaMathException(final String message) {
-      super(message);
-   }
-
-
-
-}
+class EnigmaMathException(message: String?) : Exception(message)

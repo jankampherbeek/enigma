@@ -7,12 +7,12 @@ package com.radixpro.enigma.xchg.api
 
 import com.radixpro.enigma.be.calc.SeFrontend
 
-class DateTimeApi(private val seFrontend: SeFrontend) {
+class DateTimeApi() {
 
     fun checkDate(year: Int,
                   month: Int,
                   day: Int,
                   gregorian: Boolean): Boolean {
-        return seFrontend.isValidDate(year, month, day, gregorian)
+        return SeFrontend.isValidDate(year, month, day, gregorian)
     }
 }

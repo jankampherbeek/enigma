@@ -23,7 +23,7 @@ class SecundaryApi(private val calcHandler: EphProgCalcHandler,
         return calcHandler.retrievePositions(secRequest)
     }
 
-    fun defineAspects(request: ProgAnalyzeRequest?): EphProgAspectResponse {
+    fun defineAspects(request: ProgAnalyzeRequest): EphProgAspectResponse {
         return aspectHandler.analyzeAspects(request)
     }
 }

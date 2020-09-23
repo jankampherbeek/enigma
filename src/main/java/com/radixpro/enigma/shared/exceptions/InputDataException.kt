@@ -4,16 +4,9 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
-
-package com.radixpro.enigma.shared.exceptions;
+package com.radixpro.enigma.shared.exceptions
 
 /**
  * Exception for errors in input data from data files.
  */
-public class InputDataException extends Exception {
-
-   public InputDataException(final String message) {
-      super(message);
-   }
-
-}
+class InputDataException(message: String?) : Exception(message)

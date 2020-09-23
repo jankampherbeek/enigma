@@ -11,6 +11,6 @@ import com.radixpro.enigma.xchg.domain.IChartPoints
 
 interface ICalcSettings {
     val points: List<IChartPoints>
-    val ayamsha: Ayanamshas?
+    val ayanamsha: Ayanamshas?
     val isSidereal: Boolean
 }

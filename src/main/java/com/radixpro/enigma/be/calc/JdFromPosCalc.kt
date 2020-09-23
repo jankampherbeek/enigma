@@ -50,6 +50,6 @@ class JdFromPosCalc(private val coordSetCalc: CoordSetForDateTimeCalc) {
             if (position < posCheck) tempEnd = tempCheck else tempStart = tempCheck
             tempCheck = tempStart + (tempEnd - tempStart) / 2.0
         }
-        return if (found) tempCheck else throw NoPositionFoundException("Could not find position for " + point.id)
+        return if (found) tempCheck else throw NoPositionFoundException("Could not find position for $point")
     }
 }

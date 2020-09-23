@@ -4,85 +4,89 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.be.handlers
 
-package com.radixpro.enigma.be.handlers;
+import com.radixpro.enigma.be.analysis.BeAnalysisInjector
+import com.radixpro.enigma.be.calc.BeCalcInjector
+import com.radixpro.enigma.be.persistency.BePersistencyInjector
+import com.radixpro.enigma.xchg.api.XchgApiInjector
 
-import com.radixpro.enigma.be.analysis.BeAnalysisInjector;
-import com.radixpro.enigma.be.calc.BeCalcInjector;
-import com.radixpro.enigma.be.calc.SeFrontend;
-import com.radixpro.enigma.be.persistency.BePersistencyInjector;
-import com.radixpro.enigma.xchg.api.XchgApiInjector;
+object BeHandlersInjector {
+    @JvmStatic
+    fun injectAspectsHandler(): AspectsHandler {
+        return AspectsHandler(BeAnalysisInjector.injectAspectsForRadix())
+    }
 
-public class BeHandlersInjector {
+    @JvmStatic
+    fun injectCalculatedChartHandler(): CalculatedChartHandler {
+        return CalculatedChartHandler(injectFullPointPositionHandler(), injectMundanePositionsHandler())
+    }
 
-   private BeHandlersInjector() {
-      // prevent instantiation
-   }
+    @JvmStatic
+    fun injectDataFileHandler(): DataFileHandler {
+        return DataFileHandler(BePersistencyInjector.injectDataFileDao(), XchgApiInjector.injectPersistedPropertyApi())
+    }
 
-   public static AspectsHandler injectAspectsHandler() {
-      return new AspectsHandler(BeAnalysisInjector.injectAspectsForRadix());
-   }
+    @JvmStatic
+    fun injectEphProgCalcHandler(): EphProgCalcHandler {
+        return EphProgCalcHandler()
+    }
 
-   public static CalculatedChartHandler injectCalculatedChartHandler() {
-      return new CalculatedChartHandler(injectFullPointPositionHandler(), injectMundanePositionsHandler());
-   }
+    fun injectFullPointPositionHandler(): FullPointPositionHandler {
+        return FullPointPositionHandler()
+    }
 
-   public static DataFileHandler injectDataFileHandler() {
-      return new DataFileHandler(BePersistencyInjector.injectDataFileDao(), XchgApiInjector.injectPersistedPropertyApi());
-   }
+    @JvmStatic
+    fun injectInputDataFileHandler(): InputDataFileHandler {
+        return InputDataFileHandler(BePersistencyInjector.injectDataReaderCsv(), BePersistencyInjector.injectJsonWriter())
+    }
 
-   // TODO retrieve SeFrontend from scope
-   public static EphProgCalcHandler injectEphProgCalcHandler() {
-      return new EphProgCalcHandler(SeFrontend.INSTANCE);
-   }
+    @JvmStatic
+    fun injectMidpointsHandler(): MidpointsHandler {
+        return MidpointsHandler(BeAnalysisInjector.injectMidpointsForRadix())
+    }
 
-   public static FullPointPositionHandler injectFullPointPositionHandler() {
-      return new FullPointPositionHandler();
-   }
+    fun injectMundanePositionsHandler(): MundanePositionsHandler {
+        return MundanePositionsHandler(injectObliquityHandler())
+    }
 
-   public static InputDataFileHandler injectInputDataFileHandler() {
-      return new InputDataFileHandler(BePersistencyInjector.injectDataReaderCsv(), BePersistencyInjector.injectJsonWriter());
-   }
+    @JvmStatic
+    fun injectObliquityHandler(): ObliquityHandler {
+        return ObliquityHandler()
+    }
 
-   public static MidpointsHandler injectMidpointsHandler() {
-      return new MidpointsHandler(BeAnalysisInjector.injectMidpointsForRadix());
-   }
+    @JvmStatic
+    fun injectPrimaryHandler(): PrimaryHandler {
+        return PrimaryHandler(injectPrimaryPositionsHandler(), injectTimeKeyHandler(), injectObliquityHandler(),
+                BeCalcInjector.injectSpaeculumPropSaCalculator())
+    }
 
-   public static MundanePositionsHandler injectMundanePositionsHandler() {
-      return new MundanePositionsHandler(injectObliquityHandler());
-   }
+    fun injectPrimaryPositionsHandler(): PrimaryPositionsHandler {
+        return PrimaryPositionsHandler()
+    }
 
-   public static ObliquityHandler injectObliquityHandler() {
-      return new ObliquityHandler();
-   }
+    @JvmStatic
+    fun injectProgAspectHandler(): ProgAspectHandler {
+        return ProgAspectHandler(BeAnalysisInjector.injectProgRadixAspects())
+    }
 
-   public static PrimaryHandler injectPrimaryHandler() {
-      return new PrimaryHandler(injectPrimaryPositionsHandler(), injectTimeKeyHandler(), injectObliquityHandler(),
-            BeCalcInjector.injectSpaeculumPropSaCalculator());
-   }
+    @JvmStatic
+    fun injectSecundaryDateHandler(): SecundaryDateHandler {
+        return SecundaryDateHandler()
+    }
 
-   public static PrimaryPositionsHandler injectPrimaryPositionsHandler() {
-      return new PrimaryPositionsHandler();
-   }
+    @JvmStatic
+    fun injectSolarReturnHandler(): SolarReturnHandler {
+        return SolarReturnHandler(BeCalcInjector.injectJdFromPosCalc(), XchgApiInjector.injectCalculatedChartApi())
+    }
 
-   public static ProgAspectHandler injectProgAspectHandler() {
-      return new ProgAspectHandler(BeAnalysisInjector.injectProgRadixAspects());
-   }
+    @JvmStatic
+    fun injectTetenburgHandler(): TetenburgHandler {
+        return TetenburgHandler(injectObliquityHandler())
+    }
 
-   public static SecundaryDateHandler injectSecundaryDateHandler() {
-      return new SecundaryDateHandler();
-   }
-
-   public static SolarReturnHandler injectSolarReturnHandler() {
-      return new SolarReturnHandler(BeCalcInjector.injectJdFromPosCalc(), XchgApiInjector.injectCalculatedChartApi());
-   }
-
-   public static TetenburgHandler injectTetenburgHandler() {
-      return new TetenburgHandler(injectObliquityHandler());
-   }
-
-   public static TimeKeyHandler injectTimeKeyHandler() {
-      return new TimeKeyHandler(injectSecundaryDateHandler(), injectFullPointPositionHandler());
-   }
-
+    @JvmStatic
+    fun injectTimeKeyHandler(): TimeKeyHandler {
+        return TimeKeyHandler(injectSecundaryDateHandler(), injectFullPointPositionHandler())
+    }
 }

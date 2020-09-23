@@ -4,12 +4,8 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.references
 
-package com.radixpro.enigma.references;
-
-public enum ChartPointTypes {
-
-   CEL_BODIES,
-   MUNDANE_POINTS,
-   FIX_STARS
+enum class ChartPointTypes {
+    CEL_BODIES, MUNDANE_POINTS, FIX_STARS
 }

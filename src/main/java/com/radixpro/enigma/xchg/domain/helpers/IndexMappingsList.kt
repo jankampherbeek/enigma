@@ -3,51 +3,24 @@
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
  */
-
-package com.radixpro.enigma.xchg.domain.helpers;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
+package com.radixpro.enigma.xchg.domain.helpers
 
 /**
  * Collection of all IndexMappings for a specific enum.
  */
-public class IndexMappingsList {
+class IndexMappingsList(val allIndexMappings: List<IndexMapping>) {
 
-   final List<IndexMapping> allIndexMappings;
+    fun getSequenceIdForEnumId(enumId: Int): Int {
+        for ((sequenceId, enumId1) in allIndexMappings) {
+            if (enumId1 == enumId) return sequenceId
+        }
+        return -1
+    }
 
-   public IndexMappingsList(@NotNull final List<IndexMapping> allIndexMappings) {
-      this.allIndexMappings = allIndexMappings;
-   }
-
-   public List<IndexMapping> getAllIndexMappings() {
-      return allIndexMappings;
-   }
-
-   /**
-    * Find sequenceId for a given enumId.
-    *
-    * @param enumId the enumId to be searched.
-    * @return if found: the sequenceId, otherwise: -1 .
-    */
-   public int getSequenceIdForEnumId(final int enumId) {
-      for (IndexMapping indexMapping : allIndexMappings) {
-         if (indexMapping.getEnumId() == enumId) return indexMapping.getSequenceId();
-      }
-      return -1;
-   }
-
-   /**
-    * Find enumId for a given sequenceId.
-    *
-    * @param sequenceId the sequenceId to be searched.
-    * @return if found: the enumId, otherwise: -1.
-    */
-   public int getEnumIdForSequenceId(final int sequenceId) {
-      for (IndexMapping indexMapping : allIndexMappings) {
-         if (indexMapping.getSequenceId() == sequenceId) return indexMapping.getEnumId();
-      }
-      return -1;
-   }
+    fun getEnumIdForSequenceId(sequenceId: Int): Int {
+        for ((sequenceId1, enumId) in allIndexMappings) {
+            if (sequenceId1 == sequenceId) return enumId
+        }
+        return -1
+    }
 }

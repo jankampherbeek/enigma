@@ -41,7 +41,7 @@ public class ProgSettingsTest {
 
    @Test
    public void getAyamsha() {
-      assertEquals(ayanamsha, progSettings.getAyamsha());
+      assertEquals(ayanamsha, progSettings.getAyanamsha());
    }
 
    @Test

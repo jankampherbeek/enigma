@@ -32,7 +32,7 @@ public class MainHelper extends Application {
    @Override
    public void start(Stage primaryStage) {
       scope = new AppScope();
-      AppDb appDb = AppDb.initAppDb(env);
+      AppDb appDb = AppDb.initAppDb("prod");
       scope.setEnv(env);
       LOG.info("Started Enigma.");
       Injector.injectAppVersion();

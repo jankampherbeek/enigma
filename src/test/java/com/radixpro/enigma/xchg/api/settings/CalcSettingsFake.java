@@ -24,7 +24,7 @@ public class CalcSettingsFake implements ICalcSettings {
    }
 
    @Override
-   public Ayanamshas getAyamsha() {
+   public Ayanamshas getAyanamsha() {
       return Ayanamshas.HUBER;
    }
 

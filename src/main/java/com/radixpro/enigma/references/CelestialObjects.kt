@@ -15,15 +15,15 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import java.util.*
 
-// TODO make all points available (already added to H2
+// TODO make all points available (already added to H2)
 // todo rename to CelestialPoints
 // todo remove EMPTY
 // todo add indicators for applicability (heliocentric, geocentric, period-limited?)
-enum class CelestialObjects(private val id: Int,
+enum class CelestialObjects(override val id: Int,
                             val seId: Long,
                             val category: CelObjectCategory,
                             val orbitalPeriod: Double,
-                            private val nameForRB: String) : IChartPoints {
+                            override val rbKey: String) : IChartPoints {
     EMPTY(0, -1, CelObjectCategory.UNKNOWN, -1.0, "celobject.unknown"),
     SUN(1, 0, CelObjectCategory.CLASSICS, 1.0, "celobject.sun"),
     MOON(2, 1, CelObjectCategory.CLASSICS, 0.0748, "celobject.moon"),
@@ -61,26 +61,16 @@ enum class CelestialObjects(private val id: Int,
         get() {
             val celObjectNames: MutableList<String> = ArrayList()
             for (celestialObject in values()) {
-                if (celestialObject != EMPTY) celObjectNames.add(Rosetta.getText(celestialObject.nameForRB))
+                if (celestialObject != EMPTY) celObjectNames.add(Rosetta.getText(celestialObject.rbKey))
             }
             return FXCollections.observableArrayList(celObjectNames)
         }
-
-    override fun getId(): Int {
-        return id
-    }
 
     override fun getItemForId(id: Int): IChartPoints {   // TODO this fun is superfluous. Remove from interface?
         return getCelObjectForId(id)
     }
 
-    override fun getPointType(): ChartPointTypes {
-        return ChartPointTypes.CEL_BODIES
-    }
-
-    override fun getRbKey(): String {
-        return nameForRB
-    }
+    override val pointType = ChartPointTypes.CEL_BODIES
 
     val indexMappings: IndexMappingsList
         get() {
@@ -88,7 +78,7 @@ enum class CelestialObjects(private val id: Int,
             var runningIndex = 0
             for (celestialObject in values()) {
                 if (celestialObject != EMPTY) {
-                    idList.add(IndexMapping(runningIndex++, celestialObject.getId()))
+                    idList.add(IndexMapping(runningIndex++, celestialObject.id))
                 }
             }
             return IndexMappingsList(idList)
@@ -99,7 +89,7 @@ enum class CelestialObjects(private val id: Int,
         @Throws(UnknownIdException::class)
         fun getCelObjectForId(id: Int): CelestialObjects {
             for (celObject in values()) {
-                if (celObject.getId() == id) {
+                if (celObject.id == id) {
                     return celObject
                 }
             }

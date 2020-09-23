@@ -4,53 +4,41 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.be.handlers
 
-package com.radixpro.enigma.be.handlers;
-
-import com.radixpro.enigma.be.analysis.ProgRadixAspects;
-import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
-import com.radixpro.enigma.domain.astronpos.CalculatedChart;
-import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.domain.reqresp.EphProgAspectResponse;
-import com.radixpro.enigma.domain.reqresp.ProgAnalyzeRequest;
-import com.radixpro.enigma.references.AspectTypes;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.radixpro.enigma.be.analysis.ProgRadixAspects
+import com.radixpro.enigma.domain.analysis.IAnalyzedPair
+import com.radixpro.enigma.domain.astronpos.CalculatedChart
+import com.radixpro.enigma.domain.astronpos.IPosition
+import com.radixpro.enigma.domain.reqresp.EphProgAspectResponse
+import com.radixpro.enigma.domain.reqresp.ProgAnalyzeRequest
+import com.radixpro.enigma.references.AspectTypes
+import java.util.*
 
 /**
  * Handler for analysing aspects from progressive positions.
  * TODO: replace chartPositions with calculatedChart and progPositions with List for iPosition.
  */
-public class ProgAspectHandler {
+class ProgAspectHandler(private val progRadixAspects: ProgRadixAspects) {
 
-   private final ProgRadixAspects progRadixAspects;
+    fun analyzeAspects(request: ProgAnalyzeRequest): EphProgAspectResponse {
+        return analyze(request.calculatedChart, request.progPositions, request.aspects, request.orb)
+    }
 
-   public ProgAspectHandler(@NotNull final ProgRadixAspects progRadixAspects) {
-      this.progRadixAspects = progRadixAspects;
-   }
-
-   public EphProgAspectResponse analyzeAspects(final ProgAnalyzeRequest request) {
-      return analyze(request.getCalculatedChart(), request.getProgPositions(), request.getAspects(), request.getOrb());
-   }
-
-   private EphProgAspectResponse analyze(CalculatedChart calcChart,
-                                         List<IPosition> progPositions,
-                                         List<AspectTypes> aspectTypes,
-                                         double orb) {
-      long chartId = 1L;   // FIXME use real chartId
-      List<IAnalyzedPair> aspects = new ArrayList<>();
-      for (IPosition trPos : progPositions) {
-         for (IPosition rxBodyPos : calcChart.getCelPoints()) {
-            aspects.addAll(progRadixAspects.findAspects(aspectTypes, trPos, rxBodyPos, orb));
-         }
-         for (IPosition rxMundPos : calcChart.getMundPoints().getSpecPoints()) {
-            aspects.addAll(progRadixAspects.findAspects(aspectTypes, trPos, rxMundPos, orb));
-         }
-      }
-      return new EphProgAspectResponse(chartId, aspects);
-   }
-
-
+    private fun analyze(calcChart: CalculatedChart,
+                        progPositions: List<IPosition>,
+                        aspectTypes: List<AspectTypes>,
+                        orb: Double): EphProgAspectResponse {
+        val chartId = 1L // FIXME use real chartId
+        val aspects: MutableList<IAnalyzedPair> = ArrayList()
+        for (trPos in progPositions) {
+            for (rxBodyPos in calcChart.celPoints) {
+                aspects.addAll(progRadixAspects.findAspects(aspectTypes, trPos, rxBodyPos, orb))
+            }
+            for (rxMundPos in calcChart.mundPoints.specPoints) {
+                aspects.addAll(progRadixAspects.findAspects(aspectTypes, trPos, rxMundPos, orb))
+            }
+        }
+        return EphProgAspectResponse(chartId, aspects)
+    }
 }

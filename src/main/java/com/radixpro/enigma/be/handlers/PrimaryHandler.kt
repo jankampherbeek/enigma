@@ -4,92 +4,68 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.be.handlers
 
-package com.radixpro.enigma.be.handlers;
+import com.radixpro.enigma.be.calc.CoordinateConversions
+import com.radixpro.enigma.be.calc.EnigmaAstronMath
+import com.radixpro.enigma.be.calc.EnigmaMath
+import com.radixpro.enigma.be.calc.SpaeculumPropSaCalculator
+import com.radixpro.enigma.domain.astronpos.IPosition
+import com.radixpro.enigma.domain.astronpos.LonDeclPosition
+import com.radixpro.enigma.domain.reqresp.PrimaryCalcRequest
+import com.radixpro.enigma.domain.reqresp.SimpleProgResponse
+import com.radixpro.enigma.shared.Range
+import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException
+import java.util.*
 
-import com.radixpro.enigma.be.calc.CoordinateConversions;
-import com.radixpro.enigma.be.calc.EnigmaAstronMath;
-import com.radixpro.enigma.be.calc.EnigmaMath;
-import com.radixpro.enigma.be.calc.SpaeculumPropSaCalculator;
-import com.radixpro.enigma.domain.astronpos.*;
-import com.radixpro.enigma.domain.reqresp.PrimaryCalcRequest;
-import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
-import com.radixpro.enigma.shared.Range;
-import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class PrimaryHandler {
-
-   private final PrimaryPositionsHandler primaryPositionsHandler;
-   private final TimeKeyHandler timeKeyHandler;
-   private final ObliquityHandler obliquityHandler;
-   private final SpaeculumPropSaCalculator spsCalculator;
+class PrimaryHandler(private val primaryPositionsHandler: PrimaryPositionsHandler,
+                     private val timeKeyHandler: TimeKeyHandler,
+                     private val obliquityHandler: ObliquityHandler,
+                     private val spsCalculator: SpaeculumPropSaCalculator) {
 
 
-   public PrimaryHandler(@NotNull final PrimaryPositionsHandler primaryPositionsHandler,
-                         @NotNull final TimeKeyHandler timeKeyHandler,
-                         @NotNull final ObliquityHandler obliquityHandler,
-                         @NotNull final SpaeculumPropSaCalculator spsCalculator) {
-      this.primaryPositionsHandler = primaryPositionsHandler;
-      this.timeKeyHandler = timeKeyHandler;
-      this.spsCalculator = spsCalculator;
-      this.obliquityHandler = obliquityHandler;
-   }
+    fun performCalculations(request: PrimaryCalcRequest): SimpleProgResponse {
+        val responsePositions: MutableList<IPosition> = ArrayList()
+        val calculatedChart = request.calculatedChart
+        val geoLat = request.location.geoLat
+        try {
+            val solarArc = timeKeyHandler.retrieveTimeSpan(request.dateTimeRadix, request.dateTime, request.timeKey, request.location, request.settings)
+            val eps = obliquityHandler.calcTrueObliquity(request.dateTimeRadix.jd)
+            val prMc = Range(0.0, 360.0).checkValue(calculatedChart.mundPoints.mc.longitude + solarArc)
+            val prRaMc = CoordinateConversions.eclipticToEquatorial(doubleArrayOf(prMc, 0.0), eps)[0]
+            val prAsc = EnigmaAstronMath.ascFromRamc(prRaMc, geoLat, eps)
+            val (raMcRx, items) = spsCalculator.performCalculation(calculatedChart, request.dateTimeRadix.jd, request.location.geoLat, request.settings)
+            for ((chartPoint, _, ra, _, _, propSa, quadrant) in items) {
+                val offset = ra - raMcRx
+                val raProg = placideanIterator(geoLat, eps, prRaMc, offset, propSa, quadrant)
+                val lonProg = CoordinateConversions.equatorialToEcliptic(raProg, eps)
+                val declProg = CoordinateConversions.longitudeToDeclination(lonProg, eps)
+                responsePositions.add(LonDeclPosition(chartPoint, lonProg, declProg))
+            }
+        } catch (utke: UnknownTimeKeyException) {
+            // TODO LOG and create error msg
+        }
+        return SimpleProgResponse(responsePositions, request)
+    }
 
-
-   public SimpleProgResponse performCalculations(@NotNull final PrimaryCalcRequest request) {
-      List<IPosition> responsePositions = new ArrayList<>();
-      final CalculatedChart calculatedChart = request.getCalculatedChart();
-      final double geoLat = request.getLocation().getGeoLat();
-      try {
-         double solarArc = timeKeyHandler.retrieveTimeSpan(request.getDateTimeRadix(), request.getDateTime(), request.getTimeKey(), request.getLocation(),
-               request.getSettings());
-         double eps = obliquityHandler.calcTrueObliquity(request.getDateTimeRadix().getJd());
-         double prMc = new Range(0, 360).checkValue(calculatedChart.getMundPoints().getMc().getLongitude() + solarArc);
-         double prRaMc = CoordinateConversions.eclipticToEquatorial(new double[]{prMc, 0.0}, eps)[0];
-         double prAsc = EnigmaAstronMath.ascFromRamc(prRaMc, geoLat, eps);
-         SpaeculumPropSaData spsData = spsCalculator.performCalculation(calculatedChart, request.getDateTimeRadix().getJd(),
-               request.getLocation().getGeoLat(), request.getSettings());
-         for (SpaeculumPropSaItem item : spsData.getItems()) {
-            double offset = item.getRa() - spsData.getRaMcRx();
-            double raProg = placideanIterator(geoLat, eps, prRaMc, offset, item.getPropSa(), item.getQuadrant());
-            double lonProg = CoordinateConversions.equatorialToEcliptic(raProg, eps);
-            double declProg = CoordinateConversions.longitudeToDeclination(lonProg, eps);
-            responsePositions.add(new LonDeclPosition(item.getChartPoint(), lonProg, declProg));
-         }
-
-      } catch (UnknownTimeKeyException utke) {
-         // TODO LOG and create error msg
-      }
-      return new SimpleProgResponse(responsePositions, request);
-   }
-
-
-   private double placideanIterator(double geoLat, double eps, double rightAscMC, double offsetForPosition, double factor, int quadrant) {
-
-      double workOffsetForPosition;
-      double workFactor;
-      workOffsetForPosition = offsetForPosition;
-      workFactor = factor;
-      final double margin = 0.00001;
-      double diff = 1;
-      double currentRightAscension = rightAscMC + offsetForPosition;
-      double tempRightAscension;
-      double tanEpsilon = EnigmaMath.tan(eps);
-      double tanGeoLatitude = EnigmaMath.tan(geoLat);
-      while (diff > margin) {
-         if (workOffsetForPosition < 90) {
-            tempRightAscension = rightAscMC + (EnigmaMath.acos(-EnigmaMath.sin(currentRightAscension) * tanEpsilon * tanGeoLatitude)) * workFactor;
-         } else {
-            tempRightAscension = 180 + rightAscMC - (EnigmaMath.acos(EnigmaMath.sin(currentRightAscension) * tanEpsilon * tanGeoLatitude)) * workFactor;
-         }
-         diff = Math.abs(tempRightAscension - currentRightAscension);
-         currentRightAscension = tempRightAscension;
-      }
-      return new Range(0, 360).checkValue(currentRightAscension);
-   }
-
+    private fun placideanIterator(geoLat: Double, eps: Double, rightAscMC: Double, offsetForPosition: Double, factor: Double, quadrant: Int): Double {
+        val workOffsetForPosition: Double = offsetForPosition
+        val workFactor: Double = factor
+        val margin = 0.00001
+        var diff = 1.0
+        var currentRightAscension = rightAscMC + offsetForPosition
+        var tempRightAscension: Double
+        val tanEpsilon = EnigmaMath.tan(eps)
+        val tanGeoLatitude = EnigmaMath.tan(geoLat)
+        while (diff > margin) {
+            tempRightAscension = if (workOffsetForPosition < 90) {
+                rightAscMC + EnigmaMath.acos(-EnigmaMath.sin(currentRightAscension) * tanEpsilon * tanGeoLatitude) * workFactor
+            } else {
+                180 + rightAscMC - EnigmaMath.acos(EnigmaMath.sin(currentRightAscension) * tanEpsilon * tanGeoLatitude) * workFactor
+            }
+            diff = Math.abs(tempRightAscension - currentRightAscension)
+            currentRightAscension = tempRightAscension
+        }
+        return Range(0.0, 360.0).checkValue(currentRightAscension)
+    }
 }
