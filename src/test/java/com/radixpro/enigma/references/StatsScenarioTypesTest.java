@@ -16,7 +16,7 @@ public class StatsScenarioTypesTest {
 
    @Test
    public void getScenarioTypeForId() throws UnknownIdException {
-      assertEquals(StatsScenarioTypes.MULTIPLE_SINGLE, StatsScenarioTypes.getScenarioTypeForId(3));
+      assertEquals(StatsScenarioTypes.COUNTS, StatsScenarioTypes.getScenarioTypeForId(3));
    }
 
    @Test(expected = UnknownIdException.class)

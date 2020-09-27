@@ -7,10 +7,10 @@
 package com.radixpro.enigma.be.handlers
 
 import com.google.common.base.Preconditions
+import com.radixpro.enigma.be.util.Range
 import com.radixpro.enigma.domain.input.DateTimeJulian
 import com.radixpro.enigma.domain.input.Location
 import com.radixpro.enigma.references.*
-import com.radixpro.enigma.shared.Range
 import com.radixpro.enigma.shared.common.EnigmaDictionary.NAIBOD_KEY
 import com.radixpro.enigma.shared.common.EnigmaDictionary.TROPICAL_YEAR
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException
@@ -56,8 +56,7 @@ class TimeKeyHandler(private val secundaryDateHandler: SecundaryDateHandler,
         val ayanamsha: Ayanamshas = pSetRx.ayanamsha
         val fppSunRadix = fpPosHandler.definePosition(CelestialObjects.SUN, birthDateTime.jd, obsPos, eclProj, ayanamsha, location)
         val fppSunSec = fpPosHandler.definePosition(CelestialObjects.SUN, jd, obsPos, eclProj, ayanamsha, location)
-        val range = Range(0.0, 360.0)
-        return range.checkValue(fppSunSec.longitude - fppSunRadix.longitude)
+        return Range.checkValue(fppSunSec.longitude - fppSunRadix.longitude)
     }
 
     companion object {

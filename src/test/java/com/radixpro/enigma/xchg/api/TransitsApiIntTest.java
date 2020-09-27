@@ -97,7 +97,8 @@ public class TransitsApiIntTest {
       CoordinateSet csHor = new CoordinateSet(162.0, 20.0);
       mundanePositions.add(new MundanePosition(MundanePoints.ASC, 162.5, csEq, csHor));
       AllMundanePositions allMundPos = new AllMundanePositions(mundanePositions, mundanePositions);
-      CalculatedChart cChart = new CalculatedChart(celestialPositions, allMundPos);
+      AstronSpecifics astronSpecifics = new AstronSpecifics(0.0, 0.0);
+      CalculatedChart cChart = new CalculatedChart(celestialPositions, allMundPos, astronSpecifics);
       List<AspectTypes> aspectTypes = new ArrayList<>();
       aspectTypes.add(AspectTypes.CONJUNCTION);
       aspectTypes.add(AspectTypes.SEXTILE);

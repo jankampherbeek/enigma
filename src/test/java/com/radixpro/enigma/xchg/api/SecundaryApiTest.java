@@ -9,6 +9,7 @@ package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.AllMundanePositions;
+import com.radixpro.enigma.domain.astronpos.AstronSpecifics;
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
@@ -133,7 +134,8 @@ public class SecundaryApiTest {
       List<IPosition> mundanePositions = new ArrayList<>();
       mundanePositions.add(posAscMock);
       AllMundanePositions allMundPos = new AllMundanePositions(mundanePositions, mundanePositions);
-      CalculatedChart calcChart = new CalculatedChart(celestialPositions, allMundPos);
+      AstronSpecifics astronSpecifics = new AstronSpecifics(0.0, 0.0);
+      CalculatedChart calcChart = new CalculatedChart(celestialPositions, allMundPos, astronSpecifics);
       return new ProgAnalyzeRequest(ProgAnalysisType.ASPECTS, progPositions, calcChart, aspects, 2.0);
    }
 

@@ -10,11 +10,11 @@ import com.radixpro.enigma.be.calc.CoordinateConversions
 import com.radixpro.enigma.be.calc.EnigmaAstronMath
 import com.radixpro.enigma.be.calc.EnigmaMath
 import com.radixpro.enigma.be.calc.SpaeculumPropSaCalculator
+import com.radixpro.enigma.be.util.Range
 import com.radixpro.enigma.domain.astronpos.IPosition
 import com.radixpro.enigma.domain.astronpos.LonDeclPosition
 import com.radixpro.enigma.domain.reqresp.PrimaryCalcRequest
 import com.radixpro.enigma.domain.reqresp.SimpleProgResponse
-import com.radixpro.enigma.shared.Range
 import com.radixpro.enigma.shared.exceptions.UnknownTimeKeyException
 import java.util.*
 
@@ -31,7 +31,7 @@ class PrimaryHandler(private val primaryPositionsHandler: PrimaryPositionsHandle
         try {
             val solarArc = timeKeyHandler.retrieveTimeSpan(request.dateTimeRadix, request.dateTime, request.timeKey, request.location, request.settings)
             val eps = obliquityHandler.calcTrueObliquity(request.dateTimeRadix.jd)
-            val prMc = Range(0.0, 360.0).checkValue(calculatedChart.mundPoints.mc.longitude + solarArc)
+            val prMc = Range.checkValue(calculatedChart.mundPoints.mc.longitude + solarArc)
             val prRaMc = CoordinateConversions.eclipticToEquatorial(doubleArrayOf(prMc, 0.0), eps)[0]
             val prAsc = EnigmaAstronMath.ascFromRamc(prRaMc, geoLat, eps)
             val (raMcRx, items) = spsCalculator.performCalculation(calculatedChart, request.dateTimeRadix.jd, request.location.geoLat, request.settings)
@@ -66,6 +66,6 @@ class PrimaryHandler(private val primaryPositionsHandler: PrimaryPositionsHandle
             diff = Math.abs(tempRightAscension - currentRightAscension)
             currentRightAscension = tempRightAscension
         }
-        return Range(0.0, 360.0).checkValue(currentRightAscension)
+        return Range.checkValue(currentRightAscension)
     }
 }

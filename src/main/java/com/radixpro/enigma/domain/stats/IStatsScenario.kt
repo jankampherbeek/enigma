@@ -10,6 +10,7 @@ import com.radixpro.enigma.references.StatsScenarioTypes
 
 /**
  * Interface for statistical scenario's
+ * @Deprecated
  */
 interface IStatsScenario {
     val rbName: String

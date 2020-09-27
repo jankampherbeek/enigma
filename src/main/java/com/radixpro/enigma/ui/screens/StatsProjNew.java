@@ -28,13 +28,18 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
  */
 public class StatsProjNew extends InputScreen {
 
-   private static final double HEIGHT = 600.0;
+   private static final double HEIGHT = 1000.0;
    private final NameDescriptionInputBlock nameDescrBlock;
    private final BaseConfigInputBlock configBlock;
    private final StatsDataSearch dataSearch;
-   private Label lblSubTitle;
+   private Label lblSubTitleDataFiles;
+   private Label lblSubTitleDataFilesEvents;
    private Pane paneSubTitleData;
+   private Pane paneSubTitleDataEvents;
+   private Pane paneDataFiles;
+   private Pane paneDataFilesEvents;
    private TableView tvDataFiles;
+   private TableView tvDataFilesEvents;
    private DataFileDescription dataFileDescription;
    private Button btnOk;
    private Button btnHelp;
@@ -67,17 +72,24 @@ public class StatsProjNew extends InputScreen {
    private void initialize() {
       defineLeafs();
       createTableView();
+      createTableViewEvents();
       definePanes();
    }
 
    private void defineLeafs() {
-      lblSubTitle = new LabelBuilder("ui.stats.datafiles.subtitle").setPrefWidth(INPUT_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
+      lblSubTitleDataFiles = new LabelBuilder("ui.stats.datafiles.subtitle").setPrefWidth(INPUT_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
+            setStyleClass("subtitletext").build();
+      lblSubTitleDataFilesEvents = new LabelBuilder("ui.stats.datafiles.events.subtitle").setPrefWidth(INPUT_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
             setStyleClass("subtitletext").build();
    }
 
    private void definePanes() {
       paneSubTitleData = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_PANE).
-            setChildren(lblSubTitle, tvDataFiles).build();
+            setChildren(lblSubTitleDataFiles).build();
+      paneSubTitleDataEvents = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_PANE).
+            setChildren(lblSubTitleDataFilesEvents, tvDataFilesEvents).build();
+      paneDataFiles = new PaneBuilder().setHeight(120).setWidth(INPUT_WIDTH).setChildren(tvDataFiles).build();
+      paneDataFilesEvents = new PaneBuilder().setHeight(120).setWidth(INPUT_WIDTH).setChildren(tvDataFilesEvents).build();
    }
 
    private Pane createPaneTitle() {
@@ -87,7 +99,7 @@ public class StatsProjNew extends InputScreen {
 
 
    private VBox createVBox() {
-      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(600.0).setChildren(
+      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(900.0).setChildren(
             createPaneTitle(),
             nameDescrBlock.getGridPane(this),
             configBlock.getGridPane(),
@@ -97,7 +109,12 @@ public class StatsProjNew extends InputScreen {
    }
 
    private VBox createVBoxData() {
-      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(180.0).setChildren(paneSubTitleData, tvDataFiles, createBtnBarData()).build();
+      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(480.0).setChildren(
+            paneSubTitleData,
+            paneDataFiles,
+            paneSubTitleDataEvents,
+            paneDataFilesEvents,
+            createBtnBarData()).build();
    }
 
    @Override
@@ -127,7 +144,7 @@ public class StatsProjNew extends InputScreen {
    }
 
    private void createTableView() {
-      tvDataFiles = new TableViewBuilder().setPrefWidth(INPUT_WIDTH).setPrefHeight(HEIGHT).build();
+      tvDataFiles = new TableViewBuilder().setPrefWidth(INPUT_WIDTH).setPrefHeight(120).build();
       tvDataFiles.setPlaceholder(new Label(Rosetta.getText("ui.stats.placeholder.datafiles")));
       colName = new TableColumn<>(Rosetta.getText("ui.general.name"));
       colDescr = new TableColumn<>(Rosetta.getText("ui.general.description"));
@@ -144,6 +161,24 @@ public class StatsProjNew extends InputScreen {
       selectedDataFiles.addListener((ListChangeListener<DataFileDescription>) change -> onSelectFile());
    }
 
+   private void createTableViewEvents() {
+      tvDataFilesEvents = new TableViewBuilder().setPrefWidth(INPUT_WIDTH).setPrefHeight(120).build();
+      tvDataFilesEvents.setPlaceholder(new Label(Rosetta.getText("ui.stats.placeholder.datafiles")));
+      colName = new TableColumn<>(Rosetta.getText("ui.general.name"));
+      colDescr = new TableColumn<>(Rosetta.getText("ui.general.description"));
+      colName.setCellValueFactory(new PropertyValueFactory("name"));
+      colDescr.setCellValueFactory(new PropertyValueFactory("description"));
+      colName.setPrefWidth(300.0);
+      colDescr.setPrefWidth(300.0);
+      tvDataFilesEvents.getColumns().add(colName);
+      tvDataFilesEvents.getColumns().add(colDescr);
+
+      TableView.TableViewSelectionModel<DataFileDescription> selectionModel = tvDataFilesEvents.getSelectionModel();
+      selectionModel.setSelectionMode(SelectionMode.SINGLE);
+      selectedDataFiles = selectionModel.getSelectedItems();
+      selectedDataFiles.addListener((ListChangeListener<DataFileDescription>) change -> onSelectFileEvents());
+   }
+
    private void onRemove() {
       // remove selected datafile
       checkStatus();
@@ -152,4 +187,9 @@ public class StatsProjNew extends InputScreen {
    private void onSelectFile() {
       // TODO enable buttons, maybe just checkStatus()
    }
+
+   private void onSelectFileEvents() {
+      // TODO enable buttons, maybe just checkStatus()
+   }
+
 }

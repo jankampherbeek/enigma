@@ -8,11 +8,9 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
-import com.radixpro.enigma.testsupport.TestSupport;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -25,11 +23,6 @@ public class LabelBuilderTest {
 
    private final String rbKey = "ui.shared.no";
    private final Pos alignment = Pos.BASELINE_CENTER;
-
-   @Before
-   public void setUp() {
-      TestSupport.initRosetta();
-   }
 
    @Test
    public void constructOnly() throws Exception {

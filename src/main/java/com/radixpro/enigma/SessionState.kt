@@ -6,8 +6,8 @@
  */
 package com.radixpro.enigma
 
+import com.radixpro.enigma.domain.astronpos.FullChart
 import com.radixpro.enigma.domain.config.Configuration
-import com.radixpro.enigma.ui.domain.FullChart
 
 /**
  * Remembers state of several components.

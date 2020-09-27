@@ -7,12 +7,12 @@
 package com.radixpro.enigma.be.calc
 
 import com.radixpro.enigma.be.handlers.ObliquityHandler
+import com.radixpro.enigma.be.util.Range
 import com.radixpro.enigma.domain.astronpos.CalculatedChart
 import com.radixpro.enigma.domain.astronpos.SpaeculumPropSaData
 import com.radixpro.enigma.domain.astronpos.SpaeculumPropSaItem
 import com.radixpro.enigma.references.CelestialObjects
 import com.radixpro.enigma.references.ChartPointTypes
-import com.radixpro.enigma.shared.Range
 import com.radixpro.enigma.shared.exceptions.EnigmaMathException
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings
 import com.radixpro.enigma.xchg.domain.IChartPoints
@@ -85,9 +85,9 @@ class SpaeculumPropSaCalculator(private val obliquityHandler: ObliquityHandler) 
                                      quadrant: Int): Double {
         var meridianDistance = raPos - raMc
         if (quadrant == 4 || quadrant == 2) {
-            meridianDistance = Range(0.0, 180.0).checkValue(meridianDistance)
+            meridianDistance = Range.checkValue(meridianDistance, 0.0, 180.0)
         } else if (quadrant == 1 || quadrant == 3) {
-            meridianDistance = Range(-180.0, 0.0).checkValue(meridianDistance)
+            meridianDistance = Range.checkValue(meridianDistance, -180.0, 0.0)
         }
         var proportion = meridianDistance / sa
         if (quadrant == 1 || quadrant == 3) proportion = -proportion
@@ -97,8 +97,8 @@ class SpaeculumPropSaCalculator(private val obliquityHandler: ObliquityHandler) 
     private fun defineQuadrant(lon: Double,
                                mc: Double,
                                asc: Double): Int {
-        val distanceFromMC = Range(0.0, 360.0).checkValue(lon - mc)
-        val distanceFromAsc = Range(0.0, 360.0).checkValue(lon - asc)
+        val distanceFromMC = Range.checkValue(lon - mc)
+        val distanceFromAsc = Range.checkValue(lon - asc)
         var eastHemisphere = false
         var southHemisphere = false
         if (distanceFromMC < 180.0) eastHemisphere = true

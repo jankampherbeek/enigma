@@ -9,9 +9,9 @@ package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.domain.astronpos.FullChart;
 import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.ui.charts.screens.helpers.ChartDrawMetrics;
-import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.screens.helpers.RadixWheel;
 import com.radixpro.enigma.ui.shared.Help;
 import javafx.geometry.Insets;

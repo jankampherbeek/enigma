@@ -14,8 +14,7 @@ import com.radixpro.enigma.shared.exceptions.UnknownIdException
 enum class StatsRangeTypes(val id: Int,
                            val rbName: String) {
     SIGNS(1, "statsrangetype.signs"),
-    HOUSES(2, "statsrangetype.houses"),
-    DECANS(3, "statsrangetype.decans");
+    HOUSES(2, "statsrangetype.houses");
 
     companion object {
         @JvmStatic

@@ -14,11 +14,15 @@ import com.radixpro.enigma.shared.exceptions.UnknownIdException
 enum class StatsScenarioTypes(val id: Int,
                               val rbName: String,
                               val rbDescr: String) {
-    DUAL(1, "statsscenariotype.dual.name", "statsscenariotype.dual.descr"),
-    TRIPLE(2, "statsscenariotype.triple.name", "statsscenariotype.triple.descr"),
-    MULTIPLE_SINGLE(3, "statsscenariotype.multiplesingle.name", "statsscenariotype.multiplesingle.descr"),
-    RANGE(4, "statsscenariotype.range.name", "statsscenariotype.range.descr"),
-    MINMAX(5, "statsscenariotype.minmax.name", "statsscenariotype.minmax.descr");
+    RANGE(1, "statsscenariotype.range.name", "statsscenariotype.range.descr"),
+    MINMAX(2, "statsscenariotype.minmax.name", "statsscenariotype.minmax.descr"),
+    COUNTS(3, "statsscenariotype.counts.name", "statsscenariotype.counts.descr"),
+    COMBI(4, "statsscenariotype.combi.name", "statsscenariotype.combi.descr"),
+    PROG(5, "statsscenariotype.prog.name", "statsscenariotype.prog.descr"),
+//    DUAL(6, "statsscenariotype.dual.name", "statsscenariotype.dual.descr"),
+//    TRIPLE(7, "statsscenariotype.triple.name", "statsscenariotype.triple.descr"),
+//    MULTIPLE_SINGLE(8, "statsscenariotype.multiplesingle.name", "statsscenariotype.multiplesingle.descr")
+    ;
 
     companion object {
         @JvmStatic

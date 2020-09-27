@@ -37,6 +37,7 @@ object Rosetta {
      */
     @JvmStatic
     fun setLanguage(language: String) {
+        if (!initialized) reInitialize()
         LOG.info("Setting language to : $language")
         if (language == ENGLISH || language == DUTCH) {
             val langProp = Property(PROP_LANG, language)

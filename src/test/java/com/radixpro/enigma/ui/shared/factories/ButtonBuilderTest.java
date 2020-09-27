@@ -8,10 +8,8 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
-import com.radixpro.enigma.testsupport.TestSupport;
 import com.radixpro.enigma.ui.creators.ButtonBuilder;
 import javafx.scene.control.Button;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,11 +20,6 @@ public class ButtonBuilderTest {
 
    private final String rbKey = "ui.shared.btn.ok";
    private final String text = "Also OK";
-
-   @Before
-   public void setUp() {
-      TestSupport.initRosetta();
-   }
 
    @Test
    public void onlyConstructor() {

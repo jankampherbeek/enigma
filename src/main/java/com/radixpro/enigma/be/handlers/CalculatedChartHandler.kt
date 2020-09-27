@@ -6,6 +6,7 @@
  */
 package com.radixpro.enigma.be.handlers
 
+import com.radixpro.enigma.domain.astronpos.AstronSpecifics
 import com.radixpro.enigma.domain.astronpos.CalculatedChart
 import com.radixpro.enigma.domain.astronpos.IPosition
 import com.radixpro.enigma.domain.input.DateTimeJulian
@@ -29,6 +30,8 @@ class CalculatedChartHandler(private val fullPointPositionHandler: FullPointPosi
             fullPointPositions.add(fullPointPosition)
         }
         val allMundanePositions = mundanePositionsHandler.definePositions(jdUt, eclProj, ayanamsha, settings.houseSystem, location)
-        return CalculatedChart(fullPointPositions, allMundanePositions)
+        // FIXME: calcualte armc and eps
+        val astronSpecifics = AstronSpecifics(0.0, 0.0)
+        return CalculatedChart(fullPointPositions, allMundanePositions, astronSpecifics)
     }
 }

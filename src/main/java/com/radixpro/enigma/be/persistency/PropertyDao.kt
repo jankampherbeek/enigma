@@ -13,7 +13,7 @@ import java.util.*
 
 class PropertyDao() : DaoParent() {
 
-    var appDb = AppDb.getInstance()!!
+    private val appDb = AppDb.initAppDb("prod")
 
     @Throws(DatabaseException::class)
     fun insert(newProp: Property) {

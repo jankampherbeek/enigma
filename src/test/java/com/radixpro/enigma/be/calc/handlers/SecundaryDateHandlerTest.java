@@ -9,7 +9,6 @@ package com.radixpro.enigma.be.calc.handlers;
 
 import com.radixpro.enigma.be.handlers.SecundaryDateHandler;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
-import com.radixpro.enigma.testsupport.TestSupport;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +24,6 @@ public class SecundaryDateHandlerTest {
 
    @Before
    public void setUp() {
-      TestSupport.useDb();
       birthDateTime = new DateTimeJulian(2451544.5, "G");    // 2000/1/1
       eventDateTime = new DateTimeJulian(2455197.5, "G");   // 2010/1/1
 

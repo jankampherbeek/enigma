@@ -11,7 +11,7 @@ import com.radixpro.enigma.be.calc.EnigmaMath.atan2
 import com.radixpro.enigma.be.calc.EnigmaMath.cos
 import com.radixpro.enigma.be.calc.EnigmaMath.sin
 import com.radixpro.enigma.be.calc.EnigmaMath.tan
-import com.radixpro.enigma.shared.Range
+import com.radixpro.enigma.be.util.Range
 import com.radixpro.enigma.shared.exceptions.EnigmaMathException
 
 /**
@@ -33,7 +33,7 @@ object EnigmaAstronMath {
      */
     @Throws(EnigmaMathException::class)
     fun semiArc(rightAscension: Double, geoLatitude: Double, epsilon: Double): Double {
-        val workRa = Range(0.0, 360.0).checkValue(rightAscension)
+        val workRa = Range.checkValue(rightAscension)
         val factorX = asin(tan(epsilon) * tan(geoLatitude))
         if (geoLatitude <= -90 || geoLatitude >= 90) throw EnigmaMathException("Error in latitude while calculating semiArc : $geoLatitude")
         return 90 + asin(sin(workRa) * sin(factorX))
@@ -48,13 +48,13 @@ object EnigmaAstronMath {
      * @return calculated longitude.
      */
     fun ascFromRamc(raMc: Double, geoLat: Double, eps: Double): Double {
-        val obliqueAscensionAsc = Range(0.0, 360.0).checkValue(raMc + 90)
+        val obliqueAscensionAsc = Range.checkValue(raMc + 90)
         val sinOA = sin(obliqueAscensionAsc)
         val cosOA = cos(obliqueAscensionAsc)
         val cosE = cos(eps)
         val tanE = tan(eps)
         val tanGLat = tan(geoLat)
         val lengthOfAscendant = atan2(sinOA, (cosOA - tanE * tanGLat) * cosE)
-        return Range(0.0, 360.0).checkValue(lengthOfAscendant)
+        return Range.checkValue(lengthOfAscendant)
     }
 }

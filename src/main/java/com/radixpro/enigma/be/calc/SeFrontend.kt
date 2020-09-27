@@ -112,6 +112,20 @@ object SeFrontend {
     }
 
     /**
+     * Relative position in a house.
+     * Returns a Double where the integer part indicates the house and the floating point part the relative distnace from the cusp.
+     * E.g. 6.33 means sixth house and 33% separated from the cusp.
+     */
+    fun getPositionInHouse(armc: Double,
+                           geoLat: Double,
+                           eps: Double,
+                           hsys: Int,
+                           lonLat: DoubleArray,
+                           error: StringBuffer): Double {
+        return swissEph.swe_house_pos(armc, geoLat, eps, hsys, lonLat, error)
+    }
+
+    /**
      * Calculates the ascendant from the ARMC.
      *
      * @param armc   Value for ARMC. PRE: 0.0 <= armc < 360.0

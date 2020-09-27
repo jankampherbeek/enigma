@@ -7,14 +7,14 @@
 
 package com.radixpro.enigma.ui.screens.helpers;
 
+import com.radixpro.enigma.be.util.Range;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
+import com.radixpro.enigma.domain.astronpos.FullChart;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.references.MundanePoints;
-import com.radixpro.enigma.shared.Range;
 import com.radixpro.enigma.ui.charts.screens.helpers.*;
 import com.radixpro.enigma.ui.creators.PlotCoordinatesFactory;
-import com.radixpro.enigma.ui.domain.FullChart;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.xchg.api.AspectsApi;
 import javafx.scene.canvas.GraphicsContext;
@@ -223,7 +223,7 @@ public class RadixWheel {
       double angle;
       for (int i = 1; i <= 12; i++) {
          if (!quadrantSystem || (i != 1 && i != 4 && i != 7 && i != 10)) {
-            angle = new Range(0.0, 360.0).checkValue(asc - cusps.get(i).getLongitude());
+            angle = Range.INSTANCE.checkValue(asc - cusps.get(i).getLongitude(), 0.0, 360.0);
             cuspText = PlotCoordinatesFactory.createCuspTextPlotCoordinates(angle + 180.0, metrics);
             coordinates = cuspText.defineCoordinates(angle, metrics);
             String posText = new SexagesimalFormatter(2).formatDm(cusps.get(i).getLongitude() % 30.0);
@@ -258,7 +258,7 @@ public class RadixWheel {
       final List<PlotBodyInfo> plotBodyInfos = new ArrayList<>();
       for (IPosition bodyPos : bodies) {
          longitude = bodyPos.getLongitude();
-         angle = new Range(0.0, 360.0).checkValue(ascendant - longitude);
+         angle = Range.INSTANCE.checkValue(ascendant - longitude, 0.0, 360.0);
          plotBodyInfos.add(new PlotBodyInfo(bodyPos.getChartPoint(), angle, longitude));
       }
       plotBodyInfos.sort(new PlotBodyInfoComparator());
@@ -327,10 +327,10 @@ public class RadixWheel {
       double angleFromAsc;
       for (IPosition bodyPos : bodies) {
          double longitude = bodyPos.getLongitude();
-         angleFromAsc = new Range(0.0, 360.0).checkValue(ascendant - longitude);
+         angleFromAsc = Range.INSTANCE.checkValue(ascendant - longitude, 0.0, 360.0);
          pointInfos.add(new PointInfoForAspect(bodyPos.getChartPoint(), angleFromAsc));
       }
-      angleFromAsc = new Range(0.0, 360.0).checkValue(ascendant - fChart.getCalculatedChart().getMundPoints().getMc().getLongitude());
+      angleFromAsc = Range.INSTANCE.checkValue(ascendant - fChart.getCalculatedChart().getMundPoints().getMc().getLongitude(), 0.0, 360.0);
       pointInfos.add(new PointInfoForAspect(MundanePoints.MC, angleFromAsc));
       pointInfos.add(new PointInfoForAspect(MundanePoints.ASC, 0.0));
       final List<DrawableLine> drawableLines = helper.createDrawLines(aspects, pointInfos, metrics);

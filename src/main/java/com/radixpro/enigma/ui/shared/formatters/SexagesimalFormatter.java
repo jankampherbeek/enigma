@@ -6,7 +6,7 @@
 
 package com.radixpro.enigma.ui.shared.formatters;
 
-import com.radixpro.enigma.shared.Range;
+import com.radixpro.enigma.be.util.Range;
 
 import static com.radixpro.enigma.shared.common.EnigmaDictionary.*;
 
@@ -47,7 +47,7 @@ public class SexagesimalFormatter {
    }
 
    private String performFormatting(final double value2Format) {
-      double tempValue = new Range(0.0, 360.0).checkValue(value2Format);
+      double tempValue = Range.INSTANCE.checkValue(value2Format, 0.0, 360.0);
       int degHour = (int) tempValue;
       double fraction = tempValue - degHour;
       double fractionalMinute = fraction * 60.0;

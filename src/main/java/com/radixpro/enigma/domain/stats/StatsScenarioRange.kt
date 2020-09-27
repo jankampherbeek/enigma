@@ -12,8 +12,9 @@ import com.radixpro.enigma.references.StatsScenarioTypes
 /**
  * Scenario for statistical research into ranges (areas).
  */
-data class StatsScenarioRange(override val rbName: String,
-                              override val rbDescription: String,
-                              override val players: List<Player>,
-                              override val scenarioType: StatsScenarioTypes,
-                              val rangeType: StatsRangeTypes) : IStatsScenario
+data class StatsScenarioRange(val rbName: String,
+                              val rbDescription: String,
+                              val players: List<Player>,
+                              val scenarioType: StatsScenarioTypes,
+                              val rangeType: StatsRangeTypes,
+                              val selection: List<Int>) : StatsScenario()

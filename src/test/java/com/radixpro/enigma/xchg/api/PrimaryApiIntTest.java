@@ -78,7 +78,8 @@ public class PrimaryApiIntTest {
       celPoints.add(createFPP(CelestialObjects.MERCURY, 110.0, 12.0));
       celPoints.add(createFPP(CelestialObjects.VENUS, 108.0, 11.11));
       celPoints.add(createFPP(CelestialObjects.MARS, 350.0, -1.0));
-      return new CalculatedChart(celPoints, createAmPos());
+      AstronSpecifics astronSpecifics = new AstronSpecifics(0.0, 0.0);
+      return new CalculatedChart(celPoints, createAmPos(), astronSpecifics);
    }
 
    private FullPointPosition createFPP(IChartPoints point, double lon, double decl) {

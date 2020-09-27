@@ -8,8 +8,8 @@
 package com.radixpro.enigma.ui.charts;
 
 import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.domain.astronpos.FullChart;
 import com.radixpro.enigma.domain.config.Configuration;
-import com.radixpro.enigma.ui.domain.FullChart;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
