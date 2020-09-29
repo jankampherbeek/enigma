@@ -17,7 +17,6 @@ public class BePersistencyInjector {
       // prevent instantiation
    }
 
-
    public static ChartDataDao injectChartDataDao() {
       return new ChartDataDao();
    }
@@ -44,6 +43,10 @@ public class BePersistencyInjector {
 
    public static PropertyDao injectPropertyDao() {
       return new PropertyDao();
+   }
+
+   public static StatsProjDao injectStatsProjDao() {
+      return new StatsProjDao(injectJsonWriter());
    }
 
    public static VersionDao injectVersionDao() {

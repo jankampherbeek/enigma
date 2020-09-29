@@ -96,7 +96,7 @@ public class StatsDataSearch {
 
    private void onSearch() {
       lvSearchResults.getItems().clear();
-      String arg = tfSearchArg.getText();
+      String arg = tfSearchArg.getText();             // todo use arg
       dataFileDescriptions = api.readDataFileDescriptions();
       for (DataFileDescription descr : dataFileDescriptions) {
          lvSearchResults.getItems().add(descr.getName());

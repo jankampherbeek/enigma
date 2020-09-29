@@ -14,4 +14,4 @@ import com.radixpro.enigma.domain.config.BaseAstronConfig
 data class StatsProject(val name: String,
                         val description: String,
                         val baseAstronConfig: BaseAstronConfig,
-                        val scenarios: List<IStatsScenario>)
+                        val dataFiles: List<DataFileDescription>)

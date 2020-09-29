@@ -93,7 +93,7 @@ public class UiScreensInjector {
 
    public static StatsProjNew injectStatsProjNew() {
       return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(), ScreensBlocksInjector.injectBaseConfigInputBlock(),
-            injectStatsDataSearch());
+            injectStatsDataSearch(), XchgApiInjector.injectStatsProjApi());
    }
 
    public static StatsProjSearch injectStatsProjSearch() {
@@ -101,7 +101,7 @@ public class UiScreensInjector {
    }
 
    public static StatsStart injectStatsStart() {
-      return new StatsStart(ScreensBlocksInjector.injectStatsDataBlock(), ScreensBlocksInjector.injectStatsProjBlock(),
+      return new StatsStart(injectStatsDataNew(), injectStatsDataSearch(), ScreensBlocksInjector.injectStatsProjBlock(),
             injectStatsProjSearch(), XchgApiInjector.injectPersistedPropertyApi(), new DirectoryChooser());
    }
 

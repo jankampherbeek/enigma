@@ -38,10 +38,6 @@ public class ScreensBlocksInjector {
       return new ProgMetaInputBlock();
    }
 
-   public static StatsDataBlock injectStatsDataBlock() {
-      return new StatsDataBlock(UiScreensInjector.injectStatsDataNew(), UiScreensInjector.injectStatsDataSearch());
-   }
-
    public static StatsProjBlock injectStatsProjBlock() {
       return new StatsProjBlock(UiScreensInjector.injectStatsProjNew());
    }

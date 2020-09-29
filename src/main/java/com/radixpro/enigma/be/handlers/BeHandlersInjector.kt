@@ -66,6 +66,10 @@ object BeHandlersInjector {
         return SecundaryDateHandler()
     }
 
+    fun injectStatsProjHandler(): StatsProjHandler {
+        return StatsProjHandler(BePersistencyInjector.injectStatsProjDao(), BePersistencyInjector.injectPropertyDao())
+    }
+
     fun injectSolarReturnHandler(): SolarReturnHandler {
         return SolarReturnHandler(BeCalcInjector.injectJdFromPosCalc(), XchgApiInjector.injectCalculatedChartApi())
     }

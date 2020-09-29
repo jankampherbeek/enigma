@@ -8,10 +8,17 @@
 package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.domain.config.BaseAstronConfig;
 import com.radixpro.enigma.domain.stats.DataFileDescription;
+import com.radixpro.enigma.domain.stats.StatsProject;
+import com.radixpro.enigma.references.Ayanamshas;
+import com.radixpro.enigma.references.EclipticProjections;
+import com.radixpro.enigma.references.HouseSystems;
+import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.screens.blocks.BaseConfigInputBlock;
 import com.radixpro.enigma.ui.screens.blocks.NameDescriptionInputBlock;
+import com.radixpro.enigma.xchg.api.StatsProjApi;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -21,6 +28,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
@@ -28,33 +38,33 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
  */
 public class StatsProjNew extends InputScreen {
 
-   private static final double HEIGHT = 1000.0;
+   private static final double HEIGHT = 800.0;
    private final NameDescriptionInputBlock nameDescrBlock;
    private final BaseConfigInputBlock configBlock;
    private final StatsDataSearch dataSearch;
    private Label lblSubTitleDataFiles;
-   private Label lblSubTitleDataFilesEvents;
    private Pane paneSubTitleData;
-   private Pane paneSubTitleDataEvents;
    private Pane paneDataFiles;
-   private Pane paneDataFilesEvents;
    private TableView tvDataFiles;
-   private TableView tvDataFilesEvents;
    private DataFileDescription dataFileDescription;
-   private Button btnOk;
+   private final StatsProjApi statsProjApi;
    private Button btnHelp;
    private Button btnCancel;
+   private Button btnSave;
    private TableColumn<DataFileDescription, String> colName;
    private TableColumn<DataFileDescription, String> colDescr;
    private ObservableList<DataFileDescription> selectedDataFiles;
+   private Button btnRemove;
 
    public StatsProjNew(@NotNull final NameDescriptionInputBlock nameDescrBlock,
                        @NotNull final BaseConfigInputBlock configBlock,
-                       @NotNull final StatsDataSearch dataSearch) {
+                       @NotNull final StatsDataSearch dataSearch,
+                       @NotNull final StatsProjApi statsProjApi) {
       super();
       this.nameDescrBlock = nameDescrBlock;
       this.configBlock = configBlock;
       this.dataSearch = dataSearch;
+      this.statsProjApi = statsProjApi;
    }
 
    public void show() {
@@ -65,31 +75,26 @@ public class StatsProjNew extends InputScreen {
 
    @Override
    public void checkStatus() {
-      btnOk.setDisable(null == nameDescrBlock.getName() || nameDescrBlock.getName().isBlank() ||
-            null == nameDescrBlock.getDescr() || nameDescrBlock.getDescr().isBlank() || !tvDataFiles.getItems().isEmpty());
+      btnSave.setDisable(null == nameDescrBlock.getName() || nameDescrBlock.getName().isBlank() ||
+            null == nameDescrBlock.getDescr() || nameDescrBlock.getDescr().isBlank() || tvDataFiles.getItems().isEmpty());
+      btnRemove.setDisable(tvDataFiles.getSelectionModel().getSelectedIndex() == -1);
    }
 
    private void initialize() {
       defineLeafs();
       createTableView();
-      createTableViewEvents();
       definePanes();
    }
 
    private void defineLeafs() {
       lblSubTitleDataFiles = new LabelBuilder("ui.stats.datafiles.subtitle").setPrefWidth(INPUT_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
             setStyleClass("subtitletext").build();
-      lblSubTitleDataFilesEvents = new LabelBuilder("ui.stats.datafiles.events.subtitle").setPrefWidth(INPUT_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
-            setStyleClass("subtitletext").build();
    }
 
    private void definePanes() {
       paneSubTitleData = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_PANE).
             setChildren(lblSubTitleDataFiles).build();
-      paneSubTitleDataEvents = new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_PANE).
-            setChildren(lblSubTitleDataFilesEvents, tvDataFilesEvents).build();
       paneDataFiles = new PaneBuilder().setHeight(120).setWidth(INPUT_WIDTH).setChildren(tvDataFiles).build();
-      paneDataFilesEvents = new PaneBuilder().setHeight(120).setWidth(INPUT_WIDTH).setChildren(tvDataFilesEvents).build();
    }
 
    private Pane createPaneTitle() {
@@ -99,7 +104,7 @@ public class StatsProjNew extends InputScreen {
 
 
    private VBox createVBox() {
-      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(900.0).setChildren(
+      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(650.0).setChildren(
             createPaneTitle(),
             nameDescrBlock.getGridPane(this),
             configBlock.getGridPane(),
@@ -109,11 +114,9 @@ public class StatsProjNew extends InputScreen {
    }
 
    private VBox createVBoxData() {
-      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(480.0).setChildren(
+      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(230.0).setChildren(
             paneSubTitleData,
             paneDataFiles,
-            paneSubTitleDataEvents,
-            paneDataFilesEvents,
             createBtnBarData()).build();
    }
 
@@ -121,16 +124,17 @@ public class StatsProjNew extends InputScreen {
    protected ButtonBar createBtnBar() {
       btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
       btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).build();
-      btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(true).build();
-      return new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnOk).build();
+      btnSave = new ButtonBuilder("ui.shared.btn.save").setDisabled(true).build();
+      btnSave.setOnAction(e -> onSave());
+      return new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnSave).build();
    }
 
    private ButtonBar createBtnBarData() {
       Button searchButton = new ButtonBuilder("ui.stats.datafiles.btnsearch").setDisabled(false).build();
-      Button removeButton = new ButtonBuilder("ui.stats.datafiles.btnremove").setDisabled(true).build();
+      btnRemove = new ButtonBuilder("ui.stats.datafiles.btnremove").setDisabled(true).build();
       searchButton.setOnAction(e -> onSearch());
-      removeButton.setOnAction(e -> onRemove());
-      return new ButtonBarBuilder().setButtons(searchButton, removeButton).build();
+      btnRemove.setOnAction(e -> onRemove());
+      return new ButtonBarBuilder().setButtons(searchButton, btnRemove).build();
    }
 
    private void onSearch() {
@@ -161,35 +165,36 @@ public class StatsProjNew extends InputScreen {
       selectedDataFiles.addListener((ListChangeListener<DataFileDescription>) change -> onSelectFile());
    }
 
-   private void createTableViewEvents() {
-      tvDataFilesEvents = new TableViewBuilder().setPrefWidth(INPUT_WIDTH).setPrefHeight(120).build();
-      tvDataFilesEvents.setPlaceholder(new Label(Rosetta.getText("ui.stats.placeholder.datafiles")));
-      colName = new TableColumn<>(Rosetta.getText("ui.general.name"));
-      colDescr = new TableColumn<>(Rosetta.getText("ui.general.description"));
-      colName.setCellValueFactory(new PropertyValueFactory("name"));
-      colDescr.setCellValueFactory(new PropertyValueFactory("description"));
-      colName.setPrefWidth(300.0);
-      colDescr.setPrefWidth(300.0);
-      tvDataFilesEvents.getColumns().add(colName);
-      tvDataFilesEvents.getColumns().add(colDescr);
-
-      TableView.TableViewSelectionModel<DataFileDescription> selectionModel = tvDataFilesEvents.getSelectionModel();
-      selectionModel.setSelectionMode(SelectionMode.SINGLE);
-      selectedDataFiles = selectionModel.getSelectedItems();
-      selectedDataFiles.addListener((ListChangeListener<DataFileDescription>) change -> onSelectFileEvents());
-   }
-
    private void onRemove() {
-      // remove selected datafile
+      int id = tvDataFiles.getSelectionModel().getSelectedIndex();
+      tvDataFiles.getItems().remove(id);
       checkStatus();
    }
 
    private void onSelectFile() {
-      // TODO enable buttons, maybe just checkStatus()
+      checkStatus();
    }
 
-   private void onSelectFileEvents() {
-      // TODO enable buttons, maybe just checkStatus()
+   private void onSave() {
+      statsProjApi.saveProject(createProject());
+   }
+
+   private StatsProject createProject() {
+      final String name = nameDescrBlock.getName();
+      final String descr = nameDescrBlock.getDescr();
+      final List<DataFileDescription> dataFiles = new ArrayList<>();
+      final ObservableList items = tvDataFiles.getItems();
+      for (Object obj : tvDataFiles.getItems()) {
+         dataFiles.add((DataFileDescription) obj);
+      }
+      HouseSystems houseSystem = configBlock.getHouseSystem();
+      Ayanamshas ayanamsha = configBlock.getAyanamsha();
+      ObserverPositions obsPos = configBlock.getObserverPosition();
+      EclipticProjections eclProj = configBlock.getEclipticProjection();
+      BaseAstronConfig config = new BaseAstronConfig(houseSystem, ayanamsha, eclProj, obsPos);
+      return new StatsProject(name, descr, config, dataFiles);
+
+
    }
 
 }

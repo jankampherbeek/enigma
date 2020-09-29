@@ -6,6 +6,7 @@
  */
 package com.radixpro.enigma.xchg.api
 
+import com.radixpro.enigma.be.handlers.BeHandlersInjector
 import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectAspectsHandler
 import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectCalculatedChartHandler
 import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectDataFileHandler
@@ -78,6 +79,11 @@ object XchgApiInjector {
 
     fun injectSolarReturnApi(): SolarReturnApi {
         return SolarReturnApi(injectSolarReturnHandler())
+    }
+
+    @JvmStatic
+    fun injectStatsProjApi(): StatsProjApi {
+        return StatsProjApi(BeHandlersInjector.injectStatsProjHandler())
     }
 
     @JvmStatic
