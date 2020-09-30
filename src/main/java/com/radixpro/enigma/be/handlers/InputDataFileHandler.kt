@@ -47,7 +47,7 @@ class InputDataFileHandler(private val dataReaderCsv: DataReaderCsv,
         path += "data" + File.separator
         if (!checkOrCreateFolder(path)) throw InputDataException("Could not create folder :$path")
         val pos = fileName.lastIndexOf(File.separator)
-        val fileNameNoPath = fileName.substring(pos + 1)
+        val fileNameNoPath = fileName.substring(pos + 1) + ".json"
         return path + fileNameNoPath
     }
 

@@ -18,17 +18,18 @@ class StatsProjDao(private val jsonWriter: JsonWriter) {
 
     fun save(project: StatsProject, pathRoot: String) {
         val projectName = project.name
-        val fullPath = pathRoot + File.separator + "proj" + File.separator + projectName
-        val fullProjFileName = fullPath + File.separator + projectName + ".json"
+        val fullPath = pathRoot + File.separator + "proj" + File.separator + projectName + File.separator
         if (folderExists(fullPath)) throw DatabaseException("Projectfolder already exists")
-        File(fullPath).mkdir()
+        val fullPathAsFile = File(fullPath)
+        fullPathAsFile.mkdirs()
+        val fullProjFileName = fullPath + "proj_" + projectName + ".json"
         jsonWriter.write2File(fullProjFileName, project, true)
 
         val dataFilenames = project.dataFiles
         val inputDataFolder = pathRoot + File.separator + "data" + File.separator
         for (datafileDescr: DataFileDescription in dataFilenames) {
             var fullPathDataFile = inputDataFolder + datafileDescr.name + ".json"
-            var newPathDataFile = fullPath + File.separator + datafileDescr.name + ".json"
+            var newPathDataFile = fullPath + File.separator + "in_" + datafileDescr.name + ".json"
             File(fullPathDataFile).copyTo(File(newPathDataFile))
         }
     }
