@@ -26,7 +26,7 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
  */
 public class StatsDataSearch {
 
-   private static final double HEIGHT = 800.0;
+   private static final double HEIGHT = 400.0;
    private final PersistedDataFileApi api;
    private Label lblTitle;
    private Label lblInstruction;
@@ -61,7 +61,7 @@ public class StatsDataSearch {
    }
 
    private void defineLeafs() {
-      lblTitle = new LabelBuilder("ui.stats.datasearch.lbltitel").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
+      lblTitle = new LabelBuilder("ui.stats.datasearch.lbltitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
       lblInstruction = new LabelBuilder("ui.stats.datasearch.lblinstruction").setPrefWidth(INPUT_WIDTH).build();
       tfSearchArg = new TextFieldBuilder().setPrefWidth(SMALL_INPUT_WIDTH).setStyleClass("inputDefault").build();
       lvSearchResults = new ListViewBuilder().setHeight(180.0).setWidth(SMALL_INPUT_WIDTH).setStyleClass("inputDefault").build();

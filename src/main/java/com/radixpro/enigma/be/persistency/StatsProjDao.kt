@@ -7,14 +7,21 @@
 
 package com.radixpro.enigma.be.persistency
 
+import com.radixpro.enigma.be.persistency.mappers.StatsProjMapper
 import com.radixpro.enigma.domain.stats.DataFileDescription
+import com.radixpro.enigma.domain.stats.IStatsProject
+import com.radixpro.enigma.domain.stats.StatsFailedProject
 import com.radixpro.enigma.domain.stats.StatsProject
+import com.radixpro.enigma.references.ErrorMsgs
 import com.radixpro.enigma.shared.exceptions.DatabaseException
+import org.apache.log4j.Logger
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 
-class StatsProjDao(private val jsonWriter: JsonWriter) {
+class StatsProjDao(private val jsonWriter: JsonWriter, private val jsonReader: JsonReader, private val mapper: StatsProjMapper) {
+
+    private val log = Logger.getLogger(StatsProjDao::class.java)
 
     fun save(project: StatsProject, pathRoot: String) {
         val projectName = project.name
@@ -28,10 +35,32 @@ class StatsProjDao(private val jsonWriter: JsonWriter) {
         val dataFilenames = project.dataFiles
         val inputDataFolder = pathRoot + File.separator + "data" + File.separator
         for (datafileDescr: DataFileDescription in dataFilenames) {
-            var fullPathDataFile = inputDataFolder + datafileDescr.name + ".json"
-            var newPathDataFile = fullPath + File.separator + "in_" + datafileDescr.name + ".json"
+            val fullPathDataFile = inputDataFolder + datafileDescr.name + ".json"
+            val newPathDataFile = fullPath + File.separator + "in_" + datafileDescr.name + ".json"
             File(fullPathDataFile).copyTo(File(newPathDataFile))
         }
+    }
+
+    fun read(projectName: String, pathRoot: String): IStatsProject {
+        val fullPath = pathRoot + File.separator + "proj" + File.separator + projectName
+        if (folderExists(fullPath)) {
+            val fullProjFileName = fullPath + File.separator + "proj_" + projectName + ".json"
+            val jsonObject = jsonReader.readObjectFromFile(File(fullProjFileName))
+            return mapper.jsonToStatsProject(jsonObject)
+        }
+        log.error("Could not find project $projectName in path $pathRoot")
+        return StatsFailedProject(false, ErrorMsgs.PROJECT_NOT_SAVED)
+    }
+
+    fun readAllNames(pathRoot: String): MutableList<String> {
+        val fullPath = pathRoot + File.separator + "proj" + File.separator
+        val projNames: MutableList<String> = ArrayList()
+        File(fullPath).walk().forEach {
+            if (it.isDirectory) {
+                projNames.add(it.name)
+            }
+        }
+        return projNames
     }
 
     private fun folderExists(fullPathFolder: String): Boolean {

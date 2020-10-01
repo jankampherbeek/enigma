@@ -11,7 +11,7 @@ import com.radixpro.enigma.shared.exceptions.DatabaseException
 import java.sql.SQLException
 import java.util.*
 
-class PropertyDao() : DaoParent() {
+class PropertyDao : DaoParent() {
 
     private val appDb = AppDb.initAppDb("prod")
 

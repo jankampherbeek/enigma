@@ -9,15 +9,25 @@ package com.radixpro.enigma.be.handlers
 
 import com.radixpro.enigma.be.persistency.PropertyDao
 import com.radixpro.enigma.be.persistency.StatsProjDao
+import com.radixpro.enigma.domain.stats.IStatsProject
 import com.radixpro.enigma.domain.stats.StatsProject
 
 class StatsProjHandler(private val statsProjDao: StatsProjDao, private val propDao: PropertyDao) {
 
+    val location = propDao.read("projdir")[0].value
+
     fun saveProject(project: StatsProject): String {
-        val location = propDao.read("projdir")[0].value
         statsProjDao.save(project, location)
         // TODO handle exceptions
         return "OK"
+    }
+
+    fun read(projName: String): IStatsProject {
+        return statsProjDao.read(projName, location)
+    }
+
+    fun readAllNames(): List<String> {
+        return statsProjDao.readAllNames(location)
     }
 
 }

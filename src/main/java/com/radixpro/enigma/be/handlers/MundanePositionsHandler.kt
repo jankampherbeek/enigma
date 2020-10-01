@@ -24,9 +24,8 @@ import java.util.*
 /**
  * Takes care of calculating mundane positions.
  */
-class MundanePositionsHandler(obliquityHandler: ObliquityHandler) {
+class MundanePositionsHandler(private val obliquityHandler: ObliquityHandler) {
     private val seFrontend: SeFrontend = SeFrontend
-    private val obliquityHandler: ObliquityHandler = obliquityHandler
 
     /**
      * Define mundane positions.

@@ -17,7 +17,7 @@ import org.apache.log4j.Logger
 class SolarReturnApi(private val handler: SolarReturnHandler) {
     fun calculateSolarReturn(request: SolarReturnRequest): SolarReturnResponse {
         var solarReturnChart: CalculatedChart? = null
-        var resultMsg: String = "OK"
+        var resultMsg = "OK"
         try {
             solarReturnChart = handler.getSolarReturnChart(request.longSun, request.birthDateTime, request.ageForReturn,
                     request.location, request.settings)

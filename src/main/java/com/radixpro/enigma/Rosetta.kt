@@ -26,7 +26,7 @@ object Rosetta {
     private const val DUTCH = "du"
     private const val ENGLISH = "en"
     private const val PROP_LANG = "lang"
-    private var initialized = false;
+    private var initialized = false
 
     private var locale: Locale = Locale(ENGLISH, ENGLISH.toUpperCase())
 
@@ -87,21 +87,4 @@ object Rosetta {
         return locale
     }
 
-
-//        /**
-//         * Retrieve instance of singleton Rosetta.
-//         *
-//         * @return instance of Rosetta.
-//         */
-//        var rosetta: Rosetta? = null
-//            private set
-
-//        @JvmStatic
-//        fun defineRosetta(): Rosetta? {
-//            if (null == rosetta) {
-//                rosetta = Rosetta()
-//                rosetta!!.reInitialize()
-//            }
-//            return rosetta
-//        }
 }

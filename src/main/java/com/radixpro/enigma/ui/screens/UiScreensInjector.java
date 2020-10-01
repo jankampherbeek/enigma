@@ -97,12 +97,12 @@ public class UiScreensInjector {
    }
 
    public static StatsProjSearch injectStatsProjSearch() {
-      return new StatsProjSearch();
+      return new StatsProjSearch(XchgApiInjector.injectStatsProjApi());
    }
 
    public static StatsStart injectStatsStart() {
-      return new StatsStart(injectStatsDataNew(), injectStatsDataSearch(), ScreensBlocksInjector.injectStatsProjBlock(),
-            injectStatsProjSearch(), XchgApiInjector.injectPersistedPropertyApi(), new DirectoryChooser());
+      return new StatsStart(injectStatsDataNew(), injectStatsDataSearch(), injectStatsProjSearch(), injectStatsProjNew(),
+            XchgApiInjector.injectPersistedPropertyApi(), new DirectoryChooser());
    }
 
 }

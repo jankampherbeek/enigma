@@ -192,7 +192,7 @@ public class StatsProjNew extends InputScreen {
       ObserverPositions obsPos = configBlock.getObserverPosition();
       EclipticProjections eclProj = configBlock.getEclipticProjection();
       BaseAstronConfig config = new BaseAstronConfig(houseSystem, ayanamsha, eclProj, obsPos);
-      return new StatsProject(name, descr, config, dataFiles);
+      return new StatsProject(true, name, descr, config, dataFiles);
 
 
    }

@@ -21,8 +21,8 @@ class JsonReader {
     fun readObjectFromFile(inputData: File): JSONObject {
         val parser = JSONParser()
         return try {
-            val `object` = parser.parse(FileReader(inputData))
-            `object` as JSONObject
+            val jsonObject = parser.parse(FileReader(inputData))
+            jsonObject as JSONObject
         } catch (pe: ParseException) {
             throw RuntimeException("Could not parse results of : " + inputData + " . Original message " + pe.message)
         } catch (ioe: IOException) {
@@ -33,8 +33,8 @@ class JsonReader {
     fun readArrayFromFile(inputData: File): JSONArray {
         val parser = JSONParser()
         return try {
-            val `object` = parser.parse(FileReader(inputData))
-            `object` as JSONArray
+            val jsonObject = parser.parse(FileReader(inputData))
+            jsonObject as JSONArray
         } catch (pe: ParseException) {
             throw RuntimeException("Could not parse results of : " + inputData + " . Original message " + pe.message)
         } catch (ioe: IOException) {

@@ -22,7 +22,7 @@ import java.util.*
 /**
  * Handler for the calculation of progressive positions based on ephemeris calculations.
  */
-class EphProgCalcHandler() {
+class EphProgCalcHandler {
 
 
     fun retrievePositions(request: IProgCalcRequest): SimpleProgResponse {

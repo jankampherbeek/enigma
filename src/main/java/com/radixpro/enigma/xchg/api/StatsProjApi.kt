@@ -9,6 +9,7 @@ package com.radixpro.enigma.xchg.api
 
 import com.radixpro.enigma.be.handlers.StatsProjHandler
 import com.radixpro.enigma.domain.reqresp.StatsProjResponse
+import com.radixpro.enigma.domain.stats.IStatsProject
 import com.radixpro.enigma.domain.stats.StatsProject
 
 class StatsProjApi(private val handler: StatsProjHandler) {
@@ -16,6 +17,14 @@ class StatsProjApi(private val handler: StatsProjHandler) {
     fun saveProject(project: StatsProject): StatsProjResponse {
         val resultMsg = handler.saveProject(project)
         return StatsProjResponse(resultMsg.contentEquals("OK"), resultMsg)
+    }
+
+    fun read(projName: String): IStatsProject {
+        return handler.read(projName)
+    }
+
+    fun readAllNames(): List<String> {
+        return handler.readAllNames()
     }
 
 }

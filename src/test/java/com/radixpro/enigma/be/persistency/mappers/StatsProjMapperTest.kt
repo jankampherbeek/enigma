@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.be.persistency.mappers
 
+import com.radixpro.enigma.domain.stats.StatsProject
 import com.radixpro.enigma.references.Ayanamshas
 import com.radixpro.enigma.references.EclipticProjections
 import com.radixpro.enigma.references.HouseSystems
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.Test
 internal class StatsProjMapperTest {
 
     private val jsonString = "{\n" +
+            " \"success\" : \"true\",\n" +
             "  \"name\" : \"Project5\",\n" +
             "  \"description\" : \"Project nr 5\",\n" +
             "  \"baseAstronConfig\" : {\n" +
@@ -37,7 +39,7 @@ internal class StatsProjMapperTest {
     @Test
     fun jsonToStatsProject() {
         val jsonObject = JSONValue.parse(jsonString) as JSONObject
-        val statsProject = StatsProjMapper().jsonToStatsProject(jsonObject)
+        val statsProject = StatsProjMapper().jsonToStatsProject(jsonObject) as StatsProject
         assertEquals("Project5", statsProject.name)
         assertEquals("Project nr 5", statsProject.description)
         assertEquals(HouseSystems.WHOLESIGN, statsProject.baseAstronConfig.houseSystem)

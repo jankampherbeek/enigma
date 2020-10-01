@@ -15,7 +15,7 @@ import com.radixpro.enigma.shared.common.EnigmaDictionary.SECONDSIGN
 /**
  * Converts inputted elements and creates instance of InputData.
  */
-class InputDataConversionBuilder() {
+class InputDataConversionBuilder {
     private var locationName: String? = null
     private var latitude: String? = null
     private var longitude: String? = null

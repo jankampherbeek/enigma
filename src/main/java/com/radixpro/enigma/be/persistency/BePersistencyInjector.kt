@@ -4,52 +4,47 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.be.persistency
 
-package com.radixpro.enigma.be.persistency;
+import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectInputDataSetMapper
+import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectStatsProjMapper
+import com.radixpro.enigma.shared.converters.ShConvertersInjector.injectCsv2LocationConverter
+import com.radixpro.enigma.ui.helpers.UiHelpersInjector
 
-import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector;
-import com.radixpro.enigma.shared.converters.ShConvertersInjector;
-import com.radixpro.enigma.ui.helpers.UiHelpersInjector;
+object BePersistencyInjector {
+    fun injectChartDataDao(): ChartDataDao {
+        return ChartDataDao()
+    }
 
-public class BePersistencyInjector {
+    fun injectConfigurationDao(): ConfigurationDao {
+        return ConfigurationDao()
+    }
 
-   private BePersistencyInjector() {
-      // prevent instantiation
-   }
+    fun injectDataFileDao(): DataFileDao {
+        return DataFileDao(injectJsonReader(), injectInputDataSetMapper())
+    }
 
-   public static ChartDataDao injectChartDataDao() {
-      return new ChartDataDao();
-   }
+    fun injectDataReaderCsv(): DataReaderCsv {
+        return DataReaderCsv(injectCsv2LocationConverter(), UiHelpersInjector.injectDateTimeJulianCreator())
+    }
 
-   public static ConfigurationDao injectConfigurationDao() {
-      return new ConfigurationDao();
-   }
+    fun injectJsonReader(): JsonReader {
+        return JsonReader()
+    }
 
-   public static DataFileDao injectDataFileDao() {
-      return new DataFileDao(injectJsonReader(), BePersMappersInjector.injectInputDataSetMapper());
-   }
+    fun injectJsonWriter(): JsonWriter {
+        return JsonWriter()
+    }
 
-   public static DataReaderCsv injectDataReaderCsv() {
-      return new DataReaderCsv(ShConvertersInjector.injectCsv2LocationConverter(), UiHelpersInjector.injectDateTimeJulianCreator());
-   }
+    fun injectPropertyDao(): PropertyDao {
+        return PropertyDao()
+    }
 
-   public static JsonReader injectJsonReader() {
-      return new JsonReader();
-   }
+    fun injectStatsProjDao(): StatsProjDao {
+        return StatsProjDao(injectJsonWriter(), injectJsonReader(), injectStatsProjMapper())
+    }
 
-   public static JsonWriter injectJsonWriter() {
-      return new JsonWriter();
-   }
-
-   public static PropertyDao injectPropertyDao() {
-      return new PropertyDao();
-   }
-
-   public static StatsProjDao injectStatsProjDao() {
-      return new StatsProjDao(injectJsonWriter());
-   }
-
-   public static VersionDao injectVersionDao() {
-      return new VersionDao();
-   }
+    fun injectVersionDao(): VersionDao {
+        return VersionDao()
+    }
 }

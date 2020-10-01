@@ -8,7 +8,6 @@
 package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.ui.helpers.UiHelpersInjector;
-import com.radixpro.enigma.ui.screens.UiScreensInjector;
 import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
 
 public class ScreensBlocksInjector {
@@ -38,7 +37,4 @@ public class ScreensBlocksInjector {
       return new ProgMetaInputBlock();
    }
 
-   public static StatsProjBlock injectStatsProjBlock() {
-      return new StatsProjBlock(UiScreensInjector.injectStatsProjNew());
-   }
 }
