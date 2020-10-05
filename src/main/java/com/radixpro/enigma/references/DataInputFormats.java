@@ -29,7 +29,7 @@ public enum DataInputFormats {
       return rbKey;
    }
 
-   public ObservableList<String> getObservableList() {
+   public static ObservableList<String> getObservableList() {
       final List<String> formatKeys = new ArrayList<>();
       for (DataInputFormats format : DataInputFormats.values()) {
          formatKeys.add(Rosetta.getText(format.getRbKey()));
@@ -37,7 +37,7 @@ public enum DataInputFormats {
       return FXCollections.observableArrayList(formatKeys);
    }
 
-   public DataInputFormats formatForName(final String name) {
+   public static DataInputFormats formatForName(final String name) {
       for (DataInputFormats format : DataInputFormats.values()) {
          if (Rosetta.getText(format.getRbKey()).equals(name)) {
             return format;

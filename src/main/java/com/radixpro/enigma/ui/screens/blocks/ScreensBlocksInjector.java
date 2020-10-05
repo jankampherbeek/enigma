@@ -29,10 +29,6 @@ public class ScreensBlocksInjector {
       return new LocationInputBlock(UiValidatorsInjector.injectValidatedLongitude(), UiValidatorsInjector.injectValidatedLatitude());
    }
 
-   public static NameDescriptionInputBlock injectNameDescriptionInputBlock() {
-      return new NameDescriptionInputBlock();
-   }
-
    public static ProgMetaInputBlock injectProgMetaInputBLock() {
       return new ProgMetaInputBlock();
    }

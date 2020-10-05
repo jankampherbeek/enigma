@@ -17,7 +17,6 @@ import com.radixpro.enigma.references.HouseSystems;
 import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.screens.blocks.BaseConfigInputBlock;
-import com.radixpro.enigma.ui.screens.blocks.NameDescriptionInputBlock;
 import com.radixpro.enigma.xchg.api.StatsProjApi;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -39,13 +38,16 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 public class StatsProjNew extends InputScreen {
 
    private static final double HEIGHT = 800.0;
-   private final NameDescriptionInputBlock nameDescrBlock;
    private final BaseConfigInputBlock configBlock;
    private final StatsDataSearch dataSearch;
    private Label lblSubTitleDataFiles;
+   private Label lblName;
+   private Label lblDescription;
    private Pane paneSubTitleData;
    private Pane paneDataFiles;
    private TableView tvDataFiles;
+   private TextField tfName;
+   private TextField tfDescr;
    private DataFileDescription dataFileDescription;
    private final StatsProjApi statsProjApi;
    private Button btnHelp;
@@ -56,12 +58,10 @@ public class StatsProjNew extends InputScreen {
    private ObservableList<DataFileDescription> selectedDataFiles;
    private Button btnRemove;
 
-   public StatsProjNew(@NotNull final NameDescriptionInputBlock nameDescrBlock,
-                       @NotNull final BaseConfigInputBlock configBlock,
+   public StatsProjNew(@NotNull final BaseConfigInputBlock configBlock,
                        @NotNull final StatsDataSearch dataSearch,
                        @NotNull final StatsProjApi statsProjApi) {
       super();
-      this.nameDescrBlock = nameDescrBlock;
       this.configBlock = configBlock;
       this.dataSearch = dataSearch;
       this.statsProjApi = statsProjApi;
@@ -75,8 +75,8 @@ public class StatsProjNew extends InputScreen {
 
    @Override
    public void checkStatus() {
-      btnSave.setDisable(null == nameDescrBlock.getName() || nameDescrBlock.getName().isBlank() ||
-            null == nameDescrBlock.getDescr() || nameDescrBlock.getDescr().isBlank() || tvDataFiles.getItems().isEmpty());
+      btnSave.setDisable(null == tfName.getText() || tfDescr.getText().isBlank() ||
+            null == tfDescr.getText() || tfDescr.getText().isBlank() || tvDataFiles.getItems().isEmpty());
       btnRemove.setDisable(tvDataFiles.getSelectionModel().getSelectedIndex() == -1);
    }
 
@@ -89,6 +89,12 @@ public class StatsProjNew extends InputScreen {
    private void defineLeafs() {
       lblSubTitleDataFiles = new LabelBuilder("ui.stats.datafiles.subtitle").setPrefWidth(INPUT_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
             setStyleClass("subtitletext").build();
+      lblName = new LabelBuilder("ui.stats.inputdata.lblname").build();
+      lblDescription = new LabelBuilder("ui.stats.inputdata.lbldescription").build();
+      tfName = new TextFieldBuilder().setPrefWidth(INPUT_DATA_WIDTH).setPrefHeight(INPUT_HEIGHT).setStyleClass("inputDefault").build();
+      tfName.textProperty().addListener((observable, oldValue, newValue) -> onChange());
+      tfDescr = new TextFieldBuilder().setPrefWidth(INPUT_DATA_WIDTH).setPrefHeight(INPUT_HEIGHT).setStyleClass("inputDefault").build();
+      tfDescr.textProperty().addListener((observable, oldValue, newValue) -> onChange());
    }
 
    private void definePanes() {
@@ -106,7 +112,10 @@ public class StatsProjNew extends InputScreen {
    private VBox createVBox() {
       return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(650.0).setChildren(
             createPaneTitle(),
-            nameDescrBlock.getGridPane(this),
+            lblName,
+            tfName,
+            lblDescription,
+            tfDescr,
             configBlock.getGridPane(),
             createVBoxData(),
             createPaneBtnBar()
@@ -179,9 +188,13 @@ public class StatsProjNew extends InputScreen {
       statsProjApi.saveProject(createProject());
    }
 
+   private void onChange() {
+      checkStatus();
+   }
+
    private StatsProject createProject() {
-      final String name = nameDescrBlock.getName();
-      final String descr = nameDescrBlock.getDescr();
+      final String name = tfName.getText();
+      final String descr = tfDescr.getText();
       final List<DataFileDescription> dataFiles = new ArrayList<>();
       final ObservableList items = tvDataFiles.getItems();
       for (Object obj : tvDataFiles.getItems()) {

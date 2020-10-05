@@ -39,6 +39,7 @@ public class StatsStart {
    private final StatsProjNew statsProjNew;
    private final StatsDataNew dataNew;
    private final StatsDataSearch dataSearch;
+   private final StatsDataDetail dataDetail;
    private boolean projDirDefined;
    private String fullPathProjDir;
    private Stage stage;
@@ -72,12 +73,14 @@ public class StatsStart {
 
 
    public StatsStart(@NotNull final StatsDataNew dataNew,
+                     @NotNull final StatsDataDetail dataDetail,
                      @NotNull final StatsDataSearch dataSearch,
                      @NotNull final StatsProjSearch projSearch,
                      @NotNull final StatsProjNew projNew,
                      @NotNull final PersistedPropertyApi propApi,
                      @NotNull final DirectoryChooser dirChooser) {
       this.projSearch = projSearch;
+      this.dataDetail = dataDetail;
       this.statsProjNew = projNew;
       this.propApi = propApi;
       this.dirChooser = dirChooser;
@@ -194,8 +197,9 @@ public class StatsStart {
       MenuItem miNewData = new MenuItem(Rosetta.getText("menu.stats.data.new"));
       miNewData.setOnAction(click -> onNew());
       MenuItem miSearchData = new MenuItem(Rosetta.getText("menu.stats.data.search"));
-      miSearchData.setOnAction((click -> onDataSearch()));
+      miSearchData.setOnAction(click -> onDataSearch());
       MenuItem miDetailsData = new MenuItem(Rosetta.getText("menu.stats.data.details"));
+      miDetailsData.setOnAction(click -> onDataDetail());
       menuData.getItems().addAll(miNewData, miSearchData, miDetailsData);
       Menu menuProjects = new Menu(Rosetta.getText("menu.stats.projects"));
       MenuItem miNewProject = new MenuItem(Rosetta.getText("menu.stats.projects.new"));
@@ -219,9 +223,10 @@ public class StatsStart {
    }
 
    private ButtonBar createBtnBarData() {
-      btnDataDetails = new ButtonBuilder("ui.stats.start.btndatadetails").setDisabled(true).build();
+      btnDataDetails = new ButtonBuilder("ui.stats.start.btndatadetails").setDisabled(false).build();
       btnDataNew = new ButtonBuilder("ui.stats.start.btndatanew").setDisabled(false).build();
       btnDataSearch = new ButtonBuilder("ui.stats.start.btndatasearch").setDisabled(false).build();
+      btnDataDetails.setOnAction(click -> onDataDetail());
       btnDataSearch.setOnAction(click -> onDataSearch());
       btnDataNew.setOnAction(click -> onNew());
       return new ButtonBarBuilder().setButtons(btnDataDetails, btnDataNew, btnDataSearch).build();
@@ -264,6 +269,10 @@ public class StatsStart {
          StatsProject proj = projSearch.getSelectedItem();
          tvProj.getItems().add(proj);
       }
+   }
+
+   private void onDataDetail() {
+      dataDetail.show(dataFileDescription);
    }
 
    public void onDataSearch() {

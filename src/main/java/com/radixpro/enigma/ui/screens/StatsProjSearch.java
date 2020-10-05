@@ -7,9 +7,11 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.stats.IStatsProject;
 import com.radixpro.enigma.domain.stats.StatsProject;
 import com.radixpro.enigma.ui.creators.*;
+import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.xchg.api.StatsProjApi;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -48,6 +50,7 @@ public class StatsProjSearch {
    public void show() {
       initialize();
       stage = new Stage();
+      stage.setTitle(Rosetta.getText("ui.stats.projsearch.title"));
       stage.setWidth(INPUT_WIDTH);
       stage.setScene(new Scene(createGridPane()));
       stage.showAndWait();
@@ -108,7 +111,7 @@ public class StatsProjSearch {
    }
 
    private void onHelp() {
-
+      new Help(Rosetta.getHelpText("help.statsprojsearch.title"), Rosetta.getHelpText("help.statsprojsearch.content"));
    }
 
    private void onOk() {

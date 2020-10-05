@@ -82,9 +82,14 @@ public class UiScreensInjector {
             injectConfigNew(), injectConfigEdit(), injectConfigDetails());
    }
 
+   public static StatsDataDetail injectStatsDataDetail() {
+      return new StatsDataDetail();
+   }
+
+   ;
+
    public static StatsDataNew injectStatsDataNew() {
-      return new StatsDataNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(), XchgApiInjector.injectInputDataFileApi(),
-            XchgApiInjector.injectPersistedPropertyApi());
+      return new StatsDataNew(XchgApiInjector.injectInputDataFileApi(), XchgApiInjector.injectPersistedPropertyApi());
    }
 
    public static StatsDataSearch injectStatsDataSearch() {
@@ -92,8 +97,7 @@ public class UiScreensInjector {
    }
 
    public static StatsProjNew injectStatsProjNew() {
-      return new StatsProjNew(ScreensBlocksInjector.injectNameDescriptionInputBlock(), ScreensBlocksInjector.injectBaseConfigInputBlock(),
-            injectStatsDataSearch(), XchgApiInjector.injectStatsProjApi());
+      return new StatsProjNew(ScreensBlocksInjector.injectBaseConfigInputBlock(), injectStatsDataSearch(), XchgApiInjector.injectStatsProjApi());
    }
 
    public static StatsProjSearch injectStatsProjSearch() {
@@ -101,7 +105,7 @@ public class UiScreensInjector {
    }
 
    public static StatsStart injectStatsStart() {
-      return new StatsStart(injectStatsDataNew(), injectStatsDataSearch(), injectStatsProjSearch(), injectStatsProjNew(),
+      return new StatsStart(injectStatsDataNew(), injectStatsDataDetail(), injectStatsDataSearch(), injectStatsProjSearch(), injectStatsProjNew(),
             XchgApiInjector.injectPersistedPropertyApi(), new DirectoryChooser());
    }
 

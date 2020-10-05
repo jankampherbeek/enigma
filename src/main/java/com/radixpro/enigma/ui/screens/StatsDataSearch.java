@@ -7,8 +7,10 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.stats.DataFileDescription;
 import com.radixpro.enigma.ui.creators.*;
+import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.xchg.api.PersistedDataFileApi;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -50,6 +52,7 @@ public class StatsDataSearch {
    public void show() {
       initialize();
       stage = new Stage();
+      stage.setTitle(Rosetta.getText("ui.stats.datasearch.title"));
       stage.setWidth(INPUT_WIDTH);
       stage.setScene(new Scene(createGridPane()));
       stage.showAndWait();
@@ -109,7 +112,7 @@ public class StatsDataSearch {
    }
 
    private void onHelp() {
-
+      new Help(Rosetta.getHelpText("help.statsdatasearch.title"), Rosetta.getHelpText("help.statsdatasearch.content"));
    }
 
    private void onOk() {

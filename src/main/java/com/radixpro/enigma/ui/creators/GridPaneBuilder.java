@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import org.jetbrains.annotations.NotNull;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.radixpro.enigma.ui.shared.UiDictionary.STYLESHEET;
 
 /**
  * Creates a GridPane, based on the Builder pattern.
@@ -62,6 +63,7 @@ public class GridPaneBuilder {
 
    public GridPane build() {
       GridPane gridPane = new GridPane();
+      gridPane.getStylesheets().add(STYLESHEET);
       if (prefHeight > 0.0) gridPane.setPrefHeight(prefHeight);
       if (prefWidth > 0.0) gridPane.setPrefWidth(prefWidth);
       if (padding > 0.0) gridPane.setPadding(new Insets(padding, padding, padding, padding));
