@@ -35,7 +35,7 @@ public class Help {
    private static final double INNER_WIDTH = 560.0;
    private static final double OUTER_WIDTH = 572.0;
    private static final double TITLE_HEIGHT = 40.0;
-   private static final String PREFIX = "<div style=\"font-family: sans-serif, Arial; background-color: oldlace;\">";
+   private static final String PREFIX = "<div style=\"font-family: sans-serif, Arial; font-size: 12px; background-color: white;\">";
    private static final String POSTFIX = "</div>";
    private final String title;
    private final String content;
@@ -83,7 +83,7 @@ public class Help {
    }
 
    private Pane createContentPane() {
-      return new PaneBuilder().setWidth(INNER_WIDTH).setChildren(createContentWebView()).build();
+      return new PaneBuilder().setWidth(INNER_WIDTH).setHeight(400.0).setChildren(createContentWebView()).build();
    }
 
    private ButtonBar createButtonBar() {
