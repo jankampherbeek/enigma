@@ -8,14 +8,15 @@
 package com.radixpro.enigma.be.persistency;
 
 import com.opencsv.CSVReader;
-import com.radixpro.enigma.domain.astronpos.ChartInputData;
 import com.radixpro.enigma.domain.astronpos.InputDataSet;
+import com.radixpro.enigma.domain.input.ChartInputData;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
+import com.radixpro.enigma.domain.input.DateTimeParts;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.shared.converters.Csv2LocationConverter;
 import com.radixpro.enigma.shared.exceptions.InputDataException;
-import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
+import com.radixpro.enigma.ui.helpers.DateTimeCreator;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileReader;
@@ -34,13 +35,11 @@ import static com.google.common.base.Preconditions.checkArgument;
 public class DataReaderCsv {
 
    private final Csv2LocationConverter locationConverter;
-   private final DateTimeJulianCreator dateTimeJulianCreator;
    private List<String> errorLines;
    private boolean noErrors;
 
-   public DataReaderCsv(@NotNull final Csv2LocationConverter locationConverter, @NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
+   public DataReaderCsv(@NotNull final Csv2LocationConverter locationConverter) {
       this.locationConverter = locationConverter;
-      this.dateTimeJulianCreator = dateTimeJulianCreator;
    }
 
    /**
@@ -94,8 +93,9 @@ public class DataReaderCsv {
          TimeZones zone = TimeZones.timeZoneForName(line[7].trim());
          boolean dst = line[8].trim().equalsIgnoreCase("Y");
          Location location = locationConverter.convert(lonTxt, latTxt);
-         DateTimeJulian dateTimeJulian = dateTimeJulianCreator.createDateTime(dateTxt, cal, timeTxt, zone, dst, 0.0);
-         cInputData = new ChartInputData(id, name, dateTimeJulian, location);
+         DateTimeJulian dateTimeJulian = DateTimeCreator.INSTANCE.createDateTimeJulian(dateTxt, cal, timeTxt, zone, dst, 0.0);
+         DateTimeParts dateTimeParts = DateTimeCreator.INSTANCE.createDateTimeParts(dateTxt, timeTxt, zone, dst);
+         cInputData = new ChartInputData(id, name, dateTimeParts, dateTimeJulian, location);
       } catch (Exception e) {
          noErrors = false;
          errorLines.add(Arrays.toString(line));
@@ -103,6 +103,7 @@ public class DataReaderCsv {
       }
       return cInputData;
    }
+
 
    public List<String> getErrorLines() {
       return errorLines;

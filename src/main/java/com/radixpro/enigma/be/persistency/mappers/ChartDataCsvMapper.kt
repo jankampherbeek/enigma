@@ -8,13 +8,13 @@ import com.radixpro.enigma.references.ChartTypes
 import com.radixpro.enigma.references.Ratings.Companion.getRatingForId
 import com.radixpro.enigma.references.TimeZones
 import com.radixpro.enigma.references.TimeZones.Companion.timeZoneForId
-import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator
+import com.radixpro.enigma.ui.helpers.DateTimeCreator
 import com.radixpro.enigma.xchg.domain.FullChartInputData
 
 /**
  * Should remain available up to release 2020.2 to support reading existing csv data.
  */
-class ChartDataCsvMapper(private val dateTimeJulianCreator: DateTimeJulianCreator) {
+class ChartDataCsvMapper() {
     fun chartDataFromCsv(csvLine: Array<String>): FullChartInputData {
         return handleCsvLine(csvLine)
     }
@@ -80,7 +80,7 @@ class ChartDataCsvMapper(private val dateTimeJulianCreator: DateTimeJulianCreato
         val timeZone = timeZoneForId(csvLine[13].toInt())
         val dst = "y".equals(csvLine[14], ignoreCase = true)
         val offsetLmt = csvLine[15].toDouble()
-        return dateTimeJulianCreator.createDateTime(dateText, cal, timeText, timeZone, dst, offsetLmt)
+        return DateTimeCreator.createDateTimeJulian(dateText, cal, timeText, timeZone, dst, offsetLmt)
     }
 
     private fun createLocation(csvLine: Array<String>): Location {

@@ -15,7 +15,7 @@ import com.radixpro.enigma.references.ChartTypes;
 import com.radixpro.enigma.references.Ratings;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.testsupport.TestSupport;
-import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
+import com.radixpro.enigma.ui.helpers.DateTimeCreator;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import org.junit.Before;
 
@@ -84,7 +84,7 @@ public class PersistedFullChartInputDataApiIntTest {
 
    private FullChartInputData createChartData(final String name) {
       final DateTimeJulian dateTimeJulian =
-            new DateTimeJulianCreator().createDateTime("2020/6/18", "G", "18:21:30", TimeZones.CET, false, 0.0d);
+            DateTimeCreator.INSTANCE.createDateTimeJulian("2020/6/18", "G", "18:21:30", TimeZones.CET, false, 0.0d);
       final double geoLat = 52.216666666667;
       final double geoLon = 6.9;
       final Location location = new Location(geoLat, geoLon);

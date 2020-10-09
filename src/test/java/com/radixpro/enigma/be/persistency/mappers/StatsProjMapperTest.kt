@@ -29,11 +29,11 @@ internal class StatsProjMapperTest {
             "    \"eclipticProjection\" : \"TROPICAL\",\n" +
             "    \"observerPosition\" : \"GEOCENTRIC\"\n" +
             "  },\n" +
-            "  \"dataFiles\" : [ {\n" +
+            "  \"dataFile\" : {\n" +
             "    \"name\" : \"Test1\",\n" +
             "    \"description\" : \"De eerste test\",\n" +
             "    \"nrOfRecords\" : 2\n" +
-            "  } ]\n" +
+            "  }\n" +
             "}"
 
     @Test
@@ -46,8 +46,7 @@ internal class StatsProjMapperTest {
         assertEquals(Ayanamshas.NONE, statsProject.baseAstronConfig.ayanamsha)
         assertEquals(EclipticProjections.TROPICAL, statsProject.baseAstronConfig.eclipticProjection)
         assertEquals(ObserverPositions.GEOCENTRIC, statsProject.baseAstronConfig.observerPosition)
-        assertEquals(1, statsProject.dataFiles.size)
-        assertEquals("Test1", statsProject.dataFiles[0].name)
-        assertEquals(2, statsProject.dataFiles[0].nrOfRecords)
+        assertEquals("Test1", statsProject.dataFile.name)
+        assertEquals(2, statsProject.dataFile.nrOfRecords)
     }
 }

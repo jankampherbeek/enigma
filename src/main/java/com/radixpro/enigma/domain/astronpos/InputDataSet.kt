@@ -6,6 +6,8 @@
  */
 package com.radixpro.enigma.domain.astronpos
 
+import com.radixpro.enigma.domain.input.ChartInputData
+
 /**
  * Input dataset to be saved in Json format.
  */

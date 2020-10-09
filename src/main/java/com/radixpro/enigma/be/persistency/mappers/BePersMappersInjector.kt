@@ -6,11 +6,10 @@
  */
 package com.radixpro.enigma.be.persistency.mappers
 
-import com.radixpro.enigma.ui.helpers.UiHelpersInjector
 
 object BePersMappersInjector {
     fun injectChartDataCsvMapper(): ChartDataCsvMapper {
-        return ChartDataCsvMapper(UiHelpersInjector.injectDateTimeJulianCreator())
+        return ChartDataCsvMapper()
     }
 
     @JvmStatic

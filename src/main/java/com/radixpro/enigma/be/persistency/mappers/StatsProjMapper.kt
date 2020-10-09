@@ -15,7 +15,6 @@ import com.radixpro.enigma.domain.stats.StatsFailedProject
 import com.radixpro.enigma.domain.stats.StatsProject
 import com.radixpro.enigma.references.*
 import org.apache.log4j.Logger
-import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 
 /**
@@ -34,8 +33,8 @@ class StatsProjMapper {
             val name = jsonObject["name"] as String
             val description = jsonObject["description"] as String
             val config = createConfig(jsonObject["baseAstronConfig"] as JSONObject)
-            val dataFiles = createDataFiles(jsonObject["dataFiles"] as JSONArray)
-            StatsProject(true, name, description, config, dataFiles)
+            val dataFile = createDataFile(jsonObject["dataFile"] as JSONObject)
+            StatsProject(true, name, description, config, dataFile)
         } catch (e: JsonParseException) {
             log.error("Error parsing Json for StatsProject. Message ${e.message}. Json: $jsonObject")
             StatsFailedProject(false, ErrorMsgs.PARSE_ERROR_JSON)
@@ -50,16 +49,16 @@ class StatsProjMapper {
         return BaseAstronConfig(houseSystem, ayanamsha, eclProj, obsPos)
     }
 
-    private fun createDataFiles(jsonArray: JSONArray): List<DataFileDescription> {
-        val dataFiles: MutableList<DataFileDescription> = ArrayList()
-        for (dataObject in jsonArray) {
-            val jsonObject = dataObject as JSONObject
-            val name = jsonObject["name"] as String
-            val description = jsonObject["description"] as String
-            val nrOfRecords = jsonObject["nrOfRecords"].toString().toInt()
-            dataFiles.add(DataFileDescription(name, description, nrOfRecords))
-        }
-        return dataFiles
+    private fun createDataFile(jsonObject: JSONObject): DataFileDescription {
+//        val dataFiles: MutableList<DataFileDescription> = ArrayList()
+//        for (dataObject in jsonArray) {
+//            val jsonObject = dataObject as JSONObject
+        val name = jsonObject["name"] as String
+        val description = jsonObject["description"] as String
+        val nrOfRecords = jsonObject["nrOfRecords"].toString().toInt()
+        return DataFileDescription(name, description, nrOfRecords)
+//        }
+//        return dataFiles
     }
 
 }

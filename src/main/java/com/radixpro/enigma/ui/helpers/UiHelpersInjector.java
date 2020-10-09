@@ -13,10 +13,6 @@ public class UiHelpersInjector {
       // prevent instantiation
    }
 
-   public static DateTimeJulianCreator injectDateTimeJulianCreator() {
-      return new DateTimeJulianCreator();
-   }
-
    public static LocationCreator injectLocationCreator() {
       return new LocationCreator();
    }

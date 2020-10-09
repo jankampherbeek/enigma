@@ -7,7 +7,6 @@
 
 package com.radixpro.enigma.ui.screens;
 
-import com.radixpro.enigma.ui.helpers.UiHelpersInjector;
 import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector;
 import com.radixpro.enigma.ui.screens.helpers.ScreensHelpersInjector;
 import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
@@ -32,8 +31,7 @@ public class UiScreensInjector {
    public static ChartsInput injectChartsInput() {
       return new ChartsInput(XchgApiInjector.injectPersistedChartDataApi(), UiValidatorsInjector.injectValidatedChartName(),
             UiValidatorsInjector.injectValidatedDate(), UiValidatorsInjector.injectValidatedTime(),
-            UiValidatorsInjector.injectValidatedLongitude(), UiValidatorsInjector.injectValidatedLatitude(),
-            UiHelpersInjector.injectDateTimeJulianCreator());
+            UiValidatorsInjector.injectValidatedLongitude(), UiValidatorsInjector.injectValidatedLatitude());
    }
 
    public static ChartsMidpoints injectChartsMidpoints() {
@@ -60,7 +58,7 @@ public class UiScreensInjector {
 
    public static ChartsTetenburg injectChartsTetenburg() {
       return new ChartsTetenburg(XchgApiInjector.injectTetenburgApi(),
-            UiValidatorsInjector.injectValidatedDate(), UiHelpersInjector.injectDateTimeJulianCreator());
+            UiValidatorsInjector.injectValidatedDate());
    }
 
    public static ConfigDetails injectConfigDetails() {

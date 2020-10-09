@@ -19,7 +19,7 @@ import com.radixpro.enigma.domain.reqresp.ProgAnalyzeRequest;
 import com.radixpro.enigma.domain.reqresp.SecundaryCalcRequest;
 import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
 import com.radixpro.enigma.references.*;
-import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
+import com.radixpro.enigma.ui.helpers.DateTimeCreator;
 import com.radixpro.enigma.ui.helpers.LocationCreator;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
@@ -104,13 +104,13 @@ public class SecundaryApiTest {
       String timeText = "13:42:00";
       boolean dst = false;
       double offSetLmt = 0.0;
-      final DateTimeJulian eventDateTime = new DateTimeJulianCreator().createDateTime(dateText, cal, timeText, TimeZones.CET, dst, offSetLmt);
+      final DateTimeJulian eventDateTime = DateTimeCreator.INSTANCE.createDateTimeJulian(dateText, cal, timeText, TimeZones.CET, dst, offSetLmt);
       dateText = "2000/6/6";
 
 //      date = new SimpleDate(2000, 6, 6, true);
 //      dateTime = new SimpleDateTime(date, time);
 //      final FullDateTime birthDateTime = new FullDateTime(dateTime, TimeZones.CET, false, 0.0);
-      final DateTimeJulian birthDateTime = new DateTimeJulianCreator().createDateTime(dateText, cal, timeText, TimeZones.CET, dst, offSetLmt);
+      final DateTimeJulian birthDateTime = DateTimeCreator.INSTANCE.createDateTimeJulian(dateText, cal, timeText, TimeZones.CET, dst, offSetLmt);
       Location location = new LocationCreator().createLocation(52, 13, 0, "n", 6, 54, 0, "e");
       List<IChartPoints> points = new ArrayList<>();
       points.add(CelestialObjects.SUN);

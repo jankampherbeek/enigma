@@ -59,6 +59,7 @@ public class BaseConfigInputBlock extends InputBlock {
       choiceBoxEclipticProj.getSelectionModel().selectedIndexProperty().addListener((ov, value, newValue) -> onEclipticChange());
       choiceBoxAyanamsha = new ChoiceBoxBuilder().setPrefWidth(DATA_INPUT_WIDTH).setItems(Ayanamshas.getObservableList()).build();
       choiceBoxAyanamsha.getSelectionModel().select(0);
+      choiceBoxAyanamsha.setDisable(true);
    }
 
    private GridPane createGridPane() {

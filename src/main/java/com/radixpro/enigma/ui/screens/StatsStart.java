@@ -57,7 +57,6 @@ public class StatsStart {
    private Button btnDataSearch;
    private Button btnProjOpen;
    private Button btnProjNew;
-   private Button btnProjEdit;
    private Button btnProjSearch;
    private Pane panePageTitle;
    private Pane paneProjects;
@@ -234,12 +233,11 @@ public class StatsStart {
 
    private ButtonBar createBtnBarProj() {
       btnProjOpen = new ButtonBuilder("ui.stats.start.btnprojopen").setDisabled(true).build();
-      btnProjEdit = new ButtonBuilder("ui.stats.start.btnprojedit").setDisabled(true).build();
       btnProjNew = new ButtonBuilder("ui.stats.start.btnprojnew").setDisabled(false).build();
       btnProjSearch = new ButtonBuilder("ui.stats.start.btnprojsearch").setDisabled(false).build();
       btnProjNew.setOnAction(click -> statsProjNew.show());
       btnProjSearch.setOnAction(click -> onProjSearch());
-      return new ButtonBarBuilder().setButtons(btnProjOpen, btnProjEdit, btnProjNew, btnProjSearch).build();
+      return new ButtonBarBuilder().setButtons(btnProjOpen, btnProjNew, btnProjSearch).build();
    }
 
    private void onDefineProjDir() {

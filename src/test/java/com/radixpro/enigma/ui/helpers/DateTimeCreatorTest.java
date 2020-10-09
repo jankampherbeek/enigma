@@ -9,20 +9,13 @@ package com.radixpro.enigma.ui.helpers;
 
 import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.references.TimeZones;
-import org.junit.Before;
 import org.junit.Test;
 
 import static com.radixpro.enigma.testsupport.TestConstants.DELTA_8_POS;
 import static org.junit.Assert.assertEquals;
 
-public class DateTimeJulianCreatorTest {
+public class DateTimeCreatorTest {
 
-   private DateTimeJulianCreator creator;
-
-   @Before
-   public void setUp() throws Exception {
-      creator = new DateTimeJulianCreator();
-   }
 
    @Test
    public void createDateTime() {
@@ -32,7 +25,7 @@ public class DateTimeJulianCreatorTest {
       boolean dst = false;
       String cal = "G";
       double offsetLmt = 0.0;
-      DateTimeJulian dateTime = creator.createDateTime(dateText, cal, timeText, zone, dst, offsetLmt);
+      DateTimeJulian dateTime = DateTimeCreator.INSTANCE.createDateTimeJulian(dateText, cal, timeText, zone, dst, offsetLmt);
       assertEquals(2434406.8177083335, dateTime.getJd(), DELTA_8_POS);
       assertEquals(cal, dateTime.getCalendar());
    }
@@ -45,7 +38,7 @@ public class DateTimeJulianCreatorTest {
       boolean dst = false;
       String cal = "G";
       double offsetLmt = 1.0;
-      DateTimeJulian dateTime = creator.createDateTime(dateText, cal, timeText, zone, dst, offsetLmt);
+      DateTimeJulian dateTime = DateTimeCreator.INSTANCE.createDateTimeJulian(dateText, cal, timeText, zone, dst, offsetLmt);
       assertEquals(2434406.8177083335, dateTime.getJd(), DELTA_8_POS);
       assertEquals(cal, dateTime.getCalendar());
    }
@@ -58,7 +51,7 @@ public class DateTimeJulianCreatorTest {
       boolean dst = true;
       String cal = "G";
       double offsetLmt = 0.0;
-      DateTimeJulian dateTime = creator.createDateTime(dateText, cal, timeText, zone, dst, offsetLmt);
+      DateTimeJulian dateTime = DateTimeCreator.INSTANCE.createDateTimeJulian(dateText, cal, timeText, zone, dst, offsetLmt);
       assertEquals(2434406.8177083335, dateTime.getJd(), DELTA_8_POS);
       assertEquals(cal, dateTime.getCalendar());
    }

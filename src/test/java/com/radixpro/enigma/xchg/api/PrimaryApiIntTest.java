@@ -13,7 +13,7 @@ import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.PrimaryCalcRequest;
 import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
 import com.radixpro.enigma.references.*;
-import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
+import com.radixpro.enigma.ui.helpers.DateTimeCreator;
 import com.radixpro.enigma.ui.helpers.LocationCreator;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
@@ -29,11 +29,9 @@ import static org.junit.Assert.assertTrue;
 public class PrimaryApiIntTest {
 
    private PrimaryApi api;
-   private DateTimeJulianCreator dateTimeJulianCreator;
 
    @Before
    public void setUp() {
-      dateTimeJulianCreator = new DateTimeJulianCreator();
       api = XchgApiInjector.injectPrimaryApi();
    }
 
@@ -48,11 +46,11 @@ public class PrimaryApiIntTest {
 
 
    private DateTimeJulian createDateTimeRadix() {
-      return dateTimeJulianCreator.createDateTime("2000/1/1", "G", "12:00:00", TimeZones.UT, false, 0.0);
+      return DateTimeCreator.INSTANCE.createDateTimeJulian("2000/1/1", "G", "12:00:00", TimeZones.UT, false, 0.0);
    }
 
    private DateTimeJulian createDateTimeProg() {
-      return dateTimeJulianCreator.createDateTime("2020/1/1", "G", "12:00:00", TimeZones.UT, false, 0.0);
+      return DateTimeCreator.INSTANCE.createDateTimeJulian("2020/1/1", "G", "12:00:00", TimeZones.UT, false, 0.0);
    }
 
    private ICalcSettings createSettings() {

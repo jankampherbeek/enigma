@@ -9,15 +9,17 @@ package com.radixpro.enigma.be.handlers
 
 import com.radixpro.enigma.be.persistency.PropertyDao
 import com.radixpro.enigma.be.persistency.StatsProjDao
+import com.radixpro.enigma.be.process.ControlDataCharts
 import com.radixpro.enigma.domain.stats.IStatsProject
 import com.radixpro.enigma.domain.stats.StatsProject
 
-class StatsProjHandler(private val statsProjDao: StatsProjDao, private val propDao: PropertyDao) {
+class StatsProjHandler(private val statsProjDao: StatsProjDao, private val propDao: PropertyDao, private val controlDataCharts: ControlDataCharts) {
 
     val location = propDao.read("projdir")[0].value
 
     fun saveProject(project: StatsProject): String {
         statsProjDao.save(project, location)
+        createControlFiles(project)
         // TODO handle exceptions
         return "OK"
     }
@@ -28,6 +30,10 @@ class StatsProjHandler(private val statsProjDao: StatsProjDao, private val propD
 
     fun readAllNames(): List<String> {
         return statsProjDao.readAllNames(location)
+    }
+
+    private fun createControlFiles(project: StatsProject) {
+        controlDataCharts.createFile(project);
     }
 
 }

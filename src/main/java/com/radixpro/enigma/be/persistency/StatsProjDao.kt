@@ -8,7 +8,6 @@
 package com.radixpro.enigma.be.persistency
 
 import com.radixpro.enigma.be.persistency.mappers.StatsProjMapper
-import com.radixpro.enigma.domain.stats.DataFileDescription
 import com.radixpro.enigma.domain.stats.IStatsProject
 import com.radixpro.enigma.domain.stats.StatsFailedProject
 import com.radixpro.enigma.domain.stats.StatsProject
@@ -32,13 +31,13 @@ class StatsProjDao(private val jsonWriter: JsonWriter, private val jsonReader: J
         val fullProjFileName = fullPath + "proj_" + projectName + ".json"
         jsonWriter.write2File(fullProjFileName, project, true)
 
-        val dataFilenames = project.dataFiles
+        val dataFileDescr = project.dataFile       // TODO handle set that contains event file
         val inputDataFolder = pathRoot + File.separator + "data" + File.separator
-        for (datafileDescr: DataFileDescription in dataFilenames) {
-            val fullPathDataFile = inputDataFolder + datafileDescr.name + ".json"
-            val newPathDataFile = fullPath + File.separator + "in_" + datafileDescr.name + ".json"
-            File(fullPathDataFile).copyTo(File(newPathDataFile))
-        }
+//        for (datafileDescr: DataFileDescription in dataFilenames) {
+        val fullPathDataFile = inputDataFolder + dataFileDescr.name + ".json"
+        val newPathDataFile = fullPath + File.separator + "in_" + dataFileDescr.name + ".json"
+        File(fullPathDataFile).copyTo(File(newPathDataFile))
+//        }
     }
 
     fun read(projectName: String, pathRoot: String): IStatsProject {

@@ -24,7 +24,7 @@ import com.radixpro.enigma.ui.creators.ButtonBuilder;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.creators.TextFieldBuilder;
-import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
+import com.radixpro.enigma.ui.helpers.DateTimeCreator;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.ui.validators.ValidatedDate;
@@ -61,7 +61,6 @@ public class ChartsTetenburg {
    private static final double GAP = 6.0;
    private final SessionState state;
    private final TetenburgApi api;
-   private final DateTimeJulianCreator dateTimeJulianCreator;
    private Stage stage;
    private MetaDataForAnalysis meta;
    private FullChart fullChart;
@@ -86,11 +85,10 @@ public class ChartsTetenburg {
 
 
    public ChartsTetenburg(@NotNull final TetenburgApi api,
-                          @NotNull final ValidatedDate valDate, @NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
+                          @NotNull final ValidatedDate valDate) {
       this.state = SessionState.INSTANCE;
       this.api = api;
       this.valDate = valDate;
-      this.dateTimeJulianCreator = dateTimeJulianCreator;
    }
 
    public void show(final MetaDataForAnalysis meta) {
@@ -219,7 +217,7 @@ public class ChartsTetenburg {
       String cal = fullChart.getChartData().getDateTimeJulian().getCalendar();
       TimeZones zone = TimeZones.UT;
       double offsetLmt = 0.0;
-      DateTimeJulian progDateTime = dateTimeJulianCreator.createDateTime(dateText, cal, timeText, zone, false, offsetLmt);
+      DateTimeJulian progDateTime = DateTimeCreator.INSTANCE.createDateTimeJulian(dateText, cal, timeText, zone, false, offsetLmt);
 
       TetenburgRequest request = new TetenburgRequest(longMc, solarSpeed, location, birthDateTime, progDateTime);
       TetenburgResponse response = api.calculateCriticalPoint(request);

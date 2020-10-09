@@ -17,6 +17,7 @@ import com.radixpro.enigma.references.HouseSystems;
 import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.screens.blocks.BaseConfigInputBlock;
+import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.xchg.api.StatsProjApi;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -69,6 +70,7 @@ public class StatsProjNew extends InputScreen {
 
    public void show() {
       initialize();
+      stage.setTitle(Rosetta.getText("ui.stats.newproj.title"));
       stage.setScene(new Scene(createVBox()));
       stage.showAndWait();
    }
@@ -89,8 +91,8 @@ public class StatsProjNew extends InputScreen {
    private void defineLeafs() {
       lblSubTitleDataFiles = new LabelBuilder("ui.stats.datafiles.subtitle").setPrefWidth(INPUT_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
             setStyleClass("subtitletext").build();
-      lblName = new LabelBuilder("ui.stats.inputdata.lblname").build();
-      lblDescription = new LabelBuilder("ui.stats.inputdata.lbldescription").build();
+      lblName = new LabelBuilder("ui.stats.newproj.lblname").build();
+      lblDescription = new LabelBuilder("ui.stats.newproj.lbldescription").build();
       tfName = new TextFieldBuilder().setPrefWidth(INPUT_DATA_WIDTH).setPrefHeight(INPUT_HEIGHT).setStyleClass("inputDefault").build();
       tfName.textProperty().addListener((observable, oldValue, newValue) -> onChange());
       tfDescr = new TextFieldBuilder().setPrefWidth(INPUT_DATA_WIDTH).setPrefHeight(INPUT_HEIGHT).setStyleClass("inputDefault").build();
@@ -110,12 +112,13 @@ public class StatsProjNew extends InputScreen {
 
 
    private VBox createVBox() {
-      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(650.0).setChildren(
+      return new VBoxBuilder().setWidth(INPUT_WIDTH).setHeight(650.0).setPadding(GAP).setChildren(
             createPaneTitle(),
             lblName,
             tfName,
             lblDescription,
             tfDescr,
+            new PaneBuilder().setHeight(20.0).build(),
             configBlock.getGridPane(),
             createVBoxData(),
             createPaneBtnBar()
@@ -135,6 +138,8 @@ public class StatsProjNew extends InputScreen {
       btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).build();
       btnSave = new ButtonBuilder("ui.shared.btn.save").setDisabled(true).build();
       btnSave.setOnAction(e -> onSave());
+      btnCancel.setOnAction(e -> stage.close());
+      btnHelp.setOnAction(e -> onHelp());
       return new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnSave).build();
    }
 
@@ -151,7 +156,6 @@ public class StatsProjNew extends InputScreen {
       if (dataSearch.isSelectionMade()) {
          this.dataFileDescription = dataSearch.getSelectedItem();
          tvDataFiles.getItems().add(dataFileDescription);
-
       }
       checkStatus();
    }
@@ -186,6 +190,7 @@ public class StatsProjNew extends InputScreen {
 
    private void onSave() {
       statsProjApi.saveProject(createProject());
+      stage.close();
    }
 
    private void onChange() {
@@ -205,9 +210,11 @@ public class StatsProjNew extends InputScreen {
       ObserverPositions obsPos = configBlock.getObserverPosition();
       EclipticProjections eclProj = configBlock.getEclipticProjection();
       BaseAstronConfig config = new BaseAstronConfig(houseSystem, ayanamsha, eclProj, obsPos);
-      return new StatsProject(true, name, descr, config, dataFiles);
+      return new StatsProject(true, name, descr, config, dataFiles.get(0));    // FIXME: should also handle datafile for events
+   }
 
-
+   private void onHelp() {
+      new Help(Rosetta.getHelpText("help.statsprojnew.title"), Rosetta.getHelpText("help.statsprojnew.content"));
    }
 
 }

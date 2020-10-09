@@ -6,9 +6,10 @@
  */
 package com.radixpro.enigma.be.persistency.mappers
 
-import com.radixpro.enigma.domain.astronpos.ChartInputData
 import com.radixpro.enigma.domain.astronpos.InputDataSet
+import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.domain.input.DateTimeJulian
+import com.radixpro.enigma.domain.input.DateTimeParts
 import com.radixpro.enigma.domain.input.Location
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
@@ -39,8 +40,9 @@ class InputDataSetMapper {
             val id = jsonObject["id"].toString().toInt()
             val name = jsonObject["name"] as String
             val dateTimeJulian = createDateTime(jsonObject)
+            val dateTimeParts = createDateTimeParts(jsonObject)
             val location = createLocation(jsonObject)
-            chartInputData.add(ChartInputData(id, name, dateTimeJulian, location))
+            chartInputData.add(ChartInputData(id, name, dateTimeParts, dateTimeJulian, location))
         }
         return chartInputData
     }
@@ -52,10 +54,22 @@ class InputDataSetMapper {
         return DateTimeJulian(jdNr, cal)
     }
 
+    private fun createDateTimeParts(jsonObject: JSONObject): DateTimeParts {
+        val partsObject = jsonObject["dateTimeParts"] as JSONObject
+        val year = partsObject["year"].toString().toInt()
+        val month = partsObject["month"].toString().toInt()
+        val day = partsObject["day"].toString().toInt()
+        val hour = partsObject["hour"].toString().toInt()
+        val minute = partsObject["minute"].toString().toInt()
+        val second = partsObject["second"].toString().toInt()
+        val offsetUt = partsObject["offsetUt"] as Double
+        return DateTimeParts(year, month, day, hour, minute, second, offsetUt)
+    }
+
     private fun createLocation(jsonObject: JSONObject): Location {
         val dateTimeObject = jsonObject["location"] as JSONObject
-        val latValue = dateTimeObject["geoLat"].toString().toDouble()
-        val lonValue = dateTimeObject["geoLon"].toString().toDouble()
+        val latValue = dateTimeObject["geoLat"] as Double
+        val lonValue = dateTimeObject["geoLon"] as Double
         return Location(latValue, lonValue)
     }
 }

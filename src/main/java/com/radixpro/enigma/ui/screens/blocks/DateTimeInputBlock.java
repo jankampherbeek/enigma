@@ -13,7 +13,7 @@ import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.creators.*;
-import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
+import com.radixpro.enigma.ui.helpers.DateTimeCreator;
 import com.radixpro.enigma.ui.validators.ValidatedDate;
 import com.radixpro.enigma.ui.validators.ValidatedLongitude;
 import com.radixpro.enigma.ui.validators.ValidatedTime;
@@ -53,25 +53,19 @@ public class DateTimeInputBlock extends InputBlock {
    private final ValidatedDate valDate;
    private final ValidatedTime valTime;
    private final ValidatedLongitude valLongLocalTime;
-   private final DateTimeJulianCreator dateTimeJulianCreator;
    private boolean timeZoneLocalSelected = false;
    private GridPane gridPane;
    private boolean dateValid;
    private boolean timeValid;
    private boolean localTimeValid;
 
-   /**
-    * Constructor handles creation of block.
-    *
-    * @param state
-    */
+
    public DateTimeInputBlock(@NotNull final ValidatedDate validatedDate, @NotNull final ValidatedTime validatedTime,
-                             @NotNull final ValidatedLongitude valLongLocalTime, @NotNull final DateTimeJulianCreator dateTimeJulianCreator) {
+                             @NotNull final ValidatedLongitude valLongLocalTime) {
       super();
       this.valDate = validatedDate;
       this.valTime = validatedTime;
       this.valLongLocalTime = valLongLocalTime;
-      this.dateTimeJulianCreator = dateTimeJulianCreator;
    }
 
    @Override
@@ -224,6 +218,6 @@ public class DateTimeInputBlock extends InputBlock {
          offSetForLmt = valLongLocalTime.getValue() / 15.0;
          if (cbLocalEastWest.getValue().equalsIgnoreCase("W")) offSetForLmt = -offSetForLmt;
       }
-      return dateTimeJulianCreator.createDateTime(dateText, cal, timeText, selectedTimeZone, selectedDst, offSetForLmt);
+      return DateTimeCreator.INSTANCE.createDateTimeJulian(dateText, cal, timeText, selectedTimeZone, selectedDst, offSetForLmt);
    }
 }

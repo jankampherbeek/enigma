@@ -12,7 +12,7 @@ import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.TetenburgRequest;
 import com.radixpro.enigma.domain.reqresp.TetenburgResponse;
 import com.radixpro.enigma.references.TimeZones;
-import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
+import com.radixpro.enigma.ui.helpers.DateTimeCreator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,10 +42,10 @@ public class TetenburgApiIntTest {
    }
 
    private DateTimeJulian createBirthDateTime() {
-      return new DateTimeJulianCreator().createDateTime("1953/1/29", "G", "8:03:30", TimeZones.CET, false, 0.0);
+      return DateTimeCreator.INSTANCE.createDateTimeJulian("1953/1/29", "G", "8:03:30", TimeZones.CET, false, 0.0);
    }
 
    private DateTimeJulian createProgDateTime() {
-      return new DateTimeJulianCreator().createDateTime("1968/1/26", "G", "22:00:00", TimeZones.CET, false, 0.0);
+      return DateTimeCreator.INSTANCE.createDateTimeJulian("1968/1/26", "G", "22:00:00", TimeZones.CET, false, 0.0);
    }
 }

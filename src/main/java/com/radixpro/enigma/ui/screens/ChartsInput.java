@@ -16,7 +16,7 @@ import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.references.Ratings;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.ui.creators.*;
-import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
+import com.radixpro.enigma.ui.helpers.DateTimeCreator;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.validators.*;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
@@ -42,7 +42,6 @@ public class ChartsInput {
    private static final double GP_GENERAL_HEIGHT = 240.0;
    private static final double INPUT_HEIGHT = 25.0;
    private final PersistedChartDataApi persistedChartDataApi;
-   private final DateTimeJulianCreator dateTimeJulianCreator;
    private final ValidatedChartName validatedChartName;
    private final ValidatedLatitude validatedLatitude;
    private final ValidatedLongitude validatedLongitude;
@@ -99,14 +98,13 @@ public class ChartsInput {
 
    public ChartsInput(final PersistedChartDataApi persistedChartDataApi, final ValidatedChartName validatedChartName,
                       final ValidatedDate validatedDate, final ValidatedTime validatedTime, final ValidatedLongitude validatedLongitude,
-                      final ValidatedLatitude validatedLatitude, final DateTimeJulianCreator dateTimeJulianCreator) {
+                      final ValidatedLatitude validatedLatitude) {
       this.persistedChartDataApi = persistedChartDataApi;
       this.validatedChartName = validatedChartName;
       this.validatedDate = validatedDate;
       this.validatedTime = validatedTime;
       this.validatedLongitude = validatedLongitude;
       this.validatedLatitude = validatedLatitude;
-      this.dateTimeJulianCreator = dateTimeJulianCreator;
    }
 
    public void show() {
@@ -442,7 +440,7 @@ public class ChartsInput {
       TimeZones zone = TimeZones.timeZoneForName(cbTimeZone.getValue());
 //      double offsetLmt = validatedLocalTimeLong.getValue();     // FIXME handle offset for local time, combine fix with refactoring.
       double offsetLmt = 0.0;
-      return dateTimeJulianCreator.createDateTime(tfDate.getText(), cbCalendar.getValue(), tfTime.getText(), zone, cBoxDst.isSelected(), offsetLmt);
+      return DateTimeCreator.INSTANCE.createDateTimeJulian(tfDate.getText(), cbCalendar.getValue(), tfTime.getText(), zone, cBoxDst.isSelected(), offsetLmt);
    }
 
 }

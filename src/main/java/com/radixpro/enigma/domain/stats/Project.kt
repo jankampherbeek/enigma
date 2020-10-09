@@ -21,6 +21,6 @@ data class StatsProject(override val success: Boolean,
                         val name: String,
                         val description: String,
                         val baseAstronConfig: BaseAstronConfig,
-                        val dataFiles: List<DataFileDescription>) : IStatsProject
+                        val dataFile: DataFileDescription) : IStatsProject
 
 class StatsFailedProject(override val success: Boolean, val errorMsg: ErrorMsgs) : IStatsProject

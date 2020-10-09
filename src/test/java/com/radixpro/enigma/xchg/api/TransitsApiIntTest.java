@@ -16,7 +16,7 @@ import com.radixpro.enigma.domain.reqresp.EphProgCalcRequest;
 import com.radixpro.enigma.domain.reqresp.ProgAnalyzeRequest;
 import com.radixpro.enigma.domain.reqresp.SimpleProgResponse;
 import com.radixpro.enigma.references.*;
-import com.radixpro.enigma.ui.helpers.DateTimeJulianCreator;
+import com.radixpro.enigma.ui.helpers.DateTimeCreator;
 import com.radixpro.enigma.ui.helpers.LocationCreator;
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings;
 import com.radixpro.enigma.xchg.api.settings.ProgSettings;
@@ -73,7 +73,7 @@ public class TransitsApiIntTest {
 
    private EphProgCalcRequest createCalcRequest() {
       final DateTimeJulian dateTimeJulian =
-            new DateTimeJulianCreator().createDateTime("2020/6/6", "G", "13:42:0", TimeZones.CET, true, 0.0);
+            DateTimeCreator.INSTANCE.createDateTimeJulian("2020/6/6", "G", "13:42:0", TimeZones.CET, true, 0.0);
       Location location = new LocationCreator().createLocation(52, 13, 0, "n", 6, 54, 0, "e");
       List<IChartPoints> points = new ArrayList<>();
       points.add(CelestialObjects.SUN);
