@@ -16,7 +16,6 @@ import com.radixpro.enigma.references.ProgAnalysisType
 import com.radixpro.enigma.references.TimeKeys
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings
 import com.radixpro.enigma.xchg.api.settings.ICalcSettings
-import java.io.File
 
 /**
  * Interface for progressive calculation requests.
@@ -37,14 +36,6 @@ data class CalculatedChartRequest(val settings: ChartCalcSettings,
 data class EphProgCalcRequest(override val dateTime: DateTimeJulian,
                               override val location: Location,
                               override val settings: ICalcSettings) : IProgCalcRequest
-
-/**
- * Request for reading a datafile and saving it in Json format in the project folder.
- */
-data class InputDataFileRequest(val dataName: String,
-                                val description: String,
-                                val dataFile: File,
-                                val fullPathProjDir: String)
 
 data class PrimaryCalcRequest(override val dateTime: DateTimeJulian,
                               val dateTimeRadix: DateTimeJulian,

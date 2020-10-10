@@ -6,11 +6,11 @@
  */
 package com.radixpro.enigma.be.persistency.mappers
 
-import com.radixpro.enigma.domain.astronpos.InputDataSet
 import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.domain.input.DateTimeJulian
 import com.radixpro.enigma.domain.input.DateTimeParts
 import com.radixpro.enigma.domain.input.Location
+import com.radixpro.enigma.statistics.core.InputDataSet
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import java.util.*

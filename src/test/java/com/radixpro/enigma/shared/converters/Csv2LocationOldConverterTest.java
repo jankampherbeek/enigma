@@ -8,7 +8,7 @@
 package com.radixpro.enigma.shared.converters;
 
 import com.radixpro.enigma.domain.input.Location;
-import com.radixpro.enigma.shared.exceptions.InputDataException;
+import com.radixpro.enigma.statistics.process.InputDataException;
 import org.junit.Before;
 import org.junit.Test;
 

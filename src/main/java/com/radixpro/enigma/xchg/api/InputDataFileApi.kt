@@ -7,8 +7,8 @@
 package com.radixpro.enigma.xchg.api
 
 import com.radixpro.enigma.be.handlers.InputDataFileHandler
-import com.radixpro.enigma.domain.reqresp.InputDataFileRequest
-import com.radixpro.enigma.domain.reqresp.InputDataFileResponse
+import com.radixpro.enigma.statistics.api.InputDataFileRequest
+import com.radixpro.enigma.statistics.api.InputDataFileResponse
 
 class InputDataFileApi(private val handler: InputDataFileHandler) {
 

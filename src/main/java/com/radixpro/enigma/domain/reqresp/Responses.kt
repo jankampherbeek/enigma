@@ -18,11 +18,6 @@ data class CalculatedChartResponse(val calculatedChart: CalculatedChart, val res
  */
 data class EphProgAspectResponse(val chartId: Long, val analyzedAspects: List<IAnalyzedPair>)
 
-/**
- * Response after reading a datafile and converting it to Json.
- */
-data class InputDataFileResponse(val resultMsg: String, val errorLines: List<String>, val isSuccess: Boolean)
-
 data class SimpleProgResponse(val positions: List<IPosition>, val request: IProgCalcRequest)
 
 data class SolarReturnResponse(val solarReturnChart: CalculatedChart?, val resultMsg: String)

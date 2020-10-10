@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.be.util
 
+import com.radixpro.enigma.statistics.process.ListRandomizer
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 

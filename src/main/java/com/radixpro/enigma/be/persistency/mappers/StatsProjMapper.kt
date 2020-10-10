@@ -9,11 +9,11 @@ package com.radixpro.enigma.be.persistency.mappers
 
 import com.fasterxml.jackson.core.JsonParseException
 import com.radixpro.enigma.domain.config.BaseAstronConfig
-import com.radixpro.enigma.domain.stats.DataFileDescription
-import com.radixpro.enigma.domain.stats.IStatsProject
-import com.radixpro.enigma.domain.stats.StatsFailedProject
-import com.radixpro.enigma.domain.stats.StatsProject
 import com.radixpro.enigma.references.*
+import com.radixpro.enigma.statistics.core.DataFileDescription
+import com.radixpro.enigma.statistics.core.IStatsProject
+import com.radixpro.enigma.statistics.core.StatsFailedProject
+import com.radixpro.enigma.statistics.core.StatsProject
 import org.apache.log4j.Logger
 import org.json.simple.JSONObject
 

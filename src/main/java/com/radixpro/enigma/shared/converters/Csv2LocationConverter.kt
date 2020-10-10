@@ -7,7 +7,7 @@
 package com.radixpro.enigma.shared.converters
 
 import com.radixpro.enigma.domain.input.Location
-import com.radixpro.enigma.shared.exceptions.InputDataException
+import com.radixpro.enigma.statistics.process.InputDataException
 
 
 class Csv2LocationConverter {

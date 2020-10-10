@@ -7,11 +7,11 @@
 
 package com.radixpro.enigma.be.persistency.mappers
 
-import com.radixpro.enigma.domain.stats.StatsProject
 import com.radixpro.enigma.references.Ayanamshas
 import com.radixpro.enigma.references.EclipticProjections
 import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.ObserverPositions
+import com.radixpro.enigma.statistics.core.StatsProject
 import org.json.simple.JSONObject
 import org.json.simple.JSONValue
 import org.junit.jupiter.api.Assertions.assertEquals

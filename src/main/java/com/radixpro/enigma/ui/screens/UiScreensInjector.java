@@ -11,7 +11,6 @@ import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector;
 import com.radixpro.enigma.ui.screens.helpers.ScreensHelpersInjector;
 import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
 import com.radixpro.enigma.xchg.api.XchgApiInjector;
-import javafx.stage.DirectoryChooser;
 
 
 public class UiScreensInjector {
@@ -80,31 +79,5 @@ public class UiScreensInjector {
             injectConfigNew(), injectConfigEdit(), injectConfigDetails());
    }
 
-   public static StatsDataDetail injectStatsDataDetail() {
-      return new StatsDataDetail();
-   }
-
-   ;
-
-   public static StatsDataNew injectStatsDataNew() {
-      return new StatsDataNew(XchgApiInjector.injectInputDataFileApi(), XchgApiInjector.injectPersistedPropertyApi());
-   }
-
-   public static StatsDataSearch injectStatsDataSearch() {
-      return new StatsDataSearch(XchgApiInjector.injectPersistedDataFileApi());
-   }
-
-   public static StatsProjNew injectStatsProjNew() {
-      return new StatsProjNew(ScreensBlocksInjector.injectBaseConfigInputBlock(), injectStatsDataSearch(), XchgApiInjector.injectStatsProjApi());
-   }
-
-   public static StatsProjSearch injectStatsProjSearch() {
-      return new StatsProjSearch(XchgApiInjector.injectStatsProjApi());
-   }
-
-   public static StatsStart injectStatsStart() {
-      return new StatsStart(injectStatsDataNew(), injectStatsDataDetail(), injectStatsDataSearch(), injectStatsProjSearch(), injectStatsProjNew(),
-            XchgApiInjector.injectPersistedPropertyApi(), new DirectoryChooser());
-   }
 
 }

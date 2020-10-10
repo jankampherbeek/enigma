@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.be.persistency.mappers;
 
-import com.radixpro.enigma.domain.astronpos.InputDataSet;
+import com.radixpro.enigma.statistics.core.InputDataSet;
 import com.radixpro.enigma.testsupport.TestSupport;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;

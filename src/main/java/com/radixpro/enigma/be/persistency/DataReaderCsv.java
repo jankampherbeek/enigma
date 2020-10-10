@@ -8,14 +8,14 @@
 package com.radixpro.enigma.be.persistency;
 
 import com.opencsv.CSVReader;
-import com.radixpro.enigma.domain.astronpos.InputDataSet;
 import com.radixpro.enigma.domain.input.ChartInputData;
 import com.radixpro.enigma.domain.input.DateTimeJulian;
 import com.radixpro.enigma.domain.input.DateTimeParts;
 import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.shared.converters.Csv2LocationConverter;
-import com.radixpro.enigma.shared.exceptions.InputDataException;
+import com.radixpro.enigma.statistics.core.InputDataSet;
+import com.radixpro.enigma.statistics.process.InputDataException;
 import com.radixpro.enigma.ui.helpers.DateTimeCreator;
 import org.jetbrains.annotations.NotNull;
 

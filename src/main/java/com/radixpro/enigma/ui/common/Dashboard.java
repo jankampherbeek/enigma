@@ -9,11 +9,11 @@ package com.radixpro.enigma.ui.common;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.shared.common.EnigmaDictionary;
+import com.radixpro.enigma.statistics.ui.StatsStart;
 import com.radixpro.enigma.ui.creators.ButtonBuilder;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.screens.ChartsStart;
-import com.radixpro.enigma.ui.screens.StatsStart;
 import com.radixpro.enigma.ui.shared.Help;
 import javafx.application.Platform;
 import javafx.geometry.Insets;

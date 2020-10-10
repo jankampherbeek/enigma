@@ -9,9 +9,9 @@ package com.radixpro.enigma.be.handlers
 import com.radixpro.enigma.Rosetta
 import com.radixpro.enigma.be.persistency.DataReaderCsv
 import com.radixpro.enigma.be.persistency.JsonWriter
-import com.radixpro.enigma.domain.reqresp.InputDataFileRequest
-import com.radixpro.enigma.domain.reqresp.InputDataFileResponse
-import com.radixpro.enigma.shared.exceptions.InputDataException
+import com.radixpro.enigma.statistics.api.InputDataFileRequest
+import com.radixpro.enigma.statistics.api.InputDataFileResponse
+import com.radixpro.enigma.statistics.process.InputDataException
 import org.apache.log4j.Logger
 import java.io.File
 import java.nio.file.Files

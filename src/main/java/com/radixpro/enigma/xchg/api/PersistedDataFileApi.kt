@@ -6,8 +6,8 @@
  */
 package com.radixpro.enigma.xchg.api
 
-import com.radixpro.enigma.be.handlers.DataFileHandler
-import com.radixpro.enigma.domain.stats.DataFileDescription
+import com.radixpro.enigma.statistics.core.DataFileDescription
+import com.radixpro.enigma.statistics.process.DataFileHandler
 
 class PersistedDataFileApi(private val handler: DataFileHandler) {
 

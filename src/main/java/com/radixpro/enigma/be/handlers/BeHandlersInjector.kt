@@ -9,7 +9,7 @@ package com.radixpro.enigma.be.handlers
 import com.radixpro.enigma.be.analysis.BeAnalysisInjector
 import com.radixpro.enigma.be.calc.BeCalcInjector
 import com.radixpro.enigma.be.persistency.BePersistencyInjector
-import com.radixpro.enigma.be.process.BeProcessInjector
+import com.radixpro.enigma.statistics.process.DataFileHandler
 import com.radixpro.enigma.xchg.api.XchgApiInjector
 
 object BeHandlersInjector {
@@ -65,10 +65,6 @@ object BeHandlersInjector {
 
     fun injectSecundaryDateHandler(): SecundaryDateHandler {
         return SecundaryDateHandler()
-    }
-
-    fun injectStatsProjHandler(): StatsProjHandler {
-        return StatsProjHandler(BePersistencyInjector.injectStatsProjDao(), BePersistencyInjector.injectPropertyDao(), BeProcessInjector.injectControlDataCharts())
     }
 
     fun injectSolarReturnHandler(): SolarReturnHandler {

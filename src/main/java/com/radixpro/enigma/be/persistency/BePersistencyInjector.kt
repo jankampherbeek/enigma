@@ -39,8 +39,8 @@ object BePersistencyInjector {
         return PropertyDao()
     }
 
-    fun injectStatsProjDao(): StatsProjDao {
-        return StatsProjDao(injectJsonWriter(), injectJsonReader(), injectStatsProjMapper())
+    fun injectStatsProjDao(): StatsProjDaoH2 {
+        return StatsProjDaoH2(injectJsonWriter(), injectJsonReader(), injectStatsProjMapper())
     }
 
     fun injectVersionDao(): VersionDao {
