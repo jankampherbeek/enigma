@@ -8,9 +8,7 @@ package com.radixpro.enigma.xchg.api
 
 import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectAspectsHandler
 import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectCalculatedChartHandler
-import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectDataFileHandler
 import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectEphProgCalcHandler
-import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectInputDataFileHandler
 import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectMidpointsHandler
 import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectPrimaryHandler
 import com.radixpro.enigma.be.handlers.BeHandlersInjector.injectProgAspectHandler
@@ -40,10 +38,6 @@ object XchgApiInjector {
         return MidpointsApi(injectMidpointsHandler())
     }
 
-    @JvmStatic
-    fun injectInputDataFileApi(): InputDataFileApi {
-        return InputDataFileApi(injectInputDataFileHandler())
-    }
 
     @JvmStatic
     fun injectPersistedChartDataApi(): PersistedChartDataApi {
@@ -53,11 +47,6 @@ object XchgApiInjector {
     @JvmStatic
     fun injectPersistedConfigurationApi(): PersistedConfigurationApi {
         return PersistedConfigurationApi(BePersistencyInjector.injectConfigurationDao())
-    }
-
-    @JvmStatic
-    fun injectPersistedDataFileApi(): PersistedDataFileApi {
-        return PersistedDataFileApi(injectDataFileHandler())
     }
 
     @JvmStatic

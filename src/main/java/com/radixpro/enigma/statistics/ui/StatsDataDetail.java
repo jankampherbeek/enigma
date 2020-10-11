@@ -69,7 +69,6 @@ public class StatsDataDetail {
       stage.close();
    }
 
-   // FIXME: helpteksten maken
    private void onHelp() {
       new Help(Rosetta.getHelpText("help.statsdatadetail.title"), Rosetta.getHelpText("help.statsdatadetail.content"));
    }

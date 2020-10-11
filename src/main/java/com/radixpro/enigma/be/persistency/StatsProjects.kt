@@ -24,9 +24,9 @@ interface StatsProjDao {
     fun readAllNames(pathRoot: String): MutableList<String>
 }
 
-class StatsProjDaoH2(private val jsonWriter: JsonWriter, private val jsonReader: JsonReader, private val mapper: StatsProjMapper) : StatsProjDao {
+class StatsProjDaoJson(private val jsonWriter: JsonWriter, private val jsonReader: JsonReader, private val mapper: StatsProjMapper) : StatsProjDao {
 
-    private val log = Logger.getLogger(StatsProjDaoH2::class.java)
+    private val log = Logger.getLogger(StatsProjDaoJson::class.java)
 
     override fun save(project: StatsProject, pathRoot: String) {
         val projectName = project.name

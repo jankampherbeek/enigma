@@ -7,15 +7,20 @@
 
 package com.radixpro.enigma.di
 
+import com.radixpro.enigma.di.StatsInjector.injectInputDataFileApi
+import com.radixpro.enigma.di.StatsInjector.injectPersistedDataFileApi
 import com.radixpro.enigma.di.StatsInjector.injectStatsProjApi
 import com.radixpro.enigma.statistics.ui.*
 import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector.injectBaseConfigInputBlock
-import com.radixpro.enigma.xchg.api.XchgApiInjector.injectInputDataFileApi
-import com.radixpro.enigma.xchg.api.XchgApiInjector.injectPersistedDataFileApi
+
 import com.radixpro.enigma.xchg.api.XchgApiInjector.injectPersistedPropertyApi
 import javafx.stage.DirectoryChooser
 
 object StatsUiInjector {
+
+    fun injectProjectManager(): ProjectManager {
+        return ProjectManager()
+    }
 
     fun injectStatsDataDetail(): StatsDataDetail {
         return StatsDataDetail()
@@ -39,6 +44,6 @@ object StatsUiInjector {
 
     fun injectStatsStart(): StatsStart {
         return StatsStart(injectStatsDataNew(), injectStatsDataDetail(), injectStatsDataSearch(), injectStatsProjSearch(), injectStatsProjNew(),
-                injectPersistedPropertyApi(), DirectoryChooser())
+                injectProjectManager(), injectPersistedPropertyApi(), DirectoryChooser())
     }
 }

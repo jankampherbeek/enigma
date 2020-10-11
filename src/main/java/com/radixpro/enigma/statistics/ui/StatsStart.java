@@ -40,6 +40,7 @@ public class StatsStart {
    private final StatsDataNew dataNew;
    private final StatsDataSearch dataSearch;
    private final StatsDataDetail dataDetail;
+   private final ProjectManager projectManager;
    private boolean projDirDefined;
    private String fullPathProjDir;
    private Stage stage;
@@ -76,11 +77,13 @@ public class StatsStart {
                      @NotNull final StatsDataSearch dataSearch,
                      @NotNull final StatsProjSearch projSearch,
                      @NotNull final StatsProjNew projNew,
+                     @NotNull final ProjectManager projectManager,
                      @NotNull final PersistedPropertyApi propApi,
                      @NotNull final DirectoryChooser dirChooser) {
       this.projSearch = projSearch;
       this.dataDetail = dataDetail;
       this.statsProjNew = projNew;
+      this.projectManager = projectManager;
       this.propApi = propApi;
       this.dirChooser = dirChooser;
       this.dataNew = dataNew;
@@ -140,6 +143,12 @@ public class StatsStart {
       colProjDescr.setPrefWidth(300.0);
       tvProj.getColumns().add(colProjName);
       tvProj.getColumns().add(colProjDescr);
+
+//      TableView.TableViewSelectionModel<DataFileDescription> selectionModel = tvProj.getSelectionModel();
+//      selectionModel.setSelectionMode(SelectionMode.SINGLE);
+//      selectedDataFiles = selectionModel.getSelectedItems();
+//      selectedDataFiles.addListener((ListChangeListener<DataFileDescription>) change -> onSelectFile());
+
    }
 
    private void definePanes() {
@@ -232,11 +241,12 @@ public class StatsStart {
    }
 
    private ButtonBar createBtnBarProj() {
-      btnProjOpen = new ButtonBuilder("ui.stats.start.btnprojopen").setDisabled(true).build();
+      btnProjOpen = new ButtonBuilder("ui.stats.start.btnprojopen").setDisabled(false).build();    // TODO disable and enable after selecting project
       btnProjNew = new ButtonBuilder("ui.stats.start.btnprojnew").setDisabled(false).build();
       btnProjSearch = new ButtonBuilder("ui.stats.start.btnprojsearch").setDisabled(false).build();
       btnProjNew.setOnAction(click -> statsProjNew.show());
       btnProjSearch.setOnAction(click -> onProjSearch());
+      btnProjOpen.setOnAction(click -> projectManager.show());
       return new ButtonBarBuilder().setButtons(btnProjOpen, btnProjNew, btnProjSearch).build();
    }
 

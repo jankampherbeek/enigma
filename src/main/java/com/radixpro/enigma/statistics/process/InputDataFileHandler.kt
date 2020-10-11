@@ -4,14 +4,13 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
-package com.radixpro.enigma.be.handlers
+package com.radixpro.enigma.statistics.process
 
 import com.radixpro.enigma.Rosetta
 import com.radixpro.enigma.be.persistency.DataReaderCsv
 import com.radixpro.enigma.be.persistency.JsonWriter
 import com.radixpro.enigma.statistics.api.InputDataFileRequest
 import com.radixpro.enigma.statistics.api.InputDataFileResponse
-import com.radixpro.enigma.statistics.process.InputDataException
 import org.apache.log4j.Logger
 import java.io.File
 import java.nio.file.Files

@@ -8,8 +8,6 @@ package com.radixpro.enigma.be.handlers
 
 import com.radixpro.enigma.be.analysis.BeAnalysisInjector
 import com.radixpro.enigma.be.calc.BeCalcInjector
-import com.radixpro.enigma.be.persistency.BePersistencyInjector
-import com.radixpro.enigma.statistics.process.DataFileHandler
 import com.radixpro.enigma.xchg.api.XchgApiInjector
 
 object BeHandlersInjector {
@@ -22,9 +20,6 @@ object BeHandlersInjector {
         return CalculatedChartHandler(injectFullPointPositionHandler(), injectMundanePositionsHandler())
     }
 
-    fun injectDataFileHandler(): DataFileHandler {
-        return DataFileHandler(BePersistencyInjector.injectDataFileDao(), XchgApiInjector.injectPersistedPropertyApi())
-    }
 
     fun injectEphProgCalcHandler(): EphProgCalcHandler {
         return EphProgCalcHandler()
@@ -32,10 +27,6 @@ object BeHandlersInjector {
 
     fun injectFullPointPositionHandler(): FullPointPositionHandler {
         return FullPointPositionHandler()
-    }
-
-    fun injectInputDataFileHandler(): InputDataFileHandler {
-        return InputDataFileHandler(BePersistencyInjector.injectDataReaderCsv(), BePersistencyInjector.injectJsonWriter())
     }
 
     fun injectMidpointsHandler(): MidpointsHandler {

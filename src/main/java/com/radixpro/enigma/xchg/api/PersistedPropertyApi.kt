@@ -12,6 +12,8 @@ import com.radixpro.enigma.shared.exceptions.DatabaseException
 import java.util.*
 
 class PersistedPropertyApi(private val dao: PropertyDao) {
+
+    // TODO Create handler and do not access dao directly
     fun insert(property: Property) {
         try {
             dao.insert(property)

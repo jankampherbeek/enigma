@@ -8,12 +8,12 @@
 package com.radixpro.enigma.statistics.ui;
 
 import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.statistics.api.InputDataFileApi;
 import com.radixpro.enigma.statistics.api.InputDataFileRequest;
 import com.radixpro.enigma.statistics.api.InputDataFileResponse;
 import com.radixpro.enigma.statistics.core.DataInputFormats;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.xchg.api.InputDataFileApi;
 import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;

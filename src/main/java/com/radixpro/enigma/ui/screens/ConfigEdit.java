@@ -118,7 +118,6 @@ public class ConfigEdit {
       indexMappingsAyanamshas = Ayanamshas.getIndexMappings();
       choiceBoxAyanamsha.getSelectionModel().select(indexMappingsAyanamshas.getSequenceIdForEnumId(config.getAstronConfiguration().getAyanamsha().getId()));
       checkComboBoxCelObjects = createComboBoxCelObject();
-      checkComboBoxCelObjects = createComboBoxCelObject();
       GridPane gridPane = createGridPane();
       VBox vBox = new VBoxBuilder().setWidth(WIDTH).setHeight(HEIGHT).setPadding(GAP).setChildren(paneTitle, paneSubTitle, gridPane, buttonBar).build();
       stage = new StageBuilder().setMinHeight(HEIGHT).setMinWidth(WIDTH).setTitle(Rosetta.getText("ui.configs.edit.title"))

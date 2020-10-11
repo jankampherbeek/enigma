@@ -4,11 +4,9 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
-package com.radixpro.enigma.xchg.api
+package com.radixpro.enigma.statistics.api
 
-import com.radixpro.enigma.be.handlers.InputDataFileHandler
-import com.radixpro.enigma.statistics.api.InputDataFileRequest
-import com.radixpro.enigma.statistics.api.InputDataFileResponse
+import com.radixpro.enigma.statistics.process.InputDataFileHandler
 
 class InputDataFileApi(private val handler: InputDataFileHandler) {
 
