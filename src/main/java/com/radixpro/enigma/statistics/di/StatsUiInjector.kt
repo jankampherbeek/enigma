@@ -5,11 +5,11 @@
  *
  */
 
-package com.radixpro.enigma.di
+package com.radixpro.enigma.statistics.di
 
-import com.radixpro.enigma.di.StatsInjector.injectInputDataFileApi
-import com.radixpro.enigma.di.StatsInjector.injectPersistedDataFileApi
-import com.radixpro.enigma.di.StatsInjector.injectStatsProjApi
+import com.radixpro.enigma.statistics.di.StatsInjector.injectInputDataFileApi
+import com.radixpro.enigma.statistics.di.StatsInjector.injectPersistedDataFileApi
+import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsProjApi
 import com.radixpro.enigma.statistics.ui.*
 import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector.injectBaseConfigInputBlock
 
@@ -18,8 +18,12 @@ import javafx.stage.DirectoryChooser
 
 object StatsUiInjector {
 
+    fun injectScenarioNew(): ScenarioNew {
+        return ScenarioNew()
+    }
+
     fun injectProjectManager(): ProjectManager {
-        return ProjectManager()
+        return ProjectManager(injectScenarioNew())
     }
 
     fun injectStatsDataDetail(): StatsDataDetail {

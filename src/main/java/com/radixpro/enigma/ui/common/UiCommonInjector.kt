@@ -6,7 +6,7 @@
  */
 package com.radixpro.enigma.ui.common
 
-import com.radixpro.enigma.di.StatsUiInjector.injectStatsStart
+import com.radixpro.enigma.statistics.di.StatsUiInjector.injectStatsStart
 import com.radixpro.enigma.ui.screens.UiScreensInjector
 
 object UiCommonInjector {

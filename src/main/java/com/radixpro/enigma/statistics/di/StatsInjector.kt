@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.di
+package com.radixpro.enigma.statistics.di
 
 
 import com.radixpro.enigma.be.persistency.BePersistencyInjector

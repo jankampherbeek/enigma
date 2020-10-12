@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
@@ -21,6 +22,7 @@ public class ProjectManager {
 
    private static final double HEIGHT = 400.0;
    private static final double WIDTH = 600.0;
+   private final ScenarioNew scenarioNew;
    private Stage stage;
    private Label lblName;
    private Label lblDescription;
@@ -30,8 +32,8 @@ public class ProjectManager {
    private Pane paneDescription;
    private TableView tableView;
 
-   public ProjectManager() {        // TODO add injections
-
+   public ProjectManager(@NotNull final ScenarioNew scenarioNew) {
+      this.scenarioNew = scenarioNew;
    }
 
    public void show() {
@@ -56,7 +58,7 @@ public class ProjectManager {
 
 
    private VBox createVBox() {
-      return new VBoxBuilder().setHeight(HEIGHT).setWidth(WIDTH).setPadding(GAP).setStyle("").setChildren(
+      return new VBoxBuilder().setHeight(HEIGHT).setWidth(WIDTH).setPadding(GAP).setChildren(
             paneTitle,
             paneName,
             paneDescription,
@@ -89,7 +91,7 @@ public class ProjectManager {
       Button btnRun = new ButtonBuilder("ui.stats.projman.run").setDisabled(true).setFocusTraversable(false).build();
       // TODO onClick btnRun
       Button btnNew = new ButtonBuilder("ui.shared.btn.new").setDisabled(false).setFocusTraversable(true).build();
-      // TODO onClick btnNew
+      btnNew.setOnAction(e -> scenarioNew.show());
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnDelete, btnDetails, btnRun, btnNew).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();
    }
