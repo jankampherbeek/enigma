@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import static com.radixpro.enigma.ui.shared.UiDictionary.GAP;
 import static com.radixpro.enigma.ui.shared.UiDictionary.TITLE_HEIGHT;
@@ -23,6 +24,7 @@ public class ScenarioNew {
    private static final double HEIGHT = 400.0;
    private static final double WIDTH = 600.0;
    private Stage stage;
+   private final ScenarioRangeNew scenarioRangeNew;
    private Pane paneTitle;
    private Pane paneName;
    private Pane paneNameInput;
@@ -34,8 +36,8 @@ public class ScenarioNew {
    private TextArea taName;
    private ComboBox cbScenarioType;
 
-   public ScenarioNew() {
-      // todo handle di
+   public ScenarioNew(@NotNull final ScenarioRangeNew scenarioRangeNew) {
+      this.scenarioRangeNew = scenarioRangeNew;
    }
 
    public void show() {
@@ -80,8 +82,9 @@ public class ScenarioNew {
    }
 
    private Pane createPaneBtnBar() {
-      Button btnCreate = new ButtonBuilder("ui.shared.btn.save").setDisabled(true).setFocusTraversable(false).build();
-      // todo create action
+      Button btnCreate = new ButtonBuilder("ui.shared.btn.save").setDisabled(false).setFocusTraversable(true).build();   // todo initial disabled
+      // todo create cconditional actions based on scenario type
+      btnCreate.setOnAction(e -> scenarioRangeNew.show());
       Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
       btnHelp.setOnAction(e -> onHelp());
       Button btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).setFocusTraversable(true).build();

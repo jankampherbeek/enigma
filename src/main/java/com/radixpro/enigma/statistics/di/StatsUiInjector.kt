@@ -19,7 +19,11 @@ import javafx.stage.DirectoryChooser
 object StatsUiInjector {
 
     fun injectScenarioNew(): ScenarioNew {
-        return ScenarioNew()
+        return ScenarioNew(injectScenarioRangeNew())
+    }
+
+    fun injectScenarioRangeNew(): ScenarioRangeNew {
+        return ScenarioRangeNew()
     }
 
     fun injectProjectManager(): ProjectManager {
