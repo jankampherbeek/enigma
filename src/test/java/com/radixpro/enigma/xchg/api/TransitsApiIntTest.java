@@ -95,7 +95,7 @@ public class TransitsApiIntTest {
       List<IPosition> mundanePositions = new ArrayList<>();
       CoordinateSet csEq = new CoordinateSet(0.0, 0.0);
       CoordinateSet csHor = new CoordinateSet(162.0, 20.0);
-      mundanePositions.add(new MundanePosition(MundanePoints.ASC, 162.5, csEq, csHor));
+      mundanePositions.add(new MundanePosition(MundanePointsAstron.ASC, 162.5, csEq, csHor));
       AllMundanePositions allMundPos = new AllMundanePositions(mundanePositions, mundanePositions);
       AstronSpecifics astronSpecifics = new AstronSpecifics(0.0, 0.0);
       CalculatedChart cChart = new CalculatedChart(celestialPositions, allMundPos, astronSpecifics);

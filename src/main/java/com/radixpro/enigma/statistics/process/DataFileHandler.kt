@@ -7,21 +7,21 @@
 package com.radixpro.enigma.statistics.process
 
 import com.radixpro.enigma.be.persistency.DataFileDao
+import com.radixpro.enigma.share.process.PropertyHandler
 import com.radixpro.enigma.statistics.core.DataFileDescription
-import com.radixpro.enigma.xchg.api.PersistedPropertyApi
 import java.io.File
 
 /**
  * Handler to access datafiles using the internal Json format.
  */
 class DataFileHandler(private val dao: DataFileDao,
-                      propApi: PersistedPropertyApi) {
+                      propHandler: PropertyHandler) {
     private val projDirKey = "projdir"
     private val dataFolder = "data"
     private val projDir: String?
 
     init {
-        projDir = propApi.read(projDirKey)[0]?.value          // TODO do not access api but handler
+        projDir = propHandler.retrieve(projDirKey)[0].value
     }
 
     fun readDataFileDesciptions(): List<DataFileDescription> {

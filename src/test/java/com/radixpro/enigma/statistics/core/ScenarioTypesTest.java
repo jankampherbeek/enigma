@@ -8,6 +8,7 @@
 package com.radixpro.enigma.statistics.core;
 
 import com.radixpro.enigma.shared.exceptions.UnknownIdException;
+import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

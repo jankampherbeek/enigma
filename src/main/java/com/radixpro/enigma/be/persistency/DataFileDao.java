@@ -8,6 +8,7 @@
 package com.radixpro.enigma.be.persistency;
 
 import com.radixpro.enigma.be.persistency.mappers.InputDataSetMapper;
+import com.radixpro.enigma.share.persistency.JsonReader;
 import com.radixpro.enigma.statistics.core.DataFileDescription;
 import com.radixpro.enigma.statistics.core.InputDataSet;
 import org.jetbrains.annotations.NotNull;

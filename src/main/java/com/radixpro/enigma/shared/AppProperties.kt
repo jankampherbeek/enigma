@@ -12,6 +12,10 @@ import java.io.FileInputStream
 import java.io.IOException
 import java.util.*
 
+/**
+ * Only used to find location of database.
+ * TODO replace with general system properties solution  Check if used for reading csv data from Enigma 2020.1.
+ */
 class AppProperties(env: String) {
     private val USERHOME = "user.home"
     private val PROPS_FILE = "enigmaastroprops"
@@ -33,9 +37,9 @@ class AppProperties(env: String) {
             if ("dev".equals(env, ignoreCase = true)) propsLoc = "dev" + File.separator + PROPS_FILE
             if ("test".equals(env, ignoreCase = true)) propsLoc = "test" + File.separator + PROPS_FILE
             LOG.info("Location for properties file : $propsLoc")
-            val `in` = FileInputStream(propsLoc)
-            defaultProps.load(`in`)
-            `in`.close()
+            val inFile = FileInputStream(propsLoc)
+            defaultProps.load(inFile)
+            inFile.close()
             val applicationProps = Properties(defaultProps)
             databasePath = applicationProps.getProperty(DBLOC_PROP)
             LOG.info("Value for databasePath : $databasePath")

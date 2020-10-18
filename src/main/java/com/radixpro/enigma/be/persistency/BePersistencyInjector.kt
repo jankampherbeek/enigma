@@ -8,7 +8,10 @@ package com.radixpro.enigma.be.persistency
 
 import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectInputDataSetMapper
 import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectStatsProjMapper
+import com.radixpro.enigma.share.persistency.JsonReader
+import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.shared.converters.ShConvertersInjector.injectCsv2LocationConverter
+import com.radixpro.enigma.statistics.persistency.StatsProjDaoJson
 
 object BePersistencyInjector {
     fun injectChartDataDao(): ChartDataDao {
@@ -33,10 +36,6 @@ object BePersistencyInjector {
 
     fun injectJsonWriter(): JsonWriter {
         return JsonWriter()
-    }
-
-    fun injectPropertyDao(): PropertyDao {
-        return PropertyDao()
     }
 
     fun injectStatsProjDao(): StatsProjDaoJson {

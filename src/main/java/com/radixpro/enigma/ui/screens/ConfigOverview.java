@@ -11,12 +11,12 @@ import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.domain.config.Configuration;
 import com.radixpro.enigma.references.InputStatus;
+import com.radixpro.enigma.share.api.PropertyApi;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableConfiguration;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
-import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -51,7 +51,7 @@ public class ConfigOverview {
    private final ConfigNew configNew;
    private final ConfigEdit configEdit;
    private final ConfigDetails configDetails;
-   private final PersistedPropertyApi propApi;
+   private final PropertyApi propApi;
    private final SessionState state;
    private ObservableList<PresentableConfiguration> selectedItems;
    private boolean selectionChanged = false;
@@ -65,7 +65,7 @@ public class ConfigOverview {
    private Button btnExit;
    private TableView<PresentableConfiguration> tableView;
 
-   public ConfigOverview(@NotNull final PersistedConfigurationApi configApi, @NotNull final PersistedPropertyApi propApi, @NotNull final ConfigNew configNew,
+   public ConfigOverview(@NotNull final PersistedConfigurationApi configApi, @NotNull final PropertyApi propApi, @NotNull final ConfigNew configNew,
                          @NotNull final ConfigEdit configEdit, @NotNull final ConfigDetails configDetails) {
       this.configApi = configApi;
       this.propApi = propApi;
@@ -177,7 +177,7 @@ public class ConfigOverview {
       long newConfigId = presConfig.getConfigId();
       Property configProp = (propApi.read("config")).get(0);
       configProp.setValue(Long.toString(newConfigId));
-      propApi.update(configProp);
+      propApi.change(configProp);
       state.setSelectedConfig(presConfig.getOriginalConfig());
       selectionChanged = true;
       stage.close();

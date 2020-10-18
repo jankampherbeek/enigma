@@ -4,8 +4,10 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
-package com.radixpro.enigma.be.persistency
+package com.radixpro.enigma.share.persistency
 
+import com.radixpro.enigma.be.persistency.AppDb
+import com.radixpro.enigma.be.persistency.DaoParent
 import com.radixpro.enigma.shared.Property
 import com.radixpro.enigma.shared.exceptions.DatabaseException
 import java.sql.SQLException

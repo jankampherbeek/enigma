@@ -12,7 +12,7 @@ import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.astronpos.FullChart;
 import com.radixpro.enigma.domain.astronpos.IPosition;
 import com.radixpro.enigma.domain.config.Configuration;
-import com.radixpro.enigma.references.MundanePoints;
+import com.radixpro.enigma.references.MundanePointsAstron;
 import com.radixpro.enigma.ui.charts.screens.helpers.*;
 import com.radixpro.enigma.ui.creators.PlotCoordinatesFactory;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
@@ -331,8 +331,8 @@ public class RadixWheel {
          pointInfos.add(new PointInfoForAspect(bodyPos.getChartPoint(), angleFromAsc));
       }
       angleFromAsc = Range.INSTANCE.checkValue(ascendant - fChart.getCalculatedChart().getMundPoints().getMc().getLongitude(), 0.0, 360.0);
-      pointInfos.add(new PointInfoForAspect(MundanePoints.MC, angleFromAsc));
-      pointInfos.add(new PointInfoForAspect(MundanePoints.ASC, 0.0));
+      pointInfos.add(new PointInfoForAspect(MundanePointsAstron.MC, angleFromAsc));
+      pointInfos.add(new PointInfoForAspect(MundanePointsAstron.ASC, 0.0));
       final List<DrawableLine> drawableLines = helper.createDrawLines(aspects, pointInfos, metrics);
       gc.setGlobalAlpha(0.6);
       for (DrawableLine line : drawableLines) {

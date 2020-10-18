@@ -6,23 +6,27 @@
  */
 package com.radixpro.enigma.statistics.core
 
+import com.radixpro.enigma.astronomy.ui.domain.CelObjects
+import com.radixpro.enigma.astronomy.ui.domain.MundanePoints
 import com.radixpro.enigma.domain.astronpos.CalculatedChart
 import com.radixpro.enigma.domain.input.ChartInputData
-import com.radixpro.enigma.xchg.domain.IChartPoints
+import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
+import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
 
 interface Scenario {
     val name: String
     val description: String
-    val players: List<IChartPoints>
+    val projectName: String
     val scenarioType: ScenarioTypes
 }
 
 data class ScenarioRange(override val name: String,
                          override val description: String,
-                         override val players: List<IChartPoints>,
+                         override val projectName: String,
                          override val scenarioType: ScenarioTypes,
                          val rangeType: StatsRangeTypes,
-                         val selection: List<Int>) : Scenario
+                         val celObjects: MutableList<CelObjects>,
+                         val mundanePoints: MutableList<MundanePoints>) : Scenario
 
 data class DataFileDescription(val name: String, val description: String, val nrOfRecords: Int)
 

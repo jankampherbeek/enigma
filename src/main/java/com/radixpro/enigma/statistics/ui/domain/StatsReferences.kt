@@ -4,7 +4,7 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
-package com.radixpro.enigma.statistics.core
+package com.radixpro.enigma.statistics.ui.domain
 
 import com.radixpro.enigma.Rosetta
 import com.radixpro.enigma.shared.exceptions.UnknownIdException
@@ -40,22 +40,12 @@ enum class ScenarioTypes(val id: Int,
 }
 
 
-enum class StatsRangeTypes(val id: Int,
-                           val rbName: String) {
-    SIGNS(1, "statsrangetype.signs"),
-    HOUSES(2, "statsrangetype.houses");
-
-    companion object {
-        @Throws(UnknownIdException::class)
-        fun getRangeTypeForId(id: Int): StatsRangeTypes {
-            for (type in values()) {
-                if (type.id == id) {
-                    return type
-                }
-            }
-            throw UnknownIdException("Tried to read StatsRangeType with invalid id : $id")
-        }
-    }
+enum class StatsRangeTypes(val rbKey: String) {
+    SIGNS("statsrangetype.signs"),
+    HOUSES("statsrangetype.houses"),
+    DECANATES("statsrangetype.decanates"),
+    DODECATEMORIA("statsrangetype.dodecatemoria"),
+    DEGREES("statsrangetype.degrees")
 }
 
 

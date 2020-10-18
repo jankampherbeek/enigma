@@ -8,7 +8,7 @@ package com.radixpro.enigma.references
 
 import com.radixpro.enigma.xchg.domain.IChartPoints
 
-enum class MundanePoints(override val id: Int, override val rbKey: String) : IChartPoints {
+enum class MundanePointsAstron(override val id: Int, override val rbKey: String) : IChartPoints {
     MC(1, "ui.shared.mc"),
     ASC(2, "ui.shared.asc"),
     VERTEX(3, "ui.shared.vertex"),

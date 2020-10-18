@@ -17,7 +17,7 @@ import com.radixpro.enigma.domain.input.Location
 import com.radixpro.enigma.references.Ayanamshas
 import com.radixpro.enigma.references.EclipticProjections
 import com.radixpro.enigma.references.HouseSystems
-import com.radixpro.enigma.references.MundanePoints
+import com.radixpro.enigma.references.MundanePointsAstron
 import swisseph.SweConst
 import java.util.*
 
@@ -54,25 +54,25 @@ class MundanePositionsHandler(private val obliquityHandler: ObliquityHandler) {
         val obliquity = obliquityHandler.calcTrueObliquity(jdUt)
         val allCusps: MutableList<IPosition> = ArrayList()
         for (cusp in cusps) {
-            allCusps.add(createMundanePosition(cusp, obliquity, jdUt, location, MundanePoints.CUSP))
+            allCusps.add(createMundanePosition(cusp, obliquity, jdUt, location, MundanePointsAstron.CUSP))
         }
         val specPoints: MutableList<IPosition> = ArrayList()
-        specPoints.add(createMundanePosition(ascMc[0], obliquity, jdUt, location, MundanePoints.ASC))
-        specPoints.add(createMundanePosition(ascMc[1], obliquity, jdUt, location, MundanePoints.MC))
+        specPoints.add(createMundanePosition(ascMc[0], obliquity, jdUt, location, MundanePointsAstron.ASC))
+        specPoints.add(createMundanePosition(ascMc[1], obliquity, jdUt, location, MundanePointsAstron.MC))
         // skip 3: ARMC
-        specPoints.add(createMundanePosition(ascMc[3], obliquity, jdUt, location, MundanePoints.VERTEX))
-        specPoints.add(createMundanePosition(ascMc[4], obliquity, jdUt, location, MundanePoints.EAST_POINT))
+        specPoints.add(createMundanePosition(ascMc[3], obliquity, jdUt, location, MundanePointsAstron.VERTEX))
+        specPoints.add(createMundanePosition(ascMc[4], obliquity, jdUt, location, MundanePointsAstron.EAST_POINT))
         return AllMundanePositions(allCusps, specPoints)
     }
 
     private fun createMundanePosition(longitude: Double, obliquity: Double, jdUt: Double, location: Location,
-                                      mundanePoint: MundanePoints): MundanePosition {
+                                      mundanePointAstron: MundanePointsAstron): MundanePosition {
         val eclValues = doubleArrayOf(longitude, 0.0, 1.0) // longitude, latitude, distance
         val equaPositions = CoordinateConversions.eclipticToEquatorial(eclValues, obliquity) // RA, decl
         val eqPos = CoordinateSet(equaPositions[0], equaPositions[1])
         val horizontalPosition = seFrontend.getHorizontalPosition(jdUt, eclValues, location, SweConst.SE_ECL2HOR)
         val horPos = CoordinateSet(horizontalPosition[0], horizontalPosition[1]) // true altitude, index 2 = apparent altitude
-        return MundanePosition(mundanePoint, longitude, eqPos, horPos)
+        return MundanePosition(mundanePointAstron, longitude, eqPos, horPos)
     }
 
 }

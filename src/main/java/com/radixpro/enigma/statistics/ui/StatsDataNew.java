@@ -8,13 +8,13 @@
 package com.radixpro.enigma.statistics.ui;
 
 import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.share.api.PropertyApi;
 import com.radixpro.enigma.statistics.api.InputDataFileApi;
 import com.radixpro.enigma.statistics.api.InputDataFileRequest;
 import com.radixpro.enigma.statistics.api.InputDataFileResponse;
-import com.radixpro.enigma.statistics.core.DataInputFormats;
+import com.radixpro.enigma.statistics.ui.domain.DataInputFormats;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.shared.Help;
-import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -36,7 +36,7 @@ public class StatsDataNew {
    private static final String KEY_PROJDIR = "projdir";
    private static final double HEIGHT = 360.0;
    private final InputDataFileApi inputDataFileApi;
-   private final PersistedPropertyApi propApi;
+   private final PropertyApi propApi;
    private Stage stage;
    private Button btnDataFile;
    private Label lblPageTitle;
@@ -54,7 +54,7 @@ public class StatsDataNew {
 
 
    public StatsDataNew(@NotNull final InputDataFileApi inputDataFileApi,
-                       @NotNull final PersistedPropertyApi propApi) {
+                       @NotNull final PropertyApi propApi) {
       this.inputDataFileApi = inputDataFileApi;
       this.propApi = propApi;
    }

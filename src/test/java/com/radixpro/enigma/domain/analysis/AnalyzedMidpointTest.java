@@ -9,7 +9,7 @@ package com.radixpro.enigma.domain.analysis;
 
 import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.references.MidpointTypes;
-import com.radixpro.enigma.references.MundanePoints;
+import com.radixpro.enigma.references.MundanePointsAstron;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class AnalyzedMidpointTest {
    public void setUp() {
       firstPoint = new AnalyzablePoint(CelestialObjects.SUN, 123.456);
       secondPoint = new AnalyzablePoint(CelestialObjects.SATURN, 153.456);
-      centerPoint = new AnalyzablePoint(MundanePoints.ASC, 138.0);
+      centerPoint = new AnalyzablePoint(MundanePointsAstron.ASC, 138.0);
       midpoint = new AnalyzedMidpoint(firstPoint, secondPoint, centerPoint, midpointType, actualOrb, maxOrb);
    }
 

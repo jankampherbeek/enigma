@@ -5,10 +5,11 @@
  *
  */
 
-package com.radixpro.enigma.be.persistency
+package com.radixpro.enigma.statistics.persistency
 
-import com.radixpro.enigma.be.persistency.mappers.StatsProjMapper
 import com.radixpro.enigma.references.ErrorMsgs
+import com.radixpro.enigma.share.persistency.JsonReader
+import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.shared.exceptions.DatabaseException
 import com.radixpro.enigma.statistics.core.IStatsProject
 import com.radixpro.enigma.statistics.core.StatsFailedProject

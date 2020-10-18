@@ -20,7 +20,6 @@ object BeHandlersInjector {
         return CalculatedChartHandler(injectFullPointPositionHandler(), injectMundanePositionsHandler())
     }
 
-
     fun injectEphProgCalcHandler(): EphProgCalcHandler {
         return EphProgCalcHandler()
     }

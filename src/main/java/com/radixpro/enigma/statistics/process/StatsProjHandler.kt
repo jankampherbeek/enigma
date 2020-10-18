@@ -7,14 +7,14 @@
 
 package com.radixpro.enigma.statistics.process
 
-import com.radixpro.enigma.be.persistency.PropertyDao
-import com.radixpro.enigma.be.persistency.StatsProjDao
+import com.radixpro.enigma.share.process.PropertyHandler
 import com.radixpro.enigma.statistics.core.IStatsProject
 import com.radixpro.enigma.statistics.core.StatsProject
+import com.radixpro.enigma.statistics.persistency.StatsProjDao
 
-class StatsProjHandler(private val statsProjDao: StatsProjDao, private val propDao: PropertyDao, private val controlDataCharts: ControlDataCharts) {
+class StatsProjHandler(private val statsProjDao: StatsProjDao, private val propHandler: PropertyHandler, private val controlDataCharts: ControlDataCharts) {
 
-    val location = propDao.read("projdir")[0].value
+    val location = propHandler.retrieve("projdir")[0].value
 
     fun saveProject(project: StatsProject): String {
         statsProjDao.save(project, location)

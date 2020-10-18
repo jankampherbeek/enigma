@@ -13,13 +13,12 @@ import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataFileDa
 import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataReaderCsv
 import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectJsonReader
 import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectJsonWriter
-import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectPropertyDao
 import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectInputDataSetMapper
+import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyHandler
 import com.radixpro.enigma.statistics.api.InputDataFileApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
 import com.radixpro.enigma.statistics.process.*
 import com.radixpro.enigma.xchg.api.PersistedDataFileApi
-import com.radixpro.enigma.xchg.api.XchgApiInjector.injectPersistedPropertyApi
 
 object StatsInjector {
 
@@ -28,11 +27,11 @@ object StatsInjector {
     }
 
     fun injectControlDataCharts(): ControlDataCharts {
-        return ControlDataCharts(injectJsonReader(), injectJsonWriter(), injectPropertyDao(), injectInputDataSetMapper(), injectControlDataCalendar())
+        return ControlDataCharts(injectJsonReader(), injectJsonWriter(), injectGlobalPropertyHandler(), injectInputDataSetMapper(), injectControlDataCalendar())
     }
 
     fun injectDataFileHandler(): DataFileHandler {
-        return DataFileHandler(injectDataFileDao(), injectPersistedPropertyApi())
+        return DataFileHandler(injectDataFileDao(), injectGlobalPropertyHandler())
     }
 
     fun injectInputDataFileHandler(): InputDataFileHandler {
@@ -54,7 +53,7 @@ object StatsInjector {
     }
 
     fun injectStatsProjHandler(): StatsProjHandler {
-        return StatsProjHandler(BePersistencyInjector.injectStatsProjDao(), injectPropertyDao(), injectControlDataCharts())
+        return StatsProjHandler(BePersistencyInjector.injectStatsProjDao(), injectGlobalPropertyHandler(), injectControlDataCharts())
     }
 
 }

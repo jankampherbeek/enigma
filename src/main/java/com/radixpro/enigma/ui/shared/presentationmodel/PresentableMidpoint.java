@@ -11,7 +11,7 @@ import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.domain.analysis.AnalyzedMidpoint;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.references.CelestialObjects;
-import com.radixpro.enigma.references.MundanePoints;
+import com.radixpro.enigma.references.MundanePointsAstron;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForCelObject;
 import com.radixpro.enigma.ui.shared.formatters.SexagesimalFormatter;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
@@ -47,9 +47,9 @@ public class PresentableMidpoint {
       GlyphForCelObject glyphForCelObject = new GlyphForCelObject();
       if (point instanceof CelestialObjects) {
          return glyphForCelObject.getGlyph(point.getId());
-      } else if (point instanceof MundanePoints) {
-         if (point == MundanePoints.MC) return "M";    // glyph for Mc
-         if (point == MundanePoints.ASC) return "A";    // glyph for Asc
+      } else if (point instanceof MundanePointsAstron) {
+         if (point == MundanePointsAstron.MC) return "M";    // glyph for Mc
+         if (point == MundanePointsAstron.ASC) return "A";    // glyph for Asc
       }
       return "";
    }

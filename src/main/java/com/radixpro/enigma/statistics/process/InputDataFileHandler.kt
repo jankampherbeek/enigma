@@ -8,7 +8,7 @@ package com.radixpro.enigma.statistics.process
 
 import com.radixpro.enigma.Rosetta
 import com.radixpro.enigma.be.persistency.DataReaderCsv
-import com.radixpro.enigma.be.persistency.JsonWriter
+import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.statistics.api.InputDataFileRequest
 import com.radixpro.enigma.statistics.api.InputDataFileResponse
 import org.apache.log4j.Logger

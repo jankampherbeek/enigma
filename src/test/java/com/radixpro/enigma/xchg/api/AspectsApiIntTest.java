@@ -14,7 +14,7 @@ import com.radixpro.enigma.domain.config.ConfiguredAspect;
 import com.radixpro.enigma.references.AspectOrbStructures;
 import com.radixpro.enigma.references.AspectTypes;
 import com.radixpro.enigma.references.CelestialObjects;
-import com.radixpro.enigma.references.MundanePoints;
+import com.radixpro.enigma.references.MundanePointsAstron;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,9 +59,9 @@ public class AspectsApiIntTest {
       celObjects.add(moonPosMock);
 
       when(mcPosMock.getLongitude()).thenReturn(218.0);
-      when(mcPosMock.getChartPoint()).thenReturn(MundanePoints.MC);
+      when(mcPosMock.getChartPoint()).thenReturn(MundanePointsAstron.MC);
       when(ascPosMock.getLongitude()).thenReturn(278.0);
-      when(ascPosMock.getChartPoint()).thenReturn(MundanePoints.ASC);
+      when(ascPosMock.getChartPoint()).thenReturn(MundanePointsAstron.ASC);
       mundaneValues = new ArrayList<>();
       mundaneValues.add(mcPosMock);
       mundaneValues.add(ascPosMock);
@@ -80,7 +80,7 @@ public class AspectsApiIntTest {
       assertEquals(12.5, result0.getPercOrb(), DELTA_8_POS);
       IAnalyzedPair result1 = results.get(2);
       assertEquals(CelestialObjects.SUN, result1.getFirst().getChartPoint());
-      assertEquals(MundanePoints.ASC, result1.getSecond().getChartPoint());
+      assertEquals(MundanePointsAstron.ASC, result1.getSecond().getChartPoint());
       assertEquals(2.0, result1.getActualOrb(), DELTA_8_POS);
       assertEquals(25.0, result1.getPercOrb(), DELTA_8_POS);
    }

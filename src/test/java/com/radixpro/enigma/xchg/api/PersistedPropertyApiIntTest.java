@@ -8,11 +8,12 @@
 package com.radixpro.enigma.xchg.api;
 
 import com.radixpro.enigma.be.persistency.AppDb;
+import com.radixpro.enigma.share.api.PropertyApi;
 
 public class PersistedPropertyApiIntTest {
 
    private AppDb appDb;
-   private PersistedPropertyApi pPropApi;
+   private PropertyApi pPropApi;
 
    // TODO enable and fix integration tests for PersistedPropertyApi
 //   @Before

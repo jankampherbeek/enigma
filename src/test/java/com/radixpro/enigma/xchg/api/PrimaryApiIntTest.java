@@ -92,9 +92,9 @@ public class PrimaryApiIntTest {
    private AllMundanePositions createAmPos() {
       List<IPosition> cusps = new ArrayList<>();
       List<IPosition> specPoints = new ArrayList<>();
-      specPoints.add(new MundanePosition(MundanePoints.ASC, 33.33, new CoordinateSet(0.0, 0.0),
+      specPoints.add(new MundanePosition(MundanePointsAstron.ASC, 33.33, new CoordinateSet(0.0, 0.0),
             new CoordinateSet(0.0, 0.0)));
-      specPoints.add(new MundanePosition(MundanePoints.MC, 299.9, new CoordinateSet(298.0, 0.0),
+      specPoints.add(new MundanePosition(MundanePointsAstron.MC, 299.9, new CoordinateSet(298.0, 0.0),
             new CoordinateSet(0.0, 0.0)));
       return new AllMundanePositions(cusps, specPoints);
    }

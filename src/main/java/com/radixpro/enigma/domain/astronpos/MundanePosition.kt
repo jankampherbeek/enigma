@@ -6,7 +6,7 @@
  */
 package com.radixpro.enigma.domain.astronpos
 
-import com.radixpro.enigma.references.MundanePoints
+import com.radixpro.enigma.references.MundanePointsAstron
 
 /**
  * Position for a point in the mundane frame (houses etc.).
@@ -16,7 +16,7 @@ import com.radixpro.enigma.references.MundanePoints
  * @param eqPos        Equatorial coordinates.
  * @param horPos       Horizontal coordinates.
  */
-data class MundanePosition(override val chartPoint: MundanePoints,
+data class MundanePosition(override val chartPoint: MundanePointsAstron,
                            override val longitude: Double,
                            val eqPos: CoordinateSet,
                            val horPos: CoordinateSet) : IPosition {

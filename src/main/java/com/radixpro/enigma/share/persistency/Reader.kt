@@ -4,7 +4,7 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
-package com.radixpro.enigma.be.persistency
+package com.radixpro.enigma.share.persistency
 
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
@@ -14,11 +14,16 @@ import java.io.File
 import java.io.FileReader
 import java.io.IOException
 
+interface Reader {
+    fun readObjectFromFile(inputData: File): JSONObject
+    fun readArrayFromFile(inputData: File): JSONArray
+}
+
 /**
  * Reader for Json files.
  */
-class JsonReader {
-    fun readObjectFromFile(inputData: File): JSONObject {
+class JsonReader : Reader {
+    override fun readObjectFromFile(inputData: File): JSONObject {
         val parser = JSONParser()
         return try {
             val jsonObject = parser.parse(FileReader(inputData))
@@ -30,7 +35,7 @@ class JsonReader {
         }
     }
 
-    fun readArrayFromFile(inputData: File): JSONArray {
+    override fun readArrayFromFile(inputData: File): JSONArray {
         val parser = JSONParser()
         return try {
             val jsonObject = parser.parse(FileReader(inputData))

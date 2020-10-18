@@ -6,14 +6,14 @@
  */
 package com.radixpro.enigma.statistics.process
 
-import com.radixpro.enigma.be.persistency.JsonReader
-import com.radixpro.enigma.be.persistency.JsonWriter
-import com.radixpro.enigma.be.persistency.PropertyDao
 import com.radixpro.enigma.be.persistency.mappers.InputDataSetMapper
 import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.domain.input.DateTimeParts
 import com.radixpro.enigma.domain.input.Location
 import com.radixpro.enigma.references.TimeZones
+import com.radixpro.enigma.share.persistency.JsonReader
+import com.radixpro.enigma.share.persistency.JsonWriter
+import com.radixpro.enigma.share.process.PropertyHandler
 import com.radixpro.enigma.statistics.core.InputDataSet
 import com.radixpro.enigma.statistics.core.StatsProject
 import com.radixpro.enigma.ui.helpers.DateTimeCreator
@@ -23,7 +23,7 @@ import java.util.*
 
 class ControlDataCharts(private val jsonReader: JsonReader,
                         private val jsonWriter: JsonWriter,
-                        private val propDao: PropertyDao,
+                        private val propHandler: PropertyHandler,
                         private val inputDataSetMapper: InputDataSetMapper,
                         private val controlDataCalendar: ControlDataCalendar) {
 
@@ -39,7 +39,7 @@ class ControlDataCharts(private val jsonReader: JsonReader,
 
     fun createFile(project: StatsProject) {
         val (origFilename) = project.dataFile
-        val pathRoot = propDao.read("projdir")[0].value
+        val pathRoot = propHandler.retrieve("projdir")[0].value
         val fullPath = pathRoot + File.separator + "proj" + File.separator + project.name + File.separator
         val fullOrigFilename = fullPath + "in_" + origFilename + ".json"
         val fullCtrlFilename = fullPath + "ctrl_" + origFilename + ".json"

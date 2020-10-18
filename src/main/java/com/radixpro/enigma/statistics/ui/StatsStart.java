@@ -8,11 +8,11 @@
 package com.radixpro.enigma.statistics.ui;
 
 import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.share.api.PropertyApi;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.statistics.core.DataFileDescription;
 import com.radixpro.enigma.statistics.core.StatsProject;
 import com.radixpro.enigma.ui.creators.*;
-import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,7 +33,7 @@ public class StatsStart {
    private static final double PROJ_HEIGHT = 200.0;
    private static final double PROJ_BLOCK_HEIGHT = 300.0;   // TODO replace
    private static final String KEY_PROJDIR = "projdir";
-   private final PersistedPropertyApi propApi;
+   private final PropertyApi propApi;
    private final DirectoryChooser dirChooser;
    private final StatsProjSearch projSearch;
    private final StatsProjNew statsProjNew;
@@ -78,7 +78,7 @@ public class StatsStart {
                      @NotNull final StatsProjSearch projSearch,
                      @NotNull final StatsProjNew projNew,
                      @NotNull final ProjectManager projectManager,
-                     @NotNull final PersistedPropertyApi propApi,
+                     @NotNull final PropertyApi propApi,
                      @NotNull final DirectoryChooser dirChooser) {
       this.projSearch = projSearch;
       this.dataDetail = dataDetail;
@@ -255,7 +255,7 @@ public class StatsStart {
       if (null != selectedDirectory) {
          fullPathProjDir = selectedDirectory.getAbsolutePath();
          Property prop = new Property(KEY_PROJDIR, fullPathProjDir);
-         propApi.insert(prop);
+         propApi.add(prop);
          stage.close();
       }
 

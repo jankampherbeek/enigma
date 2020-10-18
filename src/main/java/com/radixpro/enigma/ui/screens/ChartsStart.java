@@ -19,6 +19,7 @@ import com.radixpro.enigma.domain.input.Location;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartRequest;
 import com.radixpro.enigma.domain.reqresp.CalculatedChartResponse;
 import com.radixpro.enigma.references.*;
+import com.radixpro.enigma.share.api.PropertyApi;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.ui.charts.screens.ChartsData;
@@ -35,7 +36,6 @@ import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
 import com.radixpro.enigma.xchg.api.CalculatedChartApi;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
-import com.radixpro.enigma.xchg.api.PersistedPropertyApi;
 import com.radixpro.enigma.xchg.api.settings.ChartCalcSettings;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
 import com.radixpro.enigma.xchg.domain.IChartPoints;
@@ -73,7 +73,7 @@ public class ChartsStart {
    private final ChartsInput chartsInput;
    private final ConfigOverview configOverview;
    private final SessionState state;
-   private final PersistedPropertyApi propApi;
+   private final PropertyApi propApi;
    private final PersistedConfigurationApi confApi;
    private final PersistedChartDataApi chartDataApi;
    private final CalculatedChartApi calculatedChartApi;
@@ -105,7 +105,7 @@ public class ChartsStart {
                       @NotNull final ChartsTetenburg chartsTetenburg, @NotNull final ChartsAspects chartsAspects,
                       @NotNull final ChartsMidpoints chartsMidpoints, @NotNull final ChartsTransitsInput chartsTransitsInput,
                       @NotNull final ChartsSearch chartsSearch, @NotNull final ChartsInput chartsInput, @NotNull final PersistedChartDataApi chartDataApi,
-                      @NotNull final PersistedConfigurationApi confApi, @NotNull final PersistedPropertyApi propApi,
+                      @NotNull final PersistedConfigurationApi confApi, @NotNull final PropertyApi propApi,
                       @NotNull final ConfigOverview configOverview, @NotNull final PropertiesForConfig propertiesForConfig,
                       @NotNull final CelObjectsInConfig celObjectsInConfig, @NotNull final AspectsInConfig aspectsInConfig,
                       @NotNull final PropertiesTableForConfig propertiesTableForConfig, @NotNull final ChartsDrawing2d chartsDrawing2d) {

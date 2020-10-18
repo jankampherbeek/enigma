@@ -12,6 +12,7 @@ import com.radixpro.enigma.references.EclipticProjections
 import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.ObserverPositions
 import com.radixpro.enigma.statistics.core.StatsProject
+import com.radixpro.enigma.statistics.persistency.StatsProjMapper
 import org.json.simple.JSONObject
 import org.json.simple.JSONValue
 import org.junit.jupiter.api.Assertions.assertEquals

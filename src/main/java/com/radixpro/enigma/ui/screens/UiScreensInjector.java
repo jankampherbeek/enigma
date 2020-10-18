@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.ui.screens;
 
+import com.radixpro.enigma.share.di.ShareInjector;
 import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector;
 import com.radixpro.enigma.ui.screens.helpers.ScreensHelpersInjector;
 import com.radixpro.enigma.ui.validators.UiValidatorsInjector;
@@ -45,7 +46,7 @@ public class UiScreensInjector {
       return new ChartsStart(XchgApiInjector.injectCalculatedChartApi(), injectChartsTetenburg(),
             injectChartsAspects(), injectChartsMidpoints(), injectChartsTransitsInput(), injectChartsSearch(), injectChartsInput(),
             XchgApiInjector.injectPersistedChartDataApi(), XchgApiInjector.injectPersistedConfigurationApi(),
-            XchgApiInjector.injectPersistedPropertyApi(), UiScreensInjector.injectConfigOverview(),
+            ShareInjector.INSTANCE.injectGlobalPropertyApi(), UiScreensInjector.injectConfigOverview(),
             ScreensHelpersInjector.injectPropertiesForConfig(), ScreensHelpersInjector.injectCelObjectsInConfig(),
             ScreensHelpersInjector.injectAspectsInConfig(), ScreensHelpersInjector.injectPropertiesTableForConfig(), injectChartsDrawing2d());
    }
@@ -75,7 +76,7 @@ public class UiScreensInjector {
    }
 
    public static ConfigOverview injectConfigOverview() {
-      return new ConfigOverview(XchgApiInjector.injectPersistedConfigurationApi(), XchgApiInjector.injectPersistedPropertyApi(),
+      return new ConfigOverview(XchgApiInjector.injectPersistedConfigurationApi(), ShareInjector.INSTANCE.injectGlobalPropertyApi(),
             injectConfigNew(), injectConfigEdit(), injectConfigDetails());
    }
 

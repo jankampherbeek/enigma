@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.persistency.mappers
+package com.radixpro.enigma.statistics.persistency
 
 import com.fasterxml.jackson.core.JsonParseException
 import com.radixpro.enigma.domain.config.BaseAstronConfig

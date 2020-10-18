@@ -8,7 +8,7 @@
 package com.radixpro.enigma.statistics.process
 
 import com.radixpro.enigma.statistics.core.Scenario
-import com.radixpro.enigma.statistics.core.ScenarioTypes
+import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 
 interface Processor {
     val calculator: StatsCalculator

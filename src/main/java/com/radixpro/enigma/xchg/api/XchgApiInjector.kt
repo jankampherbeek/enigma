@@ -50,11 +50,6 @@ object XchgApiInjector {
     }
 
     @JvmStatic
-    fun injectPersistedPropertyApi(): PersistedPropertyApi {
-        return PersistedPropertyApi(BePersistencyInjector.injectPropertyDao())
-    }
-
-    @JvmStatic
     fun injectPrimaryApi(): PrimaryApi {
         return PrimaryApi(injectPrimaryHandler())
     }

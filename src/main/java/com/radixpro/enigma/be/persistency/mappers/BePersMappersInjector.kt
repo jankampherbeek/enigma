@@ -6,6 +6,8 @@
  */
 package com.radixpro.enigma.be.persistency.mappers
 
+import com.radixpro.enigma.statistics.persistency.StatsProjMapper
+
 
 object BePersMappersInjector {
     fun injectChartDataCsvMapper(): ChartDataCsvMapper {

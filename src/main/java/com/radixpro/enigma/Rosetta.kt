@@ -6,9 +6,9 @@
  */
 package com.radixpro.enigma
 
-import com.radixpro.enigma.be.persistency.PropertyDao
+import com.radixpro.enigma.share.api.PropertyApi
+import com.radixpro.enigma.share.di.ShareInjector
 import com.radixpro.enigma.shared.Property
-import com.radixpro.enigma.xchg.api.PersistedPropertyApi
 import org.apache.log4j.Logger
 import java.util.*
 
@@ -17,7 +17,7 @@ import java.util.*
  * Implemented as a singleton.
  */
 object Rosetta {
-    private var propApi: PersistedPropertyApi? = null
+    private var propApi: PropertyApi? = null
     private var resourceBundle: ResourceBundle? = null
     private var helpResourceBundle: ResourceBundle? = null
     private val LOG = Logger.getLogger(Rosetta::class.java)
@@ -41,7 +41,7 @@ object Rosetta {
         LOG.info("Setting language to : $language")
         if (language == ENGLISH || language == DUTCH) {
             val langProp = Property(PROP_LANG, language)
-            propApi!!.update(langProp)
+            propApi!!.change(langProp)
             reInitialize()
         } else {
             LOG.error("Unsupported language encountered: $language")
@@ -55,11 +55,11 @@ object Rosetta {
     }
 
     private fun initi18N() {
-        propApi = PersistedPropertyApi(PropertyDao())
+        propApi = ShareInjector.injectGlobalPropertyApi()
         val props = propApi!!.read(PROP_LANG)
         var language = "en" // handle first start as no database has been created.
         if (props.isNotEmpty()) {
-            val currentProp = propApi!!.read(PROP_LANG)[0]!!
+            val currentProp = propApi!!.read(PROP_LANG)[0]
             language = currentProp.value
         }
         locale = if (language == DUTCH) Locale(DUTCH, DUTCH.toUpperCase()) else Locale(ENGLISH, ENGLISH.toUpperCase())
