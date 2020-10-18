@@ -8,34 +8,37 @@
 package com.radixpro.enigma.statistics.process
 
 import com.radixpro.enigma.share.persistency.Reader
-import com.radixpro.enigma.share.persistency.Writer
 import com.radixpro.enigma.statistics.core.Scenario
 import com.radixpro.enigma.statistics.persistency.ScenarioMapper
+import com.radixpro.enigma.statistics.persistency.ScenarioPersister
 import java.io.File
 
 interface ScenarioHandler {
-    fun saveScenario(pathFile: String, scenario: Scenario)
-    fun readScenario(pathFile: String): Scenario
-//    fun allScenarios(projectName: String): List<Scenario>
+    fun saveScenario(scenario: Scenario)
+    fun readScenario(scenarioName: String, projectName: String): Scenario
+    fun readAllScenarios(projectName: String): List<Scenario>
 }
 
-class ScenarioRangeHandler(val writer: Writer, val reader: Reader, val mapper: ScenarioMapper) : ScenarioHandler {
+class ScenarioRangeHandler(val persister: ScenarioPersister,
+                           val reader: Reader,
+                           val mapper: ScenarioMapper,
+                           private val pathConstructor: PathConstructor) : ScenarioHandler {
 
-    override fun saveScenario(pathFile: String, scenario: Scenario) {
-        writer.write2File(pathFile, scenario, true)
+    override fun saveScenario(scenario: Scenario) {
+        val fullPath = pathConstructor.pathForScenario(scenario.name, scenario.projectName)
+        persister.saveScenario(scenario, fullPath)
     }
 
-    override fun readScenario(pathFile: String): Scenario {
-        val fulllFileName = File(pathFile)
-        val jsonObject = reader.readObjectFromFile(fulllFileName)
+    override fun readScenario(scenarioName: String, projectName: String): Scenario {
+        val fullPath = pathConstructor.pathForProject(projectName)
+        val scenarioFile = File(fullPath)
+        val jsonObject = reader.readObjectFromFile(scenarioFile)
         return mapper.map(jsonObject)
     }
 
-//    override fun allScenarios(projectName: String) {
-//       // misschien toch facade tussen JJsonReader en Handler, hierin kun je ook helperclass gebruiken voor lezen van een lijst van Scenarios.
-//    }
+    override fun readAllScenarios(projectName: String): List<Scenario> {
+        TODO("Not yet implemented")   // does not fit in specific SCenario......
+    }
 
-
-    // pathFile niet meegeven maar via helperclass laten bepalen.
 
 }
