@@ -119,7 +119,7 @@ public class StatsProjSearch {
       if (index >= 0) {
          String projName = statsProjNames.get(index);
          IStatsProject result = statsProjApi.read(projName);
-         if (result.getSuccess()) {
+         if (result instanceof StatsProject) {
             selectedItem = (StatsProject) result;
             selectionMade = true;
          }

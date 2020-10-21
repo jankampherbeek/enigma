@@ -28,34 +28,3 @@ class GlobalPropertyApi(val handler: PropertyHandler) : PropertyApi {
     }
 
 }
-
-//
-//class PersistedPropertyApi(private val dao: PropertyDao) {
-//
-//    // TODO Create handler and do not access dao directly
-//    fun insert(property: Property) {
-//        try {
-//            dao.insert(property)
-//        } catch (de: DatabaseException) {
-//            FailFastHandler().terminate(de.message)
-//        }
-//    }
-//
-//    fun update(property: Property) {
-//        try {
-//            dao.update(property)
-//        } catch (de: DatabaseException) {
-//            FailFastHandler().terminate(de.message)
-//        }
-//    }
-//
-//    fun read(key: String): List<Property?> {
-//        var propList: List<Property> = ArrayList()
-//        try {
-//            propList = dao.read(key)
-//        } catch (e: Exception) {
-//            FailFastHandler().terminate(e.message)
-//        }
-//        return propList
-//    }
-//}

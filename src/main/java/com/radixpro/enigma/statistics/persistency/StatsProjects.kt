@@ -8,8 +8,8 @@
 package com.radixpro.enigma.statistics.persistency
 
 import com.radixpro.enigma.references.ErrorMsgs
-import com.radixpro.enigma.share.persistency.JsonReader
-import com.radixpro.enigma.share.persistency.JsonWriter
+import com.radixpro.enigma.share.persistency.Reader
+import com.radixpro.enigma.share.persistency.Writer
 import com.radixpro.enigma.shared.exceptions.DatabaseException
 import com.radixpro.enigma.statistics.core.IStatsProject
 import com.radixpro.enigma.statistics.core.StatsFailedProject
@@ -25,7 +25,7 @@ interface StatsProjDao {
     fun readAllNames(pathRoot: String): MutableList<String>
 }
 
-class StatsProjDaoJson(private val jsonWriter: JsonWriter, private val jsonReader: JsonReader, private val mapper: StatsProjMapper) : StatsProjDao {
+class StatsProjDaoJson(private val jsonWriter: Writer, private val jsonReader: Reader, private val mapper: StatsProjMapper) : StatsProjDao {
 
     private val log = Logger.getLogger(StatsProjDaoJson::class.java)
 
@@ -38,10 +38,10 @@ class StatsProjDaoJson(private val jsonWriter: JsonWriter, private val jsonReade
         val fullProjFileName = fullPath + "proj_" + projectName + ".json"
         jsonWriter.write2File(fullProjFileName, project, true)
 
-        val dataFileDescr = project.dataFile       // TODO handle set that contains event file
+        val dataFileName = project.dataFileName       // TODO handle set that contains event file
         val inputDataFolder = pathRoot + File.separator + "data" + File.separator
-        val fullPathDataFile = inputDataFolder + dataFileDescr.name + ".json"
-        val newPathDataFile = fullPath + File.separator + "in_" + dataFileDescr.name + ".json"
+        val fullPathDataFile = "$inputDataFolder$dataFileName.json"
+        val newPathDataFile = fullPath + File.separator + "in_" + dataFileName + ".json"
         File(fullPathDataFile).copyTo(File(newPathDataFile))
     }
 
@@ -53,7 +53,7 @@ class StatsProjDaoJson(private val jsonWriter: JsonWriter, private val jsonReade
             return mapper.jsonToStatsProject(jsonObject)
         }
         log.error("Could not find project $projectName in path $pathRoot")
-        return StatsFailedProject(false, ErrorMsgs.PROJECT_NOT_SAVED)
+        return StatsFailedProject(ErrorMsgs.PROJECT_NOT_SAVED)
     }
 
     override fun readAllNames(pathRoot: String): MutableList<String> {

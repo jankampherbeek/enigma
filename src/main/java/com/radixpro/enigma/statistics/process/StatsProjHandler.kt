@@ -8,6 +8,7 @@
 package com.radixpro.enigma.statistics.process
 
 import com.radixpro.enigma.share.process.PropertyHandler
+import com.radixpro.enigma.statistics.api.xchg.ApiResult
 import com.radixpro.enigma.statistics.core.IStatsProject
 import com.radixpro.enigma.statistics.core.StatsProject
 import com.radixpro.enigma.statistics.persistency.StatsProjDao
@@ -16,11 +17,11 @@ class StatsProjHandler(private val statsProjDao: StatsProjDao, private val propH
 
     val location = propHandler.retrieve("projdir")[0].value
 
-    fun saveProject(project: StatsProject): String {
+    fun saveProject(project: StatsProject): ApiResult {
         statsProjDao.save(project, location)
         createControlFiles(project)
         // TODO handle exceptions
-        return "OK"
+        return ApiResult(true, "OK")
     }
 
     fun read(projName: String): IStatsProject {

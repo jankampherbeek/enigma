@@ -9,10 +9,7 @@ package com.radixpro.enigma.share.di
 
 import com.radixpro.enigma.share.api.GlobalPropertyApi
 import com.radixpro.enigma.share.api.PropertyApi
-import com.radixpro.enigma.share.persistency.GlobalPropertyPersister
-import com.radixpro.enigma.share.persistency.GlobalPropertyRetriever
-import com.radixpro.enigma.share.persistency.PropertyPersister
-import com.radixpro.enigma.share.persistency.PropertyRetriever
+import com.radixpro.enigma.share.persistency.*
 import com.radixpro.enigma.share.process.GlobalPropertyHandler
 import com.radixpro.enigma.share.process.PropertyHandler
 
@@ -32,6 +29,14 @@ object ShareInjector {
 
     fun injectGlobalPropertyRetriever(): PropertyRetriever {
         return GlobalPropertyRetriever()
+    }
+
+    fun injectJsonReader(): Reader {
+        return JsonReader()
+    }
+
+    fun injectJsonWriter(): Writer {
+        return JsonWriter()
     }
 
 }

@@ -14,13 +14,13 @@ import com.radixpro.enigma.references.ErrorMsgs
  * Project for statistical research.
  */
 interface IStatsProject {
-    val success: Boolean
 }
 
-data class StatsProject(override val success: Boolean,
-                        val name: String,
-                        val description: String,
-                        val baseAstronConfig: BaseAstronConfig,
-                        val dataFile: DataFileDescription) : IStatsProject
+data class StatsProject( //override val success: Boolean,
+        val name: String,
+        val description: String,
+        val baseAstronConfig: BaseAstronConfig,
+        val dataFileName: String) : IStatsProject
 
-class StatsFailedProject(override val success: Boolean, val errorMsg: ErrorMsgs) : IStatsProject
+//val dataFile: DataFileDescription) : IStatsProject
+class StatsFailedProject(val errorMsg: ErrorMsgs) : IStatsProject

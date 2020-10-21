@@ -8,8 +8,8 @@ package com.radixpro.enigma.be.persistency
 
 import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectInputDataSetMapper
 import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectStatsProjMapper
-import com.radixpro.enigma.share.persistency.JsonReader
-import com.radixpro.enigma.share.persistency.JsonWriter
+import com.radixpro.enigma.share.di.ShareInjector.injectJsonReader
+import com.radixpro.enigma.share.di.ShareInjector.injectJsonWriter
 import com.radixpro.enigma.shared.converters.ShConvertersInjector.injectCsv2LocationConverter
 import com.radixpro.enigma.statistics.persistency.StatsProjDaoJson
 
@@ -28,14 +28,6 @@ object BePersistencyInjector {
 
     fun injectDataReaderCsv(): DataReaderCsv {
         return DataReaderCsv(injectCsv2LocationConverter())
-    }
-
-    fun injectJsonReader(): JsonReader {
-        return JsonReader()
-    }
-
-    fun injectJsonWriter(): JsonWriter {
-        return JsonWriter()
     }
 
     fun injectStatsProjDao(): StatsProjDaoJson {

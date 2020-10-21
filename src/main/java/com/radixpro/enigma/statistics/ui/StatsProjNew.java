@@ -8,14 +8,9 @@
 package com.radixpro.enigma.statistics.ui;
 
 import com.radixpro.enigma.Rosetta;
-import com.radixpro.enigma.domain.config.BaseAstronConfig;
-import com.radixpro.enigma.references.Ayanamshas;
-import com.radixpro.enigma.references.EclipticProjections;
-import com.radixpro.enigma.references.HouseSystems;
-import com.radixpro.enigma.references.ObserverPositions;
-import com.radixpro.enigma.statistics.api.StatsProjApi;
+import com.radixpro.enigma.share.ui.domain.AstronConfigFe;
 import com.radixpro.enigma.statistics.core.DataFileDescription;
-import com.radixpro.enigma.statistics.core.StatsProject;
+import com.radixpro.enigma.statistics.ui.domain.StatsProjectFe;
 import com.radixpro.enigma.ui.creators.*;
 import com.radixpro.enigma.ui.screens.InputScreen;
 import com.radixpro.enigma.ui.screens.blocks.BaseConfigInputBlock;
@@ -51,7 +46,7 @@ public class StatsProjNew extends InputScreen {
    private TextField tfName;
    private TextField tfDescr;
    private DataFileDescription dataFileDescription;
-   private final StatsProjApi statsProjApi;
+   private final StatsFacade facade;
    private Button btnHelp;
    private Button btnCancel;
    private Button btnSave;
@@ -62,11 +57,11 @@ public class StatsProjNew extends InputScreen {
 
    public StatsProjNew(@NotNull final BaseConfigInputBlock configBlock,
                        @NotNull final StatsDataSearch dataSearch,
-                       @NotNull final StatsProjApi statsProjApi) {
+                       @NotNull final StatsFacade facade) {
       super();
       this.configBlock = configBlock;
       this.dataSearch = dataSearch;
-      this.statsProjApi = statsProjApi;
+      this.facade = facade;
    }
 
    public void show() {
@@ -190,7 +185,7 @@ public class StatsProjNew extends InputScreen {
    }
 
    private void onSave() {
-      statsProjApi.saveProject(createProject());
+      facade.saveProject(createProjectFe());
       stage.close();
    }
 
@@ -198,20 +193,25 @@ public class StatsProjNew extends InputScreen {
       checkStatus();
    }
 
-   private StatsProject createProject() {
+   private StatsProjectFe createProjectFe() {
       final String name = tfName.getText();
       final String descr = tfDescr.getText();
-      final List<DataFileDescription> dataFiles = new ArrayList<>();
+      final List<String> dataFiles = new ArrayList<>();
       final ObservableList items = tvDataFiles.getItems();
       for (Object obj : tvDataFiles.getItems()) {
-         dataFiles.add((DataFileDescription) obj);
+         dataFiles.add((String) obj);
       }
-      HouseSystems houseSystem = configBlock.getHouseSystem();
-      Ayanamshas ayanamsha = configBlock.getAyanamsha();
-      ObserverPositions obsPos = configBlock.getObserverPosition();
-      EclipticProjections eclProj = configBlock.getEclipticProjection();
-      BaseAstronConfig config = new BaseAstronConfig(houseSystem, ayanamsha, eclProj, obsPos);
-      return new StatsProject(true, name, descr, config, dataFiles.get(0));    // FIXME: should also handle datafile for events
+      final String houseSystem = configBlock.getHouseSystem().name();
+//      HouseSystems houseSystem = configBlock.getHouseSystem();
+      final String ayanamsha = configBlock.getAyanamsha().name();
+//      Ayanamshas ayanamsha = configBlock.getAyanamsha();
+      final String obsPos = configBlock.getObserverPosition().name();
+//      ObserverPositions obsPos = configBlock.getObserverPosition();
+      final String eclProj = configBlock.getEclipticProjection().name();
+//      EclipticProjections eclProj = configBlock.getEclipticProjection();
+      final AstronConfigFe config = new AstronConfigFe(houseSystem, ayanamsha, eclProj, obsPos);
+//      BaseAstronConfig config = new BaseAstronConfig(houseSystem, ayanamsha, eclProj, obsPos);
+      return new StatsProjectFe(name, descr, dataFiles.get(0), config);    // FIXME: should also handle datafile for events
    }
 
    private void onHelp() {

@@ -18,6 +18,7 @@ import javafx.stage.DirectoryChooser
 
 object StatsUiInjector {
 
+
     fun injectScenarioNew(): ScenarioNew {
         return ScenarioNew(injectScenarioRangeNew())
     }
@@ -42,8 +43,12 @@ object StatsUiInjector {
         return StatsDataSearch(injectPersistedDataFileApi())
     }
 
+    fun injectStatsFacade(): StatsFacade {
+        return StatsFacade(injectStatsProjApi())
+    }
+
     fun injectStatsProjNew(): StatsProjNew {
-        return StatsProjNew(injectBaseConfigInputBlock(), injectStatsDataSearch(), injectStatsProjApi())
+        return StatsProjNew(injectBaseConfigInputBlock(), injectStatsDataSearch(), injectStatsFacade())
     }
 
     fun injectStatsProjSearch(): StatsProjSearch {

@@ -11,12 +11,17 @@ package com.radixpro.enigma.statistics.di
 import com.radixpro.enigma.be.persistency.BePersistencyInjector
 import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataFileDao
 import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataReaderCsv
-import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectJsonReader
-import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectJsonWriter
 import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectInputDataSetMapper
+import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyApi
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyHandler
+import com.radixpro.enigma.share.di.ShareInjector.injectJsonReader
+import com.radixpro.enigma.share.di.ShareInjector.injectJsonWriter
 import com.radixpro.enigma.statistics.api.InputDataFileApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
+import com.radixpro.enigma.statistics.api.converters.ProjectConverter
+import com.radixpro.enigma.statistics.persistency.ScenarioMapper
+import com.radixpro.enigma.statistics.persistency.ScenarioRangeMapper
+import com.radixpro.enigma.statistics.persistency.ScenarioRangePersister
 import com.radixpro.enigma.statistics.process.*
 import com.radixpro.enigma.xchg.api.PersistedDataFileApi
 
@@ -34,6 +39,10 @@ object StatsInjector {
         return DataFileHandler(injectDataFileDao(), injectGlobalPropertyHandler())
     }
 
+    fun injectInputDataFileApi(): InputDataFileApi {
+        return InputDataFileApi(injectInputDataFileHandler())
+    }
+
     fun injectInputDataFileHandler(): InputDataFileHandler {
         return InputDataFileHandler(injectDataReaderCsv(), injectJsonWriter())
     }
@@ -43,13 +52,29 @@ object StatsInjector {
         return PersistedDataFileApi(injectDataFileHandler())
     }
 
-    fun injectInputDataFileApi(): InputDataFileApi {
-        return InputDataFileApi(injectInputDataFileHandler())
+    fun injectProjectConverter(): ProjectConverter {
+        return ProjectConverter()
+    }
+
+    fun injectScenarioRangeHandler(): ScenarioRangeHandler {
+        return ScenarioRangeHandler(injectScenarioRangePersister(), injectJsonReader(), injectScenarioRangeMapper(), injectStatsPathConstructor())
+    }
+
+    fun injectScenarioRangeMapper(): ScenarioMapper {
+        return ScenarioRangeMapper()
+    }
+
+    fun injectScenarioRangePersister(): ScenarioRangePersister {
+        return ScenarioRangePersister(injectJsonWriter())
+    }
+
+    fun injectStatsPathConstructor(): PathConstructor {
+        return StatsPathConstructor(injectGlobalPropertyApi())
     }
 
     @JvmStatic
     fun injectStatsProjApi(): StatsProjApi {
-        return StatsProjApi(injectStatsProjHandler())
+        return StatsProjApi(injectStatsProjHandler(), injectProjectConverter())
     }
 
     fun injectStatsProjHandler(): StatsProjHandler {

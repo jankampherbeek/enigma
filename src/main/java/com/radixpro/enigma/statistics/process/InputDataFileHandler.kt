@@ -8,7 +8,7 @@ package com.radixpro.enigma.statistics.process
 
 import com.radixpro.enigma.Rosetta
 import com.radixpro.enigma.be.persistency.DataReaderCsv
-import com.radixpro.enigma.share.persistency.JsonWriter
+import com.radixpro.enigma.share.persistency.Writer
 import com.radixpro.enigma.statistics.api.InputDataFileRequest
 import com.radixpro.enigma.statistics.api.InputDataFileResponse
 import org.apache.log4j.Logger
@@ -18,7 +18,7 @@ import java.nio.file.Path
 import java.util.*
 
 class InputDataFileHandler(private val dataReaderCsv: DataReaderCsv,
-                           private val jsonWriter: JsonWriter) {
+                           private val jsonWriter: Writer) {
     fun handleDataFile(request: InputDataFileRequest): InputDataFileResponse {
         var errorLines: List<String> = ArrayList()
         var resultMsg: String

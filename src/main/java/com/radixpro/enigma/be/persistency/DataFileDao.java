@@ -8,7 +8,7 @@
 package com.radixpro.enigma.be.persistency;
 
 import com.radixpro.enigma.be.persistency.mappers.InputDataSetMapper;
-import com.radixpro.enigma.share.persistency.JsonReader;
+import com.radixpro.enigma.share.persistency.Reader;
 import com.radixpro.enigma.statistics.core.DataFileDescription;
 import com.radixpro.enigma.statistics.core.InputDataSet;
 import org.jetbrains.annotations.NotNull;
@@ -24,10 +24,10 @@ import java.util.List;
  */
 public class DataFileDao {
 
-   private final JsonReader jsonReader;
+   private final Reader jsonReader;
    private final InputDataSetMapper mapper;
 
-   public DataFileDao(@NotNull final JsonReader jsonReader,
+   public DataFileDao(@NotNull final Reader jsonReader,
                       @NotNull final InputDataSetMapper mapper) {
       this.jsonReader = jsonReader;
       this.mapper = mapper;
