@@ -16,23 +16,23 @@ import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
 
 class ScenarioCreators {
 
-    private val rangeName = "Name for Range scen"
-    private val rangeDescr = "Descr for Range scen"
+    private val scenName = "Name for scenario"
+    private val rangeDescr = "Descr for scenario"
     private val projName = "Project with scenarios"
     private val scenType = "RANGE"
     private val notExistingScenType = "DOES NOT EXIST"
     private val rangeTypeName = "SIGNS"
 
     fun createScenRangeFe(): ScenRangeFe {
-        return ScenRangeFe(rangeName, rangeDescr, projName, scenType, rangeTypeName, createCelObjectNames(), createMundanePointNames())
+        return ScenRangeFe(scenName, rangeDescr, projName, scenType, rangeTypeName, createCelObjectNames(), createMundanePointNames())
     }
 
     fun createScenRangeBe(): ScenRangeBe {
-        return ScenRangeBe(rangeName, rangeDescr, projName, ScenarioTypes.RANGE, StatsRangeTypes.SIGNS, createCelObjects(), createMundanePoints())
+        return ScenRangeBe(scenName, rangeDescr, projName, ScenarioTypes.RANGE, StatsRangeTypes.SIGNS, createCelObjects(), createMundanePoints())
     }
 
     fun createScenRangeFeError(): ScenRangeFe {
-        return ScenRangeFe(rangeName, rangeDescr, projName, notExistingScenType, rangeTypeName, createCelObjectNames(), createMundanePointNames())
+        return ScenRangeFe(scenName, rangeDescr, projName, notExistingScenType, rangeTypeName, createCelObjectNames(), createMundanePointNames())
     }
 
     private fun createCelObjectNames(): List<String> {

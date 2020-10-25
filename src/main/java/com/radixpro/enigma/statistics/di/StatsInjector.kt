@@ -21,6 +21,8 @@ import com.radixpro.enigma.statistics.api.InputDataFileApi
 import com.radixpro.enigma.statistics.api.ScenGeneralApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
 import com.radixpro.enigma.statistics.api.converters.ProjectConverter
+import com.radixpro.enigma.statistics.api.converters.ScenConverterFactory
+import com.radixpro.enigma.statistics.api.converters.ScenRangeConverter
 import com.radixpro.enigma.statistics.persistency.ScenarioGeneralFileMapper
 import com.radixpro.enigma.statistics.persistency.ScenarioMapper
 import com.radixpro.enigma.statistics.persistency.ScenarioRangeMapper
@@ -84,12 +86,20 @@ object StatsInjector {
         return ScenarioRangePersister(injectJsonWriter())
     }
 
+    fun injectScenConverterFactory(): ScenConverterFactory {
+        return ScenConverterFactory()
+    }
+
     fun injectScenGeneralApi(): ScenGeneralApi {
-        return ScenGeneralApi(injectScenarioHandlerFactory())
+        return ScenGeneralApi(injectScenarioHandlerFactory(), injectScenConverterFactory())
     }
 
     fun injectStatsPathConstructor(): PathConstructor {
         return StatsPathConstructor(injectGlobalPropertyApi())
+    }
+
+    fun injectScenRangeConverter(): ScenRangeConverter {
+        return ScenRangeConverter()
     }
 
     @JvmStatic

@@ -10,6 +10,7 @@ package com.radixpro.enigma.share.persistency
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.radixpro.enigma.share.exceptions.SaveException
 import java.io.File
 import java.io.IOException
 
@@ -32,7 +33,7 @@ class JsonWriter : Writer {
             val jsonFile = File(pathFilename)
             mapper.writeValue(jsonFile, object2Write)
         } catch (e: IOException) {
-            throw RuntimeException("Could not write to file, using path and filename :$pathFilename . Original message: ${e.message}")
+            throw SaveException("Could not write to file, using path and filename :$pathFilename . Reason: ${e.message}")
         }
     }
 }

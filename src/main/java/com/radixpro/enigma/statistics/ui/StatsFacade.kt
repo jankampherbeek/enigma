@@ -10,6 +10,7 @@ package com.radixpro.enigma.statistics.ui
 import com.radixpro.enigma.statistics.api.ScenGeneralApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
+import com.radixpro.enigma.statistics.ui.domain.ScenarioFe
 import com.radixpro.enigma.statistics.ui.domain.StatsProjectFe
 
 class StatsFacade(private val projApi: StatsProjApi, private val scenGeneralApi: ScenGeneralApi) {
@@ -20,6 +21,14 @@ class StatsFacade(private val projApi: StatsProjApi, private val scenGeneralApi:
 
     fun readScenarioNames(projName: String): List<String> {
         return scenGeneralApi.readAllNames(projName)
+    }
+
+    fun writeScenario(scenarioFe: ScenarioFe): ApiResult {
+        return scenGeneralApi.save(scenarioFe)
+    }
+
+    fun readScenario(scenName: String, typeName: String, projName: String): ScenarioFe {
+        return scenGeneralApi.read(scenName, typeName, projName)
     }
 
 }

@@ -7,8 +7,10 @@
 
 package com.radixpro.enigma.statistics.process
 
+import com.radixpro.enigma.share.exceptions.SaveException
 import com.radixpro.enigma.share.persistency.FileSystemReader
 import com.radixpro.enigma.share.persistency.Reader
+import com.radixpro.enigma.statistics.api.xchg.ApiResult
 import com.radixpro.enigma.statistics.core.ScenarioBe
 import com.radixpro.enigma.statistics.di.StatsInjector.injectScenarioGeneralHandler
 import com.radixpro.enigma.statistics.di.StatsInjector.injectScenarioRangeHandler
@@ -19,9 +21,8 @@ import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 import java.io.File
 
 interface ScenarioHandler {
-    fun saveScenario(scenarioBe: ScenarioBe)
+    fun saveScenario(scenarioBe: ScenarioBe): ApiResult
     fun readScenario(scenarioName: String, projectName: String): ScenarioBe
-    fun readAllScenarioNames(projectName: String): List<String>
 }
 
 class ScenarioHandlerFactory {
@@ -51,9 +52,14 @@ class ScenarioRangeHandler(val persister: ScenarioPersister,
                            val mapper: ScenarioMapper,
                            private val pathConstructor: PathConstructor) : ScenarioHandler {
 
-    override fun saveScenario(scenarioBe: ScenarioBe) {
-        val fullPath = pathConstructor.pathForScenario(scenarioBe.name, scenarioBe.projectName)
-        persister.saveScenario(scenarioBe, fullPath)
+    override fun saveScenario(scenarioBe: ScenarioBe): ApiResult {
+        return try {
+            val fullPath = pathConstructor.pathForScenario(scenarioBe.name, scenarioBe.projectName)
+            persister.saveScenario(scenarioBe, fullPath)
+            ApiResult(true, "")
+        } catch (se: SaveException) {
+            ApiResult(false, se.message)
+        }
     }
 
     override fun readScenario(scenarioName: String, projectName: String): ScenarioBe {
@@ -61,10 +67,6 @@ class ScenarioRangeHandler(val persister: ScenarioPersister,
         val scenarioFile = File(fullPath)
         val jsonObject = reader.readObjectFromFile(scenarioFile)
         return mapper.map(jsonObject)
-    }
-
-    override fun readAllScenarioNames(projectName: String): List<String> {
-        TODO("Not yet implemented")   // does not fit in specific SCenario......
     }
 
 

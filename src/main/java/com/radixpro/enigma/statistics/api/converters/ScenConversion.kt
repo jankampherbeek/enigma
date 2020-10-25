@@ -11,6 +11,7 @@ import com.radixpro.enigma.astronomy.ui.domain.CelObjects
 import com.radixpro.enigma.astronomy.ui.domain.MundanePoints
 import com.radixpro.enigma.statistics.core.ScenRangeBe
 import com.radixpro.enigma.statistics.core.ScenarioBe
+import com.radixpro.enigma.statistics.di.StatsInjector.injectScenRangeConverter
 import com.radixpro.enigma.statistics.ui.domain.ScenRangeFe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioFe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
@@ -20,6 +21,15 @@ interface ScenarioConverter {
     fun feRequestToBe(scenFe: ScenarioFe): ScenarioBe
     fun beRequestToFe(scenBe: ScenarioBe): ScenarioFe
 }
+
+class ScenConverterFactory() {
+
+    fun getConverter(type: ScenarioTypes): ScenarioConverter {
+        if (type == ScenarioTypes.RANGE) return injectScenRangeConverter()
+        return injectScenRangeConverter()     // FIXME handle all types of converters
+    }
+}
+
 
 class ScenRangeConverter : ScenarioConverter {
 
