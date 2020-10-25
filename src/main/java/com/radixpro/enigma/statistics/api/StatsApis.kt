@@ -10,9 +10,9 @@ package com.radixpro.enigma.statistics.api
 import com.radixpro.enigma.statistics.api.converters.ProjectConverter
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
 import com.radixpro.enigma.statistics.core.IStatsProject
-import com.radixpro.enigma.statistics.core.Scenario
-import com.radixpro.enigma.statistics.process.ScenarioHandler
+import com.radixpro.enigma.statistics.process.ScenarioHandlerFactory
 import com.radixpro.enigma.statistics.process.StatsProjHandler
+import com.radixpro.enigma.statistics.ui.domain.ScenarioFe
 import com.radixpro.enigma.statistics.ui.domain.StatsProjectFe
 
 interface ProjectApi {
@@ -23,9 +23,8 @@ interface ProjectApi {
 
 
 interface ScenarioApi {
-    fun save(scenario: Scenario)
-    fun read(scenarioName: String, projectName: String): Scenario    // TODO change into response
-    fun readAllNames(projectName: String): List<Scenario>   // TODO change into response
+    fun save(scenarioFe: ScenarioFe): ApiResult
+    fun read(scenName: String, typeName: String, projName: String): ScenarioFe
 }
 
 class StatsProjApi(private val handler: StatsProjHandler, private val converter: ProjectConverter) : ProjectApi {
@@ -45,18 +44,11 @@ class StatsProjApi(private val handler: StatsProjHandler, private val converter:
 
 }
 
-class ScenarioGeneralApi(private val handler: ScenarioHandler) : ScenarioApi {
+class ScenGeneralApi(private val handlerFactory: ScenarioHandlerFactory) {
 
-    override fun save(scenario: Scenario) {
-        handler.saveScenario(scenario)
-    }
-
-    override fun read(scenarioName: String, projectName: String): Scenario {
-        return handler.readScenario(scenarioName, projectName)
-    }
-
-    override fun readAllNames(projectName: String): List<Scenario> {
-        return handler.readAllScenarios(projectName)
+    fun readAllNames(projectName: String): List<String> {
+        val handler = handlerFactory.getGeneralHandler()
+        return handler.retrieveScenarioNames(projectName)
     }
 
 }

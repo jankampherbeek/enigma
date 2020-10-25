@@ -1,0 +1,50 @@
+{
+  "name": "Control data",
+  "description": "Project: Test 1",
+  "origFileName": "C:\\dev\\projectE\\devProjDir\\proj\\Test 1\\in_Test1.json",
+  "dateTime": "2020-10-22T21:22:46.947232400",
+  "inputData": [
+    {
+      "id": 0,
+      "name": "Controldata 0",
+      "dateTimeParts": {
+        "year": 1953,
+        "month": 1,
+        "day": 29,
+        "hour": 8,
+        "minute": 37,
+        "second": 30,
+        "offsetUt": 0.0
+      },
+      "dateTime": {
+        "jd": 2434406.859375,
+        "calendar": "G"
+      },
+      "location": {
+        "geoLat": 6.9,
+        "geoLon": 52.21666666666667
+      }
+    },
+    {
+      "id": 1,
+      "name": "Controldata 1",
+      "dateTimeParts": {
+        "year": 1989,
+        "month": 7,
+        "day": 1,
+        "hour": 12,
+        "minute": 30,
+        "second": 0,
+        "offsetUt": 0.0
+      },
+      "dateTime": {
+        "jd": 2447709.0208333335,
+        "calendar": "G"
+      },
+      "location": {
+        "geoLat": 5.866666666666667,
+        "geoLon": 51.8
+      }
+    }
+  ]
+}

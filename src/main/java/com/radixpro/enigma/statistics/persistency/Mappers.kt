@@ -9,8 +9,8 @@ package com.radixpro.enigma.statistics.persistency
 
 import com.radixpro.enigma.astronomy.ui.domain.CelObjects
 import com.radixpro.enigma.astronomy.ui.domain.MundanePoints
-import com.radixpro.enigma.statistics.core.Scenario
-import com.radixpro.enigma.statistics.core.ScenarioRange
+import com.radixpro.enigma.statistics.core.ScenRangeBe
+import com.radixpro.enigma.statistics.core.ScenarioBe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
 import org.apache.log4j.Logger
@@ -18,7 +18,12 @@ import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 
 interface ScenarioMapper {
-    fun map(jsonObject: JSONObject): Scenario
+    fun map(jsonObject: JSONObject): ScenarioBe
+    fun map(jsonArray: JSONArray): List<String>
+}
+
+interface ScenarioFileMapper {
+    fun mapFileNamesToScenarioNames(fileNames: List<String>): List<String>
 }
 
 private val log = Logger.getLogger(ScenarioMapper::class.java)
@@ -61,13 +66,30 @@ private fun constructAllMundanePoints(jsonObjects: JSONArray): MutableList<Munda
     return allMundanePoints
 }
 
+class ScenarioGeneralFileMapper() : ScenarioFileMapper {
+    override fun mapFileNamesToScenarioNames(fileNames: List<String>): List<String> {
+        val scenarioNames: MutableList<String> = ArrayList()
+        for (fileName in fileNames) {
+            val startPos = 5
+            val endPos = fileName.indexOf(".json") - 1
+            scenarioNames.add(fileName.substring(startPos..endPos))
+        }
+        return scenarioNames.toList()
+    }
+}
+
+
 class ScenarioRangeMapper : ScenarioMapper {
 
-    override fun map(jsonObject: JSONObject): Scenario {
+    override fun map(jsonObject: JSONObject): ScenarioBe {
         return constructObject(jsonObject)
     }
 
-    private fun constructObject(jsonObject: JSONObject): ScenarioRange {
+    override fun map(jsonArray: JSONArray): List<String> {
+        TODO("Not yet implemented")
+    }
+
+    private fun constructObject(jsonObject: JSONObject): ScenRangeBe {
         val name = jsonObject["name"] as String
         val description = jsonObject["description"] as String
         val projectName = jsonObject["projectName"] as String
@@ -75,7 +97,7 @@ class ScenarioRangeMapper : ScenarioMapper {
         val rangeType = constructRangeType(jsonObject["rangeType"] as String)
         val celObjects = constructAllCelObjects(jsonObject["celObjects"] as JSONArray)
         val mundanePoints = constructAllMundanePoints(jsonObject["mundanePoints"] as JSONArray)
-        return ScenarioRange(name, description, projectName, scenarioType, rangeType, celObjects, mundanePoints)
+        return ScenRangeBe(name, description, projectName, scenarioType, rangeType, celObjects, mundanePoints)
     }
 
     private fun constructScenarioType(name: String): ScenarioTypes {

@@ -12,13 +12,16 @@ import com.radixpro.enigma.be.persistency.BePersistencyInjector
 import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataFileDao
 import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataReaderCsv
 import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectInputDataSetMapper
+import com.radixpro.enigma.share.di.ShareInjector.injectFileReader
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyApi
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyHandler
 import com.radixpro.enigma.share.di.ShareInjector.injectJsonReader
 import com.radixpro.enigma.share.di.ShareInjector.injectJsonWriter
 import com.radixpro.enigma.statistics.api.InputDataFileApi
+import com.radixpro.enigma.statistics.api.ScenGeneralApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
 import com.radixpro.enigma.statistics.api.converters.ProjectConverter
+import com.radixpro.enigma.statistics.persistency.ScenarioGeneralFileMapper
 import com.radixpro.enigma.statistics.persistency.ScenarioMapper
 import com.radixpro.enigma.statistics.persistency.ScenarioRangeMapper
 import com.radixpro.enigma.statistics.persistency.ScenarioRangePersister
@@ -56,6 +59,19 @@ object StatsInjector {
         return ProjectConverter()
     }
 
+    fun injectScenarioGeneralFileMapper(): ScenarioGeneralFileMapper {
+        return ScenarioGeneralFileMapper()
+    }
+
+    fun injectScenarioGeneralHandler(): ScenarioGeneralHandler {
+        return ScenarioGeneralHandler(injectFileReader(), injectScenarioGeneralFileMapper(), injectStatsPathConstructor())
+    }
+
+
+    fun injectScenarioHandlerFactory(): ScenarioHandlerFactory {
+        return ScenarioHandlerFactory()
+    }
+
     fun injectScenarioRangeHandler(): ScenarioRangeHandler {
         return ScenarioRangeHandler(injectScenarioRangePersister(), injectJsonReader(), injectScenarioRangeMapper(), injectStatsPathConstructor())
     }
@@ -66,6 +82,10 @@ object StatsInjector {
 
     fun injectScenarioRangePersister(): ScenarioRangePersister {
         return ScenarioRangePersister(injectJsonWriter())
+    }
+
+    fun injectScenGeneralApi(): ScenGeneralApi {
+        return ScenGeneralApi(injectScenarioHandlerFactory())
     }
 
     fun injectStatsPathConstructor(): PathConstructor {

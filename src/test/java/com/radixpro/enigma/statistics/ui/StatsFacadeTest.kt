@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.statistics.ui
 
+import com.radixpro.enigma.statistics.api.ScenGeneralApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
 import com.radixpro.enigma.statistics.testhelpers.ProjectCreator
@@ -20,11 +21,13 @@ internal class StatsFacadeTest {
 
     private val projectCreator = ProjectCreator()
     private val projApiMock: StatsProjApi = mockk(relaxed = true)
-    private val facade = StatsFacade(projApiMock)
+    private val scenApiMock: ScenGeneralApi = mockk()
+    private val facade = StatsFacade(projApiMock, scenApiMock)
 
     @BeforeEach
     fun init() {
         every { projApiMock.save(any()) } returns ApiResult(true, "OK")
+        every { scenApiMock.readAllNames(any()) } returns scenarioNames()
     }
 
     @Test
@@ -32,5 +35,13 @@ internal class StatsFacadeTest {
         facade.saveProject(projectCreator.createStatsProjectFe("projname", "projdescr", "datafile")) shouldBe ApiResult(true, "OK")
     }
 
+    @Test
+    fun `Request to read scenarionames for a project gives the expected results`() {
+        scenarioNames() shouldBe facade.readScenarioNames("project name")
+    }
+
+    private fun scenarioNames(): List<String> {
+        return listOf("Scen 1", "Scen 2", "Scen 3")
+    }
 
 }

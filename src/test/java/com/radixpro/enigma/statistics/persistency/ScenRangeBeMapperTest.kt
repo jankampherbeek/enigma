@@ -9,7 +9,7 @@ package com.radixpro.enigma.statistics.persistency
 
 import com.radixpro.enigma.astronomy.ui.domain.CelObjects
 import com.radixpro.enigma.astronomy.ui.domain.MundanePoints
-import com.radixpro.enigma.statistics.core.ScenarioRange
+import com.radixpro.enigma.statistics.core.ScenRangeBe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
 import org.json.simple.JSONObject
@@ -21,10 +21,10 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
 
-internal class ScenarioRangeMapperTest {
+internal class ScenRangeBeMapperTest {
 
     private lateinit var mapper: ScenarioMapper
-    private lateinit var scenario: ScenarioRange
+    private lateinit var scenarioBe: ScenRangeBe
     private val jsonInput = "{\n" +
             "  \"name\" : \"scenTest\",\n" +
             "  \"description\" : \"Test scenario\",\n" +
@@ -38,30 +38,30 @@ internal class ScenarioRangeMapperTest {
     @BeforeEach
     fun init() {
         mapper = ScenarioRangeMapper()
-        scenario = mapper.map(JSONValue.parse(jsonInput) as JSONObject) as ScenarioRange
+        scenarioBe = mapper.map(JSONValue.parse(jsonInput) as JSONObject) as ScenRangeBe
     }
 
     @Test
     fun `Json is correctly mapped to ScenarioRange `() {
         assertAll(
-                Executable { assertEquals("scenTest", scenario.name, "Name for ScenarioRange should be: scenTest.") },
-                Executable { assertEquals("Test scenario", scenario.description, "Description for ScenarioRange should be: TestScenario.") },
-                Executable { assertEquals("testProject", scenario.projectName, "ProjectName for ScenarioRange should be: testProject.") },
-                Executable { assertEquals(ScenarioTypes.RANGE, scenario.scenarioType, "ScenarioType for ScenarioRange should be: ScenarioTypes.RANGE.") },
-                Executable { assertEquals(StatsRangeTypes.SIGNS, scenario.rangeType, "RangeType for ScenarioRange should be: StatsRangeTypes,SIGNS.") }
+                Executable { assertEquals("scenTest", scenarioBe.name, "Name for ScenarioRange should be: scenTest.") },
+                Executable { assertEquals("Test scenario", scenarioBe.description, "Description for ScenarioRange should be: TestScenario.") },
+                Executable { assertEquals("testProject", scenarioBe.projectName, "ProjectName for ScenarioRange should be: testProject.") },
+                Executable { assertEquals(ScenarioTypes.RANGE, scenarioBe.scenarioType, "ScenarioType for ScenarioRange should be: ScenarioTypes.RANGE.") },
+                Executable { assertEquals(StatsRangeTypes.SIGNS, scenarioBe.rangeType, "RangeType for ScenarioRange should be: StatsRangeTypes,SIGNS.") }
         )
     }
 
     @Nested
-    inner class ContentOfObjectsInScenario() {
+    inner class ContentOfObjectsInScenarioBe() {
         @Test
         fun `Number of CelObjects is correct`() {
-            assertEquals(2, scenario.celObjects.size, "Number of CelObjects should be 2.")
+            assertEquals(2, scenarioBe.celObjects.size, "Number of CelObjects should be 2.")
         }
 
         @Test
         fun `Content of Celobjects is correct`() {
-            val celObjects = scenario.celObjects
+            val celObjects = scenarioBe.celObjects
             assertAll(
                     Executable { assertEquals(CelObjects.SUN, celObjects[0], "First CelObject should be SUN.") },
                     Executable { assertEquals(CelObjects.PLUTO, celObjects[1], "Second CelObject should be PLUTO.") }
@@ -70,12 +70,12 @@ internal class ScenarioRangeMapperTest {
 
         @Test
         fun `Number of MundanePoints is correct`() {
-            assertEquals(2, scenario.mundanePoints.size, "Number of MundanePoints should be 2.")
+            assertEquals(2, scenarioBe.mundanePoints.size, "Number of MundanePoints should be 2.")
         }
 
         @Test
         fun `Content of MundanePoints is correct`() {
-            val mundanePoints = scenario.mundanePoints
+            val mundanePoints = scenarioBe.mundanePoints
             assertAll(
                     Executable { assertEquals(MundanePoints.ASC, mundanePoints[0], "First MundanePoint should be ASC.") },
                     Executable { assertEquals(MundanePoints.MC, mundanePoints[1], "Second MundanePoint should be MC.") }

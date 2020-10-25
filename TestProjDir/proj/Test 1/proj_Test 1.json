@@ -1,0 +1,11 @@
+{
+  "name": "Test 1",
+  "description": "Test project 1",
+  "baseAstronConfig": {
+    "houseSystem": "PLACIDUS",
+    "ayanamsha": "NONE",
+    "eclipticProjection": "TROPICAL",
+    "observerPosition": "GEOCENTRIC"
+  },
+  "dataFileName": "Test1"
+}

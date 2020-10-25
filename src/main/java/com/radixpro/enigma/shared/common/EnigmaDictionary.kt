@@ -19,4 +19,5 @@ object EnigmaDictionary {
     const val TEXT_FONTNAME = "Arial"
     const val NAIBOD_KEY = 0.98564733
     const val TROPICAL_YEAR = 365.24219
+    const val EMPTYSTRING = ""
 }

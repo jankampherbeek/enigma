@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ScenarioTypesTest {
+public class ScenarioBeTypesTest {
 
    @Test
    public void getScenarioTypeForId() throws UnknownIdException {

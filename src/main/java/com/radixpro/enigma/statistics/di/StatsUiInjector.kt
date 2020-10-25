@@ -10,10 +10,10 @@ package com.radixpro.enigma.statistics.di
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyApi
 import com.radixpro.enigma.statistics.di.StatsInjector.injectInputDataFileApi
 import com.radixpro.enigma.statistics.di.StatsInjector.injectPersistedDataFileApi
+import com.radixpro.enigma.statistics.di.StatsInjector.injectScenGeneralApi
 import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsProjApi
 import com.radixpro.enigma.statistics.ui.*
 import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector.injectBaseConfigInputBlock
-
 import javafx.stage.DirectoryChooser
 
 object StatsUiInjector {
@@ -44,7 +44,7 @@ object StatsUiInjector {
     }
 
     fun injectStatsFacade(): StatsFacade {
-        return StatsFacade(injectStatsProjApi())
+        return StatsFacade(injectStatsProjApi(), injectScenGeneralApi())
     }
 
     fun injectStatsProjNew(): StatsProjNew {

@@ -15,6 +15,10 @@ import com.radixpro.enigma.share.process.PropertyHandler
 
 object ShareInjector {
 
+    fun injectFileReader(): FileReader {
+        return FileReader()
+    }
+
     fun injectGlobalPropertyApi(): PropertyApi {
         return GlobalPropertyApi(injectGlobalPropertyHandler())
     }

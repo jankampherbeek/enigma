@@ -8,17 +8,17 @@
 package com.radixpro.enigma.statistics.persistency
 
 import com.radixpro.enigma.share.persistency.Writer
-import com.radixpro.enigma.statistics.core.Scenario
+import com.radixpro.enigma.statistics.core.ScenarioBe
 
 interface ScenarioPersister {
-    fun saveScenario(scenario: Scenario, pathFileName: String)
+    fun saveScenario(scenarioBe: ScenarioBe, pathFileName: String)
 }
 
 
 class ScenarioRangePersister(val writer: Writer) : ScenarioPersister {
 
-    override fun saveScenario(scenario: Scenario, pathFileName: String) {
-        writer.write2File(pathFileName, scenario, true)
+    override fun saveScenario(scenarioBe: ScenarioBe, pathFileName: String) {
+        writer.write2File(pathFileName, scenarioBe, true)
     }
 
 }

@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.statistics.process
 
-import com.radixpro.enigma.statistics.core.Scenario
+import com.radixpro.enigma.statistics.core.ScenarioBe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 
 interface Processor {
@@ -31,9 +31,9 @@ class RangeProcessor(override val calculator: StatsCalculator) : Processor {
 
 object ProcessorFactory {
 
-    fun createProcessor(scenario: Scenario): Processor {
+    fun createProcessor(scenarioBe: ScenarioBe): Processor {
         val calculator = AllPointsCalculator()
-        if (ScenarioTypes.RANGE == scenario.scenarioType) return RangeProcessor(calculator)
+        if (ScenarioTypes.RANGE == scenarioBe.scenarioType) return RangeProcessor(calculator)
         // todo implement other scenario's
         return RangeProcessor(calculator)
     }

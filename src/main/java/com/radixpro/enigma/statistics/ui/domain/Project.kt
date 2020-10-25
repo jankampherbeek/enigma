@@ -10,4 +10,3 @@ package com.radixpro.enigma.statistics.ui.domain
 import com.radixpro.enigma.share.ui.domain.AstronConfigFe
 
 data class StatsProjectFe(val name: String, val description: String, val dataFileName: String, val config: AstronConfigFe)
-

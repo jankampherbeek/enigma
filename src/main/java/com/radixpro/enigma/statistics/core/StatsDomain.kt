@@ -13,20 +13,20 @@ import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
 
-interface Scenario {
+interface ScenarioBe {
     val name: String
     val description: String
     val projectName: String
     val scenarioType: ScenarioTypes
 }
 
-data class ScenarioRange(override val name: String,
-                         override val description: String,
-                         override val projectName: String,
-                         override val scenarioType: ScenarioTypes,
-                         val rangeType: StatsRangeTypes,
-                         val celObjects: MutableList<CelObjects>,
-                         val mundanePoints: MutableList<MundanePoints>) : Scenario
+data class ScenRangeBe(override val name: String,
+                       override val description: String,
+                       override val projectName: String,
+                       override val scenarioType: ScenarioTypes,
+                       val rangeType: StatsRangeTypes,
+                       val celObjects: List<CelObjects>,
+                       val mundanePoints: List<MundanePoints>) : ScenarioBe
 
 data class DataFileDescription(val name: String, val description: String, val nrOfRecords: Int)
 

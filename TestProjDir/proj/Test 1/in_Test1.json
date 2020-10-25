@@ -1,0 +1,50 @@
+{
+  "name": "Test1",
+  "description": "Test nieuw formaat",
+  "origFileName": "C:\\enigma-data\\inputdata\\test1.csv",
+  "dateTime": "2020-10-07T22:24:38.452994900",
+  "inputData": [
+    {
+      "id": 22,
+      "name": "Jan",
+      "dateTimeParts": {
+        "year": 1953,
+        "month": 1,
+        "day": 29,
+        "hour": 8,
+        "minute": 37,
+        "second": 30,
+        "offsetUt": 1.0
+      },
+      "dateTime": {
+        "jd": 2434406.8177083335,
+        "calendar": "g"
+      },
+      "location": {
+        "geoLat": 52.21666666666667,
+        "geoLon": 6.9
+      }
+    },
+    {
+      "id": 23,
+      "name": "Piet",
+      "dateTimeParts": {
+        "year": 1989,
+        "month": 7,
+        "day": 1,
+        "hour": 12,
+        "minute": 30,
+        "second": 0,
+        "offsetUt": 2.0
+      },
+      "dateTime": {
+        "jd": 2447708.9375,
+        "calendar": "g"
+      },
+      "location": {
+        "geoLat": 51.8,
+        "geoLon": 5.866666666666667
+      }
+    }
+  ]
+}

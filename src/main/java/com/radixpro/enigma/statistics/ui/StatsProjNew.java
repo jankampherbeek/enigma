@@ -199,18 +199,14 @@ public class StatsProjNew extends InputScreen {
       final List<String> dataFiles = new ArrayList<>();
       final ObservableList items = tvDataFiles.getItems();
       for (Object obj : tvDataFiles.getItems()) {
-         dataFiles.add((String) obj);
+         DataFileDescription dd = (DataFileDescription) obj;
+         dataFiles.add(dd.getName());
       }
       final String houseSystem = configBlock.getHouseSystem().name();
-//      HouseSystems houseSystem = configBlock.getHouseSystem();
       final String ayanamsha = configBlock.getAyanamsha().name();
-//      Ayanamshas ayanamsha = configBlock.getAyanamsha();
       final String obsPos = configBlock.getObserverPosition().name();
-//      ObserverPositions obsPos = configBlock.getObserverPosition();
       final String eclProj = configBlock.getEclipticProjection().name();
-//      EclipticProjections eclProj = configBlock.getEclipticProjection();
       final AstronConfigFe config = new AstronConfigFe(houseSystem, ayanamsha, eclProj, obsPos);
-//      BaseAstronConfig config = new BaseAstronConfig(houseSystem, ayanamsha, eclProj, obsPos);
       return new StatsProjectFe(name, descr, dataFiles.get(0), config);    // FIXME: should also handle datafile for events
    }
 

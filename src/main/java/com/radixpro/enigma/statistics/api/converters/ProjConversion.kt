@@ -13,6 +13,8 @@ import com.radixpro.enigma.references.EclipticProjections
 import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.ObserverPositions
 import com.radixpro.enigma.share.ui.domain.AstronConfigFe
+import com.radixpro.enigma.statistics.api.xchg.ProjectApiResult
+import com.radixpro.enigma.statistics.api.xchg.ProjectApiResultFe
 import com.radixpro.enigma.statistics.core.StatsProject
 import com.radixpro.enigma.statistics.ui.domain.StatsProjectFe
 
@@ -44,4 +46,12 @@ class ProjectConverter : Converter {
                         beProject.baseAstronConfig.eclipticProjection.name,
                         beProject.baseAstronConfig.observerPosition.name))
     }
+}
+
+class ProjectResultConverter(private val projConverter: ProjectConverter) : Converter {
+
+    fun beResponseToFe(beResult: ProjectApiResult): ProjectApiResultFe {
+        return ProjectApiResultFe(beResult.apiResult, projConverter.beRequestToFe(beResult.project))
+    }
+
 }

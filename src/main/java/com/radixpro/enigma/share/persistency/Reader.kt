@@ -19,6 +19,11 @@ interface Reader {
     fun readArrayFromFile(inputData: File): JSONArray
 }
 
+interface FileSystemReader {
+    fun readFileItems(path: String, prefix: String = "", postFix: String = ""): List<String>
+}
+
+
 /**
  * Reader for Json files.
  */
@@ -46,4 +51,16 @@ class JsonReader : Reader {
             throw RuntimeException("Could not read file : " + inputData + " . Original message " + ioe.message)
         }
     }
+}
+
+
+class FileReader : FileSystemReader {
+    override fun readFileItems(path: String, preFix: String, postFix: String): List<String> {
+        val items: MutableList<String> = ArrayList()
+        File(path).walk().forEach {
+            if (it.isFile && it.name.startsWith(preFix) && it.name.endsWith(postFix)) items.add(it.name)
+        }
+        return items.toList()
+    }
+
 }
