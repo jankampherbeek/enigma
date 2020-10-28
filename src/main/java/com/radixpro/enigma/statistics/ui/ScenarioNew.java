@@ -8,6 +8,7 @@
 package com.radixpro.enigma.statistics.ui;
 
 import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes;
 import com.radixpro.enigma.ui.creators.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -33,14 +34,16 @@ public class ScenarioNew {
    private Pane paneScenarioType;
    private Pane paneScenarioTypeInput;
    private TextField tfName;
-   private TextArea taName;
+   private TextArea taDescr;
    private ComboBox cbScenarioType;
+   private String projName;
 
    public ScenarioNew(@NotNull final ScenarioRangeNew scenarioRangeNew) {
       this.scenarioRangeNew = scenarioRangeNew;
    }
 
-   public void show() {
+   public void show(@NotNull final String projName) {
+      this.projName = projName;
       stage = new Stage();
       initialize();
       stage.setTitle(Rosetta.getText("ui.stats.scennew.title"));
@@ -57,15 +60,24 @@ public class ScenarioNew {
       paneNameInput = new PaneBuilder().setWidth(WIDTH).setChildren(tfName).build();
       Label lblDescription = new LabelBuilder("ui.shared.lbl.description").build();
       paneDescription = new PaneBuilder().setWidth(WIDTH).setChildren(lblDescription).build();
-      taName = new TextArea();
-      taName.setWrapText(true);
-      taName.setPrefRowCount(4);
-      paneDescriptionInput = new PaneBuilder().setWidth(WIDTH).setHeight(100.0).setChildren(taName).build();
+      taDescr = new TextArea();
+      taDescr.setWrapText(true);
+      taDescr.setPrefRowCount(4);
+      paneDescriptionInput = new PaneBuilder().setWidth(WIDTH).setHeight(100.0).setChildren(taDescr).build();
       Label lblScenarioType = new LabelBuilder("ui.stats.scennew.scentype").setPrefWidth(WIDTH).build();
       paneScenarioType = new PaneBuilder().setWidth(WIDTH).setChildren(lblScenarioType).build();
       cbScenarioType = new ComboBox();
       cbScenarioType.setPrefWidth(WIDTH);
       paneScenarioTypeInput = new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(cbScenarioType).build();
+      populateScenarios();
+   }
+
+   private void populateScenarios() {
+      ScenarioTypes[] scenTypes = ScenarioTypes.values();
+      for (ScenarioTypes scenType : scenTypes) {
+         cbScenarioType.getItems().add(Rosetta.getText(scenType.getRbName()));
+      }
+      cbScenarioType.getSelectionModel().selectFirst();
    }
 
    private VBox createVBox() {
@@ -82,15 +94,31 @@ public class ScenarioNew {
    }
 
    private Pane createPaneBtnBar() {
-      Button btnCreate = new ButtonBuilder("ui.shared.btn.save").setDisabled(false).setFocusTraversable(true).build();   // todo initial disabled
-      // todo create cconditional actions based on scenario type
-      btnCreate.setOnAction(e -> scenarioRangeNew.show());
+      Button btnContinue = new ButtonBuilder("ui.shared.btn.continue").setDisabled(false).setFocusTraversable(true).build();   // todo initial disabled
+      btnContinue.setOnAction(e -> onContinue());
       Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
       btnHelp.setOnAction(e -> onHelp());
       Button btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).setFocusTraversable(true).build();
       btnCancel.setOnAction(e -> stage.close());
-      ButtonBar btnBar = new ButtonBarBuilder().setButtons(btnCancel, btnHelp, btnCreate).build();
+      ButtonBar btnBar = new ButtonBarBuilder().setButtons(btnCancel, btnHelp, btnContinue).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(btnBar).build();
+   }
+
+   private void onContinue() {
+      int typeIndex = cbScenarioType.getSelectionModel().getSelectedIndex();
+      String typeName = ScenarioTypes.values()[typeIndex].name();
+
+      if (!tfName.getText().isEmpty() && !taDescr.getText().isEmpty()) {
+         int index = cbScenarioType.getSelectionModel().getSelectedIndex();
+         switch (index) {
+            case 0:
+               scenarioRangeNew.show(tfName.getText(), taDescr.getText(), projName, typeName);
+               stage.close();
+               break;
+            default: // todo
+               break;
+         }
+      }
    }
 
    private void onHelp() {

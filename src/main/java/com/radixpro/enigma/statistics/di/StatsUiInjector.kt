@@ -24,7 +24,7 @@ object StatsUiInjector {
     }
 
     fun injectScenarioRangeNew(): ScenarioRangeNew {
-        return ScenarioRangeNew()
+        return ScenarioRangeNew(injectStatsFacade())
     }
 
     fun injectProjectManager(): ProjectManager {

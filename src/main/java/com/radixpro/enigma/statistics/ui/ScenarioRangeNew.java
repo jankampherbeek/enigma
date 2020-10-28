@@ -10,8 +10,11 @@ package com.radixpro.enigma.statistics.ui;
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.astronomy.ui.domain.CelObjects;
 import com.radixpro.enigma.astronomy.ui.domain.MundanePoints;
+import com.radixpro.enigma.statistics.ui.domain.ScenRangeFe;
+import com.radixpro.enigma.statistics.ui.domain.ScenarioFe;
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes;
 import com.radixpro.enigma.ui.creators.*;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -19,6 +22,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.radixpro.enigma.ui.shared.UiDictionary.GAP;
 import static com.radixpro.enigma.ui.shared.UiDictionary.TITLE_HEIGHT;
@@ -39,13 +46,22 @@ public class ScenarioRangeNew {
    private CheckComboBox ccbMundanePoints;
    private TextField tfDivision;
    private Button btnSave;
+   private final StatsFacade facade;
+   private String scenName;
+   private String scenDescr;
+   private String projName;
+   private String typeName;
 
 
-   public ScenarioRangeNew() {
-
+   public ScenarioRangeNew(@NotNull final StatsFacade facade) {
+      this.facade = facade;
    }
 
-   public void show() {
+   public void show(@NotNull final String name, @NotNull final String descr, @NotNull final String projName, @NotNull final String typeName) {
+      this.scenName = name;
+      this.scenDescr = descr;
+      this.projName = projName;
+      this.typeName = typeName;
       stage = new Stage();
       initialize();
       populate();
@@ -57,7 +73,7 @@ public class ScenarioRangeNew {
    private void initialize() {
       Label lblTitle = new LabelBuilder("ui.stats.scenrangenew.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
       paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").setChildren(lblTitle).build();
-      Label lblName = new LabelBuilder("").setPrefWidth(WIDTH).setText("TODO name for scenario").build();
+      Label lblName = new LabelBuilder("").setPrefWidth(WIDTH).setText(scenName).build();
       paneName = new PaneBuilder().setWidth(WIDTH).setHeight(25.0).setChildren(lblName).build();
       Label lblRangeType = new LabelBuilder("ui.stats.scenrangenew.rangetype").setPrefWidth(HALFWIDTH).build();
       cbRangeTypes = new ComboBox();
@@ -81,6 +97,7 @@ public class ScenarioRangeNew {
       for (StatsRangeTypes srt : valuesSRT) {
          cbRangeTypes.getItems().add(Rosetta.getText(srt.getRbKey()));
       }
+      cbRangeTypes.getSelectionModel().selectFirst();
       final CelObjects[] valuesCO = CelObjects.values();
       for (CelObjects co : valuesCO) {
          ccbCelObjects.getItems().add(Rosetta.getText(co.getRbKey()));
@@ -93,10 +110,7 @@ public class ScenarioRangeNew {
 
    private boolean validInput() {
       return !tfDivision.getText().isBlank()
-            // &&  tfDivision.getText is a valid Integer
-            && (ccbCelObjects.getCheckModel().getCheckedIndices().size() > 0 || ccbMundanePoints.getCheckModel().getCheckedIndices().size() > 0)
-            // add check for types
-            ;
+            && (ccbCelObjects.getCheckModel().getCheckedIndices().size() > 0 || ccbMundanePoints.getCheckModel().getCheckedIndices().size() > 0);
    }
 
    private VBox createVBox() {
@@ -115,10 +129,34 @@ public class ScenarioRangeNew {
       btnHelp.setOnAction(e -> onHelp());
       Button btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).setFocusTraversable(true).build();
       btnCancel.setOnAction(e -> stage.close());
-      btnSave = new ButtonBuilder("ui.shared.btn.save").setDisabled(true).setFocusTraversable(false).build();
-      // TODO define action
+      btnSave = new ButtonBuilder("ui.shared.btn.save").setDisabled(false).setFocusTraversable(true).build();
+      btnSave.setOnAction(e -> onSave());
       ButtonBar btnBar = new ButtonBarBuilder().setButtons(btnCancel, btnHelp, btnSave).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(btnBar).build();
+   }
+
+   private void onSave() {
+//      if (validInput()) {
+      int rangeTypeIndex = cbRangeTypes.getSelectionModel().getSelectedIndex();
+      String rangeTypeName = StatsRangeTypes.values()[rangeTypeIndex].name();
+      CelObjects[] celObjectValues = CelObjects.values();
+      List<String> celObjectNames = new ArrayList<>();
+      final ObservableList checkedCelObjectIndexes = ccbCelObjects.getCheckModel().getCheckedIndices();
+      for (Object index : checkedCelObjectIndexes) {
+         CelObjects currentCo = celObjectValues[(int) index];
+         celObjectNames.add(currentCo.name());
+      }
+      MundanePoints[] mundPointValues = MundanePoints.values();
+      List<String> mundPointNames = new ArrayList<>();
+      final ObservableList checkMundPointIndexes = ccbMundanePoints.getCheckModel().getCheckedIndices();
+      for (Object index : checkMundPointIndexes) {
+         MundanePoints currentMp = mundPointValues[(int) index];
+         mundPointNames.add(currentMp.name());
+      }
+      ScenarioFe scenario = new ScenRangeFe(scenName, scenDescr, projName, typeName, rangeTypeName, celObjectNames, mundPointNames);
+      facade.writeScenario(scenario);
+
+//      }
    }
 
    private void onHelp() {

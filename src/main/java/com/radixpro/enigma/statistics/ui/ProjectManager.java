@@ -31,12 +31,14 @@ public class ProjectManager {
    private Pane paneName;
    private Pane paneDescription;
    private TableView tableView;
+   private String projName;
 
    public ProjectManager(@NotNull final ScenarioNew scenarioNew) {
       this.scenarioNew = scenarioNew;
    }
 
-   public void show() {
+   public void show(@NotNull final String projName) {
+      this.projName = projName;
       stage = new Stage();
       initialize();
       stage.setTitle(Rosetta.getText("ui.stats.projman.title"));
@@ -91,7 +93,7 @@ public class ProjectManager {
       Button btnRun = new ButtonBuilder("ui.stats.projman.run").setDisabled(true).setFocusTraversable(false).build();
       // TODO onClick btnRun
       Button btnNew = new ButtonBuilder("ui.shared.btn.new").setDisabled(false).setFocusTraversable(true).build();
-      btnNew.setOnAction(e -> scenarioNew.show());
+      btnNew.setOnAction(e -> onNewScenario());
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnDelete, btnDetails, btnRun, btnNew).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();
    }
@@ -103,6 +105,10 @@ public class ProjectManager {
       btnClose.setOnAction(e -> stage.close());
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnClose).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();
+   }
+
+   private void onNewScenario() {
+      scenarioNew.show(projName);
    }
 
    private void onHelp() {

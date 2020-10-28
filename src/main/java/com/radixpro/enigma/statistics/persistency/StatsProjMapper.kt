@@ -32,7 +32,7 @@ class StatsProjMapper {
             val name = jsonObject["name"] as String
             val description = jsonObject["description"] as String
             val config = createConfig(jsonObject["baseAstronConfig"] as JSONObject)
-            val dataFile = jsonObject["dataFile"] as String
+            val dataFile = jsonObject["dataFileName"] as String
             StatsProject(name, description, config, dataFile)
         } catch (e: JsonParseException) {
             log.error("Error parsing Json for StatsProject. Message ${e.message}. Json: $jsonObject")

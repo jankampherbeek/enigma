@@ -246,8 +246,14 @@ public class StatsStart {
       btnProjSearch = new ButtonBuilder("ui.stats.start.btnprojsearch").setDisabled(false).build();
       btnProjNew.setOnAction(click -> statsProjNew.show());
       btnProjSearch.setOnAction(click -> onProjSearch());
-      btnProjOpen.setOnAction(click -> projectManager.show());
+      btnProjOpen.setOnAction(click -> onProjMgt());
       return new ButtonBarBuilder().setButtons(btnProjOpen, btnProjNew, btnProjSearch).build();
+   }
+
+   private void onProjMgt() {
+      int projIndex = tvProj.getSelectionModel().getSelectedIndex();
+      StatsProject project = (StatsProject) tvProj.getItems().get(projIndex);
+      projectManager.show(project.getName());
    }
 
    private void onDefineProjDir() {
