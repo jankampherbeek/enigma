@@ -28,7 +28,7 @@ internal class FileReaderTest {
 
     @Test
     fun `Reading files with only a postfix gives list with correct size`() {
-        fileReader.readFileItems(path = fullPath, postFix = ".json") shouldHaveSize 5
+        fileReader.readFileItems(pathToFolder = fullPath, postFix = ".json") shouldHaveSize 5
     }
 
     @Test

@@ -11,19 +11,26 @@ import com.radixpro.enigma.share.api.PropertyApi
 
 interface PathConstructor {
     fun pathForProject(projectName: String): String
+    fun pathForProjectDir(projectName: String): String
     fun pathForScenario(scenarioName: String, projectName: String): String
-
 }
 
 class StatsPathConstructor(val propApi: PropertyApi) : PathConstructor {
 
+    val separator: String = java.io.File.separator
+
+
     override fun pathForProject(projectName: String): String {
+        return "${pathForProjectDir(projectName)}proj_$projectName.json"
+    }
+
+    override fun pathForProjectDir(projectName: String): String {
         val projDir = propApi.read("projdir")[0]
-        return "${projDir.value}/proj/$projectName/proj_$projectName.json"
+        return "${projDir.value}${separator}proj$separator$projectName$separator"
     }
 
     override fun pathForScenario(scenarioName: String, projectName: String): String {
         val projDir = propApi.read("projdir")[0]
-        return "${projDir.value}/proj/$projectName/scen_$scenarioName.json"
+        return "${projDir.value}${separator}proj$separator$projectName${separator}scen_${scenarioName}.json"
     }
 }

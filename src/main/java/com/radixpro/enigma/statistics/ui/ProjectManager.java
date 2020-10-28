@@ -8,13 +8,18 @@
 package com.radixpro.enigma.statistics.ui;
 
 import com.radixpro.enigma.Rosetta;
+import com.radixpro.enigma.share.ui.domain.TableViewString;
 import com.radixpro.enigma.ui.creators.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
@@ -25,15 +30,15 @@ public class ProjectManager {
    private final ScenarioNew scenarioNew;
    private Stage stage;
    private Label lblName;
-   private Label lblDescription;
    private Pane paneTitle;
    private Pane paneSubTitle;
    private Pane paneName;
-   private Pane paneDescription;
    private TableView tableView;
    private String projName;
+   private StatsFacade facade;
 
-   public ProjectManager(@NotNull final ScenarioNew scenarioNew) {
+   public ProjectManager(@NotNull final StatsFacade facade, @NotNull final ScenarioNew scenarioNew) {
+      this.facade = facade;
       this.scenarioNew = scenarioNew;
    }
 
@@ -49,10 +54,8 @@ public class ProjectManager {
    private void initialize() {
       Label lblTitle = new LabelBuilder("ui.stats.projman.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
       paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").setChildren(lblTitle).build();
-      lblName = new LabelBuilder("ui.shared.lbl.name").build();
+      lblName = new LabelBuilder("").setText(projName).build();
       paneName = new PaneBuilder().setWidth(WIDTH).setHeight(25.0).setChildren(lblName).build();
-      lblDescription = new LabelBuilder("ui.shared.lbl.description").build();
-      paneDescription = new PaneBuilder().setWidth(WIDTH).setHeight(25.0).setChildren(lblDescription).build();
       Label lblSubTitle = new LabelBuilder("ui.stats.projman.subtitlescen").setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
       paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
       tableView = createTableView();
@@ -63,7 +66,6 @@ public class ProjectManager {
       return new VBoxBuilder().setHeight(HEIGHT).setWidth(WIDTH).setPadding(GAP).setChildren(
             paneTitle,
             paneName,
-            paneDescription,
             paneSubTitle,
             tableView,
             createPaneBtnBarScenarios(),
@@ -73,16 +75,21 @@ public class ProjectManager {
 
    private TableView createTableView() {
       TableColumn colName = new TableColumn<>(Rosetta.getText("ui.general.name"));
-      TableColumn colDescr = new TableColumn<>(Rosetta.getText("ui.general.description"));
-      colName.setPrefWidth(300.0);
-      colDescr.setPrefWidth(300.0);
+      colName.setPrefWidth(550.0);
+      colName.setCellValueFactory(new PropertyValueFactory<>("text"));
+      TableView tvProj = new TableViewBuilder().setPrefHeight(200.0).setPrefWidth(WIDTH).setColumns(colName).build();
+      tvProj.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+      tvProj.getItems().addAll(scenarioNames());
+      return tvProj;
+   }
 
-//      TableView.TableViewSelectionModel<DataFileDescription> selectionModel = tvDataFiles.getSelectionModel();
-//      selectionModel.setSelectionMode(SelectionMode.SINGLE);
-//      selectedDataFiles = selectionModel.getSelectedItems();
-//      selectedDataFiles.addListener((ListChangeListener<DataFileDescription>) change -> onSelectFile());
-
-      return new TableViewBuilder().setPrefHeight(200.0).setPrefWidth(WIDTH).setColumns(colName, colDescr).build();
+   private List<TableViewString> scenarioNames() {
+      List<String> scenarios = facade.readScenarioNames(projName);
+      List<TableViewString> scenariosForTv = new ArrayList<>();
+      for (String scenario : scenarios) {
+         scenariosForTv.add(new TableViewString(scenario));
+      }
+      return scenariosForTv;
    }
 
    private Pane createPaneBtnBarScenarios() {

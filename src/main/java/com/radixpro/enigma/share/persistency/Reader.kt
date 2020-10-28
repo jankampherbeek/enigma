@@ -55,9 +55,9 @@ class JsonReader : Reader {
 
 
 class FileReader : FileSystemReader {
-    override fun readFileItems(path: String, preFix: String, postFix: String): List<String> {
+    override fun readFileItems(pathToFolder: String, preFix: String, postFix: String): List<String> {
         val items: MutableList<String> = ArrayList()
-        File(path).walk().forEach {
+        File(pathToFolder).walk().forEach {
             if (it.isFile && it.name.startsWith(preFix) && it.name.endsWith(postFix)) items.add(it.name)
         }
         return items.toList()

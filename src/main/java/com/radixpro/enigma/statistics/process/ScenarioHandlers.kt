@@ -40,7 +40,7 @@ class ScenarioHandlerFactory {
 class ScenarioGeneralHandler(val reader: FileSystemReader, val mapper: ScenarioFileMapper, private val pathConstructor: PathConstructor) {
 
     fun retrieveScenarioNames(projectName: String): List<String> {
-        val projPath = pathConstructor.pathForProject(projectName)
+        val projPath = pathConstructor.pathForProjectDir(projectName)
         val fileNames = reader.readFileItems(projPath, "scen_", ".json")
         return mapper.mapFileNamesToScenarioNames(fileNames)
     }

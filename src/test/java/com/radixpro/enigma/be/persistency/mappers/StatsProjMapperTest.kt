@@ -30,7 +30,7 @@ internal class StatsProjMapperTest {
             "    \"eclipticProjection\" : \"TROPICAL\",\n" +
             "    \"observerPosition\" : \"GEOCENTRIC\"\n" +
             "  },\n" +
-            "  \"dataFile\" : \"Test1\",\n" +
+            "  \"dataFileName\" : \"Test1\",\n" +
             "}"
 
     @Test

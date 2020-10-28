@@ -109,8 +109,7 @@ public class ScenarioRangeNew {
    }
 
    private boolean validInput() {
-      return !tfDivision.getText().isBlank()
-            && (ccbCelObjects.getCheckModel().getCheckedIndices().size() > 0 || ccbMundanePoints.getCheckModel().getCheckedIndices().size() > 0);
+      return ccbCelObjects.getCheckModel().getCheckedIndices().size() > 0 || ccbMundanePoints.getCheckModel().getCheckedIndices().size() > 0;
    }
 
    private VBox createVBox() {
@@ -136,27 +135,27 @@ public class ScenarioRangeNew {
    }
 
    private void onSave() {
-//      if (validInput()) {
-      int rangeTypeIndex = cbRangeTypes.getSelectionModel().getSelectedIndex();
-      String rangeTypeName = StatsRangeTypes.values()[rangeTypeIndex].name();
-      CelObjects[] celObjectValues = CelObjects.values();
-      List<String> celObjectNames = new ArrayList<>();
-      final ObservableList checkedCelObjectIndexes = ccbCelObjects.getCheckModel().getCheckedIndices();
-      for (Object index : checkedCelObjectIndexes) {
-         CelObjects currentCo = celObjectValues[(int) index];
-         celObjectNames.add(currentCo.name());
-      }
-      MundanePoints[] mundPointValues = MundanePoints.values();
-      List<String> mundPointNames = new ArrayList<>();
-      final ObservableList checkMundPointIndexes = ccbMundanePoints.getCheckModel().getCheckedIndices();
-      for (Object index : checkMundPointIndexes) {
-         MundanePoints currentMp = mundPointValues[(int) index];
-         mundPointNames.add(currentMp.name());
-      }
-      ScenarioFe scenario = new ScenRangeFe(scenName, scenDescr, projName, typeName, rangeTypeName, celObjectNames, mundPointNames);
-      facade.writeScenario(scenario);
+      if (validInput()) {
+         int rangeTypeIndex = cbRangeTypes.getSelectionModel().getSelectedIndex();
+         String rangeTypeName = StatsRangeTypes.values()[rangeTypeIndex].name();
+         CelObjects[] celObjectValues = CelObjects.values();
+         List<String> celObjectNames = new ArrayList<>();
+         final ObservableList checkedCelObjectIndexes = ccbCelObjects.getCheckModel().getCheckedIndices();
+         for (Object index : checkedCelObjectIndexes) {
+            CelObjects currentCo = celObjectValues[(int) index];
+            celObjectNames.add(currentCo.name());
+         }
+         MundanePoints[] mundPointValues = MundanePoints.values();
+         List<String> mundPointNames = new ArrayList<>();
+         final ObservableList checkMundPointIndexes = ccbMundanePoints.getCheckModel().getCheckedIndices();
+         for (Object index : checkMundPointIndexes) {
+            MundanePoints currentMp = mundPointValues[(int) index];
+            mundPointNames.add(currentMp.name());
+         }
+         ScenarioFe scenario = new ScenRangeFe(scenName, scenDescr, projName, typeName, rangeTypeName, celObjectNames, mundPointNames);
+         facade.writeScenario(scenario);
 
-//      }
+      }
    }
 
    private void onHelp() {

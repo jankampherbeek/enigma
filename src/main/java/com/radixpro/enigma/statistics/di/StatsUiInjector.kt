@@ -28,7 +28,7 @@ object StatsUiInjector {
     }
 
     fun injectProjectManager(): ProjectManager {
-        return ProjectManager(injectScenarioNew())
+        return ProjectManager(injectStatsFacade(), injectScenarioNew())
     }
 
     fun injectStatsDataDetail(): StatsDataDetail {
