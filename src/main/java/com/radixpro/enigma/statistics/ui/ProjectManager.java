@@ -28,6 +28,7 @@ public class ProjectManager {
    private static final double HEIGHT = 400.0;
    private static final double WIDTH = 600.0;
    private final ScenarioNew scenarioNew;
+   private final ScenarioDetails scenarioDetails;
    private Stage stage;
    private Label lblName;
    private Pane paneTitle;
@@ -36,10 +37,14 @@ public class ProjectManager {
    private TableView tableView;
    private String projName;
    private StatsFacade facade;
+   private List<String> scenarios;
 
-   public ProjectManager(@NotNull final StatsFacade facade, @NotNull final ScenarioNew scenarioNew) {
+   public ProjectManager(@NotNull final StatsFacade facade,
+                         @NotNull final ScenarioNew scenarioNew,
+                         @NotNull final ScenarioDetails scenarioDetails) {
       this.facade = facade;
       this.scenarioNew = scenarioNew;
+      this.scenarioDetails = scenarioDetails;
    }
 
    public void show(@NotNull final String projName) {
@@ -60,7 +65,6 @@ public class ProjectManager {
       paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
       tableView = createTableView();
    }
-
 
    private VBox createVBox() {
       return new VBoxBuilder().setHeight(HEIGHT).setWidth(WIDTH).setPadding(GAP).setChildren(
@@ -84,7 +88,7 @@ public class ProjectManager {
    }
 
    private List<TableViewString> scenarioNames() {
-      List<String> scenarios = facade.readScenarioNames(projName);
+      scenarios = facade.readScenarioNames(projName);
       List<TableViewString> scenariosForTv = new ArrayList<>();
       for (String scenario : scenarios) {
          scenariosForTv.add(new TableViewString(scenario));
@@ -95,8 +99,8 @@ public class ProjectManager {
    private Pane createPaneBtnBarScenarios() {
       Button btnDelete = new ButtonBuilder("ui.shared.btn.delete").setDisabled(true).setFocusTraversable(false).build();
       // TODO onClick btnDelete
-      Button btnDetails = new ButtonBuilder("ui.shared.btn.details").setDisabled(true).setFocusTraversable(false).build();
-      // TODO onClick btnDetails
+      Button btnDetails = new ButtonBuilder("ui.shared.btn.details").setDisabled(false).setFocusTraversable(true).build();
+      btnDetails.setOnAction(e -> onDetails());
       Button btnRun = new ButtonBuilder("ui.stats.projman.run").setDisabled(true).setFocusTraversable(false).build();
       // TODO onClick btnRun
       Button btnNew = new ButtonBuilder("ui.shared.btn.new").setDisabled(false).setFocusTraversable(true).build();
@@ -112,6 +116,13 @@ public class ProjectManager {
       btnClose.setOnAction(e -> stage.close());
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnClose).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();
+   }
+
+   private void onDetails() {
+      int index = tableView.getSelectionModel().getSelectedIndex();
+      String selectedScenario = scenarios.get(index);
+      String scenType = "RANGE";     // TODO fix this: or remove type, or solve type
+      scenarioDetails.show(selectedScenario, scenType, projName);
    }
 
    private void onNewScenario() {

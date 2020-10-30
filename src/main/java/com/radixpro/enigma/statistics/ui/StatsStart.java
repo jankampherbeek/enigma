@@ -264,8 +264,8 @@ public class StatsStart {
          propApi.add(prop);
          stage.close();
       }
-
    }
+
 
    private String defineProjDir() {
       File selectedDirectory = dirChooser.showDialog(stage);

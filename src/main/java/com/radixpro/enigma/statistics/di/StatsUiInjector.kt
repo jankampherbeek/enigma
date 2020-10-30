@@ -13,11 +13,15 @@ import com.radixpro.enigma.statistics.di.StatsInjector.injectPersistedDataFileAp
 import com.radixpro.enigma.statistics.di.StatsInjector.injectScenGeneralApi
 import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsProjApi
 import com.radixpro.enigma.statistics.ui.*
+import com.radixpro.enigma.statistics.ui.helpers.ScenRangeDetailsText
 import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector.injectBaseConfigInputBlock
 import javafx.stage.DirectoryChooser
 
 object StatsUiInjector {
 
+    fun injectScenarioDetails(): ScenarioDetails {
+        return ScenarioDetails(injectStatsFacade(), injectScenRangeDetailsText())
+    }
 
     fun injectScenarioNew(): ScenarioNew {
         return ScenarioNew(injectScenarioRangeNew())
@@ -27,8 +31,12 @@ object StatsUiInjector {
         return ScenarioRangeNew(injectStatsFacade())
     }
 
+    fun injectScenRangeDetailsText(): ScenRangeDetailsText {
+        return ScenRangeDetailsText()
+    }
+
     fun injectProjectManager(): ProjectManager {
-        return ProjectManager(injectStatsFacade(), injectScenarioNew())
+        return ProjectManager(injectStatsFacade(), injectScenarioNew(), injectScenarioDetails())
     }
 
     fun injectStatsDataDetail(): StatsDataDetail {

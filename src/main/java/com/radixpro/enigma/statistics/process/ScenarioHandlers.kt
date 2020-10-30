@@ -63,7 +63,7 @@ class ScenarioRangeHandler(val persister: ScenarioPersister,
     }
 
     override fun readScenario(scenarioName: String, projectName: String): ScenarioBe {
-        val fullPath = pathConstructor.pathForProject(projectName)
+        val fullPath = pathConstructor.pathForScenario(scenarioName, projectName)
         val scenarioFile = File(fullPath)
         val jsonObject = reader.readObjectFromFile(scenarioFile)
         return mapper.map(jsonObject)
