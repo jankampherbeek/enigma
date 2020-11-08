@@ -7,15 +7,27 @@
 
 package com.radixpro.enigma.statistics.process
 
-import com.radixpro.enigma.statistics.core.StatsFullChart
+import com.radixpro.enigma.be.calc.SeFrontend
+import com.radixpro.enigma.domain.input.Location
+import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.MundanePointsAstron
 
 interface StatsCalculator {
-    val positions: StatsFullChart;
+    fun celObject(celObject: CelestialObjects, jdUt: Double, flags: Int, location: Location): Double
+    fun mundanePoint(mundPoint: MundanePointsAstron, jdUt: Double, flags: Int, location: Location, systemId: Int, nrOfCusps: Int): Double
 }
 
+class PointsCalculator(val se: SeFrontend) : StatsCalculator {
 
-class AllPointsCalculator() : StatsCalculator {
-    override val positions: StatsFullChart
-        get() = TODO("Not yet implemented")
+    override fun celObject(celObject: CelestialObjects, jdUt: Double, flags: Int, location: Location): Double {
+        return se.getPositionsForCelBody(jdUt, celObject.seId.toInt(), flags, location).allPositions[0]
+    }
+
+    override fun mundanePoint(mundPoint: MundanePointsAstron, jdUt: Double, flags: Int, location: Location, systemId: Int, nrOfCusps: Int): Double {
+        val positionsForHouses = se.getPositionsForHouses(jdUt, flags, location, systemId, nrOfCusps)
+        val index = mundPoint.id - 1
+        return if (index < 6) positionsForHouses.ascMc[index]
+        else 0.0;
+    }
 
 }

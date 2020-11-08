@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.statistics.persistency
 
-import com.radixpro.enigma.astronomy.ui.domain.CelObjects
-import com.radixpro.enigma.astronomy.ui.domain.MundanePoints
+import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.MundanePointsAstron
 import com.radixpro.enigma.statistics.core.ScenRangeBe
 import com.radixpro.enigma.statistics.core.ScenarioBe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
@@ -28,8 +28,8 @@ interface ScenarioFileMapper {
 
 private val log = Logger.getLogger(ScenarioMapper::class.java)
 
-private fun constructCelObject(name: String): CelObjects {
-    val values = CelObjects.values()
+private fun constructCelObject(name: String): CelestialObjects {
+    val values = CelestialObjects.values()
     for (item in values) {
         if (name == item.toString()) return item
     }
@@ -37,8 +37,8 @@ private fun constructCelObject(name: String): CelObjects {
     throw (RuntimeException("CelObject not found."))
 }
 
-private fun constructMundanePoint(name: String): MundanePoints {
-    val values = MundanePoints.values()
+private fun constructMundanePoint(name: String): MundanePointsAstron {
+    val values = MundanePointsAstron.values()
     for (item in values) {
         if (name == item.toString()) return item
     }
@@ -46,8 +46,8 @@ private fun constructMundanePoint(name: String): MundanePoints {
     throw (RuntimeException("MundanePoint not found."))
 }
 
-private fun constructAllCelObjects(jsonObjects: JSONArray): MutableList<CelObjects> {
-    val allCelObjects: MutableList<CelObjects> = ArrayList()
+private fun constructAllCelObjects(jsonObjects: JSONArray): MutableList<CelestialObjects> {
+    val allCelObjects: MutableList<CelestialObjects> = ArrayList()
     for (celObjectName in jsonObjects) {
         val name = celObjectName as String
         val celObject = constructCelObject(name)
@@ -56,8 +56,8 @@ private fun constructAllCelObjects(jsonObjects: JSONArray): MutableList<CelObjec
     return allCelObjects
 }
 
-private fun constructAllMundanePoints(jsonObjects: JSONArray): MutableList<MundanePoints> {
-    val allMundanePoints: MutableList<MundanePoints> = ArrayList()
+private fun constructAllMundanePoints(jsonObjects: JSONArray): MutableList<MundanePointsAstron> {
+    val allMundanePoints: MutableList<MundanePointsAstron> = ArrayList()
     for (mundanePointName in jsonObjects) {
         val name = mundanePointName as String
         val mundanePoint = constructMundanePoint(name)

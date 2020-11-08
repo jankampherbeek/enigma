@@ -16,11 +16,10 @@ import com.radixpro.enigma.references.ErrorMsgs
 interface IStatsProject {
 }
 
-data class StatsProject( //override val success: Boolean,
+data class StatsProject(
         val name: String,
         val description: String,
         val baseAstronConfig: BaseAstronConfig,
         val dataFileName: String) : IStatsProject
 
-//val dataFile: DataFileDescription) : IStatsProject
 class StatsFailedProject(val errorMsg: ErrorMsgs) : IStatsProject

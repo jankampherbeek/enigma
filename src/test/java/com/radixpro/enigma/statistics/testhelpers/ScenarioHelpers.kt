@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.statistics.testhelpers
 
-import com.radixpro.enigma.astronomy.ui.domain.CelObjects
-import com.radixpro.enigma.astronomy.ui.domain.MundanePoints
+import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.MundanePointsAstron
 import com.radixpro.enigma.statistics.core.ScenRangeBe
 import com.radixpro.enigma.statistics.ui.domain.ScenRangeFe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
@@ -39,16 +39,16 @@ class ScenarioCreators {
         return listOf("SUN", "MOON", "MERCURY")
     }
 
-    private fun createCelObjects(): List<CelObjects> {
-        return listOf(CelObjects.SUN, CelObjects.MOON, CelObjects.MERCURY)
+    private fun createCelObjects(): List<CelestialObjects> {
+        return listOf(CelestialObjects.SUN, CelestialObjects.MOON, CelestialObjects.MERCURY)
     }
 
     private fun createMundanePointNames(): List<String> {
         return listOf("MC", "ASC")
     }
 
-    private fun createMundanePoints(): List<MundanePoints> {
-        return listOf(MundanePoints.MC, MundanePoints.ASC)
+    private fun createMundanePoints(): List<MundanePointsAstron> {
+        return listOf(MundanePointsAstron.MC, MundanePointsAstron.ASC)
     }
 
 }

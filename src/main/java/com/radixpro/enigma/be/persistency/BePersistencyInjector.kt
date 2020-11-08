@@ -22,8 +22,8 @@ object BePersistencyInjector {
         return ConfigurationDao()
     }
 
-    fun injectDataFileDao(): DataFileDao {
-        return DataFileDao(injectJsonReader(), injectInputDataSetMapper())
+    fun injectDataFileDao(): InternalDataFileDao {
+        return InternalDataFileDao(injectJsonReader(), injectInputDataSetMapper())
     }
 
     fun injectDataReaderCsv(): DataReaderCsv {

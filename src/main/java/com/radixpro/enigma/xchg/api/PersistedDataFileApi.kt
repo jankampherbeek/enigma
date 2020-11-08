@@ -7,11 +7,11 @@
 package com.radixpro.enigma.xchg.api
 
 import com.radixpro.enigma.statistics.core.DataFileDescription
-import com.radixpro.enigma.statistics.process.DataFileHandler
+import com.radixpro.enigma.statistics.process.InternalDataFileHandler
 
-class PersistedDataFileApi(private val handler: DataFileHandler) {
+class PersistedDataFileApi(private val handlerInternal: InternalDataFileHandler) {
 
     fun readDataFileDescriptions(): List<DataFileDescription> {
-        return handler.readDataFileDesciptions()
+        return handlerInternal.readDataFileDesciptions()
     }
 }

@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.statistics.api.converters
 
-import com.radixpro.enigma.astronomy.ui.domain.CelObjects
-import com.radixpro.enigma.astronomy.ui.domain.MundanePoints
+import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.MundanePointsAstron
 import com.radixpro.enigma.statistics.core.ScenRangeBe
 import com.radixpro.enigma.statistics.core.ScenarioBe
 import com.radixpro.enigma.statistics.di.StatsInjector.injectScenRangeConverter
@@ -33,59 +33,59 @@ class ScenConverterFactory() {
 
 class ScenRangeConverter : ScenarioConverter {
 
-    override fun feRequestToBe(scenario: ScenarioFe): ScenarioBe {
-        val scenFe = scenario as ScenRangeFe
+    override fun feRequestToBe(scenFe: ScenarioFe): ScenarioBe {
+        val scenario = scenFe as ScenRangeFe
         return ScenRangeBe(
-                scenFe.name,
-                scenFe.descr,
-                scenFe.projName,
-                ScenarioTypes.valueOf(scenFe.typeName),
-                StatsRangeTypes.valueOf(scenFe.rangeTypeName),
-                createCelObjects(scenFe.celObjectNames),
-                createMundanePoints(scenFe.mundanePointNames)
+                scenario.name,
+                scenario.descr,
+                scenario.projName,
+                ScenarioTypes.valueOf(scenario.typeName),
+                StatsRangeTypes.valueOf(scenario.rangeTypeName),
+                createCelestialObjects(scenario.celObjectNames),
+                createMundanePoints(scenario.mundanePointNames)
         )
     }
 
-    override fun beRequestToFe(scenario: ScenarioBe): ScenarioFe {
-        val scenBe = scenario as ScenRangeBe
+    override fun beRequestToFe(scenBe: ScenarioBe): ScenarioFe {
+        val scenario = scenBe as ScenRangeBe
         return ScenRangeFe(
-                scenBe.name,
-                scenBe.description,
-                scenBe.projectName,
-                scenBe.scenarioType.name,
-                scenBe.rangeType.name,
-                createCelObjectNames(scenBe.celObjects),
-                createMundanePointNames(scenBe.mundanePoints)
+                scenario.name,
+                scenario.description,
+                scenario.projectName,
+                scenario.scenarioType.name,
+                scenario.rangeType.name,
+                createCelObjectNames(scenario.celObjects),
+                createMundanePointNames(scenario.mundanePoints)
         )
     }
 
-    private fun createCelObjects(celObjectNames: List<String>): List<CelObjects> {
-        val objects: MutableList<CelObjects> = ArrayList()
+    private fun createCelestialObjects(celObjectNames: List<String>): List<CelestialObjects> {
+        val objects: MutableList<CelestialObjects> = ArrayList()
         for (name: String in celObjectNames) {
-            objects.add(CelObjects.valueOf(name))
+            objects.add(CelestialObjects.valueOf(name))
         }
         return objects.toList()
     }
 
-    private fun createCelObjectNames(celObjects: List<CelObjects>): List<String> {
+    private fun createCelObjectNames(celestialObjects: List<CelestialObjects>): List<String> {
         val names: MutableList<String> = ArrayList()
-        for (celObject in celObjects) {
-            names.add(celObject.name)
+        for (celestialObject in celestialObjects) {
+            names.add(celestialObject.name)
         }
         return names.toList()
     }
 
-    private fun createMundanePoints(mundanePointNames: List<String>): List<MundanePoints> {
-        val mPoints: MutableList<MundanePoints> = ArrayList()
+    private fun createMundanePoints(mundanePointNames: List<String>): List<MundanePointsAstron> {
+        val mPoints: MutableList<MundanePointsAstron> = ArrayList()
         for (name: String in mundanePointNames) {
-            mPoints.add(MundanePoints.valueOf(name))
+            mPoints.add(MundanePointsAstron.valueOf(name))
         }
         return mPoints.toList()
     }
 
-    private fun createMundanePointNames(mundPoints: List<MundanePoints>): List<String> {
+    private fun createMundanePointNames(mundPoints: List<MundanePointsAstron>): List<String> {
         val names: MutableList<String> = ArrayList()
-        for (point: MundanePoints in mundPoints) {
+        for (point: MundanePointsAstron in mundPoints) {
             names.add(point.name)
         }
         return names.toList()

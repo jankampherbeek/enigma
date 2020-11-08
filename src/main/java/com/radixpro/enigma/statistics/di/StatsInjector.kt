@@ -40,8 +40,8 @@ object StatsInjector {
         return ControlDataCharts(injectJsonReader(), injectJsonWriter(), injectGlobalPropertyHandler(), injectInputDataSetMapper(), injectControlDataCalendar())
     }
 
-    fun injectDataFileHandler(): DataFileHandler {
-        return DataFileHandler(injectDataFileDao(), injectGlobalPropertyHandler())
+    fun injectDataFileHandler(): InternalDataFileHandler {
+        return InternalDataFileHandler(injectDataFileDao(), injectGlobalPropertyHandler())
     }
 
     fun injectInputDataFileApi(): InputDataFileApi {

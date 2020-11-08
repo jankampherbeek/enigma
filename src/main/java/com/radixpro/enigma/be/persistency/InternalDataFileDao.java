@@ -22,13 +22,13 @@ import java.util.List;
 /**
  * Dao for datafiles in Json format.
  */
-public class DataFileDao {
+public class InternalDataFileDao {
 
    private final Reader jsonReader;
    private final InputDataSetMapper mapper;
 
-   public DataFileDao(@NotNull final Reader jsonReader,
-                      @NotNull final InputDataSetMapper mapper) {
+   public InternalDataFileDao(@NotNull final Reader jsonReader,
+                              @NotNull final InputDataSetMapper mapper) {
       this.jsonReader = jsonReader;
       this.mapper = mapper;
    }
@@ -52,7 +52,7 @@ public class DataFileDao {
       return filenames;
    }
 
-   private InputDataSet readData(final File projDataFolder, final String filename) {
+   public InputDataSet readData(final File projDataFolder, final String filename) {
       File dataFile = new File(projDataFolder + File.separator + filename);
       final JSONObject inputDataJson = jsonReader.readObjectFromFile(dataFile);
       return mapper.jsonToInputDataSet(inputDataJson);

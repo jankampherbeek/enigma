@@ -51,11 +51,10 @@ class InputDataFileHandler(private val dataReaderCsv: DataReaderCsv,
     }
 
     private fun checkOrCreateFolder(fullPathFolder: String): Boolean {
-        if (Files.notExists(Path.of(fullPathFolder))) {
+        return if (Files.notExists(Path.of(fullPathFolder))) {
             val newFolder = File(fullPathFolder)
-            return newFolder.mkdir()
-        }
-        return true
+            newFolder.mkdir()
+        } else true
     }
 
     companion object {
