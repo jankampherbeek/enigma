@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.statistics.persistency
 
-import com.radixpro.enigma.astronomy.ui.domain.CelObjects
-import com.radixpro.enigma.astronomy.ui.domain.MundanePoints
+import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.MundanePointsAstron
 import com.radixpro.enigma.statistics.core.ScenRangeBe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
@@ -60,11 +60,11 @@ internal class ScenRangeBeMapperTest {
         }
 
         @Test
-        fun `Content of Celobjects is correct`() {
+        fun `Content of CelestialObjects is correct`() {
             val celObjects = scenarioBe.celObjects
             assertAll(
-                    Executable { assertEquals(CelObjects.SUN, celObjects[0], "First CelObject should be SUN.") },
-                    Executable { assertEquals(CelObjects.PLUTO, celObjects[1], "Second CelObject should be PLUTO.") }
+                    Executable { assertEquals(CelestialObjects.SUN, celObjects[0], "First CelObject should be SUN.") },
+                    Executable { assertEquals(CelestialObjects.PLUTO, celObjects[1], "Second CelObject should be PLUTO.") }
             )
         }
 
@@ -77,8 +77,8 @@ internal class ScenRangeBeMapperTest {
         fun `Content of MundanePoints is correct`() {
             val mundanePoints = scenarioBe.mundanePoints
             assertAll(
-                    Executable { assertEquals(MundanePoints.ASC, mundanePoints[0], "First MundanePoint should be ASC.") },
-                    Executable { assertEquals(MundanePoints.MC, mundanePoints[1], "Second MundanePoint should be MC.") }
+                    Executable { assertEquals(MundanePointsAstron.ASC, mundanePoints[0], "First MundanePoint should be ASC.") },
+                    Executable { assertEquals(MundanePointsAstron.MC, mundanePoints[1], "Second MundanePoint should be MC.") }
             )
         }
     }

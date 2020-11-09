@@ -12,8 +12,9 @@ import com.radixpro.enigma.be.calc.assist.CombinedFlags
 import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.references.CelestialObjects
 import com.radixpro.enigma.references.SeFlags
+import com.radixpro.enigma.share.persistency.CsvWriter
+import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.share.persistency.Reader
-import com.radixpro.enigma.share.persistency.Writer
 import com.radixpro.enigma.statistics.core.*
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
 
@@ -26,7 +27,6 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
                          val projHandler: StatsProjHandler,
                          val dataHandler: InternalDataFileHandler,
                          val reader: Reader,
-                         val writer: Writer,
                          val combinedFlags: CombinedFlags,
                          val seFrontend: SeFrontend) : ScenProcessor {
 
@@ -49,10 +49,11 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
         val positionsPerChart = definePositions(allData, celObjects, flags, divider);
         val results = defineSegmentTotals(positionsPerChart.toList(), scenario, divider)
         val rangeSegmentResults = RangeSegmentResults(scenario, results, positionsPerChart)
-        val pathToFilename = ""
-        writer.write2File(pathToFilename, rangeSegmentResults, true)
+        val pathToFilename = ""         // TODO define path
+        JsonWriter().write2File(pathToFilename, rangeSegmentResults, true)
         val csvText = CsvTextForRange().createTextLines(rangeSegmentResults, divider)
-//        writer.write2File(pathToFilename, csvText)    TODO use writer for csv
+        CsvWriter().write2File(pathToFilename, csvText)
+
         // create text for UI
         // return text for UI
 

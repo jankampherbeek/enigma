@@ -14,18 +14,14 @@ import com.radixpro.enigma.share.exceptions.SaveException
 import java.io.File
 import java.io.IOException
 
-interface Writer {
-    fun write2File(pathFilename: String, object2Write: Any, useIndent: Boolean)
-}
-
 /**
  * Writes an object to file using Json format.
  * Based on an example at: http://www.studytrails.com/java/json/jackson-create-json.jsp
  */
-class JsonWriter : Writer {
-    override fun write2File(pathFilename: String,
-                            object2Write: Any,
-                            useIndent: Boolean) {
+class JsonWriter {
+    fun write2File(pathFilename: String,
+                   object2Write: Any,
+                   useIndent: Boolean) {
         val mapper = ObjectMapper()
         mapper.configure(SerializationFeature.INDENT_OUTPUT, useIndent)
         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
@@ -36,4 +32,15 @@ class JsonWriter : Writer {
             throw SaveException("Could not write to file, using path and filename :$pathFilename . Reason: ${e.message}")
         }
     }
+}
+
+class CsvWriter {
+    fun write2File(pathFilename: String, lines: List<String>) {
+        val file = File(pathFilename)
+        for (line: String in lines) {
+            file.writeText(line)
+        }
+    }
+
+
 }

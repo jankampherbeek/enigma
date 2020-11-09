@@ -8,8 +8,8 @@
 package com.radixpro.enigma.statistics.persistency
 
 import com.radixpro.enigma.references.ErrorMsgs
+import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.share.persistency.Reader
-import com.radixpro.enigma.share.persistency.Writer
 import com.radixpro.enigma.shared.exceptions.DatabaseException
 import com.radixpro.enigma.statistics.core.IStatsProject
 import com.radixpro.enigma.statistics.core.StatsFailedProject
@@ -25,7 +25,7 @@ interface StatsProjDao {
     fun readAllNames(pathRoot: String): MutableList<String>
 }
 
-class StatsProjDaoJson(private val jsonWriter: Writer, private val jsonReader: Reader, private val mapper: StatsProjMapper) : StatsProjDao {
+class StatsProjDaoJson(private val jsonReader: Reader, private val mapper: StatsProjMapper) : StatsProjDao {
 
     private val log = Logger.getLogger(StatsProjDaoJson::class.java)
 
@@ -36,7 +36,7 @@ class StatsProjDaoJson(private val jsonWriter: Writer, private val jsonReader: R
         val fullPathAsFile = File(fullPath)
         fullPathAsFile.mkdirs()
         val fullProjFileName = fullPath + "proj_" + projectName + ".json"
-        jsonWriter.write2File(fullProjFileName, project, true)
+        JsonWriter().write2File(fullProjFileName, project, true)
 
         val dataFileName = project.dataFileName       // TODO handle set that contains event file
         val inputDataFolder = pathRoot + File.separator + "data" + File.separator

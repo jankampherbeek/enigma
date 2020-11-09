@@ -11,8 +11,8 @@ import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.domain.input.DateTimeParts
 import com.radixpro.enigma.domain.input.Location
 import com.radixpro.enigma.references.TimeZones
+import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.share.persistency.Reader
-import com.radixpro.enigma.share.persistency.Writer
 import com.radixpro.enigma.share.process.PropertyHandler
 import com.radixpro.enigma.statistics.core.InputDataSet
 import com.radixpro.enigma.statistics.core.StatsProject
@@ -22,7 +22,6 @@ import java.time.LocalDateTime
 import java.util.*
 
 class ControlDataCharts(private val jsonReader: Reader,
-                        private val jsonWriter: Writer,
                         private val propHandler: PropertyHandler,
                         private val inputDataSetMapper: InputDataSetMapper,
                         private val controlDataCalendar: ControlDataCalendar) {
@@ -133,6 +132,6 @@ class ControlDataCharts(private val jsonReader: Reader,
     private fun persistData(pathFilename: String, origFilename: String, project: StatsProject) {
         val dateTimeStamp = LocalDateTime.now()
         val inputDataSet = InputDataSet("Control data", "Project: " + project.name, origFilename, dateTimeStamp.toString(), controlInputData)
-        jsonWriter.write2File(pathFilename, inputDataSet, true)
+        JsonWriter().write2File(pathFilename, inputDataSet, true)
     }
 }

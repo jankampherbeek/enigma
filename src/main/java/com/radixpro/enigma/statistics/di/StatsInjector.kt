@@ -16,7 +16,6 @@ import com.radixpro.enigma.share.di.ShareInjector.injectFileReader
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyApi
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyHandler
 import com.radixpro.enigma.share.di.ShareInjector.injectJsonReader
-import com.radixpro.enigma.share.di.ShareInjector.injectJsonWriter
 import com.radixpro.enigma.statistics.api.InputDataFileApi
 import com.radixpro.enigma.statistics.api.ScenGeneralApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
@@ -37,7 +36,7 @@ object StatsInjector {
     }
 
     fun injectControlDataCharts(): ControlDataCharts {
-        return ControlDataCharts(injectJsonReader(), injectJsonWriter(), injectGlobalPropertyHandler(), injectInputDataSetMapper(), injectControlDataCalendar())
+        return ControlDataCharts(injectJsonReader(), injectGlobalPropertyHandler(), injectInputDataSetMapper(), injectControlDataCalendar())
     }
 
     fun injectDataFileHandler(): InternalDataFileHandler {
@@ -49,7 +48,7 @@ object StatsInjector {
     }
 
     fun injectInputDataFileHandler(): InputDataFileHandler {
-        return InputDataFileHandler(injectDataReaderCsv(), injectJsonWriter())
+        return InputDataFileHandler(injectDataReaderCsv())
     }
 
     @JvmStatic
@@ -83,7 +82,7 @@ object StatsInjector {
     }
 
     fun injectScenarioRangePersister(): ScenarioRangePersister {
-        return ScenarioRangePersister(injectJsonWriter())
+        return ScenarioRangePersister()
     }
 
     fun injectScenConverterFactory(): ScenConverterFactory {

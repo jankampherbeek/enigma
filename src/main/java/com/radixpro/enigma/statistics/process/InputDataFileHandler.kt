@@ -8,7 +8,7 @@ package com.radixpro.enigma.statistics.process
 
 import com.radixpro.enigma.Rosetta
 import com.radixpro.enigma.be.persistency.DataReaderCsv
-import com.radixpro.enigma.share.persistency.Writer
+import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.statistics.api.InputDataFileRequest
 import com.radixpro.enigma.statistics.api.InputDataFileResponse
 import org.apache.log4j.Logger
@@ -17,8 +17,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
 
-class InputDataFileHandler(private val dataReaderCsv: DataReaderCsv,
-                           private val jsonWriter: Writer) {
+class InputDataFileHandler(private val dataReaderCsv: DataReaderCsv) {
     fun handleDataFile(request: InputDataFileRequest): InputDataFileResponse {
         var errorLines: List<String> = ArrayList()
         var resultMsg: String
@@ -28,7 +27,7 @@ class InputDataFileHandler(private val dataReaderCsv: DataReaderCsv,
             val inputDataSet = dataReaderCsv.readCsv(request.dataName, request.description, request.dataFile.absolutePath)
             errorLines = dataReaderCsv.errorLines
             success = dataReaderCsv.isNoErrors
-            jsonWriter.write2File(pathFilename, inputDataSet, true)
+            JsonWriter().write2File(pathFilename, inputDataSet, true)
             resultMsg = if (success) Rosetta.getText("inputdata.response.resultmsg") + " " + pathFilename else Rosetta.getText("inputdata.response.errormsg")
         } catch (ide: InputDataException) {
             success = false

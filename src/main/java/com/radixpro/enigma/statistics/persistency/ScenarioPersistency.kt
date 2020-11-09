@@ -7,7 +7,7 @@
 
 package com.radixpro.enigma.statistics.persistency
 
-import com.radixpro.enigma.share.persistency.Writer
+import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.statistics.core.ScenarioBe
 
 interface ScenarioPersister {
@@ -15,10 +15,10 @@ interface ScenarioPersister {
 }
 
 
-class ScenarioRangePersister(val writer: Writer) : ScenarioPersister {
+class ScenarioRangePersister() : ScenarioPersister {
 
     override fun saveScenario(scenarioBe: ScenarioBe, pathFileName: String) {
-        writer.write2File(pathFileName, scenarioBe, true)
+        JsonWriter().write2File(pathFileName, scenarioBe, true)
     }
 
 }
