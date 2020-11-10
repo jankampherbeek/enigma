@@ -8,6 +8,7 @@
 package com.radixpro.enigma.statistics.di
 
 
+import com.radixpro.enigma.be.calc.SeFrontend
 import com.radixpro.enigma.be.persistency.BePersistencyInjector
 import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataFileDao
 import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataReaderCsv
@@ -56,6 +57,10 @@ object StatsInjector {
         return PersistedDataFileApi(injectDataFileHandler())
     }
 
+    fun injectPointsCalculator(): PointsCalculator {
+        return PointsCalculator(SeFrontend)
+    }
+
     fun injectProjectConverter(): ProjectConverter {
         return ProjectConverter()
     }
@@ -67,7 +72,6 @@ object StatsInjector {
     fun injectScenarioGeneralHandler(): ScenarioGeneralHandler {
         return ScenarioGeneralHandler(injectFileReader(), injectScenarioGeneralFileMapper(), injectStatsPathConstructor())
     }
-
 
     fun injectScenarioHandlerFactory(): ScenarioHandlerFactory {
         return ScenarioHandlerFactory()
@@ -93,7 +97,12 @@ object StatsInjector {
         return ScenGeneralApi(injectScenarioHandlerFactory(), injectScenConverterFactory())
     }
 
-    fun injectStatsPathConstructor(): PathConstructor {
+    fun injectScenRangeProcessor(): ScenRangeProcessor {
+        return ScenRangeProcessor(injectPointsCalculator(), injectStatsProjHandler(), injectDataFileHandler(), injectStatsPathConstructor(),
+                injectJsonReader(), SeFrontend)
+    }
+
+    fun injectStatsPathConstructor(): StatsPathConstructor {
         return StatsPathConstructor(injectGlobalPropertyApi())
     }
 

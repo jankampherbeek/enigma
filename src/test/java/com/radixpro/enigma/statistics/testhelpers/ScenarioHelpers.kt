@@ -8,6 +8,7 @@
 package com.radixpro.enigma.statistics.testhelpers
 
 import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.MundanePointsAstron
 import com.radixpro.enigma.statistics.core.ScenRangeBe
 import com.radixpro.enigma.statistics.ui.domain.ScenRangeFe
@@ -22,17 +23,18 @@ class ScenarioCreators {
     private val scenType = "RANGE"
     private val notExistingScenType = "DOES NOT EXIST"
     private val rangeTypeName = "SIGNS"
+    private val houseSystemName = "PLACIDUS"
 
     fun createScenRangeFe(): ScenRangeFe {
-        return ScenRangeFe(scenName, rangeDescr, projName, scenType, rangeTypeName, createCelObjectNames(), createMundanePointNames())
+        return ScenRangeFe(scenName, rangeDescr, projName, scenType, rangeTypeName, houseSystemName, createCelObjectNames(), createMundanePointNames())
     }
 
     fun createScenRangeBe(): ScenRangeBe {
-        return ScenRangeBe(scenName, rangeDescr, projName, ScenarioTypes.RANGE, StatsRangeTypes.SIGNS, createCelObjects(), createMundanePoints())
+        return ScenRangeBe(scenName, rangeDescr, projName, ScenarioTypes.RANGE, StatsRangeTypes.SIGNS, HouseSystems.PLACIDUS, createCelObjects(), createMundanePoints())
     }
 
     fun createScenRangeFeError(): ScenRangeFe {
-        return ScenRangeFe(scenName, rangeDescr, projName, notExistingScenType, rangeTypeName, createCelObjectNames(), createMundanePointNames())
+        return ScenRangeFe(scenName, rangeDescr, projName, notExistingScenType, rangeTypeName, houseSystemName, createCelObjectNames(), createMundanePointNames())
     }
 
     private fun createCelObjectNames(): List<String> {

@@ -8,6 +8,7 @@
 package com.radixpro.enigma.statistics.persistency
 
 import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.MundanePointsAstron
 import com.radixpro.enigma.statistics.core.ScenRangeBe
 import com.radixpro.enigma.statistics.core.ScenarioBe
@@ -95,9 +96,10 @@ class ScenarioRangeMapper : ScenarioMapper {
         val projectName = jsonObject["projectName"] as String
         val scenarioType = constructScenarioType(jsonObject["scenarioType"] as String)
         val rangeType = constructRangeType(jsonObject["rangeType"] as String)
+        val houseSystem = constructHouseSystem(jsonObject["houseSystem"] as String)
         val celObjects = constructAllCelObjects(jsonObject["celObjects"] as JSONArray)
         val mundanePoints = constructAllMundanePoints(jsonObject["mundanePoints"] as JSONArray)
-        return ScenRangeBe(name, description, projectName, scenarioType, rangeType, celObjects, mundanePoints)
+        return ScenRangeBe(name, description, projectName, scenarioType, rangeType, houseSystem, celObjects, mundanePoints)
     }
 
     private fun constructScenarioType(name: String): ScenarioTypes {
@@ -116,6 +118,15 @@ class ScenarioRangeMapper : ScenarioMapper {
         }
         log.error("Could not find StatsRangeTypes for $name when parsing Json for ScenarioRange.")
         throw (RuntimeException("StatsRangeType not found."))
+    }
+
+    private fun constructHouseSystem(name: String): HouseSystems {
+        val values = HouseSystems.values()
+        for (item in values) {
+            if (name == item.toString()) return item
+        }
+        log.error("Could not find HouseSystems for $name when parsing Json for ScenarioRange.")
+        throw (RuntimeException("Houseystem not found."))
     }
 
 }

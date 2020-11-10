@@ -43,4 +43,21 @@ internal class StatsPathConstructorTest {
     fun `Constructing a path for the location of a scenario gives the expected result`() {
         constructor.pathForScenario(scenName, projName) shouldBe "prop_path${sep}proj${sep}Abc${sep}scen_Xyz.json"
     }
+
+    @Test
+    fun `Constructing a path for the location of a json result file gives the expected result`() {
+        constructor.pathForJsonResult(scenName, projName) shouldBe "prop_path${sep}proj${sep}Abc${sep}results_Xyz.json"
+    }
+
+    @Test
+    fun `Constructing a path for the location of a csv result file gives the expected result`() {
+        constructor.pathForCsvResult(scenName, projName) shouldBe "prop_path${sep}proj${sep}Abc${sep}results_Xyz.csv"
+    }
+
+    @Test
+    fun `Constructing a path for the location of an imported datafile gives the expected result`() {
+        constructor.pathForData(projName) shouldBe "prop_path${sep}proj${sep}Abc${sep}in_Abc.json"
+    }
+
+
 }

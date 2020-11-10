@@ -19,5 +19,6 @@ data class ScenRangeFe(override val name: String,
                        override val projName: String,
                        override val typeName: String,
                        val rangeTypeName: String,
+                       val houseSystemName: String,
                        val celObjectNames: List<String>,
                        val mundanePointNames: List<String>) : ScenarioFe

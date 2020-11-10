@@ -8,6 +8,7 @@ package com.radixpro.enigma.statistics.core
 
 import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.MundanePointsAstron
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
@@ -58,6 +59,7 @@ data class ScenRangeBe(override val name: String,
                        override val projectName: String,
                        override val scenarioType: ScenarioTypes,
                        val rangeType: StatsRangeTypes,
+                       val houseSystem: HouseSystems,
                        val celObjects: List<CelestialObjects>,
                        val mundanePoints: List<MundanePointsAstron>) : ScenarioBe
 

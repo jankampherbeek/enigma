@@ -11,12 +11,14 @@ import com.radixpro.enigma.be.calc.SeFrontend
 import com.radixpro.enigma.be.calc.assist.CombinedFlags
 import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.SeFlags
 import com.radixpro.enigma.share.persistency.CsvWriter
 import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.share.persistency.Reader
 import com.radixpro.enigma.statistics.core.*
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
+import swisseph.SweConst.SE_ECL_NUT
 
 interface ScenProcessor {
     val calculator: StatsCalculator
@@ -26,8 +28,8 @@ interface ScenProcessor {
 class ScenRangeProcessor(override val calculator: StatsCalculator,
                          val projHandler: StatsProjHandler,
                          val dataHandler: InternalDataFileHandler,
+                         val pathConstructor: StatsPathConstructor,
                          val reader: Reader,
-                         val combinedFlags: CombinedFlags,
                          val seFrontend: SeFrontend) : ScenProcessor {
 
 
@@ -37,7 +39,7 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
         val project = projHandler.read(actualScenario.projectName) as StatsProject
         val inputDataSet = dataHandler.readData(project)
 
-        return if (rangeType == StatsRangeTypes.HOUSES) processMundanePositions()
+        return if (rangeType == StatsRangeTypes.HOUSES) processMundanePositions(scenario, inputDataSet)
         else processEclipticalPositions(project, actualScenario, rangeType, inputDataSet)
     }
 
@@ -45,32 +47,27 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
         val divider = defineDivider(rangeType)
         val allData = inputDataSet.inputData
         val celObjects = scenario.celObjects
-        val flags = combinedFlags.getCombinedValue(listOf(SeFlags.SWISSEPH, SeFlags.SPEED))
-        val positionsPerChart = definePositions(allData, celObjects, flags, divider);
+        val flags = CombinedFlags().getCombinedValue(listOf(SeFlags.SWISSEPH, SeFlags.SPEED))
+        val positionsPerChart = defineEclipticPositions(allData, celObjects, flags, divider);
         val results = defineSegmentTotals(positionsPerChart.toList(), scenario, divider)
         val rangeSegmentResults = RangeSegmentResults(scenario, results, positionsPerChart)
-        val pathToFilename = ""         // TODO define path
+        var pathToFilename = pathConstructor.pathForJsonResult(scenario.name, scenario.projectName)
         JsonWriter().write2File(pathToFilename, rangeSegmentResults, true)
         val csvText = CsvTextForRange().createTextLines(rangeSegmentResults, divider)
+        pathToFilename = pathConstructor.pathForCsvResult(scenario.name, scenario.projectName)
         CsvWriter().write2File(pathToFilename, csvText)
-
-        // create text for UI
-        // return text for UI
-
-        return ""
+        return FixedTextForRange().createFormattedText(rangeSegmentResults, divider)
     }
 
 
-    private fun processMundanePositions(): String {
-        // swe_house_pos
+    private fun processMundanePositions(scenario: ScenRangeBe, inputDataSet: InputDataSet): String {
+        val divider = scenario.houseSystem.nrOfCusps
+        val allData = inputDataSet.inputData
+        val celObjects = scenario.celObjects
+        val flags = CombinedFlags().getCombinedValue(listOf(SeFlags.SWISSEPH, SeFlags.SPEED))
 
-        // double swe_house_pos(
-        //double armc,         /* ARMC */
-        //double geolat,       /* geographic latitude, in degrees */
-        //double eps,               /* ecliptic obliquity, in degrees */
-        //int hsys,                 /* house method, one of the letters PKRCAV */
-        //double *xpin,        /* array of 2 doubles: ecl. longitude and latitude of the planet */
-        //char *serr);              /* return area for error or warning message *
+
+
 
         return ""
     }
@@ -94,10 +91,10 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
         }
     }
 
-    private fun definePositions(allData: List<ChartInputData>,
-                                celObjects: List<CelestialObjects>,
-                                flags: Long,
-                                divider: Int): MutableList<ScenRangePositionsPerChart> {
+    private fun defineEclipticPositions(allData: List<ChartInputData>,
+                                        celObjects: List<CelestialObjects>,
+                                        flags: Long,
+                                        divider: Int): MutableList<ScenRangePositionsPerChart> {
         val positionsPerChart: MutableList<ScenRangePositionsPerChart> = mutableListOf()
         for (chart: ChartInputData in allData) {
             val chartId = chart.id
@@ -111,23 +108,51 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
         }
         return positionsPerChart
     }
-}
 
-private fun defineSegmentTotals(positionsPerChart: List<ScenRangePositionsPerChart>, scenario: ScenRangeBe, divider: Int): Array<Array<Int>> {
-    val usedObjects = scenario.celObjects
-    val objectSize = usedObjects.size
-    val segmentSize = divider
-    var matrix = Array(objectSize) { Array(segmentSize + 1) { 0 } }
 
-    for (posPerChart: ScenRangePositionsPerChart in positionsPerChart) {
-        for ((objectIndex: Int, pos: ScenRangePosition) in posPerChart.positions.withIndex()) {
-            var segmentIndex = pos.segment
-            matrix[objectIndex][pos.segment]++
-            matrix[objectIndex][segmentSize]++
+    private fun defineHousePositions(allData: List<ChartInputData>,
+                                     celObjects: List<CelestialObjects>,
+                                     flags: Long,
+                                     houseSystem: HouseSystems,
+                                     divider: Int): MutableList<ScenRangePositionsPerChart> {
+        val positionsPerChart: MutableList<ScenRangePositionsPerChart> = mutableListOf()
+        for (chart: ChartInputData in allData) {
+            val chartId = chart.id
+            val positions: MutableList<ScenRangePosition> = mutableListOf()
+            for (celObject: CelestialObjects in celObjects) {
+                val lon = calcLongitude(chart, flags)
+                val geoLat = chart.location.geoLat
+                val positionsForHouses = seFrontend.getPositionsForHouses(chart.dateTime.jd, flags.toInt(), chart.location,
+                        houseSystem.seId.toInt(), houseSystem.nrOfCusps)
+                val armc = positionsForHouses.ascMc[2]
+                val eps = seFrontend.getPositionsForEpsilon(chart.dateTime.jd, SE_ECL_NUT, flags.toInt()).allPositions[0]
+                var error = StringBuffer()
+                val lonLat = arrayOf(lon, 0.0).toDoubleArray()
+                val housePos = seFrontend.getPositionInHouse(armc, geoLat, eps, houseSystem.seId.toInt(), lonLat, error)
+                val segment = housePos.toInt()
+                positions.add(ScenRangePosition(celObject, housePos, segment))
+            }
+            positionsPerChart.add(ScenRangePositionsPerChart(chartId, positions.toList()))
         }
-
+        return positionsPerChart
     }
-    return matrix
+
+    private fun defineSegmentTotals(positionsPerChart: List<ScenRangePositionsPerChart>, scenario: ScenRangeBe, divider: Int): Array<Array<Int>> {
+        val usedObjects = scenario.celObjects
+        val objectSize = usedObjects.size
+        val segmentSize = divider
+        var matrix = Array(objectSize) { Array(segmentSize + 1) { 0 } }
+
+        for (posPerChart: ScenRangePositionsPerChart in positionsPerChart) {
+            for ((objectIndex: Int, pos: ScenRangePosition) in posPerChart.positions.withIndex()) {
+                var segmentIndex = pos.segment
+                matrix[objectIndex][pos.segment]++
+                matrix[objectIndex][segmentSize]++
+            }
+
+        }
+        return matrix
+    }
 }
 
 

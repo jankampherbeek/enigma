@@ -8,6 +8,7 @@
 package com.radixpro.enigma.statistics.api.converters
 
 import com.radixpro.enigma.references.CelestialObjects
+import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.MundanePointsAstron
 import com.radixpro.enigma.statistics.core.ScenRangeBe
 import com.radixpro.enigma.statistics.core.ScenarioBe
@@ -41,6 +42,7 @@ class ScenRangeConverter : ScenarioConverter {
                 scenario.projName,
                 ScenarioTypes.valueOf(scenario.typeName),
                 StatsRangeTypes.valueOf(scenario.rangeTypeName),
+                HouseSystems.valueOf(scenario.houseSystemName),
                 createCelestialObjects(scenario.celObjectNames),
                 createMundanePoints(scenario.mundanePointNames)
         )
@@ -54,6 +56,7 @@ class ScenRangeConverter : ScenarioConverter {
                 scenario.projectName,
                 scenario.scenarioType.name,
                 scenario.rangeType.name,
+                scenario.houseSystem.name,
                 createCelObjectNames(scenario.celObjects),
                 createMundanePointNames(scenario.mundanePoints)
         )

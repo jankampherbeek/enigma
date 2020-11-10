@@ -31,6 +31,7 @@ internal class ScenRangeBeMapperTest {
             "  \"projectName\" : \"testProject\",\n" +
             "  \"scenarioType\" : \"RANGE\",\n" +
             "  \"rangeType\" : \"SIGNS\",\n" +
+            "  \"houseSystem\" : \"PLACIDUS\",\n" +
             "  \"celObjects\" : [ \"SUN\", \"PLUTO\" ],\n" +
             "  \"mundanePoints\" : [ \"ASC\", \"MC\" ]\n" +
             "}"

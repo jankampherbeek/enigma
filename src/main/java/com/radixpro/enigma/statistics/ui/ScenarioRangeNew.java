@@ -10,6 +10,7 @@ package com.radixpro.enigma.statistics.ui;
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.astronomy.ui.domain.CelObjects;
 import com.radixpro.enigma.astronomy.ui.domain.MundanePoints;
+import com.radixpro.enigma.references.HouseSystems;
 import com.radixpro.enigma.statistics.ui.domain.ScenRangeFe;
 import com.radixpro.enigma.statistics.ui.domain.ScenarioFe;
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes;
@@ -39,9 +40,11 @@ public class ScenarioRangeNew {
    private Pane paneTitle;
    private Pane paneName;
    private Pane paneRangeType;
+   private Pane paneHouseSystem;
    private Pane paneCelObjects;
    private Pane paneMundanePoints;
    private ComboBox cbRangeTypes;
+   private ComboBox cbHouseSystems;
    private CheckComboBox ccbCelObjects;
    private CheckComboBox ccbMundanePoints;
    private TextField tfDivision;
@@ -80,6 +83,11 @@ public class ScenarioRangeNew {
       cbRangeTypes.setPrefWidth(HALFWIDTH);
       HBox hbRangeType = new HBoxBuilder().setPrefWidth(WIDTH).setPrefHeight(30.0).setChildren(lblRangeType, cbRangeTypes).build();
       paneRangeType = new PaneBuilder().setHeight(30.0).setWidth(WIDTH).setChildren(hbRangeType).build();
+      Label lblHouseSystem = new LabelBuilder("ui.stats.scenrangenew.housesystem").setPrefWidth(HALFWIDTH).build();
+      cbHouseSystems = new ComboBox();
+      cbHouseSystems.setPrefWidth(HALFWIDTH);
+      HBox hbHouseSystem = new HBoxBuilder().setPrefWidth(WIDTH).setPrefHeight(30.0).setChildren(lblHouseSystem, cbHouseSystems).build();
+      paneHouseSystem = new PaneBuilder().setHeight(30.0).setWidth(WIDTH).setChildren(hbHouseSystem).build();
       Label lblCelPoints = new LabelBuilder("ui.stats.scenrangenew.celpoints").setPrefWidth(HALFWIDTH).build();
       ccbCelObjects = new CheckComboBoxBuilder().setPrefWidth(HALFWIDTH).build();
       HBox hbCelObjects = new HBoxBuilder().setPrefHeight(30.0).setPrefWidth(WIDTH).setChildren(lblCelPoints, ccbCelObjects).build();
@@ -98,6 +106,11 @@ public class ScenarioRangeNew {
          cbRangeTypes.getItems().add(Rosetta.getText(srt.getRbKey()));
       }
       cbRangeTypes.getSelectionModel().selectFirst();
+      final HouseSystems[] valuesHS = HouseSystems.values();
+      for (HouseSystems hs : valuesHS) {
+         cbHouseSystems.getItems().add(Rosetta.getText(hs.getNameForRB()));
+      }
+      cbHouseSystems.getSelectionModel().selectFirst();
       final CelObjects[] valuesCO = CelObjects.values();
       for (CelObjects co : valuesCO) {
          ccbCelObjects.getItems().add(Rosetta.getText(co.getRbKey()));
@@ -117,6 +130,7 @@ public class ScenarioRangeNew {
             paneTitle,
             paneName,
             paneRangeType,
+            paneHouseSystem,
             paneCelObjects,
             paneMundanePoints,
             createPaneBtnBar()
@@ -137,7 +151,9 @@ public class ScenarioRangeNew {
    private void onSave() {
       if (validInput()) {
          int rangeTypeIndex = cbRangeTypes.getSelectionModel().getSelectedIndex();
+         int houseSystemIndex = cbHouseSystems.getSelectionModel().getSelectedIndex();
          String rangeTypeName = StatsRangeTypes.values()[rangeTypeIndex].name();
+         String houseSystemName = HouseSystems.values()[houseSystemIndex].name();
          CelObjects[] celObjectValues = CelObjects.values();
          List<String> celObjectNames = new ArrayList<>();
          final ObservableList checkedCelObjectIndexes = ccbCelObjects.getCheckModel().getCheckedIndices();
@@ -152,7 +168,7 @@ public class ScenarioRangeNew {
             MundanePoints currentMp = mundPointValues[(int) index];
             mundPointNames.add(currentMp.name());
          }
-         ScenarioFe scenario = new ScenRangeFe(scenName, scenDescr, projName, typeName, rangeTypeName, celObjectNames, mundPointNames);
+         ScenarioFe scenario = new ScenRangeFe(scenName, scenDescr, projName, typeName, rangeTypeName, houseSystemName, celObjectNames, mundPointNames);
          facade.writeScenario(scenario);
 
       }

@@ -38,7 +38,7 @@ class ScenRangeDetailsTextTest {
         val celObjects = listOf("SUN", "MARS", "NEPTUNE")
         val mundPoints = listOf("ASC", "VERTEX")
         return ScenRangeFe("My Scenario", "A possibly longer textual description.", "Just a project", "RANGE",
-                "SIGNS", celObjects, mundPoints)
+                "SIGNS", "PLACIDUS", celObjects, mundPoints)
 
     }
 
