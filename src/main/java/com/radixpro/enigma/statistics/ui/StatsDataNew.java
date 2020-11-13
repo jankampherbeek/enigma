@@ -9,7 +9,7 @@ package com.radixpro.enigma.statistics.ui;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.share.api.PropertyApi;
-import com.radixpro.enigma.statistics.api.InputDataFileApi;
+import com.radixpro.enigma.statistics.api.GlobalDataApi;
 import com.radixpro.enigma.statistics.api.InputDataFileRequest;
 import com.radixpro.enigma.statistics.api.InputDataFileResponse;
 import com.radixpro.enigma.statistics.ui.domain.DataInputFormats;
@@ -35,7 +35,7 @@ public class StatsDataNew {
 
    private static final String KEY_PROJDIR = "projdir";
    private static final double HEIGHT = 360.0;
-   private final InputDataFileApi inputDataFileApi;
+   private final GlobalDataApi globalDataApi;
    private final PropertyApi propApi;
    private Stage stage;
    private Button btnDataFile;
@@ -53,9 +53,9 @@ public class StatsDataNew {
    private DataInputFormats selectedInputFormat;
 
 
-   public StatsDataNew(@NotNull final InputDataFileApi inputDataFileApi,
+   public StatsDataNew(@NotNull final GlobalDataApi globalDataApi,
                        @NotNull final PropertyApi propApi) {
-      this.inputDataFileApi = inputDataFileApi;
+      this.globalDataApi = globalDataApi;
       this.propApi = propApi;
    }
 
@@ -153,7 +153,7 @@ public class StatsDataNew {
    private void processDataFile(final File dataFile) {
       String fullPathProjdir = propApi.read(KEY_PROJDIR).get(0).getValue();
       InputDataFileRequest request = new InputDataFileRequest(tfName.getText(), tfDescr.getText(), dataFile, fullPathProjdir);
-      InputDataFileResponse response = inputDataFileApi.addDataFile(request);
+      InputDataFileResponse response = globalDataApi.addDataFile(request);
       lblResults.setText(response.getResultMsg());
    }
 

@@ -6,10 +6,11 @@
  */
 package com.radixpro.enigma.be.persistency
 
-import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectInputDataSetMapper
-import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectStatsProjMapper
 import com.radixpro.enigma.share.di.ShareInjector.injectJsonReader
-import com.radixpro.enigma.shared.converters.ShConvertersInjector.injectCsv2LocationConverter
+import com.radixpro.enigma.statistics.di.StatsInjector.injectInputDataSetMapper
+import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsPathConstructor
+import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsProjMapper
+import com.radixpro.enigma.statistics.persistency.GlobalDataDao
 import com.radixpro.enigma.statistics.persistency.StatsProjDaoJson
 
 object BePersistencyInjector {
@@ -21,12 +22,8 @@ object BePersistencyInjector {
         return ConfigurationDao()
     }
 
-    fun injectDataFileDao(): InternalDataFileDao {
-        return InternalDataFileDao(injectJsonReader(), injectInputDataSetMapper())
-    }
-
-    fun injectDataReaderCsv(): DataReaderCsv {
-        return DataReaderCsv(injectCsv2LocationConverter())
+    fun injectDataFileDao(): GlobalDataDao {
+        return GlobalDataDao(injectJsonReader(), injectInputDataSetMapper(), injectStatsPathConstructor())
     }
 
     fun injectStatsProjDao(): StatsProjDaoJson {

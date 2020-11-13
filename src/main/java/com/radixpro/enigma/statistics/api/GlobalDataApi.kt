@@ -6,11 +6,13 @@
  */
 package com.radixpro.enigma.statistics.api
 
-import com.radixpro.enigma.statistics.process.InputDataFileHandler
+import com.radixpro.enigma.statistics.process.GlobalDataHandler
 
-class InputDataFileApi(private val handler: InputDataFileHandler) {
+class GlobalDataApi(private val handler: GlobalDataHandler) {
 
     fun addDataFile(request: InputDataFileRequest): InputDataFileResponse {
-        return handler.handleDataFile(request)
+        return handler.addDataFile(request)
     }
+
+
 }

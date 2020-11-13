@@ -29,6 +29,7 @@ public class ProjectManager {
    private static final double WIDTH = 600.0;
    private final ScenarioNew scenarioNew;
    private final ScenarioDetails scenarioDetails;
+   private final ProcessingResult processingResult;
    private Stage stage;
    private Label lblName;
    private Pane paneTitle;
@@ -41,10 +42,12 @@ public class ProjectManager {
 
    public ProjectManager(@NotNull final StatsFacade facade,
                          @NotNull final ScenarioNew scenarioNew,
-                         @NotNull final ScenarioDetails scenarioDetails) {
+                         @NotNull final ScenarioDetails scenarioDetails,
+                         @NotNull final ProcessingResult processingResult) {
       this.facade = facade;
       this.scenarioNew = scenarioNew;
       this.scenarioDetails = scenarioDetails;
+      this.processingResult = processingResult;
    }
 
    public void show(@NotNull final String projName) {
@@ -101,8 +104,8 @@ public class ProjectManager {
       // TODO onClick btnDelete
       Button btnDetails = new ButtonBuilder("ui.shared.btn.details").setDisabled(false).setFocusTraversable(true).build();
       btnDetails.setOnAction(e -> onDetails());
-      Button btnRun = new ButtonBuilder("ui.stats.projman.run").setDisabled(true).setFocusTraversable(false).build();
-      // TODO onClick btnRun
+      Button btnRun = new ButtonBuilder("ui.stats.projman.run").setDisabled(false).setFocusTraversable(true).build();
+      btnRun.setOnAction(e -> onRun());
       Button btnNew = new ButtonBuilder("ui.shared.btn.new").setDisabled(false).setFocusTraversable(true).build();
       btnNew.setOnAction(e -> onNewScenario());
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnDelete, btnDetails, btnRun, btnNew).build();
@@ -127,6 +130,12 @@ public class ProjectManager {
 
    private void onNewScenario() {
       scenarioNew.show(projName);
+   }
+
+   private void onRun() {
+      int index = tableView.getSelectionModel().getSelectedIndex();
+      String selectedScenario = scenarios.get(index);
+      processingResult.show(selectedScenario, projName);
    }
 
    private void onHelp() {

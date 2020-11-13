@@ -39,4 +39,8 @@ object ShareInjector {
         return JsonReader()
     }
 
+    fun injectJsonWriter(): JsonWriter {
+        return JsonWriter()
+    }
+
 }

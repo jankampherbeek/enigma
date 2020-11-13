@@ -4,7 +4,7 @@
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
-package com.radixpro.enigma.be.persistency.mappers
+package com.radixpro.enigma.statistics.persistency
 
 import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.domain.input.DateTimeJulian

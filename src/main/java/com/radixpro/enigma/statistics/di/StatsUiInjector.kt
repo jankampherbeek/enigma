@@ -8,9 +8,10 @@
 package com.radixpro.enigma.statistics.di
 
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyApi
-import com.radixpro.enigma.statistics.di.StatsInjector.injectInputDataFileApi
+import com.radixpro.enigma.statistics.di.StatsInjector.injectGlobalDataApi
 import com.radixpro.enigma.statistics.di.StatsInjector.injectPersistedDataFileApi
 import com.radixpro.enigma.statistics.di.StatsInjector.injectScenGeneralApi
+import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsProcessApi
 import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsProjApi
 import com.radixpro.enigma.statistics.ui.*
 import com.radixpro.enigma.statistics.ui.helpers.ScenRangeDetailsText
@@ -18,6 +19,10 @@ import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector.injectBaseCon
 import javafx.stage.DirectoryChooser
 
 object StatsUiInjector {
+
+    fun injectProcessingResult(): ProcessingResult {
+        return ProcessingResult(injectStatsFacade())
+    }
 
     fun injectScenarioDetails(): ScenarioDetails {
         return ScenarioDetails(injectStatsFacade(), injectScenRangeDetailsText())
@@ -36,7 +41,7 @@ object StatsUiInjector {
     }
 
     fun injectProjectManager(): ProjectManager {
-        return ProjectManager(injectStatsFacade(), injectScenarioNew(), injectScenarioDetails())
+        return ProjectManager(injectStatsFacade(), injectScenarioNew(), injectScenarioDetails(), injectProcessingResult())
     }
 
     fun injectStatsDataDetail(): StatsDataDetail {
@@ -44,7 +49,7 @@ object StatsUiInjector {
     }
 
     fun injectStatsDataNew(): StatsDataNew {
-        return StatsDataNew(injectInputDataFileApi(), injectGlobalPropertyApi())
+        return StatsDataNew(injectGlobalDataApi(), injectGlobalPropertyApi())
     }
 
     fun injectStatsDataSearch(): StatsDataSearch {
@@ -52,7 +57,7 @@ object StatsUiInjector {
     }
 
     fun injectStatsFacade(): StatsFacade {
-        return StatsFacade(injectStatsProjApi(), injectScenGeneralApi())
+        return StatsFacade(injectStatsProjApi(), injectStatsProcessApi(), injectScenGeneralApi())
     }
 
     fun injectStatsProjNew(): StatsProjNew {

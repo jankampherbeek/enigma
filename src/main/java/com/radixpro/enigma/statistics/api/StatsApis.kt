@@ -12,6 +12,7 @@ import com.radixpro.enigma.statistics.api.converters.ScenConverterFactory
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
 import com.radixpro.enigma.statistics.core.IStatsProject
 import com.radixpro.enigma.statistics.process.ScenarioHandlerFactory
+import com.radixpro.enigma.statistics.process.StatsProcessHandler
 import com.radixpro.enigma.statistics.process.StatsProjHandler
 import com.radixpro.enigma.statistics.ui.domain.ScenarioFe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
@@ -66,6 +67,23 @@ class ScenGeneralApi(private val handlerFactory: ScenarioHandlerFactory,
         val handler = handlerFactory.getHandler(type)
         val converter = converterFactory.getConverter(type)
         return converter.beRequestToFe(handler.readScenario(scenName, projName))
+    }
+
+}
+
+
+class StatsProcessApi(private val handler: StatsProcessHandler, private val converterFactory: ScenConverterFactory) {
+
+    fun processScenario(scenFe: ScenarioFe): String {
+        val scenType = ScenarioTypes.valueOf(scenFe.typeName)
+        return if (scenType == ScenarioTypes.RANGE) handleScenRange(handler, scenFe)
+        else ""
+    }
+
+    private fun handleScenRange(handler: StatsProcessHandler, scenFe: ScenarioFe): String {
+        val converter = converterFactory.getConverter(ScenarioTypes.RANGE)
+        val scenBe = converter.feRequestToBe(scenFe)
+        return handler.handleProcess(scenBe)
     }
 
 }

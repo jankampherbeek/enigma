@@ -6,7 +6,6 @@
  */
 package com.radixpro.enigma.statistics.process
 
-import com.radixpro.enigma.be.persistency.mappers.InputDataSetMapper
 import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.domain.input.DateTimeParts
 import com.radixpro.enigma.domain.input.Location
@@ -16,6 +15,7 @@ import com.radixpro.enigma.share.persistency.Reader
 import com.radixpro.enigma.share.process.PropertyHandler
 import com.radixpro.enigma.statistics.core.InputDataSet
 import com.radixpro.enigma.statistics.core.StatsProject
+import com.radixpro.enigma.statistics.persistency.InputDataSetMapper
 import com.radixpro.enigma.ui.helpers.DateTimeCreator
 import java.io.File
 import java.time.LocalDateTime

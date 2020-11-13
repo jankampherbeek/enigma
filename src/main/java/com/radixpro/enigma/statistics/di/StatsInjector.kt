@@ -11,26 +11,28 @@ package com.radixpro.enigma.statistics.di
 import com.radixpro.enigma.be.calc.SeFrontend
 import com.radixpro.enigma.be.persistency.BePersistencyInjector
 import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataFileDao
-import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataReaderCsv
-import com.radixpro.enigma.be.persistency.mappers.BePersMappersInjector.injectInputDataSetMapper
 import com.radixpro.enigma.share.di.ShareInjector.injectFileReader
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyApi
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyHandler
 import com.radixpro.enigma.share.di.ShareInjector.injectJsonReader
-import com.radixpro.enigma.statistics.api.InputDataFileApi
+import com.radixpro.enigma.share.di.ShareInjector.injectJsonWriter
+import com.radixpro.enigma.shared.converters.Csv2LocationConverter
+import com.radixpro.enigma.statistics.api.GlobalDataApi
 import com.radixpro.enigma.statistics.api.ScenGeneralApi
+import com.radixpro.enigma.statistics.api.StatsProcessApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
 import com.radixpro.enigma.statistics.api.converters.ProjectConverter
 import com.radixpro.enigma.statistics.api.converters.ScenConverterFactory
 import com.radixpro.enigma.statistics.api.converters.ScenRangeConverter
-import com.radixpro.enigma.statistics.persistency.ScenarioGeneralFileMapper
-import com.radixpro.enigma.statistics.persistency.ScenarioMapper
-import com.radixpro.enigma.statistics.persistency.ScenarioRangeMapper
-import com.radixpro.enigma.statistics.persistency.ScenarioRangePersister
+import com.radixpro.enigma.statistics.persistency.*
 import com.radixpro.enigma.statistics.process.*
 import com.radixpro.enigma.xchg.api.PersistedDataFileApi
 
 object StatsInjector {
+
+    fun injectChartDataCsvMapper(): ChartDataCsvMapper {
+        return ChartDataCsvMapper()
+    }
 
     fun injectControlDataCalendar(): ControlDataCalendar {
         return ControlDataCalendar()
@@ -40,21 +42,46 @@ object StatsInjector {
         return ControlDataCharts(injectJsonReader(), injectGlobalPropertyHandler(), injectInputDataSetMapper(), injectControlDataCalendar())
     }
 
-    fun injectDataFileHandler(): InternalDataFileHandler {
-        return InternalDataFileHandler(injectDataFileDao(), injectGlobalPropertyHandler())
+    fun injectCsv2LocationConverter(): Csv2LocationConverter {
+        return Csv2LocationConverter()
     }
 
-    fun injectInputDataFileApi(): InputDataFileApi {
-        return InputDataFileApi(injectInputDataFileHandler())
+    fun injectDataFileHandler(): GlobalDataHandler {
+        return GlobalDataHandler(injectDataFileDao(), injectInputDataReader(), injectJsonWriter(), injectStatsPathConstructor())
     }
 
-    fun injectInputDataFileHandler(): InputDataFileHandler {
-        return InputDataFileHandler(injectDataReaderCsv())
+    fun injectGlobalDataApi(): GlobalDataApi {
+        return GlobalDataApi(injectGlobalDataHandler())
+    }
+
+    fun injectGlobalDataDao(): GlobalDataDao {
+        return GlobalDataDao(injectJsonReader(), injectInputDataSetMapper(), injectStatsPathConstructor())
+    }
+
+    fun injectGlobalDataHandler(): GlobalDataHandler {
+        return GlobalDataHandler(injectGlobalDataDao(), injectInputDataReader(), injectJsonWriter(), injectStatsPathConstructor())
+    }
+
+    fun injectProjectDataDao(): ProjectDataDao {
+        return ProjectDataDao(injectJsonReader(), injectInputDataSetMapper(), injectStatsPathConstructor())
+    }
+
+    fun injectProjectDataHandler(): ProjectDataHandler {
+        return ProjectDataHandler(injectProjectDataDao())
     }
 
     @JvmStatic
     fun injectPersistedDataFileApi(): PersistedDataFileApi {
         return PersistedDataFileApi(injectDataFileHandler())
+    }
+
+    fun injectInputDataReader(): InputDataReader {
+        return InputDataReader(injectCsv2LocationConverter())
+    }
+
+    @JvmStatic
+    fun injectInputDataSetMapper(): InputDataSetMapper {
+        return InputDataSetMapper()
     }
 
     fun injectPointsCalculator(): PointsCalculator {
@@ -98,9 +125,10 @@ object StatsInjector {
     }
 
     fun injectScenRangeProcessor(): ScenRangeProcessor {
-        return ScenRangeProcessor(injectPointsCalculator(), injectStatsProjHandler(), injectDataFileHandler(), injectStatsPathConstructor(),
+        return ScenRangeProcessor(injectPointsCalculator(), injectStatsProjHandler(), injectProjectDataHandler(), injectStatsPathConstructor(),
                 injectJsonReader(), SeFrontend)
     }
+
 
     fun injectStatsPathConstructor(): StatsPathConstructor {
         return StatsPathConstructor(injectGlobalPropertyApi())
@@ -110,13 +138,24 @@ object StatsInjector {
         return ScenRangeConverter()
     }
 
+    fun injectStatsProcessApi(): StatsProcessApi {
+        return StatsProcessApi(injectStatsProcessHandler(), injectScenConverterFactory())
+    }
+
     @JvmStatic
     fun injectStatsProjApi(): StatsProjApi {
         return StatsProjApi(injectStatsProjHandler(), injectProjectConverter())
+    }
+
+    fun injectStatsProcessHandler(): StatsProcessHandler {
+        return StatsProcessHandler(injectScenRangeProcessor())
     }
 
     fun injectStatsProjHandler(): StatsProjHandler {
         return StatsProjHandler(BePersistencyInjector.injectStatsProjDao(), injectGlobalPropertyHandler(), injectControlDataCharts())
     }
 
+    fun injectStatsProjMapper(): StatsProjMapper {
+        return StatsProjMapper()
+    }
 }

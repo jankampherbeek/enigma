@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.be.persistency;
+package com.radixpro.enigma.statistics.persistency;
 
 import com.opencsv.CSVReader;
 import com.radixpro.enigma.domain.input.ChartInputData;
@@ -32,13 +32,13 @@ import static com.google.common.base.Preconditions.checkArgument;
 /**
  * Reader for csv files using CSV_STANDARD_CHART or CSV_STANDARD_EVENT
  */
-public class DataReaderCsv {
+public class InputDataReader {
 
    private final Csv2LocationConverter locationConverter;
    private List<String> errorLines;
    private boolean noErrors;
 
-   public DataReaderCsv(@NotNull final Csv2LocationConverter locationConverter) {
+   public InputDataReader(@NotNull final Csv2LocationConverter locationConverter) {
       this.locationConverter = locationConverter;
    }
 

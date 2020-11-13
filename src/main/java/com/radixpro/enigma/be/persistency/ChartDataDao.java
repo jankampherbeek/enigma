@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Dao for chart data. Reads and persists the data to calcualte a chart, but not the calculated chart itself.
+ * Dao for data for a chart. Reads and persists the data to calculate a chart, but not the calculated chart itself.
  */
 public class ChartDataDao extends DaoParent {
 

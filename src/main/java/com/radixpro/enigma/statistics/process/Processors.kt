@@ -27,7 +27,7 @@ interface ScenProcessor {
 
 class ScenRangeProcessor(override val calculator: StatsCalculator,
                          val projHandler: StatsProjHandler,
-                         val dataHandler: InternalDataFileHandler,
+                         val dataHandler: ProjectDataHandler,
                          val pathConstructor: StatsPathConstructor,
                          val reader: Reader,
                          val seFrontend: SeFrontend) : ScenProcessor {
@@ -36,14 +36,15 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
     override fun process(scenario: ScenarioBe): String {
         val actualScenario = scenario as ScenRangeBe
         val rangeType = scenario.rangeType
-        val project = projHandler.read(actualScenario.projectName) as StatsProject
-        val inputDataSet = dataHandler.readData(project)
+//        val project = projHandler.read(actualScenario.projectName) as StatsProject
+        val inputDataSet = dataHandler.readChartData(scenario.projectName)
 
         return if (rangeType == StatsRangeTypes.HOUSES) processMundanePositions(scenario, inputDataSet)
-        else processEclipticalPositions(project, actualScenario, rangeType, inputDataSet)
+        else processEclipticalPositions(actualScenario, rangeType, inputDataSet)
     }
 
-    fun processEclipticalPositions(project: StatsProject, scenario: ScenRangeBe, rangeType: StatsRangeTypes, inputDataSet: InputDataSet): String {
+    // TODO combine main parts of precessEclipticalPositions and processMundanePositions
+    private fun processEclipticalPositions(scenario: ScenRangeBe, rangeType: StatsRangeTypes, inputDataSet: InputDataSet): String {
         val divider = defineDivider(rangeType)
         val allData = inputDataSet.inputData
         val celObjects = scenario.celObjects
@@ -65,11 +66,15 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
         val allData = inputDataSet.inputData
         val celObjects = scenario.celObjects
         val flags = CombinedFlags().getCombinedValue(listOf(SeFlags.SWISSEPH, SeFlags.SPEED))
-
-
-
-
-        return ""
+        val positionsPerChart = defineHousePositions(allData, celObjects, flags, scenario.houseSystem, divider);
+        val results = defineSegmentTotals(positionsPerChart.toList(), scenario, divider)
+        val rangeSegmentResults = RangeSegmentResults(scenario, results, positionsPerChart)
+        var pathToFilename = pathConstructor.pathForJsonResult(scenario.name, scenario.projectName)
+        JsonWriter().write2File(pathToFilename, rangeSegmentResults, true)
+        val csvText = CsvTextForRange().createTextLines(rangeSegmentResults, divider)
+        pathToFilename = pathConstructor.pathForCsvResult(scenario.name, scenario.projectName)
+        CsvWriter().write2File(pathToFilename, csvText)
+        return FixedTextForRange().createFormattedText(rangeSegmentResults, divider)
     }
 
     private fun calcLongitude(chart: ChartInputData, flags: Long): Double {

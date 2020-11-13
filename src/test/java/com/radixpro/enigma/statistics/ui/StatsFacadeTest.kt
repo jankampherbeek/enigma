@@ -8,6 +8,7 @@
 package com.radixpro.enigma.statistics.ui
 
 import com.radixpro.enigma.statistics.api.ScenGeneralApi
+import com.radixpro.enigma.statistics.api.StatsProcessApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
 import com.radixpro.enigma.statistics.testhelpers.ProjectCreator
@@ -22,14 +23,17 @@ internal class StatsFacadeTest {
 
     private val projectCreator = ProjectCreator()
     private val projApiMock: StatsProjApi = mockk(relaxed = true)
+    private val processApiMock: StatsProcessApi = mockk()
     private val scenApiMock: ScenGeneralApi = mockk()
-    private val facade = StatsFacade(projApiMock, scenApiMock)
+    private val facade = StatsFacade(projApiMock, processApiMock, scenApiMock)
     private val scenarioFe = ScenarioCreators().createScenRangeFe()
     private val scenarioBe = ScenarioCreators().createScenRangeBe()
+    private val processResult = "0  1  2  3"
 
     @BeforeEach
     fun init() {
         every { projApiMock.save(any()) } returns ApiResult(true, "")
+        every { processApiMock.processScenario(any()) } returns processResult
         every { scenApiMock.readAllNames(any()) } returns scenarioNames()
         every { scenApiMock.save(any()) } returns ApiResult(true, "")
         every { scenApiMock.read(any(), any(), any()) } returns scenarioFe
@@ -54,6 +58,11 @@ internal class StatsFacadeTest {
     fun `Request to read Scenario should result in a valid ScenarioFe`() {
         facade.readScenario("scenName", "scenType", "project") shouldBe scenarioFe
 
+    }
+
+    @Test
+    fun `Request to process a Scenario of type Range should result in a text as returned by the API`() {
+        facade.processScenRange(scenarioFe) shouldBe processResult
     }
 
     private fun scenarioNames(): List<String> {

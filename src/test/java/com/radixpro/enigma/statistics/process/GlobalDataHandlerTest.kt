@@ -7,34 +7,37 @@
 
 package com.radixpro.enigma.statistics.process
 
-import com.radixpro.enigma.be.persistency.InternalDataFileDao
+import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.share.process.PropertyHandler
 import com.radixpro.enigma.shared.Property
 import com.radixpro.enigma.statistics.core.DataFileDescription
 import com.radixpro.enigma.statistics.core.InputDataSet
-import com.radixpro.enigma.statistics.core.StatsProject
+import com.radixpro.enigma.statistics.persistency.GlobalDataDao
+import com.radixpro.enigma.statistics.persistency.InputDataReader
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class InternalDataFileHandlerTest {
+class GlobalDataHandlerTest {
 
-    private val daoMock: InternalDataFileDao = mockk(relaxed = true)
-    private val propHandlerMock: PropertyHandler = mockk(relaxed = true)
+    private val daoMock: GlobalDataDao = mockk()
+    private val propHandlerMock: PropertyHandler = mockk()
     private val expectedDescriptions = createDataFileDescriptions()
-    private val inputDataSetMock: InputDataSet = mockk(relaxed = true)
-    private val projectMock: StatsProject = mockk(relaxed = true)
+    private val inputDataSetMock: InputDataSet = mockk()
+    private val inputDataReaderMock: InputDataReader = mockk()
+    private val jsonWriterMock: JsonWriter = mockk()
     private val propertyList = createPropertyList()
-    private lateinit var handler: InternalDataFileHandler
+    private val pathConstructorMock: StatsPathConstructor = mockk()
+    private lateinit var handler: GlobalDataHandler
 
     @BeforeEach
     fun init() {
-        every { daoMock.readDataFileList(any()) } returns expectedDescriptions
-        every { daoMock.readData(any(), any()) } returns inputDataSetMock
+        every { daoMock.readDataFileList() } returns expectedDescriptions
+        every { daoMock.readData(any()) } returns inputDataSetMock
         every { propHandlerMock.retrieve(any()) } returns propertyList
-        handler = InternalDataFileHandler(daoMock, propHandlerMock)
+        handler = GlobalDataHandler(daoMock, inputDataReaderMock, jsonWriterMock, pathConstructorMock)
     }
 
     @Test
@@ -44,7 +47,7 @@ class InternalDataFileHandlerTest {
 
     @Test
     fun `Handler should return correct InputDataSet for given filename`() {
-        handler.readData(projectMock) shouldBe inputDataSetMock
+        handler.readDataCharts("some file") shouldBe inputDataSetMock
     }
 
 

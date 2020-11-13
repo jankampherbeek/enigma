@@ -44,9 +44,14 @@ class StatsPathConstructor(val propApi: PropertyApi) : PathConstructor {
         return "${projDir.value}${separator}proj$separator$projectName${separator}results_${scenarioName}.csv"
     }
 
-    fun pathForData(projectName: String): String {
+    fun pathForProjectData(projectName: String): String {
         val projDir = propApi.read("projdir")[0]
         return "${projDir.value}${separator}proj$separator$projectName${separator}in_${projectName}.json"
+    }
+
+    fun pathForGlobalData(): String {
+        val projDir = propApi.read("projdir")[0]
+        return "${projDir.value}${separator}data$separator"
     }
 
 

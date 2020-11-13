@@ -56,7 +56,12 @@ internal class StatsPathConstructorTest {
 
     @Test
     fun `Constructing a path for the location of an imported datafile gives the expected result`() {
-        constructor.pathForData(projName) shouldBe "prop_path${sep}proj${sep}Abc${sep}in_Abc.json"
+        constructor.pathForProjectData(projName) shouldBe "prop_path${sep}proj${sep}Abc${sep}in_Abc.json"
+    }
+
+    @Test
+    fun `Constructiong a path for the folder of global data gives the expected result`() {
+        constructor.pathForGlobalData() shouldBe "prop_path${sep}proj${sep}"
     }
 
 

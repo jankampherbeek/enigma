@@ -15,4 +15,4 @@ import java.io.File
 data class InputDataFileRequest(val dataName: String,
                                 val description: String,
                                 val dataFile: File,
-                                val fullPathProjDir: String)
+                                val projName: String)

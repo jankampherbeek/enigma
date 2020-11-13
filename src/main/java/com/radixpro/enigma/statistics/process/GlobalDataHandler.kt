@@ -6,36 +6,49 @@
  */
 package com.radixpro.enigma.statistics.process
 
-import com.radixpro.enigma.Rosetta
-import com.radixpro.enigma.be.persistency.DataReaderCsv
 import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.statistics.api.InputDataFileRequest
 import com.radixpro.enigma.statistics.api.InputDataFileResponse
+import com.radixpro.enigma.statistics.core.DataFileDescription
+import com.radixpro.enigma.statistics.core.InputDataSet
+import com.radixpro.enigma.statistics.persistency.GlobalDataDao
+import com.radixpro.enigma.statistics.persistency.InputDataReader
 import org.apache.log4j.Logger
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.*
 
-class InputDataFileHandler(private val dataReaderCsv: DataReaderCsv) {
-    fun handleDataFile(request: InputDataFileRequest): InputDataFileResponse {
+/**
+ * Handler to access global datafiles using the internal Json format.
+ */
+class GlobalDataHandler(private val daoGlobal: GlobalDataDao,
+                        private val inputDataReader: InputDataReader,
+                        private val jsonWriter: JsonWriter,
+                        private val pathConstructor: StatsPathConstructor) {
+    private val projDirKey = "projdir"
+    private val dataFolder = "data"
+
+
+    fun addDataFile(request: InputDataFileRequest): InputDataFileResponse {
         var errorLines: List<String> = ArrayList()
         var resultMsg: String
         var success: Boolean
+        var pathFilename = ""
         try {
-            val pathFilename = createFullPathJsonFile(request.dataName, request.fullPathProjDir)
-            val inputDataSet = dataReaderCsv.readCsv(request.dataName, request.description, request.dataFile.absolutePath)
-            errorLines = dataReaderCsv.errorLines
-            success = dataReaderCsv.isNoErrors
+            pathFilename = pathConstructor.pathForProjectData(request.projName)
+            val inputDataSet = inputDataReader.readCsv(request.dataName, request.description, request.dataFile.absolutePath)
+            errorLines = inputDataReader.errorLines
+            success = inputDataReader.isNoErrors
             JsonWriter().write2File(pathFilename, inputDataSet, true)
-            resultMsg = if (success) Rosetta.getText("inputdata.response.resultmsg") + " " + pathFilename else Rosetta.getText("inputdata.response.errormsg")
+            resultMsg = if (success) "Saved: $pathFilename" else "Error saving: $pathFilename"
         } catch (ide: InputDataException) {
             success = false
-            resultMsg = Rosetta.getText("inputdata.response.errormsg")
+            resultMsg = "Error saving: $pathFilename : ${ide.message}"
             LOG.error("Error while writing Json file converted from csv. Result message: " + resultMsg + ". Exception: " + ide.message)
         }
         return InputDataFileResponse(resultMsg, errorLines, success)
     }
+
 
     @Throws(InputDataException::class)
     private fun createFullPathJsonFile(fileName: String,
@@ -57,7 +70,18 @@ class InputDataFileHandler(private val dataReaderCsv: DataReaderCsv) {
     }
 
     companion object {
-        private val LOG = Logger.getLogger(InputDataFileHandler::class.java)
+        private val LOG = Logger.getLogger(GlobalDataHandler::class.java)
     }
+
+
+    fun readDataFileDesciptions(): List<DataFileDescription> {
+        return daoGlobal.readDataFileList()
+    }
+
+    fun readDataCharts(filename: String): InputDataSet {
+        return daoGlobal.readData(filename)
+    }
+
+    // TODO create method readDataEvents()
 
 }
