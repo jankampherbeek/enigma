@@ -59,8 +59,8 @@ public class ProcessingResult {
       paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
       TextArea taResults = new TextArea();
       taResults.setFont(Font.font("monospace", 9));
-      taResults.setPrefRowCount(25);
-      taResults.setPrefColumnCount(100);
+      taResults.setPrefRowCount(36);
+      taResults.setPrefColumnCount(120);
       taResults.setWrapText(false);
       taResults.setText(defineResults(scenario));
       paneResults = new PaneBuilder().setWidth(WIDTH).setHeight(400).setWidth(WIDTH).setChildren(taResults).build();

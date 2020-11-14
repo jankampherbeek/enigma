@@ -150,16 +150,14 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
     private fun defineSegmentTotals(positionsPerChart: List<ScenRangePositionsPerChart>, scenario: ScenRangeBe, divider: Int): Array<Array<Int>> {
         val usedObjects = scenario.celObjects
         val objectSize = usedObjects.size
-        val segmentSize = divider
-        var matrix = Array(objectSize) { Array(segmentSize + 1) { 0 } }
+        var matrix = Array(objectSize) { Array(divider + 1) { 0 } }
 
         for (posPerChart: ScenRangePositionsPerChart in positionsPerChart) {
             for ((objectIndex: Int, pos: ScenRangePosition) in posPerChart.positions.withIndex()) {
                 var segmentIndex = pos.segment
-                matrix[objectIndex][pos.segment]++
-                matrix[objectIndex][segmentSize]++
+                matrix[objectIndex][pos.segment - 1]++
+                matrix[objectIndex][divider]++
             }
-
         }
         return matrix
     }
