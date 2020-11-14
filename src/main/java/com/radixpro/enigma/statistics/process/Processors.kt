@@ -77,13 +77,13 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
         return FixedTextForRange().createFormattedText(rangeSegmentResults, divider)
     }
 
-    private fun calcLongitude(chart: ChartInputData, flags: Long): Double {
-        return seFrontend.getPositionsForCelBody(chart.dateTime.jd, chart.id, flags.toInt(), chart.location).allPositions[0]
+    private fun calcLongitude(chart: ChartInputData, seId: Int, flags: Long): Double {
+        return seFrontend.getPositionsForCelBody(chart.dateTime.jd, seId, flags.toInt(), chart.location).allPositions[0]
     }
 
     private fun calcSegment(lon: Double, divider: Int): Int {
-        val segmentSize: Int = (360.0 / divider) as Int
-        return 1 + (lon / segmentSize) as Int
+        val segmentSize: Int = (360.0 / divider).toInt()
+        return 1 + (lon / segmentSize).toInt()
     }
 
     private fun defineDivider(rangeType: StatsRangeTypes): Int {
@@ -105,7 +105,7 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
             val chartId = chart.id
             val positions: MutableList<ScenRangePosition> = mutableListOf()
             for (celObject: CelestialObjects in celObjects) {
-                val lon = calcLongitude(chart, flags)
+                val lon = calcLongitude(chart, celObject.seId.toInt(), flags)
                 val segment = calcSegment(lon, divider)
                 positions.add(ScenRangePosition(celObject, lon, segment))
             }
@@ -125,15 +125,20 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
             val chartId = chart.id
             val positions: MutableList<ScenRangePosition> = mutableListOf()
             for (celObject: CelestialObjects in celObjects) {
-                val lon = calcLongitude(chart, flags)
+                val lon = calcLongitude(chart, celObject.seId.toInt(), flags)
                 val geoLat = chart.location.geoLat
+//                val positionsForHouses = seFrontend.getPositionsForHouses(chart.dateTime.jd, flags.toInt(), chart.location,
+//                        houseSystem.seId.toInt(), houseSystem.nrOfCusps)
+                // FIXME use selected housesystem
                 val positionsForHouses = seFrontend.getPositionsForHouses(chart.dateTime.jd, flags.toInt(), chart.location,
-                        houseSystem.seId.toInt(), houseSystem.nrOfCusps)
+                        0, houseSystem.nrOfCusps)
                 val armc = positionsForHouses.ascMc[2]
                 val eps = seFrontend.getPositionsForEpsilon(chart.dateTime.jd, SE_ECL_NUT, flags.toInt()).allPositions[0]
                 var error = StringBuffer()
                 val lonLat = arrayOf(lon, 0.0).toDoubleArray()
-                val housePos = seFrontend.getPositionInHouse(armc, geoLat, eps, houseSystem.seId.toInt(), lonLat, error)
+//                val housePos = seFrontend.getPositionInHouse(armc, geoLat, eps, houseSystem.seId.toInt(), lonLat, error)
+                // FIXME use selected housesystem
+                val housePos = seFrontend.getPositionInHouse(armc, geoLat, eps, 0, lonLat, error)
                 val segment = housePos.toInt()
                 positions.add(ScenRangePosition(celObject, housePos, segment))
             }

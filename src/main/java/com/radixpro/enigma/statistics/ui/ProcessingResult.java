@@ -18,6 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +26,7 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 public class ProcessingResult {
 
-   private static final double HEIGHT = 500.0;
+   private static final double HEIGHT = 800.0;
    private static final double WIDTH = 900.0;
    private static final double SHORTWIDTH = 120.0;
    private final StatsFacade facade;
@@ -48,6 +49,7 @@ public class ProcessingResult {
       initialize(scenario);
       stage.setTitle(Rosetta.getText("ui.stats.processingresult.title"));
       stage.setScene(new Scene(createVBox()));
+      stage.showAndWait();
    }
 
    private void initialize(ScenarioFe scenario) {
@@ -56,8 +58,9 @@ public class ProcessingResult {
       Label lblSubTitle = new LabelBuilder("").setText(scenario.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
       paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
       TextArea taResults = new TextArea();
-      taResults.setPrefRowCount(40);
-      taResults.setPrefColumnCount(200);
+      taResults.setFont(Font.font("monospace", 9));
+      taResults.setPrefRowCount(25);
+      taResults.setPrefColumnCount(100);
       taResults.setWrapText(false);
       taResults.setText(defineResults(scenario));
       paneResults = new PaneBuilder().setWidth(WIDTH).setHeight(400).setWidth(WIDTH).setChildren(taResults).build();

@@ -61,7 +61,7 @@ class MundanePositionsHandler(private val obliquityHandler: ObliquityHandler) {
         specPoints.add(createMundanePosition(ascMc[1], obliquity, jdUt, location, MundanePointsAstron.MC))
         // skip 3: ARMC
         specPoints.add(createMundanePosition(ascMc[3], obliquity, jdUt, location, MundanePointsAstron.VERTEX))
-        specPoints.add(createMundanePosition(ascMc[4], obliquity, jdUt, location, MundanePointsAstron.EAST_POINT))
+        specPoints.add(createMundanePosition(ascMc[4], obliquity, jdUt, location, MundanePointsAstron.EASTPOINT))
         return AllMundanePositions(allCusps, specPoints)
     }
 

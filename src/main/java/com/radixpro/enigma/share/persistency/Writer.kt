@@ -37,8 +37,10 @@ class JsonWriter {
 class CsvWriter {
     fun write2File(pathFilename: String, lines: List<String>) {
         val file = File(pathFilename)
+        file.writeText("")     // overwrites existing content
         for (line: String in lines) {
-            file.writeText(line)
+            file.appendText(line)
+            file.appendText("\n")
         }
     }
 
