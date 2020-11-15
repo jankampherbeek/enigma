@@ -33,7 +33,7 @@ class StatsProcessApiTest {
 
     @BeforeEach
     fun init() {
-        every { handlerMock.handleProcess(any()) } returns resultText
+        every { handlerMock.handleProcess(any(), any()) } returns resultText
         every { converterMock.feRequestToBe(any()) } returns scenBeMock
         every { converterFactoryMock.getConverter(any()) } returns converterMock
         every { scenFeMock.typeName } returns ScenarioTypes.RANGE.name
@@ -42,7 +42,7 @@ class StatsProcessApiTest {
 
     @Test
     fun `Method processScanRange should return value as received from StatsProcessHandler`() {
-        api.processScenario(scenFeMock) shouldBe resultText
+        api.processScenario(scenFeMock, "TEST") shouldBe resultText
     }
 
 

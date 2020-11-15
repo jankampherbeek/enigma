@@ -12,7 +12,6 @@ enum class MundanePointsAstron(override val id: Int, override val rbKey: String)
     MC(1, "ui.shared.mc"),
     ASC(2, "ui.shared.asc"),
     VERTEX(3, "ui.shared.vertex"),
-    ANTI_VERTEX(4, "ui.shared.antivertex"),
     EASTPOINT(5, "ui.shared.eastpoint"),
     CUSP(6, "ui.shared.cusps");
 

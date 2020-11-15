@@ -74,16 +74,16 @@ class ScenGeneralApi(private val handlerFactory: ScenarioHandlerFactory,
 
 class StatsProcessApi(private val handler: StatsProcessHandler, private val converterFactory: ScenConverterFactory) {
 
-    fun processScenario(scenFe: ScenarioFe): String {
+    fun processScenario(scenFe: ScenarioFe, dataType: String): String {
         val scenType = ScenarioTypes.valueOf(scenFe.typeName)
-        return if (scenType == ScenarioTypes.RANGE) handleScenRange(handler, scenFe)
+        return if (scenType == ScenarioTypes.RANGE) handleScenRange(handler, scenFe, dataType)
         else ""
     }
 
-    private fun handleScenRange(handler: StatsProcessHandler, scenFe: ScenarioFe): String {
+    private fun handleScenRange(handler: StatsProcessHandler, scenFe: ScenarioFe, dataType: String): String {
         val converter = converterFactory.getConverter(ScenarioTypes.RANGE)
         val scenBe = converter.feRequestToBe(scenFe)
-        return handler.handleProcess(scenBe)
+        return handler.handleProcess(scenBe, dataType)
     }
 
 }

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test
 internal class ScenarioGeneralHandlerTest {
 
     private val readerMock: FileSystemReader = mockk(relaxed = true)
-    private val pathConstructorMock: PathConstructor = mockk(relaxed = true)
+    private val pathConstructorMock: StatsPathConstructor = mockk(relaxed = true)
     private val mapperMock: ScenarioGeneralFileMapper = mockk()
     private val handler = ScenarioGeneralHandler(readerMock, mapperMock, pathConstructorMock)
 

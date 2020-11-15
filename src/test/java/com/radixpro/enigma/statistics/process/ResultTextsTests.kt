@@ -61,12 +61,15 @@ class CsvTextForRangeTest {
         every { scenarioMock.rangeType } returns StatsRangeTypes.SIGNS
         every { statsResultsMock.summedResults } returns createSummedResults()
         every { statsResultsMock.scenario } returns scenarioMock
-        every { statsResultsMock.details } returns listOf()
+//        every { statsResultsMock.details } returns listOf()
     }
 
     @Test
     fun `createTextLines should return the correct textlines for a csv`() {
-        csvTextForRange.createTextLines(statsResultsMock, divider) shouldBe createExpectedLines()
+        val allLines = csvTextForRange.createTextLines(statsResultsMock, divider)
+        val expectedLines = createExpectedLines()
+        allLines shouldBe expectedLines
+//        csvTextForRange.createTextLines(statsResultsMock, divider) shouldBe createExpectedLines()
     }
 
     private fun createExpectedLines(): List<String> {

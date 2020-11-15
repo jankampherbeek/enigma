@@ -37,14 +37,16 @@ public class ProcessingResult {
    private Pane paneResults;
    private Pane paneBtnBar;
    private Pane paneFiles;
+   private String dataType;
 
 
    public ProcessingResult(@NotNull final StatsFacade facade) {
       this.facade = facade;
    }
 
-   public void show(@NotNull String scenarioName, @NotNull String projName) {
+   public void show(@NotNull String scenarioName, @NotNull String projName, @NotNull String dataType) {
       this.scenario = facade.readScenario(scenarioName, "RANGE", projName);   // TODO handle ScenarioType
+      this.dataType = dataType;
       stage = new Stage();
       initialize(scenario);
       stage.setTitle(Rosetta.getText("ui.stats.processingresult.title"));
@@ -83,7 +85,8 @@ public class ProcessingResult {
    }
 
    private String defineResults(@NotNull ScenarioFe scenario) {
-      return facade.processScenRange(scenario);
+      String dataType = "TEST";   // FIXME: enter correct dataType
+      return facade.processScenRange(scenario, dataType);
    }
 
    private VBox createVBox() {

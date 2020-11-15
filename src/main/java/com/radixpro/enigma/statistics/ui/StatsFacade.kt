@@ -34,8 +34,8 @@ class StatsFacade(private val projApi: StatsProjApi,
         return scenGeneralApi.read(scenName, typeName, projName)
     }
 
-    fun processScenRange(scenFe: ScenarioFe): String {
-        return processApi.processScenario(scenFe)
+    fun processScenRange(scenFe: ScenarioFe, dataType: String): String {
+        return processApi.processScenario(scenFe, dataType)
     }
 
 }

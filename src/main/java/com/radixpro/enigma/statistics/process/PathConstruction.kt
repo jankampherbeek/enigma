@@ -8,28 +8,23 @@
 package com.radixpro.enigma.statistics.process
 
 import com.radixpro.enigma.share.api.PropertyApi
+import com.radixpro.enigma.statistics.core.StatsProject
 
-interface PathConstructor {
-    fun pathForProject(projectName: String): String
-    fun pathForProjectDir(projectName: String): String
-    fun pathForScenario(scenarioName: String, projectName: String): String
-}
 
-class StatsPathConstructor(val propApi: PropertyApi) : PathConstructor {
+class StatsPathConstructor(val propApi: PropertyApi) {
 
     val separator: String = java.io.File.separator
 
-
-    override fun pathForProject(projectName: String): String {
+    fun pathForProject(projectName: String): String {
         return "${pathForProjectDir(projectName)}proj_$projectName.json"
     }
 
-    override fun pathForProjectDir(projectName: String): String {
+    fun pathForProjectDir(projectName: String): String {
         val projDir = propApi.read("projdir")[0]
         return "${projDir.value}${separator}proj$separator$projectName$separator"
     }
 
-    override fun pathForScenario(scenarioName: String, projectName: String): String {
+    fun pathForScenario(scenarioName: String, projectName: String): String {
         val projDir = propApi.read("projdir")[0]
         return "${projDir.value}${separator}proj$separator$projectName${separator}scen_${scenarioName}.json"
     }
@@ -44,9 +39,18 @@ class StatsPathConstructor(val propApi: PropertyApi) : PathConstructor {
         return "${projDir.value}${separator}proj$separator$projectName${separator}results_${scenarioName}.csv"
     }
 
-    fun pathForProjectData(projectName: String): String {
+    fun pathForProjectData(project: StatsProject): String {
         val projDir = propApi.read("projdir")[0]
-        return "${projDir.value}${separator}proj$separator$projectName${separator}in_${projectName}.json"
+        val projName = project.name
+        val dataName = project.dataFileName
+        return "${projDir.value}${separator}proj$separator$projName${separator}in_${dataName}.json"
+    }
+
+    fun pathForControlData(project: StatsProject): String {
+        val projDir = propApi.read("projdir")[0]
+        val projName = project.name
+        val dataName = project.dataFileName
+        return "${projDir.value}${separator}proj$separator$projName${separator}ctrl_${dataName}.json"
     }
 
     fun pathForGlobalData(): String {

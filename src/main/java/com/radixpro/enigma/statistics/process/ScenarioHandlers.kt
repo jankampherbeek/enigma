@@ -37,7 +37,7 @@ class ScenarioHandlerFactory {
     }
 }
 
-class ScenarioGeneralHandler(val reader: FileSystemReader, val mapper: ScenarioFileMapper, private val pathConstructor: PathConstructor) {
+class ScenarioGeneralHandler(val reader: FileSystemReader, val mapper: ScenarioFileMapper, private val pathConstructor: StatsPathConstructor) {
 
     fun retrieveScenarioNames(projectName: String): List<String> {
         val projPath = pathConstructor.pathForProjectDir(projectName)
@@ -50,7 +50,7 @@ class ScenarioGeneralHandler(val reader: FileSystemReader, val mapper: ScenarioF
 class ScenarioRangeHandler(val persister: ScenarioPersister,
                            val reader: Reader,
                            val mapper: ScenarioMapper,
-                           private val pathConstructor: PathConstructor) : ScenarioHandler {
+                           private val pathConstructor: StatsPathConstructor) : ScenarioHandler {
 
     override fun saveScenario(scenarioBe: ScenarioBe): ApiResult {
         return try {

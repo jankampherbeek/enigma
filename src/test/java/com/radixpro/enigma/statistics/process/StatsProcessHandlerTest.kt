@@ -23,13 +23,13 @@ internal class StatsProcessHandlerTest {
 
     @BeforeEach
     fun setUp() {
-        every { scenRangeProcessorMock.process(any()) } returns resultTxt
+        every { scenRangeProcessorMock.process(any(), any()) } returns resultTxt
         handler = StatsProcessHandler(scenRangeProcessorMock)
     }
 
     @Test
     fun `Method handleProcess for a Scenario for Range should return result as given by implementation of ScenProcessor`() {
-        handler.handleProcess(scenBeRangeMock) shouldBe resultTxt
+        handler.handleProcess(scenBeRangeMock, "TEST") shouldBe resultTxt
     }
 
 }

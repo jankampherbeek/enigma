@@ -106,9 +106,11 @@ public class ProjectManager {
       btnDetails.setOnAction(e -> onDetails());
       Button btnRun = new ButtonBuilder("ui.stats.projman.run").setDisabled(false).setFocusTraversable(true).build();
       btnRun.setOnAction(e -> onRun());
+      Button btnCtrl = new ButtonBuilder("ui.stats.projman.ctrl").setDisabled(false).setFocusTraversable(true).build();
+      btnCtrl.setOnAction(e -> onCtrl());
       Button btnNew = new ButtonBuilder("ui.shared.btn.new").setDisabled(false).setFocusTraversable(true).build();
       btnNew.setOnAction(e -> onNewScenario());
-      ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnDelete, btnDetails, btnRun, btnNew).build();
+      ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnDelete, btnDetails, btnRun, btnCtrl, btnNew).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();
    }
 
@@ -135,7 +137,13 @@ public class ProjectManager {
    private void onRun() {
       int index = tableView.getSelectionModel().getSelectedIndex();
       String selectedScenario = scenarios.get(index);
-      processingResult.show(selectedScenario, projName);
+      processingResult.show(selectedScenario, projName, "TEST");
+   }
+
+   private void onCtrl() {
+      int index = tableView.getSelectionModel().getSelectedIndex();
+      String selectedScenario = scenarios.get(index);
+      processingResult.show(selectedScenario, projName, "CONTROL");
    }
 
    private void onHelp() {

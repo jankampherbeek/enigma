@@ -29,7 +29,6 @@ enum class MundanePoints(val rbKey: String) {
     MC("mundpoint.mc"),
     ASC("mundpoint.asc"),
     VERTEX("mundpoint.vertex"),
-    ANTIVERTEX("mundpoint.antivertex"),
     EASTPOINT("mundpoint.eastpoint"),
     CUSP01("mundpoint.c01"),
     CUSP02("mundpoint.c02"),

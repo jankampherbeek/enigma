@@ -10,7 +10,6 @@ package com.radixpro.enigma.statistics.di
 
 import com.radixpro.enigma.be.calc.SeFrontend
 import com.radixpro.enigma.be.persistency.BePersistencyInjector
-import com.radixpro.enigma.be.persistency.BePersistencyInjector.injectDataFileDao
 import com.radixpro.enigma.share.di.ShareInjector.injectFileReader
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyApi
 import com.radixpro.enigma.share.di.ShareInjector.injectGlobalPropertyHandler
@@ -46,9 +45,9 @@ object StatsInjector {
         return Csv2LocationConverter()
     }
 
-    fun injectDataFileHandler(): GlobalDataHandler {
-        return GlobalDataHandler(injectDataFileDao(), injectInputDataReader(), injectJsonWriter(), injectStatsPathConstructor())
-    }
+//    fun injectDataFileHandler(): DataFGlobalDataHandler {
+//        return GlobalDataHandler(injectDataFileDao(), injectInputDataReader(), injectJsonWriter(), injectStatsPathConstructor())
+//    }
 
     fun injectGlobalDataApi(): GlobalDataApi {
         return GlobalDataApi(injectGlobalDataHandler())
@@ -59,7 +58,7 @@ object StatsInjector {
     }
 
     fun injectGlobalDataHandler(): GlobalDataHandler {
-        return GlobalDataHandler(injectGlobalDataDao(), injectInputDataReader(), injectJsonWriter(), injectStatsPathConstructor())
+        return GlobalDataHandler(injectGlobalDataDao(), injectInputDataReader(), injectStatsProjHandler(), injectJsonWriter(), injectStatsPathConstructor())
     }
 
     fun injectProjectDataDao(): ProjectDataDao {
@@ -67,12 +66,12 @@ object StatsInjector {
     }
 
     fun injectProjectDataHandler(): ProjectDataHandler {
-        return ProjectDataHandler(injectProjectDataDao())
+        return ProjectDataHandler(injectProjectDataDao(), injectStatsProjHandler())
     }
 
     @JvmStatic
     fun injectPersistedDataFileApi(): PersistedDataFileApi {
-        return PersistedDataFileApi(injectDataFileHandler())
+        return PersistedDataFileApi(injectGlobalDataHandler())
     }
 
     fun injectInputDataReader(): InputDataReader {

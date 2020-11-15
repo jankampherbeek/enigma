@@ -25,6 +25,11 @@ interface StatsResults {
     val scenario: ScenarioBe
 }
 
+enum class DataTypes {
+    TEST,
+    CONTROL
+}
+
 
 /**
  * Combination of results for segments, to be saved in Json format.

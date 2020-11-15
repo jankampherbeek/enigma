@@ -33,7 +33,7 @@ internal class StatsFacadeTest {
     @BeforeEach
     fun init() {
         every { projApiMock.save(any()) } returns ApiResult(true, "")
-        every { processApiMock.processScenario(any()) } returns processResult
+        every { processApiMock.processScenario(any(), any()) } returns processResult
         every { scenApiMock.readAllNames(any()) } returns scenarioNames()
         every { scenApiMock.save(any()) } returns ApiResult(true, "")
         every { scenApiMock.read(any(), any(), any()) } returns scenarioFe
@@ -62,7 +62,7 @@ internal class StatsFacadeTest {
 
     @Test
     fun `Request to process a Scenario of type Range should result in a text as returned by the API`() {
-        facade.processScenRange(scenarioFe) shouldBe processResult
+        facade.processScenRange(scenarioFe, "TEST") shouldBe processResult
     }
 
     private fun scenarioNames(): List<String> {

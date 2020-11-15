@@ -24,6 +24,7 @@ class GlobalDataHandlerTest {
 
     private val daoMock: GlobalDataDao = mockk()
     private val propHandlerMock: PropertyHandler = mockk()
+    private val projHandlerMock: StatsProjHandler = mockk()
     private val expectedDescriptions = createDataFileDescriptions()
     private val inputDataSetMock: InputDataSet = mockk()
     private val inputDataReaderMock: InputDataReader = mockk()
@@ -37,7 +38,7 @@ class GlobalDataHandlerTest {
         every { daoMock.readDataFileList() } returns expectedDescriptions
         every { daoMock.readData(any()) } returns inputDataSetMock
         every { propHandlerMock.retrieve(any()) } returns propertyList
-        handler = GlobalDataHandler(daoMock, inputDataReaderMock, jsonWriterMock, pathConstructorMock)
+        handler = GlobalDataHandler(daoMock, inputDataReaderMock, projHandlerMock, jsonWriterMock, pathConstructorMock)
     }
 
     @Test

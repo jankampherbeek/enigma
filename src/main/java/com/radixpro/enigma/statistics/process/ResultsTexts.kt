@@ -28,11 +28,11 @@ class CsvTextForRange {
         for (i in 1..divider) header.append("$i,")
         header.append("Total")
         textLines.add(header.toString())
-        for (i in 0 until nrOfCelObjects - 1) {
+        for (i in 0 until nrOfCelObjects) {
             textLines.add(createDataLine(i, divider, scenario.celObjects, results.summedResults[i]))
         }
-        for (i in 0 until nrOfMundanePoints - 1) {
-            textLines.add(createDataLine(i, divider, scenario.mundanePoints, results.summedResults[i]))
+        for (i in 0 until nrOfMundanePoints) {
+            textLines.add(createDataLine(i, divider, scenario.mundanePoints, results.summedResults[i + nrOfCelObjects]))
         }
         return textLines
     }
@@ -70,7 +70,7 @@ class FixedTextForRange {
             formattedText.append(createDataLine(i, divider, scenario.celObjects, results.summedResults[i]))
         }
         for (i in 0 until nrOfMundanePoints) {
-            formattedText.append(createDataLine(i, divider, scenario.mundanePoints, results.summedResults[i]))
+            formattedText.append(createDataLine(i, divider, scenario.mundanePoints, results.summedResults[i + nrOfCelObjects]))
         }
         return formattedText.toString()
 

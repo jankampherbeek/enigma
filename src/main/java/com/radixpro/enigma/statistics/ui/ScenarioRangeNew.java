@@ -161,12 +161,14 @@ public class ScenarioRangeNew {
             CelObjects currentCo = celObjectValues[(int) index];
             celObjectNames.add(currentCo.name());
          }
-         MundanePoints[] mundPointValues = MundanePoints.values();
          List<String> mundPointNames = new ArrayList<>();
-         final ObservableList checkMundPointIndexes = ccbMundanePoints.getCheckModel().getCheckedIndices();
-         for (Object index : checkMundPointIndexes) {
-            MundanePoints currentMp = mundPointValues[(int) index];
-            mundPointNames.add(currentMp.name());
+         if (!rangeTypeName.equals("HOUSES")) {
+            MundanePoints[] mundPointValues = MundanePoints.values();
+            final ObservableList checkMundPointIndexes = ccbMundanePoints.getCheckModel().getCheckedIndices();
+            for (Object index : checkMundPointIndexes) {
+               MundanePoints currentMp = mundPointValues[(int) index];
+               mundPointNames.add(currentMp.name());
+            }
          }
          ScenarioFe scenario = new ScenRangeFe(scenName, scenDescr, projName, typeName, rangeTypeName, houseSystemName, celObjectNames, mundPointNames);
          facade.writeScenario(scenario);
