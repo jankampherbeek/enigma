@@ -9,9 +9,9 @@ package com.radixpro.enigma.statistics.persistency
 
 import com.radixpro.enigma.references.CelestialObjects
 import com.radixpro.enigma.references.MundanePointsAstron
-import com.radixpro.enigma.statistics.core.ScenRangeBe
+import com.radixpro.enigma.statistics.core.ScenMinMaxBe
+import com.radixpro.enigma.statistics.core.StatsMinMaxTypesBe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
-import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
 import org.json.simple.JSONObject
 import org.json.simple.JSONValue
 import org.junit.jupiter.api.Assertions.assertAll
@@ -21,35 +21,35 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
 
-internal class ScenRangeBeMapperTest {
+internal class ScenMinMaxBeMapperTest {
 
     private lateinit var mapper: ScenarioMapper
-    private lateinit var scenarioBe: ScenRangeBe
+    private lateinit var scenarioBe: ScenMinMaxBe
     private val jsonInput = "{\n" +
             "  \"name\" : \"scenTest\",\n" +
             "  \"description\" : \"Test scenario\",\n" +
             "  \"projectName\" : \"testProject\",\n" +
-            "  \"scenarioType\" : \"RANGE\",\n" +
-            "  \"rangeType\" : \"SIGNS\",\n" +
-            "  \"houseSystem\" : \"PLACIDUS\",\n" +
-            "  \"celObjects\" : [ \"SUN\", \"PLUTO\" ],\n" +
-            "  \"mundanePoints\" : [ \"ASC\", \"MC\" ]\n" +
+            "  \"scenarioType\" : \"MINMAX\",\n" +
+            "  \"minMaxType\" : \"ECLIPTIC_DISTANCE\",\n" +
+            "  \"celObjects\" : [ \"MOON\", \"JUPITER\" ],\n" +
+            "  \"mundanePoints\" : [ \"VERTEX\", \"ASC\" ]\n" +
             "}"
 
     @BeforeEach
     fun init() {
-        mapper = ScenarioRangeMapper()
-        scenarioBe = mapper.map(JSONValue.parse(jsonInput) as JSONObject) as ScenRangeBe
+        mapper = ScenMinMaxMapper()
+        scenarioBe = mapper.map(JSONValue.parse(jsonInput) as JSONObject) as ScenMinMaxBe
     }
+
 
     @Test
     fun `Json is correctly mapped to ScenarioRange `() {
         assertAll(
-                Executable { assertEquals("scenTest", scenarioBe.name, "Name for ScenarioRange should be: scenTest.") },
-                Executable { assertEquals("Test scenario", scenarioBe.description, "Description for ScenarioRange should be: Test scenario.") },
-                Executable { assertEquals("testProject", scenarioBe.projectName, "ProjectName for ScenarioRange should be: testProject.") },
-                Executable { assertEquals(ScenarioTypes.RANGE, scenarioBe.scenarioType, "ScenarioType for ScenarioRange should be: ScenarioTypes.RANGE.") },
-                Executable { assertEquals(StatsRangeTypes.SIGNS, scenarioBe.rangeType, "RangeType for ScenarioRange should be: StatsRangeTypes.SIGNS.") }
+                Executable { assertEquals("scenTest", scenarioBe.name, "Name for ScenarioMinMax should be: scenTest.") },
+                Executable { assertEquals("Test scenario", scenarioBe.description, "Description for ScenarioMinMax should be: Test scenario.") },
+                Executable { assertEquals("testProject", scenarioBe.projectName, "ProjectName for ScenarioMinMax should be: testProject.") },
+                Executable { assertEquals(ScenarioTypes.MINMAX, scenarioBe.scenarioType, "ScenarioType for ScenarioMinMax should be: ScenarioTypes.MINMAX.") },
+                Executable { assertEquals(StatsMinMaxTypesBe.ECLIPTIC_DISTANCE, scenarioBe.minMaxTypes, "MinMaxType for ScenarioMinMax should be: MinMaxTypes.ECLIPTIC_DISTANCE.") }
         )
     }
 
@@ -64,8 +64,8 @@ internal class ScenRangeBeMapperTest {
         fun `Content of CelestialObjects is correct`() {
             val celObjects = scenarioBe.celObjects
             assertAll(
-                    Executable { assertEquals(CelestialObjects.SUN, celObjects[0], "First CelObject should be SUN.") },
-                    Executable { assertEquals(CelestialObjects.PLUTO, celObjects[1], "Second CelObject should be PLUTO.") }
+                    Executable { assertEquals(CelestialObjects.MOON, celObjects[0], "First CelObject should be MOON.") },
+                    Executable { assertEquals(CelestialObjects.JUPITER, celObjects[1], "Second CelObject should be JUPITER.") }
             )
         }
 
@@ -78,10 +78,10 @@ internal class ScenRangeBeMapperTest {
         fun `Content of MundanePoints is correct`() {
             val mundanePoints = scenarioBe.mundanePoints
             assertAll(
-                    Executable { assertEquals(MundanePointsAstron.ASC, mundanePoints[0], "First MundanePoint should be ASC.") },
-                    Executable { assertEquals(MundanePointsAstron.MC, mundanePoints[1], "Second MundanePoint should be MC.") }
+                    Executable { assertEquals(MundanePointsAstron.VERTEX, mundanePoints[0], "First MundanePoint should be VERTEX.") },
+                    Executable { assertEquals(MundanePointsAstron.ASC, mundanePoints[1], "Second MundanePoint should be ASC.") }
             )
         }
     }
-
 }
+

@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.statistics.api.converters
+package com.radixpro.enigma.statistics.converters
 
 import com.radixpro.enigma.domain.config.BaseAstronConfig
 import com.radixpro.enigma.references.Ayanamshas

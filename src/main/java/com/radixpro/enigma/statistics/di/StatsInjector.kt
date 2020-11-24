@@ -20,9 +20,10 @@ import com.radixpro.enigma.statistics.api.GlobalDataApi
 import com.radixpro.enigma.statistics.api.ScenGeneralApi
 import com.radixpro.enigma.statistics.api.StatsProcessApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
-import com.radixpro.enigma.statistics.api.converters.ProjectConverter
-import com.radixpro.enigma.statistics.api.converters.ScenConverterFactory
-import com.radixpro.enigma.statistics.api.converters.ScenRangeConverter
+import com.radixpro.enigma.statistics.converters.ProjectConverter
+import com.radixpro.enigma.statistics.converters.ScenConverterFactory
+import com.radixpro.enigma.statistics.converters.ScenMinMaxConverter
+import com.radixpro.enigma.statistics.converters.ScenRangeConverter
 import com.radixpro.enigma.statistics.persistency.*
 import com.radixpro.enigma.statistics.process.*
 import com.radixpro.enigma.xchg.api.PersistedDataFileApi
@@ -99,20 +100,16 @@ object StatsInjector {
         return ScenarioGeneralHandler(injectFileReader(), injectScenarioGeneralFileMapper(), injectStatsPathConstructor())
     }
 
-    fun injectScenarioHandlerFactory(): ScenarioHandlerFactory {
-        return ScenarioHandlerFactory()
-    }
-
-    fun injectScenarioRangeHandler(): ScenarioRangeHandler {
-        return ScenarioRangeHandler(injectScenarioRangePersister(), injectJsonReader(), injectScenarioRangeMapper(), injectStatsPathConstructor())
+    fun injectScenHandler(): ScenHandler {
+        return ScenHandler(injectScenarioRangePersister(), injectJsonReader(), injectScenarioRangeMapper(), injectStatsPathConstructor())
     }
 
     fun injectScenarioRangeMapper(): ScenarioMapper {
         return ScenarioRangeMapper()
     }
 
-    fun injectScenarioRangePersister(): ScenarioRangePersister {
-        return ScenarioRangePersister()
+    fun injectScenarioRangePersister(): ScenPersister {
+        return ScenPersister()
     }
 
     fun injectScenConverterFactory(): ScenConverterFactory {
@@ -120,7 +117,11 @@ object StatsInjector {
     }
 
     fun injectScenGeneralApi(): ScenGeneralApi {
-        return ScenGeneralApi(injectScenarioHandlerFactory(), injectScenConverterFactory())
+        return ScenGeneralApi(injectScenGeneralHandler(), injectScenHandler(), injectScenConverterFactory())
+    }
+
+    fun injectScenGeneralHandler(): ScenarioGeneralHandler {
+        return ScenarioGeneralHandler(injectFileReader(), injectScenarioGeneralFileMapper(), injectStatsPathConstructor())
     }
 
     fun injectScenRangeProcessor(): ScenRangeProcessor {
@@ -128,6 +129,9 @@ object StatsInjector {
                 injectJsonReader(), SeFrontend)
     }
 
+    fun injectScenMinMaxConverter(): ScenMinMaxConverter {
+        return ScenMinMaxConverter()
+    }
 
     fun injectStatsPathConstructor(): StatsPathConstructor {
         return StatsPathConstructor(injectGlobalPropertyApi())

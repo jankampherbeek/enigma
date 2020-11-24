@@ -22,3 +22,12 @@ data class ScenRangeFe(override val name: String,
                        val houseSystemName: String,
                        val celObjectNames: List<String>,
                        val mundanePointNames: List<String>) : ScenarioFe
+
+data class ScenMinMaxFe(override val name: String,
+                        override val descr: String,
+                        override val projName: String,
+                        override val typeName: String,
+                        val minMaxTypeName: String,
+                        val celObjectNames: List<String>,
+                        val mundanePointNames: List<String>) : ScenarioFe
+

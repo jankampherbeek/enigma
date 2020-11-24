@@ -10,8 +10,11 @@ package com.radixpro.enigma.statistics.persistency
 import com.radixpro.enigma.references.CelestialObjects
 import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.MundanePointsAstron
+import com.radixpro.enigma.share.exceptions.ItemNotFoundException
+import com.radixpro.enigma.statistics.core.ScenMinMaxBe
 import com.radixpro.enigma.statistics.core.ScenRangeBe
 import com.radixpro.enigma.statistics.core.ScenarioBe
+import com.radixpro.enigma.statistics.core.StatsMinMaxTypesBe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
 import org.apache.log4j.Logger
@@ -21,6 +24,15 @@ import org.json.simple.JSONObject
 interface ScenarioMapper {
     fun map(jsonObject: JSONObject): ScenarioBe
     fun map(jsonArray: JSONArray): List<String>
+
+    fun constructScenarioType(name: String): ScenarioTypes {
+        val values = ScenarioTypes.values()
+        for (item in values) {
+            if (name == item.toString()) return item
+        }
+        log.error("Could not find ScenarioTypes for $name when parsing Json for ScenarioRange.")
+        throw (RuntimeException("ScenarioType not found."))
+    }
 }
 
 interface ScenarioFileMapper {
@@ -102,14 +114,6 @@ class ScenarioRangeMapper : ScenarioMapper {
         return ScenRangeBe(name, description, projectName, scenarioType, rangeType, houseSystem, celObjects, mundanePoints)
     }
 
-    private fun constructScenarioType(name: String): ScenarioTypes {
-        val values = ScenarioTypes.values()
-        for (item in values) {
-            if (name == item.toString()) return item
-        }
-        log.error("Could not find ScenarioTypes for $name when parsing Json for ScenarioRange.")
-        throw (RuntimeException("ScenarioType not found."))
-    }
 
     private fun constructRangeType(name: String): StatsRangeTypes {
         val values = StatsRangeTypes.values()
@@ -128,6 +132,38 @@ class ScenarioRangeMapper : ScenarioMapper {
         log.error("Could not find HouseSystems for $name when parsing Json for ScenarioRange.")
         throw (RuntimeException("Houseystem not found."))
     }
+
+}
+
+class ScenMinMaxMapper : ScenarioMapper {
+
+    override fun map(jsonObject: JSONObject): ScenarioBe {
+        return constructObject(jsonObject)
+    }
+
+    override fun map(jsonArray: JSONArray): List<String> {
+        TODO("Not yet implemented")
+    }
+
+    private fun constructObject(jsonObject: JSONObject): ScenMinMaxBe {
+        val name = jsonObject["name"] as String
+        val description = jsonObject["description"] as String
+        val projectName = jsonObject["projectName"] as String
+        val scenarioType = constructScenarioType(jsonObject["scenarioType"] as String)
+        val minMaxType = constructMinMaxType(jsonObject["minMaxType"] as String)
+        val celObjects = constructAllCelObjects(jsonObject["celObjects"] as JSONArray)
+        val mundanePoints = constructAllMundanePoints(jsonObject["mundanePoints"] as JSONArray)
+        return ScenMinMaxBe(name, description, projectName, scenarioType, minMaxType, celObjects, mundanePoints)
+    }
+
+    private fun constructMinMaxType(name: String): StatsMinMaxTypesBe {
+        val values = StatsMinMaxTypesBe.values()
+        for (item in values) {
+            if (name == item.toString()) return item
+        }
+        throw (ItemNotFoundException("Could not find $name in StatsRangeTypes wehn mapping to ScenMinMaxBe."))
+    }
+
 
 }
 

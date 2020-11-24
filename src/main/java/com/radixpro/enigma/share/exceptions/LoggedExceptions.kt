@@ -20,6 +20,11 @@ abstract class LoggedException(override val message: String) : Exception(message
 }
 
 class SaveException(override val message: String) : LoggedException(message) {
-    override val reason = "while saving"
+    override val reason = "while saving "
     override val logger: Logger = Logger.getLogger(SaveException::class.java)
+}
+
+class ItemNotFoundException(override val message: String) : LoggedException(message) {
+    override val logger: Logger = Logger.getLogger(ItemNotFoundException::class.java)
+    override val reason: String = "Could not find item "
 }

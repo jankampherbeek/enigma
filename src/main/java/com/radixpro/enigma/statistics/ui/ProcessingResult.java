@@ -85,7 +85,6 @@ public class ProcessingResult {
    }
 
    private String defineResults(@NotNull ScenarioFe scenario) {
-      String dataType = "TEST";   // FIXME: enter correct dataType
       return facade.processScenRange(scenario, dataType);
    }
 

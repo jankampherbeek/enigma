@@ -7,11 +7,12 @@
 
 package com.radixpro.enigma.statistics.api
 
-import com.radixpro.enigma.statistics.api.converters.ProjectConverter
-import com.radixpro.enigma.statistics.api.converters.ScenConverterFactory
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
+import com.radixpro.enigma.statistics.converters.ProjectConverter
+import com.radixpro.enigma.statistics.converters.ScenConverterFactory
 import com.radixpro.enigma.statistics.core.IStatsProject
-import com.radixpro.enigma.statistics.process.ScenarioHandlerFactory
+import com.radixpro.enigma.statistics.process.ScenHandler
+import com.radixpro.enigma.statistics.process.ScenarioGeneralHandler
 import com.radixpro.enigma.statistics.process.StatsProcessHandler
 import com.radixpro.enigma.statistics.process.StatsProjHandler
 import com.radixpro.enigma.statistics.ui.domain.ScenarioFe
@@ -47,26 +48,24 @@ class StatsProjApi(private val handler: StatsProjHandler, private val converter:
 
 }
 
-class ScenGeneralApi(private val handlerFactory: ScenarioHandlerFactory,
+class ScenGeneralApi(private val generalHandler: ScenarioGeneralHandler,
+                     private val scenHandler: ScenHandler,
                      private val converterFactory: ScenConverterFactory) : ScenarioApi {
 
     fun readAllNames(projectName: String): List<String> {
-        val handler = handlerFactory.getGeneralHandler()
-        return handler.retrieveScenarioNames(projectName)
+        return generalHandler.retrieveScenarioNames(projectName)
     }
 
     override fun save(scenarioFe: ScenarioFe): ApiResult {
         val type = ScenarioTypes.valueOf(scenarioFe.typeName)
-        val handler = handlerFactory.getHandler(type)
         val converter = converterFactory.getConverter(type)
-        return handler.saveScenario(converter.feRequestToBe(scenarioFe))
+        return scenHandler.saveScenario(converter.feRequestToBe(scenarioFe))
     }
 
     override fun read(scenName: String, typeName: String, projName: String): ScenarioFe {
         val type = ScenarioTypes.valueOf(typeName)
-        val handler = handlerFactory.getHandler(type)
         val converter = converterFactory.getConverter(type)
-        return converter.beRequestToFe(handler.readScenario(scenName, projName))
+        return converter.beRequestToFe(scenHandler.readScenario(scenName, projName))
     }
 
 }

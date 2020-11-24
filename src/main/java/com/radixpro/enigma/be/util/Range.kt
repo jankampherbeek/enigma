@@ -11,7 +11,7 @@ package com.radixpro.enigma.be.util
 object Range {
 
     /**
-     * Makes sure inputValue is in the range minValue .. maxValue (dfault 0.0 .. 360.0). If minValue > maxValue, the values are interchanged.
+     * Makes sure inputValue is in the range minValue .. maxValue (default 0.0 .. 360.0). If minValue > maxValue, the values are interchanged.
      */
     fun checkValue(inputValue: Double, minValue: Double = 0.0, maxValue: Double = 360.0): Double {
         val min: Double

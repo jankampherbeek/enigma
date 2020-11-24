@@ -5,7 +5,7 @@
  *
  */
 
-package com.radixpro.enigma.statistics.api.converters
+package com.radixpro.enigma.statistics.converters
 
 import com.radixpro.enigma.statistics.testhelpers.ScenarioCreators
 import io.kotest.assertions.throwables.shouldThrow

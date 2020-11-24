@@ -9,7 +9,7 @@ package com.radixpro.enigma.statistics.process
 
 internal class ScenarioRangeHandlerTest {
 
-    lateinit var handler: ScenarioRangeHandler
+    lateinit var handler: ScenHandler
 
 //    @BeforeEach
 //    fun setUp() {

@@ -30,6 +30,11 @@ enum class DataTypes {
     CONTROL
 }
 
+enum class StatsMinMaxTypesBe {
+    ECLIPTIC_DISTANCE,
+    DECLINATION
+}
+
 
 /**
  * Combination of results for segments, to be saved in Json format.
@@ -67,6 +72,15 @@ data class ScenRangeBe(override val name: String,
                        val houseSystem: HouseSystems,
                        val celObjects: List<CelestialObjects>,
                        val mundanePoints: List<MundanePointsAstron>) : ScenarioBe
+
+data class ScenMinMaxBe(override val name: String,
+                        override val description: String,
+                        override val projectName: String,
+                        override val scenarioType: ScenarioTypes,
+                        val minMaxTypes: StatsMinMaxTypesBe,
+                        val celObjects: List<CelestialObjects>,
+                        val mundanePoints: List<MundanePointsAstron>) : ScenarioBe
+
 
 data class ScenRangePosition(val point: IChartPoints, val position: Double, val segment: Int)
 

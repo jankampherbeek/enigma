@@ -12,30 +12,27 @@ import com.radixpro.enigma.share.persistency.FileSystemReader
 import com.radixpro.enigma.share.persistency.Reader
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
 import com.radixpro.enigma.statistics.core.ScenarioBe
-import com.radixpro.enigma.statistics.di.StatsInjector.injectScenarioGeneralHandler
-import com.radixpro.enigma.statistics.di.StatsInjector.injectScenarioRangeHandler
+import com.radixpro.enigma.statistics.persistency.ScenPersister
 import com.radixpro.enigma.statistics.persistency.ScenarioFileMapper
 import com.radixpro.enigma.statistics.persistency.ScenarioMapper
-import com.radixpro.enigma.statistics.persistency.ScenarioPersister
-import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 import java.io.File
 
-interface ScenarioHandler {
-    fun saveScenario(scenarioBe: ScenarioBe): ApiResult
-    fun readScenario(scenarioName: String, projectName: String): ScenarioBe
-}
+//interface ScenarioHandler {
+//    fun saveScenario(scenarioBe: ScenarioBe): ApiResult
+//    fun readScenario(scenarioName: String, projectName: String): ScenarioBe
+//}
 
-class ScenarioHandlerFactory {
-
-    fun getHandler(type: ScenarioTypes): ScenarioHandler {
-        if (type == ScenarioTypes.RANGE) return injectScenarioRangeHandler()
-        return injectScenarioRangeHandler()   // FIXME handle all types of handlers
-    }
-
-    fun getGeneralHandler(): ScenarioGeneralHandler {
-        return injectScenarioGeneralHandler()
-    }
-}
+//class ScenHandlerFactory {
+//
+//    fun getHandler(type: ScenarioTypes): ScenarioHandler {
+//        if (type == ScenarioTypes.RANGE) return injectScenarioRangeHandler()
+//        return injectScenarioRangeHandler()   // FIXME handle all types of handlers
+//    }
+//
+//    fun getGeneralHandler(): ScenarioGeneralHandler {
+//        return injectScenarioGeneralHandler()
+//    }
+//}
 
 class ScenarioGeneralHandler(val reader: FileSystemReader, val mapper: ScenarioFileMapper, private val pathConstructor: StatsPathConstructor) {
 
@@ -47,12 +44,23 @@ class ScenarioGeneralHandler(val reader: FileSystemReader, val mapper: ScenarioF
 
 }
 
-class ScenarioRangeHandler(val persister: ScenarioPersister,
-                           val reader: Reader,
-                           val mapper: ScenarioMapper,
-                           private val pathConstructor: StatsPathConstructor) : ScenarioHandler {
+/**
+ * Handler for reading and writing scenarios.
+ * Write:
+ * ScenGeneralApi uses ScenMinMaxConverter to create a backend scenario from a frontend scenario. The converter is retreived via ScenConverterFactory.
+ * The Api uses ScenHandler to process the results. The handler is retrieved from ScenHandlerFactory.
+ * The handler user StatsPathConstructor to define the location of the files and ScenPersister to save the content. ScenPersister uses JsonWriter.
+ * Read:
+ * ScenGeneralApi uses ScenHandler to retrieve the data and MinMaxConverter to create a frontend scenario from a backend scenario. Factories are used, see above.
+ * The handler uses ScenarioMapper to translate the Json resutls to an object.
+ * After receiving the results from the Handler, the API converts the results to a frontend Scenario using
+ */
+class ScenHandler(val persister: ScenPersister,
+                  val reader: Reader,
+                  val mapper: ScenarioMapper,
+                  private val pathConstructor: StatsPathConstructor) {
 
-    override fun saveScenario(scenarioBe: ScenarioBe): ApiResult {
+    fun saveScenario(scenarioBe: ScenarioBe): ApiResult {
         return try {
             val fullPath = pathConstructor.pathForScenario(scenarioBe.name, scenarioBe.projectName)
             persister.saveScenario(scenarioBe, fullPath)
@@ -62,12 +70,11 @@ class ScenarioRangeHandler(val persister: ScenarioPersister,
         }
     }
 
-    override fun readScenario(scenarioName: String, projectName: String): ScenarioBe {
+    fun readScenario(scenarioName: String, projectName: String): ScenarioBe {
         val fullPath = pathConstructor.pathForScenario(scenarioName, projectName)
         val scenarioFile = File(fullPath)
         val jsonObject = reader.readObjectFromFile(scenarioFile)
         return mapper.map(jsonObject)
     }
-
-
 }
+

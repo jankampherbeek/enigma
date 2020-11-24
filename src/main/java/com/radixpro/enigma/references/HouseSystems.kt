@@ -14,6 +14,7 @@ import javafx.collections.ObservableList
 import org.apache.log4j.Logger
 import java.util.*
 
+// TODO create separate indication for seId for NO_HOUSES, and also for other housesystems that are not supported by the SE.
 enum class HouseSystems(val id: Int,
                         val seId: String,
                         val nameForRB: String,
@@ -21,7 +22,7 @@ enum class HouseSystems(val id: Int,
                         val isCounterClockwise: Boolean,
                         val isQuadrantSystem: Boolean,
                         val isCuspIsStart: Boolean) {
-    NO_HOUSES(1, "", "houses.none", 0, false, false, false),
+    NO_HOUSES(1, "W", "houses.none", 0, false, false, false),
     WHOLESIGN(2, "W", "houses.wholesign", 12, true, false, true),
     EQUAL(3, "A", "houses.equalasc", 12, true, false, true),
     EQUAL_MC(4, "D", "houses.equalmc", 12, true, false, true),

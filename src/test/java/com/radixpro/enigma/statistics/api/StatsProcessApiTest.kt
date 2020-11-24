@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.statistics.api
 
-import com.radixpro.enigma.statistics.api.converters.ScenConverterFactory
-import com.radixpro.enigma.statistics.api.converters.ScenarioConverter
+import com.radixpro.enigma.statistics.converters.ScenConverterFactory
+import com.radixpro.enigma.statistics.converters.ScenarioConverter
 import com.radixpro.enigma.statistics.core.ScenarioBe
 import com.radixpro.enigma.statistics.process.StatsProcessHandler
 import com.radixpro.enigma.statistics.ui.domain.ScenarioFe

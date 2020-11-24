@@ -7,12 +7,11 @@
 
 package com.radixpro.enigma.statistics.api
 
-import com.radixpro.enigma.statistics.api.converters.ScenConverterFactory
-import com.radixpro.enigma.statistics.api.converters.ScenRangeConverter
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
+import com.radixpro.enigma.statistics.converters.ScenConverterFactory
+import com.radixpro.enigma.statistics.converters.ScenRangeConverter
+import com.radixpro.enigma.statistics.process.ScenHandler
 import com.radixpro.enigma.statistics.process.ScenarioGeneralHandler
-import com.radixpro.enigma.statistics.process.ScenarioHandlerFactory
-import com.radixpro.enigma.statistics.process.ScenarioRangeHandler
 import com.radixpro.enigma.statistics.testhelpers.ScenarioCreators
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 import io.kotest.matchers.shouldBe
@@ -23,23 +22,20 @@ import org.junit.jupiter.api.Test
 
 internal class ScenGeneralApiTest {
 
-    private val handlerFactoryMock: ScenarioHandlerFactory = mockk()
     private val converterFactoryMock: ScenConverterFactory = mockk()
     private val genHandlerMock: ScenarioGeneralHandler = mockk(relaxed = true)
-    private val rangeHandlerMock: ScenarioRangeHandler = mockk(relaxed = true)
+    private val scenHandlerMock: ScenHandler = mockk(relaxed = true)
     private val rangeConverterMock: ScenRangeConverter = mockk()
     private val scenarioFe = ScenarioCreators().createScenRangeFe()
     private val scenarioBe = ScenarioCreators().createScenRangeBe()
-    private val api: ScenGeneralApi = ScenGeneralApi(handlerFactoryMock, converterFactoryMock)
+    private val api: ScenGeneralApi = ScenGeneralApi(genHandlerMock, scenHandlerMock, converterFactoryMock)
 
 
     @BeforeEach
     fun init() {
         every { genHandlerMock.retrieveScenarioNames(any()) } returns scenarioNames()
-        every { rangeHandlerMock.saveScenario(any()) } returns ApiResult(true, "")
-        every { rangeHandlerMock.readScenario(any(), any()) } returns scenarioBe
-        every { handlerFactoryMock.getGeneralHandler() } returns genHandlerMock
-        every { handlerFactoryMock.getHandler(ScenarioTypes.RANGE) } returns rangeHandlerMock
+        every { scenHandlerMock.saveScenario(any()) } returns ApiResult(true, "")
+        every { scenHandlerMock.readScenario(any(), any()) } returns scenarioBe
         every { converterFactoryMock.getConverter(ScenarioTypes.RANGE) } returns rangeConverterMock
         every { rangeConverterMock.feRequestToBe(any()) } returns scenarioBe
         every { rangeConverterMock.beRequestToFe(any()) } returns scenarioFe

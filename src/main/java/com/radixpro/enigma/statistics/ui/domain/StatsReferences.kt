@@ -48,6 +48,11 @@ enum class StatsRangeTypes(val rbKey: String) {
     DEGREES("statsrangetype.degrees")
 }
 
+enum class StatsMinMaxTypesFe(val rbKey: String) {
+    ECLIPTIC_DISTANCE("statsminmaxtype.ecldistance"),
+    DECLINATION("statsminmaxtype.declination")
+}
+
 
 enum class DataInputFormats(val rbKey: String) {
     UNDEFINED("datainputformat.undefined"),

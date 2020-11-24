@@ -7,8 +7,8 @@
 
 package com.radixpro.enigma.statistics.api
 
-import com.radixpro.enigma.statistics.api.converters.ProjectConverter
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
+import com.radixpro.enigma.statistics.converters.ProjectConverter
 import com.radixpro.enigma.statistics.process.StatsProjHandler
 import com.radixpro.enigma.statistics.testhelpers.ProjectCreator
 import io.kotest.matchers.shouldBe
