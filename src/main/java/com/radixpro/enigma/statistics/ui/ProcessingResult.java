@@ -45,7 +45,7 @@ public class ProcessingResult {
    }
 
    public void show(@NotNull String scenarioName, @NotNull String projName, @NotNull String dataType) {
-      this.scenario = facade.readScenario(scenarioName, "RANGE", projName);   // TODO handle ScenarioType
+      this.scenario = facade.readScenario(scenarioName, projName);   // TODO handle ScenarioType
       this.dataType = dataType;
       stage = new Stage();
       initialize(scenario);

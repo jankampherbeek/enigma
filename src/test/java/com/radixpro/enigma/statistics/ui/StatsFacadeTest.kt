@@ -36,7 +36,7 @@ internal class StatsFacadeTest {
         every { processApiMock.processScenario(any(), any()) } returns processResult
         every { scenApiMock.readAllNames(any()) } returns scenarioNames()
         every { scenApiMock.save(any()) } returns ApiResult(true, "")
-        every { scenApiMock.read(any(), any(), any()) } returns scenarioFe
+        every { scenApiMock.read(any(), any()) } returns scenarioFe
     }
 
     @Test
@@ -56,7 +56,7 @@ internal class StatsFacadeTest {
 
     @Test
     fun `Request to read Scenario should result in a valid ScenarioFe`() {
-        facade.readScenario("scenName", "scenType", "project") shouldBe scenarioFe
+        facade.readScenario("scenName", "project") shouldBe scenarioFe
 
     }
 

@@ -28,7 +28,7 @@ interface ProjectApi {
 
 interface ScenarioApi {
     fun save(scenarioFe: ScenarioFe): ApiResult
-    fun read(scenName: String, typeName: String, projName: String): ScenarioFe
+    fun read(scenName: String, projName: String): ScenarioFe
 }
 
 class StatsProjApi(private val handler: StatsProjHandler, private val converter: ProjectConverter) : ProjectApi {
@@ -62,10 +62,11 @@ class ScenGeneralApi(private val generalHandler: ScenarioGeneralHandler,
         return scenHandler.saveScenario(converter.feRequestToBe(scenarioFe))
     }
 
-    override fun read(scenName: String, typeName: String, projName: String): ScenarioFe {
-        val type = ScenarioTypes.valueOf(typeName)
+    override fun read(scenName: String, projName: String): ScenarioFe {
+        val scenario = scenHandler.readScenario(scenName, projName)
+        val type = scenario.scenarioType
         val converter = converterFactory.getConverter(type)
-        return converter.beRequestToFe(scenHandler.readScenario(scenName, projName))
+        return converter.beRequestToFe(scenario)
     }
 
 }

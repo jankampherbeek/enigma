@@ -26,6 +26,7 @@ public class ScenarioNew {
    private static final double WIDTH = 600.0;
    private Stage stage;
    private final ScenarioRangeNew scenarioRangeNew;
+   private final ScenMinMaxNew scenMinMaxNew;
    private Pane paneTitle;
    private Pane paneName;
    private Pane paneNameInput;
@@ -38,8 +39,9 @@ public class ScenarioNew {
    private ComboBox cbScenarioType;
    private String projName;
 
-   public ScenarioNew(@NotNull final ScenarioRangeNew scenarioRangeNew) {
+   public ScenarioNew(@NotNull final ScenarioRangeNew scenarioRangeNew, @NotNull ScenMinMaxNew scenMinMaxNew) {
       this.scenarioRangeNew = scenarioRangeNew;
+      this.scenMinMaxNew = scenMinMaxNew;
    }
 
    public void show(@NotNull final String projName) {
@@ -113,6 +115,10 @@ public class ScenarioNew {
          switch (index) {
             case 0:
                scenarioRangeNew.show(tfName.getText(), taDescr.getText(), projName, typeName);
+               stage.close();
+               break;
+            case 1:
+               scenMinMaxNew.show(tfName.getText(), taDescr.getText(), projName, typeName);
                stage.close();
                break;
             default: // todo

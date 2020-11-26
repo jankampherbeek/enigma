@@ -91,6 +91,25 @@ class ScenarioGeneralFileMapper() : ScenarioFileMapper {
     }
 }
 
+class ScenarioSpecificMapper : ScenarioMapper {
+
+    override fun map(jsonObject: JSONObject): ScenarioBe {
+        return constructObject(jsonObject)
+    }
+
+    override fun map(jsonArray: JSONArray): List<String> {
+        TODO("Not yet implemented")
+    }
+
+    private fun constructObject(jsonObject: JSONObject): ScenarioBe {
+        return when (constructScenarioType(jsonObject["scenarioType"] as String)) {
+            ScenarioTypes.RANGE -> ScenarioRangeMapper().map(jsonObject)
+            ScenarioTypes.MINMAX -> ScenMinMaxMapper().map(jsonObject)
+            else -> throw ItemNotFoundException("Could not find Scenario Type when constructing ScenarioBe in ScenarioSpecificMapper.")
+        }
+    }
+}
+
 
 class ScenarioRangeMapper : ScenarioMapper {
 
@@ -113,7 +132,6 @@ class ScenarioRangeMapper : ScenarioMapper {
         val mundanePoints = constructAllMundanePoints(jsonObject["mundanePoints"] as JSONArray)
         return ScenRangeBe(name, description, projectName, scenarioType, rangeType, houseSystem, celObjects, mundanePoints)
     }
-
 
     private fun constructRangeType(name: String): StatsRangeTypes {
         val values = StatsRangeTypes.values()
@@ -150,9 +168,11 @@ class ScenMinMaxMapper : ScenarioMapper {
         val description = jsonObject["description"] as String
         val projectName = jsonObject["projectName"] as String
         val scenarioType = constructScenarioType(jsonObject["scenarioType"] as String)
-        val minMaxType = constructMinMaxType(jsonObject["minMaxType"] as String)
-        val celObjects = constructAllCelObjects(jsonObject["celObjects"] as JSONArray)
-        val mundanePoints = constructAllMundanePoints(jsonObject["mundanePoints"] as JSONArray)
+        val minMaxType = constructMinMaxType(jsonObject["minMaxTypes"] as String)
+        var celObjects: MutableList<CelestialObjects> = ArrayList()
+        if (jsonObject.containsKey("celObjects")) celObjects = constructAllCelObjects(jsonObject["celObjects"] as JSONArray)
+        var mundanePoints: MutableList<MundanePointsAstron> = ArrayList()
+        if (jsonObject.containsKey("mundanePoints")) mundanePoints = constructAllMundanePoints(jsonObject["mundanePoints"] as JSONArray)
         return ScenMinMaxBe(name, description, projectName, scenarioType, minMaxType, celObjects, mundanePoints)
     }
 

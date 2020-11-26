@@ -14,7 +14,7 @@ import com.radixpro.enigma.statistics.di.StatsInjector.injectScenGeneralApi
 import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsProcessApi
 import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsProjApi
 import com.radixpro.enigma.statistics.ui.*
-import com.radixpro.enigma.statistics.ui.helpers.ScenRangeDetailsText
+import com.radixpro.enigma.statistics.ui.helpers.ScenSpecificDetailsText
 import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector.injectBaseConfigInputBlock
 import javafx.stage.DirectoryChooser
 
@@ -25,19 +25,23 @@ object StatsUiInjector {
     }
 
     fun injectScenarioDetails(): ScenarioDetails {
-        return ScenarioDetails(injectStatsFacade(), injectScenRangeDetailsText())
+        return ScenarioDetails(injectStatsFacade(), injectScenSpecificDetailsText())
     }
 
     fun injectScenarioNew(): ScenarioNew {
-        return ScenarioNew(injectScenarioRangeNew())
+        return ScenarioNew(injectScenarioRangeNew(), injectScenMinMaxNew())
+    }
+
+    fun injectScenMinMaxNew(): ScenMinMaxNew {
+        return ScenMinMaxNew(injectStatsFacade())
     }
 
     fun injectScenarioRangeNew(): ScenarioRangeNew {
         return ScenarioRangeNew(injectStatsFacade())
     }
 
-    fun injectScenRangeDetailsText(): ScenRangeDetailsText {
-        return ScenRangeDetailsText()
+    fun injectScenSpecificDetailsText(): ScenSpecificDetailsText {
+        return ScenSpecificDetailsText()
     }
 
     fun injectProjectManager(): ProjectManager {

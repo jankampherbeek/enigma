@@ -53,7 +53,7 @@ internal class ScenGeneralApiTest {
 
     @Test
     fun `Api returns a valid ScenarioFe after reading new Scenario`() {
-        api.read("scenarioName", "RANGE", "projectName") shouldBe ScenarioCreators().createScenRangeFe()
+        api.read("scenarioName", "projectName") shouldBe ScenarioCreators().createScenRangeFe()
     }
 
     private fun scenarioNames(): List<String> {

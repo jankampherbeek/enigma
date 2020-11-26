@@ -126,8 +126,7 @@ public class ProjectManager {
    private void onDetails() {
       int index = tableView.getSelectionModel().getSelectedIndex();
       String selectedScenario = scenarios.get(index);
-      String scenType = "RANGE";     // TODO fix this: or remove type, or solve type
-      scenarioDetails.show(selectedScenario, scenType, projName);
+      scenarioDetails.show(selectedScenario, projName);
    }
 
    private void onNewScenario() {

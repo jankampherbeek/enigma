@@ -8,6 +8,8 @@
 package com.radixpro.enigma.statistics.ui.helpers
 
 import com.radixpro.enigma.Rosetta
+import com.radixpro.enigma.share.exceptions.ItemNotFoundException
+import com.radixpro.enigma.statistics.ui.domain.ScenMinMaxFe
 import com.radixpro.enigma.statistics.ui.domain.ScenRangeFe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioFe
 
@@ -28,6 +30,34 @@ interface ScenDetailsText {
     fun descrText(descr: String): String {
         return Rosetta.getText("ui.stats.scendetailstext.descr") + COLON + descr + BREAK
     }
+
+    fun celObjectsText(coNames: List<String>): String {
+        val names = StringBuilder()
+        for (coName in coNames) {
+            names.append(coName).append(SPACE)
+        }
+        return Rosetta.getText("ui.stats.scendetailstext.celobjects") + COLON + names + BREAK
+    }
+
+    fun mundPointsText(mpNames: List<String>): String {
+        val names = StringBuilder()
+        for (mpName in mpNames) {
+            names.append(mpName).append(SPACE)
+        }
+        return Rosetta.getText("ui.stats.scendetailstext.mundpoints") + COLON + names + BREAK
+    }
+}
+
+class ScenSpecificDetailsText : ScenDetailsText {
+
+    override fun createText(scenario: ScenarioFe): String {
+        return when (scenario.typeName) {
+            "RANGE" -> ScenRangeDetailsText().createText(scenario)
+            "MINMAX" -> ScenMinMaxDetailsText().createText(scenario)
+            else -> throw ItemNotFoundException("Could not find Scenario Type Name for ${scenario.typeName} in ScenSpecificDetailsText")
+        }
+    }
+
 }
 
 
@@ -43,20 +73,19 @@ class ScenRangeDetailsText : ScenDetailsText {
         return Rosetta.getText("ui.stats.scendetailstext.rangetype") + COLON + rangeType + BREAK
     }
 
-    private fun celObjectsText(coNames: List<String>): String {
-        val names = StringBuilder()
-        for (coName in coNames) {
-            names.append(coName).append(SPACE)
-        }
-        return Rosetta.getText("ui.stats.scendetailstext.celobjects") + COLON + names + BREAK
+}
+
+
+class ScenMinMaxDetailsText : ScenDetailsText {
+
+    override fun createText(scenario: ScenarioFe): String {
+        val actualScen = scenario as ScenMinMaxFe
+        return (headerText(actualScen) + minMaxTypeText(actualScen.minMaxTypeName) + descrText(actualScen.descr) + celObjectsText(actualScen.celObjectNames)
+                + mundPointsText(actualScen.mundanePointNames))
     }
 
-    private fun mundPointsText(mpNames: List<String>): String {
-        val names = StringBuilder()
-        for (mpName in mpNames) {
-            names.append(mpName).append(SPACE)
-        }
-        return Rosetta.getText("ui.stats.scendetailstext.mundpoints") + COLON + names + BREAK
+    private fun minMaxTypeText(rangeType: String): String {
+        return Rosetta.getText("ui.stats.scendetailstext.minmaxtype") + COLON + rangeType + BREAK
     }
 
 }

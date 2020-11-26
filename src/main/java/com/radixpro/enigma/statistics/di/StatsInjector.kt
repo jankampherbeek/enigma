@@ -101,11 +101,11 @@ object StatsInjector {
     }
 
     fun injectScenHandler(): ScenHandler {
-        return ScenHandler(injectScenarioRangePersister(), injectJsonReader(), injectScenarioRangeMapper(), injectStatsPathConstructor())
+        return ScenHandler(injectScenarioRangePersister(), injectJsonReader(), injectScenSpecificMapper(), injectStatsPathConstructor())
     }
 
-    fun injectScenarioRangeMapper(): ScenarioMapper {
-        return ScenarioRangeMapper()
+    fun injectScenSpecificMapper(): ScenarioMapper {
+        return ScenarioSpecificMapper()
     }
 
     fun injectScenarioRangePersister(): ScenPersister {
@@ -132,6 +132,7 @@ object StatsInjector {
     fun injectScenMinMaxConverter(): ScenMinMaxConverter {
         return ScenMinMaxConverter()
     }
+
 
     fun injectStatsPathConstructor(): StatsPathConstructor {
         return StatsPathConstructor(injectGlobalPropertyApi())

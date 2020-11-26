@@ -34,16 +34,14 @@ public class ScenarioDetails {
    private Pane paneTitle;
    private String projName;
    private String scenName;
-   private String typeName;
 
    public ScenarioDetails(@NotNull final StatsFacade facade, @NotNull final ScenDetailsText scenDetailsText) {
       this.facade = facade;
       this.scenDetailsText = scenDetailsText;
    }
 
-   public void show(@NotNull final String scenName, @NotNull final String typeName, @NotNull final String projName) {
+   public void show(@NotNull String scenName, @NotNull final String projName) {
       this.projName = projName;
-      this.typeName = typeName;
       this.scenName = scenName;
       stage = new Stage();
       initialize();
@@ -67,7 +65,7 @@ public class ScenarioDetails {
    }
 
    private Pane createPaneDetails() {
-      ScenarioFe scenario = facade.readScenario(scenName, typeName, projName);
+      ScenarioFe scenario = facade.readScenario(scenName, projName);
       String detailText = scenDetailsText.createText(scenario);
       Label lblDetails = new LabelBuilder("").setText(detailText).setPrefWidth(WIDTH).build();
       lblDetails.setWrapText(true);
