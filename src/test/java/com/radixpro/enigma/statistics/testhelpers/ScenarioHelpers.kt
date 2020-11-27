@@ -29,6 +29,7 @@ class ScenarioCreators {
     private val rangeTypeName = "SIGNS"
     private val minMaxTypeName = "ECLIPTIC_DISTANCE"
     private val houseSystemName = "PLACIDUS"
+    private val refPointName = "MC"
 
     fun createScenRangeFe(): ScenRangeFe {
         return ScenRangeFe(scenName, descr, projName, scenRangeType, rangeTypeName, houseSystemName, createCelObjectNames(), createMundanePointNames())
@@ -43,15 +44,15 @@ class ScenarioCreators {
     }
 
     fun createScenMinMaxFe(): ScenMinMaxFe {
-        return ScenMinMaxFe(scenName, descr, projName, scenMinMaxType, minMaxTypeName, createCelObjectNames(), createMundanePointNames())
+        return ScenMinMaxFe(scenName, descr, projName, scenMinMaxType, minMaxTypeName, refPointName, createCelObjectNames(), createMundanePointNames())
     }
 
     fun createScenMinMaxBe(): ScenMinMaxBe {
-        return ScenMinMaxBe(scenName, descr, projName, ScenarioTypes.MINMAX, StatsMinMaxTypesBe.ECLIPTIC_DISTANCE, createCelObjects(), createMundanePoints())
+        return ScenMinMaxBe(scenName, descr, projName, ScenarioTypes.MINMAX, StatsMinMaxTypesBe.ECLIPTIC_DISTANCE, refPointName, createCelObjects(), createMundanePoints())
     }
 
     fun createScenMinMaxFeError(): ScenMinMaxFe {
-        return ScenMinMaxFe(scenName, descr, projName, notExistingScenType, minMaxTypeName, createCelObjectNames(), createMundanePointNames())
+        return ScenMinMaxFe(scenName, descr, projName, notExistingScenType, minMaxTypeName, refPointName, createCelObjectNames(), createMundanePointNames())
     }
 
 

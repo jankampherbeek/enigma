@@ -114,6 +114,7 @@ class ScenMinMaxConverter : ScenarioConverter {
                 scenario.projName,
                 ScenarioTypes.valueOf(scenario.typeName),
                 StatsMinMaxTypesBe.valueOf(scenario.minMaxTypeName),
+                scenario.referencepoint,
                 createCelestialObjects(scenario.celObjectNames),
                 createMundanePoints(scenario.mundanePointNames)
         )
@@ -127,6 +128,7 @@ class ScenMinMaxConverter : ScenarioConverter {
                 scenario.projectName,
                 scenario.scenarioType.name,
                 scenario.minMaxTypes.name,
+                scenario.refPoint,
                 createCelObjectNames(scenario.celObjects),
                 createMundanePointNames(scenario.mundanePoints)
         )

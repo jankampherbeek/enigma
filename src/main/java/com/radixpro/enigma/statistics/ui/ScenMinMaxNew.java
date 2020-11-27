@@ -10,6 +10,7 @@ package com.radixpro.enigma.statistics.ui;
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.astronomy.ui.domain.CelObjects;
 import com.radixpro.enigma.astronomy.ui.domain.MundanePoints;
+import com.radixpro.enigma.statistics.ui.domain.ReferencePoints;
 import com.radixpro.enigma.statistics.ui.domain.ScenMinMaxFe;
 import com.radixpro.enigma.statistics.ui.domain.ScenarioFe;
 import com.radixpro.enigma.statistics.ui.domain.StatsMinMaxTypesFe;
@@ -40,9 +41,11 @@ public class ScenMinMaxNew {
    private Pane paneTitle;
    private Pane paneName;
    private Pane paneMinMaxType;
+   private Pane paneRefPoints;
    private Pane paneCelObjects;
    private Pane paneMundanePoints;
    private ComboBox cbMinMaxTypes;
+   private ComboBox cbRefPoints;
    private CheckComboBox ccbCelObjects;
    private CheckComboBox ccbMundanePoints;
    private TextField tfDivision;
@@ -79,6 +82,11 @@ public class ScenMinMaxNew {
       cbMinMaxTypes.setPrefWidth(HALFWIDTH);
       HBox hbMinMaxType = new HBoxBuilder().setPrefWidth(WIDTH).setPrefHeight(30.0).setChildren(lblMinMaxType, cbMinMaxTypes).build();
       paneMinMaxType = new PaneBuilder().setHeight(30.0).setWidth(WIDTH).setChildren(hbMinMaxType).build();
+      Label lblRefPoints = new LabelBuilder("ui.stats.scenminmaxnew.refpoints").setPrefWidth(HALFWIDTH).build();
+      cbRefPoints = new ComboBox();
+      cbRefPoints.setPrefWidth(HALFWIDTH);
+      HBox hbRefPoints = new HBoxBuilder().setPrefWidth(WIDTH).setPrefHeight(30.0).setChildren(lblRefPoints, cbRefPoints).build();
+      paneRefPoints = new PaneBuilder().setHeight(30.0).setWidth(WIDTH).setChildren(hbRefPoints).build();
       Label lblCelPoints = new LabelBuilder("ui.stats.scenminmaxnew.celpoints").setPrefWidth(HALFWIDTH).build();
       ccbCelObjects = new CheckComboBoxBuilder().setPrefWidth(HALFWIDTH).build();
       HBox hbCelObjects = new HBoxBuilder().setPrefHeight(30.0).setPrefWidth(WIDTH).setChildren(lblCelPoints, ccbCelObjects).build();
@@ -90,12 +98,16 @@ public class ScenMinMaxNew {
    }
 
    private void populate() {
-      // TODO save values from enums and use the indexes of the selected items to collect the correct values.
       final StatsMinMaxTypesFe[] valuesSMMT = StatsMinMaxTypesFe.values();
       for (StatsMinMaxTypesFe smmt : valuesSMMT) {
          cbMinMaxTypes.getItems().add(Rosetta.getText(smmt.getRbKey()));
       }
       cbMinMaxTypes.getSelectionModel().selectFirst();
+      final ReferencePoints[] valuesRP = ReferencePoints.values();
+      for (ReferencePoints rp : valuesRP) {
+         cbRefPoints.getItems().add(Rosetta.getText(rp.getRbKey()));
+      }
+      cbRefPoints.getSelectionModel().selectFirst();
       final CelObjects[] valuesCO = CelObjects.values();
       for (CelObjects co : valuesCO) {
          ccbCelObjects.getItems().add(Rosetta.getText(co.getRbKey()));
@@ -116,6 +128,7 @@ public class ScenMinMaxNew {
             paneName,
             paneMinMaxType,
             paneCelObjects,
+            paneRefPoints,
             paneMundanePoints,
             createPaneBtnBar()
       ).build();
@@ -136,6 +149,8 @@ public class ScenMinMaxNew {
       if (validInput()) {
          int minMaxTypeIndex = cbMinMaxTypes.getSelectionModel().getSelectedIndex();
          String minMaxTypeName = StatsMinMaxTypesFe.values()[minMaxTypeIndex].name();
+         int refPointIndex = cbRefPoints.getSelectionModel().getSelectedIndex();
+         String refPoint = ReferencePoints.values()[refPointIndex].name();
          CelObjects[] celObjectValues = CelObjects.values();
          List<String> celObjectNames = new ArrayList<>();
          final ObservableList checkedCelObjectIndexes = ccbCelObjects.getCheckModel().getCheckedIndices();
@@ -150,7 +165,7 @@ public class ScenMinMaxNew {
             MundanePoints currentMp = mundPointValues[(int) index];
             mundPointNames.add(currentMp.name());
          }
-         ScenarioFe scenario = new ScenMinMaxFe(scenName, scenDescr, projName, typeName, minMaxTypeName, celObjectNames, mundPointNames);
+         ScenarioFe scenario = new ScenMinMaxFe(scenName, scenDescr, projName, typeName, minMaxTypeName, refPoint, celObjectNames, mundPointNames);
          facade.writeScenario(scenario);
       }
    }

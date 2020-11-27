@@ -168,12 +168,14 @@ class ScenMinMaxMapper : ScenarioMapper {
         val description = jsonObject["description"] as String
         val projectName = jsonObject["projectName"] as String
         val scenarioType = constructScenarioType(jsonObject["scenarioType"] as String)
-        val minMaxType = constructMinMaxType(jsonObject["minMaxTypes"] as String)
+        val minMaxType = constructMinMaxType(jsonObject["minMaxType"] as String)
+        var refPoint = "";
+        if (jsonObject.containsKey("refPoint")) refPoint = jsonObject["refPoint"] as String
         var celObjects: MutableList<CelestialObjects> = ArrayList()
         if (jsonObject.containsKey("celObjects")) celObjects = constructAllCelObjects(jsonObject["celObjects"] as JSONArray)
         var mundanePoints: MutableList<MundanePointsAstron> = ArrayList()
         if (jsonObject.containsKey("mundanePoints")) mundanePoints = constructAllMundanePoints(jsonObject["mundanePoints"] as JSONArray)
-        return ScenMinMaxBe(name, description, projectName, scenarioType, minMaxType, celObjects, mundanePoints)
+        return ScenMinMaxBe(name, description, projectName, scenarioType, minMaxType, refPoint, celObjects, mundanePoints)
     }
 
     private fun constructMinMaxType(name: String): StatsMinMaxTypesBe {

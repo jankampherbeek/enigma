@@ -31,6 +31,7 @@ internal class ScenMinMaxBeMapperTest {
             "  \"projectName\" : \"testProject\",\n" +
             "  \"scenarioType\" : \"MINMAX\",\n" +
             "  \"minMaxType\" : \"ECLIPTIC_DISTANCE\",\n" +
+            "  \"refPoint\" : \"MC\",\n" +
             "  \"celObjects\" : [ \"MOON\", \"JUPITER\" ],\n" +
             "  \"mundanePoints\" : [ \"VERTEX\", \"ASC\" ]\n" +
             "}"
@@ -43,7 +44,7 @@ internal class ScenMinMaxBeMapperTest {
 
 
     @Test
-    fun `Json is correctly mapped to ScenarioRange `() {
+    fun `Json is correctly mapped to ScenarioMinMax`() {
         assertAll(
                 Executable { assertEquals("scenTest", scenarioBe.name, "Name for ScenarioMinMax should be: scenTest.") },
                 Executable { assertEquals("Test scenario", scenarioBe.description, "Description for ScenarioMinMax should be: Test scenario.") },

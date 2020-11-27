@@ -19,11 +19,7 @@ enum class ScenarioTypes(val id: Int,
     MINMAX(2, "statsscenariotype.minmax.name", "statsscenariotype.minmax.descr"),
     COUNTS(3, "statsscenariotype.counts.name", "statsscenariotype.counts.descr"),
     COMBI(4, "statsscenariotype.combi.name", "statsscenariotype.combi.descr"),
-    PROG(5, "statsscenariotype.prog.name", "statsscenariotype.prog.descr"),
-//    DUAL(6, "statsscenariotype.dual.name", "statsscenariotype.dual.descr"),
-//    TRIPLE(7, "statsscenariotype.triple.name", "statsscenariotype.triple.descr"),
-//    MULTIPLE_SINGLE(8, "statsscenariotype.multiplesingle.name", "statsscenariotype.multiplesingle.descr")
-    ;
+    PROG(5, "statsscenariotype.prog.name", "statsscenariotype.prog.descr");
 
     companion object {
         @JvmStatic
@@ -80,4 +76,20 @@ enum class DataInputFormats(val rbKey: String) {
             return UNDEFINED
         }
     }
+}
+
+/**
+ * Reference points for statistical comparisons, currently only intersections.
+ */
+enum class ReferencePoints(val rbKey: String) {
+    MC("stats.referencepoints.mc"),
+    IC("stats.referencepoints.ic"),
+    ASC("stats.referencepoints.asc"),
+    DESC("stats.referencepoints.desc"),
+    ZERO_ARIES("stats.referencepoints.zeroaries"),
+    MEAN_NODE("stats.referencepoints.meannode"),
+    TRUE_NODE("stats.referencepoints.truenode"),
+    VERTEX("stats.referencepoints.vertex"),
+    ANTI_VERTEX("stats.referencepoints.antivertex"),
+    EASTPOINT("stats.referencepoints.eastpoint")
 }

@@ -28,6 +28,7 @@ data class ScenMinMaxFe(override val name: String,
                         override val projName: String,
                         override val typeName: String,
                         val minMaxTypeName: String,
+                        val referencepoint: String,
                         val celObjectNames: List<String>,
                         val mundanePointNames: List<String>) : ScenarioFe
 

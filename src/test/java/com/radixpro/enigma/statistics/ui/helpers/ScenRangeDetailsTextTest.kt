@@ -13,7 +13,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class ScenRangeDetailsTextTest {
+internal class ScenRangeDetailsTextTest {
 
     private val scenDetailsText = ScenRangeDetailsText()
     private lateinit var scen: ScenarioFe

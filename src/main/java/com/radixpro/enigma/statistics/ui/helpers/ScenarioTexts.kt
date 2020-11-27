@@ -80,12 +80,20 @@ class ScenMinMaxDetailsText : ScenDetailsText {
 
     override fun createText(scenario: ScenarioFe): String {
         val actualScen = scenario as ScenMinMaxFe
-        return (headerText(actualScen) + minMaxTypeText(actualScen.minMaxTypeName) + descrText(actualScen.descr) + celObjectsText(actualScen.celObjectNames)
+        return (headerText(actualScen)
+                + minMaxTypeText(actualScen.minMaxTypeName)
+                + descrText(actualScen.descr)
+                + refPointText(actualScen.referencepoint)
+                + celObjectsText(actualScen.celObjectNames)
                 + mundPointsText(actualScen.mundanePointNames))
     }
 
     private fun minMaxTypeText(rangeType: String): String {
         return Rosetta.getText("ui.stats.scendetailstext.minmaxtype") + COLON + rangeType + BREAK
+    }
+
+    private fun refPointText(refPoint: String): String {
+        return if (refPoint.isBlank()) "" else Rosetta.getText("ui.stats.scendetailstext.refpoint") + COLON + refPoint + BREAK
     }
 
 }

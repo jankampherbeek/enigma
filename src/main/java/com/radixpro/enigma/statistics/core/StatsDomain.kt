@@ -78,6 +78,7 @@ data class ScenMinMaxBe(override val name: String,
                         override val projectName: String,
                         override val scenarioType: ScenarioTypes,
                         val minMaxTypes: StatsMinMaxTypesBe,
+                        val refPoint: String,
                         val celObjects: List<CelestialObjects>,
                         val mundanePoints: List<MundanePointsAstron>) : ScenarioBe
 
