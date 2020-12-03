@@ -9,9 +9,7 @@ package com.radixpro.enigma.statistics.process
 
 import com.radixpro.enigma.Rosetta
 import com.radixpro.enigma.shared.common.EnigmaDictionary.NEWLINE
-import com.radixpro.enigma.statistics.core.RangeSegmentResults
-import com.radixpro.enigma.statistics.core.ScenRangeBe
-import com.radixpro.enigma.statistics.core.StatsResults
+import com.radixpro.enigma.statistics.core.*
 import com.radixpro.enigma.xchg.domain.IChartPoints
 
 class CsvTextForRange {
@@ -87,4 +85,51 @@ class FixedTextForRange {
         return lineText.toString()
     }
 
+}
+
+class CsvTextForMinMax {
+
+    fun createTextLines(statsResults: StatsResults): List<String> {
+        val results = statsResults as MinMaxResults
+        val scenario = results.scenario as ScenMinMaxBe
+        val nrOfMundanePoints = scenario.mundanePoints.size
+        val nrOfCelObjects = scenario.celObjects.size
+        val textLines = mutableListOf<String>()
+        textLines.add("Scenario: ${scenario.name}. Project: ${scenario.projectName}")
+        textLines.add("")
+        val minMaxType = results.scenario.minMaxTypes
+        val refPoint = results.scenario.refPoint
+        val header = StringBuilder("MinMaxResults, ${minMaxType.name}")
+        if (null != refPoint) header.append(",Reference point, ${Rosetta.getText(refPoint.rbKey)}")
+        textLines.add(header.toString())
+        textLines.add("")
+        for (countForPoint in results.summedResults) {
+            textLines.add("${Rosetta.getText(countForPoint.point.rbKey)},${countForPoint.count}")
+        }
+        return textLines
+    }
+
+}
+
+
+class FixedTextForMinMax {
+
+    fun createFormattedText(statsResults: StatsResults): String {
+        val results = statsResults as MinMaxResults
+        val scenario = results.scenario as ScenMinMaxBe
+        val nrOfMundanePoints = scenario.mundanePoints.size
+        val nrOfCelObjects = scenario.celObjects.size
+        val formattedText = StringBuilder("")
+        formattedText.append("Scenario: ${scenario.name}. Project: ${scenario.projectName}").append(NEWLINE).append(NEWLINE)
+        val minMaxType = results.scenario.minMaxTypes
+        val refPoint = results.scenario.refPoint
+        formattedText.append("MinMaxResults, ${minMaxType.name}")
+        if (null != refPoint) formattedText.append(" Reference point: ${Rosetta.getText(refPoint.rbKey)}").append(NEWLINE)
+        for (countForPoint in results.summedResults) {
+            formattedText.append("${Rosetta.getText(countForPoint.point.rbKey).padEnd(12)} ${countForPoint.count}".padStart(5)).append(NEWLINE)
+        }
+        return formattedText.toString()
+
+
+    }
 }

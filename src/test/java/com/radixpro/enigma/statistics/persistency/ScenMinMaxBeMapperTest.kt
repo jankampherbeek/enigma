@@ -30,7 +30,7 @@ internal class ScenMinMaxBeMapperTest {
             "  \"description\" : \"Test scenario\",\n" +
             "  \"projectName\" : \"testProject\",\n" +
             "  \"scenarioType\" : \"MINMAX\",\n" +
-            "  \"minMaxType\" : \"ECLIPTIC_DISTANCE\",\n" +
+            "  \"minMaxTypes\" : \"ECLIPTIC_DISTANCE\",\n" +
             "  \"refPoint\" : \"MC\",\n" +
             "  \"celObjects\" : [ \"MOON\", \"JUPITER\" ],\n" +
             "  \"mundanePoints\" : [ \"VERTEX\", \"ASC\" ]\n" +

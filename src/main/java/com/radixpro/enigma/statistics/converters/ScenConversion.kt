@@ -18,6 +18,7 @@ import com.radixpro.enigma.statistics.core.StatsMinMaxTypesBe
 import com.radixpro.enigma.statistics.di.StatsInjector.injectScenMinMaxConverter
 import com.radixpro.enigma.statistics.di.StatsInjector.injectScenRangeConverter
 import com.radixpro.enigma.statistics.ui.domain.*
+import com.radixpro.enigma.xchg.domain.IChartPoints
 
 class ScenConverterFactory() {
 
@@ -108,29 +109,41 @@ class ScenRangeConverter : ScenarioConverter {
 class ScenMinMaxConverter : ScenarioConverter {
     override fun feRequestToBe(scenFe: ScenarioFe): ScenarioBe {
         val scenario = scenFe as ScenMinMaxFe
+        var refPoint: IChartPoints
+        val refPointTxt = scenario.referencepoint
+        refPoint = when {
+            CelestialObjects.values().joinToString().contains(refPointTxt) -> CelestialObjects.valueOf(refPointTxt)
+            MundanePointsAstron.values().joinToString().contains(refPointTxt) -> MundanePointsAstron.valueOf(refPointTxt)
+            else -> throw ItemNotFoundException("Could not find $refPointTxt in CelestialObjects or in MundanePointsAstron in ScenMinMaxConverter.")
+        }
         return ScenMinMaxBe(
-                scenario.name,
-                scenario.descr,
-                scenario.projName,
-                ScenarioTypes.valueOf(scenario.typeName),
-                StatsMinMaxTypesBe.valueOf(scenario.minMaxTypeName),
-                scenario.referencepoint,
-                createCelestialObjects(scenario.celObjectNames),
-                createMundanePoints(scenario.mundanePointNames)
+            scenario.name,
+            scenario.descr,
+            scenario.projName,
+            ScenarioTypes.valueOf(scenario.typeName),
+            StatsMinMaxTypesBe.valueOf(scenario.minMaxTypeName),
+            refPoint,
+            createCelestialObjects(scenario.celObjectNames),
+            createMundanePoints(scenario.mundanePointNames)
         )
     }
 
     override fun beRequestToFe(scenBe: ScenarioBe): ScenarioFe {
         val scenario = scenBe as ScenMinMaxBe
+        var refPointText: String = ""
+        if (scenario.refPoint != null) {
+            if (scenario.refPoint is CelestialObjects) refPointText = scenario.refPoint.name
+            else if (scenario.refPoint is MundanePointsAstron) scenario.refPoint.name.also { refPointText = it }
+        }
         return ScenMinMaxFe(
-                scenario.name,
-                scenario.description,
-                scenario.projectName,
-                scenario.scenarioType.name,
-                scenario.minMaxTypes.name,
-                scenario.refPoint,
-                createCelObjectNames(scenario.celObjects),
-                createMundanePointNames(scenario.mundanePoints)
+            scenario.name,
+            scenario.description,
+            scenario.projectName,
+            scenario.scenarioType.name,
+            scenario.minMaxTypes.name,
+            refPointText,
+            createCelObjectNames(scenario.celObjects),
+            createMundanePointNames(scenario.mundanePoints)
         )
     }
 

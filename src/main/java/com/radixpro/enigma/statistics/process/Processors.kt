@@ -7,31 +7,38 @@
 
 package com.radixpro.enigma.statistics.process
 
+import com.radixpro.enigma.astronomy.proces.GeneralPositionHandler
 import com.radixpro.enigma.be.calc.SeFrontend
 import com.radixpro.enigma.be.calc.assist.CombinedFlags
+import com.radixpro.enigma.be.util.Range
 import com.radixpro.enigma.domain.input.ChartInputData
 import com.radixpro.enigma.references.CelestialObjects
 import com.radixpro.enigma.references.HouseSystems
 import com.radixpro.enigma.references.MundanePointsAstron
 import com.radixpro.enigma.references.SeFlags
+import com.radixpro.enigma.share.exceptions.ItemNotFoundException
 import com.radixpro.enigma.share.persistency.CsvWriter
 import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.share.persistency.Reader
 import com.radixpro.enigma.statistics.core.*
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
+import com.radixpro.enigma.xchg.domain.IChartPoints
 import swisseph.SweConst.SE_ECL_NUT
+import kotlin.math.abs
 
 interface ScenProcessor {
     val calculator: StatsCalculator
     fun process(scenario: ScenarioBe, dataType: DataTypes): String
 }
 
-class ScenRangeProcessor(override val calculator: StatsCalculator,
-                         val projHandler: StatsProjHandler,
-                         val dataHandler: ProjectDataHandler,
-                         val pathConstructor: StatsPathConstructor,
-                         val reader: Reader,
-                         val seFrontend: SeFrontend) : ScenProcessor {
+class ScenRangeProcessor(
+    override val calculator: StatsCalculator,
+    val projHandler: StatsProjHandler,
+    val dataHandler: ProjectDataHandler,
+    val positionHandler: GeneralPositionHandler,
+    val pathConstructor: StatsPathConstructor,
+    val reader: Reader
+) : ScenProcessor {
 
 
     override fun process(scenario: ScenarioBe, dataType: DataTypes): String {
@@ -61,25 +68,11 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
 
 
     private fun calcCelObjectLongitude(chart: ChartInputData, seId: Int, flags: Long): Double {
-        return seFrontend.getPositionsForCelBody(chart.dateTime.jd, seId, flags.toInt(), chart.location).allPositions[0]
+        return SeFrontend.getPositionsForCelBody(chart.dateTime.jd, seId, flags.toInt(), chart.location).allPositions[0]
     }
 
     private fun calcMundPointLongitude(chart: ChartInputData, mundPoint: MundanePointsAstron, scenario: ScenRangeBe, flags: Long): Double {
-        val jdUt = chart.dateTime.jd
-        val location = chart.location
-        val houseSystemId = scenario.houseSystem.seId[0].toInt()
-        val nrOfCusps = scenario.houseSystem.nrOfCusps
-        val positions = seFrontend.getPositionsForHouses(jdUt, flags.toInt(), location, houseSystemId, nrOfCusps)
-
-        return when (mundPoint) {
-            MundanePointsAstron.ASC -> positions.ascMc[0]
-            MundanePointsAstron.MC -> positions.ascMc[1]
-            MundanePointsAstron.EASTPOINT -> positions.ascMc[4]
-            MundanePointsAstron.VERTEX -> positions.ascMc[3]
-            else -> {
-                0.0
-            }   // todo log error, maybe throw exception?
-        }
+        return positionHandler.calcLongitude(mundPoint, chart.dateTime.jd, flags.toInt(), chart.location)
     }
 
     private fun calcSegment(lon: Double, divider: Int): Int {
@@ -137,13 +130,15 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
                 val lon = calcCelObjectLongitude(chart, celObject.seId.toInt(), flags)
                 val geoLat = chart.location.geoLat
                 val houseSystemId = houseSystem.seId[0].toInt()
-                val positionsForHouses = seFrontend.getPositionsForHouses(chart.dateTime.jd, flags.toInt(), chart.location,
-                        houseSystemId, houseSystem.nrOfCusps)
+                val positionsForHouses = SeFrontend.getPositionsForHouses(
+                    chart.dateTime.jd, flags.toInt(), chart.location,
+                    houseSystemId, houseSystem.nrOfCusps
+                )
                 val armc = positionsForHouses.ascMc[2]
-                val eps = seFrontend.getPositionsForEpsilon(chart.dateTime.jd, SE_ECL_NUT, flags.toInt()).allPositions[0]
+                val eps = SeFrontend.getPositionsForEpsilon(chart.dateTime.jd, SE_ECL_NUT, flags.toInt()).allPositions[0]
                 var error = StringBuffer()
                 val lonLat = arrayOf(lon, 0.0).toDoubleArray()
-                val housePos = seFrontend.getPositionInHouse(armc, geoLat, eps, houseSystemId, lonLat, error)
+                val housePos = SeFrontend.getPositionInHouse(armc, geoLat, eps, houseSystemId, lonLat, error)
                 val segment = housePos.toInt()
                 positions.add(ScenRangePosition(celObject, housePos, segment))
             }
@@ -166,6 +161,188 @@ class ScenRangeProcessor(override val calculator: StatsCalculator,
             }
         }
         return matrix
+    }
+}
+
+
+class ScenMinMaxProcessor(
+    override val calculator: StatsCalculator,
+    val projHandler: StatsProjHandler,
+    val dataHandler: ProjectDataHandler,
+    val positionHandler: GeneralPositionHandler,
+    val pathConstructor: StatsPathConstructor,
+    val reader: Reader
+) : ScenProcessor {
+
+    override fun process(scenario: ScenarioBe, dataType: DataTypes): String {
+        // definieer startsituatie
+        val actualScenario = scenario as ScenMinMaxBe
+        val minMaxType = scenario.minMaxTypes
+        val allCharts = dataHandler.readChartData(actualScenario.projectName).inputData
+
+        // loop alle horoscopen na
+        var fullResults: MinMaxResults
+        fullResults = if (StatsMinMaxTypesBe.ECLIPTIC_DISTANCE == actualScenario.minMaxTypes) {
+            defineTotalsForDistance(actualScenario, allCharts)
+        } else if (StatsMinMaxTypesBe.DECLINATION == actualScenario.minMaxTypes) {
+            // TODO change           fullResults = defineTotalsForDecl(actualScenario, allCharts)
+            defineTotalsForDistance(actualScenario, allCharts)
+        } else throw ItemNotFoundException("Found StatsMinMaxTypesBe: ${actualScenario.minMaxTypes.name} which is not supported in ScenMinMaxProcessor.")
+        processOutput(fullResults, actualScenario)
+        return FixedTextForMinMax().createFormattedText(fullResults)
+    }
+
+    private fun defineTotalsForDistance(scenario: ScenMinMaxBe, allCharts: List<ChartInputData>): MinMaxResults {
+        val flags = CombinedFlags().getCombinedValue(listOf(SeFlags.SWISSEPH, SeFlags.SPEED))
+        val refPoint = scenario.refPoint
+        val summedTotals: MutableList<ChartPointValue> = ArrayList()
+        val details: MutableList<MinMaxPositionsPerChart> = ArrayList()
+        val allPoints = scenario.celObjects + scenario.mundanePoints
+        if (null != refPoint) {
+            var shortestDistance = 180.0
+            var pointWithShortestDistance: IChartPoints = CelestialObjects.EMPTY
+            for (chart in allCharts) {
+                var refPointPosition = positionHandler.calcLongitude(refPoint, chart.dateTime.jd, flags.toInt(), chart.location)
+                var distance = 0.0
+                for (point in allPoints) {
+                    distance = defineDistance(point, chart, flags.toInt(), refPointPosition)
+                    if (distance < shortestDistance) {
+                        shortestDistance = distance
+                        pointWithShortestDistance = point
+                    }
+                }
+                details.add(MinMaxPositionsPerChart(chart.id, pointWithShortestDistance, distance))
+            }
+            for (point in allPoints) {
+                var count = 0
+                for (posPerChart in details) {
+                    if (point == posPerChart.point) count++
+                }
+                summedTotals.add(ChartPointValue(point, count))
+            }
+        }
+        return MinMaxResults(scenario, summedTotals, details)
+    }
+
+    private fun defineDistance(point: IChartPoints, chart: ChartInputData, flags: Int, refPointPosition: Double): Double {
+        var lon = positionHandler.calcLongitude(point, chart.dateTime.jd, flags, chart.location)
+        return Range.checkValue(abs(refPointPosition - lon), 0.0, 180.0)
+    }
+
+//    private fun defineTotalsForDecl(scenario: ScenMinMaxBe, allCharts: List<ChartInputData>): MinMaxResults {
+//
+//
+//        return MinMaxResult(scenario, summedTotals, details)
+//    }
+
+    private fun processOutput(fullResults: MinMaxResults, scenario: ScenMinMaxBe) {
+        var pathToFilename = pathConstructor.pathForJsonResult(scenario.name, scenario.projectName)
+        JsonWriter().write2File(pathToFilename, fullResults, true)
+        val csvText = CsvTextForMinMax().createTextLines(fullResults)
+        pathToFilename = pathConstructor.pathForCsvResult(scenario.name, scenario.projectName)
+        CsvWriter().write2File(pathToFilename, csvText)
+    }
+
+
+    fun processOld(scenario: ScenarioBe, dataType: DataTypes): String {
+        val actualScenario = scenario as ScenMinMaxBe
+        val minMaxType = scenario.minMaxTypes
+        val refPoint = scenario.refPoint
+        val inputDataSet = dataHandler.readChartData(actualScenario.projectName)
+        val allData = inputDataSet.inputData
+        var refPointPosition: Double
+        val flags = CombinedFlags().getCombinedValue(listOf(SeFlags.SWISSEPH, SeFlags.SPEED))
+        val totalsForAllChartPoints = Array(actualScenario.celObjects.size) { Array(2) { 0 } }
+        val indexForAllChartPoints: MutableMap<IChartPoints, Int> = HashMap()
+        for ((index, point) in actualScenario.celObjects.withIndex()) {
+            indexForAllChartPoints[point] = index
+            totalsForAllChartPoints[index][0] = index
+            totalsForAllChartPoints[index][1] = point.id
+        }
+        var cumIndex = 0
+        for ((index, point) in actualScenario.mundanePoints.withIndex()) {
+            cumIndex = index + actualScenario.celObjects.size
+            indexForAllChartPoints[point] = cumIndex
+            totalsForAllChartPoints[cumIndex][0] = cumIndex
+            totalsForAllChartPoints[cumIndex][1] = point.id
+        }
+
+        val allResults: MutableList<MinMaxPositionsPerChart> = ArrayList()
+        for (chart in allData) {
+            var resultingPoint: IChartPoints = CelestialObjects.SUN    // fake instantiation
+            var calcValue: Double = 0.0
+            when (minMaxType) {
+                StatsMinMaxTypesBe.ECLIPTIC_DISTANCE -> {
+                    var shortestDistance: Double = 180.0
+                    refPointPosition = positionHandler.calcLongitude(refPoint!!, chart.dateTime.jd, flags.toInt(), chart.location)
+                    for (celObject in actualScenario.celObjects) {
+                        var lon = positionHandler.calcLongitude(celObject, chart.dateTime.jd, flags.toInt(), chart.location)
+                        var distance = Range.checkValue(abs(refPointPosition - lon), 0.0, 180.0)
+                        if (distance <= shortestDistance) {
+                            shortestDistance = distance
+                            resultingPoint = celObject
+                            calcValue = distance
+                        }
+                    }
+                    for (mundPoint in actualScenario.mundanePoints) {
+                        var lon = positionHandler.calcLongitude(mundPoint, chart.dateTime.jd, flags.toInt(), chart.location)
+                        var distance = Range.checkValue(abs(refPointPosition - lon), 0.0, 180.0)
+                        if (distance <= shortestDistance) {
+                            shortestDistance = distance
+                            resultingPoint = mundPoint
+                            calcValue = distance
+                        }
+                    }
+                }
+                StatsMinMaxTypesBe.DECLINATION -> {
+                    var maxDecl = 0.0
+                    for (celObject in actualScenario.celObjects) {
+                        var decl = positionHandler.calcDeclination(celObject, chart.dateTime.jd, flags.toInt(), chart.location)
+                        if (decl >= maxDecl) {
+                            maxDecl = decl
+                            resultingPoint = celObject
+                            calcValue = decl
+                        }
+                    }
+                    for (mundPoint in actualScenario.mundanePoints) {
+                        var decl = positionHandler.calcDeclination(mundPoint, chart.dateTime.jd, flags.toInt(), chart.location)
+                        if (decl >= maxDecl) {
+                            maxDecl = decl
+                            resultingPoint = mundPoint
+                            calcValue = decl
+                        }
+                    }
+                }
+            }
+            allResults.add(MinMaxPositionsPerChart(chart.id, resultingPoint, calcValue))
+        }
+        val summedResults: MutableList<ChartPointValue> = ArrayList()
+        var tempVal: Int
+        for (i in 0 until allResults.size) {
+            var tempPoint = allResults[i].point
+            val index = indexForAllChartPoints[tempPoint]
+            totalsForAllChartPoints[index!!][1]++              // todo check for null
+        }
+
+        var point: IChartPoints = CelestialObjects.EMPTY
+        var sum: Int = 0
+        for (i in totalsForAllChartPoints.indices) {
+            for (j in indexForAllChartPoints) {
+                if (j.key.id == i) {
+                    point = j.key
+                    sum = totalsForAllChartPoints[i][1]
+                }
+            }
+            summedResults += ChartPointValue(point, sum)
+        }
+
+        val fullResults = MinMaxResults(actualScenario, summedResults, allResults.toList())
+        var pathToFilename = pathConstructor.pathForJsonResult(scenario.name, scenario.projectName)
+        JsonWriter().write2File(pathToFilename, fullResults, true)
+        val csvText = CsvTextForMinMax().createTextLines(fullResults)
+        pathToFilename = pathConstructor.pathForCsvResult(scenario.name, scenario.projectName)
+        CsvWriter().write2File(pathToFilename, csvText)
+        return FixedTextForMinMax().createFormattedText(fullResults)
     }
 }
 

@@ -62,7 +62,7 @@ internal class StatsFacadeTest {
 
     @Test
     fun `Request to process a Scenario of type Range should result in a text as returned by the API`() {
-        facade.processScenRange(scenarioFe, "TEST") shouldBe processResult
+        facade.processScenario(scenarioFe, "TEST") shouldBe processResult
     }
 
     private fun scenarioNames(): List<String> {

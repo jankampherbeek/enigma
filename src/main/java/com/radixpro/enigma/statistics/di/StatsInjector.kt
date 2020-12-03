@@ -8,6 +8,7 @@
 package com.radixpro.enigma.statistics.di
 
 
+import com.radixpro.enigma.astronomy.di.AstronomyInjector.injectGeneralPositionHandler
 import com.radixpro.enigma.be.calc.SeFrontend
 import com.radixpro.enigma.be.persistency.BePersistencyInjector
 import com.radixpro.enigma.share.di.ShareInjector.injectFileReader
@@ -125,8 +126,17 @@ object StatsInjector {
     }
 
     fun injectScenRangeProcessor(): ScenRangeProcessor {
-        return ScenRangeProcessor(injectPointsCalculator(), injectStatsProjHandler(), injectProjectDataHandler(), injectStatsPathConstructor(),
-                injectJsonReader(), SeFrontend)
+        return ScenRangeProcessor(
+            injectPointsCalculator(), injectStatsProjHandler(), injectProjectDataHandler(), injectGeneralPositionHandler(),
+            injectStatsPathConstructor(), injectJsonReader()
+        )
+    }
+
+    fun injectScenMinMaxProcessor(): ScenMinMaxProcessor {
+        return ScenMinMaxProcessor(
+            injectPointsCalculator(), injectStatsProjHandler(), injectProjectDataHandler(), injectGeneralPositionHandler(),
+            injectStatsPathConstructor(), injectJsonReader()
+        )
     }
 
     fun injectScenMinMaxConverter(): ScenMinMaxConverter {
@@ -152,7 +162,7 @@ object StatsInjector {
     }
 
     fun injectStatsProcessHandler(): StatsProcessHandler {
-        return StatsProcessHandler(injectScenRangeProcessor())
+        return StatsProcessHandler(injectScenRangeProcessor(), injectScenMinMaxProcessor())
     }
 
     fun injectStatsProjHandler(): StatsProjHandler {

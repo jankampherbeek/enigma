@@ -7,6 +7,7 @@
 
 package com.radixpro.enigma.statistics.api
 
+import com.radixpro.enigma.share.exceptions.ItemNotFoundException
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
 import com.radixpro.enigma.statistics.converters.ProjectConverter
 import com.radixpro.enigma.statistics.converters.ScenConverterFactory
@@ -75,9 +76,11 @@ class ScenGeneralApi(private val generalHandler: ScenarioGeneralHandler,
 class StatsProcessApi(private val handler: StatsProcessHandler, private val converterFactory: ScenConverterFactory) {
 
     fun processScenario(scenFe: ScenarioFe, dataType: String): String {
-        val scenType = ScenarioTypes.valueOf(scenFe.typeName)
-        return if (scenType == ScenarioTypes.RANGE) handleScenRange(handler, scenFe, dataType)
-        else ""
+        return when (ScenarioTypes.valueOf(scenFe.typeName)) {
+            ScenarioTypes.RANGE -> handleScenRange(handler, scenFe, dataType)
+            ScenarioTypes.MINMAX -> handleScanMinMax(handler, scenFe, dataType)
+            else -> throw ItemNotFoundException("Could not find scenario type in StatsProcessApi.")
+        }
     }
 
     private fun handleScenRange(handler: StatsProcessHandler, scenFe: ScenarioFe, dataType: String): String {
@@ -86,4 +89,9 @@ class StatsProcessApi(private val handler: StatsProcessHandler, private val conv
         return handler.handleProcess(scenBe, dataType)
     }
 
+    private fun handleScanMinMax(handler: StatsProcessHandler, scenFe: ScenarioFe, dataType: String): String {
+        val converter = converterFactory.getConverter(ScenarioTypes.MINMAX)
+        val scenBe = converter.feRequestToBe(scenFe)
+        return handler.handleProcess(scenBe, dataType)
+    }
 }

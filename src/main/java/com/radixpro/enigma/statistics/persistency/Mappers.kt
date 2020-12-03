@@ -17,6 +17,7 @@ import com.radixpro.enigma.statistics.core.ScenarioBe
 import com.radixpro.enigma.statistics.core.StatsMinMaxTypesBe
 import com.radixpro.enigma.statistics.ui.domain.ScenarioTypes
 import com.radixpro.enigma.statistics.ui.domain.StatsRangeTypes
+import com.radixpro.enigma.xchg.domain.IChartPoints
 import org.apache.log4j.Logger
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
@@ -168,9 +169,17 @@ class ScenMinMaxMapper : ScenarioMapper {
         val description = jsonObject["description"] as String
         val projectName = jsonObject["projectName"] as String
         val scenarioType = constructScenarioType(jsonObject["scenarioType"] as String)
-        val minMaxType = constructMinMaxType(jsonObject["minMaxType"] as String)
-        var refPoint = "";
-        if (jsonObject.containsKey("refPoint")) refPoint = jsonObject["refPoint"] as String
+        val minMaxType = constructMinMaxType(jsonObject["minMaxTypes"] as String)
+        var refPointTxt = "";
+        var refPoint: IChartPoints? = null
+        if (jsonObject.containsKey("refPoint")) {
+            refPointTxt = jsonObject["refPoint"] as String
+            refPoint = when {
+                CelestialObjects.values().joinToString(",").contains(refPointTxt) -> CelestialObjects.valueOf(refPointTxt)
+                MundanePointsAstron.values().joinToString(",").contains(refPointTxt) -> MundanePointsAstron.valueOf(refPointTxt)
+                else -> throw ItemNotFoundException("Could not find CelestialObjects or MundanePointsAstron for $refPointTxt in ScenMinMaxMapper.")
+            }
+        }
         var celObjects: MutableList<CelestialObjects> = ArrayList()
         if (jsonObject.containsKey("celObjects")) celObjects = constructAllCelObjects(jsonObject["celObjects"] as JSONArray)
         var mundanePoints: MutableList<MundanePointsAstron> = ArrayList()

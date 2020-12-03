@@ -85,7 +85,7 @@ public class ProcessingResult {
    }
 
    private String defineResults(@NotNull ScenarioFe scenario) {
-      return facade.processScenRange(scenario, dataType);
+      return facade.processScenario(scenario, dataType);
    }
 
    private VBox createVBox() {

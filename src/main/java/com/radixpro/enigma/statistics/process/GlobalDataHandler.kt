@@ -11,7 +11,6 @@ import com.radixpro.enigma.statistics.api.InputDataFileRequest
 import com.radixpro.enigma.statistics.api.InputDataFileResponse
 import com.radixpro.enigma.statistics.core.DataFileDescription
 import com.radixpro.enigma.statistics.core.InputDataSet
-import com.radixpro.enigma.statistics.core.StatsProject
 import com.radixpro.enigma.statistics.persistency.GlobalDataDao
 import com.radixpro.enigma.statistics.persistency.InputDataReader
 import org.apache.log4j.Logger
@@ -37,8 +36,9 @@ class GlobalDataHandler(private val daoGlobal: GlobalDataDao,
         var success: Boolean
         var pathFilename = ""
         try {
-            val project = projHandler.read(request.projName) as StatsProject
-            pathFilename = pathConstructor.pathForProjectData(project)
+//            val project = projHandler.read(request.projectsFolder) as StatsProject
+//            pathFilename = pathConstructor.pathForProjectData(project)
+            pathFilename = pathConstructor.pathForGlobalData() + request.dataName + ".json"
             val inputDataSet = inputDataReader.readCsv(request.dataName, request.description, request.dataFile.absolutePath)
             errorLines = inputDataReader.errorLines
             success = inputDataReader.isNoErrors

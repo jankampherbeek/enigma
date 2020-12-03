@@ -72,7 +72,7 @@ public class InputDataReader {
          throws InputDataException {
       List<ChartInputData> charts = new ArrayList<>();
       for (String[] line : lines) {
-         if (!(line.length < 4 || line[0].equalsIgnoreCase("id"))) {
+         if (!(line[0].equalsIgnoreCase("id"))) {
             charts.add(processSingleLine(line));
          }
       }

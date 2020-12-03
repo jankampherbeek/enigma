@@ -12,7 +12,9 @@ import java.io.File
 /**
  * Request for reading a datafile and saving it in Json format in the project folder.
  */
-data class InputDataFileRequest(val dataName: String,
-                                val description: String,
-                                val dataFile: File,
-                                val projName: String)
+data class InputDataFileRequest(
+    val dataName: String,
+    val description: String,
+    val dataFile: File,
+    val projectsFolder: String
+)

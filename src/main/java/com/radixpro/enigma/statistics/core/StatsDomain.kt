@@ -64,23 +64,37 @@ data class RangeSegmentResults(override val scenario: ScenarioBe,
     }
 }
 
-data class ScenRangeBe(override val name: String,
-                       override val description: String,
-                       override val projectName: String,
-                       override val scenarioType: ScenarioTypes,
-                       val rangeType: StatsRangeTypes,
-                       val houseSystem: HouseSystems,
-                       val celObjects: List<CelestialObjects>,
-                       val mundanePoints: List<MundanePointsAstron>) : ScenarioBe
+data class MinMaxResults(
+    override val scenario: ScenarioBe,
+    val summedResults: List<ChartPointValue>,
+    val details: List<MinMaxPositionsPerChart>
+) : StatsResults
 
-data class ScenMinMaxBe(override val name: String,
-                        override val description: String,
-                        override val projectName: String,
-                        override val scenarioType: ScenarioTypes,
-                        val minMaxTypes: StatsMinMaxTypesBe,
-                        val refPoint: String,
-                        val celObjects: List<CelestialObjects>,
-                        val mundanePoints: List<MundanePointsAstron>) : ScenarioBe
+data class MinMaxPositionsPerChart(val chartId: Int, val point: IChartPoints, val calcValue: Double)
+
+data class ChartPointValue(val point: IChartPoints, val count: Int)
+
+data class ScenRangeBe(
+    override val name: String,
+    override val description: String,
+    override val projectName: String,
+    override val scenarioType: ScenarioTypes,
+    val rangeType: StatsRangeTypes,
+    val houseSystem: HouseSystems,
+    val celObjects: List<CelestialObjects>,
+    val mundanePoints: List<MundanePointsAstron>
+) : ScenarioBe
+
+data class ScenMinMaxBe(
+    override val name: String,
+    override val description: String,
+    override val projectName: String,
+    override val scenarioType: ScenarioTypes,
+    val minMaxTypes: StatsMinMaxTypesBe,
+    val refPoint: IChartPoints?,
+    val celObjects: List<CelestialObjects>,
+    val mundanePoints: List<MundanePointsAstron>
+) : ScenarioBe
 
 
 data class ScenRangePosition(val point: IChartPoints, val position: Double, val segment: Int)
