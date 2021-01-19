@@ -9,6 +9,8 @@ package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.SessionState;
+import com.radixpro.enigma.be.analysis.AspectsForRadix;
+import com.radixpro.enigma.be.handlers.AspectsHandler;
 import com.radixpro.enigma.domain.analysis.MetaDataForAnalysis;
 import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.astronpos.FullChart;
@@ -26,13 +28,11 @@ import com.radixpro.enigma.ui.charts.screens.ChartsData;
 import com.radixpro.enigma.ui.creators.ButtonBuilder;
 import com.radixpro.enigma.ui.creators.LabelBuilder;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
-import com.radixpro.enigma.ui.screens.helpers.AspectsInConfig;
-import com.radixpro.enigma.ui.screens.helpers.CelObjectsInConfig;
-import com.radixpro.enigma.ui.screens.helpers.PropertiesForConfig;
-import com.radixpro.enigma.ui.screens.helpers.PropertiesTableForConfig;
+import com.radixpro.enigma.ui.screens.helpers.*;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableChartData;
 import com.radixpro.enigma.ui.shared.presentationmodel.PresentableProperty;
+import com.radixpro.enigma.xchg.api.AspectsApi;
 import com.radixpro.enigma.xchg.api.CalculatedChartApi;
 import com.radixpro.enigma.xchg.api.PersistedChartDataApi;
 import com.radixpro.enigma.xchg.api.PersistedConfigurationApi;
@@ -451,7 +451,7 @@ public class ChartsStart {
 
    private void drawChart2D() {
       String chartName = state.getSelectedChart().getChartData().getChartMetaData().getName();
-//      ChartsDrawing2d chartsDrawing2d = new ChartsDrawing2d(state);    // todo use factory
+      ChartsDrawing2d chartsDrawing2d = new ChartsDrawing2d(new RadixWheel(new AspectsApi(new AspectsHandler(new AspectsForRadix()))));    // todo use di
       chartsDrawing2d.setDrawingInfo();
    }
 
