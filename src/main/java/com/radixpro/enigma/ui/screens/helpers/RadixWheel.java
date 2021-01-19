@@ -193,7 +193,7 @@ public class RadixWheel {
          if (!quadrantSystem || (i != 1 && i != 4 && i != 7 && i != 10)) {
             double longitude = cusps.get(i).getLongitude();
             angle = asc - longitude;
-            cuspLine = PlotCoordinatesFactory.createCuspLinePlotCoordinates(angle, metrics);
+            cuspLine = PlotCoordinatesFactory.createCuspLinePlotCoordinates(angle + 180.0, metrics);
             positions = cuspLine.defineCoordinates(angle, metrics);
             gc.strokeLine(positions[0], positions[1], positions[2], positions[3]);
          }
