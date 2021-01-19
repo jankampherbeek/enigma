@@ -127,14 +127,14 @@ object StatsInjector {
 
     fun injectScenRangeProcessor(): ScenRangeProcessor {
         return ScenRangeProcessor(
-            injectPointsCalculator(), injectStatsProjHandler(), injectProjectDataHandler(), injectGeneralPositionHandler(),
+            injectPointsCalculator(), injectProjectDataHandler(), injectGeneralPositionHandler(),
             injectStatsPathConstructor(), injectJsonReader()
         )
     }
 
     fun injectScenMinMaxProcessor(): ScenMinMaxProcessor {
         return ScenMinMaxProcessor(
-            injectPointsCalculator(), injectStatsProjHandler(), injectProjectDataHandler(), injectGeneralPositionHandler(),
+            injectPointsCalculator(), injectProjectDataHandler(), injectGeneralPositionHandler(),
             injectStatsPathConstructor(), injectJsonReader()
         )
     }

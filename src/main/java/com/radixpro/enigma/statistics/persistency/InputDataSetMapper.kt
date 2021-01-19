@@ -67,9 +67,9 @@ class InputDataSetMapper {
     }
 
     private fun createLocation(jsonObject: JSONObject): Location {
-        val dateTimeObject = jsonObject["location"] as JSONObject
-        val latValue = dateTimeObject["geoLat"] as Double
-        val lonValue = dateTimeObject["geoLon"] as Double
+        val locationObject = jsonObject["location"] as JSONObject
+        val latValue = locationObject["geoLat"] as Double
+        val lonValue = locationObject["geoLon"] as Double
         return Location(latValue, lonValue)
     }
 }
