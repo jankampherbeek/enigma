@@ -28,7 +28,6 @@ public class ChartDataDao extends DaoParent {
 
    private static final Logger LOG = Logger.getLogger(ChartDataDao.class);
    private static final String SEL_CHARTS = "SELECT id, name, description, idcharttype, idrating, jdnr, cal, geolat, geolon, datainput ";
-   private static final String ZERO = "0";
    private final AppDb appDb;
 
    public ChartDataDao() {
@@ -141,16 +140,32 @@ public class ChartDataDao extends DaoParent {
    }
 
    /**
-    * Search for an instance of ChartData with the name.
+    * Search for an instance of ChartData with the searchstring as part of the name.
+    *
+    * @param searchName The name to search for. Returns all Charts if searchName is an empty string. PRE: not null.
+    * @return A list with found instances of ChartData that have the same name as the searchname.
+    */
+   public List<FullChartInputData> search(@NotNull final String searchName) {
+      final String queryCharts = SEL_CHARTS + " FROM charts WHERE name ILIKE '%' || ? || '%';";
+      return performSearch(queryCharts, searchName);
+   }
+
+   /**
+    * Search for an instance of ChartData with the exact name.
     *
     * @param searchName The name to search for. There should be an exact match. Returns all Charts if searchName is an empty string. PRE: not null.
     * @return A list with found instances of ChartData that have the same name as the searchname.
     */
-   public List<FullChartInputData> search(@NotNull final String searchName) {
+   public List<FullChartInputData> searchExact(@NotNull final String searchName) {
+      final String queryCharts = SEL_CHARTS + " FROM charts WHERE name = ?;";
+      return performSearch(queryCharts, searchName.trim());
+   }
+
+
+   private List<FullChartInputData> performSearch(@NotNull final String query, @NotNull final String searchName) {
       List<FullChartInputData> fullChartInputDataList = new ArrayList<>();
-      final String queryCharts = SEL_CHARTS + " FROM charts WHERE name ILIKE '%' || ? || '%';";
       final Connection con = appDb.getConnection();
-      try (PreparedStatement pStmt = con.prepareStatement(queryCharts)) {
+      try (PreparedStatement pStmt = con.prepareStatement(query)) {
          pStmt.setString(1, searchName);
          try (ResultSet rsCharts = pStmt.executeQuery()) {
             while (rsCharts.next()) {
@@ -158,10 +173,11 @@ public class ChartDataDao extends DaoParent {
             }
          }
       } catch (SQLException throwables) {
-         LOG.error("SQLException when searching for charts with name: " + searchName + " . Msg: " + throwables.getMessage());
+         LOG.error("SQLException when searching for charts with name: " + searchName + " and query + " + query + ". Msg: " + throwables.getMessage());
       }
       return fullChartInputDataList;
    }
+
 
    private FullChartInputData createChartData(ResultSet rsCharts) throws SQLException {
       int id = rsCharts.getInt("id");
@@ -182,40 +198,6 @@ public class ChartDataDao extends DaoParent {
    }
 
 
-//   private GeographicCoordinate createCoordinate(final String geoCoordTxt) {  // always 11 pos    ddd:mm:ss D
-//      String input = geoCoordTxt;
-//      if (10 == geoCoordTxt.length()) input = ZERO + geoCoordTxt;
-//      int deg = Integer.parseInt(input.substring(0, 3));
-//      int min = Integer.parseInt(input.substring(4, 6));
-//      int sec = Integer.parseInt(input.substring(7, 9));
-//      String dir = input.substring(10);
-//      double value = deg + min / 60.0 + sec / 3600.0;
-//      if (dir.equalsIgnoreCase("s") || dir.equalsIgnoreCase("w")) value = -value;
-//      return new GeographicCoordinate(deg, min, sec, dir, value);
-//   }
-//
-//   private String createCalDate(final FullDateTime dateTime) {
-//      final String separator = "/";
-//      SimpleDate sDate = dateTime.getSimpleDateTime().getDate();
-//      int numYear = sDate.getYear();
-//      int absYear = Math.abs(numYear);
-//      String year = Integer.toString(absYear);
-//      String month = Integer.toString(sDate.getMonth());
-//      String day = Integer.toString(sDate.getDay());
-//      if (absYear < 10) year = ZERO + year;
-//      if (absYear < 100) year = ZERO + year;
-//      if (absYear < 1000) year = ZERO + year;
-//      year = (numYear >= 0 ? " " + year : "-" + year);
-//      if (month.length() == 1) month = ZERO + month;
-//      if (day.length() == 1) day = ZERO + day;
-//      return year + separator + month + separator + day;
-//   }
-
-//   private double createTime(final FullDateTime dateTime) {
-//      final String separator = ":";
-//      SimpleTime sTime = dateTime.getSimpleDateTime().getTime();
-//      return sTime.getHour() + sTime.getMinute() * 60.0 + sTime.getSecond() * 3600.0;
-//   }
 
    private void handleDelete(final Connection con, final long id) throws SQLException {
       final String queryDelete = "DELETE charts where id = ?;";

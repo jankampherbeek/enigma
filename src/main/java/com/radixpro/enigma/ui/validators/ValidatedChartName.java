@@ -31,7 +31,7 @@ public class ValidatedChartName {
       nameText = input;
       if (nameText.length() < 1) validated = false;
       else {
-         existingChart = api.search(nameText);
+         existingChart = api.searchExact(nameText);
          validated = existingChart.isEmpty();
       }
       return validated;

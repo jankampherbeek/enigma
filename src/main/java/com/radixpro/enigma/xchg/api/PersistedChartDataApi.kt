@@ -48,4 +48,8 @@ class PersistedChartDataApi(private val dao: ChartDataDao) {
     fun search(searchName: String): List<FullChartInputData> {
         return dao.search(searchName)
     }
+
+    fun searchExact(searchName: String): List<FullChartInputData> {
+        return dao.searchExact(searchName)
+    }
 }
