@@ -160,7 +160,6 @@ public class RadixWheel {
    private void drawDegreeLines() {
       prepareSmallLines();
       double angle = 30 - offsetAsc % 30;
-//      int offsetIndex5Degrees = (int)(5 - Math.round( angle % 5));
       double[] positions;
       DegreeLinePlotCoordinates degreeLine;
       for (int i = 0; i <= 359; i++) {

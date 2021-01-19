@@ -123,12 +123,6 @@ public class ConfigOverview {
       selectedItems.addListener((ListChangeListener<PresentableConfiguration>) change -> onSelectItem());
    }
 
-   private void showOrReshow() {
-      stage.close();
-      populateStage();
-      stage.showAndWait();
-   }
-
    private void fillTableView() {
       TableViewSelectionModel<PresentableConfiguration> selectionModel = tableView.getSelectionModel();
       selectionModel.setSelectionMode(SelectionMode.SINGLE);
@@ -215,8 +209,6 @@ public class ConfigOverview {
       PresentableConfiguration config = selectedItems.get(0);
       int configId = config.getConfigId();
       configEdit.show();
-//      new ConfigScreensFactory().createConfigEdit(configApi.read(configId).get(0));
-      showOrReshow();
    }
 
    private void onHelp() {
