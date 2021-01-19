@@ -151,7 +151,7 @@ public class RadixWheel {
       double angle = offsetAsc;
       double[] positions;
       for (int i = 1; i <= 12; i++) {
-         positions = separator.defineCoordinates(angle);
+         positions = separator.defineCoordinates(angle + 180.0);
          gc.strokeLine(positions[0], positions[1], positions[2], positions[3]);
          angle += 30.0;
       }
@@ -160,10 +160,11 @@ public class RadixWheel {
    private void drawDegreeLines() {
       prepareSmallLines();
       double angle = 30 - offsetAsc % 30;
+//      int offsetIndex5Degrees = (int)(5 - Math.round( angle % 5));
       double[] positions;
       DegreeLinePlotCoordinates degreeLine;
       for (int i = 0; i <= 359; i++) {
-         degreeLine = PlotCoordinatesFactory.createDegreeLinePlotCoordinates(angle, metrics);
+         degreeLine = PlotCoordinatesFactory.createDegreeLinePlotCoordinates(30.0 - angle, metrics);
          positions = degreeLine.defineCoordinates(i, metrics);
          gc.strokeLine(positions[0], positions[1], positions[2], positions[3]);
          angle += 1.0;

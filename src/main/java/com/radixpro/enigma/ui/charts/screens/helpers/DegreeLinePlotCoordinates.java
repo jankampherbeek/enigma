@@ -28,7 +28,7 @@ public class DegreeLinePlotCoordinates {
    }
 
    /**
-    * Calcualted the coordinates, checks for multiples of 5 degrees and adapats the coordinates acoordingly.
+    * Calculate the coordinates, checks for multiples of 5 degrees and adapts the coordinates accordingly.
     *
     * @param index       The index of the degree, is only used to check if the degree is a multiple of 5.
     * @param drawMetrics Instance of DrawMetrics.
