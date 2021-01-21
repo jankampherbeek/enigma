@@ -15,7 +15,6 @@ import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsProcessApi
 import com.radixpro.enigma.statistics.di.StatsInjector.injectStatsProjApi
 import com.radixpro.enigma.statistics.ui.*
 import com.radixpro.enigma.statistics.ui.helpers.ScenSpecificDetailsText
-import com.radixpro.enigma.ui.screens.blocks.ScreensBlocksInjector.injectBaseConfigInputBlock
 import javafx.stage.DirectoryChooser
 
 object StatsUiInjector {
@@ -65,7 +64,7 @@ object StatsUiInjector {
     }
 
     fun injectStatsProjNew(): StatsProjNew {
-        return StatsProjNew(injectBaseConfigInputBlock(), injectStatsDataSearch(), injectStatsFacade())
+        return StatsProjNew(injectStatsDataSearch(), injectStatsFacade())
     }
 
     fun injectStatsProjSearch(): StatsProjSearch {

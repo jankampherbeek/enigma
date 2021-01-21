@@ -15,10 +15,6 @@ public class ScreensBlocksInjector {
       // prevent instantiation
    }
 
-   public static BaseConfigInputBlock injectBaseConfigInputBlock() {
-      return new BaseConfigInputBlock();
-   }
-
    public static DateTimeInputBlock injectDateTimeInputBlock() {
       return new DateTimeInputBlock(UiValidatorsInjector.injectValidatedDate(), UiValidatorsInjector.injectValidatedTime(),
             UiValidatorsInjector.injectValidatedLongitude());

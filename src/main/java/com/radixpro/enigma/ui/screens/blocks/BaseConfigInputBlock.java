@@ -25,6 +25,8 @@ import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
 /**
  * VBox with basic elements of a configuration.
+ *
+ * @deprecated separate block will be phased out.
  */
 public class BaseConfigInputBlock extends InputBlock {
    private static final double DATA_TEXT_WIDTH = 150.0;
