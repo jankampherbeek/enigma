@@ -121,17 +121,17 @@ public class ChartsInput {
 
    @SuppressWarnings("unchecked")
    private void defineLeafs() {
-      lblDescription = new LabelBuilder("ui.charts.input.description").setPrefWidth(INPUT_DATA_WIDTH).build();
-      lblLocalTime = new LabelBuilder("ui.charts.input.time.localtime").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
+      lblDescription = new LabelBuilderObs("ui.charts.input.description").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblLocalTime = new LabelBuilderObs("ui.charts.input.time.localtime").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
       lblLocalTime.setDisable(true);
-      lblName = new LabelBuilder("ui.charts.input.name").setPrefWidth(INPUT_DATA_WIDTH).build();
-      lblPageTitle = new LabelBuilder("ui.charts.input.pagetitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
-      lblRating = new LabelBuilder("ui.charts.input.rating").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
-      lblSource = new LabelBuilder("ui.charts.input.source").setPrefWidth(INPUT_DATA_WIDTH).build();
-      lblSubject = new LabelBuilder("ui.charts.input.subject").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
-      lblSubTitleGeneral = new LabelBuilder("ui.charts.input.subtitle.general").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
-      lblSubTitleLocation = new LabelBuilder("ui.charts.input.subtitle.location").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
-      lblSubTitleDateAndTime = new LabelBuilder("ui.charts.input.subtitle.dateandtime").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
+      lblName = new LabelBuilderObs("ui.charts.input.name").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblPageTitle = new LabelBuilderObs("ui.charts.input.pagetitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
+      lblRating = new LabelBuilderObs("ui.charts.input.rating").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      lblSource = new LabelBuilderObs("ui.charts.input.source").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblSubject = new LabelBuilderObs("ui.charts.input.subject").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      lblSubTitleGeneral = new LabelBuilderObs("ui.charts.input.subtitle.general").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
+      lblSubTitleLocation = new LabelBuilderObs("ui.charts.input.subtitle.location").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
+      lblSubTitleDateAndTime = new LabelBuilderObs("ui.charts.input.subtitle.dateandtime").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
       cBoxDst = new CheckBoxBuilder().setAlignment(Pos.CENTER_RIGHT).setStyleClass("inputDefault").build();
       cbCalendar = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MICRO_DATA_WIDTH).setStyleClass("inputDefault").build();
       cbEastWest = new ChoiceBoxBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MICRO_DATA_WIDTH).setStyleClass("inputDefault").build();

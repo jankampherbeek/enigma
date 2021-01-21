@@ -40,20 +40,20 @@ public class StatsDataDetail {
 
 
    private void populateStage(final DataFileDescription dataFileDescription) {
-      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      btnExit = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBar();
       buttonBar.getButtons().addAll(btnHelp, btnExit);
       btnHelp.setOnAction(click -> onHelp());
       btnExit.setOnAction(click -> onExit());
-      Label lblTitle = new LabelBuilder("ui.stats.datafile.detail.lbltitle").setPrefWidth(OUTER_WIDTH).setStyleClass("titletext").build();
+      Label lblTitle = new LabelBuilderObs("ui.stats.datafile.detail.lbltitle").setPrefWidth(OUTER_WIDTH).setStyleClass("titletext").build();
       Pane paneTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
-      Label lblName = new LabelBuilder("ui.stats.datafile.detail.name").setPrefWidth(200.0).build();
-      Label lblDescr = new LabelBuilder("ui.stats.datafile.detail.description").setPrefWidth(200.0).build();
-      Label lblNrOfRecords = new LabelBuilder("ui.stats.datafile.detail.nrofrecords").setPrefWidth(200.0).build();
-      Label lblNameValue = new LabelBuilder("").setText(dataFileDescription.getName()).build();
-      Label lblDescrValue = new LabelBuilder("").setText(dataFileDescription.getDescription()).build();
-      Label lblNrOfRecordsValue = new LabelBuilder("").setText(Integer.toString(dataFileDescription.getNrOfRecords())).build();
+      Label lblName = new LabelBuilderObs("ui.stats.datafile.detail.name").setPrefWidth(200.0).build();
+      Label lblDescr = new LabelBuilderObs("ui.stats.datafile.detail.description").setPrefWidth(200.0).build();
+      Label lblNrOfRecords = new LabelBuilderObs("ui.stats.datafile.detail.nrofrecords").setPrefWidth(200.0).build();
+      Label lblNameValue = new LabelBuilderObs("").setText(dataFileDescription.getName()).build();
+      Label lblDescrValue = new LabelBuilderObs("").setText(dataFileDescription.getDescription()).build();
+      Label lblNrOfRecordsValue = new LabelBuilderObs("").setText(Integer.toString(dataFileDescription.getNrOfRecords())).build();
       HBox nameBox = new HBoxBuilder().setPrefWidth(INNER_WIDTH).setPrefHeight(40.0).setChildren(lblName, lblNameValue).build();
       HBox descrBox = new HBoxBuilder().setPrefWidth(INNER_WIDTH).setPrefHeight(40.0).setChildren(lblDescr, lblDescrValue).build();
       HBox nrOfRBox = new HBoxBuilder().setPrefWidth(INNER_WIDTH).setPrefHeight(40.0).setChildren(lblNrOfRecords, lblNrOfRecordsValue).build();

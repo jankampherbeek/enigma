@@ -60,11 +60,11 @@ public class ProjectManager {
    }
 
    private void initialize() {
-      Label lblTitle = new LabelBuilder("ui.stats.projman.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblTitle = new LabelBuilderObs("ui.stats.projman.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
       paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").setChildren(lblTitle).build();
-      lblName = new LabelBuilder("").setText(projName).build();
+      lblName = new LabelBuilderObs("").setText(projName).build();
       paneName = new PaneBuilder().setWidth(WIDTH).setHeight(25.0).setChildren(lblName).build();
-      Label lblSubTitle = new LabelBuilder("ui.stats.projman.subtitlescen").setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
+      Label lblSubTitle = new LabelBuilderObs("ui.stats.projman.subtitlescen").setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
       paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
       tableView = createTableView();
    }
@@ -100,24 +100,24 @@ public class ProjectManager {
    }
 
    private Pane createPaneBtnBarScenarios() {
-      Button btnDelete = new ButtonBuilder("ui.shared.btn.delete").setDisabled(true).setFocusTraversable(false).build();
+      Button btnDelete = new ButtonBuilderObs("ui.shared.btn.delete").setDisabled(true).setFocusTraversable(false).build();
       // TODO onClick btnDelete
-      Button btnDetails = new ButtonBuilder("ui.shared.btn.details").setDisabled(false).setFocusTraversable(true).build();
+      Button btnDetails = new ButtonBuilderObs("ui.shared.btn.details").setDisabled(false).setFocusTraversable(true).build();
       btnDetails.setOnAction(e -> onDetails());
-      Button btnRun = new ButtonBuilder("ui.stats.projman.run").setDisabled(false).setFocusTraversable(true).build();
+      Button btnRun = new ButtonBuilderObs("ui.stats.projman.run").setDisabled(false).setFocusTraversable(true).build();
       btnRun.setOnAction(e -> onRun());
-      Button btnCtrl = new ButtonBuilder("ui.stats.projman.ctrl").setDisabled(false).setFocusTraversable(true).build();
+      Button btnCtrl = new ButtonBuilderObs("ui.stats.projman.ctrl").setDisabled(false).setFocusTraversable(true).build();
       btnCtrl.setOnAction(e -> onCtrl());
-      Button btnNew = new ButtonBuilder("ui.shared.btn.new").setDisabled(false).setFocusTraversable(true).build();
+      Button btnNew = new ButtonBuilderObs("ui.shared.btn.new").setDisabled(false).setFocusTraversable(true).build();
       btnNew.setOnAction(e -> onNewScenario());
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnDelete, btnDetails, btnRun, btnCtrl, btnNew).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();
    }
 
    private Pane createPaneButtonBarGeneral() {
-      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
+      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
       btnHelp.setOnAction(e -> onHelp());
-      Button btnClose = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).setFocusTraversable(true).build();
+      Button btnClose = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).setFocusTraversable(true).build();
       btnClose.setOnAction(e -> stage.close());
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnClose).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();

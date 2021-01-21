@@ -54,9 +54,9 @@ public class LocationGridPaneCreator {
    }
 
    private void initialize() {
-      lblLocationName = new LabelBuilder("ui.charts.input.location.name").setPrefWidth(INPUT_DATA_WIDTH).build();
-      lblLocationLatitude = new LabelBuilder("ui.charts.input.location.latitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
-      lblLocationLongitude = new LabelBuilder("ui.charts.input.location.longitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      lblLocationName = new LabelBuilderObs("ui.charts.input.location.name").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblLocationLatitude = new LabelBuilderObs("ui.charts.input.location.latitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      lblLocationLongitude = new LabelBuilderObs("ui.charts.input.location.longitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
    }
 
 }

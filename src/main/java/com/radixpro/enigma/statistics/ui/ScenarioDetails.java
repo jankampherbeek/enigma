@@ -51,7 +51,7 @@ public class ScenarioDetails {
    }
 
    private void initialize() {
-      Label lblTitle = new LabelBuilder("ui.stats.scendetail.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblTitle = new LabelBuilderObs("ui.stats.scendetail.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
       paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").setChildren(lblTitle).build();
    }
 
@@ -67,15 +67,15 @@ public class ScenarioDetails {
    private Pane createPaneDetails() {
       ScenarioFe scenario = facade.readScenario(scenName, projName);
       String detailText = scenDetailsText.createText(scenario);
-      Label lblDetails = new LabelBuilder("").setText(detailText).setPrefWidth(WIDTH).build();
+      Label lblDetails = new LabelBuilderObs("").setText(detailText).setPrefWidth(WIDTH).build();
       lblDetails.setWrapText(true);
       return new PaneBuilder().setHeight(HEIGHT_DETAILS).setWidth(WIDTH).setChildren(lblDetails).build();
    }
 
    private Pane createPaneButtonBar() {
-      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
+      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
       btnHelp.setOnAction(e -> onHelp());
-      Button btnClose = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).setFocusTraversable(true).build();
+      Button btnClose = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).setFocusTraversable(true).build();
       btnClose.setOnAction(e -> stage.close());
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnClose).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();

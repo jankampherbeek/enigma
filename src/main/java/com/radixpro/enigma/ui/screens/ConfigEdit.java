@@ -90,18 +90,18 @@ public class ConfigEdit {
    }
 
    private void populateStage() {
-      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).build();
-      btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(false).build();
+      btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      btnCancel = new ButtonBuilderObs("ui.shared.btn.cancel").setDisabled(false).build();
+      btnOk = new ButtonBuilderObs("ui.shared.btn.ok").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnCancel, btnOk).build();
-      Label lblTitle = new LabelBuilder("ui.configs.edit.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      Label lblSubTitle = new LabelBuilder("").setText(config.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
-      lblDescription = new LabelBuilder("ui.general.description").setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblHouseSystem = new LabelBuilder("ui.general.housesystem").setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblAyanamsha = new LabelBuilder("ui.general.ayanamsha").setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblObserverPosition = new LabelBuilder("ui.general.observerposition").setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblEclipticProjection = new LabelBuilder("ui.general.eclipticprojection").setPrefWidth(DATA_TEXT_WIDTH).build();
-      lblCelObjects = new LabelBuilder("ui.general.celobjects").setPrefWidth(DATA_TEXT_WIDTH).build();
+      Label lblTitle = new LabelBuilderObs("ui.configs.edit.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblSubTitle = new LabelBuilderObs("").setText(config.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
+      lblDescription = new LabelBuilderObs("ui.general.description").setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblHouseSystem = new LabelBuilderObs("ui.general.housesystem").setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblAyanamsha = new LabelBuilderObs("ui.general.ayanamsha").setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblObserverPosition = new LabelBuilderObs("ui.general.observerposition").setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblEclipticProjection = new LabelBuilderObs("ui.general.eclipticprojection").setPrefWidth(DATA_TEXT_WIDTH).build();
+      lblCelObjects = new LabelBuilderObs("ui.general.celobjects").setPrefWidth(DATA_TEXT_WIDTH).build();
       Pane paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();
       Pane paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitleplane").setChildren(lblSubTitle).build();
       descriptionInput = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).setText(config.getDescription()).build();

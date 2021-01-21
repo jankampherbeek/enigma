@@ -10,8 +10,8 @@ package com.radixpro.enigma.ui.common;
 import com.radixpro.enigma.Rosetta;
 import com.radixpro.enigma.shared.common.EnigmaDictionary;
 import com.radixpro.enigma.statistics.ui.StatsStart;
-import com.radixpro.enigma.ui.creators.ButtonBuilder;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.ButtonBuilderObs;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.screens.ChartsStart;
 import com.radixpro.enigma.ui.shared.Help;
@@ -49,10 +49,10 @@ public class Dashboard {
       ButtonBar buttonBar = createButtonBar();
       ImageView imageView = createImage();
 
-      Label lblInstruct = new LabelBuilder("ui.db.instruct").build();
-      Label lblDescription = new LabelBuilder("").setText(Rosetta.getText("ui.db.describe") + ": " + EnigmaDictionary.VERSION).setLayoutX(20.0).
+      Label lblInstruct = new LabelBuilderObs("ui.db.instruct").build();
+      Label lblDescription = new LabelBuilderObs("").setText(Rosetta.getText("ui.db.describe") + ": " + EnigmaDictionary.VERSION).setLayoutX(20.0).
             setLayoutY(28.0).setStyleClass("descriptiontext").build();
-      Label lblTitle = new LabelBuilder("ui.db.title").setLayoutX(247.0).setLayoutY(9.0).setStyleClass("titletext").build();
+      Label lblTitle = new LabelBuilderObs("ui.db.title").setLayoutX(247.0).setLayoutY(9.0).setStyleClass("titletext").build();
       Pane titlePane = new PaneBuilder().setHeight(57.0).setWidth(620.0).setStyleClass("titlepane").build();
       Pane descriptionPane = new PaneBuilder().setHeight(185.0).setWidth(120.0).setStyleClass("descriptionpane").build();
 
@@ -90,13 +90,13 @@ public class Dashboard {
       buttonBar.setPadding(new Insets(GAP, GAP, GAP, GAP));
       buttonBar.setPrefWidth(600.0);
 
-      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      Button btnCharts = new ButtonBuilder("ui.db.btn.charts").setDisabled(false).build();
-      Button btnPeriods = new ButtonBuilder("ui.db.btn.periods").setDisabled(true).build();
-      Button btnStats = new ButtonBuilder("ui.db.btn.stats").setDisabled(false).build();
-      Button btnTools = new ButtonBuilder("ui.db.btn.tools").setDisabled(true).build();
-      Button btnLanguage = new ButtonBuilder("ui.db.btn.language").setDisabled(false).build();
-      Button btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      Button btnCharts = new ButtonBuilderObs("ui.db.btn.charts").setDisabled(false).build();
+      Button btnPeriods = new ButtonBuilderObs("ui.db.btn.periods").setDisabled(true).build();
+      Button btnStats = new ButtonBuilderObs("ui.db.btn.stats").setDisabled(false).build();
+      Button btnTools = new ButtonBuilderObs("ui.db.btn.tools").setDisabled(true).build();
+      Button btnLanguage = new ButtonBuilderObs("ui.db.btn.language").setDisabled(false).build();
+      Button btnExit = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
 
       btnHelp.setOnAction(click -> onHelp());
       btnLanguage.setOnAction(click -> onLanguage());

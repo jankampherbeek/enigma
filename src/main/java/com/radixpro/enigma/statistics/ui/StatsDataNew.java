@@ -70,12 +70,12 @@ public class StatsDataNew {
    }
 
    private void defineLeafs() {
-      lblPageTitle = new LabelBuilder("ui.stats.inputdata.pagetitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
-      lblExplanation = new LabelBuilder("ui.stats.inputdata.lblexplanation").setPrefWidth(INPUT_WIDTH).build();
-      lblName = new LabelBuilder("ui.stats.inputdata.lblname").build();
-      lblDescription = new LabelBuilder("ui.stats.inputdata.lbldescription").build();
-      lblFormat = new LabelBuilder("ui.stats.inputdata.lblformat").build();
-      lblResults = new LabelBuilder("ui.stats.inputdata.lblresults").build();
+      lblPageTitle = new LabelBuilderObs("ui.stats.inputdata.pagetitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
+      lblExplanation = new LabelBuilderObs("ui.stats.inputdata.lblexplanation").setPrefWidth(INPUT_WIDTH).build();
+      lblName = new LabelBuilderObs("ui.stats.inputdata.lblname").build();
+      lblDescription = new LabelBuilderObs("ui.stats.inputdata.lbldescription").build();
+      lblFormat = new LabelBuilderObs("ui.stats.inputdata.lblformat").build();
+      lblResults = new LabelBuilderObs("ui.stats.inputdata.lblresults").build();
       cbInputFormats = new ChoiceBoxBuilder().setPrefWidth(INPUT_DATA_WIDTH).setStyleClass(INPUT_DEFAULT_STYLE).build();
       cbInputFormats.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> defineInputFormat(newValue));
       selectedInputFormat = DataInputFormats.CSV_CHARTS_STANDARD;
@@ -83,7 +83,7 @@ public class StatsDataNew {
       tfName.textProperty().addListener((observable, oldValue, newValue) -> onChange());
       tfDescr = new TextFieldBuilder().setPrefWidth(INPUT_DATA_WIDTH).setPrefHeight(INPUT_HEIGHT).setStyleClass("inputDefault").build();
       tfDescr.textProperty().addListener((observable, oldValue, newValue) -> onChange());
-      btnDataFile = new ButtonBuilder("ui.stats.inputdata.btn.datafile").setDisabled(false).build();
+      btnDataFile = new ButtonBuilderObs("ui.stats.inputdata.btn.datafile").setDisabled(false).build();
       btnDataFile.setOnAction(click -> onDataFile());
       tfName.textProperty().addListener((observable, oldValue, newValue) -> checkStatus());
       tfDescr.textProperty().addListener((observable, oldValue, newValue) -> checkStatus());
@@ -111,9 +111,9 @@ public class StatsDataNew {
    }
 
    protected ButtonBar createBtnBar() {
-      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
       btnHelp.setOnAction(click -> onHelp());
-      Button btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      Button btnExit = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
       btnExit.setOnAction((click -> stage.close()));
       return new ButtonBarBuilder().setButtons(btnHelp, btnExit, btnDataFile).build();
    }

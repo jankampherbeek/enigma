@@ -18,7 +18,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  * Creates a Label, based on the Builder pattern.</br>
  * If a text is entered, this will overwrite the value as indicated with rbKey (key to the resourcebundle).
  */
-public class LabelBuilder {
+public class LabelBuilderObs {
 
    private final String rbKey;
    private String text = "";
@@ -29,7 +29,7 @@ public class LabelBuilder {
    private Pos alignment;
    private String styleClass;
 
-   public LabelBuilder(@NotNull final String rbKey) {
+   public LabelBuilderObs(@NotNull final String rbKey) {
       this.rbKey = rbKey;
    }
 
@@ -39,39 +39,39 @@ public class LabelBuilder {
     * @param text Text to rep[lace the value from the resource bundle.
     * @return Partially initialized LabelBuilder.
     */
-   public LabelBuilder setText(@NotNull final String text) {
+   public LabelBuilderObs setText(@NotNull final String text) {
       this.text = text;
       return this;
    }
 
-   public LabelBuilder setPrefWidth(final double prefWidth) {
+   public LabelBuilderObs setPrefWidth(final double prefWidth) {
       checkArgument(prefWidth > 0.0);
       this.prefWidth = prefWidth;
       return this;
    }
 
-   public LabelBuilder setPrefHeight(final double prefHeight) {
+   public LabelBuilderObs setPrefHeight(final double prefHeight) {
       checkArgument(prefHeight > 0.0);
       this.prefHeight = prefHeight;
       return this;
    }
 
-   public LabelBuilder setLayoutX(final double layoutX) {
+   public LabelBuilderObs setLayoutX(final double layoutX) {
       this.layoutX = layoutX;
       return this;
    }
 
-   public LabelBuilder setLayoutY(final double layoutY) {
+   public LabelBuilderObs setLayoutY(final double layoutY) {
       this.layoutY = layoutY;
       return this;
    }
 
-   public LabelBuilder setStyleClass(@NotNull final String styleClass) {
+   public LabelBuilderObs setStyleClass(@NotNull final String styleClass) {
       this.styleClass = styleClass;
       return this;
    }
 
-   public LabelBuilder setAlignment(@NotNull final Pos alignment) {
+   public LabelBuilderObs setAlignment(@NotNull final Pos alignment) {
       this.alignment = alignment;
       return this;
    }

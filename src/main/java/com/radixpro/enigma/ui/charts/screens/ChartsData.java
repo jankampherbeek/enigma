@@ -12,8 +12,8 @@ import com.radixpro.enigma.domain.astronpos.CalculatedChart;
 import com.radixpro.enigma.domain.astronpos.FullChart;
 import com.radixpro.enigma.domain.astronpos.FullPointPosition;
 import com.radixpro.enigma.domain.astronpos.IPosition;
-import com.radixpro.enigma.ui.creators.ButtonBuilder;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.ButtonBuilderObs;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import com.radixpro.enigma.ui.shared.Help;
 import com.radixpro.enigma.ui.shared.presentationmodel.*;
 import com.radixpro.enigma.xchg.domain.FullChartInputData;
@@ -80,7 +80,7 @@ public class ChartsData {
       gridPane.setPadding(new Insets(GAP, GAP, GAP, GAP));
       String title = Rosetta.getText("ui.charts.data.pagetitleprefix") + " "
             + fullChartInputData.getChartMetaData().getName();
-      gridPane.add(new LabelBuilder("").setText(title).setPrefWidth(WIDTH).build(), 0, 0, 3, 1);
+      gridPane.add(new LabelBuilderObs("").setText(title).setPrefWidth(WIDTH).build(), 0, 0, 3, 1);
       TableView tvCelObjects = createTVCelObjectData();
       gridPane.add(tvCelObjects, 0, 1, 3, 1);
       createTVMundaneData();
@@ -217,11 +217,11 @@ public class ChartsData {
       vBox.getStylesheets().add(STYLESHEET);
       vBox.setPrefWidth(HALF_WIDTH);
       vBox.setPrefHeight(TV_MUNDOBJECTS_HEIGHT);
-      vBox.getChildren().add(0, new LabelBuilder("").setText(fullChartInputData.getChartMetaData().getName()).build());
-      vBox.getChildren().add(1, new LabelBuilder("").setText(fullChartInputData.getChartMetaData().getDescription()).build());
-      vBox.getChildren().add(2, new LabelBuilder(fullChartInputData.getChartMetaData().getChartType().getNameForRB()).build());
-      vBox.getChildren().add(3, new LabelBuilder(fullChartInputData.getChartMetaData().getRating().getNameForRB()).build());
-      vBox.getChildren().add(4, new LabelBuilder("").setText(fullChartInputData.getChartMetaData().getDataInput()).build());
+      vBox.getChildren().add(0, new LabelBuilderObs("").setText(fullChartInputData.getChartMetaData().getName()).build());
+      vBox.getChildren().add(1, new LabelBuilderObs("").setText(fullChartInputData.getChartMetaData().getDescription()).build());
+      vBox.getChildren().add(2, new LabelBuilderObs(fullChartInputData.getChartMetaData().getChartType().getNameForRB()).build());
+      vBox.getChildren().add(3, new LabelBuilderObs(fullChartInputData.getChartMetaData().getRating().getNameForRB()).build());
+      vBox.getChildren().add(4, new LabelBuilderObs("").setText(fullChartInputData.getChartMetaData().getDataInput()).build());
       return vBox;
    }
 
@@ -235,8 +235,8 @@ public class ChartsData {
 
    private ButtonBar createBtnBar() {
       ButtonBar btnBar = new ButtonBar();
-      Button helpBtn = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      Button exitBtn = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      Button helpBtn = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      Button exitBtn = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
       helpBtn.setOnAction(click -> onHelp());
       exitBtn.setOnAction(click -> stage.close());
       btnBar.getButtons().add(helpBtn);

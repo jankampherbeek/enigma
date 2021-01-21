@@ -12,8 +12,8 @@ import com.radixpro.enigma.SessionState;
 import com.radixpro.enigma.domain.analysis.IAnalyzedPair;
 import com.radixpro.enigma.domain.analysis.MetaDataForAnalysis;
 import com.radixpro.enigma.domain.config.Configuration;
-import com.radixpro.enigma.ui.creators.ButtonBuilder;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.ButtonBuilderObs;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.screens.helpers.ChartDataHelper;
 import com.radixpro.enigma.ui.shared.Help;
@@ -74,7 +74,7 @@ public class ChartsAspects {
 
    private Pane createPaneTitle() {
       final Pane pane = new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").build();
-      pane.getChildren().add(new LabelBuilder("ui.charts.aspects.pagetitle").setStyleClass("titletext").setPrefWidth(WIDTH).build());
+      pane.getChildren().add(new LabelBuilderObs("ui.charts.aspects.pagetitle").setStyleClass("titletext").setPrefWidth(WIDTH).build());
       return pane;
    }
 
@@ -121,8 +121,8 @@ public class ChartsAspects {
    private ButtonBar createButtonBar() {
       ButtonBar buttonBar = new ButtonBar();
       buttonBar.setPadding(new Insets(GAP, GAP, GAP, GAP));
-      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      Button btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      Button btnExit = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
       btnHelp.setOnAction(click -> onHelp());
       btnExit.setOnAction(click -> stage.close());
       buttonBar.getButtons().addAll(btnHelp, btnExit);

@@ -20,8 +20,8 @@ import com.radixpro.enigma.domain.reqresp.TetenburgResponse;
 import com.radixpro.enigma.references.CelestialObjects;
 import com.radixpro.enigma.references.TimeZones;
 import com.radixpro.enigma.ui.charts.screens.helpers.GlyphForSign;
-import com.radixpro.enigma.ui.creators.ButtonBuilder;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.ButtonBuilderObs;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.creators.TextFieldBuilder;
 import com.radixpro.enigma.ui.helpers.DateTimeCreator;
@@ -112,7 +112,7 @@ public class ChartsTetenburg {
    private void defineLeafs() {
       lblName = new Label(Rosetta.getText("ui.charts.tetenburg.lbl.nameprefix") + " " + meta.getName());
       lblConfig = new Label(Rosetta.getText("ui.charts.tetenburg.lbl.configprefix") + " " + meta.getConfigName());
-      lblDate = new LabelBuilder("ui.charts.tetenburg.lbl.progdate").setPrefWidth(WIDTH * 0.4).build();
+      lblDate = new LabelBuilderObs("ui.charts.tetenburg.lbl.progdate").setPrefWidth(WIDTH * 0.4).build();
       lblResultValue = new Label("");
       lblSignGlyph = new Label("");
       tfDate = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(WIDTH * 0.5).setStyleClass("inputDefault").build();
@@ -129,13 +129,13 @@ public class ChartsTetenburg {
    }
 
    private void defineButtons() {
-      btnCalc = new ButtonBuilder("ui.shared.btn.calculate").setDisabled(true).build();
-      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      btnCalc = new ButtonBuilderObs("ui.shared.btn.calculate").setDisabled(true).build();
+      btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      btnExit = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
    }
 
    private void defineStructure() {
-      paneTitle.getChildren().add(new LabelBuilder("ui.charts.tetenburg.pagetitle").setStyleClass("titletext").setPrefWidth(WIDTH).build());
+      paneTitle.getChildren().add(new LabelBuilderObs("ui.charts.tetenburg.pagetitle").setStyleClass("titletext").setPrefWidth(WIDTH).build());
       paneMeta.getChildren().add(createVBoxMeta());
       paneInput.getChildren().add(createHBoxInput());
       paneCalcBtn.getChildren().add(btnCalc);

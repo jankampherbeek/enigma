@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.screens.blocks;
 
 import com.radixpro.enigma.ui.creators.GridPaneBuilder;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.creators.TextFieldBuilder;
 import com.radixpro.enigma.ui.screens.InputScreen;
@@ -61,17 +61,17 @@ public class NameDescriptionInputBlock extends InputBlock {
    private GridPane createGridPane() {
       GridPane gridPane = new GridPaneBuilder().setPrefHeight(BLOCK_HEIGHT).setPrefWidth(INPUT_WIDTH).setHGap(GAP).setVGap(GAP).build();
       gridPane.add(createPaneSubTitle(), 0, 0, 2, 1);
-      gridPane.add(new LabelBuilder("ui.shared.lbl.name").setPrefWidth(DATA_TEXT_WIDTH).setPrefHeight(INPUT_HEIGHT).build(),
+      gridPane.add(new LabelBuilderObs("ui.shared.lbl.name").setPrefWidth(DATA_TEXT_WIDTH).setPrefHeight(INPUT_HEIGHT).build(),
             0, 1, 1, 1);
       gridPane.add(tfName, 1, 1, 1, 1);
-      gridPane.add(new LabelBuilder("ui.shared.lbl.description").setPrefWidth(DATA_TEXT_WIDTH).setPrefHeight(INPUT_HEIGHT).build(),
+      gridPane.add(new LabelBuilderObs("ui.shared.lbl.description").setPrefWidth(DATA_TEXT_WIDTH).setPrefHeight(INPUT_HEIGHT).build(),
             0, 2, 1, 1);
       gridPane.add(tfDescr, 1, 2, 1, 1);
       return gridPane;
    }
 
    private Pane createPaneSubTitle() {
-      Label label = new LabelBuilder("ui.shared.lbl.namedescsubtitle").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
+      Label label = new LabelBuilderObs("ui.shared.lbl.namedescsubtitle").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
       return new PaneBuilder().setWidth(INPUT_WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass(STYLE_SUBTITLE_PANE).setChildren(label).build();
    }
 

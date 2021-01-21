@@ -13,7 +13,7 @@ import com.radixpro.enigma.references.HouseSystems;
 import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.ui.creators.ChoiceBoxBuilder;
 import com.radixpro.enigma.ui.creators.GridPaneBuilder;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.xchg.domain.helpers.IndexMappingsList;
 import javafx.scene.control.ChoiceBox;
@@ -65,19 +65,19 @@ public class BaseConfigInputBlock extends InputBlock {
    private GridPane createGridPane() {
       GridPane gridPane = new GridPaneBuilder().setPrefHeight(HEIGHT).setPrefWidth(INPUT_WIDTH).setHGap(GAP).setVGap(GAP).build();
       gridPane.add(createPaneSubTitle(), 0, 0, 2, 1);
-      gridPane.add(new LabelBuilder("ui.general.housesystem").setPrefWidth(DATA_TEXT_WIDTH).build(), 0, 1, 1, 1);
+      gridPane.add(new LabelBuilderObs("ui.general.housesystem").setPrefWidth(DATA_TEXT_WIDTH).build(), 0, 1, 1, 1);
       gridPane.add(choiceBoxHouseSystem, 1, 1, 1, 1);
-      gridPane.add(new LabelBuilder("ui.general.observerposition").setPrefWidth(DATA_TEXT_WIDTH).build(), 0, 2, 1, 1);
+      gridPane.add(new LabelBuilderObs("ui.general.observerposition").setPrefWidth(DATA_TEXT_WIDTH).build(), 0, 2, 1, 1);
       gridPane.add(choiceBoxObserverPos, 1, 2, 1, 1);
-      gridPane.add(new LabelBuilder("ui.general.eclipticprojection").setPrefWidth(DATA_TEXT_WIDTH).build(), 0, 3, 1, 1);
+      gridPane.add(new LabelBuilderObs("ui.general.eclipticprojection").setPrefWidth(DATA_TEXT_WIDTH).build(), 0, 3, 1, 1);
       gridPane.add(choiceBoxEclipticProj, 1, 3, 1, 1);
-      gridPane.add(new LabelBuilder("ui.general.ayanamsha").setPrefWidth(DATA_TEXT_WIDTH).build(), 0, 4, 1, 1);
+      gridPane.add(new LabelBuilderObs("ui.general.ayanamsha").setPrefWidth(DATA_TEXT_WIDTH).build(), 0, 4, 1, 1);
       gridPane.add(choiceBoxAyanamsha, 1, 4, 1, 1);
       return gridPane;
    }
 
    private Pane createPaneSubTitle() {
-      Label label = new LabelBuilder("ui.stats.baseconfig.title").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
+      Label label = new LabelBuilderObs("ui.stats.baseconfig.title").setPrefWidth(INPUT_WIDTH).setStyleClass("subtitletext").build();
       return new PaneBuilder().setWidth(INPUT_WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass(STYLE_SUBTITLE_PANE).setChildren(label).build();
    }
 

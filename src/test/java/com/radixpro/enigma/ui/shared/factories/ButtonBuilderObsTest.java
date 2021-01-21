@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.shared.factories;
 
 import com.radixpro.enigma.testsupport.JfxTestRunner;
-import com.radixpro.enigma.ui.creators.ButtonBuilder;
+import com.radixpro.enigma.ui.creators.ButtonBuilderObs;
 import javafx.scene.control.Button;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,36 +16,36 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 @RunWith(JfxTestRunner.class)
-public class ButtonBuilderTest {
+public class ButtonBuilderObsTest {
 
    private final String rbKey = "ui.shared.btn.ok";
    private final String text = "Also OK";
 
    @Test
    public void onlyConstructor() {
-      Button button = new ButtonBuilder(rbKey).build();
+      Button button = new ButtonBuilderObs(rbKey).build();
       assertEquals("OK", button.getText());
    }
 
    @Test
    public void setText() {
-      Button button = new ButtonBuilder(rbKey).setText(text).build();
+      Button button = new ButtonBuilderObs(rbKey).setText(text).build();
       assertEquals(text, button.getText());
    }
 
    @Test
    public void setDisabled() {
-      Button button = new ButtonBuilder(rbKey).build();
+      Button button = new ButtonBuilderObs(rbKey).build();
       assertFalse(button.isDisabled());
-      button = new ButtonBuilder(rbKey).setDisabled(true).build();
+      button = new ButtonBuilderObs(rbKey).setDisabled(true).build();
       assertTrue(button.isDisabled());
    }
 
    @Test
    public void setFocusTraversable() {
-      Button button = new ButtonBuilder(rbKey).build();
+      Button button = new ButtonBuilderObs(rbKey).build();
       assertFalse(button.isFocusTraversable());
-      button = new ButtonBuilder(rbKey).setFocusTraversable(true).build();
+      button = new ButtonBuilderObs(rbKey).setFocusTraversable(true).build();
       assertTrue(button.isFocusTraversable());
    }
 }

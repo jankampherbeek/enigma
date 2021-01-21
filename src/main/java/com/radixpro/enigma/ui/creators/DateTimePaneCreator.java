@@ -47,11 +47,11 @@ public class DateTimePaneCreator {
    }
 
    private void initialize() {
-      lblDate = new LabelBuilder("ui.charts.input.date.name").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
-      lblCalendar = new LabelBuilder("ui.charts.input.date.calendar").setPrefWidth(INPUT_MICRO_DATA_WIDTH).build();
-      lblTime = new LabelBuilder("ui.charts.input.time.name").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
-      lblTimeZone = new LabelBuilder("ui.charts.input.time.timezone").setPrefWidth(INPUT_DATA_WIDTH).build();
-      lblDst = new LabelBuilder("ui.shared.dst").setPrefWidth(INPUT_MICRO_DATA_WIDTH).build();
+      lblDate = new LabelBuilderObs("ui.charts.input.date.name").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
+      lblCalendar = new LabelBuilderObs("ui.charts.input.date.calendar").setPrefWidth(INPUT_MICRO_DATA_WIDTH).build();
+      lblTime = new LabelBuilderObs("ui.charts.input.time.name").setPrefWidth(INPUT_MINOR_DATA_WIDTH).build();
+      lblTimeZone = new LabelBuilderObs("ui.charts.input.time.timezone").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblDst = new LabelBuilderObs("ui.shared.dst").setPrefWidth(INPUT_MICRO_DATA_WIDTH).build();
    }
 
 }

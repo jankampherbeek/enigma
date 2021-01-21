@@ -8,7 +8,7 @@
 package com.radixpro.enigma.ui.screens;
 
 import com.radixpro.enigma.Rosetta;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -57,7 +57,7 @@ public class EmergencyExit {
       Pane pane = new Pane();
       pane.setPrefHeight(80.0);
       pane.getStyleClass().add("errorpane");
-      Label errorTxt = new LabelBuilder("emergencyexit.title").setStyleClass("errortitletext").setPrefWidth(WIDTH).build();
+      Label errorTxt = new LabelBuilderObs("emergencyexit.title").setStyleClass("errortitletext").setPrefWidth(WIDTH).build();
       pane.getChildren().add(errorTxt);
       return pane;
    }

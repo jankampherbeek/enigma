@@ -15,28 +15,28 @@ import org.jetbrains.annotations.NotNull;
  * Creates a Button, based on the Builder pattern.</br>
  * If a text is entered, this will overwrite the value as indicated with rbKey (key to the resourcebundle).
  */
-public class ButtonBuilder {
+public class ButtonBuilderObs {
 
    private final String rbKey;
    private String text = "";
    private boolean disabled = false;
    private boolean focusTraversable = false;
 
-   public ButtonBuilder(@NotNull final String rbKey) {
+   public ButtonBuilderObs(@NotNull final String rbKey) {
       this.rbKey = rbKey;
    }
 
-   public ButtonBuilder setText(@NotNull final String text) {
+   public ButtonBuilderObs setText(@NotNull final String text) {
       this.text = text;
       return this;
    }
 
-   public ButtonBuilder setDisabled(final boolean disabled) {
+   public ButtonBuilderObs setDisabled(final boolean disabled) {
       this.disabled = disabled;
       return this;
    }
 
-   public ButtonBuilder setFocusTraversable(final boolean focusTraversable) {
+   public ButtonBuilderObs setFocusTraversable(final boolean focusTraversable) {
       this.focusTraversable = focusTraversable;
       return this;
    }

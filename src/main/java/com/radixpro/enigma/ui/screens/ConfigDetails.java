@@ -69,14 +69,14 @@ public class ConfigDetails {
 
 
    private void populateStage() {
-      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      btnExit = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBar();                       // TODO replace with builder
       buttonBar.getButtons().addAll(btnHelp, btnExit);
 
 
-      Label lblTitle = new LabelBuilder("ui.configs.details.title").setPrefWidth(OUTER_WIDTH).setStyleClass("titletext").build();
-      Label lblSubTitle = new LabelBuilder("").setText(configName).setPrefWidth(OUTER_WIDTH).setStyleClass("subtitletext").build();
+      Label lblTitle = new LabelBuilderObs("ui.configs.details.title").setPrefWidth(OUTER_WIDTH).setStyleClass("titletext").build();
+      Label lblSubTitle = new LabelBuilderObs("").setText(configName).setPrefWidth(OUTER_WIDTH).setStyleClass("subtitletext").build();
       TableView tableView = propertiesTableForConfig.getTableView(TV_HEIGHT, INNER_WIDTH,
             propertiesForConfig.getProperties(state.getSelectedConfig(), celObjectsInConfig, aspectsInConfig));  // TODO replace with builder
       Pane paneTitle = new PaneBuilder().setWidth(OUTER_WIDTH).setHeight(TITLE_HEIGHT).setStyleClass("titlepane").setChildren(lblTitle).build();

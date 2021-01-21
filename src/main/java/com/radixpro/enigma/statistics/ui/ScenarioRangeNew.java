@@ -74,25 +74,25 @@ public class ScenarioRangeNew {
    }
 
    private void initialize() {
-      Label lblTitle = new LabelBuilder("ui.stats.scenrangenew.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblTitle = new LabelBuilderObs("ui.stats.scenrangenew.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
       paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").setChildren(lblTitle).build();
-      Label lblName = new LabelBuilder("").setPrefWidth(WIDTH).setText(scenName).build();
+      Label lblName = new LabelBuilderObs("").setPrefWidth(WIDTH).setText(scenName).build();
       paneName = new PaneBuilder().setWidth(WIDTH).setHeight(25.0).setChildren(lblName).build();
-      Label lblRangeType = new LabelBuilder("ui.stats.scenrangenew.rangetype").setPrefWidth(HALFWIDTH).build();
+      Label lblRangeType = new LabelBuilderObs("ui.stats.scenrangenew.rangetype").setPrefWidth(HALFWIDTH).build();
       cbRangeTypes = new ComboBox();
       cbRangeTypes.setPrefWidth(HALFWIDTH);
       HBox hbRangeType = new HBoxBuilder().setPrefWidth(WIDTH).setPrefHeight(30.0).setChildren(lblRangeType, cbRangeTypes).build();
       paneRangeType = new PaneBuilder().setHeight(30.0).setWidth(WIDTH).setChildren(hbRangeType).build();
-      Label lblHouseSystem = new LabelBuilder("ui.stats.scenrangenew.housesystem").setPrefWidth(HALFWIDTH).build();
+      Label lblHouseSystem = new LabelBuilderObs("ui.stats.scenrangenew.housesystem").setPrefWidth(HALFWIDTH).build();
       cbHouseSystems = new ComboBox();
       cbHouseSystems.setPrefWidth(HALFWIDTH);
       HBox hbHouseSystem = new HBoxBuilder().setPrefWidth(WIDTH).setPrefHeight(30.0).setChildren(lblHouseSystem, cbHouseSystems).build();
       paneHouseSystem = new PaneBuilder().setHeight(30.0).setWidth(WIDTH).setChildren(hbHouseSystem).build();
-      Label lblCelPoints = new LabelBuilder("ui.stats.scenrangenew.celpoints").setPrefWidth(HALFWIDTH).build();
+      Label lblCelPoints = new LabelBuilderObs("ui.stats.scenrangenew.celpoints").setPrefWidth(HALFWIDTH).build();
       ccbCelObjects = new CheckComboBoxBuilder().setPrefWidth(HALFWIDTH).build();
       HBox hbCelObjects = new HBoxBuilder().setPrefHeight(30.0).setPrefWidth(WIDTH).setChildren(lblCelPoints, ccbCelObjects).build();
       paneCelObjects = new PaneBuilder().setHeight(30.0).setWidth(WIDTH).setChildren(hbCelObjects).build();
-      Label lblMundanePoints = new LabelBuilder("ui.stats.scenrangenew.mundanepoints").setPrefWidth(HALFWIDTH).build();
+      Label lblMundanePoints = new LabelBuilderObs("ui.stats.scenrangenew.mundanepoints").setPrefWidth(HALFWIDTH).build();
       ccbMundanePoints = new CheckComboBoxBuilder().setPrefWidth(HALFWIDTH).build();
       HBox hbMundanePoints = new HBoxBuilder().setPrefHeight(30.0).setPrefWidth(WIDTH).setChildren(lblMundanePoints, ccbMundanePoints).build();
       paneMundanePoints = new PaneBuilder().setHeight(30.0).setWidth(WIDTH).setChildren(hbMundanePoints).build();
@@ -138,11 +138,11 @@ public class ScenarioRangeNew {
    }
 
    private Pane createPaneBtnBar() {
-      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
+      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
       btnHelp.setOnAction(e -> onHelp());
-      Button btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).setFocusTraversable(true).build();
+      Button btnCancel = new ButtonBuilderObs("ui.shared.btn.cancel").setDisabled(false).setFocusTraversable(true).build();
       btnCancel.setOnAction(e -> stage.close());
-      btnSave = new ButtonBuilder("ui.shared.btn.save").setDisabled(false).setFocusTraversable(true).build();
+      btnSave = new ButtonBuilderObs("ui.shared.btn.save").setDisabled(false).setFocusTraversable(true).build();
       btnSave.setOnAction(e -> onSave());
       ButtonBar btnBar = new ButtonBarBuilder().setButtons(btnCancel, btnHelp, btnSave).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(btnBar).build();

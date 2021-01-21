@@ -55,9 +55,9 @@ public class ProcessingResult {
    }
 
    private void initialize(ScenarioFe scenario) {
-      Label lblTitle = new LabelBuilder("ui.stats.processingresult.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblTitle = new LabelBuilderObs("ui.stats.processingresult.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
       paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").setChildren(lblTitle).build();
-      Label lblSubTitle = new LabelBuilder("").setText(scenario.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
+      Label lblSubTitle = new LabelBuilderObs("").setText(scenario.getName()).setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
       paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
       TextArea taResults = new TextArea();
       taResults.setFont(Font.font("monospace", 9));
@@ -66,19 +66,19 @@ public class ProcessingResult {
       taResults.setWrapText(false);
       taResults.setText(defineResults(scenario));
       paneResults = new PaneBuilder().setWidth(WIDTH).setHeight(400).setWidth(WIDTH).setChildren(taResults).build();
-      Label lblJsonFile = new LabelBuilder("ui.stats.processingresult.jsonlocation").setPrefWidth(SHORTWIDTH).build();
-      Label lblJsonFileValue = new LabelBuilder("").setText("Temp TODO Json").setPrefWidth(SHORTWIDTH).build();
-      Label lblCsvFile = new LabelBuilder("ui.stats.processingresult.csvlocation").setPrefWidth(SHORTWIDTH).build();
-      Label lblCsvFileValue = new LabelBuilder("").setText("Temp TODO Csv").setPrefWidth(SHORTWIDTH).build();
+      Label lblJsonFile = new LabelBuilderObs("ui.stats.processingresult.jsonlocation").setPrefWidth(SHORTWIDTH).build();
+      Label lblJsonFileValue = new LabelBuilderObs("").setText("Temp TODO Json").setPrefWidth(SHORTWIDTH).build();
+      Label lblCsvFile = new LabelBuilderObs("ui.stats.processingresult.csvlocation").setPrefWidth(SHORTWIDTH).build();
+      Label lblCsvFileValue = new LabelBuilderObs("").setText("Temp TODO Csv").setPrefWidth(SHORTWIDTH).build();
       GridPane grid = new GridPaneBuilder().setHGap(GAP).setPadding(GAP).setPrefWidth(2 * SHORTWIDTH).build();
       grid.add(lblJsonFile, 0, 0, 1, 1);
       grid.add(lblJsonFileValue, 1, 0, 1, 1);
       grid.add(lblCsvFile, 0, 1, 1, 1);
       grid.add(lblCsvFileValue, 1, 1, 1, 1);
       paneFiles = new PaneBuilder().setWidth(2 * SHORTWIDTH).setHeight(40).setChildren(grid).build();
-      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
+      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
       btnHelp.setOnAction(e -> onHelp());
-      Button btnClose = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).setFocusTraversable(true).build();
+      Button btnClose = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).setFocusTraversable(true).build();
       btnClose.setOnAction(e -> stage.close());
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnClose).build();
       paneBtnBar = new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();

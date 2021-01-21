@@ -25,8 +25,8 @@ import com.radixpro.enigma.share.api.PropertyApi;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.Property;
 import com.radixpro.enigma.ui.charts.screens.ChartsData;
-import com.radixpro.enigma.ui.creators.ButtonBuilder;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.ButtonBuilderObs;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.screens.helpers.*;
 import com.radixpro.enigma.ui.shared.Help;
@@ -215,17 +215,17 @@ public class ChartsStart {
 
 
    private Pane createPaneTitle() {
-      final Label label = new LabelBuilder("ui.charts.start.pagetitle").setPrefWidth(START_WIDTH).setStyleClass("titletext").build();
+      final Label label = new LabelBuilderObs("ui.charts.start.pagetitle").setPrefWidth(START_WIDTH).setStyleClass("titletext").build();
       return new PaneBuilder().setHeight(TITLE_HEIGHT).setWidth(START_WIDTH).setStyleClass("titlepane").setChildren(label).build();
    }
 
    private Pane createPaneSubTitleCharts() {
-      final Label label = new LabelBuilder("ui.charts.start.chartstitle").setPrefWidth(START_WIDTH).setStyleClass("subtitletext").build();
+      final Label label = new LabelBuilderObs("ui.charts.start.chartstitle").setPrefWidth(START_WIDTH).setStyleClass("subtitletext").build();
       return new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(START_WIDTH).setStyleClass("subtitlepane").setChildren(label).build();
    }
 
    private Pane createPaneSubTitleConfigs() {
-      final Label label = new LabelBuilder("ui.charts.start.configtitle").setPrefWidth(START_WIDTH).setStyleClass("subtitletext").build();
+      final Label label = new LabelBuilderObs("ui.charts.start.configtitle").setPrefWidth(START_WIDTH).setStyleClass("subtitletext").build();
       return new PaneBuilder().setHeight(SUBTITLE_HEIGHT).setWidth(START_WIDTH).setStyleClass("subtitlepane").setChildren(label).build();
    }
 
@@ -261,10 +261,10 @@ public class ChartsStart {
 
    private ButtonBar createButtonBarCharts() {
       ButtonBar buttonBar = new ButtonBar();
-      btnShowChart = new ButtonBuilder("ui.charts.start.btn.show").setDisabled(true).build();
-      btnDeleteChart = new ButtonBuilder("ui.charts.start.btn.delete").setDisabled(true).build();
-      Button btnNewChart = new ButtonBuilder("ui.charts.start.btn.new").setDisabled(false).build();
-      Button btnSearchChart = new ButtonBuilder("ui.charts.start.btn.search").setDisabled(false).build();
+      btnShowChart = new ButtonBuilderObs("ui.charts.start.btn.show").setDisabled(true).build();
+      btnDeleteChart = new ButtonBuilderObs("ui.charts.start.btn.delete").setDisabled(true).build();
+      Button btnNewChart = new ButtonBuilderObs("ui.charts.start.btn.new").setDisabled(false).build();
+      Button btnSearchChart = new ButtonBuilderObs("ui.charts.start.btn.search").setDisabled(false).build();
 
       btnShowChart.setOnAction(click -> onShowSelectedChart());
       btnDeleteChart.setOnAction(click -> onDeleteChart());
@@ -284,9 +284,9 @@ public class ChartsStart {
 
    private ButtonBar createButtonBarGeneral() {
       ButtonBar buttonBar = new ButtonBar();
-      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      Button btnConfig = new ButtonBuilder("ui.charts.start.btn.config").setDisabled(false).build();
-      Button btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      Button btnConfig = new ButtonBuilderObs("ui.charts.start.btn.config").setDisabled(false).build();
+      Button btnExit = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
 
       btnConfig.setOnAction(click -> onConfig());
       btnHelp.setOnAction(click -> onHelp());

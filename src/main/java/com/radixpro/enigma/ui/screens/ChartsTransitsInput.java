@@ -21,7 +21,7 @@ import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.references.ObserverPositions;
 import com.radixpro.enigma.shared.FailFastHandler;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import com.radixpro.enigma.ui.screens.blocks.DateTimeInputBlock;
 import com.radixpro.enigma.ui.screens.blocks.LocationInputBlock;
@@ -88,10 +88,10 @@ public class ChartsTransitsInput extends InputScreen {
    }
 
    private void defineLeafs() {
-      lblPageTitle = new LabelBuilder("ui.charts.transitsinput.pagetitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
-      lblSubTitleGeneral = new LabelBuilder("ui.charts.input.subtitle.general").setPrefWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_TEXT).build();
-      lblSubTitleLocation = new LabelBuilder("ui.charts.input.subtitle.location").setPrefWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_TEXT).build();
-      lblSubTitleDateAndTime = new LabelBuilder("ui.charts.input.subtitle.dateandtime").setPrefWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_TEXT).build();
+      lblPageTitle = new LabelBuilderObs("ui.charts.transitsinput.pagetitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
+      lblSubTitleGeneral = new LabelBuilderObs("ui.charts.input.subtitle.general").setPrefWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_TEXT).build();
+      lblSubTitleLocation = new LabelBuilderObs("ui.charts.input.subtitle.location").setPrefWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_TEXT).build();
+      lblSubTitleDateAndTime = new LabelBuilderObs("ui.charts.input.subtitle.dateandtime").setPrefWidth(INPUT_WIDTH).setStyleClass(STYLE_SUBTITLE_TEXT).build();
    }
 
    private void definePanes() {

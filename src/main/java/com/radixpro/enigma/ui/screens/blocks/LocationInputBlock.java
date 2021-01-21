@@ -13,7 +13,7 @@ import com.radixpro.enigma.references.InputStatus;
 import com.radixpro.enigma.shared.exceptions.InputBlockIncompleteException;
 import com.radixpro.enigma.ui.creators.ChoiceBoxBuilder;
 import com.radixpro.enigma.ui.creators.GridPaneBuilder;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import com.radixpro.enigma.ui.creators.TextFieldBuilder;
 import com.radixpro.enigma.ui.validators.ValidatedLatitude;
 import com.radixpro.enigma.ui.validators.ValidatedLongitude;
@@ -69,9 +69,9 @@ public class LocationInputBlock extends InputBlock {
 
    @Override
    protected void initialize() {
-      lblLocationName = new LabelBuilder("ui.charts.input.location.name").setPrefWidth(INPUT_DATA_WIDTH).build();
-      lblLocationLatitude = new LabelBuilder("ui.charts.input.location.latitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
-      lblLocationLongitude = new LabelBuilder("ui.charts.input.location.longitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      lblLocationName = new LabelBuilderObs("ui.charts.input.location.name").setPrefWidth(INPUT_DATA_WIDTH).build();
+      lblLocationLatitude = new LabelBuilderObs("ui.charts.input.location.latitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
+      lblLocationLongitude = new LabelBuilderObs("ui.charts.input.location.longitude").setPrefWidth(INPUT_HALF_DATA_WIDTH).build();
       tfLocationLatitude = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
       tfLocationLongitude = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_MINOR_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();
       tfLocationName = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(INPUT_DATA_WIDTH).setStyleClass(INPUT_STYLE).build();

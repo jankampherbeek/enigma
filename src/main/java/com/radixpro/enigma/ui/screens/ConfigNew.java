@@ -70,15 +70,15 @@ public class ConfigNew {
    }
 
    private void populateStage() {
-      Label lblTitle = new LabelBuilder("ui.configs.new.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      Label lblSubTitle = new LabelBuilder("").setText(Rosetta.getText("ui.configs.new.copyfrom") + " " + config.getName()).setPrefWidth(WIDTH)
+      Label lblTitle = new LabelBuilderObs("ui.configs.new.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblSubTitle = new LabelBuilderObs("").setText(Rosetta.getText("ui.configs.new.copyfrom") + " " + config.getName()).setPrefWidth(WIDTH)
             .setStyleClass("subtitletext").build();
-      Label lblInstruction = new LabelBuilder("ui.configs.new.instruction").build();
-      Label lblName = new LabelBuilder("ui.general.name").setPrefWidth(DATA_TEXT_WIDTH).build();
-      Label lblDescription = new LabelBuilder("ui.general.description").setPrefWidth(DATA_TEXT_WIDTH).build();
-      btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(true).build();
-      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      btnCancel = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      Label lblInstruction = new LabelBuilderObs("ui.configs.new.instruction").build();
+      Label lblName = new LabelBuilderObs("ui.general.name").setPrefWidth(DATA_TEXT_WIDTH).build();
+      Label lblDescription = new LabelBuilderObs("ui.general.description").setPrefWidth(DATA_TEXT_WIDTH).build();
+      btnOk = new ButtonBuilderObs("ui.shared.btn.ok").setDisabled(true).build();
+      btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      btnCancel = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnOk, btnHelp, btnCancel).build();
       nameInput = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).build();
       descriptionInput = new TextFieldBuilder().setPrefWidth(DATA_INPUT_WIDTH).build();

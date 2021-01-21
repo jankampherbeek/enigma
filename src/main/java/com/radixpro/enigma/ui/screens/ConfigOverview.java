@@ -83,16 +83,16 @@ public class ConfigOverview {
    }
 
    private void populateStage() {
-      Label lblTitle = new LabelBuilder("ui.configs.overview.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      Label lblInstruction = new LabelBuilder("ui.configs.overview.instruction").setPrefHeight(INSTRUCTION_HEIGHT).setPrefWidth(WIDTH)
+      Label lblTitle = new LabelBuilderObs("ui.configs.overview.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblInstruction = new LabelBuilderObs("ui.configs.overview.instruction").setPrefHeight(INSTRUCTION_HEIGHT).setPrefWidth(WIDTH)
             .setAlignment(Pos.CENTER).build();
-      btnSelect = new ButtonBuilder("ui.shared.btn.select").setDisabled(true).build();
-      btnNew = new ButtonBuilder("ui.shared.btn.new").setDisabled(true).build();
-      btnDetails = new ButtonBuilder("ui.shared.btn.details").setDisabled(true).build();
-      btnEdit = new ButtonBuilder("ui.shared.btn.edit").setDisabled(true).setFocusTraversable(false).build();
-      btnDelete = new ButtonBuilder("ui.shared.btn.delete").setDisabled(true).setFocusTraversable(false).build();
-      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      btnSelect = new ButtonBuilderObs("ui.shared.btn.select").setDisabled(true).build();
+      btnNew = new ButtonBuilderObs("ui.shared.btn.new").setDisabled(true).build();
+      btnDetails = new ButtonBuilderObs("ui.shared.btn.details").setDisabled(true).build();
+      btnEdit = new ButtonBuilderObs("ui.shared.btn.edit").setDisabled(true).setFocusTraversable(false).build();
+      btnDelete = new ButtonBuilderObs("ui.shared.btn.delete").setDisabled(true).setFocusTraversable(false).build();
+      btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      btnExit = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
       ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnSelect, btnDetails, btnEdit, btnNew, btnDelete, btnHelp, btnExit).build();
       TableColumn<PresentableConfiguration, String> nameColumn = new TableColumnBuilder().setText(Rosetta.getText("ui.general.name"))
             .setCellValueFactory(new PropertyValueFactory<>("configName")).build();

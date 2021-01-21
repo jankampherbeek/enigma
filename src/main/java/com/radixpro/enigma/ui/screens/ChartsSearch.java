@@ -71,8 +71,8 @@ public class ChartsSearch {
 
    @SuppressWarnings("unchecked")
    private void defineLeafs() {
-      lblInstruction = new LabelBuilder("ui.charts.search.instruction").setPrefWidth(FULL_DATA_WIDTH).build();
-      lblPageTitle = new LabelBuilder("ui.charts.search.pagetitle").setStyleClass("titletext").setPrefWidth(FULL_DATA_WIDTH).build();
+      lblInstruction = new LabelBuilderObs("ui.charts.search.instruction").setPrefWidth(FULL_DATA_WIDTH).build();
+      lblPageTitle = new LabelBuilderObs("ui.charts.search.pagetitle").setStyleClass("titletext").setPrefWidth(FULL_DATA_WIDTH).build();
       lvSearchResults = new ListViewBuilder().setHeight(LV_HEIGHT).setWidth(SMALL_DATA_WIDTH).setStyleClass("inputDefault").build();
       tfSearchArg = new TextFieldBuilder().setPrefHeight(INPUT_HEIGHT).setPrefWidth(SMALL_DATA_WIDTH).setStyleClass("inputDefault").build();
    }
@@ -82,13 +82,13 @@ public class ChartsSearch {
    }
 
    private void defineButtons() {
-      btnSearch = new ButtonBuilder("ui.shared.btn.search").setDisabled(false).build();
+      btnSearch = new ButtonBuilderObs("ui.shared.btn.search").setDisabled(false).build();
       btnSearch.setOnAction(click -> onSearch());
-      btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).build();
+      btnCancel = new ButtonBuilderObs("ui.shared.btn.cancel").setDisabled(false).build();
       btnCancel.setOnAction(click -> onCancel());
-      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
       btnHelp.setOnAction(click -> onHelp());
-      btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(false).build();
+      btnOk = new ButtonBuilderObs("ui.shared.btn.ok").setDisabled(false).build();
       btnOk.setOnAction(click -> onSelectOk());
    }
 

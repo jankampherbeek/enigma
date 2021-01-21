@@ -111,16 +111,16 @@ public class StatsStart {
    }
 
    private void defineLeafs() {
-      lblPageTitle = new LabelBuilder("ui.stats.start.pagetitle").setStyleClass("titletext").setPrefWidth(START_WIDTH).build();
-      lblSubTitleNoProjdir = new LabelBuilder("ui.stats.start.noprojdirtitle").setStyleClass("subtitletext").setPrefWidth(START_WIDTH).build();
-      lblDefineProjDir = new LabelBuilder("ui.stats.start.noprojdirtext").setPrefWidth(START_WIDTH).build();
-      lblProjDir = new LabelBuilder("ui.stats.start.projdir").setPrefWidth(200.0).build();
-      lblProjDirValue = new LabelBuilder("").setPrefWidth(300.0).setText(fullPathProjDir).build();
-      btnDefineProjDir = new ButtonBuilder("ui.stats.start.noprojdirbtn").setDisabled(false).build();
-      btnInputData = new ButtonBuilder("ui.stats.start.inputdatabtn").setDisabled(false).build();
-      lblSubTitleData = new LabelBuilder("ui.stats.start.datasubtitle").setPrefWidth(START_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
+      lblPageTitle = new LabelBuilderObs("ui.stats.start.pagetitle").setStyleClass("titletext").setPrefWidth(START_WIDTH).build();
+      lblSubTitleNoProjdir = new LabelBuilderObs("ui.stats.start.noprojdirtitle").setStyleClass("subtitletext").setPrefWidth(START_WIDTH).build();
+      lblDefineProjDir = new LabelBuilderObs("ui.stats.start.noprojdirtext").setPrefWidth(START_WIDTH).build();
+      lblProjDir = new LabelBuilderObs("ui.stats.start.projdir").setPrefWidth(200.0).build();
+      lblProjDirValue = new LabelBuilderObs("").setPrefWidth(300.0).setText(fullPathProjDir).build();
+      btnDefineProjDir = new ButtonBuilderObs("ui.stats.start.noprojdirbtn").setDisabled(false).build();
+      btnInputData = new ButtonBuilderObs("ui.stats.start.inputdatabtn").setDisabled(false).build();
+      lblSubTitleData = new LabelBuilderObs("ui.stats.start.datasubtitle").setPrefWidth(START_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
             setStyleClass("subtitletext").build();
-      lblSubTitleProj = new LabelBuilder("ui.stats.start.projtitle").setPrefWidth(START_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
+      lblSubTitleProj = new LabelBuilderObs("ui.stats.start.projtitle").setPrefWidth(START_WIDTH).setPrefHeight(SUBTITLE_HEIGHT).
             setStyleClass("subtitletext").build();
       tvDataFiles = new TableViewBuilder().setPrefWidth(START_WIDTH).setPrefHeight(TV_HEIGHT).build();
       tvDataFiles.setPlaceholder(new Label(Rosetta.getText("ui.stats.placeholder.datafiles")));
@@ -225,15 +225,15 @@ public class StatsStart {
    }
 
    private ButtonBar createBtnBar() {
-      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
-      Button btnExit = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
+      Button btnExit = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
       return new ButtonBarBuilder().setButtons(btnHelp, btnExit).build();
    }
 
    private ButtonBar createBtnBarData() {
-      btnDataDetails = new ButtonBuilder("ui.stats.start.btndatadetails").setDisabled(false).build();
-      btnDataNew = new ButtonBuilder("ui.stats.start.btndatanew").setDisabled(false).build();
-      btnDataSearch = new ButtonBuilder("ui.stats.start.btndatasearch").setDisabled(false).build();
+      btnDataDetails = new ButtonBuilderObs("ui.stats.start.btndatadetails").setDisabled(false).build();
+      btnDataNew = new ButtonBuilderObs("ui.stats.start.btndatanew").setDisabled(false).build();
+      btnDataSearch = new ButtonBuilderObs("ui.stats.start.btndatasearch").setDisabled(false).build();
       btnDataDetails.setOnAction(click -> onDataDetail());
       btnDataSearch.setOnAction(click -> onDataSearch());
       btnDataNew.setOnAction(click -> onNew());
@@ -241,9 +241,9 @@ public class StatsStart {
    }
 
    private ButtonBar createBtnBarProj() {
-      btnProjOpen = new ButtonBuilder("ui.stats.start.btnprojopen").setDisabled(false).build();    // TODO disable and enable after selecting project
-      btnProjNew = new ButtonBuilder("ui.stats.start.btnprojnew").setDisabled(false).build();
-      btnProjSearch = new ButtonBuilder("ui.stats.start.btnprojsearch").setDisabled(false).build();
+      btnProjOpen = new ButtonBuilderObs("ui.stats.start.btnprojopen").setDisabled(false).build();    // TODO disable and enable after selecting project
+      btnProjNew = new ButtonBuilderObs("ui.stats.start.btnprojnew").setDisabled(false).build();
+      btnProjSearch = new ButtonBuilderObs("ui.stats.start.btnprojsearch").setDisabled(false).build();
       btnProjNew.setOnAction(click -> statsProjNew.show());
       btnProjSearch.setOnAction(click -> onProjSearch());
       btnProjOpen.setOnAction(click -> onProjMgt());

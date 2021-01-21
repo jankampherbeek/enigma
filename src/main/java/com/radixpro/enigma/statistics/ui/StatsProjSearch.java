@@ -66,17 +66,17 @@ public class StatsProjSearch {
    }
 
    private void defineLeafs() {
-      lblTitle = new LabelBuilder("ui.stats.projsearch.lbltitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
-      lblInstruction = new LabelBuilder("ui.stats.projsearch.lblinstruction").setPrefWidth(INPUT_WIDTH).build();
+      lblTitle = new LabelBuilderObs("ui.stats.projsearch.lbltitle").setPrefWidth(INPUT_WIDTH).setStyleClass("titletext").build();
+      lblInstruction = new LabelBuilderObs("ui.stats.projsearch.lblinstruction").setPrefWidth(INPUT_WIDTH).build();
       tfSearchArg = new TextFieldBuilder().setPrefWidth(SMALL_INPUT_WIDTH).setStyleClass("inputDefault").build();
       lvSearchResults = new ListViewBuilder().setHeight(180.0).setWidth(SMALL_INPUT_WIDTH).setStyleClass("inputDefault").build();
-      btnSearch = new ButtonBuilder("ui.shared.btn.search").setDisabled(false).build();
+      btnSearch = new ButtonBuilderObs("ui.shared.btn.search").setDisabled(false).build();
       btnSearch.setOnAction(click -> onSearch());
-      btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).build();
+      btnCancel = new ButtonBuilderObs("ui.shared.btn.cancel").setDisabled(false).build();
       btnCancel.setOnAction(click -> onCancel());
-      btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).build();
+      btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).build();
       btnHelp.setOnAction(click -> onHelp());
-      btnOk = new ButtonBuilder("ui.shared.btn.ok").setDisabled(false).build();
+      btnOk = new ButtonBuilderObs("ui.shared.btn.ok").setDisabled(false).build();
       btnOk.setOnAction(click -> onOk());
    }
 

@@ -54,19 +54,19 @@ public class ScenarioNew {
    }
 
    private void initialize() {
-      Label lblTitle = new LabelBuilder("ui.stats.scennew.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
+      Label lblTitle = new LabelBuilderObs("ui.stats.scennew.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
       paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").setChildren(lblTitle).build();
-      Label lblName = new LabelBuilder("ui.shared.lbl.name").build();
+      Label lblName = new LabelBuilderObs("ui.shared.lbl.name").build();
       paneName = new PaneBuilder().setWidth(WIDTH).setHeight(25.0).setChildren(lblName).build();
       tfName = new TextFieldBuilder().setPrefWidth(WIDTH).build();
       paneNameInput = new PaneBuilder().setWidth(WIDTH).setChildren(tfName).build();
-      Label lblDescription = new LabelBuilder("ui.shared.lbl.description").build();
+      Label lblDescription = new LabelBuilderObs("ui.shared.lbl.description").build();
       paneDescription = new PaneBuilder().setWidth(WIDTH).setChildren(lblDescription).build();
       taDescr = new TextArea();
       taDescr.setWrapText(true);
       taDescr.setPrefRowCount(4);
       paneDescriptionInput = new PaneBuilder().setWidth(WIDTH).setHeight(100.0).setChildren(taDescr).build();
-      Label lblScenarioType = new LabelBuilder("ui.stats.scennew.scentype").setPrefWidth(WIDTH).build();
+      Label lblScenarioType = new LabelBuilderObs("ui.stats.scennew.scentype").setPrefWidth(WIDTH).build();
       paneScenarioType = new PaneBuilder().setWidth(WIDTH).setChildren(lblScenarioType).build();
       cbScenarioType = new ComboBox();
       cbScenarioType.setPrefWidth(WIDTH);
@@ -96,11 +96,11 @@ public class ScenarioNew {
    }
 
    private Pane createPaneBtnBar() {
-      Button btnContinue = new ButtonBuilder("ui.shared.btn.continue").setDisabled(false).setFocusTraversable(true).build();   // todo initial disabled
+      Button btnContinue = new ButtonBuilderObs("ui.shared.btn.continue").setDisabled(false).setFocusTraversable(true).build();   // todo initial disabled
       btnContinue.setOnAction(e -> onContinue());
-      Button btnHelp = new ButtonBuilder("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
+      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
       btnHelp.setOnAction(e -> onHelp());
-      Button btnCancel = new ButtonBuilder("ui.shared.btn.cancel").setDisabled(false).setFocusTraversable(true).build();
+      Button btnCancel = new ButtonBuilderObs("ui.shared.btn.cancel").setDisabled(false).setFocusTraversable(true).build();
       btnCancel.setOnAction(e -> stage.close());
       ButtonBar btnBar = new ButtonBarBuilder().setButtons(btnCancel, btnHelp, btnContinue).build();
       return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(btnBar).build();

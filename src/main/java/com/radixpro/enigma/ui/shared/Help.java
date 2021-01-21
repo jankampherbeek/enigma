@@ -7,8 +7,8 @@
 package com.radixpro.enigma.ui.shared;
 
 import com.radixpro.enigma.Rosetta;
-import com.radixpro.enigma.ui.creators.ButtonBuilder;
-import com.radixpro.enigma.ui.creators.LabelBuilder;
+import com.radixpro.enigma.ui.creators.ButtonBuilderObs;
+import com.radixpro.enigma.ui.creators.LabelBuilderObs;
 import com.radixpro.enigma.ui.creators.PaneBuilder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -75,7 +75,7 @@ public class Help {
    }
 
    private Label createLblHelpTitle() {
-      return new LabelBuilder("").setText(title).setPrefWidth(INNER_WIDTH).setStyleClass("titletext").build();
+      return new LabelBuilderObs("").setText(title).setPrefWidth(INNER_WIDTH).setStyleClass("titletext").build();
    }
 
    private Pane createTitlePane() {
@@ -103,7 +103,7 @@ public class Help {
    }
 
    private Button createCloseButton() {
-      Button button = new ButtonBuilder("ui.shared.btn.exit").setDisabled(false).build();
+      Button button = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).build();
       button.setOnAction(click -> onClose());
       return button;
    }
