@@ -43,9 +43,9 @@ class StatsProjSearch(private val statsFacade: StatsFacade) {
     private lateinit var stage: Stage
     private lateinit var statsProjNames: List<String>
     var selectedItem: StatsProject? = null
-        private set
+//        private set
     var isSelectionMade = false
-        private set
+//        private set
 
     fun show() {
         initialize()

@@ -1,152 +1,200 @@
 /*
- * Jan Kampherbeek, (c) 2020.
+ * Jan Kampherbeek, (c) 2020, 2021.
  * Enigma is open source.
  * Please check the file copyright.txt in the root of the source for further details.
  *
  */
+package com.radixpro.enigma.statistics.ui
 
-package com.radixpro.enigma.statistics.ui;
+import com.radixpro.enigma.Rosetta
+import com.radixpro.enigma.Rosetta.getText
+import com.radixpro.enigma.share.ui.domain.TableViewString
+import com.radixpro.enigma.ui.creators.*
+import com.radixpro.enigma.ui.shared.Help
+import com.radixpro.enigma.ui.shared.UiDictionary
+import com.radixpro.enigma.ui.shared.UiDictionary.GAP
+import javafx.event.EventHandler
+import javafx.scene.Scene
+import javafx.scene.control.*
+import javafx.scene.control.cell.PropertyValueFactory
+import javafx.scene.layout.Pane
+import javafx.scene.layout.VBox
+import javafx.stage.Stage
+import java.util.*
 
-import com.radixpro.enigma.Rosetta;
-import com.radixpro.enigma.share.ui.domain.TableViewString;
-import com.radixpro.enigma.ui.creators.*;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import org.jetbrains.annotations.NotNull;
+class ProjectManager(
+    private val facade: StatsFacade,
+    private val scenarioNew: ScenarioNew,
+    private val scenarioDetails: ScenarioDetails,
+    private val processingResult: ProcessingResult
+) {
+    // texts
+    private lateinit var lblName: Label
+    private lateinit var projName: String
+    private lateinit var txtBtnClose: String
+    private lateinit var txtBtnCtrl: String
+    private lateinit var txtBtnDelete: String
+    private lateinit var txtBtnDetails: String
+    private lateinit var txtBtnHelp: String
+    private lateinit var txtBtnNew: String
+    private lateinit var txtBtnRun: String
+    private lateinit var txtSubTitleScenarios: String
+    private lateinit var txtTitle: String
 
-import java.util.ArrayList;
-import java.util.List;
+    //buttons
+    private lateinit var btnClose: Button
+    private lateinit var btnCtrl: Button
+    private lateinit var btnDelete: Button
+    private lateinit var btnDetails: Button
+    private lateinit var btnHelp: Button
+    private lateinit var btnNew: Button
+    private lateinit var btnRun: Button
 
-import static com.radixpro.enigma.ui.shared.UiDictionary.*;
 
-public class ProjectManager {
+    private lateinit var stage: Stage
+    private lateinit var scenarios: List<String>
+    private lateinit var tvProj: TableView<TableViewString>
 
-   private static final double HEIGHT = 400.0;
-   private static final double WIDTH = 600.0;
-   private final ScenarioNew scenarioNew;
-   private final ScenarioDetails scenarioDetails;
-   private final ProcessingResult processingResult;
-   private Stage stage;
-   private Label lblName;
-   private Pane paneTitle;
-   private Pane paneSubTitle;
-   private Pane paneName;
-   private TableView tableView;
-   private String projName;
-   private StatsFacade facade;
-   private List<String> scenarios;
+    fun show(projName: String) {
+        this.projName = projName
+        initialize()
+        stage = Stage()
+        stage.title = txtTitle
+        stage.scene = Scene(createVBox())
+        stage.showAndWait()
+    }
 
-   public ProjectManager(@NotNull final StatsFacade facade,
-                         @NotNull final ScenarioNew scenarioNew,
-                         @NotNull final ScenarioDetails scenarioDetails,
-                         @NotNull final ProcessingResult processingResult) {
-      this.facade = facade;
-      this.scenarioNew = scenarioNew;
-      this.scenarioDetails = scenarioDetails;
-      this.processingResult = processingResult;
-   }
+    private fun initialize() {
+        defineTexts()
+        defineButtons()
+        defineTableView()
+    }
 
-   public void show(@NotNull final String projName) {
-      this.projName = projName;
-      stage = new Stage();
-      initialize();
-      stage.setTitle(Rosetta.getText("ui.stats.projman.title"));
-      stage.setScene(new Scene(createVBox()));
-      stage.showAndWait();
-   }
+    private fun defineTexts() {
+        txtBtnClose = getText("ui.shared.btn.exit")
+        txtBtnCtrl = getText("ui.stats.projman.ctrl")
+        txtBtnDelete = getText("ui.shared.btn.delete")
+        txtBtnDetails = getText("ui.shared.btn.details")
+        txtBtnHelp = getText("ui.shared.btn.help")
+        txtBtnNew = getText("ui.shared.btn.new")
+        txtBtnRun = getText("ui.stats.projman.run")
+        txtSubTitleScenarios = getText("ui.stats.projman.subtitlescen")
+        txtTitle = getText("ui.stats.projman.title")
+        lblName = LabelBuilder(projName).build()
+    }
 
-   private void initialize() {
-      Label lblTitle = new LabelBuilderObs("ui.stats.projman.title").setPrefWidth(WIDTH).setStyleClass("titletext").build();
-      paneTitle = new PaneBuilder().setWidth(WIDTH).setHeight(TITLE_HEIGHT).setWidth(WIDTH).setStyleClass("titlepane").setChildren(lblTitle).build();
-      lblName = new LabelBuilderObs("").setText(projName).build();
-      paneName = new PaneBuilder().setWidth(WIDTH).setHeight(25.0).setChildren(lblName).build();
-      Label lblSubTitle = new LabelBuilderObs("ui.stats.projman.subtitlescen").setPrefWidth(WIDTH).setStyleClass("subtitletext").build();
-      paneSubTitle = new PaneBuilder().setWidth(WIDTH).setHeight(SUBTITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(lblSubTitle).build();
-      tableView = createTableView();
-   }
+    private fun defineButtons() {
+        btnClose = ButtonBuilder(txtBtnClose).setDisabled(false).setFocusTraversable(true).build()
+        btnCtrl = ButtonBuilder(txtBtnCtrl).setPrefWidth(180.0).setDisabled(false).setFocusTraversable(true).build()
+        btnDelete = ButtonBuilder(txtBtnDelete).setDisabled(true).setFocusTraversable(false).build()
+        btnDetails = ButtonBuilder(txtBtnDetails).setDisabled(true).setFocusTraversable(false).build()
+        btnHelp = ButtonBuilder(txtBtnHelp).setDisabled(false).setFocusTraversable(true).build()
+        btnNew = ButtonBuilder(txtBtnNew).setDisabled(false).setFocusTraversable(true).build()
+        btnRun = ButtonBuilder(txtBtnRun).setDisabled(true).setFocusTraversable(false).build()
+        btnClose.onAction = EventHandler { onClose() }
+        btnCtrl.onAction = EventHandler { onCtrl() }
+        btnDelete.onAction = EventHandler { onDelete() }
+        btnDetails.onAction = EventHandler { onDetails() }
+        btnHelp.onAction = EventHandler { onHelp() }
+        btnNew.onAction = EventHandler { onNewScenario() }
+        btnRun.onAction = EventHandler { onRun() }
+    }
 
-   private VBox createVBox() {
-      return new VBoxBuilder().setHeight(HEIGHT).setWidth(WIDTH).setPadding(GAP).setChildren(
-            paneTitle,
-            paneName,
-            paneSubTitle,
-            tableView,
+    private fun createVBox(): VBox {
+        return VBoxBuilder().setHeight(HEIGHT).setWidth(WIDTH).setPadding(GAP).setChildren(
+            createPaneTitle(),
+            createPaneName(),
+            createPaneSubTitleScenarios(),
+            tvProj,
+            PaneBuilder().setHeight(12.0).build(),
             createPaneBtnBarScenarios(),
+            PaneBuilder().setHeight(12.0).build(),
             createPaneButtonBarGeneral()
-      ).build();
-   }
+        ).build()
+    }
 
-   private TableView createTableView() {
-      TableColumn colName = new TableColumn<>(Rosetta.getText("ui.general.name"));
-      colName.setPrefWidth(550.0);
-      colName.setCellValueFactory(new PropertyValueFactory<>("text"));
-      TableView tvProj = new TableViewBuilder().setPrefHeight(200.0).setPrefWidth(WIDTH).setColumns(colName).build();
-      tvProj.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-      tvProj.getItems().addAll(scenarioNames());
-      return tvProj;
-   }
+    private fun createPaneTitle(): Pane {
+        val label = LabelBuilder(txtTitle).setPrefWidth(UiDictionary.INPUT_WIDTH).setPrefHeight(UiDictionary.TITLE_HEIGHT).setStyleClass("titletext").build()
+        return PaneBuilder().setWidth(UiDictionary.INPUT_WIDTH).setHeight(UiDictionary.TITLE_HEIGHT).setStyleClass("titlepane").setChildren(label).build()
+    }
 
-   private List<TableViewString> scenarioNames() {
-      scenarios = facade.readScenarioNames(projName);
-      List<TableViewString> scenariosForTv = new ArrayList<>();
-      for (String scenario : scenarios) {
-         scenariosForTv.add(new TableViewString(scenario));
-      }
-      return scenariosForTv;
-   }
+    private fun createPaneSubTitleScenarios(): Pane {
+        val label = LabelBuilder(txtSubTitleScenarios).setPrefWidth(WIDTH).setStyleClass("subtitletext").build()
+        return PaneBuilder().setWidth(WIDTH).setHeight(UiDictionary.SUBTITLE_HEIGHT).setStyleClass("subtitlepane").setChildren(label).build()
+    }
 
-   private Pane createPaneBtnBarScenarios() {
-      Button btnDelete = new ButtonBuilderObs("ui.shared.btn.delete").setDisabled(true).setFocusTraversable(false).build();
-      // TODO onClick btnDelete
-      Button btnDetails = new ButtonBuilderObs("ui.shared.btn.details").setDisabled(false).setFocusTraversable(true).build();
-      btnDetails.setOnAction(e -> onDetails());
-      Button btnRun = new ButtonBuilderObs("ui.stats.projman.run").setDisabled(false).setFocusTraversable(true).build();
-      btnRun.setOnAction(e -> onRun());
-      Button btnCtrl = new ButtonBuilderObs("ui.stats.projman.ctrl").setDisabled(false).setFocusTraversable(true).build();
-      btnCtrl.setOnAction(e -> onCtrl());
-      Button btnNew = new ButtonBuilderObs("ui.shared.btn.new").setDisabled(false).setFocusTraversable(true).build();
-      btnNew.setOnAction(e -> onNewScenario());
-      ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnDelete, btnDetails, btnRun, btnCtrl, btnNew).build();
-      return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();
-   }
+    private fun createPaneName(): Pane {
+        return PaneBuilder().setWidth(WIDTH).setHeight(25.0).setChildren(lblName).build()
+    }
 
-   private Pane createPaneButtonBarGeneral() {
-      Button btnHelp = new ButtonBuilderObs("ui.shared.btn.help").setDisabled(false).setFocusTraversable(true).build();
-      btnHelp.setOnAction(e -> onHelp());
-      Button btnClose = new ButtonBuilderObs("ui.shared.btn.exit").setDisabled(false).setFocusTraversable(true).build();
-      btnClose.setOnAction(e -> stage.close());
-      ButtonBar buttonBar = new ButtonBarBuilder().setButtons(btnHelp, btnClose).build();
-      return new PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build();
-   }
+    private fun defineTableView() {
+        val colName: TableColumn<TableViewString, String> = TableColumn(getText("ui.general.name"))
+        colName.prefWidth = 550.0
+        colName.cellValueFactory = PropertyValueFactory("text")
+        tvProj = TableView<TableViewString>()
+        tvProj.prefHeight = 200.0
+        tvProj.prefWidth = WIDTH
+        tvProj.columns.add(colName)
+        tvProj.selectionModel.selectionMode = SelectionMode.SINGLE
+        tvProj.items.addAll(scenarioNames())
+    }
 
-   private void onDetails() {
-      int index = tableView.getSelectionModel().getSelectedIndex();
-      String selectedScenario = scenarios.get(index);
-      scenarioDetails.show(selectedScenario, projName);
-   }
+    private fun scenarioNames(): List<TableViewString> {
+        scenarios = facade.readScenarioNames(projName)
+        val scenariosForTv: MutableList<TableViewString> = ArrayList()
+        for (scenario in scenarios) {
+            scenariosForTv.add(TableViewString(scenario))
+        }
+        return scenariosForTv
+    }
 
-   private void onNewScenario() {
-      scenarioNew.show(projName);
-   }
+    private fun createPaneBtnBarScenarios(): Pane {
+        val buttonBar = ButtonBarBuilder().setButtons(btnDelete, btnDetails, btnRun, btnNew, btnCtrl).build()
+        return PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build()
+    }
 
-   private void onRun() {
-      int index = tableView.getSelectionModel().getSelectedIndex();
-      String selectedScenario = scenarios.get(index);
-      processingResult.show(selectedScenario, projName, "TEST");
-   }
+    private fun createPaneButtonBarGeneral(): Pane {
+        val buttonBar = ButtonBarBuilder().setButtons(btnHelp, btnClose).build()
+        return PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build()
+    }
 
-   private void onCtrl() {
-      int index = tableView.getSelectionModel().getSelectedIndex();
-      String selectedScenario = scenarios.get(index);
-      processingResult.show(selectedScenario, projName, "CONTROL");
-   }
+    private fun onDetails() {
+        val index = tvProj.selectionModel.selectedIndex
+        val selectedScenario = scenarios[index]
+        scenarioDetails.show(selectedScenario, projName)
+    }
 
-   private void onHelp() {
-      // todo show helpscreen
-   }
+    private fun onDelete() {
 
+        // TODO implement onDelete()
+    }
+
+    private fun onNewScenario() {
+        scenarioNew.show(projName)
+    }
+
+    private fun onRun() {
+        val index = tvProj.selectionModel.selectedIndex
+        val selectedScenario = scenarios[index]
+        processingResult.show(selectedScenario, projName, "TEST")
+    }
+
+    private fun onCtrl() {
+        val index = tvProj.selectionModel.selectedIndex
+        val selectedScenario = scenarios[index]
+        processingResult.show(selectedScenario, projName, "CONTROL")
+    }
+
+    private fun onClose() {
+        stage.close()
+    }
+
+    private fun onHelp() {
+        Help(Rosetta.getHelpText("help.statsprojmanager.title"), Rosetta.getHelpText("help.statsprojmanager.content"))
+    }
+
+    companion object {
+        private const val HEIGHT = 400.0
+        private const val WIDTH = 600.0
+    }
 }

@@ -57,6 +57,7 @@ class StatsProjNew(
     private lateinit var txtBtnRemove: String
     private lateinit var txtBtnSave: String
     private lateinit var txtBtnSearch: String
+    private lateinit var txtTitle: String
 
     // buttons
     private lateinit var btnHelp: Button
@@ -64,7 +65,6 @@ class StatsProjNew(
     private lateinit var btnRemove: Button
     private lateinit var btnSave: Button
     private lateinit var btnSearch: Button
-    private lateinit var txtTitle: String
 
     // choiceboxes
     private lateinit var choiceBoxHouseSystem: ChoiceBox<*>
