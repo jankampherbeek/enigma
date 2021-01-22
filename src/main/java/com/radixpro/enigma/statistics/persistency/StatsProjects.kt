@@ -22,7 +22,8 @@ import java.nio.file.Path
 interface StatsProjDao {
     fun save(project: StatsProject, pathRoot: String)
     fun read(projectName: String, pathRoot: String): IStatsProject
-    fun readAllNames(pathRoot: String): MutableList<String>
+    fun readAllNames(pathRoot: String): List<String>
+    fun search(searchArg: String, pathRoot: String): List<String>
 }
 
 class StatsProjDaoJson(private val jsonReader: Reader, private val mapper: StatsProjMapper) : StatsProjDao {
@@ -56,7 +57,7 @@ class StatsProjDaoJson(private val jsonReader: Reader, private val mapper: Stats
         return StatsFailedProject(ErrorMsgs.PROJECT_NOT_SAVED)
     }
 
-    override fun readAllNames(pathRoot: String): MutableList<String> {
+    override fun readAllNames(pathRoot: String): List<String> {
         val fullPath = pathRoot + File.separator + "proj" + File.separator
         val projNames: MutableList<String> = ArrayList()
         File(fullPath).walk().forEach {
@@ -64,8 +65,18 @@ class StatsProjDaoJson(private val jsonReader: Reader, private val mapper: Stats
                 projNames.add(it.name)
             }
         }
-        return projNames
+        return projNames.toList()
     }
+
+    override fun search(searchArg: String, pathRoot: String): List<String> {
+        val matchingProjects: MutableList<String> = ArrayList()
+        val allProjects = readAllNames(pathRoot)
+        for (proj in allProjects) {
+            if (proj.contains(searchArg, ignoreCase = true)) matchingProjects.add(proj)
+        }
+        return matchingProjects
+    }
+
 
     private fun folderExists(fullPathFolder: String): Boolean {
         return Files.exists(Path.of(fullPathFolder))

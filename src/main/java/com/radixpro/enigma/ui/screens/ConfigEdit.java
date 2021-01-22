@@ -132,7 +132,7 @@ public class ConfigEdit {
       choiceBoxEclipticProj.getSelectionModel().selectedIndexProperty().addListener((ov, value, newValue) -> onEclipticChange());
    }
 
-   private GridPane createGridPane() {   // TODO replace with NameDescriptionInputBLock and BaseConfigInputBlock
+   private GridPane createGridPane() {
       GridPane gridPane = new GridPaneBuilder().setPrefHeight(CONFIGDATA_HEIGHT).setHGap(6.0).setVGap(6.0).build();
       gridPane.add(lblDescription, 0, 1, 1, 1);
       gridPane.add(descriptionInput, 1, 1, 1, 1);

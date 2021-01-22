@@ -15,7 +15,7 @@ import com.radixpro.enigma.statistics.persistency.StatsProjDao
 
 class StatsProjHandler(private val statsProjDao: StatsProjDao, private val propHandler: PropertyHandler, private val controlDataCharts: ControlDataCharts) {
 
-    val location = propHandler.retrieve("projdir")[0].value
+    val location = propHandler.retrieve("projdir")[0].value  // TODO make this a constant value, relative to the application dir
 
     fun saveProject(project: StatsProject): ApiResult {
         statsProjDao.save(project, location)
@@ -30,6 +30,10 @@ class StatsProjHandler(private val statsProjDao: StatsProjDao, private val propH
 
     fun readAllNames(): List<String> {
         return statsProjDao.readAllNames(location)
+    }
+
+    fun search(searchArg: String): List<String> {
+        return statsProjDao.search(searchArg, location)
     }
 
     private fun createControlFiles(project: StatsProject) {

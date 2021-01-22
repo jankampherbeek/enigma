@@ -11,6 +11,7 @@ import com.radixpro.enigma.statistics.api.ScenGeneralApi
 import com.radixpro.enigma.statistics.api.StatsProcessApi
 import com.radixpro.enigma.statistics.api.StatsProjApi
 import com.radixpro.enigma.statistics.api.xchg.ApiResult
+import com.radixpro.enigma.statistics.core.IStatsProject
 import com.radixpro.enigma.statistics.ui.domain.ScenarioFe
 import com.radixpro.enigma.statistics.ui.domain.StatsProjectFe
 
@@ -20,6 +21,18 @@ class StatsFacade(private val projApi: StatsProjApi,
 
     fun saveProject(projectFe: StatsProjectFe): ApiResult {
         return projApi.save(projectFe)
+    }
+
+    fun readProject(projName: String): IStatsProject {
+        return projApi.read(projName)
+    }
+
+    fun readAllProjects(): List<String> {
+        return projApi.readAllNames()
+    }
+
+    fun searchProjects(searchArg: String): List<String> {
+        return projApi.search(searchArg)
     }
 
     fun readScenarioNames(projName: String): List<String> {

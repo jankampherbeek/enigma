@@ -8,7 +8,6 @@ package com.radixpro.enigma.statistics.ui
 
 import com.radixpro.enigma.Rosetta.getHelpText
 import com.radixpro.enigma.Rosetta.getText
-import com.radixpro.enigma.statistics.api.StatsProjApi
 import com.radixpro.enigma.statistics.core.StatsProject
 import com.radixpro.enigma.ui.creators.*
 import com.radixpro.enigma.ui.shared.Help
@@ -21,7 +20,7 @@ import javafx.scene.layout.Pane
 import javafx.scene.layout.VBox
 import javafx.stage.Stage
 
-class StatsProjSearch(private val statsProjApi: StatsProjApi) {
+class StatsProjSearch(private val statsFacade: StatsFacade) {
 
     // texts
     private lateinit var txtBtnCancel: String
@@ -39,11 +38,10 @@ class StatsProjSearch(private val statsProjApi: StatsProjApi) {
     private lateinit var btnSearch: Button
 
 
-    private var tfSearchArg: TextField? = null
+    private var tfSearchArg: TextField = TextField()
     private lateinit var lvSearchResults: ListView<String>
-    private val projects: List<StatsProject>? = null
     private lateinit var stage: Stage
-    private var statsProjNames: List<String>? = null
+    private lateinit var statsProjNames: List<String>
     var selectedItem: StatsProject? = null
         private set
     var isSelectionMade = false
@@ -59,6 +57,7 @@ class StatsProjSearch(private val statsProjApi: StatsProjApi) {
     }
 
     private fun initialize() {
+        statsProjNames = ArrayList()
         defineTexts()
         defineButtons()
         defineLeafs()
@@ -124,10 +123,12 @@ class StatsProjSearch(private val statsProjApi: StatsProjApi) {
 
     private fun onSearch() {
         lvSearchResults.items.clear()
-//        val arg = tfSearchArg.   text // todo use arg
-        statsProjNames = statsProjApi.readAllNames()
-        for (projName in statsProjNames!!) {
-            lvSearchResults.items.add(projName)
+        val arg: String = tfSearchArg.text
+        statsProjNames = if (arg.isEmpty()) statsFacade.readAllProjects() else statsFacade.searchProjects(arg)
+        if (!statsProjNames.isNullOrEmpty()) {
+            for (projName in statsProjNames) {
+                lvSearchResults.items.add(projName)
+            }
         }
     }
 
@@ -143,8 +144,8 @@ class StatsProjSearch(private val statsProjApi: StatsProjApi) {
     private fun onOk() {
         val index = lvSearchResults.selectionModel.selectedIndex
         if (index >= 0) {
-            val projName = statsProjNames!![index]
-            val result = statsProjApi.read(projName)
+            val projName = statsProjNames[index]
+            val result = statsFacade.readProject(projName)
             if (result is StatsProject) {
                 selectedItem = result
                 isSelectionMade = true

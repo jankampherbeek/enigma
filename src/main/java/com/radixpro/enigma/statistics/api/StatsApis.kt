@@ -24,6 +24,7 @@ interface ProjectApi {
     fun save(projectFe: StatsProjectFe): ApiResult
     fun read(projName: String): IStatsProject
     fun readAllNames(): List<String>
+    fun search(searchArg: String): List<String>
 }
 
 
@@ -47,6 +48,9 @@ class StatsProjApi(private val handler: StatsProjHandler, private val converter:
         return handler.readAllNames()
     }
 
+    override fun search(searchArg: String): List<String> {
+        return handler.search(searchArg)
+    }
 }
 
 class ScenGeneralApi(private val generalHandler: ScenarioGeneralHandler,

@@ -68,7 +68,7 @@ object StatsUiInjector {
     }
 
     fun injectStatsProjSearch(): StatsProjSearch {
-        return StatsProjSearch(injectStatsProjApi())
+        return StatsProjSearch(injectStatsFacade())
     }
 
     fun injectStatsStart(): StatsStart {
