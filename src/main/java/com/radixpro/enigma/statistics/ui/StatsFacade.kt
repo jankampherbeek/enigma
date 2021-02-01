@@ -39,6 +39,10 @@ class StatsFacade(private val projApi: StatsProjApi,
         return scenGeneralApi.readAllNames(projName)
     }
 
+    fun deleteScenario(scenName: String, projName: String): ApiResult {
+        return scenGeneralApi.delete(scenName, projName)
+    }
+
     fun writeScenario(scenarioFe: ScenarioFe): ApiResult {
         return scenGeneralApi.save(scenarioFe)
     }

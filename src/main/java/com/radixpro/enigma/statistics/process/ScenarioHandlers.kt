@@ -76,5 +76,15 @@ class ScenHandler(val persister: ScenPersister,
         val jsonObject = reader.readObjectFromFile(scenarioFile)
         return mapper.map(jsonObject)
     }
+
+    fun deleteScenario(scenarioName: String, projectName: String): ApiResult {
+        return try {
+            val fullPath = pathConstructor.pathForScenario(scenarioName, projectName)
+            persister.deleteScenario(fullPath)
+            ApiResult(true, "")
+        } catch (e: Exception) {
+            ApiResult(false, "Error deleting $scenarioName")
+        }
+    }
 }
 

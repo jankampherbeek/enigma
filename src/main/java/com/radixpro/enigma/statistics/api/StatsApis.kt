@@ -74,6 +74,10 @@ class ScenGeneralApi(private val generalHandler: ScenarioGeneralHandler,
         return converter.beRequestToFe(scenario)
     }
 
+    fun delete(scenName: String, projName: String): ApiResult {
+        return scenHandler.deleteScenario(scenName, projName)
+    }
+
 }
 
 

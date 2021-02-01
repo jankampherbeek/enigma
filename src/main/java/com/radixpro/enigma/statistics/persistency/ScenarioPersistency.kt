@@ -9,12 +9,18 @@ package com.radixpro.enigma.statistics.persistency
 
 import com.radixpro.enigma.share.persistency.JsonWriter
 import com.radixpro.enigma.statistics.core.ScenarioBe
+import java.nio.file.Files
+import java.nio.file.Paths
 
 
 class ScenPersister() {
 
     fun saveScenario(scenarioBe: ScenarioBe, pathFileName: String) {
         JsonWriter().write2File(pathFileName, scenarioBe, true)
+    }
+
+    fun deleteScenario(pathFileName: String) {
+        Files.delete(Paths.get(pathFileName))
     }
 
 }

@@ -87,7 +87,7 @@ class ProjectManager(
         btnClose = ButtonBuilder(txtBtnClose).setDisabled(false).setFocusTraversable(true).build()
         btnCtrl = ButtonBuilder(txtBtnCtrl).setPrefWidth(180.0).setDisabled(false).setFocusTraversable(true).build()
         btnDelete = ButtonBuilder(txtBtnDelete).setDisabled(true).setFocusTraversable(false).build()
-        btnDetails = ButtonBuilder(txtBtnDetails).setDisabled(true).setFocusTraversable(false).build()
+        btnDetails = ButtonBuilder(txtBtnDetails).setDisabled(false).setFocusTraversable(true).build()
         btnHelp = ButtonBuilder(txtBtnHelp).setDisabled(false).setFocusTraversable(true).build()
         btnNew = ButtonBuilder(txtBtnNew).setDisabled(false).setFocusTraversable(true).build()
         btnRun = ButtonBuilder(txtBtnRun).setDisabled(true).setFocusTraversable(false).build()
