@@ -30,25 +30,33 @@ interface FileSystemReader {
 class JsonReader : Reader {
     override fun readObjectFromFile(inputData: File): JSONObject {
         val parser = JSONParser()
+        lateinit var fileReader: FileReader
         return try {
-            val jsonObject = parser.parse(FileReader(inputData))
+            fileReader = FileReader(inputData)
+            val jsonObject = parser.parse(fileReader)
             jsonObject as JSONObject
         } catch (pe: ParseException) {
             throw RuntimeException("Could not parse results of : " + inputData + " . Original message " + pe.message)
         } catch (ioe: IOException) {
             throw RuntimeException("Could not read file : " + inputData + " . Original message " + ioe.message)
+        } finally {
+            fileReader.close()
         }
     }
 
     override fun readArrayFromFile(inputData: File): JSONArray {
         val parser = JSONParser()
+        lateinit var fileReader: FileReader
         return try {
-            val jsonObject = parser.parse(FileReader(inputData))
+            fileReader = FileReader(inputData)
+            val jsonObject = parser.parse(fileReader)
             jsonObject as JSONArray
         } catch (pe: ParseException) {
             throw RuntimeException("Could not parse results of : " + inputData + " . Original message " + pe.message)
         } catch (ioe: IOException) {
             throw RuntimeException("Could not read file : " + inputData + " . Original message " + ioe.message)
+        } finally {
+            fileReader.close()
         }
     }
 }

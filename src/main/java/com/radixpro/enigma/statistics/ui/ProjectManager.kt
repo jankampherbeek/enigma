@@ -33,7 +33,6 @@ class ProjectManager(
     private lateinit var projName: String
     private lateinit var txtBtnClose: String
     private lateinit var txtBtnCtrl: String
-    private lateinit var txtBtnDelete: String
     private lateinit var txtBtnDetails: String
     private lateinit var txtBtnHelp: String
     private lateinit var txtBtnNew: String
@@ -44,7 +43,6 @@ class ProjectManager(
     //buttons
     private lateinit var btnClose: Button
     private lateinit var btnCtrl: Button
-    private lateinit var btnDelete: Button
     private lateinit var btnDetails: Button
     private lateinit var btnHelp: Button
     private lateinit var btnNew: Button
@@ -73,7 +71,6 @@ class ProjectManager(
     private fun defineTexts() {
         txtBtnClose = getText("ui.shared.btn.exit")
         txtBtnCtrl = getText("ui.stats.projman.ctrl")
-        txtBtnDelete = getText("ui.shared.btn.delete")
         txtBtnDetails = getText("ui.shared.btn.details")
         txtBtnHelp = getText("ui.shared.btn.help")
         txtBtnNew = getText("ui.shared.btn.new")
@@ -86,14 +83,12 @@ class ProjectManager(
     private fun defineButtons() {
         btnClose = ButtonBuilder(txtBtnClose).setDisabled(false).setFocusTraversable(true).build()
         btnCtrl = ButtonBuilder(txtBtnCtrl).setPrefWidth(180.0).setDisabled(false).setFocusTraversable(true).build()
-        btnDelete = ButtonBuilder(txtBtnDelete).setDisabled(true).setFocusTraversable(false).build()
         btnDetails = ButtonBuilder(txtBtnDetails).setDisabled(false).setFocusTraversable(true).build()
         btnHelp = ButtonBuilder(txtBtnHelp).setDisabled(false).setFocusTraversable(true).build()
         btnNew = ButtonBuilder(txtBtnNew).setDisabled(false).setFocusTraversable(true).build()
         btnRun = ButtonBuilder(txtBtnRun).setDisabled(true).setFocusTraversable(false).build()
         btnClose.onAction = EventHandler { onClose() }
         btnCtrl.onAction = EventHandler { onCtrl() }
-        btnDelete.onAction = EventHandler { onDelete() }
         btnDetails.onAction = EventHandler { onDetails() }
         btnHelp.onAction = EventHandler { onHelp() }
         btnNew.onAction = EventHandler { onNewScenario() }
@@ -149,7 +144,7 @@ class ProjectManager(
     }
 
     private fun createPaneBtnBarScenarios(): Pane {
-        val buttonBar = ButtonBarBuilder().setButtons(btnDelete, btnDetails, btnRun, btnNew, btnCtrl).build()
+        val buttonBar = ButtonBarBuilder().setButtons(btnDetails, btnRun, btnNew, btnCtrl).build()
         return PaneBuilder().setWidth(WIDTH).setHeight(30.0).setChildren(buttonBar).build()
     }
 
@@ -162,11 +157,8 @@ class ProjectManager(
         val index = tvProj.selectionModel.selectedIndex
         val selectedScenario = scenarios[index]
         scenarioDetails.show(selectedScenario, projName)
-    }
-
-    private fun onDelete() {
-
-        // TODO implement onDelete()
+        stage.close()
+        show(projName)
     }
 
     private fun onNewScenario() {

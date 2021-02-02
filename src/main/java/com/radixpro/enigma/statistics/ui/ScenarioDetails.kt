@@ -98,6 +98,7 @@ class ScenarioDetails(
 
     private fun onDelete() {
         facade.deleteScenario(scenName, projName)
+        onClose()
     }
 
     private fun onHelp() {
